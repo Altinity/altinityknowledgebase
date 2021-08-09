@@ -1,0 +1,798 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.83.1" /><META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="shortcut icon" href="/favicons/favicon.ico" >
+<link rel="icon" href="/favicons/favicon.ico" >
+<title>Join with Calendar using Arrays | Altinity Beta Knowledgebase</title>
+<meta name="description" content="Altinity Beta Knowledgebase"><meta property="og:title" content="Join with Calendar using Arrays" />
+<meta property="og:description" content="Join with Calendar using Arrays
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/join-with-calendar-using-arrays/" /><meta property="article:section" content="altinity-kb-queries-and-syntax" />
+
+<meta property="og:site_name" content="Altinity Beta Knowledgebase" />
+
+<meta itemprop="name" content="Join with Calendar using Arrays">
+<meta itemprop="description" content="Join with Calendar using Arrays
+">
+
+<meta itemprop="wordCount" content="19">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Join with Calendar using Arrays"/>
+<meta name="twitter:description" content="Join with Calendar using Arrays
+"/>
+
+
+
+
+<link rel="preload" href="/scss/main.min.c04bf28046b567f18233286233294334f90f0b1a5cf40344212600704f1fbdbb.css" as="style">
+<link href="/scss/main.min.c04bf28046b567f18233286233294334f90f0b1a5cf40344212600704f1fbdbb.css" rel="stylesheet" integrity="">
+
+
+<script
+  src="https://code.jquery.com/jquery-3.5.1.min.js"
+  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+  crossorigin="anonymous"></script>
+
+<script
+  src="https://unpkg.com/lunr@2.3.8/lunr.min.js"
+  integrity="sha384-vRQ9bDyE0Wnu+lMfm57BlYLO0/XauFuKpVsZPs7KEDwYKktWi5+Kz3MP8++DFlRY"
+  crossorigin="anonymous"></script>
+
+
+
+<link rel="stylesheet" href="/css/prism.css"/>
+
+
+
+
+
+
+  </head>
+  <body class="td-page">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="/">
+		<span class="navbar-logo"><svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 500 500" style="enable-background:new 0 0 500 500"><g><path style="fill:#fff" d="M116.8525 421.9722c-5.7041.0-10.3442-4.3127-10.3442-9.6129V88.183c0-5.3002 4.6401-9.6117 10.3442-9.6117H320.858c3.0347.0 9.3959.5498 11.7506 2.6302l.3545.3442 58.905 63.2912c2.3101 2.491 2.9202 8.4928 2.9202 11.3184v256.2039c0 5.3002-4.6407 9.6129-10.3436 9.6129H116.8525z"/><g><g><g><path style="fill:#767676" d="M384.4445 423.2066H116.852c-6.3839.0-11.5786-4.8658-11.5786-10.8474V88.1831c0-5.9804 5.1947-10.8461 11.5786-10.8461h204.0062c.377.0 9.2786.0329 12.568 2.9389l.3947.3833 58.9508 63.337c3.2135 3.4652 3.2514 11.7924 3.2514 12.1593v256.2036C396.0231 418.3408 390.8284 423.2066 384.4445 423.2066zM116.5079 411.9189c.0848.0278.1999.0531.3441.0531h267.5925c.1442.0.2581-.0253.3441-.0531V156.1556c-.0076-.9033-.3593-3.7347-.7034-5.0037l-57.6527-61.9416c-1.4651-.3176-4.4533-.6389-5.5742-.6389H116.852c-.143.0-.2594.024-.3441.0531V411.9189zm267.4533-261.149zM327.0321 89.371v.0013V89.371z"/></g></g></g><g><g><path style="fill:#5b7fc0" d="M189.0874 210.1754l.0012-.0012c7.7751.0012 15.0295 4.1862 18.932 10.9234 1.9177 3.3159 2.9305 7.1011 2.9293 10.9378.0 5.8394-2.2733 11.3304-6.4032 15.4604-4.1288 4.1288-9.6186 6.4032-15.458 6.4032s-11.328-2.2733-15.458-6.4032-6.4032-9.6186-6.4056-15.4628c.0012-6.025 2.454-11.4897 6.4116-15.4473C177.5953 212.627 183.0601 210.1742 189.0874 210.1754zm7.993 21.8576c.0012-1.4042-.3687-2.7868-1.063-3.9887-1.4293-2.4684-4.0833-3.9995-6.9299-4.0019-4.4077.0024-7.993 3.5877-7.993 7.993.0 2.1356.832 4.1431 2.3427 5.6539 1.5083 1.5083 3.5159 2.3403 5.6503 2.3415 2.1356.0 4.1443-.8308 5.6539-2.3403S197.0816 234.1722 197.0804 232.033z"/><path style="opacity:.3;fill:#fff" d="M189.0898 210.176c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3136 2.9377 7.0988 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8066-21.8612-21.8613.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 212.6276 183.0612 210.176 189.0898 210.176zm7.9941 21.8612c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 236.239 197.0839 234.2399 197.0839 232.0372z"/><g><defs><path id="SVGID_1_" d="M194.7376 237.6875c-1.4461 1.4461-3.4452 2.3439-5.6479 2.3439-4.4077-.0024-7.9918-3.5865-7.9942-7.9942.0024-4.4125 3.5937-7.999 7.9942-7.9942 2.8443.0 5.497 1.5323 6.924 3.9983.6991 1.2067 1.0702 2.5881 1.0702 3.9959C197.0839 234.2399 196.1861 236.239 194.7376 237.6875z"/></defs><clipPath id="SVGID_2_"><use xlink:href="#SVGID_1_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_2_);fill:#fff" d="M190.0704 225.0237c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9546.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.663-2.8588-6.116.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C193.7885 225.7247 191.9774 225.0237 190.0704 225.0237z"/><path style="opacity:.13;clip-path:url(#SVGID_2_);fill:#020202" d="M190.0704 225.0237c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9546.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.663-2.8588-6.116.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C193.7885 225.7247 191.9774 225.0237 190.0704 225.0237z"/></g><g><defs><path id="SVGID_3_" d="M189.0898 210.176c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3136 2.9377 7.0988 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8066-21.8612-21.8613.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 212.6276 183.0612 210.176 189.0898 210.176zm7.9941 21.8612c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 236.239 197.0839 234.2399 197.0839 232.0372z"/></defs><clipPath id="SVGID_4_"><use xlink:href="#SVGID_3_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_4_);fill:#5b7fc0" d="M172.6595 215.6045c-3.96 3.96-6.4116 9.4235-6.4116 15.452-.0024 12.0547 9.8066 21.8636 21.8613 21.8612 12.0547.0024 21.8636-9.797 21.8613-21.8612.0024-3.8475-1.0151-7.6326-2.9353-10.9462-3.8977-6.7324-11.1497-10.9151-18.926-10.9151C182.0806 209.1953 176.6171 211.647 172.6595 215.6045z"/></g></g><rect x="198.8952" y="225.1043" style="fill:#5b7fc0" width="122.6266" height="13.8671"/></g><g><path style="fill:#d95140" d="M189.0874 155.7611l.0012-.0012c7.7751.0012 15.0295 4.1862 18.932 10.9234 1.9177 3.3159 2.9305 7.1011 2.9293 10.9378.0 5.8394-2.2733 11.3304-6.4032 15.4604-4.1288 4.1288-9.6186 6.4032-15.458 6.4032s-11.328-2.2733-15.458-6.4032-6.4032-9.6186-6.4056-15.4628c.0012-6.0249 2.454-11.4897 6.4116-15.4473C177.5953 158.2128 183.0601 155.7599 189.0874 155.7611zm7.993 21.8577c.0012-1.4042-.3687-2.7868-1.063-3.9887-1.4293-2.4684-4.0833-3.9995-6.9299-4.0019-4.4077.0024-7.993 3.5877-7.993 7.993.0 2.1356.832 4.1431 2.3427 5.6539 1.5083 1.5083 3.5159 2.3403 5.6503 2.3415 2.1356.0 4.1443-.8308 5.6539-2.3403C196.2508 181.7667 197.0816 179.758 197.0804 177.6188z"/><path style="opacity:.3;fill:#fff" d="M189.0898 155.7617c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3135 2.9377 7.0987 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8066-21.8612-21.8613.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 158.2134 183.0612 155.7617 189.0898 155.7617zm7.9941 21.8613c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 181.8248 197.0839 179.8256 197.0839 177.623z"/><g><defs><path id="SVGID_5_" d="M194.7376 183.2733c-1.4461 1.4461-3.4452 2.3439-5.6479 2.3439-4.4077-.0024-7.9918-3.5865-7.9942-7.9942.0024-4.4125 3.5937-7.9989 7.9942-7.9942 2.8443.0 5.497 1.5323 6.924 3.9983.6991 1.2067 1.0702 2.5881 1.0702 3.9959C197.0839 179.8256 196.1861 181.8248 194.7376 183.2733z"/></defs><clipPath id="SVGID_6_"><use xlink:href="#SVGID_5_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_6_);fill:#fff" d="M190.0704 170.6095c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9546.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.663-2.8588-6.116.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C193.7885 171.3104 191.9774 170.6095 190.0704 170.6095z"/><path style="opacity:.13;clip-path:url(#SVGID_6_);fill:#020202" d="M190.0704 170.6095c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9546.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.663-2.8588-6.116.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C193.7885 171.3104 191.9774 170.6095 190.0704 170.6095z"/></g><g><defs><path id="SVGID_7_" d="M189.0898 155.7617c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3135 2.9377 7.0987 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8066-21.8612-21.8613.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 158.2134 183.0612 155.7617 189.0898 155.7617zm7.9941 21.8613c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 181.8248 197.0839 179.8256 197.0839 177.623z"/></defs><clipPath id="SVGID_8_"><use xlink:href="#SVGID_7_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_8_);fill:#d95140" d="M172.6595 161.1903c-3.96 3.96-6.4116 9.4235-6.4116 15.452-.0024 12.0547 9.8066 21.8636 21.8613 21.8613 12.0547.0024 21.8636-9.797 21.8613-21.8613.0024-3.8474-1.0151-7.6326-2.9353-10.9462-3.8977-6.7324-11.1497-10.9151-18.926-10.9151C182.0806 154.7811 176.6171 157.2327 172.6595 161.1903z"/></g><rect x="198.8952" y="170.69" style="fill:#d95140" width="122.6266" height="13.8671"/></g><g><g><path style="fill:#56a55c" d="M189.5379 264.6147l.0012-.0012c7.7751.0012 15.0294 4.1862 18.932 10.9235 1.9177 3.3159 2.9305 7.1011 2.9293 10.9378.0 5.8394-2.2733 11.3304-6.4032 15.4604-4.1288 4.1288-9.6186 6.4032-15.458 6.4032-5.8394.0-11.3281-2.2733-15.458-6.4032-4.13-4.13-6.4032-9.6186-6.4056-15.4628.0012-6.0249 2.454-11.4897 6.4116-15.4472C178.0458 267.0663 183.5105 264.6135 189.5379 264.6147zm7.993 21.8576c.0012-1.4042-.3687-2.7868-1.063-3.9887-1.4293-2.4684-4.0833-3.9995-6.9299-4.0019-4.4077.0024-7.993 3.5877-7.993 7.993.0 2.1356.832 4.1431 2.3427 5.6538 1.5083 1.5083 3.5159 2.3403 5.6503 2.3415 2.1356.0 4.1443-.8308 5.6539-2.3403C196.7013 290.6202 197.5321 288.6115 197.5309 286.4723z"/><path style="opacity:.3;fill:#fff" d="M189.5403 264.6153c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3135 2.9377 7.0987 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8065-21.8612-21.8613.0-6.0285 2.4516-11.492 6.4116-15.452C178.0482 267.0669 183.5117 264.6153 189.5403 264.6153zm7.9941 21.8612c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9941.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.6366 290.6783 197.5344 288.6792 197.5344 286.4765z"/><g><defs><path id="SVGID_9_" d="M195.1881 292.1268c-1.4461 1.4461-3.4452 2.3439-5.6479 2.3439-4.4077-.0024-7.9918-3.5865-7.9942-7.9942.0024-4.4125 3.5937-7.9989 7.9942-7.9941 2.8443.0 5.497 1.5323 6.924 3.9983.6991 1.2067 1.0702 2.5881 1.0702 3.9959C197.5344 288.6792 196.6366 290.6783 195.1881 292.1268z"/></defs><clipPath id="SVGID_10_"><use xlink:href="#SVGID_9_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_10_);fill:#fff" d="M190.5209 279.463c-4.4005-.0048-7.9918 3.5817-7.9942 7.9941.0011 1.9547.7088 3.7452 1.8782 5.1354-1.7446-1.4674-2.8575-3.6631-2.8588-6.1161.0024-4.4125 3.5936-7.999 7.9942-7.9941 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C194.239 280.164 192.4279 279.463 190.5209 279.463z"/><path style="opacity:.13;clip-path:url(#SVGID_10_);fill:#020202" d="M190.5209 279.463c-4.4005-.0048-7.9918 3.5817-7.9942 7.9941.0011 1.9547.7088 3.7452 1.8782 5.1354-1.7446-1.4674-2.8575-3.6631-2.8588-6.1161.0024-4.4125 3.5936-7.999 7.9942-7.9941 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C194.239 280.164 192.4279 279.463 190.5209 279.463z"/></g><g><defs><path id="SVGID_11_" d="M189.5403 264.6153c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3135 2.9377 7.0987 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8065-21.8612-21.8613.0-6.0285 2.4516-11.492 6.4116-15.452C178.0482 267.0669 183.5117 264.6153 189.5403 264.6153zm7.9941 21.8612c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9941.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.6366 290.6783 197.5344 288.6792 197.5344 286.4765z"/></defs><clipPath id="SVGID_12_"><use xlink:href="#SVGID_11_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_12_);fill:#56a55c" d="M173.11 270.0439c-3.96 3.96-6.4116 9.4235-6.4116 15.452-.0024 12.0547 9.8066 21.8636 21.8613 21.8613 12.0547.0024 21.8636-9.797 21.8613-21.8613.0024-3.8474-1.0151-7.6326-2.9353-10.9462-3.8977-6.7325-11.1497-10.9151-18.926-10.9151C182.5311 263.6346 177.0676 266.0863 173.11 270.0439z"/></g></g><rect x="199.3456" y="279.5436" style="fill:#56a55c" width="122.6266" height="13.8671"/></g><g><g><path style="fill:#f1bc42" d="M189.0874 318.7208l.0012-.0012c7.7751.0012 15.0295 4.1862 18.932 10.9234 1.9177 3.3159 2.9305 7.1011 2.9293 10.9378.0 5.8394-2.2733 11.3305-6.4032 15.4604-4.1288 4.1288-9.6186 6.4032-15.458 6.4032s-11.328-2.2733-15.458-6.4032-6.4032-9.6186-6.4056-15.4628c.0012-6.025 2.454-11.4897 6.4116-15.4472C177.5953 321.1724 183.0601 318.7196 189.0874 318.7208zm7.993 21.8576c.0012-1.4042-.3687-2.7868-1.063-3.9887-1.4293-2.4684-4.0833-3.9995-6.9299-4.0019-4.4077.0024-7.993 3.5877-7.993 7.993.0 2.1356.832 4.1431 2.3427 5.6539 1.5083 1.5083 3.5159 2.3403 5.6503 2.3415 2.1356.0 4.1443-.8308 5.6539-2.3403S197.0816 342.7176 197.0804 340.5784z"/><path style="opacity:.3;fill:#fff" d="M189.0898 318.7214c7.7763.0 15.0283 4.1826 18.926 10.915 1.9201 3.3136 2.9377 7.0988 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8612-12.0547.0024-21.8636-9.8065-21.8612-21.8612.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 321.173 183.0612 318.7214 189.0898 318.7214zm7.9941 21.8612c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 344.7844 197.0839 342.7853 197.0839 340.5826z"/><g><defs><path id="SVGID_13_" d="M194.7376 346.2329c-1.4461 1.4461-3.4452 2.3439-5.6479 2.3439-4.4077-.0024-7.9918-3.5865-7.9942-7.9942.0024-4.4125 3.5937-7.999 7.9942-7.9942 2.8443.0 5.497 1.5323 6.924 3.9983.6991 1.2067 1.0702 2.5881 1.0702 3.9959C197.0839 342.7853 196.1861 344.7844 194.7376 346.2329z"/></defs><clipPath id="SVGID_14_"><use xlink:href="#SVGID_13_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_14_);fill:#fff" d="M190.0704 333.5691c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9547.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.6631-2.8588-6.1161.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0834 6.1218 2.8788C193.7885 334.2701 191.9774 333.5691 190.0704 333.5691z"/><path style="opacity:.13;clip-path:url(#SVGID_14_);fill:#020202" d="M190.0704 333.5691c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9547.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.6631-2.8588-6.1161.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0834 6.1218 2.8788C193.7885 334.2701 191.9774 333.5691 190.0704 333.5691z"/></g><g><defs><path id="SVGID_15_" d="M189.0898 318.7214c7.7763.0 15.0283 4.1826 18.926 10.915 1.9201 3.3136 2.9377 7.0988 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8612-12.0547.0024-21.8636-9.8065-21.8612-21.8612.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 321.173 183.0612 318.7214 189.0898 318.7214zm7.9941 21.8612c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 344.7844 197.0839 342.7853 197.0839 340.5826z"/></defs><clipPath id="SVGID_16_"><use xlink:href="#SVGID_15_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_16_);fill:#f1bc42" d="M172.6595 324.15c-3.96 3.96-6.4116 9.4235-6.4116 15.452-.0024 12.0547 9.8066 21.8636 21.8613 21.8612 12.0547.0024 21.8636-9.797 21.8613-21.8612.0024-3.8474-1.0151-7.6327-2.9353-10.9462-3.8977-6.7324-11.1497-10.9151-18.926-10.9151C182.0806 317.7407 176.6171 320.1924 172.6595 324.15z"/></g></g><rect x="198.8952" y="333.6497" style="fill:#f1bc42" width="122.6266" height="13.8671"/></g></g></svg></span><span class="text-uppercase font-weight-bold">Altinity Beta Knowledgebase</span>
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block">
+
+
+
+<input
+  type="search"
+  class="form-control td-search-input"
+  placeholder="&#xf002; Search this site…"
+  aria-label="Search this site…"
+  autocomplete="off"
+  
+  data-offline-search-index-json-src="/offline-search-index.c27118836cd6a05521ed14d311e037c1.json"
+  data-offline-search-base-href="/"
+  data-offline-search-max-results="10"
+>
+
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <aside class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            
+<div id="td-sidebar-menu" class="td-sidebar__inner">
+  <div id="content-mobile">
+  <form class="td-sidebar__search d-flex align-items-center">
+    
+
+
+
+<input
+  type="search"
+  class="form-control td-search-input"
+  placeholder="&#xf002; Search this site…"
+  aria-label="Search this site…"
+  autocomplete="off"
+  
+  data-offline-search-index-json-src="/offline-search-index.c27118836cd6a05521ed14d311e037c1.json"
+  data-offline-search-base-href="/"
+  data-offline-search-max-results="10"
+>
+
+
+    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    </button>
+  </form>
+  </div>
+  <div id="content-desktop"></div>
+  <nav class="collapse td-sidebar-nav" id="td-section-nav">
+    <ul class="td-sidebar-nav__section pr-md-3 ul-0">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m--li">
+  <a href="/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section tree-root" id="m-"><span class="">Altinity Beta Knowledgebase</span></a>
+  <ul class="ul-1">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-report-an-issue-li">
+  <a href="/report-an-issue/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-report-an-issue"><span class="">Report an Issue</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-search-li">
+  <a href="/search/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-search"><span class=""></span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-altinity-kb-dictionaries-li">
+  <a href="/altinity-kb-dictionaries/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-altinity-kb-dictionaries"><span class="">Altinity-kb-dictionaries</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-dictionariesdictionaries-and-arrays-li">
+  <a href="/altinity-kb-dictionaries/dictionaries-and-arrays/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-dictionariesdictionaries-and-arrays"><span class=""></span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-dictionariesexample-of-postgresql-dictionary-li">
+  <a href="/altinity-kb-dictionaries/example-of-postgresql-dictionary/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-dictionariesexample-of-postgresql-dictionary"><span class=""></span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-dictionariespartial-updates-li">
+  <a href="/altinity-kb-dictionaries/partial-updates/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-dictionariespartial-updates"><span class=""></span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-dictionariesreadme-li">
+  <a href="/altinity-kb-dictionaries/readme/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-dictionariesreadme"><span class="">Dictionaries</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-dictionariesuntitled-li">
+  <a href="/altinity-kb-dictionaries/untitled/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-dictionariesuntitled"><span class="">Dictionary on the top of the several tables using VIEW</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-dictionariesmysql8-source-for-dictionaries-li">
+  <a href="/altinity-kb-dictionaries/mysql8-source-for-dictionaries/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-dictionariesmysql8-source-for-dictionaries"><span class="">MySQL8 source for dictionaries</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-dictionariesaltinity-kb-range_hashed-example-open-intervals-li">
+  <a href="/altinity-kb-dictionaries/altinity-kb-range_hashed-example-open-intervals/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-dictionariesaltinity-kb-range_hashed-example-open-intervals"><span class="">range hashed example - open intervals</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-dictionariesaltinity-kb-sparse_hashed-vs-hashed-li">
+  <a href="/altinity-kb-dictionaries/altinity-kb-sparse_hashed-vs-hashed/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-dictionariesaltinity-kb-sparse_hashed-vs-hashed"><span class="">SPARSE HASHED VS HASHED</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-altinity-kb-functions-li">
+  <a href="/altinity-kb-functions/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-altinity-kb-functions"><span class="">Altinity-kb-functions</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-functionsassumenotnull-and-friends-li">
+  <a href="/altinity-kb-functions/assumenotnull-and-friends/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-functionsassumenotnull-and-friends"><span class="">assumeNotNull and friends</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-functionsreadme-li">
+  <a href="/altinity-kb-functions/readme/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-functionsreadme"><span class="">Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-functionsaltinity-kb-sequencematch-li">
+  <a href="/altinity-kb-functions/altinity-kb-sequencematch/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-functionsaltinity-kb-sequencematch"><span class="">sequenceMatch</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-altinity-kb-integrations-li">
+  <a href="/altinity-kb-integrations/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-altinity-kb-integrations"><span class="">Altinity-kb-integrations</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-integrationsaltinity-kb-kafkaaltinity-kb-adjusting-librdkafka-settings-li">
+  <a href="/altinity-kb-integrations/altinity-kb-kafka/altinity-kb-adjusting-librdkafka-settings/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-integrationsaltinity-kb-kafkaaltinity-kb-adjusting-librdkafka-settings"><span class="">Adjusting librdkafka settings</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-integrationsbi-tools-li">
+  <a href="/altinity-kb-integrations/bi-tools/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-integrationsbi-tools"><span class="">BI Tools</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-integrationscatboost-mindsdb-fastai-li">
+  <a href="/altinity-kb-integrations/catboost-mindsdb-fast.ai/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-integrationscatboost-mindsdb-fastai"><span class="">CatBoost / MindsDB /  Fast.ai</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-integrationsaltinity-kb-kafkaerror-handling-li">
+  <a href="/altinity-kb-integrations/altinity-kb-kafka/error-handling/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-integrationsaltinity-kb-kafkaerror-handling"><span class="">Error handling</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-integrationsaltinity-kb-kafkaaltinity-kb-exactly-once-semantics-li">
+  <a href="/altinity-kb-integrations/altinity-kb-kafka/altinity-kb-exactly-once-semantics/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-integrationsaltinity-kb-kafkaaltinity-kb-exactly-once-semantics"><span class="">Exactly once semantics</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-integrationsaltinity-kb-google-s3-gcs-li">
+  <a href="/altinity-kb-integrations/altinity-kb-google-s3-gcs/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-integrationsaltinity-kb-google-s3-gcs"><span class="">Google S3 (GCS)</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-integrationsreadme-li">
+  <a href="/altinity-kb-integrations/readme/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-integrationsreadme"><span class="">Integrations</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-integrationsaltinity-kb-kafkareadme-li">
+  <a href="/altinity-kb-integrations/altinity-kb-kafka/readme/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-integrationsaltinity-kb-kafkareadme"><span class="">Kafka</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-integrationsaltinity-kb-kafkaaltinity-kb-kafka-main-parsing-loop-li">
+  <a href="/altinity-kb-integrations/altinity-kb-kafka/altinity-kb-kafka-main-parsing-loop/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-integrationsaltinity-kb-kafkaaltinity-kb-kafka-main-parsing-loop"><span class="">Kafka main parsing loop</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-integrationsaltinity-kb-kafkaaltinity-kb-kafka-parallel-consuming-li">
+  <a href="/altinity-kb-integrations/altinity-kb-kafka/altinity-kb-kafka-parallel-consuming/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-integrationsaltinity-kb-kafkaaltinity-kb-kafka-parallel-consuming"><span class="">Kafka parallel consuming</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-integrationsaltinity-kb-kafkaaltinity-kb-rewind-fast-forward-replay-li">
+  <a href="/altinity-kb-integrations/altinity-kb-kafka/altinity-kb-rewind-fast-forward-replay/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-integrationsaltinity-kb-kafkaaltinity-kb-rewind-fast-forward-replay"><span class="">Rewind / fast-forward / replay</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-integrationsaltinity-kb-kafkaaltinity-kb-selects-from-engine-kafka-li">
+  <a href="/altinity-kb-integrations/altinity-kb-kafka/altinity-kb-selects-from-engine-kafka/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-integrationsaltinity-kb-kafkaaltinity-kb-selects-from-engine-kafka"><span class="">SELECTs from engine=Kafka</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-altinity-kb-interfaces-li">
+  <a href="/altinity-kb-interfaces/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-altinity-kb-interfaces"><span class="">Altinity-kb-interfaces</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-interfacesaltinity-kb-clickhouse-client-li">
+  <a href="/altinity-kb-interfaces/altinity-kb-clickhouse-client/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-interfacesaltinity-kb-clickhouse-client"><span class="">clickhouse-client</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-interfacesreadme-li">
+  <a href="/altinity-kb-interfaces/readme/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-interfacesreadme"><span class="">Interfaces</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-altinity-kb-kubernetes-li">
+  <a href="/altinity-kb-kubernetes/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-altinity-kb-kubernetes"><span class="">Altinity-kb-kubernetes</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-kubernetesreadme-li">
+  <a href="/altinity-kb-kubernetes/readme/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-kubernetesreadme"><span class="">Kubernetes</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-kubernetesaltinity-kb-possible-issues-with-running-clickhouse-in-k8s-li">
+  <a href="/altinity-kb-kubernetes/altinity-kb-possible-issues-with-running-clickhouse-in-k8s/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-kubernetesaltinity-kb-possible-issues-with-running-clickhouse-in-k8s"><span class="">Possible issues with running ClickHouse in k8s</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-altinity-kb-queries-and-syntax-li">
+  <a href="/altinity-kb-queries-and-syntax/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-altinity-kb-queries-and-syntax"><span class="">Altinity-kb-queries-and-syntaxes</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxmutations-li">
+  <a href="/altinity-kb-queries-and-syntax/mutations/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxmutations"><span class=""></span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxpivot-unpivot-li">
+  <a href="/altinity-kb-queries-and-syntax/pivot-unpivot/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxpivot-unpivot"><span class=""></span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxsampling-example-li">
+  <a href="/altinity-kb-queries-and-syntax/sampling-example/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxsampling-example"><span class=""></span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxskip-indexesskip-index-bloom_filter-for-array-column-li">
+  <a href="/altinity-kb-queries-and-syntax/skip-indexes/skip-index-bloom_filter-for-array-column/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxskip-indexesskip-index-bloom_filter-for-array-column"><span class=""></span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxttlttl-group-by-examples-li">
+  <a href="/altinity-kb-queries-and-syntax/ttl/ttl-group-by-examples/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxttlttl-group-by-examples"><span class=""></span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxttlttl-recompress-example-li">
+  <a href="/altinity-kb-queries-and-syntax/ttl/ttl-recompress-example/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxttlttl-recompress-example"><span class=""></span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxstate-and-merge-combinators-li">
+  <a href="/altinity-kb-queries-and-syntax/state-and-merge-combinators/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxstate-and-merge-combinators"><span class="">-State &amp; -Merge combinators</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxaltinity-kb-alter-modify-column-is-stuck-the-column-is-inaccessible-li">
+  <a href="/altinity-kb-queries-and-syntax/altinity-kb-alter-modify-column-is-stuck-the-column-is-inaccessible/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxaltinity-kb-alter-modify-column-is-stuck-the-column-is-inaccessible"><span class="">ALTER MODIFY COLUMN is stuck, the column is inaccessible.</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxansi-sql-mode-li">
+  <a href="/altinity-kb-queries-and-syntax/ansi-sql-mode/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxansi-sql-mode"><span class="">ANSI SQL mode</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxatomic-insert-li">
+  <a href="/altinity-kb-queries-and-syntax/atomic-insert/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxatomic-insert"><span class="">Atomic insert</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxcumulative-unique-li">
+  <a href="/altinity-kb-queries-and-syntax/cumulative-unique/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxcumulative-unique"><span class="">Cumulative Anything</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxdata-types-on-disk-and-in-ram-li">
+  <a href="/altinity-kb-queries-and-syntax/data-types-on-disk-and-in-ram/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxdata-types-on-disk-and-in-ram"><span class="">Data types on disk and in RAM</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxdelete-via-tombstone-column-li">
+  <a href="/altinity-kb-queries-and-syntax/delete-via-tombstone-column/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxdelete-via-tombstone-column"><span class="">DELETE via tombstone column</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxskip-indexesminmax-li">
+  <a href="/altinity-kb-queries-and-syntax/skip-indexes/minmax/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxskip-indexesminmax"><span class="">Example: minmax</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxexplain-query-li">
+  <a href="/altinity-kb-queries-and-syntax/explain-query/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxexplain-query"><span class="">EXPLAIN query</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxfill-missing-values-at-query-time-li">
+  <a href="/altinity-kb-queries-and-syntax/fill-missing-values-at-query-time/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxfill-missing-values-at-query-time"><span class="">Fill missing values at query time</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxaltinity-kb-final-clause-speed-li">
+  <a href="/altinity-kb-queries-and-syntax/altinity-kb-final-clause-speed/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxaltinity-kb-final-clause-speed"><span class="">FINAL clause speed</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxjoinsjoin-table-engine-li">
+  <a href="/altinity-kb-queries-and-syntax/joins/join-table-engine/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxjoinsjoin-table-engine"><span class="">JOIN table engine</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-altinity-kb-queries-and-syntaxjoin-with-calendar-using-arrays-li">
+  <a href="/altinity-kb-queries-and-syntax/join-with-calendar-using-arrays/" class="align-left pl-0 active td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxjoin-with-calendar-using-arrays"><span class="td-sidebar-nav-active-item">Join with Calendar using Arrays</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxjoins-li">
+  <a href="/altinity-kb-queries-and-syntax/joins/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxjoins"><span class="">JOINs</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxjoinsreadme-li">
+  <a href="/altinity-kb-queries-and-syntax/joins/readme/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxjoinsreadme"><span class="">JOINs</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxjsonextract-to-parse-many-attributes-at-a-time-li">
+  <a href="/altinity-kb-queries-and-syntax/jsonextract-to-parse-many-attributes-at-a-time/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxjsonextract-to-parse-many-attributes-at-a-time"><span class="">JSONExtract to parse many attributes at a time</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxaltinity-kb-kill-query-li">
+  <a href="/altinity-kb-queries-and-syntax/altinity-kb-kill-query/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxaltinity-kb-kill-query"><span class="">KILL QUERY</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxlag-lead-li">
+  <a href="/altinity-kb-queries-and-syntax/lag-lead/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxlag-lead"><span class="">Lag / Lead</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxmachine-learning-in-clickhouse-li">
+  <a href="/altinity-kb-queries-and-syntax/machine-learning-in-clickhouse/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxmachine-learning-in-clickhouse"><span class="">Machine learning in ClickHouse</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxaltinity-kb-optimize-vs-optimize-final-li">
+  <a href="/altinity-kb-queries-and-syntax/altinity-kb-optimize-vs-optimize-final/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxaltinity-kb-optimize-vs-optimize-final"><span class="">OPTIMIZE vs OPTIMIZE FINAL</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxaltinity-kb-parameterized-views-li">
+  <a href="/altinity-kb-queries-and-syntax/altinity-kb-parameterized-views/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxaltinity-kb-parameterized-views"><span class="">Parameterized views</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxaltinity-kb-possible-deadlock-avoided-client-should-retry-li">
+  <a href="/altinity-kb-queries-and-syntax/altinity-kb-possible-deadlock-avoided.-client-should-retry/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxaltinity-kb-possible-deadlock-avoided-client-should-retry"><span class="">Possible deadlock avoided. Client should retry</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxprojections-examples-li">
+  <a href="/altinity-kb-queries-and-syntax/projections-examples/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxprojections-examples"><span class="">Projections examples</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxreadme-li">
+  <a href="/altinity-kb-queries-and-syntax/readme/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxreadme"><span class="">Queries &amp; Syntax</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxaltinity-kb-sample-by-li">
+  <a href="/altinity-kb-queries-and-syntax/altinity-kb-sample-by/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxaltinity-kb-sample-by"><span class="">SAMPLE by</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxsimplestateif-or-ifstate-for-simple-aggregate-functions-li">
+  <a href="/altinity-kb-queries-and-syntax/simplestateif-or-ifstate-for-simple-aggregate-functions/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxsimplestateif-or-ifstate-for-simple-aggregate-functions"><span class="">Simple aggregate functions &amp; combinators</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxskip-indexesreadme-li">
+  <a href="/altinity-kb-queries-and-syntax/skip-indexes/readme/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxskip-indexesreadme"><span class="">Skip indexes</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxtime-zones-li">
+  <a href="/altinity-kb-queries-and-syntax/time-zones/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxtime-zones"><span class="">Time zones</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxtop-n-and-remain-li">
+  <a href="/altinity-kb-queries-and-syntax/top-n-and-remain/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxtop-n-and-remain"><span class="">Top N &amp; Remain</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxtroubleshooting-li">
+  <a href="/altinity-kb-queries-and-syntax/troubleshooting/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxtroubleshooting"><span class="">Troubleshooting</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxttlreadme-li">
+  <a href="/altinity-kb-queries-and-syntax/ttl/readme/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxttlreadme"><span class="">TTL</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxupdate-via-dictionary-li">
+  <a href="/altinity-kb-queries-and-syntax/update-via-dictionary/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxupdate-via-dictionary"><span class="">UPDATE via Dictionary</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxvalues-mapping-li">
+  <a href="/altinity-kb-queries-and-syntax/values-mapping/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxvalues-mapping"><span class="">Values mapping</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-queries-and-syntaxwindow-functions-li">
+  <a href="/altinity-kb-queries-and-syntax/window-functions/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxwindow-functions"><span class="">Window functions</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-altinity-kb-schema-design-li">
+  <a href="/altinity-kb-schema-design/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-altinity-kb-schema-design"><span class="">Altinity-kb-schema-designs</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-schema-designmaterialized-viewsbackfill-populate-mv-in-a-controlled-manner-li">
+  <a href="/altinity-kb-schema-design/materialized-views/backfill-populate-mv-in-a-controlled-manner/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-schema-designmaterialized-viewsbackfill-populate-mv-in-a-controlled-manner"><span class="">Backfill/populate MV in a controlled manner</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-schema-designbest-schema-for-storing-many-metrics-registered-from-the-single-source-li">
+  <a href="/altinity-kb-schema-design/best-schema-for-storing-many-metrics-registered-from-the-single-source/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-schema-designbest-schema-for-storing-many-metrics-registered-from-the-single-source"><span class="">Best schema for storing many metrics registered from the single source</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-schema-designcodecsreadme-li">
+  <a href="/altinity-kb-schema-design/codecs/readme/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-schema-designcodecsreadme"><span class="">Codecs</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-schema-designcodecscodecs-on-array-columns-li">
+  <a href="/altinity-kb-schema-design/codecs/codecs-on-array-columns/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-schema-designcodecscodecs-on-array-columns"><span class="">Codecs on array columns</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-schema-designcodecscodecs-speed-li">
+  <a href="/altinity-kb-schema-design/codecs/codecs-speed/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-schema-designcodecscodecs-speed"><span class="">Codecs speed</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-schema-designaltinity-kb-dictionaries-vs-lowcardinality-li">
+  <a href="/altinity-kb-schema-design/altinity-kb-dictionaries-vs-lowcardinality/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-schema-designaltinity-kb-dictionaries-vs-lowcardinality"><span class="">Dictionaries vs LowCardinality</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-schema-designflattened-table-li">
+  <a href="/altinity-kb-schema-design/flattened-table/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-schema-designflattened-table"><span class="">Flattened table</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-schema-designfloats-vs-decimals-li">
+  <a href="/altinity-kb-schema-design/floats-vs-decimals/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-schema-designfloats-vs-decimals"><span class="">Floats vs Decimals</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-schema-designcodecsaltinity-kb-how-to-test-different-compression-codecs-li">
+  <a href="/altinity-kb-schema-design/codecs/altinity-kb-how-to-test-different-compression-codecs/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-schema-designcodecsaltinity-kb-how-to-test-different-compression-codecs"><span class="">How to test different compression codecs</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-schema-designhow-to-store-ips-li">
+  <a href="/altinity-kb-schema-design/how-to-store-ips/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-schema-designhow-to-store-ips"><span class="">IPs/masks</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-schema-designaltinity-kb-jsonasstring-and-mat-view-as-json-parser-li">
+  <a href="/altinity-kb-schema-design/altinity-kb-jsonasstring-and-mat.-view-as-json-parser/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-schema-designaltinity-kb-jsonasstring-and-mat-view-as-json-parser"><span class="">JSONAsString and Mat. View as JSON parser</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-schema-designlowcardinality-li">
+  <a href="/altinity-kb-schema-design/lowcardinality/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-schema-designlowcardinality"><span class="">LowCardinality</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-schema-designmaterialized-viewsreadme-li">
+  <a href="/altinity-kb-schema-design/materialized-views/readme/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-schema-designmaterialized-viewsreadme"><span class="">MATERIALIZED VIEWS</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-schema-designreadme-li">
+  <a href="/altinity-kb-schema-design/readme/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-schema-designreadme"><span class="">Schema design</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-altinity-kb-setup-and-maintenance-li">
+  <a href="/altinity-kb-setup-and-maintenance/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-altinity-kb-setup-and-maintenance"><span class="">Altinity-kb-setup-and-maintenances</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-data-migrationremote--table-function-li">
+  <a href="/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/remote-...-table-function/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-data-migrationremote--table-function"><span class=""></span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-zookeeperzookeeper-monitoring-li">
+  <a href="/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/zookeeper-monitoring/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-zookeeperzookeeper-monitoring"><span class=""></span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenanceclickhouse-backup-li">
+  <a href="/altinity-kb-setup-and-maintenance/clickhouse-backup/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenanceclickhouse-backup"><span class=""></span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancelogging-li">
+  <a href="/altinity-kb-setup-and-maintenance/logging/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancelogging"><span class=""></span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-packaging-compatibility-greater-than-21x-and-earlier-li">
+  <a href="/altinity-kb-setup-and-maintenance/altinity-packaging-compatibility-greater-than-21.x-and-earlier/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-packaging-compatibility-greater-than-21x-and-earlier"><span class="">Altinity packaging compatibility &amp;gt;21.x and earlier</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenanceaws-ebs-li">
+  <a href="/altinity-kb-setup-and-maintenance/aws-ebs/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenanceaws-ebs"><span class="">AWS EBS</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancecluster-production-configuration-guidehardening-clickhouse-security-li">
+  <a href="/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/hardening-clickhouse-security/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancecluster-production-configuration-guidehardening-clickhouse-security"><span class="">Backups</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-clickhouse-in-docker-li">
+  <a href="/altinity-kb-setup-and-maintenance/altinity-kb-clickhouse-in-docker/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-clickhouse-in-docker"><span class="">ClickHouse in Docker</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenanceuntitled-li">
+  <a href="/altinity-kb-setup-and-maintenance/untitled/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenanceuntitled"><span class="">ClickHouse versions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-data-migrationaltinity-kb-clickhouse-copierreadme-li">
+  <a href="/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/altinity-kb-clickhouse-copier/readme/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-data-migrationaltinity-kb-clickhouse-copierreadme"><span class="">clickhouse-copier</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-data-migrationaltinity-kb-clickhouse-copieraltinity-kb-clickhouse-copier-203-and-earlier-li">
+  <a href="/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/altinity-kb-clickhouse-copier/altinity-kb-clickhouse-copier-20.3-and-earlier/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-data-migrationaltinity-kb-clickhouse-copieraltinity-kb-clickhouse-copier-203-and-earlier"><span class="">clickhouse-copier 20.3 and earlier</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-data-migrationaltinity-kb-clickhouse-copieraltinity-kb-clickhouse-copier-204-li">
+  <a href="/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/altinity-kb-clickhouse-copier/altinity-kb-clickhouse-copier-20.4&#43;/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-data-migrationaltinity-kb-clickhouse-copieraltinity-kb-clickhouse-copier-204"><span class="">clickhouse-copier 20.4&#43;</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-zookeeperclickhouse-keeper-li">
+  <a href="/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/clickhouse-keeper/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-zookeeperclickhouse-keeper"><span class="">clickhouse-keeper</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancecluster-production-configuration-guidecluster-configuration-faq-li">
+  <a href="/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/cluster-configuration-faq/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancecluster-production-configuration-guidecluster-configuration-faq"><span class="">Cluster Configuration FAQ</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancecluster-production-configuration-guidecluster-configuration-process-li">
+  <a href="/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/cluster-configuration-process/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancecluster-production-configuration-guidecluster-configuration-process"><span class="">Cluster Configuration Process</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-converting-mergetree-to-replicated-li">
+  <a href="/altinity-kb-setup-and-maintenance/altinity-kb-converting-mergetree-to-replicated/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-converting-mergetree-to-replicated"><span class="">Converting MergeTree to Replicated</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-data-migrationreadme-li">
+  <a href="/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/readme/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-data-migrationreadme"><span class="">Data Migration</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-ddlworkerreadme-li">
+  <a href="/altinity-kb-setup-and-maintenance/altinity-kb-ddlworker/readme/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-ddlworkerreadme"><span class="">DDLWorker</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenanceschema-migration-toolsgolang-migrate-li">
+  <a href="/altinity-kb-setup-and-maintenance/schema-migration-tools/golang-migrate/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenanceschema-migration-toolsgolang-migrate"><span class="">golang-migrate</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancecluster-production-configuration-guidehardware-requirements-li">
+  <a href="/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/hardware-requirements/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancecluster-production-configuration-guidehardware-requirements"><span class="">Hardware Requirements</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancehigh-cpu-usage-li">
+  <a href="/altinity-kb-setup-and-maintenance/high-cpu-usage/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancehigh-cpu-usage"><span class="">High CPU usage</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-zookeeperaltinity-kb-how-to-check-the-list-of-watches-li">
+  <a href="/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/altinity-kb-how-to-check-the-list-of-watches/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-zookeeperaltinity-kb-how-to-check-the-list-of-watches"><span class="">How to check the list of watches</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-zookeeperjvm-sizes-and-garbage-collector-settings-li">
+  <a href="/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/jvm-sizes-and-garbage-collector-settings/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-zookeeperjvm-sizes-and-garbage-collector-settings"><span class="">JVM sizes and garbage collector settings</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenanceload-balancers-li">
+  <a href="/altinity-kb-setup-and-maintenance/load-balancers/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenanceload-balancers"><span class="">Load balancers</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-memory-configuration-settings-li">
+  <a href="/altinity-kb-setup-and-maintenance/altinity-kb-memory-configuration-settings/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-memory-configuration-settings"><span class="">memory configuration settings</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-monitoring-li">
+  <a href="/altinity-kb-setup-and-maintenance/altinity-kb-monitoring/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-monitoring"><span class="">Monitoring</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancecluster-production-configuration-guidemonitoring-considerations-li">
+  <a href="/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/monitoring-considerations/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancecluster-production-configuration-guidemonitoring-considerations"><span class="">Monitoring Considerations</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-moving-table-to-another-device-li">
+  <a href="/altinity-kb-setup-and-maintenance/altinity-kb-moving-table-to-another-device./" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-moving-table-to-another-device"><span class="">Moving table to another device.</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancecluster-production-configuration-guidenetwork-configuration-li">
+  <a href="/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/network-configuration/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancecluster-production-configuration-guidenetwork-configuration"><span class="">Network Configuration</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-object-consistency-in-a-cluster-li">
+  <a href="/altinity-kb-setup-and-maintenance/altinity-kb-object-consistency-in-a-cluster/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-object-consistency-in-a-cluster"><span class="">Object consistency in a cluster</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancecluster-production-configuration-guidereadme-li">
+  <a href="/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/readme/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancecluster-production-configuration-guidereadme"><span class="">Production Cluster Configuration Guide</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-zookeeperaltinity-kb-proper-setup-li">
+  <a href="/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/altinity-kb-proper-setup/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-zookeeperaltinity-kb-proper-setup"><span class="">Proper setup</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-zookeeperaltinity-kb-recovering-from-complete-metadata-loss-in-zookeeper-li">
+  <a href="/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/altinity-kb-recovering-from-complete-metadata-loss-in-zookeeper/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-zookeeperaltinity-kb-recovering-from-complete-metadata-loss-in-zookeeper"><span class="">Recovering from complete metadata loss in ZooKeeper</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-replication-queue-li">
+  <a href="/altinity-kb-setup-and-maintenance/altinity-kb-replication-queue/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-replication-queue"><span class="">Replication queue</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-data-migrationrsync-li">
+  <a href="/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/rsync/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-data-migrationrsync"><span class="">rsync</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenanceschema-migration-toolsreadme-li">
+  <a href="/altinity-kb-setup-and-maintenance/schema-migration-tools/readme/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenanceschema-migration-toolsreadme"><span class="">Schema migration tools for ClickHouse</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-server-config-files-li">
+  <a href="/altinity-kb-setup-and-maintenance/altinity-kb-server-config-files/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-server-config-files"><span class="">Server config files</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-settings-to-adjust-li">
+  <a href="/altinity-kb-setup-and-maintenance/altinity-kb-settings-to-adjust/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-settings-to-adjust"><span class="">Settings to adjust</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancereadme-li">
+  <a href="/altinity-kb-setup-and-maintenance/readme/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancereadme"><span class="">Setup &amp; maintenance</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-shutting-down-a-node-li">
+  <a href="/altinity-kb-setup-and-maintenance/altinity-kb-shutting-down-a-node/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-shutting-down-a-node"><span class="">Shutting down a node</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancessl-connection-unexpectedly-closed-li">
+  <a href="/altinity-kb-setup-and-maintenance/ssl-connection-unexpectedly-closed/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancessl-connection-unexpectedly-closed"><span class="">SSL connection unexpectedly closed</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-system-tables-eat-my-disk-li">
+  <a href="/altinity-kb-setup-and-maintenance/altinity-kb-system-tables-eat-my-disk/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-system-tables-eat-my-disk"><span class="">System tables eat my disk</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-ddlworkerthere-are-n-unfinished-hosts-0-of-them-are-currently-active-li">
+  <a href="/altinity-kb-setup-and-maintenance/altinity-kb-ddlworker/there-are-n-unfinished-hosts-0-of-them-are-currently-active/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-ddlworkerthere-are-n-unfinished-hosts-0-of-them-are-currently-active"><span class="">There are N unfinished hosts (0 of them are currently active).</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-threads-li">
+  <a href="/altinity-kb-setup-and-maintenance/altinity-kb-threads/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-threads"><span class="">Threads</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancecluster-production-configuration-guideversion-upgrades-li">
+  <a href="/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/version-upgrades/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancecluster-production-configuration-guideversion-upgrades"><span class="">Version Upgrades</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-who-ate-my-memory-li">
+  <a href="/altinity-kb-setup-and-maintenance/altinity-kb-who-ate-my-memory/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-who-ate-my-memory"><span class="">Who ate my memory</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancex-rows-of-y-total-rows-in-filesystem-are-suspicious-li">
+  <a href="/altinity-kb-setup-and-maintenance/x-rows-of-y-total-rows-in-filesystem-are-suspicious/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancex-rows-of-y-total-rows-in-filesystem-are-suspicious"><span class="">X rows of Y total rows in filesystem are suspicious</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-zookeeperreadme-li">
+  <a href="/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/readme/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-zookeeperreadme"><span class="">ZooKeeper</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-zookeeperaltinity-kb-zookeeper-backup-li">
+  <a href="/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/altinity-kb-zookeeper-backup/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-zookeeperaltinity-kb-zookeeper-backup"><span class="">ZooKeeper backup</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-zookeeperaltinity-kb-zookeeper-cluster-migration-li">
+  <a href="/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/altinity-kb-zookeeper-cluster-migration/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-zookeeperaltinity-kb-zookeeper-cluster-migration"><span class="">ZooKeeper cluster migration</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-altinity-kb-useful-queries-li">
+  <a href="/altinity-kb-useful-queries/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-altinity-kb-useful-queries"><span class="">Altinity-kb-useful-queries</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-useful-queriesdetached-parts-li">
+  <a href="/altinity-kb-useful-queries/detached-parts/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-useful-queriesdetached-parts"><span class="">Can detached parts be dropped?</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-useful-queriesaltinity-kb-database-size-table-column-size-li">
+  <a href="/altinity-kb-useful-queries/altinity-kb-database-size-table-column-size/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-useful-queriesaltinity-kb-database-size-table-column-size"><span class="">Database Size - Table - Column size</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-useful-queriesaltinity-kb-datasets-li">
+  <a href="/altinity-kb-useful-queries/altinity-kb-datasets/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-useful-queriesaltinity-kb-datasets"><span class="">Datasets</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-useful-queriesaltinity-kb-number-of-active-parts-in-a-partition-li">
+  <a href="/altinity-kb-useful-queries/altinity-kb-number-of-active-parts-in-a-partition/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-useful-queriesaltinity-kb-number-of-active-parts-in-a-partition"><span class="">Number of active parts in a partition</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-useful-queriesreadme-li">
+  <a href="/altinity-kb-useful-queries/readme/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-useful-queriesreadme"><span class="">Useful queries</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-engines-li">
+  <a href="/engines/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-engines"><span class="">Engines</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-enginesmergetree-table-engine-familyaggregatingmergetree-li">
+  <a href="/engines/mergetree-table-engine-family/aggregatingmergetree/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-enginesmergetree-table-engine-familyaggregatingmergetree"><span class="">AggregatingMergeTree</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-enginesaltinity-kb-atomic-database-enginereadme-li">
+  <a href="/engines/altinity-kb-atomic-database-engine/readme/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-enginesaltinity-kb-atomic-database-enginereadme"><span class="">Atomic Database Engine</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-enginesaltinity-kb-embeddedrocksdb-and-dictionary-li">
+  <a href="/engines/altinity-kb-embeddedrocksdb-and-dictionary/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-enginesaltinity-kb-embeddedrocksdb-and-dictionary"><span class="">EmbeddedRocksDB &amp; dictionary</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-enginesreadme-li">
+  <a href="/engines/readme/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-enginesreadme"><span class="">Engines</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-enginesaltinity-kb-atomic-database-enginealtinity-kb-how-to-convert-atomic-to-ordinary-li">
+  <a href="/engines/altinity-kb-atomic-database-engine/altinity-kb-how-to-convert-atomic-to-ordinary/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-enginesaltinity-kb-atomic-database-enginealtinity-kb-how-to-convert-atomic-to-ordinary"><span class="">How to Convert Atomic to Ordinary</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-enginesmergetree-table-engine-familyindex-and-column-files-li">
+  <a href="/engines/mergetree-table-engine-family/index-and-column-files/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-enginesmergetree-table-engine-familyindex-and-column-files"><span class="">index &amp; column files</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-enginesmergetree-table-engine-familyreadme-li">
+  <a href="/engines/mergetree-table-engine-family/readme/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-enginesmergetree-table-engine-familyreadme"><span class="">MergeTree table engine family</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-enginesmergetree-table-engine-familyaltinity-kb-nulls-in-order-by-li">
+  <a href="/engines/mergetree-table-engine-family/altinity-kb-nulls-in-order-by/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-enginesmergetree-table-engine-familyaltinity-kb-nulls-in-order-by"><span class="">Nulls in order by</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-enginesmergetree-table-engine-familyreplacingmergetreereadme-li">
+  <a href="/engines/mergetree-table-engine-family/replacingmergetree/readme/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-enginesmergetree-table-engine-familyreplacingmergetreereadme"><span class="">ReplacingMergeTree</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-enginesmergetree-table-engine-familyreplacingmergetreealtinity-kb-replacingmergetree-does-not-collapse-duplicates-li">
+  <a href="/engines/mergetree-table-engine-family/replacingmergetree/altinity-kb-replacingmergetree-does-not-collapse-duplicates/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-enginesmergetree-table-engine-familyreplacingmergetreealtinity-kb-replacingmergetree-does-not-collapse-duplicates"><span class="">ReplacingMergeTree does not collapse duplicates</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-enginesmergetree-table-engine-familyskip-index-li">
+  <a href="/engines/mergetree-table-engine-family/skip-index/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-enginesmergetree-table-engine-familyskip-index"><span class="">Skip index</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-enginesmergetree-table-engine-familysummingmergetree-li">
+  <a href="/engines/mergetree-table-engine-family/summingmergetree/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-enginesmergetree-table-engine-familysummingmergetree"><span class="">SummingMergeTree</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-upgrade-li">
+  <a href="/upgrade/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-upgrade"><span class="">Upgrades</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-upgraderemoving-empty-parts-li">
+  <a href="/upgrade/removing-empty-parts/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-upgraderemoving-empty-parts"><span class="">Removing empty parts</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-upgradereadme-li">
+  <a href="/upgrade/readme/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-upgradereadme"><span class="">Upgrade</span></a>
+</li>
+  </ul>
+</li>
+  </ul>
+</li>
+    </ul>
+  </nav>
+</div>
+
+          </aside>
+          <aside class="d-none d-xl-block col-xl-2 td-sidebar-toc d-print-none">
+            
+  
+  
+  
+  
+  
+  <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+  
+    
+    
+      
+    
+    
+    
+    
+    
+    
+    
+    
+
+    <a href="https://github.com/Altinity/knowledgebase/edit/master/content/en/altinity-kb-queries-and-syntax/join-with-calendar-using-arrays.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+    <a href="https://github.com/Altinity/knowledgebase/new/master/content/en/altinity-kb-queries-and-syntax/join-with-calendar-using-arrays.md?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" target="_blank"><i class="fa fa-edit fa-fw"></i> Create child page</a>
+    <a href="https://github.com/Altinity/knowledgebase/issues/new?title=/altinity-kb-queries-and-syntax/join-with-calendar-using-arrays/" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
+    
+
+  
+  
+  </div>
+
+
+            
+
+
+<div class="td-toc"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#sample-data">Sample data</a></li>
+    <li><a href="#calendar">Calendar</a></li>
+    <li><a href="#join-with-calendar-using-arrayjoin">Join with Calendar using arrayJoin</a></li>
+    <li><a href="#with-fill">With fill</a></li>
+  </ul>
+</nav></div>
+
+
+
+            
+
+	
+		
+
+
+
+  
+  
+
+	
+		
+
+
+
+  
+  
+
+	
+
+          </aside>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+  
+
+            <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	<ol class="breadcrumb spb-1">
+		
+
+
+
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/">Altinity-kb-queries-and-syntaxes</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item active" aria-current="page">
+	<a href="http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/join-with-calendar-using-arrays/">Join with Calendar using Arrays</a>
+</li>
+
+	</ol>
+</nav	>
+
+            
+<div class="td-content">
+	<h1>Join with Calendar using Arrays</h1>
+    <div class="lead">Join with Calendar using Arrays	
+	</div>
+	
+	       
+	<h2 id="sample-data">Sample data</h2>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#204a87;font-weight:bold">CREATE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">TABLE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">test_metrics</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">counter_id</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">Int64</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">timestamp</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">DateTime</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">metric</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">UInt64</span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline"> 
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">Engine</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#000">Log</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">INSERT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">INTO</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">test_metrics</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">SELECT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87">number</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">%</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">3</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#000">toDateTime</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#39;2021-01-01 00:00:00&#39;</span><span style="color:#000;font-weight:bold">),</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">FROM</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">numbers</span><span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">20</span><span style="color:#000;font-weight:bold">);</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">INSERT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">INTO</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">test_metrics</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">SELECT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87">number</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">%</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">3</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#000">toDateTime</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#39;2021-01-03 00:00:00&#39;</span><span style="color:#000;font-weight:bold">),</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">FROM</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">numbers</span><span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">20</span><span style="color:#000;font-weight:bold">);</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">SELECT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">counter_id</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">toDate</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">timestamp</span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">dt</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">sum</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">metric</span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline"> 
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">FROM</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">test_metrics</span><span style="color:#f8f8f8;text-decoration:underline"> 
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">GROUP</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">BY</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">counter_id</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">dt</span><span style="color:#f8f8f8;text-decoration:underline"> 
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">ORDER</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">BY</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">counter_id</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">dt</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">┌─</span><span style="color:#000">counter_id</span><span style="color:#a40000">─┬─────────</span><span style="color:#000">dt</span><span style="color:#a40000">─┬─</span><span style="color:#204a87;font-weight:bold">sum</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">metric</span><span style="color:#000;font-weight:bold">)</span><span style="color:#a40000">─┐</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">           </span><span style="color:#0000cf;font-weight:bold">7</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">03</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">           </span><span style="color:#0000cf;font-weight:bold">7</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">           </span><span style="color:#0000cf;font-weight:bold">7</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">03</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">           </span><span style="color:#0000cf;font-weight:bold">7</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#0000cf;font-weight:bold">2</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">           </span><span style="color:#0000cf;font-weight:bold">6</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#0000cf;font-weight:bold">2</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">03</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">           </span><span style="color:#0000cf;font-weight:bold">6</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">└────────────┴────────────┴─────────────┘</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></code></pre></div><h2 id="calendar">Calendar</h2>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#204a87;font-weight:bold">WITH</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">arrayMap</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">i</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">-&gt;</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">toDate</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#39;2021-01-01&#39;</span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">+</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">i</span><span style="color:#000;font-weight:bold">),</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">range</span><span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">4</span><span style="color:#000;font-weight:bold">))</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">AS</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">Calendar</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">SELECT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">arrayJoin</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">Calendar</span><span style="color:#000;font-weight:bold">);</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">┌─</span><span style="color:#000">arrayJoin</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">Calendar</span><span style="color:#000;font-weight:bold">)</span><span style="color:#a40000">─┐</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">02</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">03</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">04</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">└─────────────────────┘</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></code></pre></div><h2 id="join-with-calendar-using-arrayjoin">Join with Calendar using arrayJoin</h2>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#204a87;font-weight:bold">SELECT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">counter_id</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">tuple</span><span style="color:#000;font-weight:bold">.</span><span style="color:#0000cf;font-weight:bold">2</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">dt</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">sum</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">tuple</span><span style="color:#000;font-weight:bold">.</span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">sum</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">FROM</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">  </span><span style="color:#000;font-weight:bold">(</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">  </span><span style="color:#204a87;font-weight:bold">WITH</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">arrayMap</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">i</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">-&gt;</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">toDate</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#39;2021-01-01&#39;</span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">+</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">i</span><span style="color:#000;font-weight:bold">),</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">range</span><span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">4</span><span style="color:#000;font-weight:bold">))</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">AS</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">Calendar</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#204a87;font-weight:bold">SELECT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">counter_id</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">arrayJoin</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">arrayConcat</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">Calendar</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">[(</span><span style="color:#204a87;font-weight:bold">sum</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">dt</span><span style="color:#000;font-weight:bold">)]))</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">tuple</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#204a87;font-weight:bold">FROM</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">             </span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">SELECT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">counter_id</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">toDate</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">timestamp</span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">dt</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">sum</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">metric</span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">sum</span><span style="color:#f8f8f8;text-decoration:underline"> 
+</span><span style="color:#f8f8f8;text-decoration:underline">              </span><span style="color:#204a87;font-weight:bold">FROM</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">test_metrics</span><span style="color:#f8f8f8;text-decoration:underline"> 
+</span><span style="color:#f8f8f8;text-decoration:underline">              </span><span style="color:#204a87;font-weight:bold">GROUP</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">BY</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">counter_id</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">dt</span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">  </span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">GROUP</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">BY</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">counter_id</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">dt</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">ORDER</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">BY</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">counter_id</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">dt</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">┌─</span><span style="color:#000">counter_id</span><span style="color:#a40000">─┬─────────</span><span style="color:#000">dt</span><span style="color:#a40000">─┬─</span><span style="color:#204a87;font-weight:bold">sum</span><span style="color:#a40000">─┐</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#0000cf;font-weight:bold">7</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">02</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">03</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#0000cf;font-weight:bold">7</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">04</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#0000cf;font-weight:bold">7</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">02</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">03</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#0000cf;font-weight:bold">7</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">04</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#0000cf;font-weight:bold">2</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#0000cf;font-weight:bold">6</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#0000cf;font-weight:bold">2</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">02</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#0000cf;font-weight:bold">2</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">03</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#0000cf;font-weight:bold">6</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#0000cf;font-weight:bold">2</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">04</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">└────────────┴────────────┴─────┘</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></code></pre></div><h2 id="with-fill">With fill</h2>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#204a87;font-weight:bold">SELECT</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#000">counter_id</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#000">toDate</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">timestamp</span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">AS</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">dt</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">sum</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">metric</span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">AS</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">sum</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">FROM</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">test_metrics</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">GROUP</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">BY</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#000">counter_id</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#000">dt</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">ORDER</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">BY</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#000">counter_id</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">ASC</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">WITH</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">FILL</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#000">dt</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">ASC</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">WITH</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">FILL</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">FROM</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">toDate</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#39;2021-01-01&#39;</span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">TO</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">toDate</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#39;2021-01-05&#39;</span><span style="color:#000;font-weight:bold">);</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">┌─</span><span style="color:#000">counter_id</span><span style="color:#a40000">─┬─────────</span><span style="color:#000">dt</span><span style="color:#a40000">─┬─</span><span style="color:#204a87;font-weight:bold">sum</span><span style="color:#a40000">─┐</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#0000cf;font-weight:bold">7</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">02</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">03</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#0000cf;font-weight:bold">7</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">04</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#0000cf;font-weight:bold">7</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">02</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">03</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#0000cf;font-weight:bold">7</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">04</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#0000cf;font-weight:bold">2</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#0000cf;font-weight:bold">6</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#0000cf;font-weight:bold">2</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">02</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#0000cf;font-weight:bold">2</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">03</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#0000cf;font-weight:bold">6</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#0000cf;font-weight:bold">2</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">04</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">└────────────┴────────────┴─────┘</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></code></pre></div><p>© 2021 Altinity Inc. All rights reserved.</p>
+
+	
+	
+	
+	<div class="text-muted mt-5 pt-3 border-top">Last modified 0001.01.01
+</div>
+</div>
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Twitter" aria-label="Twitter">
+    <a class="text-white" target="_blank" rel="noopener noreferrer" href="https://twitter.com/AltinityDB">
+      <i class="fab fa-twitter"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Youtube" aria-label="Youtube">
+    <a class="text-white" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/channel/UCE3Y2lDKl_ZfjaCrh62onYA">
+      <i class="fab fa-youtube"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="LinkedIn" aria-label="LinkedIn">
+    <a class="text-white" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/company/altinity/">
+      <i class="fab fa-linkedin"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" rel="noopener noreferrer" href="https://github.com/orgs/Altinity/">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2021  Altinity Inc. All Rights Reserved</small>
+        <small class="ml-1"><a href="https://altinity.com/privacy-policy/" target="_blank">Privacy Policy</a></small>
+	
+		
+	
+      </div>
+    </div>
+  </div>
+  
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LY0EP7NFFJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'NONE');
+  </script>
+</footer>
+
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.min.3b172c13b62c2bea8b1c9d2599cddc8cf89718a92d792c680871c81ba43d8c85.js" integrity="sha256-OxcsE7YsK&#43;qLHJ0lmc3cjPiXGKkteSxoCHHIG6Q9jIU=" crossorigin="anonymous"></script>
+
+
+
+<script src='/js/prism.js'></script>
+
+
+
+  </body>
+</html>
