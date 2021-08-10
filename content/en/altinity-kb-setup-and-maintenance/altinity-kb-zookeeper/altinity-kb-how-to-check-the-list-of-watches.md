@@ -25,5 +25,5 @@ By default those commands are disabled, they can be enabled via Java system prop
 
 on in zookeeper config: `4lw.commands.whitelist=*`\
 
-© 2021 Altinity Inc. All rights reserved.
+
 

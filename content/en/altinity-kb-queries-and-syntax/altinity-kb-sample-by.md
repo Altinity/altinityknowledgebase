@@ -48,5 +48,5 @@ Sampling is:
 * Select second 1/10 of all possible sample keys; SET max\_parallel\_replicas = 3
 * Select from multiple replicas of each shard in parallel;
 
-© 2021 Altinity Inc. All rights reserved.
+
 

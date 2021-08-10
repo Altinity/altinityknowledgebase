@@ -19,5 +19,5 @@ Notes:
 
 Before increasing `kafka_num_consumers` with keeping `kafka_thread_per_consumer=0` may improve consumption & parsing speed, but flushing & committing still happens by a single thread there \(so inserts are linear\).
 
-© 2021 Altinity Inc. All rights reserved.
+
 

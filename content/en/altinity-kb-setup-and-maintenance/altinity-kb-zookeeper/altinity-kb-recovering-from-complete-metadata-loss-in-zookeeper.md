@@ -136,5 +136,5 @@ For a large number of tables, you can use script  [https://github.com/Altinity/c
 
 
 
-© 2021 Altinity Inc. All rights reserved.
+
 

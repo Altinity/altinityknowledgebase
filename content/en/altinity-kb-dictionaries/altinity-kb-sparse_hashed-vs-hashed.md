@@ -56,5 +56,5 @@ As you can see **SPARSE\_HASHED** is memory efficient and use about 3 times less
 
 We encourage you to test **SPARSE\_HASHED** against your real queries, because it able to save a lot of memory and have larger \(in rows\) external dictionaries.
 
-© 2021 Altinity Inc. All rights reserved.
+
 

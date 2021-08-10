@@ -47,5 +47,5 @@ SELECT ... new query ....
 
 in that case you don't need to care when the original query will be stopped.
 
-© 2021 Altinity Inc. All rights reserved.
+
 

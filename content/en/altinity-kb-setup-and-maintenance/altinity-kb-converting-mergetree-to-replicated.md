@@ -13,5 +13,5 @@ Options here are:
 4. Do a backup of MergeTree and recover as ReplicatedMergeTree. [https://github.com/AlexAkulov/clickhouse-backup/blob/master/Examples.md\#how-to-convert-mergetree-to-replicatedmegretree](https://github.com/AlexAkulov/clickhouse-backup/blob/master/Examples.md#how-to-convert-mergetree-to-replicatedmegretree)
 5. Embedded command for that should be added in future.
 
-© 2021 Altinity Inc. All rights reserved.
+
 

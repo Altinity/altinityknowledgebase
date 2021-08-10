@@ -17,5 +17,5 @@ ClickHouse merges parts in this table until will remains 1 part in each partitio
 If this table has size 1TB it could take around 3 hours to complete.  
 So we don't recommend running `OPTIMIZE TABLE xyz FINAL` against tables with more than 10million rows.
 
-© 2021 Altinity Inc. All rights reserved.
+
 

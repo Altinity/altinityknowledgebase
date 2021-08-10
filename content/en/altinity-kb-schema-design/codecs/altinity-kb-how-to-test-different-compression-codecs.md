@@ -91,5 +91,5 @@ GROUP BY
 ORDER BY database, table, sum(column_data_compressed_bytes) DESC
 ```
 
-© 2021 Altinity Inc. All rights reserved.
+
 

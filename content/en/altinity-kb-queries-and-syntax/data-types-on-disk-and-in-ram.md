@@ -42,5 +42,5 @@ description: >
 
 See also [https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup41/data\_processing.pdf](https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup41/data_processing.pdf) \(slide 17-22\)
 
-© 2021 Altinity Inc. All rights reserved.
+
 

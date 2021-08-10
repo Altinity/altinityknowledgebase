@@ -18,5 +18,5 @@ See also these configuration settings:
 </kafka>
 ```
 
-© 2021 Altinity Inc. All rights reserved.
+
 

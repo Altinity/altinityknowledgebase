@@ -15,5 +15,5 @@ SET allow_experimental_window_functions=1; -- introduced in 21.3
 SET prefer_column_name_to_alias=1; -- introduced in 21.4;
 ```
 
-© 2021 Altinity Inc. All rights reserved.
+
 

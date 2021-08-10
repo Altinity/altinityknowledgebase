@@ -27,5 +27,5 @@ You can set another value of `replicated_max_ratio_of_wrong_parts` for all Merge
 
 [https://clickhouse.tech/docs/en/operations/settings/merge-tree-settings](https://clickhouse.tech/docs/en/operations/settings/merge-tree-settings)
 
-© 2021 Altinity Inc. All rights reserved.
+
 

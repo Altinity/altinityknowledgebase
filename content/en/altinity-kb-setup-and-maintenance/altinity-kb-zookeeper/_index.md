@@ -38,5 +38,5 @@ zk_sum_follower_sync_time    0
 * [https://github.com/tobilg/docker-zookeeper-webui](https://github.com/tobilg/docker-zookeeper-webui)
 * [https://github.com/vran-dev/PrettyZoo](https://github.com/vran-dev/PrettyZoo)
 
-© 2021 Altinity Inc. All rights reserved.
+
 

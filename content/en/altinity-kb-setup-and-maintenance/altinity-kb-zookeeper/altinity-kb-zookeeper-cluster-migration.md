@@ -22,5 +22,5 @@ Here is a plan for ZK 3.4.9 \(no dynamic reconfiguration\):
 
 This plan works, but it is not the only way to do this, it can be changed if needed.
 
-© 2021 Altinity Inc. All rights reserved.
+
 

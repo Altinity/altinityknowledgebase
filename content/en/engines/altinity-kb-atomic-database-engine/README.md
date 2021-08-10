@@ -178,5 +178,5 @@ Presentation [https://youtu.be/1LVJ\_WcLgF8?t=2744](https://youtu.be/1LVJ_WcLgF8
 
 {% embed url="https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup46/database\_engines.pdf" %}
 
-© 2021 Altinity Inc. All rights reserved.
+
 

@@ -23,5 +23,5 @@ Typically issue was happening when doing some concurrent select on `system.parts
 
 If that exception happens often in your use-case: An update is recommended. In the meantime, check which queries are running \(especially to system.tables / system.parts and other system tables\) and check if killing them / avoiding them helps to solve the issue.
 
-© 2021 Altinity Inc. All rights reserved.
+
 

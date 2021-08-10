@@ -49,5 +49,5 @@ ORDER BY memory_usage DESC
 LIMIT 10;
 ```
 
-© 2021 Altinity Inc. All rights reserved.
+
 

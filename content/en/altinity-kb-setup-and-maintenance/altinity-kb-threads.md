@@ -98,5 +98,5 @@ FROM system.stack_trace
 WHERE res ILIKE '%Pool%'
 ```
 
-© 2021 Altinity Inc. All rights reserved.
+
 

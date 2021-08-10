@@ -53,5 +53,5 @@ The project seems to be a good idea but it's too young. I was using the GUI vers
 
   TLDR: Easy to use \(if bugs are ignored\), too slow to train & produces a bad model.
 
-© 2021 Altinity Inc. All rights reserved.
+
 

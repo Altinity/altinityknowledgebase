@@ -30,5 +30,5 @@ More safer way:
 
 [https://github.com/ClickHouse/ClickHouse/blob/master/programs/server/Server.cpp\#L1353](https://github.com/ClickHouse/ClickHouse/blob/master/programs/server/Server.cpp#L1353)
 
-© 2021 Altinity Inc. All rights reserved.
+
 

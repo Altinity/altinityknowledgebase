@@ -21,5 +21,5 @@ git log -- contrib/librdkafka | git name-rev --stdin
 | 19.1+ \([\#4025](https://github.com/ClickHouse/ClickHouse/pull/4025)\) | 1.0.0-RC5 |
 | v1.1.54382+ \([\#2276](https://github.com/ClickHouse/ClickHouse/pull/2276)\) | [0.11.4](https://github.com/edenhill/librdkafka/releases?after=v0.11.4-adminapi-post1) |
 
-© 2021 Altinity Inc. All rights reserved.
+
 

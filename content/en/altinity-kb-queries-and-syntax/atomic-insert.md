@@ -14,5 +14,5 @@ Insert would be atomic only if those conditions met:
 
 {% embed url="https://github.com/ClickHouse/ClickHouse/issues/9195\#issuecomment-587500824" %}
 
-© 2021 Altinity Inc. All rights reserved.
+
 

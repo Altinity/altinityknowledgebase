@@ -181,5 +181,5 @@ SELECT * FROM repl_tbl_part;
 └─────┴───────┴──────────┘
 ```
 
-© 2021 Altinity Inc. All rights reserved.
+
 

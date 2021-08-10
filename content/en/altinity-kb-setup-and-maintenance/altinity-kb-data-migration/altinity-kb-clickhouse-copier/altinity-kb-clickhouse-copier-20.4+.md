@@ -137,5 +137,5 @@ name | ctime               | mtime
 1    | 2021-03-22 13:26:54 | 2021-03-22 14:05:05
 ```
 
-© 2021 Altinity Inc. All rights reserved.
+
 

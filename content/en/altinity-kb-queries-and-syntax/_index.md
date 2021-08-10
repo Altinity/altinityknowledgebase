@@ -21,5 +21,5 @@ description: >
 * [Possible deadlock avoided. Client should retry](altinity-kb-possible-deadlock-avoided.-client-should-retry.md)
 * [Sample by](altinity-kb-sample-by.md)
 
-© 2021 Altinity Inc. All rights reserved.
+
 

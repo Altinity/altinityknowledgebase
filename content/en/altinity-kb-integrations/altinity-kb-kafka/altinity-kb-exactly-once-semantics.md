@@ -18,5 +18,5 @@ BUT: while EOS semantics will guarantee you that no duplicates will happen on th
 
 We need to have something like transactions on ClickHouse side to be able to avoid that. Adding something like simple transactions is in plans for Y2021.
 
-© 2021 Altinity Inc. All rights reserved.
+
 
