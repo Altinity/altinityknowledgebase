@@ -46,5 +46,5 @@ Q. Clickhouse is caching the Kafka pod's IP and trying to connect to the same ip
 It's due to low value for env `CLICKHOUSE_INIT_TIMEOUT` value. Consider increasing it up to 1 min.  
 [https://github.com/ClickHouse/ClickHouse/blob/9f5cd35a6963cc556a51218b46b0754dcac7306a/docker/server/entrypoint.sh\#L120](https://github.com/ClickHouse/ClickHouse/blob/9f5cd35a6963cc556a51218b46b0754dcac7306a/docker/server/entrypoint.sh#L120)
 
-© 2021 Altinity Inc. All rights reserved.
+
 

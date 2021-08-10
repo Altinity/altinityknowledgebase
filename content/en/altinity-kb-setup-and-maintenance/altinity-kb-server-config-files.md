@@ -266,5 +266,5 @@ If something wrong with with your settings e.g. unclosed XML element or typo you
 
 If you see your changes in **preprocessed\_configs** it does not mean that changes are applied on running server, check [Settings & restart](altinity-kb-server-config-files.md#Settings-%26--restart)
 
-© 2021 Altinity Inc. All rights reserved.
+
 

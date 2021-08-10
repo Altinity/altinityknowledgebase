@@ -58,5 +58,5 @@ FROM my_new_view
 SETTINGS my2_category = 'hot deals';
 ```
 
-© 2021 Altinity Inc. All rights reserved.
+
 

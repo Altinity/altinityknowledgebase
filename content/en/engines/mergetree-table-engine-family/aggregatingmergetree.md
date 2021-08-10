@@ -48,5 +48,5 @@ SELECT * FROM agg_test;
 └───┴───┴───┘
 ```
 
-© 2021 Altinity Inc. All rights reserved.
+
 

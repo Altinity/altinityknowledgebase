@@ -162,5 +162,5 @@ ATTACH DATABASE atomic_db;
 /* STEP 5. restore MV using statements created on STEP 2 */
 ```
 
-© 2021 Altinity Inc. All rights reserved.
+
 

@@ -87,5 +87,5 @@ GROUP BY
 ORDER BY size DESC;
 ```
 
-© 2021 Altinity Inc. All rights reserved.
+
 

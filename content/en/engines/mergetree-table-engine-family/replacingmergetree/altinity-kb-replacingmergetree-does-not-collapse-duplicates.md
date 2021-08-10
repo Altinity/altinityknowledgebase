@@ -15,5 +15,5 @@ If the total size of input parts are greater than the maximum part size then the
 [https://clickhouse.tech/docs/en/engines/table-engines/mergetree-family/replacingmergetree/](https://clickhouse.tech/docs/en/engines/table-engines/mergetree-family/replacingmergetree/)  
 _ReplacingMergeTree is suitable for clearing out duplicate data in the background in order to save space, but it doesn’t guarantee the absence of duplicates._
 
-© 2021 Altinity Inc. All rights reserved.
+
 

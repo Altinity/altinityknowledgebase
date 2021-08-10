@@ -22,5 +22,5 @@ And point all the clickhouses \(zookeeper config secton\) to those nodes / ports
 
 Latest testing version is recommended. We will be thankful for any feedback.
 
-© 2021 Altinity Inc. All rights reserved.
+
 

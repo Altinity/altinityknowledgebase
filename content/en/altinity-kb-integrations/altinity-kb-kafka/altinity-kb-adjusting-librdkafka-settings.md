@@ -133,5 +133,5 @@ kafkacat -b my_broker:9092 -C -o -10 -t my_topic \
   
 
 
-© 2021 Altinity Inc. All rights reserved.
+
 

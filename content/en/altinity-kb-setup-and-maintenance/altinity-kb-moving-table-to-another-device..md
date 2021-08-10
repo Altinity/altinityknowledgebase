@@ -127,5 +127,5 @@ ClickHouse wouldn't auto reload config, because we removed some disks from stora
 SELECT * FROM system.storage_policies WHERE policy_name='move_from_default_to_disk_1';
 ```
 
-© 2021 Altinity Inc. All rights reserved.
+
 

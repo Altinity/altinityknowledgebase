@@ -14,4 +14,3 @@ Essentially you can follow the steps from the [Migrating from Amazon S3 to Cloud
 4. In ClickHouse, replace the S3 bucket endpoint with the GCS bucket endpoint This must be done with the path-style GCS endpoint: `https://storage.googleapis.com/BUCKET\_NAME/OBJECT\_NAME`.
 5. Replace the aws access key id and aws secret access key with the corresponding parts of the HMAC key.
 
-© 2021 Altinity Inc. All rights reserved.

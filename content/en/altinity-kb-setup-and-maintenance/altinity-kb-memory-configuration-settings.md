@@ -31,5 +31,5 @@ You can decrease that in some scenarios \(like you need to leave more free RAM f
 
 [https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup39/mark-cache.pdf](https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup39/mark-cache.pdf)
 
-© 2021 Altinity Inc. All rights reserved.
+
 

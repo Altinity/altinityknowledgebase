@@ -18,5 +18,5 @@ So it's not recommended to run SELECT queries on working Kafka tables.
 
 In case of debug it's possible to use another Kafka table with different `consumer_group`, so it wouldn't affect your main pipeline.
 
-© 2021 Altinity Inc. All rights reserved.
+
 

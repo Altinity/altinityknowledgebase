@@ -40,5 +40,5 @@ See also: [https://app.gitbook.com/@altinity/s/altinitykb/altinity-kb-queries-an
 
 
 
-© 2021 Altinity Inc. All rights reserved.
+
 

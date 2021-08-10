@@ -30,5 +30,5 @@ GROUP BY
 ORDER BY count_all DESC
 ```
 
-© 2021 Altinity Inc. All rights reserved.
+
 

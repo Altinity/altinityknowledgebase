@@ -128,5 +128,5 @@ cat /etc/clickhouse-server/users.d/log_queries.xml
 </yandex>
 ```
 
-© 2021 Altinity Inc. All rights reserved.
+
 

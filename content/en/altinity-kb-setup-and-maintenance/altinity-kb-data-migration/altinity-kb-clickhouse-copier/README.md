@@ -31,5 +31,5 @@ The number of simultaneously running instances is controlled be the `max_workers
 
 `<Debug> ClusterCopier: Too many workers (1, maximum 1). Postpone processing`
 
-© 2021 Altinity Inc. All rights reserved.
+
 

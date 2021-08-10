@@ -76,5 +76,5 @@ JAVA_OPTS="-Xms{{ cluster.get('xms','128M') }} \
 * [https://docs.oracle.com/javase/10/gctuning/introduction-garbage-collection-tuning.htm\#JSGCT-GUID-326EB4CF-8C8C-4267-8355-21AB04F0D304](https://docs.oracle.com/javase/10/gctuning/introduction-garbage-collection-tuning.htm#JSGCT-GUID-326EB4CF-8C8C-4267-8355-21AB04F0D304)
 * [https://github.com/chewiebug/GCViewer](https://github.com/chewiebug/GCViewer)
 
-© 2021 Altinity Inc. All rights reserved.
+
 

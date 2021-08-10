@@ -34,5 +34,5 @@ description: >
 2. Calculate the needed metrics.
 3. Ungroup back using arrayJoin.
 
-© 2021 Altinity Inc. All rights reserved.
+
 

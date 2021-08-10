@@ -51,5 +51,5 @@ References:
 
 * [https://clickhouse.tech/docs/en/interfaces/cli/](https://clickhouse.tech/docs/en/interfaces/cli/)
 
-© 2021 Altinity Inc. All rights reserved.
+
 

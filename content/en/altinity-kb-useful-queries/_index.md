@@ -11,5 +11,5 @@ description: >
 * [Can detached parts be dropped?](detached-parts.md)
 * [Datasets](altinity-kb-datasets.md)
 
-© 2021 Altinity Inc. All rights reserved.
+
 

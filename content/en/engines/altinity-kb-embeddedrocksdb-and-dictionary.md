@@ -150,5 +150,5 @@ select count() from (
 Elapsed: 0.065 sec. Processed 1.00 million rows
 ```
 
-© 2021 Altinity Inc. All rights reserved.
+
 

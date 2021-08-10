@@ -43,5 +43,5 @@ Cite from [https://zookeeper.apache.org/doc/r3.5.7/zookeeperAdmin.html\#sc\_comm
 
 ##  <a id="Propersetup-ThingstoAvoid"></a>
 
-© 2021 Altinity Inc. All rights reserved.
+
 

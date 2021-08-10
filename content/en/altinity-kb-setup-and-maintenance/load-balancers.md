@@ -32,5 +32,5 @@ So for native protocol, there are only 3 possibilities:
 There are many more options and you can use haproxy / nginx / chproxy, etc.  
 chproxy give some extra clickhouse-specific features, you can find a list of them at [https://github.com/Vertamedia/chproxy](https://github.com/Vertamedia/chproxy)
 
-© 2021 Altinity Inc. All rights reserved.
+
 

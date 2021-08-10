@@ -51,5 +51,5 @@ P.S. Actually you can create replication without Zookeeper and ReplicatedMergeTr
 
 Based on my original answer on github: [https://github.com/ClickHouse/ClickHouse/issues/2161](https://github.com/ClickHouse/ClickHouse/issues/2161)
 
-© 2021 Altinity Inc. All rights reserved.
+
 

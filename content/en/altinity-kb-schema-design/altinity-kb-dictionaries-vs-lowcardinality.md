@@ -19,5 +19,5 @@ For example if you need to change the used currency rare every day- it would be 
 
 For dictionary it's possible to mark some of the attributes as injective. An attribute is called injective if different attribute values correspond to different keys. It would allow ClickHouse to replace dictGet call in GROUP BY with cheap dict key.
 
-© 2021 Altinity Inc. All rights reserved.
+
 

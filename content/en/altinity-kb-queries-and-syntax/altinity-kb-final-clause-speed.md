@@ -84,5 +84,5 @@ SELECT count() FROM repl_tbl FINAL WHERE NOT ignore(*)
 
 ```
 
-© 2021 Altinity Inc. All rights reserved.
+
 
