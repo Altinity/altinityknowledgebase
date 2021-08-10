@@ -1,32 +1,18 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Functions on Altinity Beta Knowledgebase</title>
+    <title>Altinity Beta Knowledgebase – Functions</title>
     <link>http://beta.kb.altinity.com/altinity-kb-functions/</link>
     <description>Recent content in Functions on Altinity Beta Knowledgebase</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="http://beta.kb.altinity.com/altinity-kb-functions/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>assumeNotNull and friends</title>
-      <link>http://beta.kb.altinity.com/altinity-kb-functions/assumenotnull-and-friends/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://beta.kb.altinity.com/altinity-kb-functions/assumenotnull-and-friends/</guid>
-      <description>assumeNotNull result is implementation specific:
-WITHCAST(NULL,&amp;#39;Nullable(UInt8)&amp;#39;)AScolumnSELECTcolumn,assumeNotNull(column+999)ASx;┌─column─┬─x─┐│ᴺᵁᴸᴸ│0│└────────┴───┘WITHCAST(NULL,&amp;#39;Nullable(UInt8)&amp;#39;)AScolumnSELECTcolumn,assumeNotNull(materialize(column)+999)ASx;┌─column─┬───x─┐│ᴺᵁᴸᴸ│999│└────────┴─────┘CREATETABLEtest_null(`key`UInt32,`value`Nullable(String))ENGINE=MergeTreeORDERBYkey;INSERTINTOtest_nullSELECTnumber,concat(&amp;#39;value &amp;#39;,toString(number))FROMnumbers(4);SELECT*FROMtest_null;┌─key─┬─value───┐│0│value0││1│value1││2│value2││3│value3│└─────┴─────────┘ALTERTABLEtest_nullUPDATEvalue=NULLWHEREkey=3;SELECT*FROMtest_null;┌─key─┬─value───┐│0│value0││1│value1││2│value2││3│ᴺᵁᴸᴸ│└─────┴─────────┘SELECTkey,assumeNotNull(value)FROMtest_null;┌─key─┬─assumeNotNull(value)─┐│0│value0││1│value1││2│value2││3│value3│└─────┴──────────────────────┘WITHCAST(NULL,&amp;#39;Nullable(Enum8(\&amp;#39;a\&amp;#39; = 1, \&amp;#39;b\&amp;#39; = 0))&amp;#39;)AStestSELECTassumeNotNull(test)┌─assumeNotNull(test)─┐│b│└─────────────────────┘WITHCAST(NULL,&amp;#39;Nullable(Enum8(\&amp;#39;a\&amp;#39; = 1))&amp;#39;)AStestSELECTassumeNotNull(test)Erroronprocessingquery&amp;#39;with CAST(null, &amp;#39;Nullable(Enum8(\&amp;#39;a\&amp;#39;=1))&amp;#39;) as test select assumeNotNull(test); ;&amp;#39;:Code:36,e.displayText()=DB::Exception:Unexpectedvalue0inenum,Stacktrace(whencopyingthismessage,alwaysincludethelinesbelow):{% hint style=&amp;ldquo;info&amp;rdquo; %} Null values in ClickHouse are stored in a separate dictionary: is this value Null. And for faster dispatch of functions there is no check on Null value while function execution, so functions like plus can modify internal column value (which has default value). In normal conditions it’s not a problem because on read attempt, ClickHouse first would check the Null dictionary and return value from column itself for non-Nulls only.</description>
-    </item>
+    <language>en-us</language>
     
-    <item>
-      <title>sequenceMatch</title>
-      <link>http://beta.kb.altinity.com/altinity-kb-functions/altinity-kb-sequencematch/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+	  <atom:link href="http://beta.kb.altinity.com/altinity-kb-functions/index.xml" rel="self" type="application/rss+xml" />
+    
+    
       
-      <guid>http://beta.kb.altinity.com/altinity-kb-functions/altinity-kb-sequencematch/</guid>
-      <description>Question I expect the sequence here to only match once as a is only directly after a once - but it matches with gaps. Why is that?
-SELECTsequenceCount(&amp;#39;(?1)(?2)&amp;#39;)(sequence,pageILIKE&amp;#39;%a%&amp;#39;,pageILIKE&amp;#39;%a%&amp;#39;)ASsequencesFROMvalues(&amp;#39;page String, sequence UInt16&amp;#39;,(&amp;#39;a&amp;#39;,1),(&amp;#39;a&amp;#39;,2),(&amp;#39;b&amp;#39;,3),(&amp;#39;b&amp;#39;,4),(&amp;#39;a&amp;#39;,5),(&amp;#39;b&amp;#39;,6),(&amp;#39;a&amp;#39;,7))2#??Answer sequenceMatch just ignores the events which don&amp;rsquo;t match the condition. Check that:
-SELECTsequenceMatch(&amp;#39;(?1)(?2)&amp;#39;)(sequence,page=&amp;#39;a&amp;#39;,page=&amp;#39;b&amp;#39;)ASsequencesFROMvalues(&amp;#39;page String, sequence UInt16&amp;#39;,(&amp;#39;a&amp;#39;,1),(&amp;#39;c&amp;#39;,2),(&amp;#39;b&amp;#39;,3));1#??SELECTsequenceMatch(&amp;#39;(?1).(?2)&amp;#39;)(sequence,page=&amp;#39;a&amp;#39;,page=&amp;#39;b&amp;#39;)ASsequencesFROMvalues(&amp;#39;page String, sequence UInt16&amp;#39;,(&amp;#39;a&amp;#39;,1),(&amp;#39;c&amp;#39;,2),(&amp;#39;b&amp;#39;,3));0#???SELECTsequenceMatch(&amp;#39;(?1)(?2)&amp;#39;)(sequence,page=&amp;#39;a&amp;#39;,page=&amp;#39;b&amp;#39;,pageNOTIN(&amp;#39;a&amp;#39;,&amp;#39;b&amp;#39;))ASsequencesfromvalues(&amp;#39;page String, sequence UInt16&amp;#39;,(&amp;#39;a&amp;#39;,1),(&amp;#39;c&amp;#39;,2),(&amp;#39;b&amp;#39;,3));0#!SELECTsequenceMatch(&amp;#39;(?1).(?2)&amp;#39;)(sequence,page=&amp;#39;a&amp;#39;,page=&amp;#39;b&amp;#39;,pageNOTIN(&amp;#39;a&amp;#39;,&amp;#39;b&amp;#39;))ASsequencesfromvalues(&amp;#39;page String, sequence UInt16&amp;#39;,(&amp;#39;a&amp;#39;,1),(&amp;#39;c&amp;#39;,2),(&amp;#39;b&amp;#39;,3));1#So for your example - just introduce one more &amp;lsquo;nothing matched&amp;rsquo; condition:
-SELECTsequenceCount(&amp;#39;(?1)(?2)&amp;#39;)(sequence,pageILIKE&amp;#39;%a%&amp;#39;,pageILIKE&amp;#39;%a%&amp;#39;,NOT(pageILIKE&amp;#39;%a%&amp;#39;))ASsequencesFROMvalues(&amp;#39;page String, sequence UInt16&amp;#39;,(&amp;#39;a&amp;#39;,1),(&amp;#39;a&amp;#39;,2),(&amp;#39;b&amp;#39;,3),(&amp;#39;b&amp;#39;,4),(&amp;#39;a&amp;#39;,5),(&amp;#39;b&amp;#39;,6),(&amp;#39;a&amp;#39;,7))--- title:&amp;#34;1&amp;#34;linkTitle:&amp;#34;1&amp;#34;description:&amp;gt;1--- © 2021 Altinity Inc.</description>
-    </item>
+        
+      
+    
     
   </channel>
 </rss>

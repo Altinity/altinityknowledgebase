@@ -1,51 +1,18 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Useful queries on Altinity Beta Knowledgebase</title>
+    <title>Altinity Beta Knowledgebase – Useful queries</title>
     <link>http://beta.kb.altinity.com/altinity-kb-useful-queries/</link>
     <description>Recent content in Useful queries on Altinity Beta Knowledgebase</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="http://beta.kb.altinity.com/altinity-kb-useful-queries/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Can detached parts be dropped?</title>
-      <link>http://beta.kb.altinity.com/altinity-kb-useful-queries/detached-parts/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://beta.kb.altinity.com/altinity-kb-useful-queries/detached-parts/</guid>
-      <description>Here is what different statuses mean:
- parts are renamed to &amp;lsquo;ignored&amp;rsquo; if they were found during ATTACH together with other, bigger parts that cover the same blocks of data, i.e. they were already merged into something else. parts are renamed to &amp;lsquo;broken&amp;rsquo; if ClickHouse was not able to load data from the parts. There could be different reasons: some files are lost, checksums are not correct, etc. parts are renamed to &amp;lsquo;unexpected&amp;rsquo; if they are present locally, but are not found in ZooKeeper, in case when an insert was not completed properly.</description>
-    </item>
+    <language>en-us</language>
     
-    <item>
-      <title>Database Size - Table - Column size</title>
-      <link>http://beta.kb.altinity.com/altinity-kb-useful-queries/altinity-kb-database-size-table-column-size/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://beta.kb.altinity.com/altinity-kb-useful-queries/altinity-kb-database-size-table-column-size/</guid>
-      <description>Tables Table size SELECTdatabase,table,formatReadableSize(sum(data_compressed_bytes)ASsize)AScompressed,formatReadableSize(sum(data_uncompressed_bytes)ASusize)ASuncompressed,round(usize/size,2)AScompr_rate,sum(rows)ASrows,count()ASpart_countFROMsystem.partsWHERE(active=1)AND(tableLIKE&amp;#39;%&amp;#39;)AND(databaseLIKE&amp;#39;%&amp;#39;)GROUPBYdatabase,tableORDERBYsizeDESC;Column size SELECTdatabase,table,column,formatReadableSize(sum(column_data_compressed_bytes)ASsize)AScompressed,formatReadableSize(sum(column_data_uncompressed_bytes)ASusize)ASuncompressed,round(usize/size,2)AScompr_rateFROMsystem.parts_columnsWHERE(active=1)AND(tableLIKE&amp;#39;query_log&amp;#39;)GROUPBYdatabase,table,columnORDERBYsizeDESC;Projections Projection size SELECTdatabase,table,name,formatReadableSize(sum(data_compressed_bytes)ASsize)AScompressed,formatReadableSize(sum(data_uncompressed_bytes)ASusize)ASuncompressed,round(usize/size,2)AScompr_rate,sum(rows)ASrows,count()ASpart_countFROMsystem.projection_partsWHERE(table=&amp;#39;ptest&amp;#39;)ANDactiveGROUPBYdatabase,table,nameORDERBYsizeDESC;Projection column size SELECTdatabase,table,column,formatReadableSize(sum(column_data_compressed_bytes)ASsize)AScompressed,formatReadableSize(sum(column_data_uncompressed_bytes)ASusize)ASuncompressed,round(usize/size,2)AScompr_rateFROMsystem.projection_parts_columnsWHERE(active=1)AND(tableLIKE&amp;#39;ptest&amp;#39;)GROUPBYdatabase,table,columnORDERBYsizeDESC;© 2021 Altinity Inc. All rights reserved.</description>
-    </item>
+	  <atom:link href="http://beta.kb.altinity.com/altinity-kb-useful-queries/index.xml" rel="self" type="application/rss+xml" />
     
-    <item>
-      <title>Datasets</title>
-      <link>http://beta.kb.altinity.com/altinity-kb-useful-queries/altinity-kb-datasets/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://beta.kb.altinity.com/altinity-kb-useful-queries/altinity-kb-datasets/</guid>
-      <description>© 2021 Altinity Inc. All rights reserved.</description>
-    </item>
     
-    <item>
-      <title>Number of active parts in a partition</title>
-      <link>http://beta.kb.altinity.com/altinity-kb-useful-queries/altinity-kb-number-of-active-parts-in-a-partition/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://beta.kb.altinity.com/altinity-kb-useful-queries/altinity-kb-number-of-active-parts-in-a-partition/</guid>
-      <description>Q: Why do I have several active parts in a partition? Why Clickhouse does not merge them immediately?
-A: CH does not merge parts by time.
-Merge scheduler selects parts by own algorithm based on the current node workload / number of parts / size of parts.
-CH merge scheduler balances between a big number of parts and a wasting resources on merges.
-Merges are CPU/DISK IO expensive. If CH will merge every new part then all resources will be spend on merges and will no resources remain on queries (selects ).</description>
-    </item>
+        
+      
+    
     
   </channel>
 </rss>

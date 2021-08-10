@@ -1,21 +1,18 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Kubernetes on Altinity Beta Knowledgebase</title>
+    <title>Altinity Beta Knowledgebase – Kubernetes</title>
     <link>http://beta.kb.altinity.com/altinity-kb-kubernetes/</link>
     <description>Recent content in Kubernetes on Altinity Beta Knowledgebase</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="http://beta.kb.altinity.com/altinity-kb-kubernetes/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Possible issues with running ClickHouse in k8s</title>
-      <link>http://beta.kb.altinity.com/altinity-kb-kubernetes/altinity-kb-possible-issues-with-running-clickhouse-in-k8s/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+    <language>en-us</language>
+    
+	  <atom:link href="http://beta.kb.altinity.com/altinity-kb-kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    
+    
       
-      <guid>http://beta.kb.altinity.com/altinity-kb-kubernetes/altinity-kb-possible-issues-with-running-clickhouse-in-k8s/</guid>
-      <description>The biggest problem with running ClickHouse in k8s, happens when clickhouse-server can&amp;rsquo;t start for some reason and pod is falling in CrashloopBackOff, so you can&amp;rsquo;t easily get in the pod and check/fix/restart ClickHouse.
-There is multiple possible reasons for this, some of them can be fixed without manual intervention in pod:
- Wrong configuration files Fix: Check templates which are being used for config file generation and fix them. While upgrade some backward incompatible changes prevents ClickHouse from start.</description>
-    </item>
+        
+      
+    
     
   </channel>
 </rss>
