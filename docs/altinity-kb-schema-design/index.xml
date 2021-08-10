@@ -1,18 +1,91 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Altinity Beta Knowledgebase – Schema design</title>
+    <title>Schema design on Altinity Beta Knowledgebase</title>
     <link>http://beta.kb.altinity.com/altinity-kb-schema-design/</link>
     <description>Recent content in Schema design on Altinity Beta Knowledgebase</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    
-	  <atom:link href="http://beta.kb.altinity.com/altinity-kb-schema-design/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>en-us</language><atom:link href="http://beta.kb.altinity.com/altinity-kb-schema-design/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Best schema for storing many metrics registered from the single source</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-schema-design/best-schema-for-storing-many-metrics-registered-from-the-single-source/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-        
-      
+      <guid>http://beta.kb.altinity.com/altinity-kb-schema-design/best-schema-for-storing-many-metrics-registered-from-the-single-source/</guid>
+      <description>Picking the best schema for storing many metrics registered from single source is quite a common problem.
+1 One row per metric i.e.: timestamp, sourceid, metric_name, metric_value
+Pros and cons:
+ simple well normalized schema easy to extend that is quite typical pattern for timeseries databases   different metrics values stored in same columns (worse compression) to use values of different datatype you need to cast everything to string or introduce few columns for values of different types.</description>
+    </item>
     
+    <item>
+      <title>Dictionaries vs LowCardinality</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-schema-design/altinity-kb-dictionaries-vs-lowcardinality/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-schema-design/altinity-kb-dictionaries-vs-lowcardinality/</guid>
+      <description>Q. I think I&amp;rsquo;m still trying to understand how de-normalized is okay - with my relational mindset, I want to move repeated string fields into their own table, but I&amp;rsquo;m not sure to what extent this is necessary
+I will look at LowCardinality in more detail - I think it may work well here
+A. If it&amp;rsquo;s a simple repetition, which you don&amp;rsquo;t need to manipulate/change in future - LowCardinality works great, and you usually don&amp;rsquo;t need to increase the system complexity by introducing dicts.</description>
+    </item>
+    
+    <item>
+      <title>Flattened table</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-schema-design/flattened-table/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-schema-design/flattened-table/</guid>
+      <description>It&amp;rsquo;s possible to use dictionaries for populating columns of fact table.
+CREATETABLEcustomer(`customer_id`UInt32,`first_name`String,`birth_date`Date,`sex`Enum(&amp;#39;M&amp;#39;=1,&amp;#39;F&amp;#39;=2))ENGINE=MergeTreeORDERBYcustomer_idCREATETABLEorder(`order_id`UInt32,`order_date`DateTimeDEFAULTnow(),`cust_id`UInt32,`amount`Decimal(12,2))ENGINE=MergeTreePARTITIONBYtoYYYYMM(order_date)ORDERBY(order_date,cust_id,order_id)INSERTINTOcustomerVALUES(1,&amp;#39;Mike&amp;#39;,now()-INTERVAL30YEAR,&amp;#39;M&amp;#39;);INSERTINTOcustomerVALUES(2,&amp;#39;Boris&amp;#39;,now()-INTERVAL40YEAR,&amp;#39;M&amp;#39;);INSERTINTOcustomerVALUES(3,&amp;#39;Sofie&amp;#39;,now()-INTERVAL24YEAR,&amp;#39;F&amp;#39;);INSERTINTOorder(order_id,cust_id,amount)VALUES(50,1,15);INSERTINTOorder(order_id,cust_id,amount)VALUES(30,1,10);SELECT*EXCEPT&amp;#39;order_date&amp;#39;FROMorder┌─order_id─┬─cust_id─┬─amount─┐│30│1│10.00││50│1│15.00│└──────────┴─────────┴────────┘CREATEDICTIONARYcustomer_dict(`customer_id`UInt32,`first_name`String,`birth_date`Date,`sex`UInt8)PRIMARYKEYcustomer_idSOURCE(CLICKHOUSE(TABLE&amp;#39;customer&amp;#39;))LIFETIME(MIN0MAX300)LAYOUT(FLAT)ALTERTABLEorderADDCOLUMN`cust_first_name`StringDEFAULTdictGetString(&amp;#39;default.customer_dict&amp;#39;,&amp;#39;first_name&amp;#39;,toUInt64(cust_id)),ADDCOLUMN`cust_sex`Enum(&amp;#39;M&amp;#39;=1,&amp;#39;F&amp;#39;=2)DEFAULTdictGetUInt8(&amp;#39;default.customer_dict&amp;#39;,&amp;#39;sex&amp;#39;,toUInt64(cust_id)),ADDCOLUMN`cust_birth_date`DateDEFAULTdictGetDate(&amp;#39;default.customer_dict&amp;#39;,&amp;#39;birth_date&amp;#39;,toUInt64(cust_id));INSERTINTOorder(order_id,cust_id,amount)VALUES(10,3,30);INSERTINTOorder(order_id,cust_id,amount)VALUES(20,3,60);INSERTINTOorder(order_id,cust_id,amount)VALUES(40,2,20);SELECT*EXCEPT&amp;#39;order_date&amp;#39;FROMorderFORMATPrettyCompactMonoBlock┌─order_id─┬─cust_id─┬─amount─┬─cust_first_name─┬─cust_sex─┬─cust_birth_date─┐│30│1│10.00│Mike│M│1991-08-05││50│1│15.00│Mike│M│1991-08-05││10│3│30.00│Sofie│F│1997-08-05││40│2│20.00│Boris│M│1981-08-05││20│3│60.00│Sofie│F│1997-08-05│└──────────┴─────────┴────────┴─────────────────┴──────────┴─────────────────┘ALTERTABLEcustomerUPDATEbirth_date=now()-INTERVAL35YEARWHEREcustomer_id=2;SYSTEMRELOADDICTIONARYcustomer_dict;ALTERTABLEorderUPDATEcust_birth_date=dictGetDate(&amp;#39;default.customer_dict&amp;#39;,&amp;#39;birth_date&amp;#39;,toUInt64(cust_id))WHERE1-- or if you do have track of changes it&amp;#39;s possible to lower amount of dict calls -- UPDATE cust_birth_date = dictGetDate(&amp;#39;default.customer_dict&amp;#39;, &amp;#39;birth_date&amp;#39;, toUInt64(cust_id)) WHERE customer_id = 2 SELECT*EXCEPT&amp;#39;order_date&amp;#39;FROMorderFORMATPrettyCompactMonoBlock┌─order_id─┬─cust_id─┬─amount─┬─cust_first_name─┬─cust_sex─┬─cust_birth_date─┐│30│1│10.00│Mike│M│1991-08-05││50│1│15.00│Mike│M│1991-08-05││10│3│30.00│Sofie│F│1997-08-05││40│2│20.00│Boris│M│1986-08-05││20│3│60.00│Sofie│F│1997-08-05│└──────────┴─────────┴────────┴─────────────────┴──────────┴─────────────────┘ALTER TABLE order UPDATE would completely overwrite this column in table, so it&amp;rsquo;s not recommended to run it often.</description>
+    </item>
+    
+    <item>
+      <title>Floats vs Decimals</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-schema-design/floats-vs-decimals/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-schema-design/floats-vs-decimals/</guid>
+      <description>Float arithmetics is not accurate: https://floating-point-gui.de/
+In case you need accurate calculations you should use Decimal datatypes.
+Operations on floats are not associative select toFloat64(100000000000000000.1) + toFloat64(7.5) - toFloat64(100000000000000000.1) as res; --- title: &amp;#34;0&amp;#34; linkTitle: &amp;#34;0&amp;#34; description: &amp;gt; 0 --- select toFloat64(100000000000000000.1) - toFloat64(100000000000000000.1) + toFloat64(7.5) as res; --- title: &amp;#34;7.5&amp;#34; linkTitle: &amp;#34;7.5&amp;#34; description: &amp;gt; 7.5 --- --- title: &amp;#34;no problem with Decimals:&amp;#34; linkTitle: &amp;#34;no problem with Decimals:&amp;#34; description: &amp;gt; no problem with Decimals: --- select toDecimal64(100000000000000000.</description>
+    </item>
+    
+    <item>
+      <title>IPs/masks</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-schema-design/how-to-store-ips/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-schema-design/how-to-store-ips/</guid>
+      <description>How do I Store IPv4 and IPv6 Address In One Field?  There is a clean and simple solution for that. Any IPv4 has its unique IPv6 mapping:
+ IPv4 IP address: 191.239.213.197 IPv4-mapped IPv6 address: ::ffff:191.239.213.197  Find IPs matching CIDR/network mask (IPv4) WITHIPv4CIDRToRange(toIPv4(&amp;#39;10.0.0.1&amp;#39;),8)asrangeSELECT*FROMvalues(&amp;#39;ip IPv4&amp;#39;,toIPv4(&amp;#39;10.2.3.4&amp;#39;),toIPv4(&amp;#39;192.0.2.1&amp;#39;),toIPv4(&amp;#39;8.8.8.8&amp;#39;))WHEREipBETWEENrange.1ANDrange.2;Find IPs matching CIDR/network mask (IPv6) WITHIPv6CIDRToRange(toIPv6(&amp;#39;2001:0db8:0000:85a3:0000:0000:ac1f:8001&amp;#39;),32)asrangeSELECT*FROMvalues(&amp;#39;ip IPv6&amp;#39;,toIPv6(&amp;#39;2001:db8::8a2e:370:7334&amp;#39;),toIPv6(&amp;#39;::ffff:192.</description>
+    </item>
+    
+    <item>
+      <title>JSONAsString and Mat. View as JSON parser</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-schema-design/altinity-kb-jsonasstring-and-mat.-view-as-json-parser/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-schema-design/altinity-kb-jsonasstring-and-mat.-view-as-json-parser/</guid>
+      <description>Tables with engine Null don’t store data but can be used as a source for materialized views.
+JSONAsString a special input format which allows to ingest JSONs into a String column. If the input has several JSON objects (comma separated) they will be interpreted as separate rows. JSON can be multiline.
+createtableentrypoint(JString)Engine=Null;createtabledatastore(aString,iInt64,fFloat64)Engine=MergeTreeorderbya;creatematerializedviewjsonConvertertodatastoreasselect(JSONExtract(J,&amp;#39;Tuple(String,Tuple(Int64,Float64))&amp;#39;)asx),x.1asa,x.2.1asi,x.2.2asffromentrypoint;$echo&amp;#39;{&amp;#34;s&amp;#34;: &amp;#34;val1&amp;#34;, &amp;#34;b2&amp;#34;: {&amp;#34;i&amp;#34;: 42, &amp;#34;f&amp;#34;: 0.1}}&amp;#39;|\clickhouse-client-q&amp;#34;insert into entrypoint format JSONAsString&amp;#34;$echo&amp;#39;{&amp;#34;s&amp;#34;: &amp;#34;val1&amp;#34;,&amp;#34;b2&amp;#34;: {&amp;#34;i&amp;#34;: 33, &amp;#34;f&amp;#34;: 0.2}},{&amp;#34;s&amp;#34;: &amp;#34;val1&amp;#34;,&amp;#34;b2&amp;#34;: {&amp;#34;i&amp;#34;: 34, &amp;#34;f&amp;#34;: 0.</description>
+    </item>
+    
+    <item>
+      <title>LowCardinality</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-schema-design/lowcardinality/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-schema-design/lowcardinality/</guid>
+      <description>Settings allow_suspicious_low_cardinality_types In CREATE TABLE statement allows specifying LowCardinality modifier for types of small fixed size (8 or less). Enabling this may increase merge times and memory consumption.
+low_cardinality_max_dictionary_size
+default - 8192
+Maximum size (in rows) of shared global dictionary for LowCardinality type.
+low_cardinality_use_single_dictionary_for_part
+LowCardinality type serialization setting. If is true, than will use additional keys when global dictionary overflows. Otherwise, will create several shared dictionaries.
+low_cardinality_allow_in_native_format
+Use LowCardinality type in Native format.</description>
+    </item>
     
   </channel>
 </rss>

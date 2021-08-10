@@ -1,746 +1,87 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Altinity Beta Knowledgebase – Production Cluster Configuration Guide</title>
+    <title>Production Cluster Configuration Guide on Altinity Beta Knowledgebase</title>
     <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/</link>
     <description>Recent content in Production Cluster Configuration Guide on Altinity Beta Knowledgebase</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    
-	  <atom:link href="http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-      
-        
-      
-    
-    
+    <language>en-us</language><atom:link href="http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Altinity-Kb-Setup-and-Maintenance: Backups</title>
+      <title>Backups</title>
       <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/hardening-clickhouse-security/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/hardening-clickhouse-security/</guid>
-      <description>
-        
-        
-        &lt;p&gt;ClickHouse is currently at the design stage of creating some universal backup solution. Some custom backup strategies are:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Each shard is backed up separately.&lt;/li&gt;
-&lt;li&gt;FREEZE the table/partition. For more information, see &lt;a href=&#34;https://clickhouse.tech/docs/en/sql-reference/statements/alter/partition/#alter_freeze-partition&#34; target=&#34;_blank&#34;&gt;Alter Freeze Partition&lt;/a&gt;.
-&lt;ol&gt;
-&lt;li&gt;This creates hard links in shadow subdirectory.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;li&gt;rsync that directory to a backup location, then remove that subfolder from shadow.
-&lt;ol&gt;
-&lt;li&gt;Cloud users are recommended to use &lt;a href=&#34;https://rclone.org/&#34; target=&#34;_blank&#34;&gt;Rclone&lt;/a&gt;.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;li&gt;Always add the full contents of the metadata subfolder that contains the current DB schema and clickhouse configs to your backup.&lt;/li&gt;
-&lt;li&gt;For a second replica, it’s enough to copy metadata and configuration.&lt;/li&gt;
-&lt;li&gt;Data in clickhouse is already compressed with lz4, backup can be compressed bit better, but avoid using cpu-heavy compression algorythms like gzip, use something like zstd instead.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;The tool automating that process  &lt;a href=&#34;https://github.com/AlexAkulov/clickhouse-backup&#34; target=&#34;_blank&#34;&gt;clickhouse-backup&lt;/a&gt;.&lt;/p&gt;
-
-      </description>
+      <description>ClickHouse is currently at the design stage of creating some universal backup solution. Some custom backup strategies are:
+ Each shard is backed up separately. FREEZE the table/partition. For more information, see Alter Freeze Partition.  This creates hard links in shadow subdirectory.   rsync that directory to a backup location, then remove that subfolder from shadow.  Cloud users are recommended to use Rclone.   Always add the full contents of the metadata subfolder that contains the current DB schema and clickhouse configs to your backup.</description>
     </item>
     
     <item>
-      <title>Altinity-Kb-Setup-and-Maintenance: Cluster Configuration FAQ</title>
+      <title>Cluster Configuration FAQ</title>
       <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/cluster-configuration-faq/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/cluster-configuration-faq/</guid>
-      <description>
-        
-        
-        &lt;h4 id=&#34;clickhouse-does-not-start-some-other-unexpected-behavior-happening&#34;&gt;ClickHouse does not start, some other unexpected behavior happening.&lt;/h4&gt;
-&lt;p&gt;Check clickhouse logs, they are your friends:&lt;/p&gt;
-&lt;p&gt;tail -n 1000 /var/log/clickhouse-server/clickhouse-server.err.log | less&lt;br&gt;
-tail -n 10000 /var/log/clickhouse-server/clickhouse-server.log | less&lt;/p&gt;
-&lt;h3 id=&#34;how-do-i-restrict-memory-usage&#34;&gt;How Do I Restrict Memory Usage?&lt;/h3&gt;
-&lt;p&gt;See &lt;a href=&#34;https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-memory-configuration-settings&#34; target=&#34;_blank&#34;&gt;our knowledge base article&lt;/a&gt;  and &lt;a href=&#34;https://clickhouse.tech/docs/en/operations/settings/query-complexity/#settings_max_memory_usage&#34; target=&#34;_blank&#34;&gt;official documentation&lt;/a&gt; for more information.&lt;/p&gt;
-&lt;h3 id=&#34;clickhouse-died-during-big-query-execution&#34;&gt;ClickHouse died during big query execution&lt;/h3&gt;
-&lt;p&gt;Misconfigured clickhouse can try to allocate more RAM than is available on the system.&lt;/p&gt;
-&lt;p&gt;In that case an OS component called oomkiller can kill the clickhouse process.&lt;/p&gt;
-&lt;p&gt;That event leaves traces inside system logs (can be checked by running dmesg command).&lt;/p&gt;
-&lt;h3 id=&#34;how-do-i-make-huge-group-by-queries-use-less-ram&#34;&gt;How Do I make huge ‘Group By’ queries use less RAM?&lt;/h3&gt;
-&lt;p&gt;Enable on disk GROUP BY (it is slower, so is disabled by default)&lt;/p&gt;
-&lt;p&gt;Set &lt;a href=&#34;https://clickhouse.tech/docs/en/operations/settings/query-complexity/#settings-max_bytes_before_external_group_by&#34; target=&#34;_blank&#34;&gt;max_bytes_before_external_group_by&lt;/a&gt; to a value about 70-80% of your max_memory_usage value.&lt;/p&gt;
-&lt;h3 id=&#34;data-returned-in-chunks-by-clickhouse-client&#34;&gt;Data returned in chunks by clickhouse-client&lt;/h3&gt;
-&lt;p&gt;See &lt;a href=&#34;https://kb.altinity.com/altinity-kb-interfaces/altinity-kb-clickhouse-client&#34;&gt;https://kb.altinity.com/altinity-kb-interfaces/altinity-kb-clickhouse-client&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&#34;i-cant-connect-from-other-hosts--what-do-i-do&#34;&gt;I Can’t Connect From Other Hosts.  What do I do?&lt;/h3&gt;
-&lt;p&gt;Check the &amp;lt;listen&amp;gt; settings in config.xml. Verify that the connection can connect on both IPV4 and IPV6.&lt;/p&gt;
-
-      </description>
+      <description>ClickHouse does not start, some other unexpected behavior happening. Check clickhouse logs, they are your friends:
+tail -n 1000 /var/log/clickhouse-server/clickhouse-server.err.log | less
+tail -n 10000 /var/log/clickhouse-server/clickhouse-server.log | less
+How Do I Restrict Memory Usage? See our knowledge base article and official documentation for more information.
+ClickHouse died during big query execution Misconfigured clickhouse can try to allocate more RAM than is available on the system.
+In that case an OS component called oomkiller can kill the clickhouse process.</description>
     </item>
     
     <item>
-      <title>Altinity-Kb-Setup-and-Maintenance: Cluster Configuration Process</title>
+      <title>Cluster Configuration Process</title>
       <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/cluster-configuration-process/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/cluster-configuration-process/</guid>
-      <description>
-        
-        
-        &lt;p&gt;So you set up 3 nodes with zookeeper (zookeeper1, zookeeper2, zookeeper3 - &lt;a href=&#34;https://docs.altinity.com/operationsguide/clickhouse-zookeeper/&#34; target=&#34;_blank&#34;&gt;How to install zookeer?&lt;/a&gt;),  and  and 4 nodes with ClickHouse (clickhouse-sh1r1,clickhouse-sh1r2,clickhouse-sh2r1,clickhouse-sh2r2 - &lt;a href=&#34;https://docs.altinity.com/altinitystablerelease/stablequickstartguide/&#34; target=&#34;_blank&#34;&gt;how to install ClickHouse?&lt;/a&gt;). Now we need to make them work together.&lt;/p&gt;
-&lt;p&gt;Use ansible/puppet/salt or other systems to control the servers’ configurations.&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Configure ClickHouse access to Zookeeper by adding the file zookeeper.xml in /etc/clickhouse-server/config.d/ folder. This file must be placed on all ClickHouse servers.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markup&#34; data-lang=&#34;markup&#34;&gt;&amp;lt;yandex&amp;gt;
-    &amp;lt;zookeeper&amp;gt;
-        &amp;lt;node&amp;gt;
-            &amp;lt;host&amp;gt;zookeeper1&amp;lt;/host&amp;gt;
-            &amp;lt;port&amp;gt;2181&amp;lt;/port&amp;gt;
-        &amp;lt;/node&amp;gt;
-        &amp;lt;node&amp;gt;
-            &amp;lt;host&amp;gt;zookeeper2&amp;lt;/host&amp;gt;
-            &amp;lt;port&amp;gt;2181&amp;lt;/port&amp;gt;
-        &amp;lt;/node&amp;gt; 
-        &amp;lt;node&amp;gt;
-            &amp;lt;host&amp;gt;zookeeper3&amp;lt;/host&amp;gt;
-            &amp;lt;port&amp;gt;2181&amp;lt;/port&amp;gt;
-        &amp;lt;/node&amp;gt;
-    &amp;lt;/zookeeper&amp;gt;
-&amp;lt;/yandex&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;ol&gt;
-&lt;li&gt;On each server put the file macros.xml in &lt;code&gt;/etc/clickhouse-server/config.d/&lt;/code&gt; folder.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markup&#34; data-lang=&#34;markup&#34;&gt;&amp;lt;yandex&amp;gt;
-    &amp;lt;!--
-        That macros are defined per server,
-        and they can be used in DDL, to make the DB schema cluster/server neutral
-    --&amp;gt;
-    &amp;lt;macros&amp;gt;
-        &amp;lt;cluster&amp;gt;prod_cluster&amp;lt;/cluster&amp;gt;
-        &amp;lt;shard&amp;gt;01&amp;lt;/shard&amp;gt;
-        &amp;lt;replica&amp;gt;clickhouse-sh1r1&amp;lt;/replica&amp;gt; &amp;lt;!-- better - use the same as hostname  --&amp;gt;
-    &amp;lt;/macros&amp;gt;
-&amp;lt;/yandex&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;ol&gt;
-&lt;li&gt;On each server place the file cluster.xml in /etc/clickhouse-server/config.d/ folder. Before 20.10  ClickHouse will use default user to connect to other nodes (configurable, other users can be used), since 20.10 we recommend to use passwordless intercluster authentication based on common secret (HMAC auth)&lt;/li&gt;
-&lt;/ol&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markup&#34; data-lang=&#34;markup&#34;&gt;&amp;lt;yandex&amp;gt;
-    &amp;lt;remote_servers&amp;gt;
-        &amp;lt;prod_cluster&amp;gt; &amp;lt;!-- you need to give a some name for a cluster --&amp;gt;
-
-            &amp;lt;!-- 
-                &amp;lt;secret&amp;gt;some_random_string, same on all cluster nodes, keep it safe&amp;lt;/secret&amp;gt; 
-            --&amp;gt;
-            &amp;lt;shard&amp;gt;
-                &amp;lt;internal_replication&amp;gt;true&amp;lt;/internal_replication&amp;gt;
-                &amp;lt;replica&amp;gt;
-                    &amp;lt;host&amp;gt;clickhouse-sh1r1&amp;lt;/host&amp;gt;
-                    &amp;lt;port&amp;gt;9000&amp;lt;/port&amp;gt;
-                &amp;lt;/replica&amp;gt;
-                &amp;lt;replica&amp;gt;
-                    &amp;lt;host&amp;gt;clickhouse-sh1r2&amp;lt;/host&amp;gt;
-                    &amp;lt;port&amp;gt;9000&amp;lt;/port&amp;gt;
-                &amp;lt;/replica&amp;gt;
-            &amp;lt;/shard&amp;gt;
-            &amp;lt;shard&amp;gt;
-                &amp;lt;internal_replication&amp;gt;true&amp;lt;/internal_replication&amp;gt;
-                &amp;lt;replica&amp;gt;
-                    &amp;lt;host&amp;gt;clickhouse-sh2r1&amp;lt;/host&amp;gt;
-                    &amp;lt;port&amp;gt;9000&amp;lt;/port&amp;gt;
-                &amp;lt;/replica&amp;gt;
-                &amp;lt;replica&amp;gt;
-                    &amp;lt;host&amp;gt;clickhouse-sh2r2&amp;lt;/host&amp;gt;
-                    &amp;lt;port&amp;gt;9000&amp;lt;/port&amp;gt;
-                &amp;lt;/replica&amp;gt;
-            &amp;lt;/shard&amp;gt;
-        &amp;lt;/prod_cluster&amp;gt;
-    &amp;lt;/remote_servers&amp;gt;
-&amp;lt;/yandex&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;ol&gt;
-&lt;li&gt;A good practice is to create 2 additional cluster configurations similar to prod_cluster above with the following distinction: but listing all nodes of single shard (all are replicas) and as nodes of 6 different shards (no replicas)
-&lt;ol&gt;
-&lt;li&gt;all-replicated: All nodes are listed as replicas in a single shard.&lt;/li&gt;
-&lt;li&gt;all-sharded: All nodes are listed as separate shards with no replicas.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;Once this is complete, other queries that span nodes can be performed. For example:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;CREATE&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;TABLE&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;test_table_local&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;ON&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;CLUSTER&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;{cluster}&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;  &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;id&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;UInt8&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;Engine&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;ReplicatedMergeTree&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;/clickhouse/tables/{database}/{table}/{shard}&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;{replica}&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;ORDER&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;BY&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;id&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;);&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;That will create a table on all servers in the cluster. You can insert data into this table and it will be replicated automatically to the other shards.To store the data or read the data from all shards at the same time, create a Distributed table that links to the replicatedMergeTree table.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;CREATE&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;TABLE&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;test_table&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;ON&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;CLUSTER&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;{cluster}&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; 
-&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;Engine&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;Distributed&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;{cluster}&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;default&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;hardening-clickhouse-security&#34;&gt;&lt;strong&gt;Hardening ClickHouse Security&lt;/strong&gt;&lt;/h4&gt;
-&lt;p&gt;&lt;strong&gt;See&lt;/strong&gt; &lt;a href=&#34;https://docs.altinity.com/operationsguide/security/clickhouse-hardening-guide/&#34; target=&#34;_blank&#34;&gt;&amp;lt;strong&amp;gt;https://docs.altinity.com/operationsguide/security/clickhouse-hardening-guide/&amp;lt;/strong&amp;gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&#34;additional-settings&#34;&gt;Additional Settings&lt;/h3&gt;
-&lt;p&gt;See &lt;a href=&#34;https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-settings-to-adjust&#34;&gt;https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-settings-to-adjust&lt;/a&gt;&lt;/p&gt;
-&lt;h4 id=&#34;users&#34;&gt;Users&lt;/h4&gt;
-&lt;p&gt;Disable or add password for the default users default and readonly if your server is accessible from non-trusted networks.&lt;/p&gt;
-&lt;p&gt;If you add password to the default user, you will need to adjust cluster configuration, since the other servers need to know the default user’s should know the default user’s to connect to each other.&lt;/p&gt;
-&lt;p&gt;If you’re inside a trusted network, you can leave default user set to nothing to allow the ClickHouse nodes to communicate with each other.&lt;/p&gt;
-&lt;h4 id=&#34;engines--clickhouse-building-blocks&#34;&gt;Engines &amp;amp; ClickHouse building blocks&lt;/h4&gt;
-&lt;p&gt;For general explanations of roles of different engines - check the post &lt;a href=&#34;https://github.com/yandex/ClickHouse/issues/2161&#34; target=&#34;_blank&#34;&gt;Distributed vs Shard vs Replicated ahhh, help me!!!&lt;/a&gt;.&lt;/p&gt;
-&lt;h4 id=&#34;zookeeper-paths&#34;&gt;Zookeeper Paths&lt;/h4&gt;
-&lt;p&gt;Use conventions  for zookeeper paths.  For example, use:&lt;/p&gt;
-&lt;p&gt;ReplicatedMergeTree(&#39;/clickhouse/{cluster}/tables/{shard}/table_name&#39;, &amp;lsquo;{replica}&#39;)&lt;/p&gt;
-&lt;p&gt;for:&lt;/p&gt;
-&lt;p&gt;SELECT * FROM system.zookeeper WHERE path=&#39;/ &amp;hellip;&#39;;&lt;/p&gt;
-&lt;h4 id=&#34;configuration-best-practices&#34;&gt;Configuration Best Practices&lt;/h4&gt;
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&#34;text-align:left&#34;&gt;
-        &lt;p&gt;Attribution&lt;/p&gt;
-        &lt;p&gt;Modified by a post &lt;a href=&#34;https://github.com/ClickHouse/ClickHouse/issues/3607#issuecomment-440235298&#34;&gt;on GitHub by Mikhail Filimonov&lt;/a&gt;.&lt;/p&gt;
-      &lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;The following are recommended Best Practices when it comes to setting up a ClickHouse Cluster with Zookeeper:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Don’t edit/overwrite default configuration files. Sometimes a newer version of ClickHouse introduces some new settings or changes the defaults in config.xml and users.xml.
-&lt;ol&gt;
-&lt;li&gt;Set configurations via the extra files in conf.d directory. For example, to overwrite the interface save the file config.d/listen.xml, with the following:&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markup&#34; data-lang=&#34;markup&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot;?&amp;gt;
-&amp;lt;yandex&amp;gt;
-    &amp;lt;listen_host replace=&amp;quot;replace&amp;quot;&amp;gt;::&amp;lt;/listen_host&amp;gt;
-&amp;lt;/yandex&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;ol&gt;
-&lt;li&gt;The same is true for users. For example, change the default profile by putting the file in users.d/profile_default.xml:&lt;/li&gt;
-&lt;/ol&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markup&#34; data-lang=&#34;markup&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot;?&amp;gt;
-&amp;lt;yandex&amp;gt;
-    &amp;lt;profiles&amp;gt;
-        &amp;lt;default replace=&amp;quot;replace&amp;quot;&amp;gt;
-            &amp;lt;max_memory_usage&amp;gt;15000000000&amp;lt;/max_memory_usage&amp;gt;
-            &amp;lt;max_bytes_before_external_group_by&amp;gt;12000000000&amp;lt;/max_bytes_before_external_group_by&amp;gt;
-            &amp;lt;max_bytes_before_external_sort&amp;gt;12000000000&amp;lt;/max_bytes_before_external_sort&amp;gt;
-            &amp;lt;distributed_aggregation_memory_efficient&amp;gt;1&amp;lt;/distributed_aggregation_memory_efficient&amp;gt;
-            &amp;lt;use_uncompressed_cache&amp;gt;0&amp;lt;/use_uncompressed_cache&amp;gt;
-            &amp;lt;load_balancing&amp;gt;random&amp;lt;/load_balancing&amp;gt;
-            &amp;lt;log_queries&amp;gt;1&amp;lt;/log_queries&amp;gt;
-            &amp;lt;max_execution_time&amp;gt;600&amp;lt;/max_execution_time&amp;gt;
-        &amp;lt;/default&amp;gt;
-    &amp;lt;/profiles&amp;gt;
-&amp;lt;/yandex&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;ol&gt;
-&lt;li&gt;Or you can create a user by putting a file users.d/user_xxx.xml (since 20.5 you can also use CREATE USER)&lt;/li&gt;
-&lt;/ol&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markup&#34; data-lang=&#34;markup&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot;?&amp;gt;
-&amp;lt;yandex&amp;gt;
-    &amp;lt;users&amp;gt;
-        &amp;lt;xxx&amp;gt;
-            &amp;lt;!-- PASSWORD=$(base64 &amp;lt; /dev/urandom | head -c8); echo &amp;quot;$PASSWORD&amp;quot;; echo -n &amp;quot;$PASSWORD&amp;quot; | sha256sum | tr -d &#39;-&#39; --&amp;gt;
-            &amp;lt;password_sha256_hex&amp;gt;...&amp;lt;/password_sha256_hex&amp;gt;
-            &amp;lt;networks incl=&amp;quot;networks&amp;quot; /&amp;gt;
-            &amp;lt;profile&amp;gt;readonly&amp;lt;/profile&amp;gt;
-            &amp;lt;quota&amp;gt;default&amp;lt;/quota&amp;gt;
-            &amp;lt;allow_databases incl=&amp;quot;allowed_databases&amp;quot; /&amp;gt;
-        &amp;lt;/xxx&amp;gt;
-    &amp;lt;/users&amp;gt;
-&amp;lt;/yandex&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;ol&gt;
-&lt;li&gt;Some parts of configuration will contain repeated elements (like allowed ips for all the users). To avoid repeating that - use substitutions file. By default its /etc/metrika.xml, but you can change it for example to /etc/clickhouse-server/substitutions.xml with the &amp;lt;include_from&amp;gt; section of the main config. Put the repeated parts into substitutions file, like this:&lt;/li&gt;
-&lt;/ol&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markup&#34; data-lang=&#34;markup&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot;?&amp;gt;
-&amp;lt;yandex&amp;gt;
-    &amp;lt;networks&amp;gt;
-        &amp;lt;ip&amp;gt;::1&amp;lt;/ip&amp;gt;
-        &amp;lt;ip&amp;gt;127.0.0.1&amp;lt;/ip&amp;gt;
-        &amp;lt;ip&amp;gt;10.42.0.0/16&amp;lt;/ip&amp;gt;
-        &amp;lt;ip&amp;gt;192.168.0.0/24&amp;lt;/ip&amp;gt;
-    &amp;lt;/networks&amp;gt;
-&amp;lt;/yandex&amp;gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;These files can be common for all the servers inside the cluster or can be individualized per server. If you choose to use one substitutions file per cluster, not per node, you will also need to generate the file with macros, if macros are used.&lt;/p&gt;
-&lt;p&gt;This way you have full flexibility; you’re not limited to the settings described in the template. You can change any settings per server or data center just by assigning files with some settings to that server or server group. It becomes easy to navigate, edit, and assign files.&lt;/p&gt;
-&lt;h3 id=&#34;other-configuration-recommendations&#34;&gt;Other Configuration Recommendations&lt;/h3&gt;
-&lt;p&gt;Other configurations that should be evaluated:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&amp;lt;listen&amp;gt; in config.xml: Determines which IP addresses and ports the ClickHouse servers listen for incoming communications.&lt;/li&gt;
-&lt;li&gt;&amp;lt;max_memory_..&amp;gt; and &amp;lt;max_bytes_before_external_&amp;hellip;&amp;gt; in users.xml. These are part of the profile &amp;lt;default&amp;gt;.&lt;/li&gt;
-&lt;li&gt;&amp;lt;max_execution_time&amp;gt;&lt;/li&gt;
-&lt;li&gt;&amp;lt;log_queries&amp;gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;The following extra debug logs should be considered:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;part_log&lt;/li&gt;
-&lt;li&gt;text_log&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;understanding-the-configuration&#34;&gt;Understanding The Configuration&lt;/h3&gt;
-&lt;p&gt;ClickHouse configuration stores most of its information in two files:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;config.xml: Stores &lt;a href=&#34;https://clickhouse.yandex/docs/en/operations/server_settings/&#34; target=&#34;_blank&#34;&gt;Server configuration parameters&lt;/a&gt;. They are server wide, some are hierarchical , and most of them can’t be changed in runtime. The list of settings to apply without a restart changes from version to version. Some settings can be verified using system tables, for example:
-&lt;ul&gt;
-&lt;li&gt;macros (system.macros)&lt;/li&gt;
-&lt;li&gt;remote_servers (system.clusters)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;users.xml: Configure users, and user level / session level &lt;a href=&#34;https://clickhouse.yandex/docs/en/operations/settings/settings/&#34; target=&#34;_blank&#34;&gt;settings&lt;/a&gt;.
-&lt;ul&gt;
-&lt;li&gt;Each user can change these during their session by:
-&lt;ul&gt;
-&lt;li&gt;Using parameter in http query&lt;/li&gt;
-&lt;li&gt;By using parameter for clickhouse-client&lt;/li&gt;
-&lt;li&gt;Sending query like set allow_experimental_data_skipping_indices=1.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Those settings and their current values are visible in system.settings. You can make some settings global by editing default profile in users.xml, which does not need restart.&lt;/li&gt;
-&lt;li&gt;You can forbid users to change their settings by using readonly=2 for that user, or using &lt;a href=&#34;https://clickhouse.yandex/docs/en/operations/settings/constraints_on_settings/&#34; target=&#34;_blank&#34;&gt;setting constraints&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;Changes in users.xml are applied w/o restart.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;For both config.xml and users.xml, it’s preferable to put adjustments in the config.d and users.d subfolders instead of editing config.xml and users.xml directly.&lt;/p&gt;
-&lt;p&gt;You can check if the config file was reread by checking /var/lib/clickhouse/preprocessed_configs/ folder.&lt;/p&gt;
-
-      </description>
+      <description>So you set up 3 nodes with zookeeper (zookeeper1, zookeeper2, zookeeper3 - How to install zookeer?), and and 4 nodes with ClickHouse (clickhouse-sh1r1,clickhouse-sh1r2,clickhouse-sh2r1,clickhouse-sh2r2 - how to install ClickHouse?). Now we need to make them work together.
+Use ansible/puppet/salt or other systems to control the servers’ configurations.
+ Configure ClickHouse access to Zookeeper by adding the file zookeeper.xml in /etc/clickhouse-server/config.d/ folder. This file must be placed on all ClickHouse servers.  &amp;lt;yandex&amp;gt; &amp;lt;zookeeper&amp;gt; &amp;lt;node&amp;gt; &amp;lt;host&amp;gt;zookeeper1&amp;lt;/host&amp;gt; &amp;lt;port&amp;gt;2181&amp;lt;/port&amp;gt; &amp;lt;/node&amp;gt; &amp;lt;node&amp;gt; &amp;lt;host&amp;gt;zookeeper2&amp;lt;/host&amp;gt; &amp;lt;port&amp;gt;2181&amp;lt;/port&amp;gt; &amp;lt;/node&amp;gt; &amp;lt;node&amp;gt; &amp;lt;host&amp;gt;zookeeper3&amp;lt;/host&amp;gt; &amp;lt;port&amp;gt;2181&amp;lt;/port&amp;gt; &amp;lt;/node&amp;gt; &amp;lt;/zookeeper&amp;gt; &amp;lt;/yandex&amp;gt;  On each server put the file macros.</description>
     </item>
     
     <item>
-      <title>Altinity-Kb-Setup-and-Maintenance: Hardware Requirements</title>
+      <title>Hardware Requirements</title>
       <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/hardware-requirements/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/hardware-requirements/</guid>
-      <description>
-        
-        
-        &lt;h3 id=&#34;clickhouse&#34;&gt;&lt;strong&gt;ClickHouse&lt;/strong&gt;&lt;/h3&gt;
-&lt;p&gt;ClickHouse will use all available hardware to maximize performance. So the more hardware - the better. As of this publication, the hardware requirements are:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Minimum Hardware: 4-core CPU with support of SSE4.2, 16 Gb RAM, 1Tb HDD.
-&lt;ul&gt;
-&lt;li&gt;Recommended for development and staging environments.&lt;/li&gt;
-&lt;li&gt;SSE4.2 is required, and going below 4 Gb of RAM is not recommended.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Recommended Hardware: &amp;gt;=16-cores, &amp;gt;=64Gb RAM, HDD-raid or SSD.
-&lt;ul&gt;
-&lt;li&gt;For processing up to hundreds of millions / billions of rows.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;For clouds: disk throughput is the more important factor compared to IOPS. Be aware of burst / baseline disk speed difference.&lt;/p&gt;
-&lt;p&gt;See also: &lt;a href=&#34;https://clickhouse.tech/benchmark/hardware/&#34; target=&#34;_blank&#34;&gt;https://clickhouse.tech/benchmark/hardware/&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&#34;zookeeper&#34;&gt;&lt;strong&gt;Zookeeper&lt;/strong&gt;&lt;/h3&gt;
-&lt;p&gt;Zookeeper requires separate servers from those used for ClickHouse. Zookeeper has poor performance when installed on the same node as ClickHouse.&lt;/p&gt;
-&lt;p&gt;Hardware Requirements for Zookeeper:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Fast disk speed (ideally NVMe, 128Gb should be enough).&lt;/li&gt;
-&lt;li&gt;Any modern CPU (one core, better 2)&lt;/li&gt;
-&lt;li&gt;4Gb of RAM&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;For clouds - be careful with burstable network disks (like gp2 on aws): you may need up to 1000 IOPs on the disk for on a long run, so gp3 with 3000 IOPs baseline is a better choice.&lt;/p&gt;
-&lt;p&gt;The number of Zookeeper instances depends on the environment:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Production: 3 is an optimal number of zookeeper instances.&lt;/li&gt;
-&lt;li&gt;Development and Staging: 1 zookeeper instance is sufficient.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;See also:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://docs.altinity.com/operationsguide/clickhouse-zookeeper/&#34; target=&#34;_blank&#34;&gt;&amp;lt;strong&amp;gt;https://docs.altinity.com/operationsguide/clickhouse-zookeeper/&amp;lt;/strong&amp;gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/altinity-kb-proper-setup&#34; target=&#34;_blank&#34;&gt;&amp;lt;strong&amp;gt;https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/altinity-kb-proper-setup&amp;lt;/strong&amp;gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/zookeeper-monitoring&#34; target=&#34;_blank&#34;&gt;&amp;lt;strong&amp;gt;https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/zookeeper-monitoring&amp;lt;/strong&amp;gt;&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;clickhouse-hardware-configuration&#34;&gt;ClickHouse Hardware Configuration&lt;/h4&gt;
-&lt;p&gt;Configure the servers according to those recommendations the &lt;a href=&#34;https://clickhouse.yandex/docs/en/operations/tips/&#34; target=&#34;_blank&#34;&gt;ClickHouse Usage Recommendations&lt;/a&gt;.&lt;/p&gt;
-&lt;h4 id=&#34;test-your-hardware&#34;&gt;&lt;strong&gt;Test Your Hardware&lt;/strong&gt;&lt;/h4&gt;
-&lt;p&gt;Be sure to test the following:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;RAM speed.&lt;/li&gt;
-&lt;li&gt;Network speed.&lt;/li&gt;
-&lt;li&gt;Storage speed.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;It’s better to find any performance issues before installing ClickHouse.&lt;/p&gt;
-
-      </description>
+      <description>ClickHouse ClickHouse will use all available hardware to maximize performance. So the more hardware - the better. As of this publication, the hardware requirements are:
+ Minimum Hardware: 4-core CPU with support of SSE4.2, 16 Gb RAM, 1Tb HDD.  Recommended for development and staging environments. SSE4.2 is required, and going below 4 Gb of RAM is not recommended.   Recommended Hardware: &amp;gt;=16-cores, &amp;gt;=64Gb RAM, HDD-raid or SSD.  For processing up to hundreds of millions / billions of rows.</description>
     </item>
     
     <item>
-      <title>Altinity-Kb-Setup-and-Maintenance: Monitoring Considerations</title>
+      <title>Monitoring Considerations</title>
       <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/monitoring-considerations/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/monitoring-considerations/</guid>
-      <description>
-        
-        
-        &lt;p&gt;Monitoring helps to track potential issues in your cluster before they cause a critical error.&lt;/p&gt;
-&lt;h3 id=&#34;external-monitoring&#34;&gt;External Monitoring&lt;/h3&gt;
-&lt;p&gt;External monitoring collects data from the ClickHouse cluster and uses it for analysis and review.  Recommended external monitoring systems include:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Prometheus&lt;/strong&gt;: Use embedded exporter or &lt;a href=&#34;https://github.com/f1yegor/clickhouse_exporter&#34; target=&#34;_blank&#34;&gt;clickhouse-exporter&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Graphite&lt;/strong&gt;: Use the embedded exporter. See config.xml.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;InfluxDB&lt;/strong&gt;: Use the embedded exporter, plus Telegraf. For more information, see &lt;a href=&#34;https://docs.influxdata.com/influxdb/v1.7/supported_protocols/graphite/&#34; target=&#34;_blank&#34;&gt;Graphite protocol support in InfluxDB&lt;/a&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;ClickHouse can collect the recording of metrics internally by enabling &lt;code&gt;system.metric_log&lt;/code&gt; in &lt;code&gt;config.xml&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;For dashboard system:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://grafana.com/&#34; target=&#34;_blank&#34;&gt;Grafana&lt;/a&gt; is recommended for graphs, reports, alerts, dashboard, etc.&lt;/li&gt;
-&lt;li&gt;Other options are &lt;a href=&#34;https://www.nagios.com/&#34; target=&#34;_blank&#34;&gt;Nagios&lt;/a&gt; or &lt;a href=&#34;https://www.zabbix.com/&#34; target=&#34;_blank&#34;&gt;Zabbix&lt;/a&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;The following metrics should be collected:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;For Host Machine:
-&lt;ul&gt;
-&lt;li&gt;CPU&lt;/li&gt;
-&lt;li&gt;Memory&lt;/li&gt;
-&lt;li&gt;Network (bytes/packets)&lt;/li&gt;
-&lt;li&gt;Storage (iops)&lt;/li&gt;
-&lt;li&gt;Disk Space (free / used)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;For ClickHouse:
-&lt;ul&gt;
-&lt;li&gt;Connections (count)&lt;/li&gt;
-&lt;li&gt;RWLocks&lt;/li&gt;
-&lt;li&gt;Read / Write / Return (bytes)&lt;/li&gt;
-&lt;li&gt;Read / Write / Return (rows)&lt;/li&gt;
-&lt;li&gt;Zookeeper operations (count)&lt;/li&gt;
-&lt;li&gt;Absolute delay&lt;/li&gt;
-&lt;li&gt;Query duration (optional)&lt;/li&gt;
-&lt;li&gt;Replication parts and queue (count)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;For Zookeeper:
-&lt;ul&gt;
-&lt;li&gt;See &lt;a href=&#34;https://sematext.com/docs/integration/zookeeper/&#34; target=&#34;_blank&#34;&gt;ZooKeeper Monitoring Integration&lt;/a&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;The following queries are recommended to be included in monitoring:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;SELECT * FROM system.replicas
-&lt;ul&gt;
-&lt;li&gt;For more information, see the ClickHouse guide on &lt;a href=&#34;https://clickhouse.tech/docs/en/operations/system_tables/#system_tables-replicas&#34; target=&#34;_blank&#34;&gt;System Tables&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;SELECT * FROM system.merges
-&lt;ul&gt;
-&lt;li&gt;Checks on the speed and progress of currently executed merges.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;SELECT * FROM system.mutations
-&lt;ul&gt;
-&lt;li&gt;This is the source of information on the speed and progress of currently executed merges.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;monitor-and-alerts&#34;&gt;Monitor and Alerts&lt;/h3&gt;
-&lt;p&gt;Configure the notifications for events and thresholds based on the following table:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://localhost:1313/csv/clickhouse_kubernetes_monitoring_and_alerts.csv&#34; target=&#34;_blank&#34;&gt;Monitor and Alerts&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;health-checks&#34;&gt;Health Checks&lt;/h4&gt;
-&lt;p&gt;The following health checks should be monitored:&lt;/p&gt;
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&#34;text-align:left&#34;&gt;Check Name&lt;/th&gt;
-      &lt;th style=&#34;text-align:left&#34;&gt;Shell or SQL command&lt;/th&gt;
-      &lt;th style=&#34;text-align:left&#34;&gt;Severity&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;ClickHouse status&lt;/td&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;$ curl &amp;apos;http://localhost:8123/&amp;apos;Ok.&lt;/td&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;Critical&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;Too many simultaneous queries. Maximum: 100&lt;/td&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;select value from system.metrics where metric=&amp;apos;Query&amp;apos;&lt;/td&gt;
-      &lt;td
-      style=&#34;text-align:left&#34;&gt;Critical&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;Replication status&lt;/td&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;$ curl &amp;apos;http://localhost:8123/replicas_status&amp;apos;Ok.&lt;/td&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;High&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;Read only replicas (reflected by replicas_status as well)&lt;/td&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;select value from system.metrics where metric=&amp;apos;ReadonlyReplica&amp;#x2019;&lt;/td&gt;
-      &lt;td
-      style=&#34;text-align:left&#34;&gt;High&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;ReplicaPartialShutdown (not reflected by replicas_status, but seems to
-        correlate with ZooKeeperHardwareExceptions)&lt;/td&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;select value from system.events where event=&amp;apos;ReplicaPartialShutdown&amp;apos;&lt;/td&gt;
-      &lt;td
-      style=&#34;text-align:left&#34;&gt;HighI turned this one off. It almost always correlates with ZooKeeperHardwareExceptions,
-        and when it&amp;#x2019;s not, then there is nothing bad happening&amp;#x2026;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;Some replication tasks are stuck&lt;/td&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;select count()from system.replication_queuewhere num_tries &amp;gt; 100&lt;/td&gt;
-      &lt;td
-      style=&#34;text-align:left&#34;&gt;High&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;ZooKeeper is available&lt;/td&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;select count() from system.zookeeper where path=&amp;apos;/&amp;apos;&lt;/td&gt;
-      &lt;td
-      style=&#34;text-align:left&#34;&gt;Critical for writes&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;ZooKeeper exceptions&lt;/td&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;select value from system.events where event=&amp;apos;ZooKeeperHardwareExceptions&amp;apos;&lt;/td&gt;
-      &lt;td
-      style=&#34;text-align:left&#34;&gt;Medium&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;Other CH nodes are available&lt;/td&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;$ for node in `echo &amp;quot;select distinct host_address from system.clusters
-        where host_name !=&amp;apos;localhost&amp;apos;&amp;quot;&lt;/td&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;curl &amp;apos;http://localhost:8123/&amp;apos; &amp;#x2013;silent &amp;#x2013;data-binary
-        @-`; do curl &amp;quot;http://$node:8123/&amp;quot; &amp;#x2013;silent ; done&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;All CH clusters are available (i.e. every configured cluster has enough
-        replicas to serve queries)&lt;/td&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;for cluster in `echo &amp;quot;select distinct cluster from system.clusters
-        where host_name !=&amp;apos;localhost&amp;apos;&amp;quot;&lt;/td&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;curl &amp;apos;http://localhost:8123/&amp;apos; &amp;#x2013;silent &amp;#x2013;data-binary
-        @-` ; do clickhouse-client &amp;#x2013;query=&amp;quot;select &amp;apos;$cluster&amp;apos;,
-        &amp;apos;OK&amp;apos; from cluster(&amp;apos;$cluster&amp;apos;, system, one)&amp;quot; ;
-        done&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;There are files in &amp;apos;detached&amp;apos; folders&lt;/td&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;$ find /var/lib/clickhouse/data///detached/* -type d&lt;/td&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;
-        &lt;p&gt;wc -l;&lt;/p&gt;
-        &lt;p&gt;19.8+select count() from system.detached_parts&lt;/p&gt;
-      &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;
-        &lt;p&gt;Too many parts:&lt;/p&gt;
-        &lt;p&gt;Number of parts is growing;&lt;/p&gt;
-        &lt;p&gt;Inserts are being delayed;&lt;/p&gt;
-        &lt;p&gt;Inserts are being rejected&lt;/p&gt;
-      &lt;/td&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;
-        &lt;p&gt;select value from system.asynchronous_metrics where metric=&amp;apos;MaxPartCountForPartition&amp;apos;;select
-          value from system.events/system.metrics where event/metric=&amp;apos;DelayedInserts&amp;apos;;&lt;/p&gt;
-        &lt;p&gt;select value from system.events where event=&amp;apos;RejectedInserts&amp;apos;&lt;/p&gt;
-      &lt;/td&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;Critical&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;Dictionaries: exception&lt;/td&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;select concat(name,&amp;apos;: &amp;apos;,last_exception) from system.dictionarieswhere
-        last_exception != &amp;apos;&amp;apos;&lt;/td&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;Medium&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;ClickHouse has been restarted&lt;/td&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;select uptime();select value from system.asynchronous_metrics where metric=&amp;apos;Uptime&amp;apos;&lt;/td&gt;
-      &lt;td
-      style=&#34;text-align:left&#34;&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;DistributedFilesToInsert should not be always increasing&lt;/td&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;select value from system.metrics where metric=&amp;apos;DistributedFilesToInsert&amp;apos;&lt;/td&gt;
-      &lt;td
-      style=&#34;text-align:left&#34;&gt;Medium&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;A data part was lost&lt;/td&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;select value from system.events where event=&amp;apos;ReplicatedDataLoss&amp;apos;&lt;/td&gt;
-      &lt;td
-      style=&#34;text-align:left&#34;&gt;High&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;Data parts are not the same on different replicas&lt;/td&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;
-        &lt;p&gt;select value from system.events where event=&amp;apos;DataAfterMergeDiffersFromReplica&amp;apos;;&lt;/p&gt;
-        &lt;p&gt;select value from system.events where event=&amp;apos;DataAfterMutationDiffersFromReplica&amp;apos;&lt;/p&gt;
-      &lt;/td&gt;
-      &lt;td style=&#34;text-align:left&#34;&gt;Medium&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h4 id=&#34;monitoring-references&#34;&gt;Monitoring References&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-monitoring&#34; target=&#34;_blank&#34;&gt;https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-monitoring&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://tech.marksblogg.com/clickhouse-prometheus-grafana.html&#34; target=&#34;_blank&#34;&gt;https://tech.marksblogg.com/clickhouse-prometheus-grafana.html&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://sematext.com/blog/clickhouse-monitoring-key-metrics/&#34; target=&#34;_blank&#34;&gt;Key Metrics for Monitoring ClickHouse&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://dzone.com/articles/clickhouse-monitoring-key-metrics-to-monitor-semat&#34; target=&#34;_blank&#34;&gt;ClickHouse Monitoring Key Metrics to Monitor&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://dzone.com/articles/clickhouse-monitoring-tools-five-tools-to-consider&#34; target=&#34;_blank&#34;&gt;ClickHouse Monitoring Tools: Five Tools to Consider&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://docs.instana.io/ecosystem/clickhouse/&#34; target=&#34;_blank&#34;&gt;Monitoring ClickHouse&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.datadoghq.com/blog/monitor-clickhouse/&#34; target=&#34;_blank&#34;&gt;Monitor ClickHouse with Datadog&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-      </description>
+      <description>Monitoring helps to track potential issues in your cluster before they cause a critical error.
+External Monitoring External monitoring collects data from the ClickHouse cluster and uses it for analysis and review. Recommended external monitoring systems include:
+ Prometheus: Use embedded exporter or clickhouse-exporter Graphite: Use the embedded exporter. See config.xml. InfluxDB: Use the embedded exporter, plus Telegraf. For more information, see Graphite protocol support in InfluxDB.  ClickHouse can collect the recording of metrics internally by enabling system.</description>
     </item>
     
     <item>
-      <title>Altinity-Kb-Setup-and-Maintenance: Network Configuration</title>
+      <title>Network Configuration</title>
       <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/network-configuration/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/network-configuration/</guid>
-      <description>
-        
-        
-        &lt;h3 id=&#34;networking-and-server-room-planning&#34;&gt;&lt;strong&gt;Networking And Server Room Planning&lt;/strong&gt;&lt;/h3&gt;
-&lt;p&gt;The network used for your ClickHouse cluster should be a fast network, ideally 10 Gbit. ClickHouse nodes generate a lot of traffic along with the Zookeeper connections and inter-Zookeeper communications.&lt;/p&gt;
-&lt;p&gt;For the zookeeper low latency is more important than bandwidth.&lt;/p&gt;
-&lt;p&gt;Keep the replicas isolated on the hardware level. This allows for cluster failover from possible outages.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;For Physical Environments: Avoid placing 2 ClickHouse replicas on the same server rack. Ideally, they should be on isolated network switches and an isolated power supply.&lt;/li&gt;
-&lt;li&gt;For Clouds Environments: Use different availability zones between the ClickHouse replicas when possible (but be aware of the interzone traffic costs)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;These considerations are the same as the Zookeeper nodes.&lt;/p&gt;
-&lt;p&gt;For example:&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th style=&#34;text-align:left&#34;&gt;&lt;strong&gt;Rack&lt;/strong&gt;&lt;/th&gt;
-&lt;th style=&#34;text-align:left&#34;&gt;&lt;strong&gt;Server&lt;/strong&gt;&lt;/th&gt;
-&lt;th style=&#34;text-align:left&#34;&gt;&lt;strong&gt;Server&lt;/strong&gt;&lt;/th&gt;
-&lt;th style=&#34;text-align:left&#34;&gt;&lt;strong&gt;Server&lt;/strong&gt;&lt;/th&gt;
-&lt;th style=&#34;text-align:left&#34;&gt;&lt;strong&gt;Server&lt;/strong&gt;&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;&lt;strong&gt;Rack 1&lt;/strong&gt;&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;&lt;strong&gt;CH_SHARD1_R1&lt;/strong&gt;&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;&lt;strong&gt;CH_SHARD2_R1&lt;/strong&gt;&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;&lt;strong&gt;CH_SHARD3_R1&lt;/strong&gt;&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;&lt;strong&gt;ZOO_1&lt;/strong&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;&lt;strong&gt;Rack 2&lt;/strong&gt;&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;&lt;strong&gt;CH_SHARD1_R2&lt;/strong&gt;&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;&lt;strong&gt;CH_SHARD2_R2&lt;/strong&gt;&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;&lt;strong&gt;CH_SHARD3_R2&lt;/strong&gt;&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;&lt;strong&gt;ZOO_2&lt;/strong&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;&lt;strong&gt;Rack 3&lt;/strong&gt;&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;&lt;strong&gt;ZOO3&lt;/strong&gt;&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h4 id=&#34;network-ports-and-firewall&#34;&gt;&lt;strong&gt;Network Ports And Firewall&lt;/strong&gt;&lt;/h4&gt;
-&lt;p&gt;ClickHouse listens the following ports:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;9000: clickhouse-client, native clients, other clickhouse-servers connect to here.&lt;/li&gt;
-&lt;li&gt;8123: HTTP clients&lt;/li&gt;
-&lt;li&gt;9009: Other replicas will connect here to download data.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;For more information, see &lt;a href=&#34;https://www.altinity.com/blog/2019/3/15/clickhouse-networking-part-1&#34; target=&#34;_blank&#34;&gt;CLICKHOUSE NETWORKING, PART 1&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Zookeeper listens the following ports:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;2181: Client connections.&lt;/li&gt;
-&lt;li&gt;2888: Inter-ensemble connections.&lt;/li&gt;
-&lt;li&gt;3888: Leader election.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Outbound traffic from ClickHouse connects to the following ports:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;ZooKeeper: On port 2181.&lt;/li&gt;
-&lt;li&gt;Other CH nodes in the cluster: On port 9000 and 9009.&lt;/li&gt;
-&lt;li&gt;Dictionary sources: Depending on what was configured such as HTTP, MySQL, Mongo, etc.&lt;/li&gt;
-&lt;li&gt;Kafka or Hadoop: If those integrations were enabled.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;ssl&#34;&gt;&lt;strong&gt;SSL&lt;/strong&gt;&lt;/h3&gt;
-&lt;p&gt;For non-trusted networks enable SSL/HTTPS. If acceptable, it is better to keep interserver communications unencrypted for performance reasons.&lt;/p&gt;
-&lt;h3 id=&#34;naming-schema&#34;&gt;&lt;strong&gt;Naming Schema&lt;/strong&gt;&lt;/h3&gt;
-&lt;p&gt;The best time to start creating a naming schema for the servers is before they’re created and configured.&lt;/p&gt;
-&lt;p&gt;There are a few features based on good server naming in ClickHouse:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;clickhouse-client prompts: Allows a different prompt for clickhouse-client per server hostname.&lt;/li&gt;
-&lt;li&gt;Nearest hostname load balancing: For more information, see &lt;a href=&#34;https://clickhouse.yandex/docs/en/operations/settings/settings/#load_balancing-nearest_hostname&#34; target=&#34;_blank&#34;&gt;Nearest Hostname&lt;/a&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;A good option is to use the following:&lt;/p&gt;
-&lt;p&gt;{datacenter}-{serverroom}-{rack identifier}-{clickhouse cluster identifier}-{shard number or server number}.&lt;/p&gt;
-&lt;p&gt;Other examples:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;rxv-olap-ch-master-sh01-r01:
-&lt;ul&gt;
-&lt;li&gt;rxv - location (rack#15)&lt;/li&gt;
-&lt;li&gt;olap - product name&lt;/li&gt;
-&lt;li&gt;ch = clickhouse&lt;/li&gt;
-&lt;li&gt;master = stage&lt;/li&gt;
-&lt;li&gt;sh01 = shard 1&lt;/li&gt;
-&lt;li&gt;r01 = replica 1&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;hetnzerde1-ch-prod-01.local:
-&lt;ul&gt;
-&lt;li&gt;hetnzerde1 - location (also replica id)&lt;/li&gt;
-&lt;li&gt;ch = clickhouse&lt;/li&gt;
-&lt;li&gt;prod = stage&lt;/li&gt;
-&lt;li&gt;01 - server number / shard number in that DC&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;sh01.ch-front.dev.aws-east1a.example.com:
-&lt;ul&gt;
-&lt;li&gt;sh01 - shard 01&lt;/li&gt;
-&lt;li&gt;ch-front - cluster name&lt;/li&gt;
-&lt;li&gt;dev = stage&lt;/li&gt;
-&lt;li&gt;aws = cloud provider&lt;/li&gt;
-&lt;li&gt;east1a = region and availability zone&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;host-name-references&#34;&gt;&lt;strong&gt;Host Name References&lt;/strong&gt;&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://stackoverflow.com/a/39336460/1555175&#34; target=&#34;_blank&#34;&gt;&amp;lt;strong&amp;gt;What are the best practices for domain names (dev, staging, production)?&amp;lt;/strong&amp;gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.replex.io/blog/9-best-practices-and-examples-for-working-with-kubernetes-labels&#34; target=&#34;_blank&#34;&gt;&amp;lt;strong&amp;gt;9 Best Practices and Examples for Working with Kubernetes Labels&amp;lt;/strong&amp;gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://devcentral.f5.com/s/articles/thoughts-on-hostname-nomenclature&#34; target=&#34;_blank&#34;&gt;&amp;lt;strong&amp;gt;Thoughts On Hostname Nomenclature&amp;lt;/strong&amp;gt;&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;additional-hostname-tips&#34;&gt;&lt;strong&gt;Additional Hostname Tips&lt;/strong&gt;&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Hostnames configured on the server should not change. If you do need to change the host name, one reference to use is &lt;a href=&#34;https://linuxize.com/post/how-to-change-hostname-on-ubuntu-18-04/&#34; target=&#34;_blank&#34;&gt;How to Change Hostname on Ubuntu 18.04&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;The server should be accessible to other servers in the cluster via it’s hostname. Otherwise you will need to configure interserver_hostname in your config.&lt;/li&gt;
-&lt;li&gt;Ensure that &lt;code&gt;hostname --fqdn&lt;/code&gt; and &lt;code&gt;getent hosts $(hostname --fqdn)&lt;/code&gt; return the correct name and ip.&lt;/li&gt;
-&lt;/ul&gt;
-
-      </description>
+      <description>Networking And Server Room Planning The network used for your ClickHouse cluster should be a fast network, ideally 10 Gbit. ClickHouse nodes generate a lot of traffic along with the Zookeeper connections and inter-Zookeeper communications.
+For the zookeeper low latency is more important than bandwidth.
+Keep the replicas isolated on the hardware level. This allows for cluster failover from possible outages.
+ For Physical Environments: Avoid placing 2 ClickHouse replicas on the same server rack.</description>
     </item>
     
     <item>
-      <title>Altinity-Kb-Setup-and-Maintenance: Version Upgrades</title>
+      <title>Version Upgrades</title>
       <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/version-upgrades/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/version-upgrades/</guid>
-      <description>
-        
-        
-        &lt;p&gt;Update itself is simple: update packages, restart clickhouse-server service afterwards.&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Check if the version you want to upgrade to is stable. We highly recommend the Altinity ClickHouse Stable Releases.
-&lt;ol&gt;
-&lt;li&gt;Review the changelog to ensure that no configuration changes are needed.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;li&gt;Update staging and test to verify all systems are working.&lt;/li&gt;
-&lt;li&gt;Prepare and test downgrade procedures so the server can be returned to the previous version if necessary.&lt;/li&gt;
-&lt;li&gt;Start with a “canary” update. This is one replica with one shard that is upgraded to make sure that the procedure works.&lt;/li&gt;
-&lt;li&gt;Test and verify that everything works properly. Check for any errors in the log files.&lt;/li&gt;
-&lt;li&gt;If everything is working well, update the rest of the cluster.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;For small clusters, the &lt;a href=&#34;https://martinfowler.com/bliki/BlueGreenDeployment.html&#34; target=&#34;_blank&#34;&gt;BlueGreenDeployment technique&lt;/a&gt; is also a good option.&lt;/p&gt;
-&lt;hr&gt;
-
-      </description>
+      <description>Update itself is simple: update packages, restart clickhouse-server service afterwards.
+ Check if the version you want to upgrade to is stable. We highly recommend the Altinity ClickHouse Stable Releases.  Review the changelog to ensure that no configuration changes are needed.   Update staging and test to verify all systems are working. Prepare and test downgrade procedures so the server can be returned to the previous version if necessary.</description>
     </item>
     
   </channel>

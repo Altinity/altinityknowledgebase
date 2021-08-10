@@ -1,17 +1,1454 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Altinity Beta Knowledgebase – Altinity Beta Knowledgebase</title>
+    <title>Altinity Beta Knowledgebase</title>
     <link>http://beta.kb.altinity.com/</link>
     <description>Recent content on Altinity Beta Knowledgebase</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    
-	  <atom:link href="http://beta.kb.altinity.com/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>en-us</language><atom:link href="http://beta.kb.altinity.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title></title>
+      <link>http://beta.kb.altinity.com/altinity-kb-dictionaries/dictionaries-and-arrays/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      
+      <guid>http://beta.kb.altinity.com/altinity-kb-dictionaries/dictionaries-and-arrays/</guid>
+      <description> title: &amp;ldquo;Dictionaries &amp;amp; arrays&amp;rdquo; linkTitle: &amp;ldquo;Dictionaries &amp;amp; arrays&amp;rdquo; description: &amp;gt; Dictionaries &amp;amp; arrays Dictionary with Clickhouse table as a source Test data DROPTABLEIFEXISTSarr_src;CREATETABLEarr_src(keyUInt64,array_intArray(Int64),array_strArray(String))ENGINE=MergeTreeorderbykey;INSERTINTOarr_srcSELECTnumber,arrayMap(i-&amp;gt;(number*i),range(5)),arrayMap(i-&amp;gt;concat(&amp;#39;str&amp;#39;,toString(number*i)),range(5))FROMnumbers(1000);Dictionary DROPDICTIONARYIFEXISTSarr_dict;CREATEDICTIONARYarr_dict(keyUInt64,array_intArray(Int64)DEFAULT[1,2,3],array_strArray(String)DEFAULT[&amp;#39;1&amp;#39;,&amp;#39;2&amp;#39;,&amp;#39;3&amp;#39;])PRIMARYKEYkeySOURCE(CLICKHOUSE(DATABASE&amp;#39;default&amp;#39;TABLE&amp;#39;arr_src&amp;#39;))LIFETIME(120)LAYOUT(HASHED());SELECTdictGet(&amp;#39;arr_dict&amp;#39;,&amp;#39;array_int&amp;#39;,toUInt64(42))ASres_int,dictGetOrDefault(&amp;#39;arr_dict&amp;#39;,&amp;#39;array_str&amp;#39;,toUInt64(424242),[&amp;#39;none&amp;#39;])ASres_str┌─res_int───────────┬─res_str──┐│[0,42,84,126,168]│[&amp;#39;none&amp;#39;]│└───────────────────┴──────────┘Dictionary with Postgresql as a source Test data in PG createuserch;createdatabasech;GRANTALLPRIVILEGESONDATABASEchTOch;ALTERUSERchWITHPASSWORD&amp;#39;chch&amp;#39;;CREATETABLEarr_src(keyint,array_intinteger[],array_strtext[]);INSERTINTOarr_srcVALUES(42,&amp;#39;{0,42,84,126,168}&amp;#39;,&amp;#39;{&amp;#34;str0&amp;#34;,&amp;#34;str42&amp;#34;,&amp;#34;str84&amp;#34;,&amp;#34;str126&amp;#34;,&amp;#34;str168&amp;#34;}&amp;#39;),(66,&amp;#39;{0,66,132,198,264}&amp;#39;,&amp;#39;{&amp;#34;str0&amp;#34;,&amp;#34;str66&amp;#34;,&amp;#34;str132&amp;#34;,&amp;#34;str198&amp;#34;,&amp;#34;str264&amp;#34;}&amp;#39;);Dictionary CREATEDICTIONARYpg_arr_dict(keyUInt64,array_intArray(Int64)DEFAULT[1,2,3],array_strArray(String)DEFAULT[&amp;#39;1&amp;#39;,&amp;#39;2&amp;#39;,&amp;#39;3&amp;#39;])PRIMARYKEYkeySOURCE(POSTGRESQL(PORT5432HOST&amp;#39;pg-host&amp;#39;user&amp;#39;ch&amp;#39;password&amp;#39;chch&amp;#39;DATABASE&amp;#39;ch&amp;#39;TABLE&amp;#39;arr_src&amp;#39;))LIFETIME(120)LAYOUT(HASHED());select*frompg_arr_dict;┌─key─┬─array_int──────────┬─array_str───────────────────────────────────┐│66│[0,66,132,198,264]│[&amp;#39;str0&amp;#39;,&amp;#39;str66&amp;#39;,&amp;#39;str132&amp;#39;,&amp;#39;str198&amp;#39;,&amp;#39;str264&amp;#39;]││42│[0,42,84,126,168]│[&amp;#39;str0&amp;#39;,&amp;#39;str42&amp;#39;,&amp;#39;str84&amp;#39;,&amp;#39;str126&amp;#39;,&amp;#39;str168&amp;#39;]│└─────┴────────────────────┴─────────────────────────────────────────────┘SELECTdictGet(&amp;#39;pg_arr_dict&amp;#39;,&amp;#39;array_int&amp;#39;,toUInt64(42))ASres_int,dictGetOrDefault(&amp;#39;pg_arr_dict&amp;#39;,&amp;#39;array_str&amp;#39;,toUInt64(424242),[&amp;#39;none&amp;#39;])ASres_str┌─res_int───────────┬─res_str──┐│[0,42,84,126,168]│[&amp;#39;none&amp;#39;]│└───────────────────┴──────────┘</description>
+    </item>
     
+    <item>
+      <title></title>
+      <link>http://beta.kb.altinity.com/altinity-kb-dictionaries/example-of-postgresql-dictionary/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-dictionaries/example-of-postgresql-dictionary/</guid>
+      <description>Example of PostgreSQL dictionary CREATEDICTIONARYpostgres_dict(idUInt32,valueString)PRIMARYKEYidSOURCE(POSTGRESQL(port5432host&amp;#39;postgres1&amp;#39;user&amp;#39;postgres&amp;#39;password&amp;#39;mysecretpassword&amp;#39;db&amp;#39;clickhouse&amp;#39;table&amp;#39;test_schema.test_table&amp;#39;))LIFETIME(MIN300MAX600)LAYOUT(HASHED());and later do
+SELECTdictGetString(postgres_dict,&amp;#39;value&amp;#39;,toUInt64(1))�</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://beta.kb.altinity.com/altinity-kb-dictionaries/partial-updates/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-dictionaries/partial-updates/</guid>
+      <description>title: &amp;ldquo;Partial updates&amp;rdquo; linkTitle: &amp;ldquo;Partial updates&amp;rdquo; description: &amp;gt; Partial updates Clickhouse able to fetch from a source only updated rows. You need to define update_field section:
+We have a table in an external source MySQL, PG, HTTP, &amp;hellip;.
+Let&amp;rsquo;s use for this example Clickhouse.
+CREATETABLEcities(`polygon`Array(Tuple(Float64,Float64)),`city`String,`updated_at`DateTimeDEFAULTnow())ENGINE=MergeTreeORDERBYcityWhen you add new row and &amp;ldquo;update&amp;rdquo; some rows in this table you should update updated_at with the new timestamp.
+-- fetch updated rows every 30 seconds CREATEDICTIONARYcities_dict(polygonArray(Tuple(Float64,Float64)),cityString)PRIMARYKEYpolygonSOURCE(CLICKHOUSE(TABLEcitiesDB&amp;#39;default&amp;#39;update_field&amp;#39;updated_at&amp;#39;))LAYOUT(POLYGON())LIFETIME(MIN30MAX30)A dictionary with update_field updated_at will fetch only updated rows.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/mutations/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/mutations/</guid>
+      <description>title: &amp;ldquo;Mutations&amp;rdquo; linkTitle: &amp;ldquo;Mutations&amp;rdquo; description: &amp;gt; Mutations Q. How to know if ALTER TABLE … DELETE/UPDATE mutation ON CLUSTER was finished successfully on all the nodes?
+A. mutation status in system.mutations is local to each replica, so use
+SELECT hostname(), * FROM clusterAllReplicas(&amp;#39;your_cluster_name&amp;#39;, system.mutations); -- you can also add WHERE conditions to that query if needed. Look on is_done and latest_fail_reason columns</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/pivot-unpivot/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/pivot-unpivot/</guid>
+      <description>title: &amp;ldquo;PIVOT / UNPIVOT&amp;rdquo; linkTitle: &amp;ldquo;PIVOT / UNPIVOT&amp;rdquo; description: &amp;gt; PIVOT / UNPIVOT PIVOT CREATEORREPLACETABLEmonthly_sales(empidINT,amountINT,monthTEXT)ENGINE=Memory();INSERTINTOmonthly_salesVALUES(1,10000,&amp;#39;JAN&amp;#39;),(1,400,&amp;#39;JAN&amp;#39;),(2,4500,&amp;#39;JAN&amp;#39;),(2,35000,&amp;#39;JAN&amp;#39;),(1,5000,&amp;#39;FEB&amp;#39;),(1,3000,&amp;#39;FEB&amp;#39;),(2,200,&amp;#39;FEB&amp;#39;),(2,90500,&amp;#39;FEB&amp;#39;),(1,6000,&amp;#39;MAR&amp;#39;),(1,5000,&amp;#39;MAR&amp;#39;),(2,2500,&amp;#39;MAR&amp;#39;),(2,9500,&amp;#39;MAR&amp;#39;),(1,8000,&amp;#39;APR&amp;#39;),(1,10000,&amp;#39;APR&amp;#39;),(2,800,&amp;#39;APR&amp;#39;),(2,4500,&amp;#39;APR&amp;#39;);SETallow_experimental_map_type=1;WITHCAST(sumMap([month],[amount]),&amp;#39;Map(String, UInt32)&amp;#39;)ASmapSELECTempid,map[&amp;#39;JAN&amp;#39;]ASJAN,map[&amp;#39;FEB&amp;#39;]ASFEB,map[&amp;#39;MAR&amp;#39;]ASMAR,map[&amp;#39;APR&amp;#39;]ASAPRFROMmonthly_salesGROUPBYempidORDERBYempidASC┌─empid─┬───JAN─┬───FEB─┬───MAR─┬───APR─┐│1│10400│8000│11000│18000││2│39500│90700│12000│5300│└───────┴───────┴───────┴───────┴───────┘SELECTempid,sumIf(amount,month=&amp;#39;JAN&amp;#39;)ASJAN,sumIf(amount,month=&amp;#39;FEB&amp;#39;)ASFEB,sumIf(amount,month=&amp;#39;MAR&amp;#39;)ASMAR,sumIf(amount,month=&amp;#39;APR&amp;#39;)ASAPRFROMmonthly_salesGROUPBYempidORDERBYempidASC┌─empid─┬───JAN─┬───FEB─┬───MAR─┬───APR─┐│1│10400│8000│11000│18000││2│39500│90700│12000│5300│└───────┴───────┴───────┴───────┴───────┘UNPIVOT CREATEORREPLACETABLEmonthly_sales(empidINT,deptTEXT,janINT,febINT,marINT,aprilINT)ENGINE=Memory();INSERTINTOmonthly_salesVALUES(1,&amp;#39;electronics&amp;#39;,100,200,300,100),(2,&amp;#39;clothes&amp;#39;,100,300,150,200),(3,&amp;#39;cars&amp;#39;,200,400,100,50);SELECTempid,dept,month,salesFROMmonthly_salesARRAYJOIN[jan,feb,mar,april]ASsales,splitByString(&amp;#39;, &amp;#39;,&amp;#39;jan, feb, mar, april&amp;#39;)ASmonthORDERBYempidASC┌─empid─┬─dept────────┬─month─┬─sales─┐│1│electronics│jan│100││1│electronics│feb│200││1│electronics│mar│300││1│electronics│april│100││2│clothes│jan│100││2│clothes│feb│300││2│clothes│mar│150││2│clothes│april│200││3│cars│jan│200││3│cars│feb│400││3│cars│mar│100││3│cars│april│50│└───────┴─────────────┴───────┴───────┘© 2021 Altinity Inc. All rights reserved.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/sampling-example/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/sampling-example/</guid>
+      <description>title: &amp;ldquo;Sampling Example&amp;rdquo; linkTitle: &amp;ldquo;Sampling Example&amp;rdquo; description: &amp;gt; Sampling Example The most important idea about sampling that the primary index must have low cardinality. The following example demonstrates how sampling can be setup correctly, and an example if it being set up incorrectly as a comparison.
+Sampling requires sample by expression . This ensures a range of sampled column types fit within a specified range, which ensures the requirement of low cardinality.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/skip-indexes/skip-index-bloom_filter-for-array-column/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/skip-indexes/skip-index-bloom_filter-for-array-column/</guid>
+      <description>title: &amp;ldquo;skip index bloom_filter for array column&amp;rdquo; linkTitle: &amp;ldquo;skip index bloom_filter for array column&amp;rdquo; description: &amp;gt; skip index bloom_filter for array column tested with 20.8.17.25
+{% embed url=&amp;ldquo;https://clickhouse.tech/docs/en/engines/table-engines/mergetree-family/mergetree/#table_engine-mergetree-data_skipping-indexes&amp;rdquo; %}
+Let&amp;rsquo;s create test data createtablebftest(kInt64,xArray(Int64))Engine=MergeTreeorderbyk;insertintobftestselectnumber,arrayMap(i-&amp;gt;rand64()%565656,range(10))fromnumbers(10000000);insertintobftestselectnumber,arrayMap(i-&amp;gt;rand64()%565656,range(10))fromnumbers(100000000);Base point (no index) selectcount()frombftestwherehas(x,42);┌─count()─┐│186│└─────────┘1rowsinset.Elapsed:0.495sec.Processed110.00millionrows,9.68GB(222.03millionrows/s.,19.54GB/s.)selectcount()frombftestwherehas(x,-42);┌─count()─┐│0│└─────────┘1rowsinset.Elapsed:0.505sec.Processed110.00millionrows,9.68GB(217.69millionrows/s.,19.16GB/s.)As you can see Clickhouse read 110.00 million rows and the query elapsed Elapsed: 0.505 sec.
+Let&amp;rsquo;s add an index altertablebftestaddindexix1(x)TYPEbloom_filterGRANULARITY3;-- GRANULARITY 3 means how many table granules will be in the one index granule -- In our case 1 granule of skip index allows to check and skip 3*8192 rows.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/ttl/ttl-group-by-examples/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/ttl/ttl-group-by-examples/</guid>
+      <description>title: &amp;ldquo;TTL GROUP BY Examples&amp;rdquo; linkTitle: &amp;ldquo;TTL GROUP BY Examples&amp;rdquo; description: &amp;gt; TTL GROUP BY Examples Example with MergeTree table CREATETABLEtest_ttl_group_by(`key`UInt32,`ts`DateTime,`value`UInt32,`min_value`UInt32DEFAULTvalue,`max_value`UInt32DEFAULTvalue)ENGINE=MergeTreePARTITIONBYtoYYYYMM(ts)ORDERBY(key,toStartOfDay(ts))TTLts+interval30dayGROUPBYkey,toStartOfDay(ts)SETvalue=sum(value),min_value=min(min_value),max_value=max(max_value),ts=min(toStartOfDay(ts));During TTL merges Clickhouse re-calculates values of columns in the SET section.
+GROUP BY section should be a prefix of a table&amp;rsquo;s ORDER BY.
+-- stop merges to demonstrate data before / after -- a rolling up SYSTEMSTOPTTLMERGEStest_ttl_group_by;SYSTEMSTOPMERGEStest_ttl_group_by;INSERTINTOtest_ttl_group_by(key,ts,value)SELECTnumber%5,now()+number,1FROMnumbers(100);INSERTINTOtest_ttl_group_by(key,ts,value)SELECTnumber%5,now()-interval60day+number,2FROMnumbers(100);SELECTtoYYYYMM(ts)ASm,count(),sum(value),min(min_value),max(max_value)FROMtest_ttl_group_byGROUPBYm;┌──────m─┬─count()─┬─sum(value)─┬─min(min_value)─┬─max(max_value)─┐│202102│100│200│2│2││202104│100│100│1│1│└────────┴─────────┴────────────┴────────────────┴────────────────┘SYSTEMSTARTTTLMERGEStest_ttl_group_by;SYSTEMSTARTMERGEStest_ttl_group_by;OPTIMIZETABLEtest_ttl_group_byFINAL;SELECTtoYYYYMM(ts)ASm,count(),sum(value),min(min_value),max(max_value)FROMtest_ttl_group_byGROUPBYm;┌──────m─┬─count()─┬─sum(value)─┬─min(min_value)─┬─max(max_value)─┐│202102│5│200│2│2││202104│100│100│1│1│└────────┴─────────┴────────────┴────────────────┴────────────────┘As you can see 100 rows were rolled up into 5 rows (key has 5 values) for rows older than 30 days.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/ttl/ttl-recompress-example/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/ttl/ttl-recompress-example/</guid>
+      <description>title: &amp;ldquo;TTL Recompress example&amp;rdquo; linkTitle: &amp;ldquo;TTL Recompress example&amp;rdquo; description: &amp;gt; TTL Recompress example CREATETABLEhits(`banner_id`UInt64,`event_time`DateTimeCODEC(Delta,Default),`c_name`String,`c_cost`Float64)ENGINE=MergeTreePARTITIONBYtoYYYYMM(event_time)ORDERBY(banner_id,event_time)TTLevent_time+toIntervalMonth(1)RECOMPRESSCODEC(ZSTD(1)),event_time+toIntervalMonth(6)RECOMPRESSCODEC(ZSTD(6);Default comression is LZ4 https://clickhouse.tech/docs/en/operations/server-configuration-parameters/settings/#server-settings-compression
+These TTL rules recompress data after 1 and 6 months.
+CODEC(Delta, Default) &amp;ndash; Default means to use default compression (LZ4 -&amp;gt; ZSTD1 -&amp;gt; ZSTD6) in this case.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/remote-...-table-function/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/remote-...-table-function/</guid>
+      <description>remote(&amp;hellip;) table function Suitable for moving up to hundreds of gigabytes of data.
+With bigger tables recommended approach is to slice the original data by some WHERE condition, ideally - apply the condition on partitioning key, to avoid writing data to many partitions at once.
+INSERTINTOstaging_tableSELECT*FROMremote(...)WHEREdate=&amp;#39;2021-04-13&amp;#39;;INSERTINTOstaging_tableSELECT*FROMremote(...)WHEREdate=&amp;#39;2021-04-12&amp;#39;;INSERTINTOstaging_tableSELECT*FROMremote(...)WHEREdate=&amp;#39;2021-04-11&amp;#39;;....�Q. Can it create a bigger load on the source system? Yes, it may use disk read &amp;amp; network write bandwidth. But typically write speed is worse than the read speed, so most probably the receiver side will be a bottleneck, and the sender side will not be overloaded.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/zookeeper-monitoring/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/zookeeper-monitoring/</guid>
+      <description>ZooKeeper Monitoring ZooKeeper scrape metrics:
+ embedded exporter since version 3.6.0  https://zookeeper.apache.org/doc/r3.6.2/zookeeperMonitor.html   standalone exporter  https://github.com/dabealu/zookeeper-exporter    Install dashboards
+ embedded exporter https://grafana.com/grafana/dashboards/10465 dabealu exporter https://grafana.com/grafana/dashboards/11442  see also https://grafana.com/grafana/dashboards?search=ZooKeeper&amp;amp;amp;dataSource=prometheus
+setup alert rules:
+ embedded exporter https://github.com/Altinity/clickhouse-operator/blob/master/deploy/prometheus/prometheus-alert-rules.yaml#L480-L805  See also
+ https://blog.serverdensity.com/how-to-monitor-zookeeper/ https://www.datadoghq.com/blog/monitoring-kafka-performance-metrics/#zookeeper-metrics https://dzone.com/articles/monitoring-apache-zookeeper-servers https://docs.signalfx.com/en/latest/integrations/integrations-reference/integrations.zookeeper.html https://github.com/samber/awesome-prometheus-alerts/blob/c3ba0cf1997c7e952369a090aeb10343cdca4878/_data/rules.yml#L1146-L1170 (or https://awesome-prometheus-alerts.grep.to/rules.html#zookeeper ) https://alex.dzyoba.com/blog/prometheus-alerts/ https://docs.datadoghq.com/integrations/zk/?tab=host�  © 2021 Altinity Inc. All rights reserved.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/clickhouse-backup/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/clickhouse-backup/</guid>
+      <description>title: &amp;ldquo;clickhouse-backup&amp;rdquo; linkTitle: &amp;ldquo;clickhouse-backup&amp;rdquo; description: &amp;gt; clickhouse-backup Installation and configuration Download the latest clickhouse-backup.tar.gz from assets from https://github.com/AlexAkulov/clickhouse-backup/releases
+This tar.gz contains a single binary of clickhouse-backup and an example of config file.
+Backblaze has s3 compatible API but requires empty acl parameter acl: &amp;quot;&amp;quot;.
+https://www.backblaze.com/ has 15 days and free 10Gb S3 trial.
+$ mkdir clickhouse-backup$ cd clickhouse-backup$ wget https://github.com/AlexAkulov/clickhouse-backup/releases/download/1.0.0-beta2/clickhouse-backup.tar.gz$ tar zxf clickhouse-backup.tar.gz$ rm clickhouse-backup.tar.gz$ cat config.ymlgeneral:remote_storage:s3max_file_size:1099511627776disable_progress_bar:falsebackups_to_keep_local:0backups_to_keep_remote:0log_level:infoallow_empty_backups:falseclickhouse:username:defaultpassword:&amp;#34;&amp;#34;host:localhostport:9000disk_mapping:{}skip_tables:- system.*timeout:5mfreeze_by_part:falsesecure:falseskip_verify:falsesync_replicated_tables:truelog_sql_queries:falses3:access_key:0****1secret_key:K****1bucket:&amp;#34;mybucket&amp;#34;endpoint:s3.us-west-000.backblazeb2.comregion:us-west-000acl:&amp;#34;&amp;#34;force_path_style:falsepath:clickhouse-backupdisable_ssl:falsepart_size:536870912compression_level:1compression_format:tarsse:&amp;#34;&amp;#34;disable_cert_verification:falsestorage_class:STANDARDI have a database test with table test</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/logging/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/logging/</guid>
+      <description>Logging Q. I get errors:
+File not found: /var/log/clickhouse-server/clickhouse-server.log.0. File not found: /var/log/clickhouse-server/clickhouse-server.log.8.gz. ... File not found: /var/log/clickhouse-server/clickhouse-server.err.log.0, Stack trace (when copying this message, always include the lines below): 0. Poco::FileImpl::handleLastErrorImpl(std::__1::basic_string&amp;lt;char, std::__1::char_traits&amp;lt;char&amp;gt;, std::__1::allocator&amp;lt;char&amp;gt; &amp;gt; const&amp;amp;) @ 0x11c2b345 in /usr/bin/clickhouse 1. Poco::PurgeOneFileStrategy::purge(std::__1::basic_string&amp;lt;char, std::__1::char_traits&amp;lt;char&amp;gt;, std::__1::allocator&amp;lt;char&amp;gt; &amp;gt; const&amp;amp;) @ 0x11c84618 in /usr/bin/clickhouse 2. Poco::FileChannel::log(Poco::Message const&amp;amp;) @ 0x11c314cc in /usr/bin/clickhouse 3. DB::OwnFormattingChannel::logExtended(DB::ExtendedLogMessage const&amp;amp;) @ 0x8681402 in /usr/bin/clickhouse 4. DB::OwnSplitChannel::logSplit(Poco::Message const&amp;amp;) @ 0x8682fa8 in /usr/bin/clickhouse 5.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://beta.kb.altinity.com/search/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/search/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>-State &amp; -Merge combinators</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/state-and-merge-combinators/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/state-and-merge-combinators/</guid>
+      <description>-State combinator doesn&amp;rsquo;t actually store information about -If combinator, so aggregate functions with -If and without have the same serialized data.
+$clickhouse-local--query &amp;#34;SELECT maxIfState(number,number % 2) as x, maxState(number) as y FROM numbers(10) FORMAT RowBinary&amp;#34; | clickhouse-local --input-format RowBinary --structure=&amp;#34;x AggregateFunction(max,UInt64), y AggregateFunction(max,UInt64)&amp;#34; --query &amp;#34;SELECT maxMerge(x), maxMerge(y) FROM table&amp;#34; 99$clickhouse-local--query &amp;#34;SELECT maxIfState(number,number % 2) as x, maxState(number) as y FROM numbers(11) FORMAT RowBinary&amp;#34; | clickhouse-local --input-format RowBinary --structure=&amp;#34;x AggregateFunction(max,UInt64), y AggregateFunction(max,UInt64)&amp;#34; --query &amp;#34;SELECT maxMerge(x), maxMerge(y) FROM table&amp;#34; 910-State combinator have the same serialized data footprint regardless of parameters used in definition of aggregate function.</description>
+    </item>
+    
+    <item>
+      <title>Adjusting librdkafka settings</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-integrations/altinity-kb-kafka/altinity-kb-adjusting-librdkafka-settings/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-integrations/altinity-kb-kafka/altinity-kb-adjusting-librdkafka-settings/</guid>
+      <description>To set rdkafka options - add to &amp;lt;kafka&amp;gt; section in config.xml or preferably use a separate file in config.d/:  https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md    Some random example:
+&amp;lt;kafka&amp;gt; &amp;lt;max_poll_interval_ms&amp;gt;60000&amp;lt;/max_poll_interval_ms&amp;gt; &amp;lt;session_timeout_ms&amp;gt;60000&amp;lt;/session_timeout_ms&amp;gt; &amp;lt;heartbeat_interval_ms&amp;gt;10000&amp;lt;/heartbeat_interval_ms&amp;gt; &amp;lt;reconnect_backoff_ms&amp;gt;5000&amp;lt;/reconnect_backoff_ms&amp;gt; &amp;lt;reconnect_backoff_max_ms&amp;gt;60000&amp;lt;/reconnect_backoff_max_ms&amp;gt; &amp;lt;request_timeout_ms&amp;gt;20000&amp;lt;/request_timeout_ms&amp;gt; &amp;lt;retry_backoff_ms&amp;gt;500&amp;lt;/retry_backoff_ms&amp;gt; &amp;lt;message_max_bytes&amp;gt;20971520&amp;lt;/message_max_bytes&amp;gt; &amp;lt;debug&amp;gt;all&amp;lt;/debug&amp;gt;&amp;lt;!-- only to get the errors --&amp;gt; &amp;lt;security_protocol&amp;gt;SSL&amp;lt;/security_protocol&amp;gt; &amp;lt;ssl_ca_location&amp;gt;/etc/clickhouse-server/ssl/kafka-ca-qa.crt&amp;lt;/ssl_ca_location&amp;gt; &amp;lt;ssl_certificate_location&amp;gt;/etc/clickhouse-server/ssl/client_clickhouse_client.pem&amp;lt;/ssl_certificate_location&amp;gt; &amp;lt;ssl_key_location&amp;gt;/etc/clickhouse-server/ssl/client_clickhouse_client.key&amp;lt;/ssl_key_location&amp;gt; &amp;lt;ssl_key_password&amp;gt;pass&amp;lt;/ssl_key_password&amp;gt; &amp;lt;/kafka&amp;gt; Authentication / connectivity  Amazon MSK  &amp;lt;yandex&amp;gt; &amp;lt;kafka&amp;gt; &amp;lt;security_protocol&amp;gt;sasl_ssl&amp;lt;/security_protocol&amp;gt; &amp;lt;sasl_username&amp;gt;root&amp;lt;/sasl_username&amp;gt; &amp;lt;sasl_password&amp;gt;toor&amp;lt;/sasl_password&amp;gt; &amp;lt;/kafka&amp;gt; &amp;lt;/yandex&amp;gt; https://leftjoin.ru/all/clickhouse-as-a-consumer-to-amazon-msk/
+Inline Kafka certs  To connect to some Kafka cloud services you may need to use certificates.</description>
+    </item>
+    
+    <item>
+      <title>AggregatingMergeTree</title>
+      <link>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/aggregatingmergetree/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/aggregatingmergetree/</guid>
+      <description>Q. What happens with columns which are nor the part of ORDER BY key, nor have the AggregateFunction type?
+A. it picks the first value met, (similar to any)
+CREATETABLEagg_test(`a`String,`b`UInt8,`c`SimpleAggregateFunction(max,UInt8))ENGINE=AggregatingMergeTreeORDERBYa;INSERTINTOagg_testVALUES(&amp;#39;a&amp;#39;,1,1);INSERTINTOagg_testVALUES(&amp;#39;a&amp;#39;,2,2);SELECT*FROMagg_testFINAL;┌─a─┬─b─┬─c─┐│a│1│2│└───┴───┴───┘INSERTINTOagg_testVALUES(&amp;#39;a&amp;#39;,3,3);SELECT*FROMagg_test;┌─a─┬─b─┬─c─┐│a│1│2│└───┴───┴───┘┌─a─┬─b─┬─c─┐│a│3│3│└───┴───┴───┘OPTIMIZETABLEagg_testFINAL;SELECT*FROMagg_test;┌─a─┬─b─┬─c─┐│a│1│3│└───┴───┴───┘© 2021 Altinity Inc. All rights reserved.</description>
+    </item>
+    
+    <item>
+      <title>ALTER MODIFY COLUMN is stuck, the column is inaccessible.</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/altinity-kb-alter-modify-column-is-stuck-the-column-is-inaccessible/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/altinity-kb-alter-modify-column-is-stuck-the-column-is-inaccessible/</guid>
+      <description>Problem You have table:
+CREATETABLEmodify_column(column_nString)ENGINE=MergeTree()ORDERBYtuple();Populate it with data:
+INSERTINTOmodify_columnVALUES(&amp;#39;key_a&amp;#39;);INSERTINTOmodify_columnVALUES(&amp;#39;key_b&amp;#39;);INSERTINTOmodify_columnVALUES(&amp;#39;key_c&amp;#39;);Tried to apply alter table query with changing column type:
+ALTERTABLEmodify_columnMODIFYCOLUMNcolumn_nEnum8(&amp;#39;key_a&amp;#39;=1,&amp;#39;key_b&amp;#39;=2);But it didn’t succeed and you see an error in system.mutations table:
+SELECT*FROMsystem.mutationsWHERE(table=&amp;#39;modify_column&amp;#39;)AND(is_done=0)FORMATVerticalRow1:──────database:defaulttable:modify_columnmutation_id:mutation_4.txtcommand:MODIFYCOLUMN`column_n`Enum8(&amp;#39;key_a&amp;#39;=1,&amp;#39;key_b&amp;#39;=2)create_time:2021-03-0318:38:09block_numbers.partition_id:[&amp;#39;&amp;#39;]block_numbers.number:[4]parts_to_do_names:[&amp;#39;all_3_3_0&amp;#39;]parts_to_do:1is_done:0latest_failed_part:all_3_3_0latest_fail_time:2021-03-0318:38:59latest_fail_reason:Code:36,e.displayText()=DB::Exception:Unknownelement&amp;#39;key_c&amp;#39;fortypeEnum8(&amp;#39;key_a&amp;#39;=1,&amp;#39;key_b&amp;#39;=2):whileexecuting&amp;#39;FUNCTION CAST(column_n :: 0, &amp;#39;Enum8(\&amp;#39;key_a\&amp;#39;=1,\&amp;#39;key_b\&amp;#39;=2)&amp;#39; :: 1) -&amp;gt; cast(column_n, &amp;#39;Enum8(\&amp;#39;key_a\&amp;#39;=1,\&amp;#39;key_b\&amp;#39;=2)&amp;#39;) Enum8(&amp;#39;key_a&amp;#39; = 1, &amp;#39;key_b&amp;#39; = 2) : 2&amp;#39;:(whilereadingfrompart/var/lib/clickhouse/data/default/modify_column/all_3_3_0/):WhileexecutingMergeTree(version21.3.1.6041)And you can’t query that column anymore:
+SELECTcolumn_nFROMmodify_column┌─column_n─┐│key_a│└──────────┘┌─column_n─┐│key_b│└──────────┘↓Progress:2.00rows,2.00B(19.48rows/s.,19.48B/s.)2rowsinset.Elapsed:0.104sec.Receivedexceptionfromserver(version21.3.1):Code:36.DB::Exception:Receivedfromlocalhost:9000.DB::Exception:Unknownelement&amp;#39;key_c&amp;#39;fortypeEnum8(&amp;#39;key_a&amp;#39;=1,&amp;#39;key_b&amp;#39;=2):whileexecuting&amp;#39;FUNCTION CAST(column_n :: 0, &amp;#39;Enum8(\&amp;#39;key_a\&amp;#39;=1,\&amp;#39;key_b\&amp;#39;=2)&amp;#39; :: 1) -&amp;gt; cast(column_n, &amp;#39;Enum8(\&amp;#39;key_a\&amp;#39;=1,\&amp;#39;key_b\&amp;#39;=2)&amp;#39;) Enum8(&amp;#39;key_a&amp;#39; = 1, &amp;#39;key_b&amp;#39; = 2) : 2&amp;#39;:(whilereadingfrompart/var/lib/clickhouse/data/default/modify_column/all_3_3_0/):WhileexecutingMergeTreeThread.</description>
+    </item>
+    
+    <item>
+      <title>Altinity packaging compatibility &amp;gt;21.x and earlier</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-packaging-compatibility-greater-than-21.x-and-earlier/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-packaging-compatibility-greater-than-21.x-and-earlier/</guid>
+      <description>Working with Altinity &amp;amp; Yandex packaging together Since version 21.1 Altinity switches to the same packaging as used by Yandex. That is needed for syncing things and introduces several improvements (like adding systemd service file).
+Unfortunately, that change leads to compatibility issues - automatic dependencies resolution gets confused by the conflicting package names: both when you update ClickHouse to the new version (the one which uses older packaging) and when you want to install older altinity packages (20.</description>
+    </item>
+    
+    <item>
+      <title>ANSI SQL mode</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/ansi-sql-mode/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/ansi-sql-mode/</guid>
+      <description>It&amp;rsquo;s possible to tune some settings which would make ClickHouse more ANSI SQL compatible(and slower):
+SETjoin_use_nulls=1;-- introduced long ago SETcast_keep_nullable=1;-- introduced in 20.5 SETunion_default_mode=&amp;#39;DISTINCT&amp;#39;;-- introduced in 21.1 SETallow_experimental_window_functions=1;-- introduced in 21.3 SETprefer_column_name_to_alias=1;-- introduced in 21.4; © 2021 Altinity Inc. All rights reserved.</description>
+    </item>
+    
+    <item>
+      <title>assumeNotNull and friends</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-functions/assumenotnull-and-friends/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-functions/assumenotnull-and-friends/</guid>
+      <description>assumeNotNull result is implementation specific:
+WITHCAST(NULL,&amp;#39;Nullable(UInt8)&amp;#39;)AScolumnSELECTcolumn,assumeNotNull(column+999)ASx;┌─column─┬─x─┐│ᴺᵁᴸᴸ│0│└────────┴───┘WITHCAST(NULL,&amp;#39;Nullable(UInt8)&amp;#39;)AScolumnSELECTcolumn,assumeNotNull(materialize(column)+999)ASx;┌─column─┬───x─┐│ᴺᵁᴸᴸ│999│└────────┴─────┘CREATETABLEtest_null(`key`UInt32,`value`Nullable(String))ENGINE=MergeTreeORDERBYkey;INSERTINTOtest_nullSELECTnumber,concat(&amp;#39;value &amp;#39;,toString(number))FROMnumbers(4);SELECT*FROMtest_null;┌─key─┬─value───┐│0│value0││1│value1││2│value2││3│value3│└─────┴─────────┘ALTERTABLEtest_nullUPDATEvalue=NULLWHEREkey=3;SELECT*FROMtest_null;┌─key─┬─value───┐│0│value0││1│value1││2│value2││3│ᴺᵁᴸᴸ│└─────┴─────────┘SELECTkey,assumeNotNull(value)FROMtest_null;┌─key─┬─assumeNotNull(value)─┐│0│value0││1│value1││2│value2││3│value3│└─────┴──────────────────────┘WITHCAST(NULL,&amp;#39;Nullable(Enum8(\&amp;#39;a\&amp;#39; = 1, \&amp;#39;b\&amp;#39; = 0))&amp;#39;)AStestSELECTassumeNotNull(test)┌─assumeNotNull(test)─┐│b│└─────────────────────┘WITHCAST(NULL,&amp;#39;Nullable(Enum8(\&amp;#39;a\&amp;#39; = 1))&amp;#39;)AStestSELECTassumeNotNull(test)Erroronprocessingquery&amp;#39;with CAST(null, &amp;#39;Nullable(Enum8(\&amp;#39;a\&amp;#39;=1))&amp;#39;) as test select assumeNotNull(test); ;&amp;#39;:Code:36,e.displayText()=DB::Exception:Unexpectedvalue0inenum,Stacktrace(whencopyingthismessage,alwaysincludethelinesbelow):{% hint style=&amp;ldquo;info&amp;rdquo; %} Null values in ClickHouse are stored in a separate dictionary: is this value Null. And for faster dispatch of functions there is no check on Null value while function execution, so functions like plus can modify internal column value (which has default value). In normal conditions it’s not a problem because on read attempt, ClickHouse first would check the Null dictionary and return value from column itself for non-Nulls only.</description>
+    </item>
+    
+    <item>
+      <title>Atomic Database Engine</title>
+      <link>http://beta.kb.altinity.com/engines/altinity-kb-atomic-database-engine/readme/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/engines/altinity-kb-atomic-database-engine/readme/</guid>
+      <description>In version 20.5 ClickHouse first introduced database engine=Atomic.
+Since version 20.10 it is a default database engine (before engine=Ordinary was used).
+Those 2 database engine differs in a way how they store data on a filesystem, and engine Atomic allows to resolve some of the issues existed in engine=Ordinary.
+engine=Atomic supports
+ non-blocking drop table / rename table tables delete (&amp;amp;detach) async (wait for selects finish but invisible for new selects) atomic drop table (all files / folders removed) atomic table swap (table swap by &amp;ldquo;EXCHANGE TABLES t1 AND t2;&amp;quot;) rename dictionary / rename database unique automatic UUID paths in FS and ZK for Replicated  FAQ Q.</description>
+    </item>
+    
+    <item>
+      <title>Atomic insert</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/atomic-insert/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/atomic-insert/</guid>
+      <description>Insert would be atomic only if those conditions met:
+ Insert data only in single partition. Numbers of rows is less than max_insert_block_size. Table doesn&amp;rsquo;t have Materialized Views (there is no atomicity Table &amp;lt;&amp;gt; MV) For TSV, TKSV, CSV, and JSONEachRow formats, setting input_format_parallel_parsing=0 is set.  {% embed url=&amp;ldquo;https://github.com/ClickHouse/ClickHouse/issues/9195#issuecomment-587500824&amp;rdquo; %}
+© 2021 Altinity Inc. All rights reserved.</description>
+    </item>
+    
+    <item>
+      <title>AWS EBS</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/aws-ebs/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/aws-ebs/</guid>
+      <description>Volume type  gp3 gp2     Max throughput per volume  1000 MiB/s 250 MiB/s   Price  $0.08/GB-month
+3,000 IOPS free and
+$0.005/provisioned IOPS-month over 3,000;
+125 MB/s free and
+$0.04/provisioned MB/s-month over 125
+ $0.10/GB-month    GP2 In usual conditions ClickHouse being limited by throughput of volumes only and amount of provided IOPS doesn&amp;rsquo;t make any big difference for performance.</description>
+    </item>
+    
+    <item>
+      <title>Backfill/populate MV in a controlled manner</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-schema-design/materialized-views/backfill-populate-mv-in-a-controlled-manner/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-schema-design/materialized-views/backfill-populate-mv-in-a-controlled-manner/</guid>
+      <description>Q. How to populate MV create with TO syntax? INSERT INTO mv SELECT * FROM huge_table? Will it work if the source table has billions of rows?
+A. single huge insert ... select ... actually will work, but it will take A LOT of time, and during that time lot of bad things can happen (lack of disk space, hard restart etc). Because of that, it&amp;rsquo;s better to do such backfill in a more controlled manner and in smaller pieces.</description>
+    </item>
+    
+    <item>
+      <title>Backups</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/hardening-clickhouse-security/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/hardening-clickhouse-security/</guid>
+      <description>ClickHouse is currently at the design stage of creating some universal backup solution. Some custom backup strategies are:
+ Each shard is backed up separately. FREEZE the table/partition. For more information, see Alter Freeze Partition.  This creates hard links in shadow subdirectory.   rsync that directory to a backup location, then remove that subfolder from shadow.  Cloud users are recommended to use Rclone.   Always add the full contents of the metadata subfolder that contains the current DB schema and clickhouse configs to your backup.</description>
+    </item>
+    
+    <item>
+      <title>Best schema for storing many metrics registered from the single source</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-schema-design/best-schema-for-storing-many-metrics-registered-from-the-single-source/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-schema-design/best-schema-for-storing-many-metrics-registered-from-the-single-source/</guid>
+      <description>Picking the best schema for storing many metrics registered from single source is quite a common problem.
+1 One row per metric i.e.: timestamp, sourceid, metric_name, metric_value
+Pros and cons:
+ simple well normalized schema easy to extend that is quite typical pattern for timeseries databases   different metrics values stored in same columns (worse compression) to use values of different datatype you need to cast everything to string or introduce few columns for values of different types.</description>
+    </item>
+    
+    <item>
+      <title>BI Tools</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-integrations/bi-tools/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-integrations/bi-tools/</guid>
+      <description>  Superset: https://superset.apache.org/docs/databases/clickhouse
+  Metabase: https://github.com/enqueue/metabase-clickhouse-driver
+  Querybook: https://www.querybook.org/docs/setup_guide/connect_to_query_engines/#all-query-engines
+  Tableau: via odbc
+  Looker: https://docs.looker.com/setup-and-management/database-config/clickhouse
+  Apache Zeppelin
+  SeekTable
+  ReDash
+  Mondrian: https://altinity.com/blog/accessing-clickhouse-from-excel-using-mondrian-rolap-engine
+  Grafana
+  Cumul.io
+  </description>
+    </item>
+    
+    <item>
+      <title>Can detached parts be dropped?</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-useful-queries/detached-parts/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-useful-queries/detached-parts/</guid>
+      <description>Here is what different statuses mean:
+ parts are renamed to &amp;lsquo;ignored&amp;rsquo; if they were found during ATTACH together with other, bigger parts that cover the same blocks of data, i.e. they were already merged into something else. parts are renamed to &amp;lsquo;broken&amp;rsquo; if ClickHouse was not able to load data from the parts. There could be different reasons: some files are lost, checksums are not correct, etc. parts are renamed to &amp;lsquo;unexpected&amp;rsquo; if they are present locally, but are not found in ZooKeeper, in case when an insert was not completed properly.</description>
+    </item>
+    
+    <item>
+      <title>CatBoost / MindsDB /  Fast.ai</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-integrations/catboost-mindsdb-fast.ai/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-integrations/catboost-mindsdb-fast.ai/</guid>
+      <description>{% hint style=&amp;ldquo;info&amp;rdquo; %} Article is based on feedback provided by one of Altinity clients. {% endhint %}
+CatBoost:
+ It uses gradient boosting - a hard to use technique which can outperform neural networks. Gradient boosting is powerful but it&amp;rsquo;s easy to shoot yourself in the foot using it. The documentation on how to use it is quite lacking. The only good source of information on how to properly configure a model to yield good results is this video: https://www.</description>
+    </item>
+    
+    <item>
+      <title>ClickHouse in Docker</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-clickhouse-in-docker/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-clickhouse-in-docker/</guid>
+      <description>Do you have documentation on Docker deployments?
+ Check
+ https://hub.docker.com/r/yandex/clickhouse-server/ https://docs.altinity.com/clickhouseonkubernetes/ sources of entry point - https://github.com/ClickHouse/ClickHouse/blob/master/docker/server/entrypoint.sh  Important things:
+ use concrete version tag (avoid using latest) if possible use --network=host (due to performance reasons) you need to mount the folder /var/lib/clickhouse to have persistency. you MAY also mount the folder /var/log/clickhouse-server to have logs accessible outside of the container. Also, you may mount in some files or folders in the configuration folder:  /etc/clickhouse-server/config.</description>
+    </item>
+    
+    <item>
+      <title>ClickHouse versions</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/untitled/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/untitled/</guid>
+      <description>ClickHouse versioning schema Example:
+21.3.10.1-lts
+ 21 is the year of release. 3 indicates a Feature Release. This is an increment where features are delivered. 10 is the bugfix / maintenance version. When that version is incremented it means that some bugs was fixed comparing to 21.3.9. 1 - build number, means nothing for end users. lts - type of release. (long time support).  What is Altinity Stable version? It is one of general / public version of ClickHouse which has passed some extra testings, the upgrade path and changelog was analyzed, known issues are documented, and at least few big companies use it on production.</description>
+    </item>
+    
+    <item>
+      <title>clickhouse-client</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-interfaces/altinity-kb-clickhouse-client/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-interfaces/altinity-kb-clickhouse-client/</guid>
+      <description>Q. How can I input multi-line SQL code? can you guys give me an example?
+A. Just run clickhouse-client with -m switch, and it starts executing only after you finish the line with a semicolon.
+Q. How can i use pager with clickhouse-client
+A. Here is an example: clickhouse-client --pager &#39;less -RS&#39;
+Q. Data is returned in chunks / several tables.
+A. Data get streamed from the server in blocks, every block is formatted individually when the default PrettyCompact format is used.</description>
+    </item>
+    
+    <item>
+      <title>clickhouse-copier</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/altinity-kb-clickhouse-copier/readme/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/altinity-kb-clickhouse-copier/readme/</guid>
+      <description>The description of the utility and its parameters, as well as examples of the config files that you need to create for the copier are in the doc https://clickhouse.tech/docs/en/operations/utilities/clickhouse-copier/
+The steps to run a task:
+  Create a config file for clickhouse-copier (zookeeper.xml)
+https://clickhouse.tech/docs/en/operations/utilities/clickhouse-copier/#format-of-zookeeper-xml
+  Create a config file for the task (task1.xml)
+https://clickhouse.tech/docs/en/operations/utilities/clickhouse-copier/#configuration-of-copying-tasks
+  Create the task in ZooKeeper and start an instance of clickhouse-copierclickhouse-copier --daemon --base-dir=/opt/clickhouse-copier --config /opt/clickhouse-copier/zookeeper.</description>
+    </item>
+    
+    <item>
+      <title>clickhouse-copier 20.3 and earlier</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/altinity-kb-clickhouse-copier/altinity-kb-clickhouse-copier-20.3-and-earlier/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/altinity-kb-clickhouse-copier/altinity-kb-clickhouse-copier-20.3-and-earlier/</guid>
+      <description>Clickhouse-copier was created to move data between clusters.
+It runs simple INSERT…SELECT queries and can copy data between tables with different engine parameters and between clusters with different number of shards.
+In the task configuration file you need to describe the layout of the source and the target cluster, and list the tables that you need to copy. You can copy whole tables or specific partitions.
+Clickhouse-copier uses temporary distributed tables to select from the source cluster and insert into the target cluster.</description>
+    </item>
+    
+    <item>
+      <title>clickhouse-copier 20.4&#43;</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/altinity-kb-clickhouse-copier/altinity-kb-clickhouse-copier-20.4&#43;/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/altinity-kb-clickhouse-copier/altinity-kb-clickhouse-copier-20.4&#43;/</guid>
+      <description>Clickhouse-copier was created to move data between clusters.
+It runs simple INSERT…SELECT queries and can copy data between tables with different engine parameters and between clusters with different number of shards.
+In the task configuration file you need to describe the layout of the source and the target cluster, and list the tables that you need to copy. You can copy whole tables or specific partitions.
+Clickhouse-copier uses temporary distributed tables to select from the source cluster and insert into the target cluster.</description>
+    </item>
+    
+    <item>
+      <title>clickhouse-keeper</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/clickhouse-keeper/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/clickhouse-keeper/</guid>
+      <description>In 21.3 there is already an option to run own clickhouse zookeeper implementation. It&amp;rsquo;s still experimental, and still need to be started additionally on few nodes (similar to &amp;lsquo;normal&amp;rsquo; zookeeper) and speaks normal zookeeper protocol - needed to simplify A/B tests with real zookeeper.
+No docs, for now, only PR with code &amp;amp; tests. Of course, if you want to play with it - you can, and early feedback is very valuable.</description>
+    </item>
+    
+    <item>
+      <title>Cluster Configuration FAQ</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/cluster-configuration-faq/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/cluster-configuration-faq/</guid>
+      <description>ClickHouse does not start, some other unexpected behavior happening. Check clickhouse logs, they are your friends:
+tail -n 1000 /var/log/clickhouse-server/clickhouse-server.err.log | less
+tail -n 10000 /var/log/clickhouse-server/clickhouse-server.log | less
+How Do I Restrict Memory Usage? See our knowledge base article and official documentation for more information.
+ClickHouse died during big query execution Misconfigured clickhouse can try to allocate more RAM than is available on the system.
+In that case an OS component called oomkiller can kill the clickhouse process.</description>
+    </item>
+    
+    <item>
+      <title>Cluster Configuration Process</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/cluster-configuration-process/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/cluster-configuration-process/</guid>
+      <description>So you set up 3 nodes with zookeeper (zookeeper1, zookeeper2, zookeeper3 - How to install zookeer?), and and 4 nodes with ClickHouse (clickhouse-sh1r1,clickhouse-sh1r2,clickhouse-sh2r1,clickhouse-sh2r2 - how to install ClickHouse?). Now we need to make them work together.
+Use ansible/puppet/salt or other systems to control the servers’ configurations.
+ Configure ClickHouse access to Zookeeper by adding the file zookeeper.xml in /etc/clickhouse-server/config.d/ folder. This file must be placed on all ClickHouse servers.  &amp;lt;yandex&amp;gt; &amp;lt;zookeeper&amp;gt; &amp;lt;node&amp;gt; &amp;lt;host&amp;gt;zookeeper1&amp;lt;/host&amp;gt; &amp;lt;port&amp;gt;2181&amp;lt;/port&amp;gt; &amp;lt;/node&amp;gt; &amp;lt;node&amp;gt; &amp;lt;host&amp;gt;zookeeper2&amp;lt;/host&amp;gt; &amp;lt;port&amp;gt;2181&amp;lt;/port&amp;gt; &amp;lt;/node&amp;gt; &amp;lt;node&amp;gt; &amp;lt;host&amp;gt;zookeeper3&amp;lt;/host&amp;gt; &amp;lt;port&amp;gt;2181&amp;lt;/port&amp;gt; &amp;lt;/node&amp;gt; &amp;lt;/zookeeper&amp;gt; &amp;lt;/yandex&amp;gt;  On each server put the file macros.</description>
+    </item>
+    
+    <item>
+      <title>Codecs on array columns</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-schema-design/codecs/codecs-on-array-columns/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-schema-design/codecs/codecs-on-array-columns/</guid>
+      <description>{% hint style=&amp;ldquo;info&amp;rdquo; %} Supported since 20.10 (PR #15089). On older versions you will get exception:
+DB::Exception: Codec Delta is not applicable for Array(UInt64) because the data type is not of fixed size. {% endhint %}
+DROPTABLEIFEXISTSarray_codec_testSYNCcreatetablearray_codec_test(numberUInt64,arrArray(UInt64))Engine=MergeTreeORDERBYnumber;INSERTINTOarray_codec_testSELECTnumber,arrayMap(i-&amp;gt;number+i,range(100))fromnumbers(10000000);/**** Default LZ4 *****/OPTIMIZETABLEarray_codec_testFINAL;--- Elapsed: 3.386 sec. SELECT*FROMsystem.columnsWHERE(table=&amp;#39;array_codec_test&amp;#39;)AND(name=&amp;#39;arr&amp;#39;)/* Row 1: ────── database: default table: array_codec_test name: arr type: Array(UInt64) position: 2 default_kind: default_expression: data_compressed_bytes: 173866750 data_uncompressed_bytes: 8080000000 marks_bytes: 58656 comment: is_in_partition_key: 0 is_in_sorting_key: 0 is_in_primary_key: 0 is_in_sampling_key: 0 compression_codec: *//****** Delta, LZ4 ******/ALTERTABLEarray_codec_testMODIFYCOLUMNarrArray(UInt64)CODEC(Delta,LZ4);OPTIMIZETABLEarray_codec_testFINAL--0 rows in set.</description>
+    </item>
+    
+    <item>
+      <title>Codecs speed</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-schema-design/codecs/codecs-speed/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-schema-design/codecs/codecs-speed/</guid>
+      <description>createtabletest_codec_speedengine=MergeTreeORDERBYtuple()asselectcast(now()+rand()%2000+number,&amp;#39;DateTime&amp;#39;)asxfromnumbers(1000000000);option1:CODEC(LZ4)(sameasdefault)option2:CODEC(DoubleDelta)(`altertabletest_codec_speedmodifycolumnxDateTimeCODEC(DoubleDelta)`);option3:CODEC(T64,LZ4)(`altertabletest_codec_speedmodifycolumnxDateTimeCODEC(T64,LZ4)`)option4:CODEC(Delta,LZ4)(`altertabletest_codec_speedmodifycolumnxDateTimeCODEC(Delta,LZ4)`)option5:CODEC(ZSTD(1))(`altertabletest_codec_speedmodifycolumnxDateTimeCODEC(ZSTD(1))`)option6:CODEC(T64,ZSTD(1))(`altertabletest_codec_speedmodifycolumnxDateTimeCODEC(T64,ZSTD(1))`)option7:CODEC(Delta,ZSTD(1))(`altertabletest_codec_speedmodifycolumnxDateTimeCODEC(Delta,ZSTD(1))`)option8:CODEC(T64,LZ4HC(1))(`altertabletest_codec_speedmodifycolumnxDateTimeCODEC(T64,LZ4HC(1))`)option9:CODEC(Gorilla)(`altertabletest_codec_speedmodifycolumnxDateTimeCODEC(Gorilla)`)Resultmaybenot100%reliable(checkedonmylaptop,needtoberepeatedinlabenvironment)OPTIMIZETABLEtest_codec_speedFINAL(secondrun-i.e.read+writethesamedata)1)17sec.2)30sec.3)16sec4)17sec5)29sec6)24sec7)31sec8)35sec9)19seccompressedsize1)31813768812)23337936993)18626603074)34085027575)23930782666)17655561737)21760804978)18104712479)2109640716selectmax(x)fromtest_codec_speed1)0.5972)2.756:(3)1.1684)0.7525)1.3626)1.3647)1.7528)1.2709)1.607</description>
+    </item>
+    
+    <item>
+      <title>Converting MergeTree to Replicated</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-converting-mergetree-to-replicated/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-converting-mergetree-to-replicated/</guid>
+      <description>Options here are:
+ UseINSERT INTO foo_replicated SELECT * FROM foo . Create table aside and attach all partition from the existing table then drop original table (uses hard links don&amp;rsquo;t require extra disk space). ALTER TABLE foo_replicated ATTACH PARTITION ID &#39;bar&#39; FROM &#39;foo&#39; You can easily auto generate those commands using a query like: SELECT DISTINCT &#39;ALTER TABLE foo_replicated ATTACH PARTITION ID &#39;&#39; || partition_id || &#39;&#39; FROM foo&#39; from system.</description>
+    </item>
+    
+    <item>
+      <title>Cumulative Anything</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/cumulative-unique/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/cumulative-unique/</guid>
+      <description>Sample data CREATETABLEevents(`ts`DateTime,`user_id`UInt32)ENGINE=Memory;INSERTINTOeventsSELECTtoDateTime(&amp;#39;2021-04-29 10:10:10&amp;#39;)+toIntervalHour(7*number)ASts,toDayOfWeek(ts)+(number%2)ASuser_idFROMnumbers(15);Using arrays WITHgroupArray(_ts)ASts_arr,groupArray(state)ASstate_arrSELECTarrayJoin(ts_arr)ASts,arrayReduce(&amp;#39;uniqExactMerge&amp;#39;,arrayFilter((x,y)-&amp;gt;(y&amp;lt;=ts),state_arr,ts_arr))ASuniqFROM(SELECTtoStartOfDay(ts)AS_ts,uniqExactState(user_id)ASstateFROMeventsGROUPBY_ts)ORDERBYtsASC┌──────────────────ts─┬─uniq─┐│2021-04-2900:00:00│2││2021-04-3000:00:00│3││2021-05-0100:00:00│4││2021-05-0200:00:00│5││2021-05-0300:00:00│7│└─────────────────────┴──────┘WITHarrayJoin(range(toUInt32(_ts)ASint,least(int+toUInt32((3600*24)*5),toUInt32(toDateTime(&amp;#39;2021-05-04 00:00:00&amp;#39;))),3600*24))ASts_expandedSELECTtoDateTime(ts_expanded)ASts,uniqExactMerge(state)ASuniqFROM(SELECTtoStartOfDay(ts)AS_ts,uniqExactState(user_id)ASstateFROMeventsGROUPBY_ts)GROUPBYtsORDERBYtsASC┌──────────────────ts─┬─uniq─┐│2021-04-2900:00:00│2││2021-04-3000:00:00│3││2021-05-0100:00:00│4││2021-05-0200:00:00│5││2021-05-0300:00:00│7│└─────────────────────┴──────┘Using window functions (starting from Clickhouse 21.3) SELECTts,uniqExactMerge(state)OVER(ORDERBYtsASCROWSBETWEENUNBOUNDEDPRECEDINGANDCURRENTROW)ASuniqFROM(SELECTtoStartOfDay(ts)ASts,uniqExactState(user_id)ASstateFROMeventsGROUPBYts)ORDERBYtsASC┌──────────────────ts─┬─uniq─┐│2021-04-2900:00:00│2││2021-04-3000:00:00│3││2021-05-0100:00:00│4││2021-05-0200:00:00│5││2021-05-0300:00:00│7│└─────────────────────┴──────┘Using runningAccumulate (incorrect result over blocks) SELECTts,runningAccumulate(state)ASuniqFROM(SELECTtoStartOfDay(ts)ASts,uniqExactState(user_id)ASstateFROMeventsGROUPBYtsORDERBYtsASC)ORDERBYtsASC┌──────────────────ts─┬─uniq─┐│2021-04-2900:00:00│2││2021-04-3000:00:00│3││2021-05-0100:00:00│4││2021-05-0200:00:00│5││2021-05-0300:00:00│7│└─────────────────────┴──────┘</description>
+    </item>
+    
+    <item>
+      <title>Data types on disk and in RAM</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/data-types-on-disk-and-in-ram/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/data-types-on-disk-and-in-ram/</guid>
+      <description>DataType RAM size (=byteSize) Disk Size     String string byte length + 9 string length: 64 bit integer
+zero-byte terminator: 1 byte.
+ string length prefix (varint) + string itself:
+ string shorter than 128 - string byte length + 1 string shorter than 16384 - string byte length + 2 string shorter than 2097152 - string byte length + 2 string shorter than 268435456 - string byte length + 4</description>
+    </item>
+    
+    <item>
+      <title>Database Size - Table - Column size</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-useful-queries/altinity-kb-database-size-table-column-size/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-useful-queries/altinity-kb-database-size-table-column-size/</guid>
+      <description>Tables Table size SELECTdatabase,table,formatReadableSize(sum(data_compressed_bytes)ASsize)AScompressed,formatReadableSize(sum(data_uncompressed_bytes)ASusize)ASuncompressed,round(usize/size,2)AScompr_rate,sum(rows)ASrows,count()ASpart_countFROMsystem.partsWHERE(active=1)AND(tableLIKE&amp;#39;%&amp;#39;)AND(databaseLIKE&amp;#39;%&amp;#39;)GROUPBYdatabase,tableORDERBYsizeDESC;Column size SELECTdatabase,table,column,formatReadableSize(sum(column_data_compressed_bytes)ASsize)AScompressed,formatReadableSize(sum(column_data_uncompressed_bytes)ASusize)ASuncompressed,round(usize/size,2)AScompr_rateFROMsystem.parts_columnsWHERE(active=1)AND(tableLIKE&amp;#39;query_log&amp;#39;)GROUPBYdatabase,table,columnORDERBYsizeDESC;Projections Projection size SELECTdatabase,table,name,formatReadableSize(sum(data_compressed_bytes)ASsize)AScompressed,formatReadableSize(sum(data_uncompressed_bytes)ASusize)ASuncompressed,round(usize/size,2)AScompr_rate,sum(rows)ASrows,count()ASpart_countFROMsystem.projection_partsWHERE(table=&amp;#39;ptest&amp;#39;)ANDactiveGROUPBYdatabase,table,nameORDERBYsizeDESC;Projection column size SELECTdatabase,table,column,formatReadableSize(sum(column_data_compressed_bytes)ASsize)AScompressed,formatReadableSize(sum(column_data_uncompressed_bytes)ASusize)ASuncompressed,round(usize/size,2)AScompr_rateFROMsystem.projection_parts_columnsWHERE(active=1)AND(tableLIKE&amp;#39;ptest&amp;#39;)GROUPBYdatabase,table,columnORDERBYsizeDESC;© 2021 Altinity Inc. All rights reserved.</description>
+    </item>
+    
+    <item>
+      <title>Datasets</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-useful-queries/altinity-kb-datasets/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-useful-queries/altinity-kb-datasets/</guid>
+      <description>© 2021 Altinity Inc. All rights reserved.</description>
+    </item>
+    
+    <item>
+      <title>DELETE via tombstone column</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/delete-via-tombstone-column/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/delete-via-tombstone-column/</guid>
+      <description>CREATETABLEtest_delete(`key`UInt32,`ts`UInt32,`value_a`String,`value_b`String,`value_c`String,`is_active`UInt8DEFAULT1)ENGINE=MergeTreeORDERBYkey;INSERTINTOtest_delete(key,ts,value_a,value_b,value_c)SELECTnumber,1,concat(&amp;#39;some_looong_string&amp;#39;,toString(number)),concat(&amp;#39;another_long_str&amp;#39;,toString(number)),concat(&amp;#39;string&amp;#39;,toString(number))FROMnumbers(10000000);INSERTINTOtest_delete(key,ts,value_a,value_b,value_c)VALUES(400000,2,&amp;#39;totally different string&amp;#39;,&amp;#39;another totally different string&amp;#39;,&amp;#39;last string&amp;#39;);SELECT*FROMtest_deleteWHEREkey=400000;┌────key─┬─ts─┬─value_a──────────────────┬─value_b──────────────────────────┬─value_c─────┬─is_active─┐│400000│2│totallydifferentstring│anothertotallydifferentstring│laststring│1│└────────┴────┴──────────────────────────┴──────────────────────────────────┴─────────────┴───────────┘┌────key─┬─ts─┬─value_a──────────────────┬─value_b────────────────┬─value_c──────┬─is_active─┐│400000│1│some_looong_string400000│another_long_str400000│string400000│1│└────────┴────┴──────────────────────────┴────────────────────────┴──────────────┴───────────┘SETmutations_sync=2;ALTERTABLEtest_deleteUPDATEis_active=0WHERE(key=400000)AND(ts=1);Ok.0rowsinset.Elapsed:0.058sec.SELECT*FROMtest_deleteWHERE(key=400000)ANDis_active;┌────key─┬─ts─┬─value_a──────────────────┬─value_b──────────────────────────┬─value_c─────┬─is_active─┐│400000│2│totallydifferentstring│anothertotallydifferentstring│laststring│1│└────────┴────┴──────────────────────────┴──────────────────────────────────┴─────────────┴───────────┘ALTERTABLEtest_deleteDELETEWHERE(key=400000)AND(ts=1);Ok.0rowsinset.Elapsed:1.101sec.-- 20 times slower!!! SELECT*FROMtest_deleteWHEREkey=400000;┌────key─┬─ts─┬─value_a──────────────────┬─value_b──────────────────────────┬─value_c─────┬─is_active─┐│400000│2│totallydifferentstring│anothertotallydifferentstring│laststring│1│└────────┴────┴──────────────────────────┴──────────────────────────────────┴─────────────┴───────────┘-- For ReplacingMergeTree OPTIMIZETABLEtest_deleteFINAL;Ok.0rowsinset.Elapsed:2.230sec.-- 40 times slower!!! SELECT*FROMtest_deleteWHEREkey=400000┌────key─┬─ts─┬─value_a──────────────────┬─value_b──────────────────────────┬─value_c─────┬─is_active─┐│400000│2│totallydifferentstring│anothertotallydifferentstring│laststring│1│└────────┴────┴──────────────────────────┴──────────────────────────────────┴─────────────┴───────────┘</description>
+    </item>
+    
+    <item>
+      <title>Dictionaries vs LowCardinality</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-schema-design/altinity-kb-dictionaries-vs-lowcardinality/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-schema-design/altinity-kb-dictionaries-vs-lowcardinality/</guid>
+      <description>Q. I think I&amp;rsquo;m still trying to understand how de-normalized is okay - with my relational mindset, I want to move repeated string fields into their own table, but I&amp;rsquo;m not sure to what extent this is necessary
+I will look at LowCardinality in more detail - I think it may work well here
+A. If it&amp;rsquo;s a simple repetition, which you don&amp;rsquo;t need to manipulate/change in future - LowCardinality works great, and you usually don&amp;rsquo;t need to increase the system complexity by introducing dicts.</description>
+    </item>
+    
+    <item>
+      <title>Dictionary on the top of the several tables using VIEW</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-dictionaries/untitled/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-dictionaries/untitled/</guid>
+      <description>DROPTABLEIFEXISTSdictionary_source_en;DROPTABLEIFEXISTSdictionary_source_ru;DROPTABLEIFEXISTSdictionary_source_view;DROPDICTIONARYIFEXISTSflat_dictionary;CREATETABLEdictionary_source_en(idUInt64,valueString)ENGINE=TinyLog;INSERTINTOdictionary_source_enVALUES(1,&amp;#39;One&amp;#39;),(2,&amp;#39;Two&amp;#39;),(3,&amp;#39;Three&amp;#39;);CREATETABLEdictionary_source_ru(idUInt64,valueString)ENGINE=TinyLog;INSERTINTOdictionary_source_ruVALUES(1,&amp;#39;Один&amp;#39;),(2,&amp;#39;Два&amp;#39;),(3,&amp;#39;Три&amp;#39;);CREATEVIEWdictionary_source_viewASSELECTid,dictionary_source_en.valueasvalue_en,dictionary_source_ru.valueasvalue_ruFROMdictionary_source_enLEFTJOINdictionary_source_ruUSING(id);select*fromdictionary_source_view;CREATEDICTIONARYflat_dictionary(idUInt64,value_enString,value_ruString)PRIMARYKEYidSOURCE(CLICKHOUSE(HOST&amp;#39;localhost&amp;#39;PORT9000USER&amp;#39;default&amp;#39;PASSWORD&amp;#39;&amp;#39;TABLE&amp;#39;dictionary_source_view&amp;#39;))LIFETIME(MIN1MAX1000)LAYOUT(FLAT());SELECTdictGet(concat(currentDatabase(),&amp;#39;.flat_dictionary&amp;#39;),&amp;#39;value_en&amp;#39;,number+1),dictGet(concat(currentDatabase(),&amp;#39;.flat_dictionary&amp;#39;),&amp;#39;value_ru&amp;#39;,number+1)FROMnumbers(3);</description>
+    </item>
+    
+    <item>
+      <title>EmbeddedRocksDB &amp; dictionary</title>
+      <link>http://beta.kb.altinity.com/engines/altinity-kb-embeddedrocksdb-and-dictionary/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/engines/altinity-kb-embeddedrocksdb-and-dictionary/</guid>
+      <description>RocksDB is faster than MergeTree on Key/Value queries because MergeTree primary key index is sparse. Probably it&amp;rsquo;s possible to speedup MergeTree by reducing index_granularity.
+NVMe disk is used for the tests.
+The main feature of RocksDB is instant updates. You can update a row instantly (microseconds):
+select*fromrocksDBwhereA=15645646;┌────────A─┬─B────────────────────┐│15645646│12517841379565221195│└──────────┴──────────────────────┘1rowsinset.Elapsed:0.001sec.insertintorocksDBvalues(15645646,&amp;#39;xxxx&amp;#39;);1rowsinset.Elapsed:0.001sec.select*fromrocksDBwhereA=15645646;┌────────A─┬─B────┐│15645646│xxxx│└──────────┴──────┘1rowsinset.Elapsed:0.001sec.Let’s load 100 millions rows:
+createtablerocksDB(AUInt64,BString,primarykeyA)Engine=EmbeddedRocksDB();insertintorocksDBselectnumber,toString(cityHash64(number))fromnumbers(100000000);-- 0 rows in set. Elapsed: 154.559 sec. Processed 100.66 million rows, 805.28 MB (651.27 thousand rows/s., 5.21 MB/s.) -- Size on disk: 1.</description>
+    </item>
+    
+    <item>
+      <title>Error handling</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-integrations/altinity-kb-kafka/error-handling/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-integrations/altinity-kb-kafka/error-handling/</guid>
+      <description>Pre 21.6 There are couple options:
+Certain formats which has schema in built in them (like JSONEachRow) could silently skip any unexpected fields after enabling setting input_format_skip_unknown_fields
+It&amp;rsquo;s also possible to skip up to N malformed messages for each block, with used setting kafka_skip_broken_messages but it&amp;rsquo;s also does not support all possible formats.
+After 21.6 It&amp;rsquo;s possible to stream messages which could not be parsed, this behavior could be enabled via setting: kafka_handle_error_mode=&#39;stream&#39; and clickhouse wil write error and message from Kafka itself to two new virtual columns: _error, _raw_message.</description>
+    </item>
+    
+    <item>
+      <title>Exactly once semantics</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-integrations/altinity-kb-kafka/altinity-kb-exactly-once-semantics/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-integrations/altinity-kb-kafka/altinity-kb-exactly-once-semantics/</guid>
+      <description>EOS consumer (isolation.level=read_committed) is enabled by default since librdkafka 1.2.0, so for ClickHouse - since 20.2
+See:
+ edenhill/librdkafka@6b2a155 9de5dff  There was a report recently that it was giving some duplicates #18668 and in should be fixed in 21.2.
+BUT: while EOS semantics will guarantee you that no duplicates will happen on the Kafka side (i.e. even if you produce the same messages few times it will be consumed once), but ClickHouse as a Kafka client can currently guarantee only at-least-once.</description>
+    </item>
+    
+    <item>
+      <title>Example: minmax</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/skip-indexes/minmax/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/skip-indexes/minmax/</guid>
+      <description>Use cases Strong correlation between column from table ORDER BY / PARTITION BY key and other column which is regularly being used in WHERE condition. Good example is incremental ID which increasing with time.
+CREATETABLEskip_idx_corr(`key`UInt32,`id`UInt32,`ts`DateTime)ENGINE=MergeTreePARTITIONBYtoYYYYMM(ts)ORDERBY(key,id);INSERTINTOskip_idx_corrSELECTrand(),number,now()+intDiv(number,10)FROMnumbers(100000000);SELECTcount()FROMskip_idx_corrWHEREid=60000001rowsinset.Elapsed:0.167sec.Processed100.00millionrows,400.00MB(599.96millionrows/s.,2.40GB/s.)ALTERTABLEskip_idx_corrADDINDEXid_idxidTYPEminmaxGRANULARITY10;ALTERTABLEskip_idx_corrMATERIALIZEINDEXid_idx;SELECTcount()FROMskip_idx_corrWHEREid=60000001rowsinset.Elapsed:0.017sec.Processed6.29millionrows,25.17MB(359.78millionrows/s.,1.44GB/s.)Multiple Date/DateTime columns can be used in WHERE conditions Usually it could happen if you have separate Date and DateTime columns and different column being used in PARTITION BY expression and in WHERE condition. Another possible scenario when you have multiple DateTime columns which have pretty the same date or even time.</description>
+    </item>
+    
+    <item>
+      <title>EXPLAIN query</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/explain-query/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/explain-query/</guid>
+      <description>https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup47/explain.pdf
+https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup39/query-profiling.pdf</description>
+    </item>
+    
+    <item>
+      <title>Fill missing values at query time</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/fill-missing-values-at-query-time/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/fill-missing-values-at-query-time/</guid>
+      <description>CREATETABLEevent_table(`key`UInt32,`created_at`DateTime,`value_a`UInt32,`value_b`String)ENGINE=MergeTreeORDERBY(key,created_at)INSERTINTOevent_tableSELECT1ASkey,toDateTime(&amp;#39;2020-10-11 10:10:10&amp;#39;)+numberAScreated_at,if((number=0)OR((number%5)=1),number+1,0)ASvalue_a,if((number=0)OR((number%3)=1),toString(number),&amp;#39;&amp;#39;)ASvalue_bFROMnumbers(10)SELECTmain.</description>
+    </item>
+    
+    <item>
+      <title>FINAL clause speed</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/altinity-kb-final-clause-speed/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/altinity-kb-final-clause-speed/</guid>
+      <description>SELECT * FROM table FINAL
+ Before 20.5 - always executed in a single thread and slow. Since 20.5 - final can be parallel, see https://github.com/ClickHouse/ClickHouse/pull/10463 Since 20.10 - you can use do_not_merge_across_partitions_select_final setting.  See https://github.com/ClickHouse/ClickHouse/pull/15938 and https://github.com/ClickHouse/ClickHouse/issues/11722
+So it can work in the following way:
+ Daily partitioning After day end + some time interval during which you can get some updates - for example at 3am / 6am you do OPTIMIZE TABLE xxx PARTITION &#39;prev_day&#39; FINAL In that case using that FINAL with do_not_merge_across_partitions_select_final will be cheap.</description>
+    </item>
+    
+    <item>
+      <title>Flattened table</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-schema-design/flattened-table/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-schema-design/flattened-table/</guid>
+      <description>It&amp;rsquo;s possible to use dictionaries for populating columns of fact table.
+CREATETABLEcustomer(`customer_id`UInt32,`first_name`String,`birth_date`Date,`sex`Enum(&amp;#39;M&amp;#39;=1,&amp;#39;F&amp;#39;=2))ENGINE=MergeTreeORDERBYcustomer_idCREATETABLEorder(`order_id`UInt32,`order_date`DateTimeDEFAULTnow(),`cust_id`UInt32,`amount`Decimal(12,2))ENGINE=MergeTreePARTITIONBYtoYYYYMM(order_date)ORDERBY(order_date,cust_id,order_id)INSERTINTOcustomerVALUES(1,&amp;#39;Mike&amp;#39;,now()-INTERVAL30YEAR,&amp;#39;M&amp;#39;);INSERTINTOcustomerVALUES(2,&amp;#39;Boris&amp;#39;,now()-INTERVAL40YEAR,&amp;#39;M&amp;#39;);INSERTINTOcustomerVALUES(3,&amp;#39;Sofie&amp;#39;,now()-INTERVAL24YEAR,&amp;#39;F&amp;#39;);INSERTINTOorder(order_id,cust_id,amount)VALUES(50,1,15);INSERTINTOorder(order_id,cust_id,amount)VALUES(30,1,10);SELECT*EXCEPT&amp;#39;order_date&amp;#39;FROMorder┌─order_id─┬─cust_id─┬─amount─┐│30│1│10.00││50│1│15.00│└──────────┴─────────┴────────┘CREATEDICTIONARYcustomer_dict(`customer_id`UInt32,`first_name`String,`birth_date`Date,`sex`UInt8)PRIMARYKEYcustomer_idSOURCE(CLICKHOUSE(TABLE&amp;#39;customer&amp;#39;))LIFETIME(MIN0MAX300)LAYOUT(FLAT)ALTERTABLEorderADDCOLUMN`cust_first_name`StringDEFAULTdictGetString(&amp;#39;default.customer_dict&amp;#39;,&amp;#39;first_name&amp;#39;,toUInt64(cust_id)),ADDCOLUMN`cust_sex`Enum(&amp;#39;M&amp;#39;=1,&amp;#39;F&amp;#39;=2)DEFAULTdictGetUInt8(&amp;#39;default.customer_dict&amp;#39;,&amp;#39;sex&amp;#39;,toUInt64(cust_id)),ADDCOLUMN`cust_birth_date`DateDEFAULTdictGetDate(&amp;#39;default.customer_dict&amp;#39;,&amp;#39;birth_date&amp;#39;,toUInt64(cust_id));INSERTINTOorder(order_id,cust_id,amount)VALUES(10,3,30);INSERTINTOorder(order_id,cust_id,amount)VALUES(20,3,60);INSERTINTOorder(order_id,cust_id,amount)VALUES(40,2,20);SELECT*EXCEPT&amp;#39;order_date&amp;#39;FROMorderFORMATPrettyCompactMonoBlock┌─order_id─┬─cust_id─┬─amount─┬─cust_first_name─┬─cust_sex─┬─cust_birth_date─┐│30│1│10.00│Mike│M│1991-08-05││50│1│15.00│Mike│M│1991-08-05││10│3│30.00│Sofie│F│1997-08-05││40│2│20.00│Boris│M│1981-08-05││20│3│60.00│Sofie│F│1997-08-05│└──────────┴─────────┴────────┴─────────────────┴──────────┴─────────────────┘ALTERTABLEcustomerUPDATEbirth_date=now()-INTERVAL35YEARWHEREcustomer_id=2;SYSTEMRELOADDICTIONARYcustomer_dict;ALTERTABLEorderUPDATEcust_birth_date=dictGetDate(&amp;#39;default.customer_dict&amp;#39;,&amp;#39;birth_date&amp;#39;,toUInt64(cust_id))WHERE1-- or if you do have track of changes it&amp;#39;s possible to lower amount of dict calls -- UPDATE cust_birth_date = dictGetDate(&amp;#39;default.customer_dict&amp;#39;, &amp;#39;birth_date&amp;#39;, toUInt64(cust_id)) WHERE customer_id = 2 SELECT*EXCEPT&amp;#39;order_date&amp;#39;FROMorderFORMATPrettyCompactMonoBlock┌─order_id─┬─cust_id─┬─amount─┬─cust_first_name─┬─cust_sex─┬─cust_birth_date─┐│30│1│10.00│Mike│M│1991-08-05││50│1│15.00│Mike│M│1991-08-05││10│3│30.00│Sofie│F│1997-08-05││40│2│20.00│Boris│M│1986-08-05││20│3│60.00│Sofie│F│1997-08-05│└──────────┴─────────┴────────┴─────────────────┴──────────┴─────────────────┘ALTER TABLE order UPDATE would completely overwrite this column in table, so it&amp;rsquo;s not recommended to run it often.</description>
+    </item>
+    
+    <item>
+      <title>Floats vs Decimals</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-schema-design/floats-vs-decimals/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-schema-design/floats-vs-decimals/</guid>
+      <description>Float arithmetics is not accurate: https://floating-point-gui.de/
+In case you need accurate calculations you should use Decimal datatypes.
+Operations on floats are not associative select toFloat64(100000000000000000.1) + toFloat64(7.5) - toFloat64(100000000000000000.1) as res; --- title: &amp;#34;0&amp;#34; linkTitle: &amp;#34;0&amp;#34; description: &amp;gt; 0 --- select toFloat64(100000000000000000.1) - toFloat64(100000000000000000.1) + toFloat64(7.5) as res; --- title: &amp;#34;7.5&amp;#34; linkTitle: &amp;#34;7.5&amp;#34; description: &amp;gt; 7.5 --- --- title: &amp;#34;no problem with Decimals:&amp;#34; linkTitle: &amp;#34;no problem with Decimals:&amp;#34; description: &amp;gt; no problem with Decimals: --- select toDecimal64(100000000000000000.</description>
+    </item>
+    
+    <item>
+      <title>golang-migrate</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/schema-migration-tools/golang-migrate/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/schema-migration-tools/golang-migrate/</guid>
+      <description>migrate migrate is a simple schema migration tool written in golang. No external dependencies are required (like interpreter, jre), only one platform-specific executable. golang-migrate/migrate
+migrate supports several databases, including ClickHouse (support was introduced by @kshvakov).
+To store information about migrations state migrate creates one additional table in target database, by default that table is called schema_migrations.
+Install: download the migrate executable for your platform and put it to the folder listed in your %PATH.</description>
+    </item>
+    
+    <item>
+      <title>Google S3 (GCS)</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-integrations/altinity-kb-google-s3-gcs/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-integrations/altinity-kb-google-s3-gcs/</guid>
+      <description>GCS with the table function - seems to work correctly!
+Essentially you can follow the steps from the Migrating from Amazon S3 to Cloud Storage.
+ Set up a GCS bucket. This bucket must be set as part of the default project for the account. This configuration can be found in settings -&amp;gt; interoperability. Generate a HMAC key for the account, can be done in settings -&amp;gt; interoperability, in the section for user account access keys.</description>
+    </item>
+    
+    <item>
+      <title>Hardware Requirements</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/hardware-requirements/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/hardware-requirements/</guid>
+      <description>ClickHouse ClickHouse will use all available hardware to maximize performance. So the more hardware - the better. As of this publication, the hardware requirements are:
+ Minimum Hardware: 4-core CPU with support of SSE4.2, 16 Gb RAM, 1Tb HDD.  Recommended for development and staging environments. SSE4.2 is required, and going below 4 Gb of RAM is not recommended.   Recommended Hardware: &amp;gt;=16-cores, &amp;gt;=64Gb RAM, HDD-raid or SSD.  For processing up to hundreds of millions / billions of rows.</description>
+    </item>
+    
+    <item>
+      <title>High CPU usage</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/high-cpu-usage/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/high-cpu-usage/</guid>
+      <description>In general, it is a NORMAL situation for clickhouse that while processing a huge dataset it can use a lot of (or all of) the server resources. It is &amp;lsquo;by design&amp;rsquo; - just to make the answers faster.
+The main directions to reduce the CPU usage is to review the schema / queries to limit the amount of the data which need to be processed, and to plan the resources in a way when single running query will not impact the others.</description>
+    </item>
+    
+    <item>
+      <title>How to check the list of watches</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/altinity-kb-how-to-check-the-list-of-watches/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/altinity-kb-how-to-check-the-list-of-watches/</guid>
+      <description>Zookeeper use watches to notify a client on znode changes. This article explains how to check watches set by ZooKeeper servers and how it is used.
+Solution:
+Zookeeper uses the &#39;wchc&#39; command to list all watches set on the Zookeeper server.
+# echo wchc | nc zookeeper 2181
+Reference
+https://zookeeper.apache.org/doc/r3.4.12/zookeeperAdmin.html
+The wchp and wchc commands are not enabled by default because of their known DOS vulnerability. For more information, see ZOOKEEPER-2693and Zookeeper 3.</description>
+    </item>
+    
+    <item>
+      <title>How to Convert Atomic to Ordinary</title>
+      <link>http://beta.kb.altinity.com/engines/altinity-kb-atomic-database-engine/altinity-kb-how-to-convert-atomic-to-ordinary/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/engines/altinity-kb-atomic-database-engine/altinity-kb-how-to-convert-atomic-to-ordinary/</guid>
+      <description>The following instructions are an example on how to convert a database with the Engine type Atomic to a database with the Engine type Ordinary.
+{% hint style=&amp;ldquo;warning&amp;rdquo; %} That can be used only for simple schemas. Schemas with MATERIALIZED views will require extra manipulations. {% endhint %}
+CREATEDATABASEatomic_dbENGINE=Atomic;CREATEDATABASEordinary_dbENGINE=Ordinary;CREATETABLEatomic_db.xENGINE=MergeTreeORDERBYtuple()ASsystem.numbers;INSERTINTOatomic_db.xSELECTnumberFROMnumbers(100000);RENAMETABLEatomic_db.xTOordinary_db.x;ls -1 /var/lib/clickhouse/data/ordinary_db/x all_1_1_0 detached format_version.txt DROPDATABASEatomic_db;DETACHDATABASEordinary_db;mv /var/lib/clickhouse/metadata/ordinary_db.sql /var/lib/clickhouse/metadata/atomic_db.sql vi /var/lib/clickhouse/metadata/atomic_db.sql mv /var/lib/clickhouse/metadata/ordinary_db /var/lib/clickhouse/metadata/atomic_db mv /var/lib/clickhouse/data/ordinary_db /var/lib/clickhouse/data/atomic_db ATTACHDATABASEatomic_db;SELECTcount()FROMatomic_db.x┌─count()─┐│100000│└─────────┘SHOWCREATEDATABASEatomic_db┌─statement──────────────────────────────────┐│CREATEDATABASEatomic_dbENGINE=Ordinary│└────────────────────────────────────────────┘Schemas with Materialized VIEW DROPDATABASEIFEXISTSatomic_db;DROPDATABASEIFEXISTSordinary_db;CREATEDATABASEatomic_dbengine=Atomic;CREATEDATABASEordinary_dbengine=Ordinary;CREATETABLEatomic_db.xENGINE=MergeTreeORDERBYtuple()ASsystem.numbers;CREATEMATERIALIZEDVIEWatomic_db.x_mvENGINE=MergeTreeORDERBYtuple()ASSELECT*FROMatomic_db.x;CREATEMATERIALIZEDVIEWatomic_db.y_mvENGINE=MergeTreeORDERBYtuple()ASSELECT*FROMatomic_db.x;CREATETABLEatomic_db.zENGINE=MergeTreeORDERBYtuple()ASsystem.numbers;CREATEMATERIALIZEDVIEWatomic_db.z_mvTOatomic_db.zASSELECT*FROMatomic_db.x;INSERTINTOatomic_db.xSELECT*FROMnumbers(100);--- USE atomic_db; --- --- Query id: 28af886d-a339-4e9c-979c-8bdcfb32fd95 --- --- ┌─name───────────────────────────────────────────┐ --- │ .</description>
+    </item>
+    
+    <item>
+      <title>How to test different compression codecs</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-schema-design/codecs/altinity-kb-how-to-test-different-compression-codecs/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-schema-design/codecs/altinity-kb-how-to-test-different-compression-codecs/</guid>
+      <description>Example Create test_table based on the source table.
+CREATETABLEtest_tableASsource_tableENGINE=MergeTree()PARTITIONBY...;If the source table has Replicated*MergeTree engine, you would need to change it to non-replicated.
+Attach one partition with data from the source table to test_table.
+ALTERTABLEtest_tableATTACHPARTITIONID&amp;#39;20210120&amp;#39;FROMsource_table;You can modify the column or create a new one based on the old column value.
+ALTERTABLEtest_tableMODIFYCOLUMNcolumn_aCODEC(ZSTD(2));ALTERTABLEtest_tableADDCOLUMNcolumn_newUInt32DEFAULTtoUInt32OrZero(column_old)CODEC(T64,LZ4);After that, you would need to populate changed columns with data.
+ALTERTABLEtest_tableUPDATEcolumn_a=column_a,column_new=column_newWHERE1;You can look status of mutation via the system.mutations table</description>
+    </item>
+    
+    <item>
+      <title>index &amp; column files</title>
+      <link>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/index-and-column-files/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/index-and-column-files/</guid>
+      <description>https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup27/adaptive_index_granularity.pdf</description>
+    </item>
+    
+    <item>
+      <title>IPs/masks</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-schema-design/how-to-store-ips/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-schema-design/how-to-store-ips/</guid>
+      <description>How do I Store IPv4 and IPv6 Address In One Field?  There is a clean and simple solution for that. Any IPv4 has its unique IPv6 mapping:
+ IPv4 IP address: 191.239.213.197 IPv4-mapped IPv6 address: ::ffff:191.239.213.197  Find IPs matching CIDR/network mask (IPv4) WITHIPv4CIDRToRange(toIPv4(&amp;#39;10.0.0.1&amp;#39;),8)asrangeSELECT*FROMvalues(&amp;#39;ip IPv4&amp;#39;,toIPv4(&amp;#39;10.2.3.4&amp;#39;),toIPv4(&amp;#39;192.0.2.1&amp;#39;),toIPv4(&amp;#39;8.8.8.8&amp;#39;))WHEREipBETWEENrange.1ANDrange.2;Find IPs matching CIDR/network mask (IPv6) WITHIPv6CIDRToRange(toIPv6(&amp;#39;2001:0db8:0000:85a3:0000:0000:ac1f:8001&amp;#39;),32)asrangeSELECT*FROMvalues(&amp;#39;ip IPv6&amp;#39;,toIPv6(&amp;#39;2001:db8::8a2e:370:7334&amp;#39;),toIPv6(&amp;#39;::ffff:192.</description>
+    </item>
+    
+    <item>
+      <title>JOIN table engine</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/joins/join-table-engine/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/joins/join-table-engine/</guid>
+      <description>The main purpose of JOIN table engine is to avoid building the right table for joining on each query execution. So it&amp;rsquo;s usually used when you have a high amount of fast queries which share the same right table for joining.
+Updates It&amp;rsquo;s possible to update rows with setting join_any_take_last_row enabled.
+CREATETABLEid_val_join(`id`UInt32,`val`UInt8)ENGINE=Join(ANY,LEFT,id)SETTINGSjoin_any_take_last_row=1Ok.INSERTINTOid_val_joinVALUES(1,21)(1,22)(3,23);Ok.SELECT*FROM(SELECTtoUInt32(number)ASidFROMnumbers(4))ASnANYLEFTJOINid_val_joinUSING(id)┌─id─┬─val─┐│0│0││1│22││2│0││3│23│└────┴─────┘INSERTINTOid_val_joinVALUES(1,40)(2,24);Ok.SELECT*FROM(SELECTtoUInt32(number)ASidFROMnumbers(4))ASnANYLEFTJOINid_val_joinUSING(id)┌─id─┬─val─┐│0│0││1│40││2│24││3│23│└────┴─────┘{% embed url=&amp;ldquo;https://clickhouse.tech/docs/en/engines/table-engines/special/join/&amp;quot; %}</description>
+    </item>
+    
+    <item>
+      <title>Join with Calendar using Arrays</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/join-with-calendar-using-arrays/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/join-with-calendar-using-arrays/</guid>
+      <description>Sample data CREATETABLEtest_metrics(counter_idInt64,timestampDateTime,metricUInt64)Engine=Log;INSERTINTOtest_metricsSELECTnumber%3,toDateTime(&amp;#39;2021-01-01 00:00:00&amp;#39;),1FROMnumbers(20);INSERTINTOtest_metricsSELECTnumber%3,toDateTime(&amp;#39;2021-01-03 00:00:00&amp;#39;),1FROMnumbers(20);SELECTcounter_id,toDate(timestamp)dt,sum(metric)FROMtest_metricsGROUPBYcounter_id,dtORDERBYcounter_id,dt;┌─counter_id─┬─────────dt─┬─sum(metric)─┐│0│2021-01-01│7││0│2021-01-03│7││1│2021-01-01│7││1│2021-01-03│7││2│2021-01-01│6││2│2021-01-03│6│└────────────┴────────────┴─────────────┘Calendar WITHarrayMap(i-&amp;gt;(toDate(&amp;#39;2021-01-01&amp;#39;)+i),range(4))ASCalendarSELECTarrayJoin(Calendar);┌─arrayJoin(Calendar)─┐│2021-01-01││2021-01-02││2021-01-03││2021-01-04│└─────────────────────┘Join with Calendar using arrayJoin SELECTcounter_id,tuple.2dt,sum(tuple.1)sumFROM(WITHarrayMap(i-&amp;gt;(0,toDate(&amp;#39;2021-01-01&amp;#39;)+i),range(4))ASCalendarSELECTcounter_id,arrayJoin(arrayConcat(Calendar,[(sum,dt)]))tupleFROM(SELECTcounter_id,toDate(timestamp)dt,sum(metric)sumFROMtest_metricsGROUPBYcounter_id,dt))GROUPBYcounter_id,dtORDERBYcounter_id,dt;┌─counter_id─┬─────────dt─┬─sum─┐│0│2021-01-01│7││0│2021-01-02│0││0│2021-01-03│7││0│2021-01-04│0││1│2021-01-01│7││1│2021-01-02│0││1│2021-01-03│7││1│2021-01-04│0││2│2021-01-01│6││2│2021-01-02│0││2│2021-01-03│6││2│2021-01-04│0│└────────────┴────────────┴─────┘With fill SELECTcounter_id,toDate(timestamp)ASdt,sum(metric)ASsumFROMtest_metricsGROUPBYcounter_id,dtORDERBYcounter_idASCWITHFILL,dtASCWITHFILLFROMtoDate(&amp;#39;2021-01-01&amp;#39;)TOtoDate(&amp;#39;2021-01-05&amp;#39;);┌─counter_id─┬─────────dt─┬─sum─┐│0│2021-01-01│7││0│2021-01-02│0││0│2021-01-03│7││0│2021-01-04│0││1│2021-01-01│7││1│2021-01-02│0││1│2021-01-03│7││1│2021-01-04│0││2│2021-01-01│6││2│2021-01-02│0││2│2021-01-03│6││2│2021-01-04│0│└────────────┴────────────┴─────┘© 2021 Altinity Inc. All rights reserved.</description>
+    </item>
+    
+    <item>
+      <title>JOINs</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/joins/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/joins/</guid>
+      <description>See presentation:
+{% embed url=&amp;ldquo;https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup38/join.pdf&amp;quot; %}</description>
+    </item>
+    
+    <item>
+      <title>JSONAsString and Mat. View as JSON parser</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-schema-design/altinity-kb-jsonasstring-and-mat.-view-as-json-parser/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-schema-design/altinity-kb-jsonasstring-and-mat.-view-as-json-parser/</guid>
+      <description>Tables with engine Null don’t store data but can be used as a source for materialized views.
+JSONAsString a special input format which allows to ingest JSONs into a String column. If the input has several JSON objects (comma separated) they will be interpreted as separate rows. JSON can be multiline.
+createtableentrypoint(JString)Engine=Null;createtabledatastore(aString,iInt64,fFloat64)Engine=MergeTreeorderbya;creatematerializedviewjsonConvertertodatastoreasselect(JSONExtract(J,&amp;#39;Tuple(String,Tuple(Int64,Float64))&amp;#39;)asx),x.1asa,x.2.1asi,x.2.2asffromentrypoint;$echo&amp;#39;{&amp;#34;s&amp;#34;: &amp;#34;val1&amp;#34;, &amp;#34;b2&amp;#34;: {&amp;#34;i&amp;#34;: 42, &amp;#34;f&amp;#34;: 0.1}}&amp;#39;|\clickhouse-client-q&amp;#34;insert into entrypoint format JSONAsString&amp;#34;$echo&amp;#39;{&amp;#34;s&amp;#34;: &amp;#34;val1&amp;#34;,&amp;#34;b2&amp;#34;: {&amp;#34;i&amp;#34;: 33, &amp;#34;f&amp;#34;: 0.2}},{&amp;#34;s&amp;#34;: &amp;#34;val1&amp;#34;,&amp;#34;b2&amp;#34;: {&amp;#34;i&amp;#34;: 34, &amp;#34;f&amp;#34;: 0.</description>
+    </item>
+    
+    <item>
+      <title>JSONExtract to parse many attributes at a time</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/jsonextract-to-parse-many-attributes-at-a-time/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/jsonextract-to-parse-many-attributes-at-a-time/</guid>
+      <description>WITHJSONExtract(json,&amp;#39;Tuple(name String, id String, resources Nested(description String, format String, tracking_summary Tuple(total UInt32, recent UInt32)), extras Nested(key String, value String))&amp;#39;)ASparsed_jsonSELECTtupleElement(parsed_json,&amp;#39;name&amp;#39;)ASname,tupleElement(parsed_json,&amp;#39;id&amp;#39;)ASid,tupleElement(tupleElement(parsed_json,&amp;#39;resources&amp;#39;),&amp;#39;description&amp;#39;)AS`resources.description`,tupleElement(tupleElement(parsed_json,&amp;#39;resources&amp;#39;),&amp;#39;format&amp;#39;)AS`resources.format`,tupleElement(tupleElement(tupleElement(parsed_json,&amp;#39;resources&amp;#39;),&amp;#39;tracking_summary&amp;#39;),&amp;#39;total&amp;#39;)AS`resources.tracking_summary.total`,tupleElement(tupleElement(tupleElement(parsed_json,&amp;#39;resources&amp;#39;),&amp;#39;tracking_summary&amp;#39;),&amp;#39;recent&amp;#39;)AS`resources.tracking_summary.recent`FROMurl(&amp;#39;https://raw.githubusercontent.com/jsonlines/guide/master/datagov100.json&amp;#39;,&amp;#39;JSONAsString&amp;#39;,&amp;#39;json String&amp;#39;)</description>
+    </item>
+    
+    <item>
+      <title>JVM sizes and garbage collector settings</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/jvm-sizes-and-garbage-collector-settings/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/jvm-sizes-and-garbage-collector-settings/</guid>
+      <description>TLDR version: use fresh Java version (11 or newer), disable swap and set up (for 4 Gb node):
+JAVA_OPTS=&amp;#34;-Xms3G -Xmx3G -XX:+AlwaysPreTouch -Djute.maxbuffer=8388608 -XX:MaxGCPauseMillis=50&amp;#34; If you have a node with more RAM - change it accordingly, for example for 8Gb node:
+JAVA_OPTS=&amp;#34;-Xms7G -Xmx7G -XX:+AlwaysPreTouch -Djute.maxbuffer=8388608 -XX:MaxGCPauseMillis=50&amp;#34; Details 1) ZooKeeper runs as in JVM. Depending on version different garbage collectors are avaliable.
+2) Recent JVM versions (starting from 10) use G1 garbage collector by default (should work fine).</description>
+    </item>
+    
+    <item>
+      <title>Kafka main parsing loop</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-integrations/altinity-kb-kafka/altinity-kb-kafka-main-parsing-loop/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-integrations/altinity-kb-kafka/altinity-kb-kafka-main-parsing-loop/</guid>
+      <description>One of the threads from scheduled_pool (pre 20.9) / background_message_broker_schedule_pool (after 20.9) do that in infinite loop:
+ Batch poll (time limit: kafka_poll_timeout_ms 500ms, messages limit: kafka_poll_max_batch_size 65536) Parse messages. If we don&amp;rsquo;t have enough data (rows limit: kafka_max_block_size 1048576) or time limit reached (kafka_flush_interval_ms 7500ms) - continue polling (goto p.1) Write a collected block of data to MV Do commit (commit after write = at-least-once).  On any error, during that process, Kafka client is restarted (leading to rebalancing - leave the group and get back in few seconds).</description>
+    </item>
+    
+    <item>
+      <title>Kafka parallel consuming</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-integrations/altinity-kb-kafka/altinity-kb-kafka-parallel-consuming/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-integrations/altinity-kb-kafka/altinity-kb-kafka-parallel-consuming/</guid>
+      <description>For very large topics when you need more parallelism (especially on the insert side) you may use several tables with the same pipeline (pre 20.9) or enable kafka_thread_per_consumer (after 20.9).
+kafka_num_consumers = N, kafka_thread_per_consumer=1 Notes:
+ the inserts will happen in parallel (without that setting inserts happen linearly) enough partitions are needed.  Before increasing kafka_num_consumers with keeping kafka_thread_per_consumer=0 may improve consumption &amp;amp; parsing speed, but flushing &amp;amp; committing still happens by a single thread there (so inserts are linear).</description>
+    </item>
+    
+    <item>
+      <title>KILL QUERY</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/altinity-kb-kill-query/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/altinity-kb-kill-query/</guid>
+      <description>Unfortunately not all queries can be killed.
+KILL QUERY only sets a flag that must be checked by the query.
+A query pipeline is checking this flag before a switching to next block. If the pipeline has stuck somewhere in the middle it cannot be killed.
+If a query does not stop, the only way to get rid of it is to restart ClickHouse.
+See also
+https://github.com/ClickHouse/ClickHouse/issues/3964
+https://github.com/ClickHouse/ClickHouse/issues/1576
+How to replace a running query   Q.</description>
+    </item>
+    
+    <item>
+      <title>Lag / Lead</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/lag-lead/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/lag-lead/</guid>
+      <description>Sample data CREATETABLEllexample(gInt32,aDate)ENGINE=Memory;INSERTINTOllexampleSELECTnumber%3,toDate(&amp;#39;2020-01-01&amp;#39;)+numberFROMnumbers(10);SELECT*FROMllexampleORDERBYg,a;┌─g─┬──────────a─┐│0│2020-01-01││0│2020-01-04││0│2020-01-07││0│2020-01-10││1│2020-01-02││1│2020-01-05││1│2020-01-08││2│2020-01-03││2│2020-01-06││2│2020-01-09│└───┴────────────┘Using arrays selectg,(arrayJoin(tuple_ll)asll).1a,ll.2prev,ll.3nextfrom(selectg,arrayMap(i,j,k-&amp;gt;(i,j,k),arraySort(groupArray(a))asaa,arrayPopBack(arrayPushFront(aa,toDate(0))),arrayPopFront(arrayPushBack(aa,toDate(0))))tuple_llfromllexamplegroupbyg)orderbyg,a;┌─g─┬──────────a─┬───────prev─┬───────next─┐│0│2020-01-01│1970-01-01│2020-01-04││0│2020-01-04│2020-01-01│2020-01-07││0│2020-01-07│2020-01-04│2020-01-10││0│2020-01-10│2020-01-07│1970-01-01││1│2020-01-02│1970-01-01│2020-01-05││1│2020-01-05│2020-01-02│2020-01-08││1│2020-01-08│2020-01-05│1970-01-01││2│2020-01-03│1970-01-01│2020-01-06││2│2020-01-06│2020-01-03│2020-01-09││2│2020-01-09│2020-01-06│1970-01-01│└───┴────────────┴────────────┴────────────┘Using window functions (starting from Clickhouse 21.3) SETallow_experimental_window_functions=1;SELECTg,a,any(a)OVER(PARTITIONBYgORDERBYaASCROWSBETWEEN1PRECEDINGAND1PRECEDING)ASprev,any(a)OVER(PARTITIONBYgORDERBYaASCROWSBETWEEN1FOLLOWINGAND1FOLLOWING)ASnextFROMllexampleORDERBYgASC,aASC;┌─g─┬──────────a─┬───────prev─┬───────next─┐│0│2020-01-01│1970-01-01│2020-01-04││0│2020-01-04│2020-01-01│2020-01-07││0│2020-01-07│2020-01-04│2020-01-10││0│2020-01-10│2020-01-07│1970-01-01││1│2020-01-02│1970-01-01│2020-01-05││1│2020-01-05│2020-01-02│2020-01-08││1│2020-01-08│2020-01-05│1970-01-01││2│2020-01-03│1970-01-01│2020-01-06││2│2020-01-06│2020-01-03│2020-01-09││2│2020-01-09│2020-01-06│1970-01-01│└───┴────────────┴────────────┴────────────┘Using lagInFrame/leadInFrame (starting from ClickHouse 21.4) SELECTg,a,lagInFrame(a)OVER(PARTITIONBYgORDERBYaASCROWSBETWEENUNBOUNDEDPRECEDINGANDUNBOUNDEDFOLLOWING)ASprev,leadInFrame(a)OVER(PARTITIONBYgORDERBYaASCROWSBETWEENUNBOUNDEDPRECEDINGANDUNBOUNDEDFOLLOWING)ASnextFROMllexampleORDERBYgASC,aASC;┌─g─┬──────────a─┬───────prev─┬───────next─┐│0│2020-01-01│1970-01-01│2020-01-04││0│2020-01-04│2020-01-01│2020-01-07││0│2020-01-07│2020-01-04│2020-01-10││0│2020-01-10│2020-01-07│1970-01-01││1│2020-01-02│1970-01-01│2020-01-05││1│2020-01-05│2020-01-02│2020-01-08││1│2020-01-08│2020-01-05│1970-01-01││2│2020-01-03│1970-01-01│2020-01-06││2│2020-01-06│2020-01-03│2020-01-09││2│2020-01-09│2020-01-06│1970-01-01│└───┴────────────┴────────────┴────────────┘Using neighbor (no grouping, incorrect result over blocks) SELECTg,a,neighbor(a,-1)ASprev,neighbor(a,1)ASnextFROM(SELECT*FROMllexampleORDERBYgASC,aASC);┌─g─┬──────────a─┬───────prev─┬───────next─┐│0│2020-01-01│1970-01-01│2020-01-04││0│2020-01-04│2020-01-01│2020-01-07││0│2020-01-07│2020-01-04│2020-01-10││0│2020-01-10│2020-01-07│2020-01-02││1│2020-01-02│2020-01-10│2020-01-05││1│2020-01-05│2020-01-02│2020-01-08││1│2020-01-08│2020-01-05│2020-01-03││2│2020-01-03│2020-01-08│2020-01-06││2│2020-01-06│2020-01-03│2020-01-09││2│2020-01-09│2020-01-06│1970-01-01│└───┴────────────┴────────────┴────────────┘© 2021 Altinity Inc. All rights reserved.</description>
+    </item>
+    
+    <item>
+      <title>Load balancers</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/load-balancers/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/load-balancers/</guid>
+      <description>In general - one of the simplest option to do load balancing is to implement it on the client side.
+I.e. list serveral endpoints for clickhouse connections and add some logic to pick one of the nodes.
+Many client libraries support that.
+ClickHouse native protocol (port 9000) Currently there are no protocol-aware proxies for clickhouse protocol, so the proxy / load balancer can work only on TCP level.
+One of the best option for TCP load balancer is haproxy, also nginx can work in that mode.</description>
+    </item>
+    
+    <item>
+      <title>LowCardinality</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-schema-design/lowcardinality/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-schema-design/lowcardinality/</guid>
+      <description>Settings allow_suspicious_low_cardinality_types In CREATE TABLE statement allows specifying LowCardinality modifier for types of small fixed size (8 or less). Enabling this may increase merge times and memory consumption.
+low_cardinality_max_dictionary_size
+default - 8192
+Maximum size (in rows) of shared global dictionary for LowCardinality type.
+low_cardinality_use_single_dictionary_for_part
+LowCardinality type serialization setting. If is true, than will use additional keys when global dictionary overflows. Otherwise, will create several shared dictionaries.
+low_cardinality_allow_in_native_format
+Use LowCardinality type in Native format.</description>
+    </item>
+    
+    <item>
+      <title>Machine learning in ClickHouse</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/machine-learning-in-clickhouse/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/machine-learning-in-clickhouse/</guid>
+      <description>{% embed url=&amp;ldquo;https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup31/ml.pdf&amp;quot; %}
+{% page-ref page=&amp;rdquo;../altinity-kb-integrations/catboost-mindsdb-fast.ai.md&amp;quot; %}
+{% embed url=&amp;ldquo;https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup38/forecast.pdf&amp;quot; %}</description>
+    </item>
+    
+    <item>
+      <title>memory configuration settings</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-memory-configuration-settings/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-memory-configuration-settings/</guid>
+      <description>max_memory_usage. Single query memory usage max_memory_usage - the maximum amount of memory allowed for a single query to take. By default, it&amp;rsquo;s 10Gb. The default value is good, don&amp;rsquo;t adjust it in advance.
+There are scenarios when you need to relax the limit for particular queries (if you hit &amp;lsquo;Memory limit (for query) exceeded&amp;rsquo;), or use a lower limit if you need to discipline the users or increase the number of simultaneous queries.</description>
+    </item>
+    
+    <item>
+      <title>MergeTree table engine family</title>
+      <link>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/readme/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/readme/</guid>
+      <description>Internals:
+{% embed url=&amp;ldquo;https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup41/merge_tree.pdf&amp;rdquo; %}
+{% embed url=&amp;ldquo;https://youtu.be/1UIl7FpNo2M?t=2467&amp;quot; %}</description>
+    </item>
+    
+    <item>
+      <title>Monitoring</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-monitoring/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-monitoring/</guid>
+      <description>Prometheus endpoint  Grafana dashboard (internal endpoint) https://grafana.com/grafana/dashboards/13500
+Grafana dashboard (clickhouse-operator) https://github.com/Altinity/clickhouse-operator/tree/master/grafana-dashboard
+Prometheus alerts (clickhouse-operator) https://github.com/Altinity/clickhouse-operator/blob/master/deploy/prometheus/prometheus-alert-rules.yaml
+ClickHouse exporter  https://github.com/ClickHouse/clickhouse_exporter
+Zabbix  https://github.com/Altinity/clickhouse-zabbix-template
+ZooKeeper Monitoring {% page-ref page=&amp;ldquo;altinity-kb-zookeeper/zookeeper-monitoring.md&amp;rdquo; %}
+© 2021 Altinity Inc. All rights reserved.</description>
+    </item>
+    
+    <item>
+      <title>Monitoring Considerations</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/monitoring-considerations/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/monitoring-considerations/</guid>
+      <description>Monitoring helps to track potential issues in your cluster before they cause a critical error.
+External Monitoring External monitoring collects data from the ClickHouse cluster and uses it for analysis and review. Recommended external monitoring systems include:
+ Prometheus: Use embedded exporter or clickhouse-exporter Graphite: Use the embedded exporter. See config.xml. InfluxDB: Use the embedded exporter, plus Telegraf. For more information, see Graphite protocol support in InfluxDB.  ClickHouse can collect the recording of metrics internally by enabling system.</description>
+    </item>
+    
+    <item>
+      <title>Moving table to another device.</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-moving-table-to-another-device./</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-moving-table-to-another-device./</guid>
+      <description>Suppose we mount a new device at path /mnt/disk_1 and want to move table_4 to it.
+ Create directory on new device for ClickHouse data. /in shell mkdir /mnt/disk_1/clickhouse Change ownership of created directory to ClickHouse user. /in shell chown -R clickhouse:clickhouse /mnt/disk_1/clickhouse Create a special storage policy which should include both disks: old and new. /in shell  nano /etc/clickhouse-server/config.d/storage.xml ###################/etc/clickhouse-server/config.d/storage.xml########################### &amp;lt;yandex&amp;gt; &amp;lt;storage_configuration&amp;gt; &amp;lt;disks&amp;gt; &amp;lt;!-- default disk is special, it always exists even if not explicitly configured here, but you can&#39;t change it&#39;s path here (you should use &amp;lt;path&amp;gt; on top level config instead) --&amp;gt; &amp;lt;default&amp;gt; &amp;lt;!</description>
+    </item>
+    
+    <item>
+      <title>MySQL8 source for dictionaries</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-dictionaries/mysql8-source-for-dictionaries/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-dictionaries/mysql8-source-for-dictionaries/</guid>
+      <description>Authorization MySQL8 used default authorization plugin caching_sha2_password. Unfortunately, libmysql which currently used (21.4-) in clickhouse is not
+You can fix it during create custom user with mysql_native_password authentication plugin.
+CREATEUSERIFNOTEXISTS&amp;#39;clickhouse&amp;#39;@&amp;#39;%&amp;#39;IDENTIFIEDWITHmysql_native_passwordBY&amp;#39;clickhouse_user_password&amp;#39;;CREATEDATABASEIFNOTEXISTStest;GRANTALLPRIVILEGESONtest.*TO&amp;#39;clickhouse&amp;#39;@&amp;#39;%&amp;#39;;Table schema changes ClickHouse run SHOW TABLE STATUS LIKE &#39;table\\_name&#39; and try to figure out was table schema changed or not from MySQL response field Update_time
+By default for properly data loading from MySQL8 source to dictionaries, please turn off information_schema cache.</description>
+    </item>
+    
+    <item>
+      <title>Network Configuration</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/network-configuration/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/network-configuration/</guid>
+      <description>Networking And Server Room Planning The network used for your ClickHouse cluster should be a fast network, ideally 10 Gbit. ClickHouse nodes generate a lot of traffic along with the Zookeeper connections and inter-Zookeeper communications.
+For the zookeeper low latency is more important than bandwidth.
+Keep the replicas isolated on the hardware level. This allows for cluster failover from possible outages.
+ For Physical Environments: Avoid placing 2 ClickHouse replicas on the same server rack.</description>
+    </item>
+    
+    <item>
+      <title>Nulls in order by</title>
+      <link>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/altinity-kb-nulls-in-order-by/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/altinity-kb-nulls-in-order-by/</guid>
+      <description>CREATETABLEx(`a`Nullable(UInt32),`b`Nullable(UInt32),`cnt`UInt32)ENGINE=SummingMergeTreeORDERBY(a,b)SETTINGSallow_nullable_key=1;INSERTINTOxVALUES(Null,2,1),(Null,Null,1),(3,Null,1),(4,4,1);INSERTINTOxVALUES(Null,2,1),(Null,Null,1),(3,Null,1),(4,4,1);SELECT*FROMx;┌────a─┬────b─┬─cnt─┐│3│ᴺᵁᴸᴸ│2││4│4│2││ᴺᵁᴸᴸ│2│2││ᴺᵁᴸᴸ│ᴺᵁᴸᴸ│2│└──────┴──────┴─────┘© 2021 Altinity Inc. All rights reserved.</description>
+    </item>
+    
+    <item>
+      <title>Number of active parts in a partition</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-useful-queries/altinity-kb-number-of-active-parts-in-a-partition/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-useful-queries/altinity-kb-number-of-active-parts-in-a-partition/</guid>
+      <description>Q: Why do I have several active parts in a partition? Why Clickhouse does not merge them immediately?
+A: CH does not merge parts by time.
+Merge scheduler selects parts by own algorithm based on the current node workload / number of parts / size of parts.
+CH merge scheduler balances between a big number of parts and a wasting resources on merges.
+Merges are CPU/DISK IO expensive. If CH will merge every new part then all resources will be spend on merges and will no resources remain on queries (selects ).</description>
+    </item>
+    
+    <item>
+      <title>Object consistency in a cluster</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-object-consistency-in-a-cluster/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-object-consistency-in-a-cluster/</guid>
+      <description>List of missing tables
+WITH(SELECTgroupArray(FQDN())FROMclusterAllReplicas({cluster},system,one))AShostsSELECTdatabase,table,arrayFilter(i-&amp;gt;NOThas(groupArray(host),i),hosts)miss_tableFROM(SELECTFQDN()host,database,nametableFROMclusterAllReplicas({cluster},system,tables)WHEREengineNOTIN(&amp;#39;Log&amp;#39;,&amp;#39;Memory&amp;#39;,&amp;#39;TinyLog&amp;#39;))GROUPBYdatabase,tableHAVINGmiss_table&amp;lt;&amp;gt;[]SETTINGSskip_unavailable_shards=1;┌─database─┬─table─┬─miss_table────────────────┐│default│test│[&amp;#39;host366.mynetwork.net&amp;#39;]│└──────────┴───────┴───────────────────────────┘List of inconsistent tables
+SELECTdatabase,name,engine,uniqExact(create_table_query)ASddlFROMclusterAllReplicas({cluster},system.tables)GROUPBYdatabase,name,engineHAVINGddl&amp;gt;1List of inconsistent columns
+WITH(SELECTgroupArray(FQDN())FROMclusterAllReplicas({cluster},system,one))AShostsSELECTdatabase,table,column,arrayStringConcat(arrayMap(i-&amp;gt;i.2||&amp;#39;: &amp;#39;||i.1,(groupArray((type,host))ASg)),&amp;#39;, &amp;#39;)diffFROM(SELECTFQDN()host,database,table,namecolumn,typeFROMclusterAllReplicas({cluster},system,columns))GROUPBYdatabase,table,columnHAVINGlength(arrayDistinct(g.1))&amp;gt;1ORlength(g.1)&amp;lt;&amp;gt;length(hosts)SETTINGSskip_unavailable_shards=1;┌─database─┬─table───┬─column────┬─diff────────────────────────────────┐│default│z│A│ch-host22:Int64,ch-host21:String│└──────────┴─────────┴───────────┴─────────────────────────────────────┘List of inconsistent dictionaries
+WITH(SELECTgroupArray(FQDN())FROMclusterAllReplicas({cluster},system,one))AShostsSELECTdatabase,dictionary,arrayFilter(i-&amp;gt;NOThas(groupArray(host),i),hosts)miss_dict,arrayReduce(&amp;#39;median&amp;#39;,(groupArray((element_count,host))ASec).1)FROM(SELECTFQDN()host,database,namedictionary,element_countFROMclusterAllReplicas({cluster},system,dictionaries))GROUPBYdatabase,dictionaryHAVINGmiss_dict&amp;lt;&amp;gt;[]SETTINGSskip_unavailable_shards=1;© 2021 Altinity Inc. All rights reserved.</description>
+    </item>
+    
+    <item>
+      <title>OPTIMIZE vs OPTIMIZE FINAL</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/altinity-kb-optimize-vs-optimize-final/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/altinity-kb-optimize-vs-optimize-final/</guid>
+      <description>OPTIMIZE TABLE xyz &amp;ndash; this initiates an unscheduled merge.
+Example You have 40 parts in 3 partitions. This unscheduled merge selects some partition (i.e. February) and selects 3 small parts to merge, then merge them into a single part. You get 38 parts in the result.
+OPTIMIZE TABLE xyz FINAL &amp;ndash; initiates a cycle of unscheduled merges.
+ClickHouse merges parts in this table until will remains 1 part in each partition (if a system has enough free disk space).</description>
+    </item>
+    
+    <item>
+      <title>Parameterized views</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/altinity-kb-parameterized-views/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/altinity-kb-parameterized-views/</guid>
+      <description>Custom settings allows to emulate parameterized views.
+You need to enable custom settings and define any prefixes for settings.
+$ cat /etc/clickhouse-server/config.d/custom_settigs_prefix.xml &amp;lt;?xml version=&amp;quot;1.0&amp;quot; ?&amp;gt; &amp;lt;yandex&amp;gt; &amp;lt;custom_settings_prefixes&amp;gt;my,my2&amp;lt;/custom_settings_prefixes&amp;gt; &amp;lt;/yandex&amp;gt; $ service clickhouse-server restart Now you can set settings as any other settings, and query them using getSetting() function.
+SETmy2_category=&amp;#39;hot deals&amp;#39;;SELECTgetSetting(&amp;#39;my2_category&amp;#39;);┌─getSetting(&amp;#39;my2_category&amp;#39;)─┐│hotdeals│└────────────────────────────┘-- you can query ClickHouse settings as well SELECTgetSetting(&amp;#39;max_threads&amp;#39;)┌─getSetting(&amp;#39;max_threads&amp;#39;)─┐│8│└───────────────────────────┘Now we can create a view
+CREATEVIEWmy_new_viewASSELECT*FROMdealsWHEREcategory_idIN(SELECTcategory_idFROMdeal_categoriesWHEREcategory=getSetting(&amp;#39;my2_category&amp;#39;));And query it
+SELECT*FROMmy_new_viewSETTINGSmy2_category=&amp;#39;hot deals&amp;#39;;© 2021 Altinity Inc. All rights reserved.</description>
+    </item>
+    
+    <item>
+      <title>Possible deadlock avoided. Client should retry</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/altinity-kb-possible-deadlock-avoided.-client-should-retry/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/altinity-kb-possible-deadlock-avoided.-client-should-retry/</guid>
+      <description>In version 19.14 a serious issue was found: a race condition that can lead to server deadlock. The reason for that was quite fundamental, and a temporary workaround for that was added (&amp;ldquo;possible deadlock avoided&amp;rdquo;).
+Those locks are one of the fundamental things that the core team was actively working on in 2020.
+In 20.3 some of the locks leading to that situation were removed as a part of huge refactoring.</description>
+    </item>
+    
+    <item>
+      <title>Possible issues with running ClickHouse in k8s</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-kubernetes/altinity-kb-possible-issues-with-running-clickhouse-in-k8s/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-kubernetes/altinity-kb-possible-issues-with-running-clickhouse-in-k8s/</guid>
+      <description>The biggest problem with running ClickHouse in k8s, happens when clickhouse-server can&amp;rsquo;t start for some reason and pod is falling in CrashloopBackOff, so you can&amp;rsquo;t easily get in the pod and check/fix/restart ClickHouse.
+There is multiple possible reasons for this, some of them can be fixed without manual intervention in pod:
+ Wrong configuration files Fix: Check templates which are being used for config file generation and fix them. While upgrade some backward incompatible changes prevents ClickHouse from start.</description>
+    </item>
+    
+    <item>
+      <title>Projections examples</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/projections-examples/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/projections-examples/</guid>
+      <description>Aggregating projections. createtablez(BrowserString,CountryUInt8,FFloat64)Engine=MergeTreeorderbyBrowser;insertintozselecttoString(number%9999),number%33,1fromnumbers(100000000);--Q1) selectsum(F),BrowserfromzgroupbyBrowserformatNull;Elapsed:0.205sec.Processed100.00millionrows--Q2) selectsum(F),Browser,CountryfromzgroupbyBrowser,CountryformatNull;Elapsed:0.381sec.Processed100.00millionrows--Q3) selectsum(F),count(),Browser,CountryfromzgroupbyBrowser,CountryformatNull;Elapsed:0.398sec.Processed100.00millionrowsaltertablezaddprojectionpp(selectBrowser,Country,count(),sum(F)groupbyBrowser,Country);altertablezmaterializeprojectionpp;---- 0 = don&amp;#39;t use proj, 1 = use projection setallow_experimental_projection_optimization=1;--Q1) selectsum(F),BrowserfromzgroupbyBrowserformatNull;Elapsed:0.003sec.Processed22.43thousandrows--Q2) selectsum(F),Browser,CountryfromzgroupbyBrowser,CountryformatNull;Elapsed:0.004sec.Processed22.43thousandrows--Q3) selectsum(F),count(),Browser,CountryfromzgroupbyBrowser,CountryformatNull;Elapsed:0.</description>
+    </item>
+    
+    <item>
+      <title>Proper setup</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/altinity-kb-proper-setup/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/altinity-kb-proper-setup/</guid>
+      <description>Main docs article {% embed url=&amp;ldquo;https://docs.altinity.com/operationsguide/clickhouse-zookeeper/zookeeper-installation/&amp;quot; caption=&amp;rdquo;&amp;quot; %}
+Hardware requirements: TLDR version:
+1) USE DEDICATED FAST DISKS for the transaction log! (crucial for performance due to write-ahead-log, NVMe is preferred for heavy load setup)
+2) use 3 nodes (more nodes = slower quorum, less = no HA).
+3) low network latency between zookeeper nodes is very important (latency, not bandwidth).
+4) have at least 4Gb of RAM, disable swap, tune JVM sizes, and garbage collector settings.</description>
+    </item>
+    
+    <item>
+      <title>range hashed example - open intervals</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-dictionaries/altinity-kb-range_hashed-example-open-intervals/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-dictionaries/altinity-kb-range_hashed-example-open-intervals/</guid>
+      <description>DROPTABLEIFEXISTSrates;DROPDICTIONARYIFEXISTSrates_dict;CREATETABLErates(idUInt64,date_startNullable(Date),date_endNullable(Date),rateDecimal64(4))engine=Log;INSERTINTOratesVALUES(1,Null,&amp;#39;2021-03-13&amp;#39;,99),(1,&amp;#39;2021-03-14&amp;#39;,&amp;#39;2021-03-16&amp;#39;,100),(1,&amp;#39;2021-03-17&amp;#39;,Null,101),(2,&amp;#39;2021-03-14&amp;#39;,Null,200),(3,Null,&amp;#39;2021-03-14&amp;#39;,300),(4,&amp;#39;2021-03-14&amp;#39;,&amp;#39;2021-03-14&amp;#39;,400);CREATEDICTIONARYrates_dict(idUInt64,date_startDate,date_endDate,rateDecimal64(4))PRIMARYKEYidSOURCE(CLICKHOUSE(HOST&amp;#39;localhost&amp;#39;PORT9000USER&amp;#39;default&amp;#39;TABLE&amp;#39;rates&amp;#39;))LIFETIME(MIN1MAX1000)LAYOUT(RANGE_HASHED())RANGE(MINdate_startMAXdate_end);SELECT*FROMrates_dictorderbyid,date_start;┌─id─┬─date_start─┬───date_end─┬─────rate─┐│1│1970-01-01│2021-03-13│99.0000││1│2021-03-14│2021-03-16│100.0000││1│2021-03-17│1970-01-01│101.0000││2│2021-03-14│1970-01-01│200.0000││3│1970-01-01│2021-03-14│300.0000││4│2021-03-14│2021-03-14│400.0000│└────┴────────────┴────────────┴──────────┘WITHtoDate(&amp;#39;2021-03-10&amp;#39;)+INTERVALnumberDAYasdateselectdate,dictGet(currentDatabase()||&amp;#39;.rates_dict&amp;#39;,&amp;#39;rate&amp;#39;,toUInt64(1),date)asrate1,dictGet(currentDatabase()||&amp;#39;.rates_dict&amp;#39;,&amp;#39;rate&amp;#39;,toUInt64(2),date)asrate2,dictGet(currentDatabase()||&amp;#39;.rates_dict&amp;#39;,&amp;#39;rate&amp;#39;,toUInt64(3),date)asrate3,dictGet(currentDatabase()||&amp;#39;.rates_dict&amp;#39;,&amp;#39;rate&amp;#39;,toUInt64(4),date)asrate4FROMnumbers(10);┌───────date─┬────rate1─┬────rate2─┬────rate3─┬────rate4─┐│2021-03-10│99.0000│0.0000│300.0000│0.0000││2021-03-11│99.0000│0.0000│300.0000│0.0000││2021-03-12│99.0000│0.0000│300.0000│0.0000││2021-03-13│99.0000│0.0000│300.0000│0.0000││2021-03-14│100.0000│200.0000│300.0000│400.0000││2021-03-15│100.0000│200.0000│0.0000│0.0000││2021-03-16│100.0000│200.0000│0.0000│0.0000││2021-03-17│101.0000│200.0000│0.0000│0.0000││2021-03-18│101.0000│200.0000│0.0000│0.0000││2021-03-19│101.0000│200.0000│0.0000│0.0000│└────────────┴──────────┴──────────┴──────────┴──────────┘© 2021 Altinity Inc. All rights reserved.</description>
+    </item>
+    
+    <item>
+      <title>Recovering from complete metadata loss in ZooKeeper</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/altinity-kb-recovering-from-complete-metadata-loss-in-zookeeper/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/altinity-kb-recovering-from-complete-metadata-loss-in-zookeeper/</guid>
+      <description>Problem  Every ClickHouse user experienced a loss of ZooKeeper one day. While the data is available and replicas respond to queries, inserts are no longer possible. ClickHouse uses ZooKeeper in order to store the reference version of the table structure and part of data, and when it is not available can not guarantee data consistency anymore. Replicated tables turn to the read-only mode. In this article we describe step-by-step instructions of how to restore ZooKeeper metadata and bring ClickHouse cluster back to normal operation.</description>
+    </item>
+    
+    <item>
+      <title>Removing empty parts</title>
+      <link>http://beta.kb.altinity.com/upgrade/removing-empty-parts/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/upgrade/removing-empty-parts/</guid>
+      <description>Removing of empty parts is a new feature introduced in 20.12.
+Earlier versions leave empty parts (with 0 rows) if TTL removes all rows from a part (https://github.com/ClickHouse/ClickHouse/issues/5491).
+If you set up TTL for your data it is likely that there are quite many empty parts in your system.
+The new version notices empty parts and tries to remove all of them immediately.
+This is a one-time operation which runs right after an upgrade.</description>
+    </item>
+    
+    <item>
+      <title>ReplacingMergeTree</title>
+      <link>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/replacingmergetree/readme/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/replacingmergetree/readme/</guid>
+      <description>Last state CREATETABLErepl_tbl(`key`UInt32,`val_1`UInt32,`val_2`String,`val_3`String,`val_4`String,`val_5`UUID,`ts`DateTime)ENGINE=ReplacingMergeTree(ts)ORDERBYkeySYSTEMSTOPMERGESrepl_tbl;INSERTINTOrepl_tblSELECTnumberaskey,rand()asval_1,randomStringUTF8(10)asval_2,randomStringUTF8(5)asval_3,randomStringUTF8(4)asval_4,generateUUIDv4()asval_5,now()astsFROMnumbers(10000000);INSERTINTOrepl_tblSELECTnumberaskey,rand()asval_1,randomStringUTF8(10)asval_2,randomStringUTF8(5)asval_3,randomStringUTF8(4)asval_4,generateUUIDv4()asval_5,now()astsFROMnumbers(10000000);INSERTINTOrepl_tblSELECTnumberaskey,rand()asval_1,randomStringUTF8(10)asval_2,randomStringUTF8(5)asval_3,randomStringUTF8(4)asval_4,generateUUIDv4()asval_5,now()astsFROMnumbers(10000000);INSERTINTOrepl_tblSELECTnumberaskey,rand()asval_1,randomStringUTF8(10)asval_2,randomStringUTF8(5)asval_3,randomStringUTF8(4)asval_4,generateUUIDv4()asval_5,now()astsFROMnumbers(10000000);SELECTcount()FROMrepl_tbl┌──count()─┐│50000000│└──────────┘Single key -- GROUP BY SELECTkey,argMax(val_1,ts)asval_1,argMax(val_2,ts)asval_2,argMax(val_3,ts)asval_3,argMax(val_4,ts)asval_4,argMax(val_5,ts)asval_5,max(ts)FROMrepl_tblWHEREkey=10GROUPBYkey;1rowsinset.Elapsed:0.017sec.Processed40.96thousandrows,5.24MB(2.44millionrows/s.,312.31MB/s.)-- ORDER BY LIMIT BY SELECT*FROMrepl_tblWHEREkey=10ORDERBYtsDESCLIMIT1BYkey;1rowsinset.Elapsed:0.017sec.Processed40.96thousandrows,5.24MB(2.39millionrows/s.,305.41MB/s.)-- Subquery SELECT*FROMrepl_tblWHEREkey=10ANDts=(SELECTmax(ts)FROMrepl_tblWHEREkey=10);1rowsinset.Elapsed:0.019sec.Processed40.96thousandrows,1.18MB(2.20millionrows/s.,63.47MB/s.)-- FINAL SELECT*FROMrepl_tblFINALWHEREkey=10;1rowsinset.Elapsed:0.021sec.Processed40.96thousandrows,5.24MB(1.93millionrows/s.,247.63MB/s.)Multiple keys -- GROUP BY SELECTkey,argMax(val_1,ts)asval_1,argMax(val_2,ts)asval_2,argMax(val_3,ts)asval_3,argMax(val_4,ts)asval_4,argMax(val_5,ts)asval_5,max(ts)FROMrepl_tblWHEREkeyIN(SELECTtoUInt32(number)FROMnumbers(1000000)WHEREnumber%100)GROUPBYkeyFORMATNull;Peakmemoryusage(forquery):2.31GiB.0rowsinset.Elapsed:3.264sec.Processed5.04millionrows,645.01MB(1.54millionrows/s.,197.60MB/s.)-- set optimize_aggregation_in_order=1; Peakmemoryusage(forquery):1.11GiB.0rowsinset.Elapsed:1.772sec.Processed2.74millionrows,350.30MB(1.54millionrows/s.,197.73MB/s.)-- ORDER BY LIMIT BY SELECT*FROMrepl_tblWHEREkeyIN(SELECTtoUInt32(number)FROMnumbers(1000000)WHEREnumber%100)ORDERBYtsDESCLIMIT1BYkeyFORMATNull;Peakmemoryusage(forquery):1.08GiB.0rowsinset.Elapsed:2.429sec.Processed5.04millionrows,645.01MB(2.07millionrows/s.,265.58MB/s.)-- Subquery SELECT*FROMrepl_tblWHERE(key,ts)IN(SELECTkey,max(ts)FROMrepl_tblWHEREkeyIN(SELECTtoUInt32(number)FROMnumbers(1000000)WHEREnumber%100)GROUPBYkey)FORMATNull;Peakmemoryusage(forquery):432.57MiB.0rowsinset.Elapsed:0.939sec.Processed5.04millionrows,160.33MB(5.36millionrows/s.,170.69MB/s.)-- set optimize_aggregation_in_order=1; Peakmemoryusage(forquery):202.88MiB.0rowsinset.Elapsed:0.824sec.Processed5.04millionrows,160.33MB(6.11millionrows/s.,194.58MB/s.)-- FINAL SELECT*FROMrepl_tblFINALWHEREkeyIN(SELECTtoUInt32(number)FROMnumbers(1000000)WHEREnumber%100)FORMATNull;Peakmemoryusage(forquery):198.32MiB.0rowsinset.Elapsed:1.211sec.Processed5.04millionrows,645.01MB(4.16millionrows/s.,532.57MB/s.)Full table -- GROUP BY SELECTkey,argMax(val_1,ts)asval_1,argMax(val_2,ts)asval_2,argMax(val_3,ts)asval_3,argMax(val_4,ts)asval_4,argMax(val_5,ts)asval_5,max(ts)FROMrepl_tblGROUPBYkeyFORMATNull;Peakmemoryusage(forquery):15.02GiB.0rowsinset.Elapsed:19.164sec.Processed50.00millionrows,6.40GB(2.61millionrows/s.,334.02MB/s.)-- set optimize_aggregation_in_order=1; Peakmemoryusage(forquery):4.44GiB.0rowsinset.Elapsed:9.700sec.Processed21.03millionrows,2.69GB(2.17millionrows/s.,277.50MB/s.)-- ORDER BY LIMIT BY SELECT*FROMrepl_tblORDERBYtsDESCLIMIT1BYkeyFORMATNull;Peakmemoryusage(forquery):10.46GiB.0rowsinset.Elapsed:21.264sec.Processed50.00millionrows,6.40GB(2.35millionrows/s.,301.03MB/s.)-- Subquery SELECT*FROMrepl_tblWHERE(key,ts)IN(SELECTkey,max(ts)FROMrepl_tblGROUPBYkey)FORMATNull;Peakmemoryusage(forquery):2.52GiB.0rowsinset.Elapsed:6.891sec.Processed50.00millionrows,1.60GB(7.26millionrows/s.,232.22MB/s.)-- set optimize_aggregation_in_order=1; Peakmemoryusage(forquery):1.05GiB.0rowsinset.Elapsed:4.427sec.Processed50.00millionrows,1.60GB(11.29millionrows/s.,361.49MB/s.)-- FINAL SELECT*FROMrepl_tblFINALFORMATNull;Peakmemoryusage(forquery):838.75MiB.0rowsinset.Elapsed:6.681sec.Processed50.00millionrows,6.40GB(7.48millionrows/s.,958.18MB/s.)FINAL Clickhouse merge parts only in scope of single partition, so if two rows with the same replacing key would land in different partitions, they would never be merged in single row.</description>
+    </item>
+    
+    <item>
+      <title>ReplacingMergeTree does not collapse duplicates</title>
+      <link>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/replacingmergetree/altinity-kb-replacingmergetree-does-not-collapse-duplicates/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/replacingmergetree/altinity-kb-replacingmergetree-does-not-collapse-duplicates/</guid>
+      <description>Hi there, I have a question about replacing merge trees. I have set up a Materialized View with ReplacingMergeTree table, but even if I call optimize on it, the parts don&amp;rsquo;t get merged. I filled that table yesterday, nothing happened since then. What should I do?
+Merges are eventual and may never happen. It depends on the number of inserts that happened after, the number of parts in the partition, size of parts.</description>
+    </item>
+    
+    <item>
+      <title>Replication queue</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-replication-queue/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-replication-queue/</guid>
+      <description>SELECTdatabase,table,type,any(last_exception),any(postpone_reason),min(create_time),max(last_attempt_time),max(last_postpone_time),max(num_postponed)ASmax_postponed,max(num_tries)ASmax_tries,min(num_tries)ASmin_tries,countIf(last_exception!=&amp;#39;&amp;#39;)AScount_err,countIf(num_postponed&amp;gt;0)AScount_postponed,countIf(is_currently_executing)AScount_executing,count()AScount_allFROMsystem.replication_queueGROUPBYdatabase,table,typeORDERBYcount_allDESC© 2021 Altinity Inc. All rights reserved.</description>
+    </item>
+    
+    <item>
+      <title>Rewind / fast-forward / replay</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-integrations/altinity-kb-kafka/altinity-kb-rewind-fast-forward-replay/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-integrations/altinity-kb-kafka/altinity-kb-rewind-fast-forward-replay/</guid>
+      <description>Step 1: Detach Kafka tables in ClickHouse Step 2: kafka-consumer-groups.sh --bootstrap-server kafka:9092 --topic topic:0,1,2 --group id1 --reset-offsets --to-latest --execute  More samples: https://gist.github.com/filimonov/1646259d18b911d7a1e8745d6411c0cc   Step: Attach Kafka tables back  See also these configuration settings:
+&amp;lt;kafka&amp;gt; &amp;lt;auto_offset_reset&amp;gt;smallest&amp;lt;/auto_offset_reset&amp;gt; &amp;lt;/kafka&amp;gt; © 2021 Altinity Inc. All rights reserved.</description>
+    </item>
+    
+    <item>
+      <title>rsync</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/rsync/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/rsync/</guid>
+      <description>Short Instruction   Do FREEZE TABLE on needed table, partition. It would produce consistent snapshot of table data.
+  Run rsync command.
+rsync -ravlW --bwlimit=100000 /var/lib/clickhouse/data/shadow/N/database/table root@remote_host:/var/lib/clickhouse/data/database/table/detached --bwlimit is transfer limit in KBytes per second.
+  RunATTACH PARTITION for each partition from ./detached directory.
+  © 2021 Altinity Inc. All rights reserved.</description>
+    </item>
+    
+    <item>
+      <title>SAMPLE by</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/altinity-kb-sample-by/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/altinity-kb-sample-by/</guid>
+      <description>The execution pipeline is embedded in the partition reading code.
+So that works this way:
+ ClickHouse does partition pruning based on WHERE conditions. For every partition, it picks a columns ranges (aka &amp;lsquo;marks&amp;rsquo; / &amp;lsquo;granulas&amp;rsquo;) based on primary key conditions. Here the sampling logic is applied: a) in case of SAMPLE k (k in 0..1 range) it adds conditions WHERE sample_key &amp;lt; k * max_int_of_sample_key_type b) in case of SAMPLE k OFFSET m it adds conditions WHERE sample_key BETWEEN m * max_int_of_sample_key_type AND (m + k) * max_int_of_sample_key_typec) in case of SAMPLE N (N&amp;gt;1) if first estimates how many rows are inside the range we need to read and based on that convert it to 3a case (calculate k based on number of rows in ranges and desired number of rows) on the data returned by those other conditions are applied (so here the number of rows can be decreased here)  Source Code</description>
+    </item>
+    
+    <item>
+      <title>SELECTs from engine=Kafka</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-integrations/altinity-kb-kafka/altinity-kb-selects-from-engine-kafka/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-integrations/altinity-kb-kafka/altinity-kb-selects-from-engine-kafka/</guid>
+      <description>Question What will happen, if we would run SELECT query from working Kafka table with MV attached? Would data showed in SELECT query appear later in MV destination table?
+Answer  Most likely SELECT query would show nothing. If you lucky enough and something would show up, those rows wouldn&amp;rsquo;t appear in MV destination table.  So it&amp;rsquo;s not recommended to run SELECT queries on working Kafka tables.
+In case of debug it&amp;rsquo;s possible to use another Kafka table with different consumer_group, so it wouldn&amp;rsquo;t affect your main pipeline.</description>
+    </item>
+    
+    <item>
+      <title>sequenceMatch</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-functions/altinity-kb-sequencematch/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-functions/altinity-kb-sequencematch/</guid>
+      <description>Question I expect the sequence here to only match once as a is only directly after a once - but it matches with gaps. Why is that?
+SELECTsequenceCount(&amp;#39;(?1)(?2)&amp;#39;)(sequence,pageILIKE&amp;#39;%a%&amp;#39;,pageILIKE&amp;#39;%a%&amp;#39;)ASsequencesFROMvalues(&amp;#39;page String, sequence UInt16&amp;#39;,(&amp;#39;a&amp;#39;,1),(&amp;#39;a&amp;#39;,2),(&amp;#39;b&amp;#39;,3),(&amp;#39;b&amp;#39;,4),(&amp;#39;a&amp;#39;,5),(&amp;#39;b&amp;#39;,6),(&amp;#39;a&amp;#39;,7))2#??Answer sequenceMatch just ignores the events which don&amp;rsquo;t match the condition. Check that:
+SELECTsequenceMatch(&amp;#39;(?1)(?2)&amp;#39;)(sequence,page=&amp;#39;a&amp;#39;,page=&amp;#39;b&amp;#39;)ASsequencesFROMvalues(&amp;#39;page String, sequence UInt16&amp;#39;,(&amp;#39;a&amp;#39;,1),(&amp;#39;c&amp;#39;,2),(&amp;#39;b&amp;#39;,3));1#??SELECTsequenceMatch(&amp;#39;(?1).(?2)&amp;#39;)(sequence,page=&amp;#39;a&amp;#39;,page=&amp;#39;b&amp;#39;)ASsequencesFROMvalues(&amp;#39;page String, sequence UInt16&amp;#39;,(&amp;#39;a&amp;#39;,1),(&amp;#39;c&amp;#39;,2),(&amp;#39;b&amp;#39;,3));0#???SELECTsequenceMatch(&amp;#39;(?1)(?2)&amp;#39;)(sequence,page=&amp;#39;a&amp;#39;,page=&amp;#39;b&amp;#39;,pageNOTIN(&amp;#39;a&amp;#39;,&amp;#39;b&amp;#39;))ASsequencesfromvalues(&amp;#39;page String, sequence UInt16&amp;#39;,(&amp;#39;a&amp;#39;,1),(&amp;#39;c&amp;#39;,2),(&amp;#39;b&amp;#39;,3));0#!SELECTsequenceMatch(&amp;#39;(?1).(?2)&amp;#39;)(sequence,page=&amp;#39;a&amp;#39;,page=&amp;#39;b&amp;#39;,pageNOTIN(&amp;#39;a&amp;#39;,&amp;#39;b&amp;#39;))ASsequencesfromvalues(&amp;#39;page String, sequence UInt16&amp;#39;,(&amp;#39;a&amp;#39;,1),(&amp;#39;c&amp;#39;,2),(&amp;#39;b&amp;#39;,3));1#So for your example - just introduce one more &amp;lsquo;nothing matched&amp;rsquo; condition:
+SELECTsequenceCount(&amp;#39;(?1)(?2)&amp;#39;)(sequence,pageILIKE&amp;#39;%a%&amp;#39;,pageILIKE&amp;#39;%a%&amp;#39;,NOT(pageILIKE&amp;#39;%a%&amp;#39;))ASsequencesFROMvalues(&amp;#39;page String, sequence UInt16&amp;#39;,(&amp;#39;a&amp;#39;,1),(&amp;#39;a&amp;#39;,2),(&amp;#39;b&amp;#39;,3),(&amp;#39;b&amp;#39;,4),(&amp;#39;a&amp;#39;,5),(&amp;#39;b&amp;#39;,6),(&amp;#39;a&amp;#39;,7))--- title:&amp;#34;1&amp;#34;linkTitle:&amp;#34;1&amp;#34;description:&amp;gt;1--- © 2021 Altinity Inc.</description>
+    </item>
+    
+    <item>
+      <title>Server config files</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-server-config-files/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-server-config-files/</guid>
+      <description>Сonfig management (recommended structure) Settings &amp;amp;amp; restart Dictionaries incl attribute &amp;amp;amp; metrica.xml Multiple Clickhouse instances at one host preprocessed_configs  Сonfig management (recommended structure)  Clickhouse server config consists of two parts server settings (config.xml) and users settings (users.xml).
+By default they are stored in the folder /etc/clickhouse-server/ in two files config.xml &amp;amp; users.xml.
+We suggest never change vendor config files and place your changes into separate .xml files in sub-folders.</description>
+    </item>
+    
+    <item>
+      <title>Settings to adjust</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-settings-to-adjust/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-settings-to-adjust/</guid>
+      <description>query_log and other _log tables - set up TTL, or some other cleanup procedures.
+cat /etc/clickhouse-server/config.d/query_log.xml &amp;lt;yandex&amp;gt; &amp;lt;query_log replace=&amp;quot;1&amp;quot;&amp;gt; &amp;lt;database&amp;gt;system&amp;lt;/database&amp;gt; &amp;lt;table&amp;gt;query_log&amp;lt;/table&amp;gt; &amp;lt;flush_interval_milliseconds&amp;gt;7500&amp;lt;/flush_interval_milliseconds&amp;gt; &amp;lt;engine&amp;gt; ENGINE = MergeTree PARTITION BY event_date ORDER BY (event_time) TTL event_date + interval 90 day SETTINGS ttl_only_drop_parts=1 &amp;lt;/engine&amp;gt; &amp;lt;/query_log&amp;gt; &amp;lt;/yandex&amp;gt;   query_thread_log - typically is not useful, you can disable it (or set up TTL).
+cat /etc/clickhouse-server/config.d/disable_query_thread_log.xml &amp;lt;yandex&amp;gt; &amp;lt;query_thread_log remove=&amp;quot;1&amp;quot; /&amp;gt; &amp;lt;metric_log remove=&amp;quot;1&amp;quot; /&amp;gt; &amp;lt;asynchronous_metric_log remove=&amp;quot;1&amp;quot; /&amp;gt; &amp;lt;!</description>
+    </item>
+    
+    <item>
+      <title>Shutting down a node</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-shutting-down-a-node/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-shutting-down-a-node/</guid>
+      <description>It’s possible to shutdown server on fly, but that would lead to failure of some queries.
+More safer way:
+  Remove server (which is going to be disabled) from remote_server section of config.xml on all servers.
+  Remove server from load balancer, so new queries wouldn’t hit it.
+  Wait until all already running queries would finish execution on it.
+It’s possible to check it via query:</description>
+    </item>
+    
+    <item>
+      <title>Simple aggregate functions &amp; combinators</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/simplestateif-or-ifstate-for-simple-aggregate-functions/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/simplestateif-or-ifstate-for-simple-aggregate-functions/</guid>
+      <description>Q. What is SimpleAggregateFunction? Are there advantages to use it instead of AggregateFunction in AggregatingMergeTree? SimpleAggregateFunction can be used for those aggregations when the function state is exactly the same as the resulting function value. Typical example is max function: it only requires storing the single value which is already maximum, and no extra steps needed to get the final value. In contrast avg need to store two numbers - sum &amp;amp; count, which should be divided to get the final value of aggregation (done by the -Merge step at the very end).</description>
+    </item>
+    
+    <item>
+      <title>Skip index</title>
+      <link>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/skip-index/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/skip-index/</guid>
+      <description>{% hint style=&amp;ldquo;danger&amp;rdquo; %} When you are creating skip indexes in non-regular (Replicated)MergeTree tables over non ORDER BY columns. ClickHouse applies index condition on the first step of query execution, so it&amp;rsquo;s possible to get outdated rows. {% endhint %}
+--(1) create test table droptableifexiststest;createtabletest(versionUInt32,idUInt32,stateUInt8,INDEXstate_idx(state)typeset(0)GRANULARITY1)ENGINEReplacingMergeTree(version)ORDERBY(id);--(2) insert sample data INSERTINTOtest(version,id,state)VALUES(1,1,1);INSERTINTOtest(version,id,state)VALUES(2,1,0);INSERTINTOtest(version,id,state)VALUES(3,1,1);--(3) check the result: -- expected 3, 1, 1 selectversion,id,statefromtestfinal;┌─version─┬─id─┬─state─┐│3│1│1│└─────────┴────┴───────┘-- expected empty result selectversion,id,statefromtestfinalwherestate=0;┌─version─┬─id─┬─state─┐│2│1│0│└─────────┴────┴───────┘</description>
+    </item>
+    
+    <item>
+      <title>SPARSE HASHED VS HASHED</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-dictionaries/altinity-kb-sparse_hashed-vs-hashed/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-dictionaries/altinity-kb-sparse_hashed-vs-hashed/</guid>
+      <description>Sparse_hashed layout is supposed to save memory but has some downsides. We can test how much slower SPARSE_HASHED than HASHED is with the following:
+createtableorders(idUInt64,priceFloat64)Engine=MergeTree()orderbyid;insertintoordersselectnumber,0fromnumbers(5000000);CREATEDICTIONARYorders_hashed(idUInt64,priceFloat64)PRIMARYKEYidSOURCE(CLICKHOUSE(HOST&amp;#39;localhost&amp;#39;PORT9000TABLEordersDB&amp;#39;default&amp;#39;USER&amp;#39;default&amp;#39;))LIFETIME(MIN0MAX0)LAYOUT(HASHED());CREATEDICTIONARYorders_sparse(idUInt64,priceFloat64)PRIMARYKEYidSOURCE(CLICKHOUSE(HOST&amp;#39;localhost&amp;#39;PORT9000TABLEordersDB&amp;#39;default&amp;#39;USER&amp;#39;default&amp;#39;))LIFETIME(MIN0MAX0)LAYOUT(SPARSE_HASHED());SELECTname,type,status,element_count,formatReadableSize(bytes_allocated)ASRAMFROMsystem.dictionariesWHEREnameLIKE&amp;#39;orders%&amp;#39;┌─name──────────┬─type─────────┬─status─┬─element_count─┬─RAM────────┐│orders_sparse│SparseHashed│LOADED│5000000│84.29MiB││orders_hashed│Hashed│LOADED│5000000│256.00MiB│└───────────────┴──────────────┴────────┴───────────────┴────────────┘SELECTsum(dictGet(&amp;#39;default.orders_hashed&amp;#39;,&amp;#39;price&amp;#39;,toUInt64(number)))ASresFROMnumbers(10000000)┌─res─┐│0│└─────┘1rowsinset.Elapsed:0.279sec.Processed10.02millionrows...SELECTsum(dictGet(&amp;#39;default.orders_sparse&amp;#39;,&amp;#39;price&amp;#39;,toUInt64(number)))ASresFROMnumbers(10000000)┌─res─┐│0│└─────┘1rowsinset.Elapsed:1.085sec.Processed10.02millionrows...As you can see SPARSE_HASHED is memory efficient and use about 3 times less memory (!!!) but is almost 4 times slower. But this is the ultimate case because this test does not read data from the disk (no MergeTree table involved).
+We encourage you to test SPARSE_HASHED against your real queries, because it able to save a lot of memory and have larger (in rows) external dictionaries.</description>
+    </item>
+    
+    <item>
+      <title>SSL connection unexpectedly closed</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/ssl-connection-unexpectedly-closed/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/ssl-connection-unexpectedly-closed/</guid>
+      <description>ClickHouse doesn&amp;rsquo;t probe CA path which is default on CentOS and Amazon Linux.
+ClickHouse client: cat /etc/clickhouse-client/conf.d/openssl-ca.xml &amp;lt;config&amp;gt; &amp;lt;openSSL&amp;gt; &amp;lt;client&amp;gt; &amp;lt;!-- Used for connection to server&#39;s secure tcp port --&amp;gt; &amp;lt;caConfig&amp;gt;/etc/ssl/certs&amp;lt;/caConfig&amp;gt; &amp;lt;/client&amp;gt; &amp;lt;/openSSL&amp;gt; &amp;lt;/config&amp;gt; ClickHouse server: cat /etc/clickhouse-server/conf.d/openssl-ca.xml &amp;lt;config&amp;gt; &amp;lt;openSSL&amp;gt; &amp;lt;server&amp;gt; &amp;lt;!-- Used for https server AND secure tcp port --&amp;gt; &amp;lt;caConfig&amp;gt;/etc/ssl/certs&amp;lt;/caConfig&amp;gt; &amp;lt;/server&amp;gt; &amp;lt;client&amp;gt; &amp;lt;!-- Used for connecting to https dictionary source and secured Zookeeper communication --&amp;gt; &amp;lt;caConfig&amp;gt;/etc/ssl/certs&amp;lt;/caConfig&amp;gt; &amp;lt;/client&amp;gt; &amp;lt;/openSSL&amp;gt; &amp;lt;/config&amp;gt; {% embed url=&amp;ldquo;https://github.</description>
+    </item>
+    
+    <item>
+      <title>SummingMergeTree</title>
+      <link>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/summingmergetree/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/summingmergetree/</guid>
+      <description>Nested structures. In certain conditions it could make sense to collapse one of dimensions to set of arrays. It&amp;rsquo;s usually profitable to do if this dimension is not commonly used in queries. It would reduce amount of rows in aggregated table and speed up queries which doesn&amp;rsquo;t care about this dimension in exchange of aggregation performance by collapsed dimension.
+CREATETABLEtraffic(`key1`UInt32,`key2`UInt32,`port`UInt16,`bits_in`UInt32CODEC(T64,LZ4),`bits_out`UInt32CODEC(T64,LZ4),`packets_in`UInt32CODEC(T64,LZ4),`packets_out`UInt32CODEC(T64,LZ4))ENGINE=SummingMergeTreeORDERBY(key1,key2,port);INSERTINTOtrafficSELECTnumber%1000,intDiv(number,10000),rand()%20,rand()%753,rand64()%800,rand()%140,rand64()%231FROMnumbers(100000000);CREATETABLEdefault.traffic_map(`key1`UInt32,`key2`UInt32,`bits_in`UInt32CODEC(T64,LZ4),`bits_out`UInt32CODEC(T64,LZ4),`packets_in`UInt32CODEC(T64,LZ4),`packets_out`UInt32CODEC(T64,LZ4),`portMap.port`Array(UInt16),`portMap.bits_in`Array(UInt32)CODEC(T64,LZ4),`portMap.bits_out`Array(UInt32)CODEC(T64,LZ4),`portMap.packets_in`Array(UInt32)CODEC(T64,LZ4),`portMap.packets_out`Array(UInt32)CODEC(T64,LZ4))ENGINE=SummingMergeTreeORDERBY(key1,key2);INSERTINTOtraffic_mapWITHrand()%20ASportSELECTnumber%1000ASkey1,intDiv(number,10000)ASkey2,rand()%753ASbits_in,rand64()%800ASbits_out,rand()%140ASpackets_in,rand64()%231ASpackets_out,[port],[bits_in],[bits_out],[packets_in],[packets_out]FROMnumbers(100000000);┌─table───────┬─column──────────────┬─────rows─┬─compressed─┬─uncompressed─┬──ratio─┐│traffic│bits_out│80252317│109.09MiB│306.14MiB│2.81││traffic│bits_in│80252317│108.34MiB│306.14MiB│2.83││traffic│port│80252317│99.21MiB│153.07MiB│1.54││traffic│packets_out│80252317│91.36MiB│306.14MiB│3.35││traffic│packets_in│80252317│84.61MiB│306.14MiB│3.62││traffic│key2│80252317│47.88MiB│306.14MiB│6.39││traffic│key1│80252317│1.38MiB│306.14MiB│221.42││traffic_map│portMap.bits_out│10000000│108.96MiB│306.13MiB│2.81││traffic_map│portMap.bits_in│10000000│108.32MiB│306.13MiB│2.83││traffic_map│portMap.port│10000000│92.00MiB│229.36MiB│2.49││traffic_map│portMap.packets_out│10000000│90.95MiB│306.13MiB│3.37││traffic_map│portMap.packets_in│10000000│84.19MiB│306.13MiB│3.64││traffic_map│key2│10000000│23.46MiB│38.15MiB│1.63││traffic_map│bits_in│10000000│15.59MiB│38.15MiB│2.45││traffic_map│bits_out│10000000│15.59MiB│38.15MiB│2.45││traffic_map│packets_out│10000000│13.22MiB│38.15MiB│2.89││traffic_map│packets_in│10000000│12.62MiB│38.15MiB│3.02││traffic_map│key1│10000000│180.29KiB│38.15MiB│216.66│└─────────────┴─────────────────────┴──────────┴────────────┴──────────────┴────────┘-- Queries SELECTkey1,sum(packets_in),sum(bits_out)FROMtrafficGROUPBYkey1FORMAT`Null`0rowsinset.</description>
+    </item>
+    
+    <item>
+      <title>System tables eat my disk</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-system-tables-eat-my-disk/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-system-tables-eat-my-disk/</guid>
+      <description>Note 1: System database stores virtual tables (parts, tables, columns, etc.) and *_log tables.
+Virtual tables do not persist on disk. They reflect ClickHouse memory (c++ structures). They cannot be changed or removed.
+Log tables are named with postfix *_log and have the MergeTree engine.
+You can drop / rename / truncate *_log tables at any time. ClickHouse will recreate them in about 7 seconds (flush period).
+  Note 2: Log tables with numeric postfixes (_1 / 2 / 3 &amp;hellip;) query_log_1 query_thread_log_3 are results of Clickhouse upgrades.</description>
+    </item>
+    
+    <item>
+      <title>There are N unfinished hosts (0 of them are currently active).</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-ddlworker/there-are-n-unfinished-hosts-0-of-them-are-currently-active/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-ddlworker/there-are-n-unfinished-hosts-0-of-them-are-currently-active/</guid>
+      <description>Sometimes your Distributed DDL queries are being stuck, and not executing on all or subset of nodes, there are a lot of possible reasons for that kind of behavior, so it would take some time and effort to investigate.
+Possible reasons: Clickhouse node can&amp;rsquo;t recognize itself. SELECT*FROMsystem.clusters;-- check is_local column, it should have 1 for itself getent hosts clickhouse.local.net # or other name which should be local hostname --fqdn cat /etc/hosts cat /etc/hostname {% page-ref page=&amp;quot;.</description>
+    </item>
+    
+    <item>
+      <title>Threads</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-threads/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-threads/</guid>
+      <description>Collect thread names &amp;amp; counts using ps &amp;amp; clickhouse-local
+ps H -o &amp;#39;tid comm&amp;#39; $(pidof -s clickhouse-server) | tail -n +2 | awk &amp;#39;{ printf(&amp;#34;%s\t%s\n&amp;#34;, $1, $2) }&amp;#39; | clickhouse-local -S &amp;#34;threadid UInt16, name String&amp;#34; -q &amp;#34;SELECT name, count() FROM table GROUP BY name WITH TOTALS ORDER BY count() DESC FORMAT PrettyCompact&amp;#34; Check threads used by running queries:
+SELECTquery,length(thread_ids)ASthreads_countFROMsystem.processesORDERBYthreads_count;--- title: &amp;#34;cat /proc/$(pidof -s clickhouse-server)/status | grep Threads&amp;#34; linkTitle: &amp;#34;cat /proc/$(pidof -s clickhouse-server)/status | grep Threads&amp;#34; description: &amp;gt; cat /proc/$(pidof -s clickhouse-server)/status | grep Threads --- Threads: 103 --- title: &amp;#34;ps hH $(pidof -s clickhouse-server)| wc -l&amp;#34; linkTitle: &amp;#34;ps hH $(pidof -s clickhouse-server)| wc -l&amp;#34; description: &amp;gt; ps hH $(pidof -s clickhouse-server) | wc -l --- 103 --- title: &amp;#34;ps hH -AF | grep clickhouse | wc -l&amp;#34; linkTitle: &amp;#34;ps hH -AF | grep clickhouse | wc -l&amp;#34; description: &amp;gt; ps hH -AF | grep clickhouse | wc -l --- 116 Pools</description>
+    </item>
+    
+    <item>
+      <title>Time zones</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/time-zones/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/time-zones/</guid>
+      <description>Important things to know:
+ DateTime inside clickhouse is actually UNIX timestamp always, i.e. number of seconds since 1970-01-01 00:00:00 GMT. Conversion from that UNIX timestamp to a human-readable form and reverse can happen on the client (for native clients) and on the server (for HTTP clients, and for some type of queries, like toString(ts)) Depending on the place where that conversion happened rules of different timezones may be applied. You can check server timezone using SELECT timezone() clickhouse-client also by default tries to use server timezone (see also --use_client_time_zone flag) If you want you can store the timezone name inside the data type, in that case, timestamp &amp;lt;-&amp;gt; human-readable time rules of that timezone will be applied.</description>
+    </item>
+    
+    <item>
+      <title>Top N &amp; Remain</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/top-n-and-remain/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/top-n-and-remain/</guid>
+      <description>CREATETABLEtop_with_rest(`k`String,`number`UInt64)ENGINE=Memory;INSERTINTOtop_with_restSELECTtoString(intDiv(number,10)),numberFROMnumbers_mt(10000);Using UNION ALL SELECT*FROM(SELECTk,sum(number)ASresFROMtop_with_restGROUPBYkORDERBYresDESCLIMIT10UNIONALLSELECTNULL,sum(number)ASresFROMtop_with_restWHEREkNOTIN(SELECTkFROMtop_with_restGROUPBYkORDERBYsum(number)DESCLIMIT10))ORDERBYresASC┌─k───┬───res─┐│990│99045││991│99145││992│99245││993│99345││994│99445││995│99545││996│99645││997│99745││998│99845││999│99945│└─────┴───────┘┌─k────┬──────res─┐│ᴺᵁᴸᴸ│49000050│└──────┴──────────┘Using arrays WITHtoUInt64(sumIf(sum,isNull(k))-sumIf(sum,isNotNull(k)))AStotalSELECT(arrayJoin(arrayPushBack(groupArrayIf(10)((k,sum),isNotNull(k)),(NULL,total)))AStpl).1ASkey,tpl.2ASresFROM(SELECTtoNullable(k)ASk,sum(number)ASsumFROMtop_with_restGROUPBYkWITHCUBEORDERBYsumDESCLIMIT11)ORDERBYresASC┌─key──┬──────res─┐│990│99045││991│99145││992│99245││993│99345││994│99445││995│99545││996│99645││997│99745││998│99845││999│99945││ᴺᵁᴸᴸ│49000050│└──────┴──────────┘Using window functions (starting from 21.1) SETallow_experimental_window_functions=1;SELECTkASkey,If(isNotNull(key),sum,toUInt64(sum-wind))ASresFROM(SELECT*,sumIf(sum,isNotNull(k))OVER()ASwindFROM(SELECTtoNullable(k)ASk,sum(number)ASsumFROMtop_with_restGROUPBYkWITHCUBEORDERBYsumDESCLIMIT11))ORDERBYresASC┌─key──┬──────res─┐│990│99045││991│99145││992│99245││993│99345││994│99445││995│99545││996│99645││997│99745││998│99845││999│99945││ᴺᵁᴸᴸ│49000050│└──────┴──────────┘</description>
+    </item>
+    
+    <item>
+      <title>Troubleshooting</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/troubleshooting/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/troubleshooting/</guid>
+      <description>Log of query execution Controlled by session level setting send_logs_level
+Possible values: &#39;trace&#39;, &#39;debug&#39;, &#39;information&#39;, &#39;warning&#39;, &#39;error&#39;, &#39;fatal&#39;, &#39;none&#39;
+Can be used with clickhouse-client in both interactive and non-interactive mode.
+$ clickhouse-client -mn --send_logs_level=&amp;#39;trace&amp;#39; --query &amp;#34;SELECT sum(number) FROM numbers(1000)&amp;#34; [LAPTOP] 2021.04.29 00:05:31.425842 [ 25316 ] {14b0646d-8a6e-4b2f-9b13-52a218cf43ba} &amp;lt;Debug&amp;gt; executeQuery: (from 127.0.0.1:42590, using production parser) SELECT sum(number) FROM numbers(1000) [LAPTOP] 2021.04.29 00:05:31.426281 [ 25316 ] {14b0646d-8a6e-4b2f-9b13-52a218cf43ba} &amp;lt;Trace&amp;gt; ContextAccess (default): Access granted: CREATE TEMPORARY TABLE ON *.</description>
+    </item>
+    
+    <item>
+      <title>UPDATE via Dictionary</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/update-via-dictionary/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/update-via-dictionary/</guid>
+      <description>CREATETABLEtest_update(`key`UInt32,`value`String)ENGINE=MergeTreeORDERBYkey;INSERTINTOtest_updateSELECTnumber,concat(&amp;#39;value &amp;#39;,toString(number))FROMnumbers(20);SELECT*FROMtest_update;┌─key─┬─value────┐│0│value0││1│value1││2│value2││3│value3││4│value4││5│value5││6│value6││7│value7││8│value8││9│value9││10│value10││11│value11││12│value12││13│value13││14│value14││15│value15││16│value16││17│value17││18│value18││19│value19│└─────┴──────────┘CREATETABLEtest_update_source(`key`UInt32,`value`String)ENGINE=MergeTreeORDERBYkey;INSERTINTOtest_update_sourceVALUES(1,&amp;#39;other value&amp;#39;),(10,&amp;#39;new value&amp;#39;);CREATEDICTIONARYupdate_dict(`key`UInt32,`value`String)PRIMARYKEYkeySOURCE(CLICKHOUSE(TABLE&amp;#39;test_update_source&amp;#39;))LIFETIME(MIN0MAX10)LAYOUT(FLAT);SELECTdictGet(&amp;#39;default.update_dict&amp;#39;,&amp;#39;value&amp;#39;,toUInt64(1));┌─dictGet(&amp;#39;default.update_dict&amp;#39;,&amp;#39;value&amp;#39;,toUInt64(1))─┐│othervalue│└──────────────────────────────────────────────────────┘ALTERTABLEtest_updateUPDATEvalue=dictGet(&amp;#39;default.update_dict&amp;#39;,&amp;#39;value&amp;#39;,toUInt64(key))WHEREdictHas(&amp;#39;default.update_dict&amp;#39;,toUInt64(key));SELECT*FROMtest_update┌─key─┬─value───────┐│0│value0││1│othervalue││2│value2││3│value3││4│value4││5│value5││6│value6││7│value7││8│value8││9│value9││10│newvalue││11│value11││12│value12││13│value13││14│value14││15│value15││16│value16││17│value17││18│value18││19│value19│└─────┴─────────────┘{% hint style=&amp;ldquo;info&amp;rdquo; %} In case of Replicated installation, Dictionary should be created on all nodes and source tables should have ReplicatedMergeTree engine and be replicated across all nodes. {% endhint %}</description>
+    </item>
+    
+    <item>
+      <title>Values mapping</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/values-mapping/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/values-mapping/</guid>
+      <description>SELECTcount()FROMnumbers_mt(1000000000)WHERENOTignore(transform(number%3,[0,1,2,3],[&amp;#39;aa&amp;#39;,&amp;#39;ab&amp;#39;,&amp;#39;ad&amp;#39;,&amp;#39;af&amp;#39;],&amp;#39;a0&amp;#39;))1rowsinset.Elapsed:4.668sec.Processed1.00billionrows,8.00GB(214.21millionrows/s.,1.71GB/s.)SELECTcount()FROMnumbers_mt(1000000000)WHERENOTignore(multiIf((number%3)=0,&amp;#39;aa&amp;#39;,(number%3)=1,&amp;#39;ab&amp;#39;,(number%3)=2,&amp;#39;ad&amp;#39;,(number%3)=3,&amp;#39;af&amp;#39;,&amp;#39;a0&amp;#39;))1rowsinset.Elapsed:7.333sec.Processed1.00billionrows,8.00GB(136.37millionrows/s.,1.09GB/s.)SELECTcount()FROMnumbers_mt(1000000000)WHERENOTignore(CAST(number%3ASEnum(&amp;#39;aa&amp;#39;=0,&amp;#39;ab&amp;#39;=1,&amp;#39;ad&amp;#39;=2,&amp;#39;af&amp;#39;=3)&amp;#39;)) 1 rows in set. Elapsed: 1.152 sec. Processed 1.00 billion rows, 8.00 GB (867.79 million rows/s., 6.94 GB/s.) </description>
+    </item>
+    
+    <item>
+      <title>Version Upgrades</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/version-upgrades/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/version-upgrades/</guid>
+      <description>Update itself is simple: update packages, restart clickhouse-server service afterwards.
+ Check if the version you want to upgrade to is stable. We highly recommend the Altinity ClickHouse Stable Releases.  Review the changelog to ensure that no configuration changes are needed.   Update staging and test to verify all systems are working. Prepare and test downgrade procedures so the server can be returned to the previous version if necessary.</description>
+    </item>
+    
+    <item>
+      <title>Who ate my memory</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-who-ate-my-memory/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-who-ate-my-memory/</guid>
+      <description>SELECTformatReadableSize(sum(bytes_allocated))FROMsystem.dictionaries;SELECTdatabase,name,formatReadableSize(total_bytes)FROMsystem.tablesWHEREengineIN(&amp;#39;Memory&amp;#39;,&amp;#39;Set&amp;#39;,&amp;#39;Join&amp;#39;);SELECTformatReadableSize(sum(memory_usage))FROMsystem.merges;SELECTformatReadableSize(sum(memory_usage))FROMsystem.processes;SELECTinitial_query_id,formatReadableSize(memory_usage),formatReadableSize(peak_memory_usage),queryFROMsystem.processesORDERBYpeak_memory_usageDESCLIMIT10;SELECTmetric,formatReadableSize(value)FROMsystem.asynchronous_metricsWHEREmetricIN(&amp;#39;UncompressedCacheBytes&amp;#39;,&amp;#39;MarkCacheBytes&amp;#39;);SELECTformatReadableSize(sum(primary_key_bytes_in_memory))ASprimary_key_bytes_in_memory,formatReadableSize(sum(primary_key_bytes_in_memory_allocated))ASprimary_key_bytes_in_memory_allocatedFROMsystem.parts;SELECTinitial_query_id,formatReadableSize(memory_usage),queryFROMsystem.query_logWHERE(event_date&amp;gt;=today())AND(event_time&amp;gt;=(now()-7200))ORDERBYmemory_usageDESCLIMIT10;© 2021 Altinity Inc. All rights reserved.</description>
+    </item>
+    
+    <item>
+      <title>Window functions</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/window-functions/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/window-functions/</guid>
+      <description>Link blog.tinybird.co/2021/03/16/c…     Date Mar 26, 2021    blog.tinybird.co/2021/03/16/c…
+ An exploration on what&amp;rsquo;s possible to do with the most recent experimental feature on ClickHouse - window functions, and an overview of other interesting feat&amp;hellip;
+ &amp;lt;strong&amp;gt;Open link&amp;lt;/strong&amp;gt;
+How Do I Simulate Window Functions Using Arrays on older versions of clickhouse?  Group with groupArray. Calculate the needed metrics. Ungroup back using arrayJoin.</description>
+    </item>
+    
+    <item>
+      <title>X rows of Y total rows in filesystem are suspicious</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/x-rows-of-y-total-rows-in-filesystem-are-suspicious/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/x-rows-of-y-total-rows-in-filesystem-are-suspicious/</guid>
+      <description>{% hint style=&amp;ldquo;danger&amp;rdquo; %} The local set of parts of table doesn&amp;rsquo;t look like the set of parts in ZooKeeper. 100.00 rows of 150.00 total rows in filesystem are suspicious. There are 1 unexpected parts with 100 rows (1 of them is not just-written with 100 rows), 0 missing parts (with 0 blocks).: Cannot attach table. {% endhint %}
+ClickHouse has a registry of parts in ZooKeeper.
+And during the start ClickHouse compares that list of parts on a local disk is consistent with a list in ZooKeeper.</description>
+    </item>
+    
+    <item>
+      <title>ZooKeeper backup</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/altinity-kb-zookeeper-backup/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/altinity-kb-zookeeper-backup/</guid>
+      <description>You may have a question: “Do I need to backup Zookeeper Database, because it’s pretty important for ClickHouse?”
+Answer: ZK is in memory database. All nodes of ZK has exactly the same data.
+If you have 3 ZK servers, then you have 3 copies of (3 backups) already.
+To backup ZK has no sense because you need to have a snapshot of ZK + last ZK logs to exactly the last ZK transaction.</description>
+    </item>
+    
+    <item>
+      <title>ZooKeeper cluster migration</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/altinity-kb-zookeeper-cluster-migration/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/altinity-kb-zookeeper-cluster-migration/</guid>
+      <description>Here is a plan for ZK 3.4.9 (no dynamic reconfiguration):
+ Add the 3 new ZK nodes to the old cluster. No changes needed for the 3 old ZK nodes at this time.  Configure one of the new ZK nodes as a cluster of 4 nodes (3 old + 1 new), start it. Configure the other two new ZK nodes as a cluster of 6 nodes (3 old + 3 new), start them.</description>
+    </item>
+    
+    <item>
+      <title>ZooKeeper schema</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/zookeeper-schema/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/zookeeper-schema/</guid>
+      <description>/metadata Table schema.
+date column -&amp;gt; legacy MergeTree partition expresison. sampling expression -&amp;gt; SAMPLE BY index granularity -&amp;gt; index_granularity mode -&amp;gt; type of MergeTree table sign column -&amp;gt; sign - CollapsingMergeTree / VersionedCollapsingMergeTree primary key -&amp;gt; ORDER BY key if PRIMARY KEY not defined. sorting key -&amp;gt; ORDER BY key if PRIMARY KEY defined. data format version -&amp;gt; 1 partition key -&amp;gt; PARTITION BY granularity bytes -&amp;gt; index_granularity_bytes types of MergeTree tables: Ordinary = 0 Collapsing = 1 Summing = 2 Aggregating = 3 Replacing = 5 Graphite = 6 VersionedCollapsing = 7 /mutations Log of latest mutations</description>
+    </item>
     
   </channel>
 </rss>
