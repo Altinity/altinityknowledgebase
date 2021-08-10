@@ -1,18 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Altinity Beta Knowledgebase – Interfaces</title>
+    <title>Interfaces on Altinity Beta Knowledgebase</title>
     <link>http://beta.kb.altinity.com/altinity-kb-interfaces/</link>
     <description>Recent content in Interfaces on Altinity Beta Knowledgebase</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    
-	  <atom:link href="http://beta.kb.altinity.com/altinity-kb-interfaces/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>en-us</language><atom:link href="http://beta.kb.altinity.com/altinity-kb-interfaces/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>clickhouse-client</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-interfaces/altinity-kb-clickhouse-client/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-        
-      
-    
+      <guid>http://beta.kb.altinity.com/altinity-kb-interfaces/altinity-kb-clickhouse-client/</guid>
+      <description>Q. How can I input multi-line SQL code? can you guys give me an example?
+A. Just run clickhouse-client with -m switch, and it starts executing only after you finish the line with a semicolon.
+Q. How can i use pager with clickhouse-client
+A. Here is an example: clickhouse-client --pager &#39;less -RS&#39;
+Q. Data is returned in chunks / several tables.
+A. Data get streamed from the server in blocks, every block is formatted individually when the default PrettyCompact format is used.</description>
+    </item>
     
   </channel>
 </rss>

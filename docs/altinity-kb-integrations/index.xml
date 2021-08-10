@@ -1,18 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Altinity Beta Knowledgebase – Integrations</title>
+    <title>Integrations on Altinity Beta Knowledgebase</title>
     <link>http://beta.kb.altinity.com/altinity-kb-integrations/</link>
     <description>Recent content in Integrations on Altinity Beta Knowledgebase</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    
-	  <atom:link href="http://beta.kb.altinity.com/altinity-kb-integrations/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>en-us</language><atom:link href="http://beta.kb.altinity.com/altinity-kb-integrations/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>BI Tools</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-integrations/bi-tools/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-        
-      
+      <guid>http://beta.kb.altinity.com/altinity-kb-integrations/bi-tools/</guid>
+      <description>  Superset: https://superset.apache.org/docs/databases/clickhouse
+  Metabase: https://github.com/enqueue/metabase-clickhouse-driver
+  Querybook: https://www.querybook.org/docs/setup_guide/connect_to_query_engines/#all-query-engines
+  Tableau: via odbc
+  Looker: https://docs.looker.com/setup-and-management/database-config/clickhouse
+  Apache Zeppelin
+  SeekTable
+  ReDash
+  Mondrian: https://altinity.com/blog/accessing-clickhouse-from-excel-using-mondrian-rolap-engine
+  Grafana
+  Cumul.io
+  </description>
+    </item>
     
+    <item>
+      <title>CatBoost / MindsDB /  Fast.ai</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-integrations/catboost-mindsdb-fast.ai/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-integrations/catboost-mindsdb-fast.ai/</guid>
+      <description>{% hint style=&amp;ldquo;info&amp;rdquo; %} Article is based on feedback provided by one of Altinity clients. {% endhint %}
+CatBoost:
+ It uses gradient boosting - a hard to use technique which can outperform neural networks. Gradient boosting is powerful but it&amp;rsquo;s easy to shoot yourself in the foot using it. The documentation on how to use it is quite lacking. The only good source of information on how to properly configure a model to yield good results is this video: https://www.</description>
+    </item>
+    
+    <item>
+      <title>Google S3 (GCS)</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-integrations/altinity-kb-google-s3-gcs/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-integrations/altinity-kb-google-s3-gcs/</guid>
+      <description>GCS with the table function - seems to work correctly!
+Essentially you can follow the steps from the Migrating from Amazon S3 to Cloud Storage.
+ Set up a GCS bucket. This bucket must be set as part of the default project for the account. This configuration can be found in settings -&amp;gt; interoperability. Generate a HMAC key for the account, can be done in settings -&amp;gt; interoperability, in the section for user account access keys.</description>
+    </item>
     
   </channel>
 </rss>

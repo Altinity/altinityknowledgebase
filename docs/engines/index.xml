@@ -1,18 +1,126 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Altinity Beta Knowledgebase – Engines</title>
+    <title>Engines on Altinity Beta Knowledgebase</title>
     <link>http://beta.kb.altinity.com/engines/</link>
     <description>Recent content in Engines on Altinity Beta Knowledgebase</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    
-	  <atom:link href="http://beta.kb.altinity.com/engines/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>en-us</language><atom:link href="http://beta.kb.altinity.com/engines/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AggregatingMergeTree</title>
+      <link>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/aggregatingmergetree/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-        
-      
+      <guid>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/aggregatingmergetree/</guid>
+      <description>Q. What happens with columns which are nor the part of ORDER BY key, nor have the AggregateFunction type?
+A. it picks the first value met, (similar to any)
+CREATETABLEagg_test(`a`String,`b`UInt8,`c`SimpleAggregateFunction(max,UInt8))ENGINE=AggregatingMergeTreeORDERBYa;INSERTINTOagg_testVALUES(&amp;#39;a&amp;#39;,1,1);INSERTINTOagg_testVALUES(&amp;#39;a&amp;#39;,2,2);SELECT*FROMagg_testFINAL;┌─a─┬─b─┬─c─┐│a│1│2│└───┴───┴───┘INSERTINTOagg_testVALUES(&amp;#39;a&amp;#39;,3,3);SELECT*FROMagg_test;┌─a─┬─b─┬─c─┐│a│1│2│└───┴───┴───┘┌─a─┬─b─┬─c─┐│a│3│3│└───┴───┴───┘OPTIMIZETABLEagg_testFINAL;SELECT*FROMagg_test;┌─a─┬─b─┬─c─┐│a│1│3│└───┴───┴───┘© 2021 Altinity Inc. All rights reserved.</description>
+    </item>
     
+    <item>
+      <title>Atomic Database Engine</title>
+      <link>http://beta.kb.altinity.com/engines/altinity-kb-atomic-database-engine/readme/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/engines/altinity-kb-atomic-database-engine/readme/</guid>
+      <description>In version 20.5 ClickHouse first introduced database engine=Atomic.
+Since version 20.10 it is a default database engine (before engine=Ordinary was used).
+Those 2 database engine differs in a way how they store data on a filesystem, and engine Atomic allows to resolve some of the issues existed in engine=Ordinary.
+engine=Atomic supports
+ non-blocking drop table / rename table tables delete (&amp;amp;detach) async (wait for selects finish but invisible for new selects) atomic drop table (all files / folders removed) atomic table swap (table swap by &amp;ldquo;EXCHANGE TABLES t1 AND t2;&amp;quot;) rename dictionary / rename database unique automatic UUID paths in FS and ZK for Replicated  FAQ Q.</description>
+    </item>
+    
+    <item>
+      <title>EmbeddedRocksDB &amp; dictionary</title>
+      <link>http://beta.kb.altinity.com/engines/altinity-kb-embeddedrocksdb-and-dictionary/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/engines/altinity-kb-embeddedrocksdb-and-dictionary/</guid>
+      <description>RocksDB is faster than MergeTree on Key/Value queries because MergeTree primary key index is sparse. Probably it&amp;rsquo;s possible to speedup MergeTree by reducing index_granularity.
+NVMe disk is used for the tests.
+The main feature of RocksDB is instant updates. You can update a row instantly (microseconds):
+select*fromrocksDBwhereA=15645646;┌────────A─┬─B────────────────────┐│15645646│12517841379565221195│└──────────┴──────────────────────┘1rowsinset.Elapsed:0.001sec.insertintorocksDBvalues(15645646,&amp;#39;xxxx&amp;#39;);1rowsinset.Elapsed:0.001sec.select*fromrocksDBwhereA=15645646;┌────────A─┬─B────┐│15645646│xxxx│└──────────┴──────┘1rowsinset.Elapsed:0.001sec.Let’s load 100 millions rows:
+createtablerocksDB(AUInt64,BString,primarykeyA)Engine=EmbeddedRocksDB();insertintorocksDBselectnumber,toString(cityHash64(number))fromnumbers(100000000);-- 0 rows in set. Elapsed: 154.559 sec. Processed 100.66 million rows, 805.28 MB (651.27 thousand rows/s., 5.21 MB/s.) -- Size on disk: 1.</description>
+    </item>
+    
+    <item>
+      <title>How to Convert Atomic to Ordinary</title>
+      <link>http://beta.kb.altinity.com/engines/altinity-kb-atomic-database-engine/altinity-kb-how-to-convert-atomic-to-ordinary/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/engines/altinity-kb-atomic-database-engine/altinity-kb-how-to-convert-atomic-to-ordinary/</guid>
+      <description>The following instructions are an example on how to convert a database with the Engine type Atomic to a database with the Engine type Ordinary.
+{% hint style=&amp;ldquo;warning&amp;rdquo; %} That can be used only for simple schemas. Schemas with MATERIALIZED views will require extra manipulations. {% endhint %}
+CREATEDATABASEatomic_dbENGINE=Atomic;CREATEDATABASEordinary_dbENGINE=Ordinary;CREATETABLEatomic_db.xENGINE=MergeTreeORDERBYtuple()ASsystem.numbers;INSERTINTOatomic_db.xSELECTnumberFROMnumbers(100000);RENAMETABLEatomic_db.xTOordinary_db.x;ls -1 /var/lib/clickhouse/data/ordinary_db/x all_1_1_0 detached format_version.txt DROPDATABASEatomic_db;DETACHDATABASEordinary_db;mv /var/lib/clickhouse/metadata/ordinary_db.sql /var/lib/clickhouse/metadata/atomic_db.sql vi /var/lib/clickhouse/metadata/atomic_db.sql mv /var/lib/clickhouse/metadata/ordinary_db /var/lib/clickhouse/metadata/atomic_db mv /var/lib/clickhouse/data/ordinary_db /var/lib/clickhouse/data/atomic_db ATTACHDATABASEatomic_db;SELECTcount()FROMatomic_db.x┌─count()─┐│100000│└─────────┘SHOWCREATEDATABASEatomic_db┌─statement──────────────────────────────────┐│CREATEDATABASEatomic_dbENGINE=Ordinary│└────────────────────────────────────────────┘Schemas with Materialized VIEW DROPDATABASEIFEXISTSatomic_db;DROPDATABASEIFEXISTSordinary_db;CREATEDATABASEatomic_dbengine=Atomic;CREATEDATABASEordinary_dbengine=Ordinary;CREATETABLEatomic_db.xENGINE=MergeTreeORDERBYtuple()ASsystem.numbers;CREATEMATERIALIZEDVIEWatomic_db.x_mvENGINE=MergeTreeORDERBYtuple()ASSELECT*FROMatomic_db.x;CREATEMATERIALIZEDVIEWatomic_db.y_mvENGINE=MergeTreeORDERBYtuple()ASSELECT*FROMatomic_db.x;CREATETABLEatomic_db.zENGINE=MergeTreeORDERBYtuple()ASsystem.numbers;CREATEMATERIALIZEDVIEWatomic_db.z_mvTOatomic_db.zASSELECT*FROMatomic_db.x;INSERTINTOatomic_db.xSELECT*FROMnumbers(100);--- USE atomic_db; --- --- Query id: 28af886d-a339-4e9c-979c-8bdcfb32fd95 --- --- ┌─name───────────────────────────────────────────┐ --- │ .</description>
+    </item>
+    
+    <item>
+      <title>index &amp; column files</title>
+      <link>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/index-and-column-files/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/index-and-column-files/</guid>
+      <description>https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup27/adaptive_index_granularity.pdf</description>
+    </item>
+    
+    <item>
+      <title>MergeTree table engine family</title>
+      <link>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/readme/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/readme/</guid>
+      <description>Internals:
+{% embed url=&amp;ldquo;https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup41/merge_tree.pdf&amp;rdquo; %}
+{% embed url=&amp;ldquo;https://youtu.be/1UIl7FpNo2M?t=2467&amp;quot; %}</description>
+    </item>
+    
+    <item>
+      <title>Nulls in order by</title>
+      <link>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/altinity-kb-nulls-in-order-by/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/altinity-kb-nulls-in-order-by/</guid>
+      <description>CREATETABLEx(`a`Nullable(UInt32),`b`Nullable(UInt32),`cnt`UInt32)ENGINE=SummingMergeTreeORDERBY(a,b)SETTINGSallow_nullable_key=1;INSERTINTOxVALUES(Null,2,1),(Null,Null,1),(3,Null,1),(4,4,1);INSERTINTOxVALUES(Null,2,1),(Null,Null,1),(3,Null,1),(4,4,1);SELECT*FROMx;┌────a─┬────b─┬─cnt─┐│3│ᴺᵁᴸᴸ│2││4│4│2││ᴺᵁᴸᴸ│2│2││ᴺᵁᴸᴸ│ᴺᵁᴸᴸ│2│└──────┴──────┴─────┘© 2021 Altinity Inc. All rights reserved.</description>
+    </item>
+    
+    <item>
+      <title>ReplacingMergeTree</title>
+      <link>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/replacingmergetree/readme/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/replacingmergetree/readme/</guid>
+      <description>Last state CREATETABLErepl_tbl(`key`UInt32,`val_1`UInt32,`val_2`String,`val_3`String,`val_4`String,`val_5`UUID,`ts`DateTime)ENGINE=ReplacingMergeTree(ts)ORDERBYkeySYSTEMSTOPMERGESrepl_tbl;INSERTINTOrepl_tblSELECTnumberaskey,rand()asval_1,randomStringUTF8(10)asval_2,randomStringUTF8(5)asval_3,randomStringUTF8(4)asval_4,generateUUIDv4()asval_5,now()astsFROMnumbers(10000000);INSERTINTOrepl_tblSELECTnumberaskey,rand()asval_1,randomStringUTF8(10)asval_2,randomStringUTF8(5)asval_3,randomStringUTF8(4)asval_4,generateUUIDv4()asval_5,now()astsFROMnumbers(10000000);INSERTINTOrepl_tblSELECTnumberaskey,rand()asval_1,randomStringUTF8(10)asval_2,randomStringUTF8(5)asval_3,randomStringUTF8(4)asval_4,generateUUIDv4()asval_5,now()astsFROMnumbers(10000000);INSERTINTOrepl_tblSELECTnumberaskey,rand()asval_1,randomStringUTF8(10)asval_2,randomStringUTF8(5)asval_3,randomStringUTF8(4)asval_4,generateUUIDv4()asval_5,now()astsFROMnumbers(10000000);SELECTcount()FROMrepl_tbl┌──count()─┐│50000000│└──────────┘Single key -- GROUP BY SELECTkey,argMax(val_1,ts)asval_1,argMax(val_2,ts)asval_2,argMax(val_3,ts)asval_3,argMax(val_4,ts)asval_4,argMax(val_5,ts)asval_5,max(ts)FROMrepl_tblWHEREkey=10GROUPBYkey;1rowsinset.Elapsed:0.017sec.Processed40.96thousandrows,5.24MB(2.44millionrows/s.,312.31MB/s.)-- ORDER BY LIMIT BY SELECT*FROMrepl_tblWHEREkey=10ORDERBYtsDESCLIMIT1BYkey;1rowsinset.Elapsed:0.017sec.Processed40.96thousandrows,5.24MB(2.39millionrows/s.,305.41MB/s.)-- Subquery SELECT*FROMrepl_tblWHEREkey=10ANDts=(SELECTmax(ts)FROMrepl_tblWHEREkey=10);1rowsinset.Elapsed:0.019sec.Processed40.96thousandrows,1.18MB(2.20millionrows/s.,63.47MB/s.)-- FINAL SELECT*FROMrepl_tblFINALWHEREkey=10;1rowsinset.Elapsed:0.021sec.Processed40.96thousandrows,5.24MB(1.93millionrows/s.,247.63MB/s.)Multiple keys -- GROUP BY SELECTkey,argMax(val_1,ts)asval_1,argMax(val_2,ts)asval_2,argMax(val_3,ts)asval_3,argMax(val_4,ts)asval_4,argMax(val_5,ts)asval_5,max(ts)FROMrepl_tblWHEREkeyIN(SELECTtoUInt32(number)FROMnumbers(1000000)WHEREnumber%100)GROUPBYkeyFORMATNull;Peakmemoryusage(forquery):2.31GiB.0rowsinset.Elapsed:3.264sec.Processed5.04millionrows,645.01MB(1.54millionrows/s.,197.60MB/s.)-- set optimize_aggregation_in_order=1; Peakmemoryusage(forquery):1.11GiB.0rowsinset.Elapsed:1.772sec.Processed2.74millionrows,350.30MB(1.54millionrows/s.,197.73MB/s.)-- ORDER BY LIMIT BY SELECT*FROMrepl_tblWHEREkeyIN(SELECTtoUInt32(number)FROMnumbers(1000000)WHEREnumber%100)ORDERBYtsDESCLIMIT1BYkeyFORMATNull;Peakmemoryusage(forquery):1.08GiB.0rowsinset.Elapsed:2.429sec.Processed5.04millionrows,645.01MB(2.07millionrows/s.,265.58MB/s.)-- Subquery SELECT*FROMrepl_tblWHERE(key,ts)IN(SELECTkey,max(ts)FROMrepl_tblWHEREkeyIN(SELECTtoUInt32(number)FROMnumbers(1000000)WHEREnumber%100)GROUPBYkey)FORMATNull;Peakmemoryusage(forquery):432.57MiB.0rowsinset.Elapsed:0.939sec.Processed5.04millionrows,160.33MB(5.36millionrows/s.,170.69MB/s.)-- set optimize_aggregation_in_order=1; Peakmemoryusage(forquery):202.88MiB.0rowsinset.Elapsed:0.824sec.Processed5.04millionrows,160.33MB(6.11millionrows/s.,194.58MB/s.)-- FINAL SELECT*FROMrepl_tblFINALWHEREkeyIN(SELECTtoUInt32(number)FROMnumbers(1000000)WHEREnumber%100)FORMATNull;Peakmemoryusage(forquery):198.32MiB.0rowsinset.Elapsed:1.211sec.Processed5.04millionrows,645.01MB(4.16millionrows/s.,532.57MB/s.)Full table -- GROUP BY SELECTkey,argMax(val_1,ts)asval_1,argMax(val_2,ts)asval_2,argMax(val_3,ts)asval_3,argMax(val_4,ts)asval_4,argMax(val_5,ts)asval_5,max(ts)FROMrepl_tblGROUPBYkeyFORMATNull;Peakmemoryusage(forquery):15.02GiB.0rowsinset.Elapsed:19.164sec.Processed50.00millionrows,6.40GB(2.61millionrows/s.,334.02MB/s.)-- set optimize_aggregation_in_order=1; Peakmemoryusage(forquery):4.44GiB.0rowsinset.Elapsed:9.700sec.Processed21.03millionrows,2.69GB(2.17millionrows/s.,277.50MB/s.)-- ORDER BY LIMIT BY SELECT*FROMrepl_tblORDERBYtsDESCLIMIT1BYkeyFORMATNull;Peakmemoryusage(forquery):10.46GiB.0rowsinset.Elapsed:21.264sec.Processed50.00millionrows,6.40GB(2.35millionrows/s.,301.03MB/s.)-- Subquery SELECT*FROMrepl_tblWHERE(key,ts)IN(SELECTkey,max(ts)FROMrepl_tblGROUPBYkey)FORMATNull;Peakmemoryusage(forquery):2.52GiB.0rowsinset.Elapsed:6.891sec.Processed50.00millionrows,1.60GB(7.26millionrows/s.,232.22MB/s.)-- set optimize_aggregation_in_order=1; Peakmemoryusage(forquery):1.05GiB.0rowsinset.Elapsed:4.427sec.Processed50.00millionrows,1.60GB(11.29millionrows/s.,361.49MB/s.)-- FINAL SELECT*FROMrepl_tblFINALFORMATNull;Peakmemoryusage(forquery):838.75MiB.0rowsinset.Elapsed:6.681sec.Processed50.00millionrows,6.40GB(7.48millionrows/s.,958.18MB/s.)FINAL Clickhouse merge parts only in scope of single partition, so if two rows with the same replacing key would land in different partitions, they would never be merged in single row.</description>
+    </item>
+    
+    <item>
+      <title>ReplacingMergeTree does not collapse duplicates</title>
+      <link>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/replacingmergetree/altinity-kb-replacingmergetree-does-not-collapse-duplicates/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/replacingmergetree/altinity-kb-replacingmergetree-does-not-collapse-duplicates/</guid>
+      <description>Hi there, I have a question about replacing merge trees. I have set up a Materialized View with ReplacingMergeTree table, but even if I call optimize on it, the parts don&amp;rsquo;t get merged. I filled that table yesterday, nothing happened since then. What should I do?
+Merges are eventual and may never happen. It depends on the number of inserts that happened after, the number of parts in the partition, size of parts.</description>
+    </item>
+    
+    <item>
+      <title>Skip index</title>
+      <link>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/skip-index/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/skip-index/</guid>
+      <description>{% hint style=&amp;ldquo;danger&amp;rdquo; %} When you are creating skip indexes in non-regular (Replicated)MergeTree tables over non ORDER BY columns. ClickHouse applies index condition on the first step of query execution, so it&amp;rsquo;s possible to get outdated rows. {% endhint %}
+--(1) create test table droptableifexiststest;createtabletest(versionUInt32,idUInt32,stateUInt8,INDEXstate_idx(state)typeset(0)GRANULARITY1)ENGINEReplacingMergeTree(version)ORDERBY(id);--(2) insert sample data INSERTINTOtest(version,id,state)VALUES(1,1,1);INSERTINTOtest(version,id,state)VALUES(2,1,0);INSERTINTOtest(version,id,state)VALUES(3,1,1);--(3) check the result: -- expected 3, 1, 1 selectversion,id,statefromtestfinal;┌─version─┬─id─┬─state─┐│3│1│1│└─────────┴────┴───────┘-- expected empty result selectversion,id,statefromtestfinalwherestate=0;┌─version─┬─id─┬─state─┐│2│1│0│└─────────┴────┴───────┘</description>
+    </item>
+    
+    <item>
+      <title>SummingMergeTree</title>
+      <link>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/summingmergetree/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/summingmergetree/</guid>
+      <description>Nested structures. In certain conditions it could make sense to collapse one of dimensions to set of arrays. It&amp;rsquo;s usually profitable to do if this dimension is not commonly used in queries. It would reduce amount of rows in aggregated table and speed up queries which doesn&amp;rsquo;t care about this dimension in exchange of aggregation performance by collapsed dimension.
+CREATETABLEtraffic(`key1`UInt32,`key2`UInt32,`port`UInt16,`bits_in`UInt32CODEC(T64,LZ4),`bits_out`UInt32CODEC(T64,LZ4),`packets_in`UInt32CODEC(T64,LZ4),`packets_out`UInt32CODEC(T64,LZ4))ENGINE=SummingMergeTreeORDERBY(key1,key2,port);INSERTINTOtrafficSELECTnumber%1000,intDiv(number,10000),rand()%20,rand()%753,rand64()%800,rand()%140,rand64()%231FROMnumbers(100000000);CREATETABLEdefault.traffic_map(`key1`UInt32,`key2`UInt32,`bits_in`UInt32CODEC(T64,LZ4),`bits_out`UInt32CODEC(T64,LZ4),`packets_in`UInt32CODEC(T64,LZ4),`packets_out`UInt32CODEC(T64,LZ4),`portMap.port`Array(UInt16),`portMap.bits_in`Array(UInt32)CODEC(T64,LZ4),`portMap.bits_out`Array(UInt32)CODEC(T64,LZ4),`portMap.packets_in`Array(UInt32)CODEC(T64,LZ4),`portMap.packets_out`Array(UInt32)CODEC(T64,LZ4))ENGINE=SummingMergeTreeORDERBY(key1,key2);INSERTINTOtraffic_mapWITHrand()%20ASportSELECTnumber%1000ASkey1,intDiv(number,10000)ASkey2,rand()%753ASbits_in,rand64()%800ASbits_out,rand()%140ASpackets_in,rand64()%231ASpackets_out,[port],[bits_in],[bits_out],[packets_in],[packets_out]FROMnumbers(100000000);┌─table───────┬─column──────────────┬─────rows─┬─compressed─┬─uncompressed─┬──ratio─┐│traffic│bits_out│80252317│109.09MiB│306.14MiB│2.81││traffic│bits_in│80252317│108.34MiB│306.14MiB│2.83││traffic│port│80252317│99.21MiB│153.07MiB│1.54││traffic│packets_out│80252317│91.36MiB│306.14MiB│3.35││traffic│packets_in│80252317│84.61MiB│306.14MiB│3.62││traffic│key2│80252317│47.88MiB│306.14MiB│6.39││traffic│key1│80252317│1.38MiB│306.14MiB│221.42││traffic_map│portMap.bits_out│10000000│108.96MiB│306.13MiB│2.81││traffic_map│portMap.bits_in│10000000│108.32MiB│306.13MiB│2.83││traffic_map│portMap.port│10000000│92.00MiB│229.36MiB│2.49││traffic_map│portMap.packets_out│10000000│90.95MiB│306.13MiB│3.37││traffic_map│portMap.packets_in│10000000│84.19MiB│306.13MiB│3.64││traffic_map│key2│10000000│23.46MiB│38.15MiB│1.63││traffic_map│bits_in│10000000│15.59MiB│38.15MiB│2.45││traffic_map│bits_out│10000000│15.59MiB│38.15MiB│2.45││traffic_map│packets_out│10000000│13.22MiB│38.15MiB│2.89││traffic_map│packets_in│10000000│12.62MiB│38.15MiB│3.02││traffic_map│key1│10000000│180.29KiB│38.15MiB│216.66│└─────────────┴─────────────────────┴──────────┴────────────┴──────────────┴────────┘-- Queries SELECTkey1,sum(packets_in),sum(bits_out)FROMtrafficGROUPBYkey1FORMAT`Null`0rowsinset.</description>
+    </item>
     
   </channel>
 </rss>

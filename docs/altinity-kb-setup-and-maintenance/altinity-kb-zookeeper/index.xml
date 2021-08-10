@@ -1,437 +1,115 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Altinity Beta Knowledgebase – ZooKeeper</title>
+    <title>ZooKeeper on Altinity Beta Knowledgebase</title>
     <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/</link>
     <description>Recent content in ZooKeeper on Altinity Beta Knowledgebase</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    
-	  <atom:link href="http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-      
-        
-      
-    
-    
+    <language>en-us</language><atom:link href="http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Altinity-Kb-Setup-and-Maintenance: </title>
+      <title></title>
       <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/zookeeper-monitoring/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/zookeeper-monitoring/</guid>
-      <description>
-        
-        
-        &lt;h1 id=&#34;zookeeper-monitoring&#34;&gt;ZooKeeper Monitoring&lt;/h1&gt;
-&lt;h2 id=&#34;zookeeper&#34;&gt;ZooKeeper&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;scrape metrics:&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;embedded exporter since version 3.6.0
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://zookeeper.apache.org/doc/r3.6.2/zookeeperMonitor.html&#34; target=&#34;_blank&#34;&gt;https://zookeeper.apache.org/doc/r3.6.2/zookeeperMonitor.html&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;standalone exporter
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/dabealu/zookeeper-exporter&#34; target=&#34;_blank&#34;&gt;https://github.com/dabealu/zookeeper-exporter&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;Install dashboards&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;embedded exporter &lt;a href=&#34;https://grafana.com/grafana/dashboards/10465&#34; target=&#34;_blank&#34;&gt;https://grafana.com/grafana/dashboards/10465&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;dabealu exporter &lt;a href=&#34;https://grafana.com/grafana/dashboards/11442&#34; target=&#34;_blank&#34;&gt;https://grafana.com/grafana/dashboards/11442&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;see also &lt;a href=&#34;https://grafana.com/grafana/dashboards?search=ZooKeeper&amp;amp;dataSource=prometheus&#34; target=&#34;_blank&#34;&gt;https://grafana.com/grafana/dashboards?search=ZooKeeper&amp;amp;amp;dataSource=prometheus&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;setup alert rules:&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;embedded exporter &lt;a href=&#34;https://github.com/Altinity/clickhouse-operator/blob/master/deploy/prometheus/prometheus-alert-rules.yaml#L480-L805&#34; target=&#34;_blank&#34;&gt;https://github.com/Altinity/clickhouse-operator/blob/master/deploy/prometheus/prometheus-alert-rules.yaml#L480-L805&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;See also&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://blog.serverdensity.com/how-to-monitor-zookeeper/&#34; target=&#34;_blank&#34;&gt;https://blog.serverdensity.com/how-to-monitor-zookeeper/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.datadoghq.com/blog/monitoring-kafka-performance-metrics/#zookeeper-metrics&#34; target=&#34;_blank&#34;&gt;https://www.datadoghq.com/blog/monitoring-kafka-performance-metrics/#zookeeper-metrics&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://dzone.com/articles/monitoring-apache-zookeeper-servers&#34; target=&#34;_blank&#34;&gt;https://dzone.com/articles/monitoring-apache-zookeeper-servers&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://docs.signalfx.com/en/latest/integrations/integrations-reference/integrations.zookeeper.html&#34; target=&#34;_blank&#34;&gt;https://docs.signalfx.com/en/latest/integrations/integrations-reference/integrations.zookeeper.html&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/samber/awesome-prometheus-alerts/blob/c3ba0cf1997c7e952369a090aeb10343cdca4878/_data/rules.yml#L1146-L1170&#34; target=&#34;_blank&#34;&gt;https://github.com/samber/awesome-prometheus-alerts/blob/c3ba0cf1997c7e952369a090aeb10343cdca4878/_data/rules.yml#L1146-L1170&lt;/a&gt; (or &lt;a href=&#34;https://awesome-prometheus-alerts.grep.to/rules.html#zookeeper&#34; target=&#34;_blank&#34;&gt;https://awesome-prometheus-alerts.grep.to/rules.html#zookeeper&lt;/a&gt; )&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://alex.dzyoba.com/blog/prometheus-alerts/&#34; target=&#34;_blank&#34;&gt;https://alex.dzyoba.com/blog/prometheus-alerts/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://docs.datadoghq.com/integrations/zk/?tab=host&#34; target=&#34;_blank&#34;&gt;https://docs.datadoghq.com/integrations/zk/?tab=host&lt;/a&gt;�&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;© 2021 Altinity Inc. All rights reserved.&lt;/p&gt;
-
-      </description>
+      <description>ZooKeeper Monitoring ZooKeeper scrape metrics:
+ embedded exporter since version 3.6.0  https://zookeeper.apache.org/doc/r3.6.2/zookeeperMonitor.html   standalone exporter  https://github.com/dabealu/zookeeper-exporter    Install dashboards
+ embedded exporter https://grafana.com/grafana/dashboards/10465 dabealu exporter https://grafana.com/grafana/dashboards/11442  see also https://grafana.com/grafana/dashboards?search=ZooKeeper&amp;amp;amp;dataSource=prometheus
+setup alert rules:
+ embedded exporter https://github.com/Altinity/clickhouse-operator/blob/master/deploy/prometheus/prometheus-alert-rules.yaml#L480-L805  See also
+ https://blog.serverdensity.com/how-to-monitor-zookeeper/ https://www.datadoghq.com/blog/monitoring-kafka-performance-metrics/#zookeeper-metrics https://dzone.com/articles/monitoring-apache-zookeeper-servers https://docs.signalfx.com/en/latest/integrations/integrations-reference/integrations.zookeeper.html https://github.com/samber/awesome-prometheus-alerts/blob/c3ba0cf1997c7e952369a090aeb10343cdca4878/_data/rules.yml#L1146-L1170 (or https://awesome-prometheus-alerts.grep.to/rules.html#zookeeper ) https://alex.dzyoba.com/blog/prometheus-alerts/ https://docs.datadoghq.com/integrations/zk/?tab=host�  © 2021 Altinity Inc. All rights reserved.</description>
     </item>
     
     <item>
-      <title>Altinity-Kb-Setup-and-Maintenance: clickhouse-keeper</title>
+      <title>clickhouse-keeper</title>
       <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/clickhouse-keeper/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/clickhouse-keeper/</guid>
-      <description>
-        
-        
-        &lt;p&gt;In 21.3 there is already an option to run own clickhouse zookeeper implementation. It&amp;rsquo;s still experimental, and still need to be started additionally on few nodes (similar to &amp;lsquo;normal&amp;rsquo; zookeeper) and speaks normal zookeeper protocol - needed to simplify A/B tests with real zookeeper.&lt;/p&gt;
-&lt;p&gt;No docs, for now, only PR with code &amp;amp; tests. Of course, if you want to play with it - you can, and early feedback is very valuable. But be prepared for a lot of tiny issues here and there, so don&amp;rsquo;t be disappointed if it will not satisfy your expectations for some reason. It&amp;rsquo;s very-very fresh :slightly_smiling_face: It&amp;rsquo;s ready for some trial runs, but not ready yet for production use cases.&lt;/p&gt;
-&lt;p&gt;To test that you need to run 3 instances of clickhouse-server (which will mimic zookeeper) with an extra config like that:&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/ClickHouse/ClickHouse/blob/c8b1004ecb4bfc4aa581dbcbbbe3a4c72ce57123/tests/integration/test_keeper_multinode_simple/configs/enable_keeper1.xml&#34; target=&#34;_blank&#34;&gt;https://github.com/ClickHouse/ClickHouse/blob/c8b1004ecb4bfc4aa581dbcbbbe3a4c72ce57123/tests/integration/test_keeper_multinode_simple/configs/enable_keeper1.xml&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/ClickHouse/ClickHouse/blob/c8b1004ecb4bfc4aa581dbcbbbe3a4c72ce57123/tests/integration/test_keeper_snapshots/configs/enable_keeper.xml&#34; target=&#34;_blank&#34;&gt;https://github.com/ClickHouse/ClickHouse/blob/c8b1004ecb4bfc4aa581dbcbbbe3a4c72ce57123/tests/integration/test_keeper_snapshots/configs/enable_keeper.xml&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;or event single instance with config like that: &lt;a href=&#34;https://github.com/ClickHouse/ClickHouse/blob/master/tests/config/config.d/keeper_port.xml&#34; target=&#34;_blank&#34;&gt;https://github.com/ClickHouse/ClickHouse/blob/master/tests/config/config.d/keeper_port.xml&lt;/a&gt;&lt;br&gt;
-&lt;a href=&#34;https://github.com/ClickHouse/ClickHouse/blob/master/tests/config/config.d/zookeeper.xml&#34; target=&#34;_blank&#34;&gt;https://github.com/ClickHouse/ClickHouse/blob/master/tests/config/config.d/zookeeper.xml&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;And point all the clickhouses (zookeeper config secton) to those nodes / ports.&lt;/p&gt;
-&lt;p&gt;Latest testing version is recommended. We will be thankful for any feedback.&lt;/p&gt;
-&lt;p&gt;© 2021 Altinity Inc. All rights reserved.&lt;/p&gt;
-
-      </description>
+      <description>In 21.3 there is already an option to run own clickhouse zookeeper implementation. It&amp;rsquo;s still experimental, and still need to be started additionally on few nodes (similar to &amp;lsquo;normal&amp;rsquo; zookeeper) and speaks normal zookeeper protocol - needed to simplify A/B tests with real zookeeper.
+No docs, for now, only PR with code &amp;amp; tests. Of course, if you want to play with it - you can, and early feedback is very valuable.</description>
     </item>
     
     <item>
-      <title>Altinity-Kb-Setup-and-Maintenance: How to check the list of watches</title>
+      <title>How to check the list of watches</title>
       <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/altinity-kb-how-to-check-the-list-of-watches/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/altinity-kb-how-to-check-the-list-of-watches/</guid>
-      <description>
-        
-        
-        &lt;p&gt;Zookeeper use watches to notify a client on znode changes. This article explains how to check watches set by ZooKeeper servers and how it is used.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Solution:&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Zookeeper uses the &lt;code&gt;&#39;wchc&#39;&lt;/code&gt; command to list all watches set on the Zookeeper server.&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;# echo wchc | nc zookeeper 2181&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;Reference&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://zookeeper.apache.org/doc/r3.4.12/zookeeperAdmin.html&#34; target=&#34;_blank&#34;&gt;https://zookeeper.apache.org/doc/r3.4.12/zookeeperAdmin.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;The &lt;code&gt;wchp&lt;/code&gt; and &lt;code&gt;wchc&lt;/code&gt; commands are not enabled by default because of their known DOS vulnerability. For more information, see &lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-2693&#34; target=&#34;_blank&#34;&gt;ZOOKEEPER-2693&lt;/a&gt;and &lt;a href=&#34;https://vulners.com/exploitdb/EDB-ID:41277&#34; target=&#34;_blank&#34;&gt;Zookeeper 3.5.2 - Denial of Service&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;By default those commands are disabled, they can be enabled via Java system property:&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;-Dzookeeper.4lw.commands.whitelist=*&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;on in zookeeper config: &lt;code&gt;4lw.commands.whitelist=*&lt;/code&gt;\&lt;/p&gt;
-&lt;p&gt;© 2021 Altinity Inc. All rights reserved.&lt;/p&gt;
-
-      </description>
+      <description>Zookeeper use watches to notify a client on znode changes. This article explains how to check watches set by ZooKeeper servers and how it is used.
+Solution:
+Zookeeper uses the &#39;wchc&#39; command to list all watches set on the Zookeeper server.
+# echo wchc | nc zookeeper 2181
+Reference
+https://zookeeper.apache.org/doc/r3.4.12/zookeeperAdmin.html
+The wchp and wchc commands are not enabled by default because of their known DOS vulnerability. For more information, see ZOOKEEPER-2693and Zookeeper 3.</description>
     </item>
     
     <item>
-      <title>Altinity-Kb-Setup-and-Maintenance: JVM sizes and garbage collector settings</title>
+      <title>JVM sizes and garbage collector settings</title>
       <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/jvm-sizes-and-garbage-collector-settings/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/jvm-sizes-and-garbage-collector-settings/</guid>
-      <description>
-        
-        
-        &lt;h2 id=&#34;tldr-version&#34;&gt;&lt;strong&gt;TLDR version&lt;/strong&gt;:&lt;/h2&gt;
-&lt;p&gt;use fresh Java version (11 or newer), disable swap and set up (for 4 Gb node):&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#000&#34;&gt;JAVA_OPTS&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;-Xms3G -Xmx3G -XX:+AlwaysPreTouch -Djute.maxbuffer=8388608 -XX:MaxGCPauseMillis=50&amp;#34;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If you have a node with more RAM - change it accordingly, for example for 8Gb node:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#000&#34;&gt;JAVA_OPTS&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;-Xms7G -Xmx7G -XX:+AlwaysPreTouch -Djute.maxbuffer=8388608 -XX:MaxGCPauseMillis=50&amp;#34;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;details&#34;&gt;Details&lt;/h2&gt;
-&lt;p&gt;1) ZooKeeper runs as in JVM. Depending on version different garbage collectors are avaliable.&lt;/p&gt;
-&lt;p&gt;2) Recent JVM versions (starting from 10) use &lt;code&gt;G1&lt;/code&gt; garbage collector by default (should work fine).&lt;br&gt;
-On JVM 13-14 using &lt;code&gt;ZGC&lt;/code&gt; or &lt;code&gt;Shenandoah&lt;/code&gt; garbage collector may reduce pauses.&lt;br&gt;
-On older JVM version (before 10) you may want to make some tuning to decrease pauses, ParNew + CMS garbage collectors (like in Yandex config) is one of the best options.&lt;/p&gt;
-&lt;p&gt;2) One of the most important setting for JVM application is heap size. A heap size of &amp;gt;1 GB is recommended for most use cases and monitoring heap usage to ensure no delays are caused by garbage collection. We recommend to use at least 4Gb of RAM for zookeeper nodes (8Gb is better, that will make difference only when zookeeper is heavily loaded).&lt;/p&gt;
-&lt;p&gt;Set the Java heap size smaller than available RAM size on the node. This is very important to avoid swapping, which will seriously degrade ZooKeeper performance. Be conservative - use a maximum heap size of 3GB for a 4GB machine.&lt;/p&gt;
-&lt;p&gt;3) Set min (&lt;code&gt;Xms&lt;/code&gt;) and max (&lt;code&gt;Xmx&lt;/code&gt;) heap size to same value to avoid resizing. Add &lt;code&gt;XX:+AlwaysPreTouch&lt;/code&gt; flag as well to load the memory pages into memory at the start of the zookeeper.&lt;/p&gt;
-&lt;p&gt;4) &lt;code&gt;MaxGCPauseMillis=50&lt;/code&gt; (by default 200) - the &amp;lsquo;target&amp;rsquo; acceptable pause for garbage collection (milliseconds)&lt;/p&gt;
-&lt;p&gt;4) &lt;code&gt;jute.maxbuffer&lt;/code&gt; limits the maximum size of znode content. By default it&amp;rsquo;s 1Mb. In some usecases (lot of partitions in table) ClickHouse may need to create bigger znodes.&lt;/p&gt;
-&lt;p&gt;5) (optional) enable GC logs: &lt;code&gt;-Xloggc:/path_to/gc.log&lt;/code&gt;&lt;/p&gt;
-&lt;h2 id=&#34;zookeeper-configurarion-used-by-yandex-metrika-from-2017&#34;&gt;Zookeeper configurarion used by Yandex Metrika (from 2017)&lt;/h2&gt;
-&lt;p&gt;The configuration used by Yandex ( &lt;a href=&#34;https://clickhouse.tech/docs/en/operations/tips/#zookeeper&#34; target=&#34;_blank&#34;&gt;https://clickhouse.tech/docs/en/operations/tips/#zookeeper&lt;/a&gt; ) - they use older JVM version (with &lt;code&gt;UseParNewGC&lt;/code&gt; garbage collector), and tune GC logs heavily:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#000&#34;&gt;JAVA_OPTS&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;-Xms{{ cluster.get(&amp;#39;xms&amp;#39;,&amp;#39;128M&amp;#39;) }} \
-&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;    -Xmx{{ cluster.get(&amp;#39;xmx&amp;#39;,&amp;#39;1G&amp;#39;) }} \
-&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;    -Xloggc:/var/log/&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;$NAME&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;/zookeeper-gc.log \
-&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;    -XX:+UseGCLogFileRotation \
-&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;    -XX:NumberOfGCLogFiles=16 \
-&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;    -XX:GCLogFileSize=16M \
-&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;    -verbose:gc \
-&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;    -XX:+PrintGCTimeStamps \
-&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;    -XX:+PrintGCDateStamps \
-&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;    -XX:+PrintGCDetails
-&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;    -XX:+PrintTenuringDistribution \
-&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;    -XX:+PrintGCApplicationStoppedTime \
-&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;    -XX:+PrintGCApplicationConcurrentTime \
-&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;    -XX:+PrintSafepointStatistics \
-&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;    -XX:+UseParNewGC \
-&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;    -XX:+UseConcMarkSweepGC \
-&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;    -XX:+CMSParallelRemarkEnabled&amp;#34;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;see-also&#34;&gt;See also&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://wikitech.wikimedia.org/wiki/JVM_Tuning#G1_for_full_gcs&#34; target=&#34;_blank&#34;&gt;https://wikitech.wikimedia.org/wiki/JVM_Tuning#G1_for_full_gcs&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://sematext.com/blog/java-garbage-collection-tuning/&#34; target=&#34;_blank&#34;&gt;https://sematext.com/blog/java-garbage-collection-tuning/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.oracle.com/technical-resources/articles/java/g1gc.html&#34; target=&#34;_blank&#34;&gt;https://www.oracle.com/technical-resources/articles/java/g1gc.html&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://docs.oracle.com/cd/E40972_01/doc.70/e40973/cnf_jvmgc.htm#autoId2&#34; target=&#34;_blank&#34;&gt;https://docs.oracle.com/cd/E40972_01/doc.70/e40973/cnf_jvmgc.htm#autoId2&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://docs.cloudera.com/runtime/7.2.7/kafka-performance-tuning/topics/kafka-tune-broker-tuning-jvm.html&#34; target=&#34;_blank&#34;&gt;https://docs.cloudera.com/runtime/7.2.7/kafka-performance-tuning/topics/kafka-tune-broker-tuning-jvm.html&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://docs.cloudera.com/documentation/enterprise/6/6.3/topics/cm-tune-g1gc.html&#34; target=&#34;_blank&#34;&gt;https://docs.cloudera.com/documentation/enterprise/6/6.3/topics/cm-tune-g1gc.html&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blog.sokolenko.me/2014/11/javavm-options-production.html&#34; target=&#34;_blank&#34;&gt;https://blog.sokolenko.me/2014/11/javavm-options-production.html&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.maknesium.de/21-most-important-java-8-vm-options-for-servers&#34; target=&#34;_blank&#34;&gt;https://www.maknesium.de/21-most-important-java-8-vm-options-for-servers&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://docs.oracle.com/javase/10/gctuning/introduction-garbage-collection-tuning.htm#JSGCT-GUID-326EB4CF-8C8C-4267-8355-21AB04F0D304&#34; target=&#34;_blank&#34;&gt;https://docs.oracle.com/javase/10/gctuning/introduction-garbage-collection-tuning.htm#JSGCT-GUID-326EB4CF-8C8C-4267-8355-21AB04F0D304&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/chewiebug/GCViewer&#34; target=&#34;_blank&#34;&gt;https://github.com/chewiebug/GCViewer&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;© 2021 Altinity Inc. All rights reserved.&lt;/p&gt;
-
-      </description>
+      <description>TLDR version: use fresh Java version (11 or newer), disable swap and set up (for 4 Gb node):
+JAVA_OPTS=&amp;#34;-Xms3G -Xmx3G -XX:+AlwaysPreTouch -Djute.maxbuffer=8388608 -XX:MaxGCPauseMillis=50&amp;#34; If you have a node with more RAM - change it accordingly, for example for 8Gb node:
+JAVA_OPTS=&amp;#34;-Xms7G -Xmx7G -XX:+AlwaysPreTouch -Djute.maxbuffer=8388608 -XX:MaxGCPauseMillis=50&amp;#34; Details 1) ZooKeeper runs as in JVM. Depending on version different garbage collectors are avaliable.
+2) Recent JVM versions (starting from 10) use G1 garbage collector by default (should work fine).</description>
     </item>
     
     <item>
-      <title>Altinity-Kb-Setup-and-Maintenance: Proper setup</title>
+      <title>Proper setup</title>
       <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/altinity-kb-proper-setup/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/altinity-kb-proper-setup/</guid>
-      <description>
-        
-        
-        &lt;h3 id=&#34;main-docs-article&#34;&gt;Main docs article&lt;/h3&gt;
-&lt;p&gt;{% embed url=&amp;ldquo;&lt;a href=&#34;https://docs.altinity.com/operationsguide/clickhouse-zookeeper/zookeeper-installation/%22&#34;&gt;https://docs.altinity.com/operationsguide/clickhouse-zookeeper/zookeeper-installation/&amp;quot;&lt;/a&gt; caption=&amp;rdquo;&amp;quot; %}&lt;/p&gt;
-&lt;h3 id=&#34;hardware-requirements&#34;&gt;Hardware requirements:&lt;/h3&gt;
-&lt;p&gt;TLDR version:&lt;br&gt;
-1) USE DEDICATED FAST DISKS for the transaction log! (crucial for performance due to write-ahead-log, NVMe is preferred for heavy load setup)&lt;br&gt;
-2) use 3 nodes (more nodes = slower quorum, less = no HA).&lt;br&gt;
-3) low network latency between zookeeper nodes is very important (latency, not bandwidth).&lt;br&gt;
-4) have at least 4Gb of RAM, disable swap, tune JVM sizes, and garbage collector settings.&lt;br&gt;
-5) ensure that zookeeper will not be CPU-starved by some other processes&lt;br&gt;
-6) monitor zookeeper.&lt;/p&gt;
-&lt;p&gt;Side note:&lt;br&gt;
-in many cases, the slowness of the zookeeper is actually a symptom of some issue with clickhouse schema/usage pattern (the most typical issues: an enormous number of partitions/tables/databases with real-time inserts, tiny &amp;amp; frequent inserts).&lt;/p&gt;
-&lt;p&gt;Some doc about that subject:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://docs.confluent.io/platform/current/zookeeper/deployment.html&#34; target=&#34;_blank&#34;&gt;https://docs.confluent.io/platform/current/zookeeper/deployment.html&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://zookeeper.apache.org/doc/r3.4.9/zookeeperAdmin.html#sc_commonProblems&#34; target=&#34;_blank&#34;&gt;https://zookeeper.apache.org/doc/r3.4.9/zookeeperAdmin.html#sc_commonProblems&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://clickhouse.tech/docs/en/operations/tips/#zookeeper&#34; target=&#34;_blank&#34;&gt;https://clickhouse.tech/docs/en/operations/tips/#zookeeper&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://lucene.apache.org/solr/guide/7_4/setting-up-an-external-zookeeper-ensemble.html&#34; target=&#34;_blank&#34;&gt;https://lucene.apache.org/solr/guide/7_4/setting-up-an-external-zookeeper-ensemble.html&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://cwiki.apache.org/confluence/display/ZOOKEEPER/Troubleshooting&#34; target=&#34;_blank&#34;&gt;https://cwiki.apache.org/confluence/display/ZOOKEEPER/Troubleshooting&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Cite from &lt;a href=&#34;https://zookeeper.apache.org/doc/r3.5.7/zookeeperAdmin.html#sc_commonProblems&#34; target=&#34;_blank&#34;&gt;https://zookeeper.apache.org/doc/r3.5.7/zookeeperAdmin.html#sc_commonProblems&lt;/a&gt; :&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;h2 id=&#34;things-to-avoid-a-idpropersetup-thingstoavoida&#34;&gt;Things to Avoid &lt;a id=&#34;Propersetup-ThingstoAvoid&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;Here are some common problems you can avoid by configuring ZooKeeper correctly:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;em&gt;inconsistent lists of servers&lt;/em&gt; : The list of ZooKeeper servers used by the clients must match the list of ZooKeeper servers that each ZooKeeper server has. Things work okay if the client list is a subset of the real list, but things will really act strange if clients have a list of ZooKeeper servers that are in different ZooKeeper clusters. Also, the server lists in each Zookeeper server configuration file should be consistent with one another.&lt;/li&gt;
-&lt;li&gt;&lt;em&gt;incorrect placement of transaction log&lt;/em&gt; : The most performance critical part of ZooKeeper is the transaction log. ZooKeeper syncs transactions to media before it returns a response. A dedicated transaction log device is key to consistent good performance. Putting the log on a busy device will adversely affect performance. If you only have one storage device, increase the snapCount so that snapshot files are generated less often; it does not eliminate the problem, but it makes more resources available for the transaction log.&lt;/li&gt;
-&lt;li&gt;&lt;em&gt;incorrect Java heap size&lt;/em&gt; : You should take special care to set your Java max heap size correctly. In particular, you should not create a situation in which ZooKeeper swaps to disk. The disk is death to ZooKeeper. Everything is ordered, so if processing one request swaps the disk, all other queued requests will probably do the same. the disk. DON&amp;rsquo;T SWAP. Be conservative in your estimates: if you have 4G of RAM, do not set the Java max heap size to 6G or even 4G. For example, it is more likely you would use a 3G heap for a 4G machine, as the operating system and the cache also need memory. The best and only recommend practice for estimating the heap size your system needs is to run load tests, and then make sure you are well below the usage limit that would cause the system to swap.&lt;/li&gt;
-&lt;li&gt;&lt;em&gt;Publicly accessible deployment&lt;/em&gt; : A ZooKeeper ensemble is expected to operate in a trusted computing environment. It is thus recommended to deploy ZooKeeper behind a firewall.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&#34;a-idpropersetup-thingstoavoida&#34;&gt;&lt;a id=&#34;Propersetup-ThingstoAvoid&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;© 2021 Altinity Inc. All rights reserved.&lt;/p&gt;
-
-      </description>
+      <description>Main docs article {% embed url=&amp;ldquo;https://docs.altinity.com/operationsguide/clickhouse-zookeeper/zookeeper-installation/&amp;quot; caption=&amp;rdquo;&amp;quot; %}
+Hardware requirements: TLDR version:
+1) USE DEDICATED FAST DISKS for the transaction log! (crucial for performance due to write-ahead-log, NVMe is preferred for heavy load setup)
+2) use 3 nodes (more nodes = slower quorum, less = no HA).
+3) low network latency between zookeeper nodes is very important (latency, not bandwidth).
+4) have at least 4Gb of RAM, disable swap, tune JVM sizes, and garbage collector settings.</description>
     </item>
     
     <item>
-      <title>Altinity-Kb-Setup-and-Maintenance: Recovering from complete metadata loss in ZooKeeper</title>
+      <title>Recovering from complete metadata loss in ZooKeeper</title>
       <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/altinity-kb-recovering-from-complete-metadata-loss-in-zookeeper/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/altinity-kb-recovering-from-complete-metadata-loss-in-zookeeper/</guid>
-      <description>
-        
-        
-        &lt;h2 id=&#34;problem-a-idrecoveringfromcompletemetadatalossinzookeeper-problema&#34;&gt;Problem &lt;a id=&#34;Recoveringfromcompletemetadatalossinzookeeper-Problem&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;Every ClickHouse user experienced a loss of ZooKeeper one day. While the data is available and replicas respond to queries, inserts are no longer possible. ClickHouse uses ZooKeeper in order to store the reference version of the table structure and part of data, and when it is not available can not guarantee data consistency anymore. Replicated tables turn to the read-only mode. In this article we describe step-by-step instructions of how to restore ZooKeeper metadata and bring ClickHouse cluster back to normal operation.&lt;/p&gt;
-&lt;p&gt;In order to restore ZooKeeper we have to solve two tasks. First, we need to restore table metadata in ZooKeeper. Currently, the only way to do it is to recreate the table with the &lt;code&gt;CREATE TABLE DDL&lt;/code&gt; statement.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;CREATE&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;TABLE&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;table_name&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;...&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;ENGINE&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;ReplicatedMergeTree&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;zookeeper_path&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;replica_name&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;);&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The second and more difficult task is to populate zookeeper with information of clickhouse data parts. As mentioned above, ClickHouse stores the reference data about all parts of replicated tables in ZooKeeper, so we have to traverse all partitions and re-attach them to the recovered replicated table in order to fix that.&lt;/p&gt;
-&lt;h2 id=&#34;test-case-a-idrecoveringfromcompletemetadatalossinzookeeper-testcasea&#34;&gt;Test case &lt;a id=&#34;Recoveringfromcompletemetadatalossinzookeeper-Testcase&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;Let&amp;rsquo;s say we have replicated table &lt;code&gt;table_repl&lt;/code&gt;.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;CREATE&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;TABLE&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;table_repl&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; 
-&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;   &lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;`&lt;/span&gt;&lt;span style=&#34;color:#204a87&#34;&gt;number&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;`&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;UInt32&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;ENGINE&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;ReplicatedMergeTree&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;/clickhouse/{cluster}/tables/{shard}/table_repl&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;{replica}&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;PARTITION&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;BY&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;intDiv&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#204a87&#34;&gt;number&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;1000&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;ORDER&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;BY&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87&#34;&gt;number&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;;&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And populate it with some data&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;SELECT&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;FROM&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;system&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;zookeeper&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;WHERE&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;path&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;/clickhouse/cluster_1/tables/01/&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;;&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;INSERT&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;INTO&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;table_repl&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;SELECT&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;FROM&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;numbers&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;1000&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;2000&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;);&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;SELECT&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;partition&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;sum&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;rows&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;AS&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;rows&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;count&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;()&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;FROM&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;system&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;parts&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;WHERE&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;table&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;table_repl&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;AND&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;active&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;GROUP&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;BY&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;partition&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;;&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now let’s remove metadata in zookeeper using &lt;code&gt;ZkCli.sh&lt;/code&gt; at ZooKeeper host:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;deleteall  /clickhouse/cluster_1/tables/01/table_repl
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And try to resync clickhouse replica state with zookeeper:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;SYSTEM&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;RESTART&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;REPLICA&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;table_repl&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;;&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If we try to insert some data in the table, error happens:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;INSERT&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;INTO&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;table_repl&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;SELECT&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87&#34;&gt;number&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;AS&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87&#34;&gt;number&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;FROM&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;numbers&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;1000&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;2000&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;WHERE&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87&#34;&gt;number&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;%&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;;&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And now we have an exception that we lost all metadata in zookeeper. It is time to recover!&lt;/p&gt;
-&lt;h2 id=&#34;current-solution-a-idrecoveringfromcompletemetadatalossinzookeeper-currentsolutiona&#34;&gt;Current Solution &lt;a id=&#34;Recoveringfromcompletemetadatalossinzookeeper-CurrentSolution&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;Detach replicated table.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;DETACH TABLE table_repl;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Save the table’s attach script and change engine of replicated table to non-replicated *mergetree analogue. Table definition is located in the ‘metadata’ folder, ‘&lt;code&gt;/var/lib/clickhouse/metadata/default/table_repl.sql&lt;/code&gt;’ in our example. Please make a backup copy and modify the file as follows:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;ATTACH TABLE table_repl
-(
-   `number` UInt32
-)
-ENGINE = ReplicatedMergeTree(&amp;#39;/clickhouse/{cluster}/tables/{shard}/table_repl&amp;#39;, &amp;#39;{replica}&amp;#39;)
-PARTITION BY intDiv(number, 1000)
-ORDER BY number
-SETTINGS index_granularity = 8192
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Needs to be replaced with this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;ATTACH TABLE table_repl
-(
-   `number` UInt32
-)
-ENGINE = MergeTree()
-PARTITION BY intDiv(number, 1000)
-ORDER BY number
-SETTINGS index_granularity = 8192
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Attach non-replicated table.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;ATTACH TABLE table_repl;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Rename non-replicated table.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;RENAME TABLE table_repl TO table_repl_old;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Create a new replicated table. Take the saved attach script and replace ATTACH with CREATE, and run it.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;CREATE TABLE table_repl
-(
-   `number` UInt32
-)
-ENGINE = ReplicatedMergeTree(&amp;#39;/clickhouse/{cluster}/tables/{shard}/table_repl&amp;#39;, &amp;#39;{replica}&amp;#39;)
-PARTITION BY intDiv(number, 1000)
-ORDER BY number
-SETTINGS index_granularity = 8192
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Attach parts from old table to new.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;ALTER TABLE table_repl ATTACH PARTITION 1 FROM table_repl_old;
-
-ALTER TABLE table_repl ATTACH PARTITION 2 FROM table_repl_old;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;If the table has many partitions, it may require some shell script to make it easier.&lt;/p&gt;
-&lt;h3 id=&#34;automated-approach&#34;&gt;Automated approach&lt;/h3&gt;
-&lt;p&gt;For a large number of tables, you can use script  &lt;a href=&#34;https://github.com/Altinity/clickhouse-zookeeper-recovery&#34; target=&#34;_blank&#34;&gt;https://github.com/Altinity/clickhouse-zookeeper-recovery&lt;/a&gt; which partially automates the above approach.&lt;/p&gt;
-&lt;p&gt;© 2021 Altinity Inc. All rights reserved.&lt;/p&gt;
-
-      </description>
+      <description>Problem  Every ClickHouse user experienced a loss of ZooKeeper one day. While the data is available and replicas respond to queries, inserts are no longer possible. ClickHouse uses ZooKeeper in order to store the reference version of the table structure and part of data, and when it is not available can not guarantee data consistency anymore. Replicated tables turn to the read-only mode. In this article we describe step-by-step instructions of how to restore ZooKeeper metadata and bring ClickHouse cluster back to normal operation.</description>
     </item>
     
     <item>
-      <title>Altinity-Kb-Setup-and-Maintenance: ZooKeeper backup</title>
+      <title>ZooKeeper backup</title>
       <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/altinity-kb-zookeeper-backup/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/altinity-kb-zookeeper-backup/</guid>
-      <description>
-        
-        
-        &lt;p&gt;You may have a question: “Do I need to backup Zookeeper Database, because it’s pretty important for ClickHouse?”&lt;/p&gt;
-&lt;p&gt;Answer: &lt;em&gt;ZK is in memory database. All nodes of ZK has exactly the same data.&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;If you have 3 ZK servers, then you have 3 copies of (3 backups) already.&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;To backup ZK has no sense because you need to have a snapshot of ZK + last ZK logs to exactly the last ZK transaction.&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;You cannot use ZK database backed up 3 hours ago or 3 minutes ago.&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;ZK restored from the backup will be inconsistent with CH database.&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;Answer2: Usually, it doesn&amp;rsquo;t have too much sense. It&amp;rsquo;s very hard to take zookeeper snapshot at exactly the same state as clickhouse. (well maybe if you will turn of clickhouses, then you can take snapshots of clickhouse AND zookeepers). So for example on clouds if you can stop all nodes and take disk snapshots - it will just work.&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;But while clickhouse is working it&amp;rsquo;s almost impossible to collect the current state of zookeeper.&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;You need to restore zookeeper and clickhouse snapshots from EXACTLY THE SAME moment of time - no procedure is needed. Just start &amp;amp; run.&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;Also, that allows only to snapshot of clickhouse &amp;amp; zookeeper as a whole. You can not do partial backups then.&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;If you lose zookeeper data while having clickhouse data (or backups of clickhouse data) - you can restore the zookeeper state from clickhouse state.&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;With a couple of tables, it can be done manually.&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;On scale, you can use&lt;/em&gt; &lt;a href=&#34;https://github.com/Altinity/clickhouse-zookeeper-recovery&#34; target=&#34;_blank&#34;&gt;https://github.com/Altinity/clickhouse-zookeeper-recovery&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;In future it will be even simpler&lt;/em&gt; &lt;a href=&#34;https://github.com/ClickHouse/ClickHouse/pull/13652&#34; target=&#34;_blank&#34;&gt;https://github.com/ClickHouse/ClickHouse/pull/13652&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;© 2021 Altinity Inc. All rights reserved.&lt;/p&gt;
-
-      </description>
+      <description>You may have a question: “Do I need to backup Zookeeper Database, because it’s pretty important for ClickHouse?”
+Answer: ZK is in memory database. All nodes of ZK has exactly the same data.
+If you have 3 ZK servers, then you have 3 copies of (3 backups) already.
+To backup ZK has no sense because you need to have a snapshot of ZK + last ZK logs to exactly the last ZK transaction.</description>
     </item>
     
     <item>
-      <title>Altinity-Kb-Setup-and-Maintenance: ZooKeeper cluster migration</title>
+      <title>ZooKeeper cluster migration</title>
       <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/altinity-kb-zookeeper-cluster-migration/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/altinity-kb-zookeeper-cluster-migration/</guid>
-      <description>
-        
-        
-        &lt;p&gt;Here is a plan for ZK 3.4.9 (no dynamic reconfiguration):&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Add the 3 new ZK nodes to the old cluster. No changes needed for the 3 old ZK nodes at this time.
-&lt;ol&gt;
-&lt;li&gt;Configure one of the new ZK nodes as a cluster of 4 nodes (3 old + 1 new), start it.&lt;/li&gt;
-&lt;li&gt;Configure the other two new ZK nodes as a cluster of 6 nodes (3 old + 3 new), start them.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;li&gt;Make sure the 3 new ZK nodes connected to the old ZK cluster as followers (run &lt;code&gt;echo stat | nc localhost 2181&lt;/code&gt; on the 3 new ZK nodes)&lt;/li&gt;
-&lt;li&gt;Confirm that the leader has 5 synced followers (run &lt;code&gt;echo mntr | nc localhost 2181&lt;/code&gt; on the leader, look for &lt;code&gt;zk_synced_followers&lt;/code&gt;)&lt;/li&gt;
-&lt;li&gt;Stop data ingestion in CH (this is to minimize errors when CH loses ZK).&lt;/li&gt;
-&lt;li&gt;Change the zookeeper section in the configs on the CH nodes (remove the 3 old ZK servers, add the 3 new ZK servers)&lt;/li&gt;
-&lt;li&gt;Make sure that there are no connections from CH to the 3 old ZK nodes (run &lt;code&gt;echo stat | nc localhost 2181&lt;/code&gt; on the 3 old nodes, check their &lt;code&gt;Clients&lt;/code&gt; section). Restart all CH nodes if necessary (In some cases CH can reconnect to different ZK servers without a restart).&lt;/li&gt;
-&lt;li&gt;Remove the 3 old ZK nodes from &lt;code&gt;zoo.cfg&lt;/code&gt; on the 3 new ZK nodes.&lt;/li&gt;
-&lt;li&gt;Restart the 3 new ZK nodes. They should form a cluster of 3 nodes.&lt;/li&gt;
-&lt;li&gt;When CH reconnects to ZK, start data loading.&lt;/li&gt;
-&lt;li&gt;Turn off the 3 old ZK nodes.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;This plan works, but it is not the only way to do this, it can be changed if needed.&lt;/p&gt;
-&lt;p&gt;© 2021 Altinity Inc. All rights reserved.&lt;/p&gt;
-
-      </description>
+      <description>Here is a plan for ZK 3.4.9 (no dynamic reconfiguration):
+ Add the 3 new ZK nodes to the old cluster. No changes needed for the 3 old ZK nodes at this time.  Configure one of the new ZK nodes as a cluster of 4 nodes (3 old + 1 new), start it. Configure the other two new ZK nodes as a cluster of 6 nodes (3 old + 3 new), start them.</description>
     </item>
     
     <item>
-      <title>Altinity-Kb-Setup-and-Maintenance: ZooKeeper schema</title>
+      <title>ZooKeeper schema</title>
       <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/zookeeper-schema/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/zookeeper-schema/</guid>
-      <description>
-        
-        
-        &lt;h2 id=&#34;metadata&#34;&gt;/metadata&lt;/h2&gt;
-&lt;p&gt;Table schema.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;date column -&amp;gt; legacy MergeTree partition expresison.
-sampling expression -&amp;gt; SAMPLE BY
-index granularity -&amp;gt; index_granularity
-mode -&amp;gt; &lt;span style=&#34;color:#204a87&#34;&gt;type&lt;/span&gt; of MergeTree table
-sign column -&amp;gt; sign - CollapsingMergeTree / VersionedCollapsingMergeTree
-primary key -&amp;gt; ORDER BY key &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;if&lt;/span&gt; PRIMARY KEY not defined.
-sorting key -&amp;gt; ORDER BY key &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;if&lt;/span&gt; PRIMARY KEY defined.
-data format version -&amp;gt; &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;1&lt;/span&gt; 
-partition key -&amp;gt; PARTITION BY
-granularity bytes -&amp;gt; index_granularity_bytes
-
-types of MergeTree tables:
-&lt;span style=&#34;color:#000&#34;&gt;Ordinary&lt;/span&gt;            &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;
-&lt;span style=&#34;color:#000&#34;&gt;Collapsing&lt;/span&gt;          &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;1&lt;/span&gt;
-&lt;span style=&#34;color:#000&#34;&gt;Summing&lt;/span&gt;             &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;2&lt;/span&gt;
-&lt;span style=&#34;color:#000&#34;&gt;Aggregating&lt;/span&gt;         &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;3&lt;/span&gt;
-&lt;span style=&#34;color:#000&#34;&gt;Replacing&lt;/span&gt;           &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;5&lt;/span&gt;
-&lt;span style=&#34;color:#000&#34;&gt;Graphite&lt;/span&gt;            &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;6&lt;/span&gt;
-&lt;span style=&#34;color:#000&#34;&gt;VersionedCollapsing&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;7&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;mutations&#34;&gt;/mutations&lt;/h2&gt;
-&lt;p&gt;Log of latest mutations&lt;/p&gt;
-&lt;h2 id=&#34;columns&#34;&gt;/columns&lt;/h2&gt;
-&lt;p&gt;List of columns for latest (reference) table version. Replicas would try to reach this state.&lt;/p&gt;
-&lt;h2 id=&#34;log&#34;&gt;/log&lt;/h2&gt;
-&lt;p&gt;Log of latest actions with table. Used mostly for debug purposes.&lt;br&gt;
-Related settings:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;color:#a40000&#34;&gt;┌─&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;name&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;────────────────────────┬─&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;value&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;─┬─&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;changed&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;─┬─&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;description&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬─&lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;type&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;───┐&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;│&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;max_replicated_logs_to_keep&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;│&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;1000&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;  &lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;│&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;       &lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;│&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;How&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;many&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;records&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;may&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;be&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;in&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;log&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;if&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;there&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;is&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;inactive&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;replica&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;Inactive&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;replica&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;becomes&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;lost&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;when&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;when&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;this&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87&#34;&gt;number&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;exceed&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;                                                  &lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;│&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;UInt64&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;│&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;│&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;min_replicated_logs_to_keep&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;│&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;10&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;│&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;       &lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;│&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;Keep&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;about&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;this&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87&#34;&gt;number&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;of&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;last&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;records&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;in&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;ZooKeeper&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;log&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;even&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;if&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;they&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;are&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;obsolete&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;It&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;doesn&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;t affect work of tables: used only to diagnose ZooKeeper log before cleaning. │ UInt64 │
-&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;└─────────────────────────────┴───────┴─────────┴────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴────────┘
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;replicas&#34;&gt;/replicas&lt;/h2&gt;
-&lt;p&gt;List of table replicas.&lt;/p&gt;
-&lt;h2 id=&#34;replicasreplica_name&#34;&gt;/replicas/replica_name/&lt;/h2&gt;
-&lt;h3 id=&#34;replicasreplica_namemutation_pointer&#34;&gt;/replicas/replica_name/mutation_pointer&lt;/h3&gt;
-&lt;p&gt;Pointer to the latest mutation executed by replica&lt;/p&gt;
-&lt;h3 id=&#34;replicasreplica_namelog_pointer&#34;&gt;/replicas/replica_name/log_pointer&lt;/h3&gt;
-&lt;p&gt;Pointer to the latest task from replication_queue executed by replica&lt;/p&gt;
-&lt;h3 id=&#34;replicasreplica_namemax_processed_insert_time&#34;&gt;/replicas/replica_name/max_processed_insert_time&lt;/h3&gt;
-&lt;h3 id=&#34;replicareplica_namemetadata&#34;&gt;/replica/replica_name/metadata&lt;/h3&gt;
-&lt;p&gt;Table schema of specific replica&lt;/p&gt;
-&lt;h3 id=&#34;replicareplica_namecolumns&#34;&gt;/replica/replica_name/columns&lt;/h3&gt;
-&lt;p&gt;Columns list of specific replica.&lt;/p&gt;
-&lt;h2 id=&#34;quorum&#34;&gt;/quorum&lt;/h2&gt;
-&lt;p&gt;Used for quorum inserts.&lt;/p&gt;
-
-      </description>
+      <description>/metadata Table schema.
+date column -&amp;gt; legacy MergeTree partition expresison. sampling expression -&amp;gt; SAMPLE BY index granularity -&amp;gt; index_granularity mode -&amp;gt; type of MergeTree table sign column -&amp;gt; sign - CollapsingMergeTree / VersionedCollapsingMergeTree primary key -&amp;gt; ORDER BY key if PRIMARY KEY not defined. sorting key -&amp;gt; ORDER BY key if PRIMARY KEY defined. data format version -&amp;gt; 1 partition key -&amp;gt; PARTITION BY granularity bytes -&amp;gt; index_granularity_bytes types of MergeTree tables: Ordinary = 0 Collapsing = 1 Summing = 2 Aggregating = 3 Replacing = 5 Graphite = 6 VersionedCollapsing = 7 /mutations Log of latest mutations</description>
     </item>
     
   </channel>
