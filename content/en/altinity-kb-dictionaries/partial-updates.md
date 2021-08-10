@@ -1,13 +1,11 @@
 ---
-description: Clickhouse dictionaries & partial updates
----
-
----
 title: "Partial updates"
 linkTitle: "Partial updates"
 description: >
     Partial updates
 ---
+
+
 
 Clickhouse able to fetch from a source only updated rows. You need to define `update_field` section:
 

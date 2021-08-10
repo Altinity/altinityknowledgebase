@@ -2,15 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://beta.kb.altinity.com/altinity-kb-dictionaries/dictionaries-and-arrays/</loc>
-    <lastmod>2021-08-09T14:45:46-06:00</lastmod>
-  </url><url>
-    <loc>http://beta.kb.altinity.com/altinity-kb-dictionaries/example-of-postgresql-dictionary/</loc>
-    <lastmod>2021-08-09T14:45:46-06:00</lastmod>
-  </url><url>
-    <loc>http://beta.kb.altinity.com/altinity-kb-dictionaries/partial-updates/</loc>
-    <lastmod>2021-08-09T14:45:46-06:00</lastmod>
-  </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/mutations/</loc>
     <lastmod>2021-08-09T14:45:46-06:00</lastmod>
   </url><url>
@@ -158,11 +149,13 @@
     <loc>http://beta.kb.altinity.com/altinity-kb-dictionaries/</loc>
     <lastmod>2021-08-10T10:53:19-06:00</lastmod>
   </url><url>
+    <loc>http://beta.kb.altinity.com/altinity-kb-dictionaries/dictionaries-and-arrays/</loc>
+    <lastmod>2021-08-09T14:45:46-06:00</lastmod>
+  </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-schema-design/altinity-kb-dictionaries-vs-lowcardinality/</loc>
     <lastmod>2021-08-10T10:53:19-06:00</lastmod>
   </url><url>
-    <loc>http://beta.kb.altinity.com/altinity-kb-dictionaries/untitled/</loc>
-    <lastmod>2021-08-09T14:45:46-06:00</lastmod>
+    <loc>http://beta.kb.altinity.com/altinity-kb-dictionaries/dictionary-on-top-tables/</loc>
   </url><url>
     <loc>http://beta.kb.altinity.com/engines/altinity-kb-embeddedrocksdb-and-dictionary/</loc>
     <lastmod>2021-08-10T10:53:19-06:00</lastmod>
@@ -175,6 +168,9 @@
   </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-integrations/altinity-kb-kafka/altinity-kb-exactly-once-semantics/</loc>
     <lastmod>2021-08-10T10:53:19-06:00</lastmod>
+  </url><url>
+    <loc>http://beta.kb.altinity.com/altinity-kb-dictionaries/example-of-postgresql-dictionary/</loc>
+    <lastmod>2021-08-09T14:45:46-06:00</lastmod>
   </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/skip-indexes/minmax/</loc>
     <lastmod>2021-08-09T14:45:46-06:00</lastmod>
@@ -316,6 +312,9 @@
   </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/altinity-kb-parameterized-views/</loc>
     <lastmod>2021-08-10T10:53:19-06:00</lastmod>
+  </url><url>
+    <loc>http://beta.kb.altinity.com/altinity-kb-dictionaries/partial-updates/</loc>
+    <lastmod>2021-08-09T14:45:46-06:00</lastmod>
   </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/altinity-kb-possible-deadlock-avoided.-client-should-retry/</loc>
     <lastmod>2021-08-10T10:53:19-06:00</lastmod>
