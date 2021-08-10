@@ -1,83 +1,18 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Dictionaries on Altinity Beta Knowledgebase</title>
+    <title>Altinity Beta Knowledgebase – Dictionaries</title>
     <link>http://beta.kb.altinity.com/altinity-kb-dictionaries/</link>
     <description>Recent content in Dictionaries on Altinity Beta Knowledgebase</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="http://beta.kb.altinity.com/altinity-kb-dictionaries/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title></title>
-      <link>http://beta.kb.altinity.com/altinity-kb-dictionaries/dictionaries-and-arrays/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://beta.kb.altinity.com/altinity-kb-dictionaries/dictionaries-and-arrays/</guid>
-      <description> title: &amp;ldquo;Dictionaries &amp;amp; arrays&amp;rdquo; linkTitle: &amp;ldquo;Dictionaries &amp;amp; arrays&amp;rdquo; description: &amp;gt; Dictionaries &amp;amp; arrays Dictionary with Clickhouse table as a source Test data DROPTABLEIFEXISTSarr_src;CREATETABLEarr_src(keyUInt64,array_intArray(Int64),array_strArray(String))ENGINE=MergeTreeorderbykey;INSERTINTOarr_srcSELECTnumber,arrayMap(i-&amp;gt;(number*i),range(5)),arrayMap(i-&amp;gt;concat(&amp;#39;str&amp;#39;,toString(number*i)),range(5))FROMnumbers(1000);Dictionary DROPDICTIONARYIFEXISTSarr_dict;CREATEDICTIONARYarr_dict(keyUInt64,array_intArray(Int64)DEFAULT[1,2,3],array_strArray(String)DEFAULT[&amp;#39;1&amp;#39;,&amp;#39;2&amp;#39;,&amp;#39;3&amp;#39;])PRIMARYKEYkeySOURCE(CLICKHOUSE(DATABASE&amp;#39;default&amp;#39;TABLE&amp;#39;arr_src&amp;#39;))LIFETIME(120)LAYOUT(HASHED());SELECTdictGet(&amp;#39;arr_dict&amp;#39;,&amp;#39;array_int&amp;#39;,toUInt64(42))ASres_int,dictGetOrDefault(&amp;#39;arr_dict&amp;#39;,&amp;#39;array_str&amp;#39;,toUInt64(424242),[&amp;#39;none&amp;#39;])ASres_str┌─res_int───────────┬─res_str──┐│[0,42,84,126,168]│[&amp;#39;none&amp;#39;]│└───────────────────┴──────────┘Dictionary with Postgresql as a source Test data in PG createuserch;createdatabasech;GRANTALLPRIVILEGESONDATABASEchTOch;ALTERUSERchWITHPASSWORD&amp;#39;chch&amp;#39;;CREATETABLEarr_src(keyint,array_intinteger[],array_strtext[]);INSERTINTOarr_srcVALUES(42,&amp;#39;{0,42,84,126,168}&amp;#39;,&amp;#39;{&amp;#34;str0&amp;#34;,&amp;#34;str42&amp;#34;,&amp;#34;str84&amp;#34;,&amp;#34;str126&amp;#34;,&amp;#34;str168&amp;#34;}&amp;#39;),(66,&amp;#39;{0,66,132,198,264}&amp;#39;,&amp;#39;{&amp;#34;str0&amp;#34;,&amp;#34;str66&amp;#34;,&amp;#34;str132&amp;#34;,&amp;#34;str198&amp;#34;,&amp;#34;str264&amp;#34;}&amp;#39;);Dictionary CREATEDICTIONARYpg_arr_dict(keyUInt64,array_intArray(Int64)DEFAULT[1,2,3],array_strArray(String)DEFAULT[&amp;#39;1&amp;#39;,&amp;#39;2&amp;#39;,&amp;#39;3&amp;#39;])PRIMARYKEYkeySOURCE(POSTGRESQL(PORT5432HOST&amp;#39;pg-host&amp;#39;user&amp;#39;ch&amp;#39;password&amp;#39;chch&amp;#39;DATABASE&amp;#39;ch&amp;#39;TABLE&amp;#39;arr_src&amp;#39;))LIFETIME(120)LAYOUT(HASHED());select*frompg_arr_dict;┌─key─┬─array_int──────────┬─array_str───────────────────────────────────┐│66│[0,66,132,198,264]│[&amp;#39;str0&amp;#39;,&amp;#39;str66&amp;#39;,&amp;#39;str132&amp;#39;,&amp;#39;str198&amp;#39;,&amp;#39;str264&amp;#39;]││42│[0,42,84,126,168]│[&amp;#39;str0&amp;#39;,&amp;#39;str42&amp;#39;,&amp;#39;str84&amp;#39;,&amp;#39;str126&amp;#39;,&amp;#39;str168&amp;#39;]│└─────┴────────────────────┴─────────────────────────────────────────────┘SELECTdictGet(&amp;#39;pg_arr_dict&amp;#39;,&amp;#39;array_int&amp;#39;,toUInt64(42))ASres_int,dictGetOrDefault(&amp;#39;pg_arr_dict&amp;#39;,&amp;#39;array_str&amp;#39;,toUInt64(424242),[&amp;#39;none&amp;#39;])ASres_str┌─res_int───────────┬─res_str──┐│[0,42,84,126,168]│[&amp;#39;none&amp;#39;]│└───────────────────┴──────────┘</description>
-    </item>
+    <language>en-us</language>
     
-    <item>
-      <title></title>
-      <link>http://beta.kb.altinity.com/altinity-kb-dictionaries/example-of-postgresql-dictionary/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://beta.kb.altinity.com/altinity-kb-dictionaries/example-of-postgresql-dictionary/</guid>
-      <description>Example of PostgreSQL dictionary CREATEDICTIONARYpostgres_dict(idUInt32,valueString)PRIMARYKEYidSOURCE(POSTGRESQL(port5432host&amp;#39;postgres1&amp;#39;user&amp;#39;postgres&amp;#39;password&amp;#39;mysecretpassword&amp;#39;db&amp;#39;clickhouse&amp;#39;table&amp;#39;test_schema.test_table&amp;#39;))LIFETIME(MIN300MAX600)LAYOUT(HASHED());and later do
-SELECTdictGetString(postgres_dict,&amp;#39;value&amp;#39;,toUInt64(1))�</description>
-    </item>
+	  <atom:link href="http://beta.kb.altinity.com/altinity-kb-dictionaries/index.xml" rel="self" type="application/rss+xml" />
     
-    <item>
-      <title></title>
-      <link>http://beta.kb.altinity.com/altinity-kb-dictionaries/partial-updates/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://beta.kb.altinity.com/altinity-kb-dictionaries/partial-updates/</guid>
-      <description>title: &amp;ldquo;Partial updates&amp;rdquo; linkTitle: &amp;ldquo;Partial updates&amp;rdquo; description: &amp;gt; Partial updates Clickhouse able to fetch from a source only updated rows. You need to define update_field section:
-We have a table in an external source MySQL, PG, HTTP, &amp;hellip;.
-Let&amp;rsquo;s use for this example Clickhouse.
-CREATETABLEcities(`polygon`Array(Tuple(Float64,Float64)),`city`String,`updated_at`DateTimeDEFAULTnow())ENGINE=MergeTreeORDERBYcityWhen you add new row and &amp;ldquo;update&amp;rdquo; some rows in this table you should update updated_at with the new timestamp.
--- fetch updated rows every 30 seconds CREATEDICTIONARYcities_dict(polygonArray(Tuple(Float64,Float64)),cityString)PRIMARYKEYpolygonSOURCE(CLICKHOUSE(TABLEcitiesDB&amp;#39;default&amp;#39;update_field&amp;#39;updated_at&amp;#39;))LAYOUT(POLYGON())LIFETIME(MIN30MAX30)A dictionary with update_field updated_at will fetch only updated rows.</description>
-    </item>
     
-    <item>
-      <title>Dictionary on the top of the several tables using VIEW</title>
-      <link>http://beta.kb.altinity.com/altinity-kb-dictionaries/untitled/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://beta.kb.altinity.com/altinity-kb-dictionaries/untitled/</guid>
-      <description>DROPTABLEIFEXISTSdictionary_source_en;DROPTABLEIFEXISTSdictionary_source_ru;DROPTABLEIFEXISTSdictionary_source_view;DROPDICTIONARYIFEXISTSflat_dictionary;CREATETABLEdictionary_source_en(idUInt64,valueString)ENGINE=TinyLog;INSERTINTOdictionary_source_enVALUES(1,&amp;#39;One&amp;#39;),(2,&amp;#39;Two&amp;#39;),(3,&amp;#39;Three&amp;#39;);CREATETABLEdictionary_source_ru(idUInt64,valueString)ENGINE=TinyLog;INSERTINTOdictionary_source_ruVALUES(1,&amp;#39;Один&amp;#39;),(2,&amp;#39;Два&amp;#39;),(3,&amp;#39;Три&amp;#39;);CREATEVIEWdictionary_source_viewASSELECTid,dictionary_source_en.valueasvalue_en,dictionary_source_ru.valueasvalue_ruFROMdictionary_source_enLEFTJOINdictionary_source_ruUSING(id);select*fromdictionary_source_view;CREATEDICTIONARYflat_dictionary(idUInt64,value_enString,value_ruString)PRIMARYKEYidSOURCE(CLICKHOUSE(HOST&amp;#39;localhost&amp;#39;PORT9000USER&amp;#39;default&amp;#39;PASSWORD&amp;#39;&amp;#39;TABLE&amp;#39;dictionary_source_view&amp;#39;))LIFETIME(MIN1MAX1000)LAYOUT(FLAT());SELECTdictGet(concat(currentDatabase(),&amp;#39;.flat_dictionary&amp;#39;),&amp;#39;value_en&amp;#39;,number+1),dictGet(concat(currentDatabase(),&amp;#39;.flat_dictionary&amp;#39;),&amp;#39;value_ru&amp;#39;,number+1)FROMnumbers(3);</description>
-    </item>
+        
+      
     
-    <item>
-      <title>MySQL8 source for dictionaries</title>
-      <link>http://beta.kb.altinity.com/altinity-kb-dictionaries/mysql8-source-for-dictionaries/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://beta.kb.altinity.com/altinity-kb-dictionaries/mysql8-source-for-dictionaries/</guid>
-      <description>Authorization MySQL8 used default authorization plugin caching_sha2_password. Unfortunately, libmysql which currently used (21.4-) in clickhouse is not
-You can fix it during create custom user with mysql_native_password authentication plugin.
-CREATEUSERIFNOTEXISTS&amp;#39;clickhouse&amp;#39;@&amp;#39;%&amp;#39;IDENTIFIEDWITHmysql_native_passwordBY&amp;#39;clickhouse_user_password&amp;#39;;CREATEDATABASEIFNOTEXISTStest;GRANTALLPRIVILEGESONtest.*TO&amp;#39;clickhouse&amp;#39;@&amp;#39;%&amp;#39;;Table schema changes ClickHouse run SHOW TABLE STATUS LIKE &#39;table\\_name&#39; and try to figure out was table schema changed or not from MySQL response field Update_time
-By default for properly data loading from MySQL8 source to dictionaries, please turn off information_schema cache.</description>
-    </item>
-    
-    <item>
-      <title>range hashed example - open intervals</title>
-      <link>http://beta.kb.altinity.com/altinity-kb-dictionaries/altinity-kb-range_hashed-example-open-intervals/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://beta.kb.altinity.com/altinity-kb-dictionaries/altinity-kb-range_hashed-example-open-intervals/</guid>
-      <description>DROPTABLEIFEXISTSrates;DROPDICTIONARYIFEXISTSrates_dict;CREATETABLErates(idUInt64,date_startNullable(Date),date_endNullable(Date),rateDecimal64(4))engine=Log;INSERTINTOratesVALUES(1,Null,&amp;#39;2021-03-13&amp;#39;,99),(1,&amp;#39;2021-03-14&amp;#39;,&amp;#39;2021-03-16&amp;#39;,100),(1,&amp;#39;2021-03-17&amp;#39;,Null,101),(2,&amp;#39;2021-03-14&amp;#39;,Null,200),(3,Null,&amp;#39;2021-03-14&amp;#39;,300),(4,&amp;#39;2021-03-14&amp;#39;,&amp;#39;2021-03-14&amp;#39;,400);CREATEDICTIONARYrates_dict(idUInt64,date_startDate,date_endDate,rateDecimal64(4))PRIMARYKEYidSOURCE(CLICKHOUSE(HOST&amp;#39;localhost&amp;#39;PORT9000USER&amp;#39;default&amp;#39;TABLE&amp;#39;rates&amp;#39;))LIFETIME(MIN1MAX1000)LAYOUT(RANGE_HASHED())RANGE(MINdate_startMAXdate_end);SELECT*FROMrates_dictorderbyid,date_start;┌─id─┬─date_start─┬───date_end─┬─────rate─┐│1│1970-01-01│2021-03-13│99.0000││1│2021-03-14│2021-03-16│100.0000││1│2021-03-17│1970-01-01│101.0000││2│2021-03-14│1970-01-01│200.0000││3│1970-01-01│2021-03-14│300.0000││4│2021-03-14│2021-03-14│400.0000│└────┴────────────┴────────────┴──────────┘WITHtoDate(&amp;#39;2021-03-10&amp;#39;)+INTERVALnumberDAYasdateselectdate,dictGet(currentDatabase()||&amp;#39;.rates_dict&amp;#39;,&amp;#39;rate&amp;#39;,toUInt64(1),date)asrate1,dictGet(currentDatabase()||&amp;#39;.rates_dict&amp;#39;,&amp;#39;rate&amp;#39;,toUInt64(2),date)asrate2,dictGet(currentDatabase()||&amp;#39;.rates_dict&amp;#39;,&amp;#39;rate&amp;#39;,toUInt64(3),date)asrate3,dictGet(currentDatabase()||&amp;#39;.rates_dict&amp;#39;,&amp;#39;rate&amp;#39;,toUInt64(4),date)asrate4FROMnumbers(10);┌───────date─┬────rate1─┬────rate2─┬────rate3─┬────rate4─┐│2021-03-10│99.0000│0.0000│300.0000│0.0000││2021-03-11│99.0000│0.0000│300.0000│0.0000││2021-03-12│99.0000│0.0000│300.0000│0.0000││2021-03-13│99.0000│0.0000│300.0000│0.0000││2021-03-14│100.0000│200.0000│300.0000│400.0000││2021-03-15│100.0000│200.0000│0.0000│0.0000││2021-03-16│100.0000│200.0000│0.0000│0.0000││2021-03-17│101.0000│200.0000│0.0000│0.0000││2021-03-18│101.0000│200.0000│0.0000│0.0000││2021-03-19│101.0000│200.0000│0.0000│0.0000│└────────────┴──────────┴──────────┴──────────┴──────────┘© 2021 Altinity Inc. All rights reserved.</description>
-    </item>
-    
-    <item>
-      <title>SPARSE HASHED VS HASHED</title>
-      <link>http://beta.kb.altinity.com/altinity-kb-dictionaries/altinity-kb-sparse_hashed-vs-hashed/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://beta.kb.altinity.com/altinity-kb-dictionaries/altinity-kb-sparse_hashed-vs-hashed/</guid>
-      <description>Sparse_hashed layout is supposed to save memory but has some downsides. We can test how much slower SPARSE_HASHED than HASHED is with the following:
-createtableorders(idUInt64,priceFloat64)Engine=MergeTree()orderbyid;insertintoordersselectnumber,0fromnumbers(5000000);CREATEDICTIONARYorders_hashed(idUInt64,priceFloat64)PRIMARYKEYidSOURCE(CLICKHOUSE(HOST&amp;#39;localhost&amp;#39;PORT9000TABLEordersDB&amp;#39;default&amp;#39;USER&amp;#39;default&amp;#39;))LIFETIME(MIN0MAX0)LAYOUT(HASHED());CREATEDICTIONARYorders_sparse(idUInt64,priceFloat64)PRIMARYKEYidSOURCE(CLICKHOUSE(HOST&amp;#39;localhost&amp;#39;PORT9000TABLEordersDB&amp;#39;default&amp;#39;USER&amp;#39;default&amp;#39;))LIFETIME(MIN0MAX0)LAYOUT(SPARSE_HASHED());SELECTname,type,status,element_count,formatReadableSize(bytes_allocated)ASRAMFROMsystem.dictionariesWHEREnameLIKE&amp;#39;orders%&amp;#39;┌─name──────────┬─type─────────┬─status─┬─element_count─┬─RAM────────┐│orders_sparse│SparseHashed│LOADED│5000000│84.29MiB││orders_hashed│Hashed│LOADED│5000000│256.00MiB│└───────────────┴──────────────┴────────┴───────────────┴────────────┘SELECTsum(dictGet(&amp;#39;default.orders_hashed&amp;#39;,&amp;#39;price&amp;#39;,toUInt64(number)))ASresFROMnumbers(10000000)┌─res─┐│0│└─────┘1rowsinset.Elapsed:0.279sec.Processed10.02millionrows...SELECTsum(dictGet(&amp;#39;default.orders_sparse&amp;#39;,&amp;#39;price&amp;#39;,toUInt64(number)))ASresFROMnumbers(10000000)┌─res─┐│0│└─────┘1rowsinset.Elapsed:1.085sec.Processed10.02millionrows...As you can see SPARSE_HASHED is memory efficient and use about 3 times less memory (!!!) but is almost 4 times slower. But this is the ultimate case because this test does not read data from the disk (no MergeTree table involved).
-We encourage you to test SPARSE_HASHED against your real queries, because it able to save a lot of memory and have larger (in rows) external dictionaries.</description>
-    </item>
     
   </channel>
 </rss>
