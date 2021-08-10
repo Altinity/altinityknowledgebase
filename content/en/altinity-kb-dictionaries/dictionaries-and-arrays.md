@@ -1,14 +1,9 @@
 ---
-description: Example how to create a dictionary in Clickhouse with an Array column
----
-
----
 title: "Dictionaries & arrays"
 linkTitle: "Dictionaries & arrays"
 description: >
     Dictionaries & arrays
 ---
-
 ## Dictionary with Clickhouse table as a source
 
 ### Test data
