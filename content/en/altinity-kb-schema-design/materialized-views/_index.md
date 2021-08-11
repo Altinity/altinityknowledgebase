@@ -9,7 +9,7 @@ description: >
 MATERIALIZED VIEWs in ClickHouse behave like AFTER INSERT TRIGGER to the left-most table listed in its SELECT statement.
 {% endhint %}
 
-## **B**est practices
+## Best practices
 
 #### **1. Use MATERIALIZED VIEW with TO syntax \(explicit storage table\)**
 

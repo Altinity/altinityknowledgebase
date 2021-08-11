@@ -55,6 +55,3 @@ FROM numbers(10000000)
 As you can see **SPARSE\_HASHED** is memory efficient and use about 3 times less memory \(!!!\) but is almost 4 times slower. But this is the ultimate case because this test does not read data from the disk \(no MergeTree table involved\).
 
 We encourage you to test **SPARSE\_HASHED** against your real queries, because it able to save a lot of memory and have larger \(in rows\) external dictionaries.
-
-
-
