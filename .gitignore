@@ -1,0 +1,4 @@
+*.DS_Store*
+node_modules
+package-lock.json
+!.git/pull_request_template.md
