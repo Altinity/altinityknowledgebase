@@ -1,9 +1,5 @@
 # Welcome
 
-Welcome to the Altinity Knowledge Base Issues repository!  This allows users to submit issues regarding the [Altinity Knowledge Base](https://kb.altinity.com).
+Welcome to the Altinity Knowledgebase!  This Knowledgebase was established for Altinity Engineers and ClickHouse community members to work together to find common solutions.
 
-Issues can be either:
-
-* Problems with a page (typo, instructions that need updating, etc)
-* Recommendations
-* New page covering some topic you think that should be covered
+This knowledgebase is licensed under Apache 2.0.  Contributors who submit to the Altinity Knowledgebase agree to the Altinity Contribution License Agreement.
