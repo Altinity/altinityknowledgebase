@@ -8,7 +8,7 @@ Applicable Terms. The Parties shall be guided by the following terms and their d
 
 Contributes shall mean independent results of intellectual activity and means of individualization (including, but not limited to source code, design items, texts, documentation) being elements of the Programs.
 
-Programs shall mean software, including mobile applications, developed by Altinity Inc or third parties as instructed by Altinity Inc and new (future) versions of such programs. The term “Programs” referred to hereinafter shall mean both Programs and their components unless the text of the Agreement defines it otherwise. Programs are computer programs as defined in the Civil Code of the Russian Federation.
+Programs shall mean software, including mobile applications, developed by Altinity Inc or third parties as instructed by Altinity Inc and new (future) versions of such programs. The term “Programs” referred to hereinafter shall mean both Programs and their components unless the text of the Agreement defines it otherwise.
 
 Agreement shall mean this agreement to grant intellectual property rights made by and between Contributor and Altinity Inc.
 
@@ -70,7 +70,7 @@ Contributes may be provided (delivered) by Contributor to Altinity Inc in any po
 
 11. Logo and Trademarks. Contributor may only use Altinity Inc’s logo in the manner and under the terms determined at: https://Altinity Inc.ru/company/rules/logotype unless otherwise specified by Altinity Inc in writing.
 
-12. Applicable Law. The Agreement shall be governed and construed in accordance with Russian law.
+12. Applicable Law. The Agreement shall be governed and construed in accordance with US law.
 
 13. Resolution of Disputes. If the Parties fail to agree on disputable issues, disputes shall be reviewed in court at Altinity Inc’s location. If Altinity Inc does not know Contributor’s actual place of existence, disputes or other issues shall be reviewed in court at Altinity Inc’s location.
 
@@ -80,13 +80,11 @@ Contributes may be provided (delivered) by Contributor to Altinity Inc in any po
 
 16. Legal Succession of the Parties. The rights and obligations stipulated by this Agreement shall be mandatory for legal successors of the Parties, inter alia, if they change their organizational and legal form.
 
-17. Language of the Agreement. This Agreement is made in Russian and English. Russian version is available at https://Altinity Inc.ru/legal/cla/?lang=ru. English version is available at https://Altinity Inc.ru/legal/cla/?lang=en. If Contributor is Russian citizen or legal entity registrated in Russian territory, only Russian version of the Agreement shall apply. If Contributor is citizen of any other country or legal entity registrated in the territory of any other country, in the event of a conflict between provisions of Russian and English versions, provisions in English shall prevail.
+17. Consent to Provisions of the Agreement. By signing this Agreement, Contributor expresses its full and unconditional consent to all provisions hereof.
 
-18. Consent to Provisions of the Agreement. By signing this Agreement, Contributor expresses its full and unconditional consent to all provisions hereof.
+18. Entry of the Agreement into Force. The Agreement is deemed to become effective since the moment of receiving by Altinity Inc the Contribution from Contributor in any electronic form, including, but not limited to, corporate Altinity Inc's accounts on GitHub nad BitBucket services.
 
-19. Entry of the Agreement into Force. The Agreement is deemed to become effective since the moment of receiving by Altinity Inc the Contribution from Contributor in any electronil form, including, but not limited to, corporate Altinity Inc's accounts on GitHub nad BitBucket services.
-
-20. Retroactive effect of the Agreement. If Contributor has already provided the Contributes to Altinity Inc at the moment of the Agreement signing, the provisions of the Agreement shall apply to relations of the Parties, which arisen before the date of the Agreement signing, since the moment of delivery the Contributors by Contributor to Altinity Inc.
+19. Retroactive effect of the Agreement. If Contributor has already provided the Contributes to Altinity Inc at the moment of the Agreement signing, the provisions of the Agreement shall apply to relations of the Parties, which arisen before the date of the Agreement signing, since the moment of delivery the Contributors by Contributor to Altinity Inc.
 
 Altinity Inc LLC
 
