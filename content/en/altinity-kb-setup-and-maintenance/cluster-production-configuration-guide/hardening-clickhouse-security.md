@@ -6,7 +6,6 @@ description: >
 ---
 
 
-
 ClickHouse is currently at the design stage of creating some universal backup solution. Some custom backup strategies are:
 
 1. Each shard is backed up separately.
@@ -19,4 +18,3 @@ ClickHouse is currently at the design stage of creating some universal backup so
 6. Data in clickhouse is already compressed with lz4, backup can be compressed bit better, but avoid using cpu-heavy compression algorythms like gzip, use something like zstd instead.
 
 The tool automating that process  [clickhouse-backup](https://github.com/AlexAkulov/clickhouse-backup).
-

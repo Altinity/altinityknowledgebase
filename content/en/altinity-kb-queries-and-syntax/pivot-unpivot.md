@@ -1,23 +1,18 @@
 ---
-description: 'https://docs.snowflake.com/en/sql-reference/constructs/pivot.html'
----
-
----
 title: "PIVOT / UNPIVOT"
 linkTitle: "PIVOT / UNPIVOT"
 description: >
     PIVOT / UNPIVOT
 ---
-
 ## PIVOT
 
 ```sql
-CREATE OR REPLACE TABLE monthly_sales(empid INT, amount INT, month TEXT) ENGINE=Memory(); 
+CREATE OR REPLACE TABLE monthly_sales(empid INT, amount INT, month TEXT) ENGINE=Memory();
 
-INSERT INTO monthly_sales VALUES 
-(1, 10000, 'JAN'),(1, 400, 'JAN'),(2, 4500, 'JAN'),(2, 35000, 'JAN'), (1, 5000, 'FEB'), 
-(1, 3000, 'FEB'), (2, 200, 'FEB'), (2, 90500, 'FEB'), (1, 6000, 'MAR'), (1, 5000, 'MAR'), 
-(2, 2500, 'MAR'), (2, 9500, 'MAR'), (1, 8000, 'APR'), (1, 10000, 'APR'), (2, 800, 'APR'), 
+INSERT INTO monthly_sales VALUES
+(1, 10000, 'JAN'),(1, 400, 'JAN'),(2, 4500, 'JAN'),(2, 35000, 'JAN'), (1, 5000, 'FEB'),
+(1, 3000, 'FEB'), (2, 200, 'FEB'), (2, 90500, 'FEB'), (1, 6000, 'MAR'), (1, 5000, 'MAR'),
+(2, 2500, 'MAR'), (2, 9500, 'MAR'), (1, 8000, 'APR'), (1, 10000, 'APR'), (2, 800, 'APR'),
 (2, 4500, 'APR');
 ```
 
@@ -61,10 +56,10 @@ ORDER BY empid ASC
 ## UNPIVOT
 
 ```sql
-CREATE OR REPLACE TABLE monthly_sales(empid INT, dept TEXT, jan INT, feb INT, mar INT, 
+CREATE OR REPLACE TABLE monthly_sales(empid INT, dept TEXT, jan INT, feb INT, mar INT,
 april INT) ENGINE=Memory();
 
-INSERT INTO monthly_sales VALUES (1, 'electronics', 100, 200, 300, 100), 
+INSERT INTO monthly_sales VALUES (1, 'electronics', 100, 200, 300, 100),
 (2, 'clothes', 100, 300, 150, 200),(3, 'cars', 200, 400, 100, 50);
 ```
 
@@ -95,6 +90,3 @@ ORDER BY empid ASC
 │     3 │ cars        │ april │    50 │
 └───────┴─────────────┴───────┴───────┘
 ```
-
-
-

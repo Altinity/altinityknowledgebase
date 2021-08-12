@@ -1,14 +1,12 @@
 ---
 description: clickhouse-backup + backblaze
 ---
-
 ---
 title: "clickhouse-backup"
 linkTitle: "clickhouse-backup"
 description: >
     clickhouse-backup
 ---
-
 ### Installation and configuration
 
 Download the latest `clickhouse-backup.tar.gz` from assets from [https://github.com/AlexAkulov/clickhouse-backup/releases](https://github.com/AlexAkulov/clickhouse-backup/releases)
@@ -77,7 +75,7 @@ select count() from test.test;
 └─────────┘
 ```
 
-clickhouse-backup list should work without errors \(it scans local and remote \(s3\) folders\):
+clickhouse-backup list should work without errors (it scans local and remote (s3) folders):
 
 ```bash
 $ sudo ./clickhouse-backup list -c config.yml
@@ -148,4 +146,3 @@ $ sudo ./clickhouse-backup delete local bkp01 -c config.yml
 
 $ sudo ./clickhouse-backup delete remote bkp01 -c config.yml
 ```
-

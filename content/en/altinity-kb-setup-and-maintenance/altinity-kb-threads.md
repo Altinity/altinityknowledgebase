@@ -4,7 +4,6 @@ linkTitle: "Threads"
 description: >
     Threads
 ---
-
 Collect thread names & counts using ps & clickhouse-local
 
 ```bash
@@ -84,7 +83,7 @@ WHERE metric LIKE 'Background%'
 └─────────────────────────────────────────┴───────┘
 ```
 
-Stack traces 
+Stack traces
 
 ```sql
 SET allow_introspection_functions = 1;
@@ -97,6 +96,3 @@ SELECT
 FROM system.stack_trace
 WHERE res ILIKE '%Pool%'
 ```
-
-
-

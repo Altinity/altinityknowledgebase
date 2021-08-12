@@ -1,9 +1,10 @@
 ---
-title: "range\_hashed example - open intervals"
-linkTitle: "range\_hashed example - open intervals"
+title: "range_hashed example - open intervals"
+linkTitle: "range_hashed example - open intervals"
 description: >
-    range\_hashed example - open intervals
+    range_hashed example - open intervals
 ---
+The following example shows a `range_hashed` example at open intervals.
 
 ```sql
 DROP TABLE IF EXISTS rates;
@@ -16,7 +17,6 @@ CREATE TABLE rates (
   date_end Nullable(Date),
   rate Decimal64(4)
 ) engine=Log;
-
 
 INSERT INTO rates VALUES (1, Null, '2021-03-13',99), (1, '2021-03-14','2021-03-16',100), (1, '2021-03-17', Null, 101), (2, '2021-03-14', Null, 200), (3, Null, '2021-03-14', 300), (4, '2021-03-14', '2021-03-14', 400);
 
@@ -44,9 +44,9 @@ SELECT * FROM rates_dict order by id, date_start;
 │  4 │ 2021-03-14 │ 2021-03-14 │ 400.0000 │
 └────┴────────────┴────────────┴──────────┘
 
-WITH 
+WITH
   toDate('2021-03-10') + INTERVAL number DAY as date
-select 
+select
   date,
   dictGet(currentDatabase() || '.rates_dict', 'rate', toUInt64(1), date) as rate1,
   dictGet(currentDatabase() || '.rates_dict', 'rate', toUInt64(2), date) as rate2,

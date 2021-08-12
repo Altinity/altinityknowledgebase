@@ -6,11 +6,10 @@ description: >
 ---
 
 
-
-{% hint style="info" %}
-Supported since 20.10 \(PR [\#15089](https://github.com/ClickHouse/ClickHouse/pull/15089)\). On older versions you will get exception:  
+{{% alert title="Info" color="info" %}}
+Supported since 20.10 (PR [\#15089](https://github.com/ClickHouse/ClickHouse/pull/15089)). On older versions you will get exception:
 `DB::Exception: Codec Delta is not applicable for Array(UInt64) because the data type is not of fixed size.`
-{% endhint %}
+{{% /alert %}}
 
 ```sql
 DROP TABLE IF EXISTS array_codec_test SYNC
@@ -22,7 +21,7 @@ INSERT INTO array_codec_test SELECT number,  arrayMap(i -> number + i, range(100
 /****  Default LZ4  *****/
 
 OPTIMIZE TABLE array_codec_test FINAL;
---- Elapsed: 3.386 sec. 
+--- Elapsed: 3.386 sec.
 
 
 SELECT * FROM system.columns WHERE (table = 'array_codec_test') AND (name = 'arr')
@@ -34,17 +33,17 @@ table:                   array_codec_test
 name:                    arr
 type:                    Array(UInt64)
 position:                2
-default_kind:            
-default_expression:      
+default_kind:         
+default_expression:   
 data_compressed_bytes:   173866750
 data_uncompressed_bytes: 8080000000
 marks_bytes:             58656
-comment:                 
+comment:              
 is_in_partition_key:     0
 is_in_sorting_key:       0
 is_in_primary_key:       0
 is_in_sampling_key:      0
-compression_codec:       
+compression_codec:    
 */
 
 
@@ -66,12 +65,12 @@ table:                   array_codec_test
 name:                    arr
 type:                    Array(UInt64)
 position:                2
-default_kind:            
-default_expression:      
+default_kind:         
+default_expression:   
 data_compressed_bytes:   32458310
 data_uncompressed_bytes: 8080000000
 marks_bytes:             58656
-comment:                 
+comment:              
 is_in_partition_key:     0
 is_in_sorting_key:       0
 is_in_primary_key:       0
@@ -79,4 +78,3 @@ is_in_sampling_key:      0
 compression_codec:       CODEC(Delta(8), LZ4)
 */
 ```
-

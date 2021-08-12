@@ -4,11 +4,10 @@ linkTitle: "Moving table to another device."
 description: >
     Moving table to another device.
 ---
-
 Suppose we mount a new device at path `/mnt/disk_1` and want to move `table_4` to it.
 
-1. Create directory on new device for ClickHouse data. /in shell `mkdir /mnt/disk_1/clickhouse` 
-2. Change ownership of created directory to ClickHouse user. /in shell `chown -R clickhouse:clickhouse /mnt/disk_1/clickhouse` 
+1. Create directory on new device for ClickHouse data. /in shell `mkdir /mnt/disk_1/clickhouse`
+2. Change ownership of created directory to ClickHouse user. /in shell `chown -R clickhouse:clickhouse /mnt/disk_1/clickhouse`
 3. Create a special storage policy which should include both disks: old and new. /in shell
 
 ```markup
@@ -59,13 +58,13 @@ nano /etc/clickhouse-server/config.d/storage.xml
 #########################################################################################
 ```
 
-1. Update storage\_policy setting of tables to new policy.
+1. Update storage_policy setting of tables to new policy.
 
 ```sql
 ALTER TABLE table_4 MODIFY SETTING storage_policy='move_from_default_to_disk_1';
 ```
 
-1. Wait till all parts of tables change their disk\_name to new disk.
+1. Wait till all parts of tables change their disk_name to new disk.
 
 ```sql
 SELECT name,disk_name, path from system.parts WHERE table='table_4' and active;
@@ -126,6 +125,3 @@ ClickHouse wouldn't auto reload config, because we removed some disks from stora
 ```sql
 SELECT * FROM system.storage_policies WHERE policy_name='move_from_default_to_disk_1';
 ```
-
-
-

@@ -4,10 +4,9 @@ linkTitle: "ZooKeeper"
 description: >
     ZooKeeper
 ---
-
 Article on docs site:
 
-{% embed url="https://docs.altinity.com/operationsguide/clickhouse-zookeeper/" caption="" %}
+[https://docs.altinity.com/operationsguide/clickhouse-zookeeper/" caption="](https://docs.altinity.com/operationsguide/clickhouse-zookeeper/" caption=")
 
 Check number of followers:
 
@@ -22,21 +21,18 @@ zk_cnt_follower_sync_time    0
 zk_sum_follower_sync_time    0
 ```
 
-## Tools <a id="Zookeeper-Tools"></a>
+## Tools
 
 [https://github.com/apache/zookeeper/blob/master/zookeeper-docs/src/main/resources/markdown/zookeeperTools.md](https://github.com/apache/zookeeper/blob/master/zookeeper-docs/src/main/resources/markdown/zookeeperTools.md)
 
-## Alternatives for zkCli: <a id="Zookeeper-AlternativesforzkCli:"></a>
+## Alternatives for zkCli:
 
 * [https://github.com/go-zkcli/zkcli](https://github.com/go-zkcli/zkcli)
 * [https://github.com/outbrain/zookeepercli](https://github.com/outbrain/zookeepercli)
 * [https://idata.co.il/2018/07/a-day-at-the-zoo-graphic-uis-for-apache-zookeeper/](https://idata.co.il/2018/07/a-day-at-the-zoo-graphic-uis-for-apache-zookeeper/)
 
-## Web UI: <a id="Zookeeper-WebUI:"></a>
+## Web UI:
 
 * [https://github.com/elkozmon/zoonavigator-api](https://github.com/elkozmon/zoonavigator-api)
 * [https://github.com/tobilg/docker-zookeeper-webui](https://github.com/tobilg/docker-zookeeper-webui)
 * [https://github.com/vran-dev/PrettyZoo](https://github.com/vran-dev/PrettyZoo)
-
-
-

@@ -4,7 +4,6 @@ linkTitle: "Hardware Requirements"
 description: >
     Hardware Requirements
 ---
-
 ### **ClickHouse**
 
 ClickHouse will use all available hardware to maximize performance. So the more hardware - the better. As of this publication, the hardware requirements are:
@@ -15,7 +14,7 @@ ClickHouse will use all available hardware to maximize performance. So the more 
 * Recommended Hardware: &gt;=16-cores, &gt;=64Gb RAM, HDD-raid or SSD.
   * For processing up to hundreds of millions / billions of rows.
 
-For clouds: disk throughput is the more important factor compared to IOPS. Be aware of burst / baseline disk speed difference. 
+For clouds: disk throughput is the more important factor compared to IOPS. Be aware of burst / baseline disk speed difference.
 
 See also: [https://clickhouse.tech/benchmark/hardware/](https://clickhouse.tech/benchmark/hardware/)
 
@@ -25,11 +24,11 @@ Zookeeper requires separate servers from those used for ClickHouse. Zookeeper ha
 
 Hardware Requirements for Zookeeper:
 
-* Fast disk speed \(ideally NVMe, 128Gb should be enough\).
-* Any modern CPU \(one core, better 2\)
+* Fast disk speed (ideally NVMe, 128Gb should be enough).
+* Any modern CPU (one core, better 2)
 * 4Gb of RAM
 
-For clouds - be careful with burstable network disks \(like gp2 on aws\): you may need up to 1000 IOPs on the disk for on a long run, so gp3 with 3000 IOPs baseline is a better choice. 
+For clouds - be careful with burstable network disks (like gp2 on aws): you may need up to 1000 IOPs on the disk for on a long run, so gp3 with 3000 IOPs baseline is a better choice.
 
 The number of Zookeeper instances depends on the environment:
 
@@ -38,9 +37,9 @@ The number of Zookeeper instances depends on the environment:
 
 See also:
 
-* [**https://docs.altinity.com/operationsguide/clickhouse-zookeeper/**](https://docs.altinity.com/operationsguide/clickhouse-zookeeper/)
-* [**https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/altinity-kb-proper-setup**](https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/altinity-kb-proper-setup)
-* [**https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/zookeeper-monitoring**](https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/zookeeper-monitoring)
+* [https://docs.altinity.com/operationsguide/clickhouse-zookeeper/](https://docs.altinity.com/operationsguide/clickhouse-zookeeper/)
+* [altinity-kb-proper-setup]({{<ref "altinity-kb-proper-setup" >}})
+* [zookeeper-monitoring]({{<ref "zookeeper-monitoring" >}})
 
 #### ClickHouse Hardware Configuration
 
@@ -54,6 +53,4 @@ Be sure to test the following:
 * Network speed.
 * Storage speed.
 
-It’s better to find any performance issues before installing ClickHouse.  
-
-
+It’s better to find any performance issues before installing ClickHouse.

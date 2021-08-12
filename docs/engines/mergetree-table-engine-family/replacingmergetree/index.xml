@@ -1,0 +1,37 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Altinity Beta Knowledgebase – ReplacingMergeTree</title>
+    <link>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/replacingmergetree/</link>
+    <description>Recent content in ReplacingMergeTree on Altinity Beta Knowledgebase</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	  <atom:link href="http://beta.kb.altinity.com/engines/mergetree-table-engine-family/replacingmergetree/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Engines: ReplacingMergeTree does not collapse duplicates</title>
+      <link>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/replacingmergetree/altinity-kb-replacingmergetree-does-not-collapse-duplicates/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/replacingmergetree/altinity-kb-replacingmergetree-does-not-collapse-duplicates/</guid>
+      <description>
+        
+        
+        &lt;p&gt;&lt;strong&gt;Hi there, I have a question about replacing merge trees. I have set up a Materialized View with ReplacingMergeTree table, but even if I call optimize on it, the parts don&amp;rsquo;t get merged. I filled that table yesterday, nothing happened since then. What should I do?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Merges are eventual and may never happen. It depends on the number of inserts that happened after, the number of parts in the partition, size of parts.
+If the total size of input parts are greater than the maximum part size then they will never be merged.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://clickhouse.tech/docs/en/operations/settings/merge-tree-settings/#max-bytes-to-merge-at-max-space-in-pool&#34; target=&#34;_blank&#34;&gt;https://clickhouse.tech/docs/en/operations/settings/merge-tree-settings/#max-bytes-to-merge-at-max-space-in-pool&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://clickhouse.tech/docs/en/engines/table-engines/mergetree-family/replacingmergetree/&#34; target=&#34;_blank&#34;&gt;https://clickhouse.tech/docs/en/engines/table-engines/mergetree-family/replacingmergetree/&lt;/a&gt;
+&lt;em&gt;ReplacingMergeTree is suitable for clearing out duplicate data in the background in order to save space, but it doesn’t guarantee the absence of duplicates.&lt;/em&gt;&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

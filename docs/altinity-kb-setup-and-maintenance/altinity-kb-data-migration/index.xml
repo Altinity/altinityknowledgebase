@@ -15,11 +15,45 @@
     
     
     <item>
-      <title>Altinity-Kb-Setup-and-Maintenance: </title>
-      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/remote-...-table-function/</link>
+      <title>Altinity-Kb-Setup-and-Maintenance: clickhouse-copier</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/altinity-kb-clickhouse-copier/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/remote-...-table-function/</guid>
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/altinity-kb-clickhouse-copier/</guid>
+      <description>
+        
+        
+        &lt;p&gt;The description of the utility and its parameters, as well as examples of the config files that you need to create for the copier are in the doc &lt;a href=&#34;https://clickhouse.tech/docs/en/operations/utilities/clickhouse-copier/&#34; target=&#34;_blank&#34;&gt;https://clickhouse.tech/docs/en/operations/utilities/clickhouse-copier/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The steps to run a task:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Create a config file for clickhouse-copier (zookeeper.xml)&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://clickhouse.tech/docs/en/operations/utilities/clickhouse-copier/#format-of-zookeeper-xml&#34; target=&#34;_blank&#34;&gt;https://clickhouse.tech/docs/en/operations/utilities/clickhouse-copier/#format-of-zookeeper-xml&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Create a config file for the task (task1.xml)&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://clickhouse.tech/docs/en/operations/utilities/clickhouse-copier/#configuration-of-copying-tasks&#34; target=&#34;_blank&#34;&gt;https://clickhouse.tech/docs/en/operations/utilities/clickhouse-copier/#configuration-of-copying-tasks&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Create the task in ZooKeeper and start an instance of clickhouse-copier&lt;code&gt;clickhouse-copier --daemon --base-dir=/opt/clickhouse-copier --config /opt/clickhouse-copier/zookeeper.xml --task-path /clickhouse/copier/task1 --task-file /opt/clickhouse-copier/task1.xml&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;If the node in ZooKeeper already exists and you want to change it, you need to add the &lt;code&gt;task-upload-force&lt;/code&gt; parameter:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;clickhouse-copier --daemon --base-dir=/opt/clickhouse-copier --config /opt/clickhouse-copier/zookeeper.xml --task-path /clickhouse/copier/task1 --task-file /opt/clickhouse-copier/task1.xml --task-upload-force 1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;If you want to run another instance of clickhouse-copier for the same task, you need to copy the config file (zookeeper.xml) to another server, and run this command:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;clickhouse-copier --daemon --base-dir=/opt/clickhouse-copier --config /opt/clickhouse-copier/zookeeper.xml --task-path /clickhouse/copier/task1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;The number of simultaneously running instances is controlled be the &lt;code&gt;max_workers&lt;/code&gt; parameter in your task configuration file. If you run more workers superfluous workers will sleep and log messages like this:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;Debug&amp;gt; ClusterCopier: Too many workers (1, maximum 1). Postpone processing&lt;/code&gt;&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Altinity-Kb-Setup-and-Maintenance: Remote table function</title>
+      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/remote-table-function/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/remote-table-function/</guid>
       <description>
         
         
@@ -68,273 +102,6 @@ So maximum memory usage can be calculated like this: &lt;code&gt;max_insert_thre
     </item>
     
     <item>
-      <title>Altinity-Kb-Setup-and-Maintenance: clickhouse-copier</title>
-      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/altinity-kb-clickhouse-copier/readme/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/altinity-kb-clickhouse-copier/readme/</guid>
-      <description>
-        
-        
-        &lt;p&gt;The description of the utility and its parameters, as well as examples of the config files that you need to create for the copier are in the doc &lt;a href=&#34;https://clickhouse.tech/docs/en/operations/utilities/clickhouse-copier/&#34; target=&#34;_blank&#34;&gt;https://clickhouse.tech/docs/en/operations/utilities/clickhouse-copier/&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;The steps to run a task:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;Create a config file for clickhouse-copier (zookeeper.xml)&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://clickhouse.tech/docs/en/operations/utilities/clickhouse-copier/#format-of-zookeeper-xml&#34; target=&#34;_blank&#34;&gt;https://clickhouse.tech/docs/en/operations/utilities/clickhouse-copier/#format-of-zookeeper-xml&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Create a config file for the task (task1.xml)&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://clickhouse.tech/docs/en/operations/utilities/clickhouse-copier/#configuration-of-copying-tasks&#34; target=&#34;_blank&#34;&gt;https://clickhouse.tech/docs/en/operations/utilities/clickhouse-copier/#configuration-of-copying-tasks&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Create the task in ZooKeeper and start an instance of clickhouse-copier&lt;code&gt;clickhouse-copier --daemon --base-dir=/opt/clickhouse-copier --config /opt/clickhouse-copier/zookeeper.xml --task-path /clickhouse/copier/task1 --task-file /opt/clickhouse-copier/task1.xml&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;If the node in ZooKeeper already exists and you want to change it, you need to add the &lt;code&gt;task-upload-force&lt;/code&gt; parameter:&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;clickhouse-copier --daemon --base-dir=/opt/clickhouse-copier --config /opt/clickhouse-copier/zookeeper.xml --task-path /clickhouse/copier/task1 --task-file /opt/clickhouse-copier/task1.xml --task-upload-force 1&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;If you want to run another instance of clickhouse-copier for the same task, you need to copy the config file (zookeeper.xml) to another server, and run this command:&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;clickhouse-copier --daemon --base-dir=/opt/clickhouse-copier --config /opt/clickhouse-copier/zookeeper.xml --task-path /clickhouse/copier/task1&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;The number of simultaneously running instances is controlled be the &lt;code&gt;max_workers&lt;/code&gt; parameter in your task configuration file. If you run more workers superfluous workers will sleep and log messages like this:&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;&amp;lt;Debug&amp;gt; ClusterCopier: Too many workers (1, maximum 1). Postpone processing&lt;/code&gt;&lt;/p&gt;
-
-      </description>
-    </item>
-    
-    <item>
-      <title>Altinity-Kb-Setup-and-Maintenance: clickhouse-copier 20.3 and earlier</title>
-      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/altinity-kb-clickhouse-copier/altinity-kb-clickhouse-copier-20.3-and-earlier/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/altinity-kb-clickhouse-copier/altinity-kb-clickhouse-copier-20.3-and-earlier/</guid>
-      <description>
-        
-        
-        &lt;p&gt;Clickhouse-copier was created to move data between clusters.&lt;br&gt;
-It runs simple INSERT…SELECT queries and can copy data between tables with different engine parameters and between clusters with different number of shards.&lt;br&gt;
-In the task configuration file you need to describe the layout of the source and the target cluster, and list the tables that you need to copy. You can copy whole tables or specific partitions.&lt;br&gt;
-Clickhouse-copier uses temporary distributed tables to select from the source cluster and insert into the target cluster.&lt;/p&gt;
-&lt;h2 id=&#34;the-process-is-as-follows-a-idclickhouse-copier203andearlier-theprocessisasfollowsa&#34;&gt;The process is as follows: &lt;a id=&#34;clickhouse-copier20.3andearlier-Theprocessisasfollows:&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-&lt;ol&gt;
-&lt;li&gt;Process the configuration files.&lt;/li&gt;
-&lt;li&gt;Discover the list of partitions if not provided in the config.&lt;/li&gt;
-&lt;li&gt;Copy partitions one by one.
-&lt;ol&gt;
-&lt;li&gt;Drop the partition from the target table if it’s not empty&lt;/li&gt;
-&lt;li&gt;Copy data from source shards one by one.
-&lt;ol&gt;
-&lt;li&gt;Check if there is data for the partition on a source shard.&lt;/li&gt;
-&lt;li&gt;Check the status of the task in ZooKeeper.&lt;/li&gt;
-&lt;li&gt;Create target tables on all shards of the target cluster.&lt;/li&gt;
-&lt;li&gt;Insert the partition of data into the target table.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;li&gt;Mark the partition as completed in ZooKeeper.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;If there are several workers running simultaneously, they will assign themselves to different source shards.&lt;br&gt;
-If a worker was interrupted, another worker can be started to continue the task. The next worker will drop incomplete partitions and resume the copying.&lt;/p&gt;
-&lt;h2 id=&#34;configuring-the-engine-of-the-target-table-a-idclickhouse-copier203andearlier-configuringtheengineofthetargettablea&#34;&gt;Configuring the engine of the target table &lt;a id=&#34;clickhouse-copier20.3andearlier-Configuringtheengineofthetargettable&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;Clickhouse-copier uses the engine from the task configuration file for these purposes:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;to create target tables if they don’t exist.&lt;/li&gt;
-&lt;li&gt;PARTITION BY: to SELECT a partition of data from the source table, to DROP existing partitions from target tables.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Clickhouse-copier does not support the old MergeTree format.&lt;br&gt;
-However, you can create the target tables manually and specify the engine in the task configuration file in the new format so that clickhouse-copier can parse it for its SELECT queries.&lt;/p&gt;
-&lt;h2 id=&#34;how-to-monitor-the-status-of-running-tasks-a-idclickhouse-copier203andearlier-howtomonitorthestatusofrunningtasksa&#34;&gt;How to monitor the status of running tasks &lt;a id=&#34;clickhouse-copier20.3andearlier-Howtomonitorthestatusofrunningtasks&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;Clickhouse-copier uses ZooKeeper to keep track of the progress and to communicate between workers.&lt;br&gt;
-Here is a list of queries that you can use to see what’s happening.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;--task-path /clickhouse/copier/task1
-
--- The task config
-select * from system.zookeeper
-where path=&amp;#39;&amp;lt;task-path&amp;gt;&amp;#39;
-name                        | ctime               | mtime              
-----------------------------+---------------------+--------------------
-description                 | 2019-10-18 15:40:00 | 2020-09-11 16:01:14
-task_active_workers_version | 2019-10-18 16:00:09 | 2020-09-11 16:07:08
-tables                      | 2019-10-18 16:00:25 | 2019-10-18 16:00:25
-task_active_workers         | 2019-10-18 16:00:09 | 2019-10-18 16:00:09
-
-
--- Running workers
-select * from system.zookeeper
-where path=&amp;#39;&amp;lt;task-path&amp;gt;/task_active_workers&amp;#39;
-
-
--- The list of processed tables
-select * from system.zookeeper
-where path=&amp;#39;&amp;lt;task-path&amp;gt;/tables&amp;#39;
-
-
--- The list of processed partitions
-select * from system.zookeeper
-where path=&amp;#39;&amp;lt;task-path&amp;gt;/tables/&amp;lt;table&amp;gt;&amp;#39;
-name   | ctime              
--------+--------------------
-201909 | 2019-10-18 18:24:18
-
-
--- The status of a partition
-select * from system.zookeeper
-where path=&amp;#39;&amp;lt;task-path&amp;gt;/tables/&amp;lt;table&amp;gt;/&amp;lt;partition&amp;gt;&amp;#39;
-name                     | ctime              
--------------------------+--------------------
-shards                   | 2019-10-18 18:24:18
-partition_active_workers | 2019-10-18 18:24:18
-
-
--- The status of source shards
-select * from system.zookeeper
-where path=&amp;#39;&amp;lt;task-path&amp;gt;/tables/&amp;lt;table&amp;gt;/&amp;lt;partition&amp;gt;/shards&amp;#39;
-name | ctime               | mtime              
------+---------------------+--------------------
-1    | 2019-10-18 22:37:48 | 2019-10-18 22:49:29
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-      </description>
-    </item>
-    
-    <item>
-      <title>Altinity-Kb-Setup-and-Maintenance: clickhouse-copier 20.4&#43;</title>
-      <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/altinity-kb-clickhouse-copier/altinity-kb-clickhouse-copier-20.4&#43;/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/altinity-kb-clickhouse-copier/altinity-kb-clickhouse-copier-20.4&#43;/</guid>
-      <description>
-        
-        
-        &lt;p&gt;Clickhouse-copier was created to move data between clusters.&lt;br&gt;
-It runs simple INSERT…SELECT queries and can copy data between tables with different engine parameters and between clusters with different number of shards.&lt;br&gt;
-In the task configuration file you need to describe the layout of the source and the target cluster, and list the tables that you need to copy. You can copy whole tables or specific partitions.&lt;br&gt;
-Clickhouse-copier uses temporary distributed tables to select from the source cluster and insert into the target cluster.&lt;/p&gt;
-&lt;p&gt;The behaviour of clickhouse-copier was changed in 20.4:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Now clickhouse-copier inserts data into intermediate tables, and after the insert finishes successfully clickhouse-copier attaches the completed partition into the target table. This allows for incremental data copying, because the data in the target table is intact during the process. &lt;strong&gt;Important note:&lt;/strong&gt; ATTACH PARTITION respects the &lt;code&gt;max_partition_size_to_drop&lt;/code&gt; limit. Make sure the &lt;code&gt;max_partition_size_to_drop&lt;/code&gt; limit is big enough (or set to zero) in the destination cluster. If clickhouse-copier is unable to attach a partition because of the limit, it will proceed to the next partition, and it will drop the intermediate table when the task is finished (if the intermediate table is less than the &lt;code&gt;max_table_size_to_drop&lt;/code&gt; limit). &lt;strong&gt;Another important note:&lt;/strong&gt; ATTACH PARTITION is replicated. The attached partition will need to be downloaded by the other replicas. This can create significant network traffic between ClickHouse nodes. If an attach takes a long time, clickhouse-copier will log a timeout and will proceed to the next step.&lt;/li&gt;
-&lt;li&gt;Now clickhouse-copier splits the source data into chunks and copies them one by one. This is useful for big source tables, when inserting one partition of data can take hours. If there is an error during the insert clickhouse-copier has to drop the whole partition and start again. The &lt;code&gt;number_of_splits&lt;/code&gt; parameter lets you split your data into chunks so that in case of an exception clickhouse-copier has to re-insert only one chunk of the data.&lt;/li&gt;
-&lt;li&gt;Now clickhouse-copier runs &lt;code&gt;OPTIMIZE target_table PARTITION ... DEDUPLICATE&lt;/code&gt; for non-Replicated MergeTree tables. &lt;strong&gt;Important note:&lt;/strong&gt; This is a very strange feature that can do more harm than good. We recommend to disable it by configuring the engine of the target table as Replicated in the task configuration file, and create the target tables manually if they are not supposed to be replicated. Intermediate tables are always created as plain MergeTree.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;the-process-is-as-follows-a-idclickhouse-copier204-theprocessisasfollowsa&#34;&gt;The process is as follows: &lt;a id=&#34;clickhouse-copier20.4+-Theprocessisasfollows:&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-&lt;ol&gt;
-&lt;li&gt;Process the configuration files.&lt;/li&gt;
-&lt;li&gt;Discover the list of partitions if not provided in the config.&lt;/li&gt;
-&lt;li&gt;Copy partitions one by one &lt;em&gt;&lt;strong&gt;I’m not sure of the order since I was copying from 1 shard to 4 shards.&lt;/strong&gt;&lt;/em&gt; &lt;em&gt;&lt;strong&gt;The metadata in ZooKeeper suggests the order described here.&lt;/strong&gt;&lt;/em&gt;
-&lt;ol&gt;
-&lt;li&gt;Copy chunks of data one by one.
-&lt;ol&gt;
-&lt;li&gt;Copy data from source shards one by one.
-&lt;ol&gt;
-&lt;li&gt;Create intermediate tables on all shards of the target cluster.&lt;/li&gt;
-&lt;li&gt;Check the status of the chunk in ZooKeeper.&lt;/li&gt;
-&lt;li&gt;Drop the partition from the intermediate table if the previous attempt was interrupted.&lt;/li&gt;
-&lt;li&gt;Insert the chunk of data into the intermediate tables.&lt;/li&gt;
-&lt;li&gt;Mark the shard as completed in ZooKeeper&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;li&gt;Attach the chunks of the completed partition into the target table one by one
-&lt;ol&gt;
-&lt;li&gt;Attach a chunk into the target table.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;non-Replicated:&lt;/strong&gt; Run OPTIMIZE target_table DEDUPLICATE for the partition on the target table.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;li&gt;Drop intermediate tables (may not succeed if the tables are bigger than &lt;code&gt;max_table_size_to_drop&lt;/code&gt;).&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;If there are several workers running simultaneously, they will assign themselves to different source shards.&lt;br&gt;
-If a worker was interrupted, another worker can be started to continue the task. The next worker will drop incomplete partitions and resume the copying.&lt;/p&gt;
-&lt;h2 id=&#34;configuring-the-engine-of-the-target-table-a-idclickhouse-copier204-configuringtheengineofthetargettablea&#34;&gt;Configuring the engine of the target table &lt;a id=&#34;clickhouse-copier20.4+-Configuringtheengineofthetargettable&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;Clickhouse-copier uses the engine from the task configuration file for these purposes:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;to create target and intermediate tables if they don’t exist.&lt;/li&gt;
-&lt;li&gt;PARTITION BY: to SELECT a partition of data from the source table, to ATTACH partitions into target tables, to DROP incomplete partitions from intermediate tables, to OPTIMIZE partitions after they are attached to the target.&lt;/li&gt;
-&lt;li&gt;ORDER BY: to SELECT a chunk of data from the source table.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Here is an example of SELECT that clickhouse-copier runs to get the sixth of ten chunks of data:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;WHERE (&amp;lt;the PARTITION BY clause&amp;gt; = (&amp;lt;a value of the PARTITION BY expression&amp;gt; AS partition_key))
-  AND (cityHash64(&amp;lt;the ORDER BY clause&amp;gt;) % 10 = 6 )
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Clickhouse-copier does not support the old MergeTree format.&lt;br&gt;
-However, you can create the intermediate tables manually with the same engine as the target tables (otherwise ATTACH will not work), and specify the engine in the task configuration file in the new format so that clickhouse-copier can parse it for SELECT, ATTACH PARTITION and DROP PARTITION queries.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Important note&lt;/strong&gt;: always configure engine as Replicated to disable OPTIMIZE … DEDUPLICATE (unless you know why you need clickhouse-copier to run OPTIMIZE … DEDUPLICATE).&lt;/p&gt;
-&lt;h2 id=&#34;how-to-configure-the-number-of-chunks-a-idclickhouse-copier204-howtoconfigurethenumberofchunksa&#34;&gt;How to configure the number of chunks &lt;a id=&#34;clickhouse-copier20.4+-Howtoconfigurethenumberofchunks&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;The default value for &lt;code&gt;number_of_splits&lt;/code&gt; is 10.&lt;br&gt;
-You can change this parameter in the &lt;code&gt;table&lt;/code&gt; section of the task configuration file. We recommend setting it to 1 for smaller tables.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&amp;lt;cluster_push&amp;gt;target_cluster&amp;lt;/cluster_push&amp;gt;
-&amp;lt;database_push&amp;gt;target_database&amp;lt;/database_push&amp;gt;
-&amp;lt;table_push&amp;gt;target_table&amp;lt;/table_push&amp;gt;
-&amp;lt;number_of_splits&amp;gt;1&amp;lt;/number_of_splits&amp;gt;
-&amp;lt;engine&amp;gt;Engine=Replicated...&amp;lt;engine&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;how-to-monitor-the-status-of-running-tasks-a-idclickhouse-copier204-howtomonitorthestatusofrunningtasksa&#34;&gt;How to monitor the status of running tasks &lt;a id=&#34;clickhouse-copier20.4+-Howtomonitorthestatusofrunningtasks&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;Clickhouse-copier uses ZooKeeper to keep track of the progress and to communicate between workers.&lt;br&gt;
-Here is a list of queries that you can use to see what’s happening.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;--task-path /clickhouse/copier/task1
-
--- The task config
-select * from system.zookeeper
-where path=&amp;#39;&amp;lt;task-path&amp;gt;&amp;#39;
-name                        | ctime               | mtime              
-----------------------------+---------------------+--------------------
-description                 | 2021-03-22 13:15:48 | 2021-03-22 13:25:28
-task_active_workers_version | 2021-03-22 13:15:48 | 2021-03-22 20:32:09
-tables                      | 2021-03-22 13:16:47 | 2021-03-22 13:16:47
-task_active_workers         | 2021-03-22 13:15:48 | 2021-03-22 13:15:48
-
-
--- Running workers
-select * from system.zookeeper
-where path=&amp;#39;&amp;lt;task-path&amp;gt;/task_active_workers&amp;#39;
-
-
--- The list of processed tables
-select * from system.zookeeper
-where path=&amp;#39;&amp;lt;task-path&amp;gt;/tables&amp;#39;
-
-
--- The list of processed partitions
-select * from system.zookeeper
-where path=&amp;#39;&amp;lt;task-path&amp;gt;/tables/&amp;lt;table&amp;gt;&amp;#39;
-name   | ctime              
--------+--------------------
-202103 | 2021-03-22 13:16:47
-202102 | 2021-03-22 13:18:31
-202101 | 2021-03-22 13:27:36
-202012 | 2021-03-22 14:05:08
-
-
--- The status of a partition
-select * from system.zookeeper
-where path=&amp;#39;&amp;lt;task-path&amp;gt;/tables/&amp;lt;table&amp;gt;/&amp;lt;partition&amp;gt;&amp;#39;
-name           | ctime              
----------------+--------------------
-piece_0        | 2021-03-22 13:18:31
-attach_is_done | 2021-03-22 14:05:05
-
-
--- The status of a piece
-select * from system.zookeeper
-where path=&amp;#39;&amp;lt;task-path&amp;gt;/tables/&amp;lt;table&amp;gt;/&amp;lt;partition&amp;gt;/piece_N&amp;#39;
-name                           | ctime              
--------------------------------+--------------------
-shards                         | 2021-03-22 13:18:31
-is_dirty                       | 2021-03-22 13:26:51
-partition_piece_active_workers | 2021-03-22 13:26:54
-clean_start                    | 2021-03-22 13:26:54
-
-
--- The status of source shards
-select * from system.zookeeper
-where path=&amp;#39;&amp;lt;task-path&amp;gt;/tables/&amp;lt;table&amp;gt;/&amp;lt;partition&amp;gt;/piece_N/shards&amp;#39;
-name | ctime               | mtime              
------+---------------------+--------------------
-1    | 2021-03-22 13:26:54 | 2021-03-22 14:05:05
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-      </description>
-    </item>
-    
-    <item>
       <title>Altinity-Kb-Setup-and-Maintenance: rsync</title>
       <link>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/rsync/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -350,7 +117,7 @@ name | ctime               | mtime
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Run rsync command.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;rsync -ravlW --bwlimit&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;100000&lt;/span&gt; /var/lib/clickhouse/data/shadow/N/database/table 
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;rsync -ravlW --bwlimit&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;100000&lt;/span&gt; /var/lib/clickhouse/data/shadow/N/database/table
     root@remote_host:/var/lib/clickhouse/data/database/table/detached
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;--bwlimit&lt;/code&gt; is transfer limit in KBytes per second.&lt;/p&gt;
 &lt;/li&gt;

@@ -4,7 +4,6 @@ linkTitle: "Top N & Remain"
 description: >
     Top N & Remain
 ---
-
 ```sql
 CREATE TABLE top_with_rest
 (
@@ -99,7 +98,7 @@ ORDER BY res ASC
 └──────┴──────────┘
 ```
 
-## Using window functions \(starting from 21.1\)
+## Using window functions (starting from 21.1)
 
 ```sql
 SET allow_experimental_window_functions = 1;
@@ -140,4 +139,3 @@ ORDER BY res ASC
 │ ᴺᵁᴸᴸ │ 49000050 │
 └──────┴──────────┘
 ```
-

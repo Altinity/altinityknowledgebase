@@ -6,7 +6,6 @@ description: >
 ---
 
 
-
 Monitoring helps to track potential issues in your cluster before they cause a critical error.
 
 ### External Monitoring
@@ -29,18 +28,18 @@ The following metrics should be collected:
 * For Host Machine:
   * CPU
   * Memory
-  * Network \(bytes/packets\)
-  * Storage \(iops\)
-  * Disk Space \(free / used\)
+  * Network (bytes/packets)
+  * Storage (iops)
+  * Disk Space (free / used)
 * For ClickHouse:
-  * Connections \(count\)
+  * Connections (count)
   * RWLocks
-  * Read / Write / Return \(bytes\)
-  * Read / Write / Return \(rows\)
-  * Zookeeper operations \(count\)
+  * Read / Write / Return (bytes)
+  * Read / Write / Return (rows)
+  * Zookeeper operations (count)
   * Absolute delay
-  * Query duration \(optional\)
-  * Replication parts and queue \(count\)
+  * Query duration (optional)
+  * Replication parts and queue (count)
 * For Zookeeper:
   * See [ZooKeeper Monitoring Integration](https://sematext.com/docs/integration/zookeeper/).
 
@@ -196,11 +195,10 @@ The following health checks should be monitored:
 
 #### Monitoring References
 
-* [https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-monitoring](https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-monitoring)
+* [altinity-kb-monitoring]({{<ref "altinity-kb-monitoring" >}})
 * [https://tech.marksblogg.com/clickhouse-prometheus-grafana.html](https://tech.marksblogg.com/clickhouse-prometheus-grafana.html)
 * [Key Metrics for Monitoring ClickHouse](https://sematext.com/blog/clickhouse-monitoring-key-metrics/)
 * [ClickHouse Monitoring Key Metrics to Monitor](https://dzone.com/articles/clickhouse-monitoring-key-metrics-to-monitor-semat)
 * [ClickHouse Monitoring Tools: Five Tools to Consider](https://dzone.com/articles/clickhouse-monitoring-tools-five-tools-to-consider)
 * [Monitoring ClickHouse](https://docs.instana.io/ecosystem/clickhouse/)
 * [Monitor ClickHouse with Datadog](https://www.datadoghq.com/blog/monitor-clickhouse/)
-

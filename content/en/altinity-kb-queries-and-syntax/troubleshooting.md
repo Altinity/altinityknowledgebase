@@ -4,11 +4,10 @@ linkTitle: "Troubleshooting"
 description: >
     Troubleshooting
 ---
-
 ## Log of query execution
 
-Controlled by session level setting `send_logs_level`  
-Possible values: `'trace', 'debug', 'information', 'warning', 'error', 'fatal', 'none'`  
+Controlled by session level setting `send_logs_level`
+Possible values: `'trace', 'debug', 'information', 'warning', 'error', 'fatal', 'none'`
 Can be used with clickhouse-client in both interactive and non-interactive mode.
 
 ```bash
@@ -106,4 +105,3 @@ SETTINGS allow_introspection_functions = 1, output_format_json_named_tuples_as_o
 FORMAT JSONEachRow
 SETTINGS output_format_json_named_tuples_as_objects = 1
 ```
-

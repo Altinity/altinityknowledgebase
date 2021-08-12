@@ -4,7 +4,6 @@ linkTitle: "There are N unfinished hosts (0 of them are currently active)."
 description: >
     "There are N unfinished hosts (0 of them are currently active)."
 ---
-
 Sometimes your Distributed DDL queries are being stuck, and not executing on all or subset of nodes, there are a lot of possible reasons for that kind of behavior, so it would take some time and effort to investigate.
 
 #### Possible reasons:
@@ -23,13 +22,13 @@ cat /etc/hosts
 cat /etc/hostname
 ```
 
-{% page-ref page="./" %}
+[./](./)
 
 #### Debian / Ubuntu
 
 There is an issue in Debian based images, when hostname being mapped to 127.0.1.1 address which doesn't literally match network interface and clickhouse fails to detect this address as local.
 
-{% embed url="https://github.com/ClickHouse/ClickHouse/issues/23504" %}
+[https://github.com/ClickHouse/ClickHouse/issues/23504](https://github.com/ClickHouse/ClickHouse/issues/23504)
 
 #### Previous task is being executed and taking some time.
 
@@ -66,7 +65,7 @@ SELECT name, numChildren as success_nodes FROM system.zookeeper WHERE path = '/c
 SELECT query FROM system.query_log WHERE query LIKE '%ddl_entry%' AND type = 2 ORDER BY event_time DESC LIMIT 5;
 
 -- Information about task execution from logs.
-grep -C 40 "ddl\_entry" /var/log/clickhouse-server/clickhouse-server*.log
+grep -C 40 "ddl_entry" /var/log/clickhouse-server/clickhouse-server*.log
 ```
 
 #### Issues that can prevent the task execution:
@@ -84,12 +83,12 @@ SYSTEM STOP REPLICATION QUEUES;
 SYSTEM START REPLICATION QUEUES;
 ```
 
-{% embed url="https://clickhouse.tech/docs/en/sql-reference/statements/system/\#query\_language-system-drop-replica" %}
+[https://clickhouse.tech/docs/en/sql-reference/statements/system/\#query_language-system-drop-replica](https://clickhouse.tech/docs/en/sql-reference/statements/system/\#query_language-system-drop-replica)
 
  Task were removed from DDL queue but left it Replicated\*MergeTree table queue.
 
 ```bash
-grep -C 40 "ddl\_entry" /var/log/clickhouse-server/clickhouse-server*.log
+grep -C 40 "ddl_entry" /var/log/clickhouse-server/clickhouse-server*.log
 
 /var/log/clickhouse-server/clickhouse-server.log:2021.05.04 12:41:28.956888 [ 599 ] {} <Debug> DDLWorker: Processing task query-0000211211 (ALTER TABLE db.table_local ON CLUSTER `all-replicated` DELETE WHERE id = 1)
 /var/log/clickhouse-server/clickhouse-server.log:2021.05.04 12:41:29.053555 [ 599 ] {} <Error> DDLWorker: ZooKeeper error: Code: 999, e.displayText() = Coordination::Exception: No node, Stack trace (when copying this message, always include the lines below):
@@ -110,9 +109,8 @@ grep -C 40 "ddl\_entry" /var/log/clickhouse-server/clickhouse-server*.log
 /var/log/clickhouse-server/clickhouse-server.log:2021.05.04 12:41:29.053951 [ 599 ] {} <Debug> DDLWorker: Processing task query-0000211211 (ALTER TABLE db.table_local ON CLUSTER `all-replicated` DELETE WHERE id = 1)
 ```
 
-So context of this problem is:  
-Constant pressure of cheap ON CLUSTER DELETE queries.  
-One replica was down for certain amount of time.  
-Because of constant pressure on DDL queue, it purge old records due `task_max_lifetime` setting.  
-When lagging replica 
-
+So context of this problem is:
+Constant pressure of cheap ON CLUSTER DELETE queries.
+One replica was down for certain amount of time.
+Because of constant pressure on DDL queue, it purge old records due `task_max_lifetime` setting.
+When lagging replica

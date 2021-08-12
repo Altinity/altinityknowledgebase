@@ -4,10 +4,9 @@ linkTitle: "JSONAsString and Mat. View as JSON parser"
 description: >
     JSONAsString and Mat. View as JSON parser
 ---
-
 Tables with engine Null don’t store data but can be used as a source for materialized views.
 
-JSONAsString a special input format which allows to ingest JSONs into a String column. If the input has several JSON objects \(comma separated\) they will be interpreted as separate rows. JSON can be multiline.
+JSONAsString a special input format which allows to ingest JSONs into a String column. If the input has several JSON objects (comma separated) they will be interpreted as separate rows. JSON can be multiline.
 
 ```sql
 create table entrypoint(J String) Engine=Null;
@@ -37,8 +36,3 @@ SELECT * FROM datastore;
 ```
 
 See also: [https://app.gitbook.com/@altinity/s/altinitykb/altinity-kb-queries-and-syntax/jsonextract-to-parse-many-attributes-at-a-time](https://app.gitbook.com/@altinity/s/altinitykb/altinity-kb-queries-and-syntax/jsonextract-to-parse-many-attributes-at-a-time)
-
-
-
-
-

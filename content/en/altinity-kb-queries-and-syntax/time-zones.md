@@ -4,15 +4,13 @@ linkTitle: "Time zones"
 description: >
     Time zones
 ---
-
-Important things to know:  
-
+Important things to know:
 
 1. DateTime inside clickhouse is actually UNIX timestamp always, i.e. number of seconds since 1970-01-01 00:00:00 GMT.
-2. Conversion from that UNIX timestamp to a human-readable form and reverse can happen on the client \(for native clients\) and on the server \(for HTTP clients, and for some type of queries, like `toString(ts)`\)
+2. Conversion from that UNIX timestamp to a human-readable form and reverse can happen on the client (for native clients) and on the server (for HTTP clients, and for some type of queries, like `toString(ts)`)
 3. Depending on the place where that conversion happened rules of different timezones may be applied.
 4. You can check server timezone using `SELECT timezone()`
-5. clickhouse-client also by default tries to use server timezone \(see also `--use_client_time_zone` flag\)
+5. clickhouse-client also by default tries to use server timezone (see also `--use_client_time_zone` flag)
 6. If you want you can store the timezone name inside the data type, in that case, timestamp &lt;-&gt; human-readable time rules of that timezone will be applied.
 
 ```text
@@ -36,7 +34,7 @@ toUnixTimestamp(toDateTime(now())):        1626432628
 toUnixTimestamp(toDateTime(now(), 'UTC')): 1626432628
 ```
 
-Since version 20.4 clickhouse uses embedded tzdata \(see [https://github.com/ClickHouse/ClickHouse/pull/10425](https://github.com/ClickHouse/ClickHouse/pull/10425) \) 
+Since version 20.4 clickhouse uses embedded tzdata (see [https://github.com/ClickHouse/ClickHouse/pull/10425](https://github.com/ClickHouse/ClickHouse/pull/10425) )
 
 You get used tzdata version
 
@@ -77,7 +75,7 @@ Query id: 855453d7-eccd-44cb-9631-f63bb02a273c
 │ Indian/Antananarivo       │
 └───────────────────────────┘
 
-13 rows in set. Elapsed: 0.002 sec. 
+13 rows in set. Elapsed: 0.002 sec.
 
 ```
 
@@ -89,7 +87,6 @@ SELECT timezone()
 ┌─timezone()─┐
 │ UTC        │
 └────────────┘
-
 
 create table t_with_dt_utc ( ts DateTime64(3,'Europe/Moscow') ) engine=Log;
 
@@ -105,7 +102,6 @@ $ echo '2021-07-15T05:04:23.733' | clickhouse-client -q 'insert into x format CS
 -- parseDateTime64BestEffort(ts) uses server default timezone (UTC in my case), and convert the value using UTC rules.
 -- and the result is 2 different timestamps (when i selecting from that is shows both in 'desired' timezone, forced by column type, i.e. Moscow):
 
-
 SELECT * FROM t_with_dt_utc
 ┌──────────────────────ts─┐
 │ 2021-07-15 05:04:23.733 │
@@ -114,4 +110,3 @@ SELECT * FROM t_with_dt_utc
 ```
 
 Best practice here: use UTC timezone everywhere, OR use the same default timezone for clickhouse server as used by your data
-

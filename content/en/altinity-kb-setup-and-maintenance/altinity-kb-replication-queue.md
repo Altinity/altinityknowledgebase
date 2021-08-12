@@ -4,7 +4,6 @@ linkTitle: "Replication queue"
 description: >
     Replication queue
 ---
-
 ```sql
 SELECT
     database,
@@ -29,6 +28,3 @@ GROUP BY
     type
 ORDER BY count_all DESC
 ```
-
-
-

@@ -4,7 +4,6 @@ linkTitle: "SummingMergeTree"
 description: >
     SummingMergeTree
 ---
-
 ## Nested structures.
 
 In certain conditions it could make sense to collapse one of dimensions to set of arrays. It's usually profitable to do if this dimension is not commonly used in queries. It would reduce amount of rows in aggregated table and speed up queries which doesn't care about this dimension in exchange of aggregation performance by collapsed dimension.
@@ -134,4 +133,3 @@ FORMAT `Null`
 
 0 rows in set. Elapsed: 0.915 sec. Processed 10.00 million rows, 1.08 GB (10.93 million rows/s., 1.18 GB/s.)
 ```
-

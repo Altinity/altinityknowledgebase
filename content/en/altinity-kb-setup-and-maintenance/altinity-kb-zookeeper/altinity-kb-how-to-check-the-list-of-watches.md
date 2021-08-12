@@ -4,7 +4,6 @@ linkTitle: "How to check the list of watches"
 description: >
     How to check the list of watches
 ---
-
 Zookeeper use watches to notify a client on znode changes. This article explains how to check watches set by ZooKeeper servers and how it is used.
 
 **Solution:**
@@ -24,6 +23,3 @@ By default those commands are disabled, they can be enabled via Java system prop
 `-Dzookeeper.4lw.commands.whitelist=*`
 
 on in zookeeper config: `4lw.commands.whitelist=*`\
-
-
-

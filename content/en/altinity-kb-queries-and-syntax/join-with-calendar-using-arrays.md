@@ -4,11 +4,10 @@ linkTitle: "Join with Calendar using Arrays"
 description: >
     Join with Calendar using Arrays
 ---
-
 ## Sample data
 
 ```sql
-CREATE TABLE test_metrics (counter_id Int64, timestamp DateTime, metric UInt64) 
+CREATE TABLE test_metrics (counter_id Int64, timestamp DateTime, metric UInt64)
 Engine=Log;
 
 INSERT INTO test_metrics SELECT number % 3,
@@ -19,9 +18,9 @@ INSERT INTO test_metrics SELECT number % 3,
     toDateTime('2021-01-03 00:00:00'), 1
 FROM numbers(20);
 
-SELECT counter_id, toDate(timestamp) dt, sum(metric) 
-FROM test_metrics 
-GROUP BY counter_id, dt 
+SELECT counter_id, toDate(timestamp) dt, sum(metric)
+FROM test_metrics
+GROUP BY counter_id, dt
 ORDER BY counter_id, dt;
 
 ┌─counter_id─┬─────────dt─┬─sum(metric)─┐
@@ -56,8 +55,8 @@ SELECT counter_id, tuple.2 dt, sum(tuple.1) sum FROM
   WITH arrayMap(i -> (0, toDate('2021-01-01') + i), range(4)) AS Calendar
    SELECT counter_id, arrayJoin(arrayConcat(Calendar, [(sum, dt)])) tuple
    FROM
-             (SELECT counter_id, toDate(timestamp) dt, sum(metric) sum 
-              FROM test_metrics 
+             (SELECT counter_id, toDate(timestamp) dt, sum(metric) sum
+              FROM test_metrics
               GROUP BY counter_id, dt)
   ) GROUP BY counter_id, dt
     ORDER BY counter_id, dt;
@@ -108,6 +107,3 @@ ORDER BY
 │          2 │ 2021-01-04 │   0 │
 └────────────┴────────────┴─────┘
 ```
-
-
-

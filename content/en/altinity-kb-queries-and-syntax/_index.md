@@ -4,4 +4,3 @@ linkTitle: "Queries & Syntax"
 description: >
     Queries & Syntax
 ---
-

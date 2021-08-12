@@ -4,7 +4,6 @@ linkTitle: "UPDATE via Dictionary"
 description: >
     UPDATE via Dictionary
 ---
-
 ```sql
 CREATE TABLE test_update
 (
@@ -13,7 +12,6 @@ CREATE TABLE test_update
 )
 ENGINE = MergeTree
 ORDER BY key;
-
 
 INSERT INTO test_update SELECT
     number,
@@ -102,7 +100,6 @@ FROM test_update
 └─────┴─────────────┘
 ```
 
-{% hint style="info" %}
+{{% alert title="Info" color="info" %}}
 In case of Replicated installation, Dictionary should be created on all nodes and source tables should have ReplicatedMergeTree engine and be replicated across all nodes.
-{% endhint %}
-
+{{% /alert %}}

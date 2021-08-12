@@ -4,7 +4,6 @@ linkTitle: "Flattened table"
 description: >
     Flattened table
 ---
-
 It's possible to use dictionaries for populating columns of fact table.
 
 ```sql
@@ -28,7 +27,6 @@ CREATE TABLE order
 ENGINE = MergeTree
 PARTITION BY toYYYYMM(order_date)
 ORDER BY (order_date, cust_id, order_id)
-
 
 INSERT INTO customer VALUES(1, 'Mike', now() - INTERVAL 30 YEAR, 'M');
 INSERT INTO customer VALUES(2, 'Boris', now() - INTERVAL 40 YEAR, 'M');
@@ -57,14 +55,10 @@ SOURCE(CLICKHOUSE(TABLE 'customer'))
 LIFETIME(MIN 0 MAX 300)
 LAYOUT(FLAT)
 
-
-
-ALTER TABLE order 
+ALTER TABLE order
   ADD COLUMN `cust_first_name` String DEFAULT dictGetString('default.customer_dict', 'first_name', toUInt64(cust_id)),
   ADD COLUMN `cust_sex` Enum('M' = 1, 'F' = 2) DEFAULT dictGetUInt8('default.customer_dict', 'sex', toUInt64(cust_id)),
-	ADD COLUMN `cust_birth_date` Date DEFAULT dictGetDate('default.customer_dict', 'birth_date', toUInt64(cust_id));
-
-
+    ADD COLUMN `cust_birth_date` Date DEFAULT dictGetDate('default.customer_dict', 'birth_date', toUInt64(cust_id));
 
 INSERT INTO order (order_id, cust_id, amount) VALUES(10, 3, 30);
 INSERT INTO order (order_id, cust_id, amount) VALUES(20, 3, 60);
@@ -89,9 +83,9 @@ SYSTEM RELOAD DICTIONARY customer_dict;
 ALTER TABLE order
     UPDATE cust_birth_date = dictGetDate('default.customer_dict', 'birth_date', toUInt64(cust_id)) WHERE 1
 -- or if you do have track of changes it's possible to lower amount of dict calls
---  UPDATE cust_birth_date = dictGetDate('default.customer_dict', 'birth_date', toUInt64(cust_id)) WHERE customer_id = 2 
-	
-	
+--  UPDATE cust_birth_date = dictGetDate('default.customer_dict', 'birth_date', toUInt64(cust_id)) WHERE customer_id = 2
+
+
 SELECT * EXCEPT 'order_date'
 FROM order
 FORMAT PrettyCompactMonoBlock
@@ -106,4 +100,3 @@ FORMAT PrettyCompactMonoBlock
 ```
 
 `ALTER TABLE order UPDATE` would completely overwrite this column in table, so it's not recommended to run it often.
-

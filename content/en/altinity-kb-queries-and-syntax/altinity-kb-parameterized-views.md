@@ -4,7 +4,6 @@ linkTitle: "Parameterized views"
 description: >
     Parameterized views
 ---
-
 Custom settings allows to emulate parameterized views.
 
 You need to enable custom settings and define any prefixes for settings.
@@ -19,7 +18,7 @@ $ cat /etc/clickhouse-server/config.d/custom_settigs_prefix.xml
 $ service clickhouse-server restart
 ```
 
-Now you can set settings as any other settings, and query them using **getSetting\(\)** function.
+Now you can set settings as any other settings, and query them using **getSetting()** function.
 
 ```sql
 SET my2_category='hot deals';
@@ -57,6 +56,3 @@ SELECT *
 FROM my_new_view
 SETTINGS my2_category = 'hot deals';
 ```
-
-
-

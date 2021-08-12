@@ -4,7 +4,6 @@ linkTitle: "AWS EBS"
 description: >
     AWS EBS
 ---
-
 <table>
   <thead>
     <tr>
@@ -40,11 +39,11 @@ description: >
 
 In usual conditions ClickHouse being limited by throughput of volumes only and amount of provided IOPS doesn't make any big difference for performance. So the most native choice for clickhouse is gp2 and gp3 volumes.
 
-‌Because gp2 volumes have a hard limit of 250 MiB/s per volume \(for volumes bigger than 334 GB\), it usually makes sense to split one big volume in multiple smaller volumes larger than 334GB in order to have maximum possible throughput.
+‌Because gp2 volumes have a hard limit of 250 MiB/s per volume (for volumes bigger than 334 GB), it usually makes sense to split one big volume in multiple smaller volumes larger than 334GB in order to have maximum possible throughput.
 
 ‌EC2 instances also have an EBS throughput limit, it depends on the size of the EC2 instance. That means if you would attach multiple volumes which would have high potential throughput, you would be limited by your EC2 instance, so usually there is no reason to have more than 4-5 volumes per node.
 
-It's pretty straightforward to set up a ClickHouse for using multiple EBS volumes with storage\_policies.
+It's pretty straightforward to set up a ClickHouse for using multiple EBS volumes with storage_policies.
 
 ### GP3
 
@@ -52,19 +51,14 @@ It's a new type of volume, which is 20% cheaper than gp2 per GB-month and has lo
 
 
 
+[https://altinity.com/blog/2019/11/27/amplifying-clickhouse-capacity-with-multi-volume-storage-part-1](https://altinity.com/blog/2019/11/27/amplifying-clickhouse-capacity-with-multi-volume-storage-part-1)
 
+[https://altinity.com/blog/2019/11/29/amplifying-clickhouse-capacity-with-multi-volume-storage-part-2](https://altinity.com/blog/2019/11/29/amplifying-clickhouse-capacity-with-multi-volume-storage-part-2)
 
-{% embed url="https://altinity.com/blog/2019/11/27/amplifying-clickhouse-capacity-with-multi-volume-storage-part-1" %}
+[https://calculator.aws/\#/createCalculator/EBS?nc2=h_ql_pr_calc](https://calculator.aws/\#/createCalculator/EBS?nc2=h_ql_pr_calc)
 
-{% embed url="https://altinity.com/blog/2019/11/29/amplifying-clickhouse-capacity-with-multi-volume-storage-part-2" %}
+[https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-optimized.html](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-optimized.html)
 
-{% embed url="https://calculator.aws/\#/createCalculator/EBS?nc2=h\_ql\_pr\_calc" %}
+[https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html)
 
-{% embed url="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-optimized.html" %}
-
-{% embed url="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html" %}
-
-{% embed url="https://aws.amazon.com/ebs/general-purpose/" %}
-
-
-
+[https://aws.amazon.com/ebs/general-purpose/](https://aws.amazon.com/ebs/general-purpose/)

@@ -4,7 +4,6 @@ linkTitle: "Codecs speed"
 description: >
     Codecs speed
 ---
-
 ```sql
 create table test_codec_speed engine=MergeTree
 ORDER BY tuple()
@@ -25,13 +24,13 @@ Result may be not 100% reliable (checked on my laptop, need to be repeated in la
 
 OPTIMIZE TABLE test_codec_speed FINAL (second run - i.e. read + write the same data)
 1) 17 sec.
-2) 30 sec. 
-3) 16 sec 
+2) 30 sec.
+3) 16 sec
 4) 17 sec
 5) 29 sec
 6) 24 sec
 7) 31 sec
-8) 35 sec 
+8) 35 sec
 9) 19 sec
 
 compressed size
@@ -48,7 +47,7 @@ compressed size
 select max(x) from test_codec_speed
 1) 0.597
 2) 2.756 :(
-3) 1.168 
+3) 1.168
 4) 0.752
 5) 1.362
 6) 1.364
@@ -56,4 +55,3 @@ select max(x) from test_codec_speed
 8) 1.270
 9) 1.607
 ```
-

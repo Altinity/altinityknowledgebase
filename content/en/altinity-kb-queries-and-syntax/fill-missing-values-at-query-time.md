@@ -4,7 +4,6 @@ linkTitle: "Fill missing values at query time"
 description: >
     Fill missing values at query time
 ---
-
 ```sql
 CREATE TABLE event_table
 (
@@ -101,4 +100,3 @@ ARRAY JOIN
 │   1 │ 2020-10-11 10:10:19 │       7 │ 7       │
 └─────┴─────────────────────┴─────────┴─────────┘
 ```
-

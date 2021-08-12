@@ -1,14 +1,9 @@
 ---
-description: ALTER UPDATE / DELETE
----
-
----
 title: "Mutations"
 linkTitle: "Mutations"
 description: >
-    Mutations
+    ALTER UPDATE / DELETE
 ---
-
 Q. How to know if `ALTER TABLE … DELETE/UPDATE mutation ON CLUSTER` was finished successfully on all the nodes?
 
 A. mutation status in system.mutations is local to each replica, so use
@@ -19,4 +14,3 @@ SELECT hostname(), * FROM clusterAllReplicas('your_cluster_name', system.mutatio
 ```
 
 Look on `is_done` and `latest_fail_reason` columns
-

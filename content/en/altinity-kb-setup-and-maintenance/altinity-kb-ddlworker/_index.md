@@ -4,16 +4,15 @@ linkTitle: "DDLWorker"
 description: >
     DDLWorker
 ---
+DDLWorker is a subprocess (thread) of clickhouse-server that executes `ON CLUSTER` tasks at the node.
 
-DDLWorker is a subprocess \(thread\) of clickhouse-server that executes `ON CLUSTER` tasks at the node.
-
-When you execute a DDL query with `ON CLUSTER mycluster` section the query executor at the current node reads the cluster `mycluster` definition \(remote\_servers / system.clusters\) and places tasks into Zookeeper znode `task_queue/ddl/...` for members of the cluster `mycluster`.
+When you execute a DDL query with `ON CLUSTER mycluster` section the query executor at the current node reads the cluster `mycluster` definition (remote_servers / system.clusters) and places tasks into Zookeeper znode `task_queue/ddl/...` for members of the cluster `mycluster`.
 
 DDLWorker at all ClickHouse nodes constantly check this `task_queue` for their tasks and executes them locally and reports about a result back into `task_queue`.
 
 The common issue is the different hostnames/IPAddresses in the cluster definition and locally.
 
-So a node initiator puts tasks for a host named Host1. But the Host1 thinks about own name as localhost or **xdgt634678d** \(internal docker hostname\) and never sees tasks for the Host1 because is looking tasks for **xdgt634678d.** The same with internal VS external IP addresses.
+So a node initiator puts tasks for a host named Host1. But the Host1 thinks about own name as localhost or **xdgt634678d** (internal docker hostname) and never sees tasks for the Host1 because is looking tasks for **xdgt634678d.** The same with internal VS external IP addresses.
 
 Another issue that sometimes DDLWorker thread can crash then ClickHouse node stops to execute `ON CLUSTER` tasks.
 
@@ -56,11 +55,8 @@ config.xml
 
 Default values:
 
-**cleanup\_delay\_period** = 60 seconds – Sets how often to start cleanup to remove outdated data.
+**cleanup_delay_period** = 60 seconds – Sets how often to start cleanup to remove outdated data.
 
-**task\_max\_lifetime** = 7 \* 24 \* 60 \* 60 \(in seconds = week\) – Delete task if its age is greater than that.
+**task_max_lifetime** = 7 \* 24 \* 60 \* 60 (in seconds = week) – Delete task if its age is greater than that.
 
-**max\_tasks\_in\_queue** = 1000 – How many tasks could be in the queue.
-
-
-
+**max_tasks_in_queue** = 1000 – How many tasks could be in the queue.

@@ -4,10 +4,9 @@ linkTitle: "Skip index"
 description: >
     Skip index
 ---
-
-{% hint style="danger" %}
-When you are creating skip indexes in non-regular \(Replicated\)MergeTree tables over non ORDER BY columns. ClickHouse applies index condition on the first step of query execution, so it's possible to get outdated rows.
-{% endhint %}
+{{% alert title="Warning" color="warning" %}}
+When you are creating skip indexes in non-regular (Replicated)MergeTree tables over non ORDER BY columns. ClickHouse applies index condition on the first step of query execution, so it's possible to get outdated rows.
+{{% /alert %}}
 
 ```sql
 --(1) create test table
@@ -39,4 +38,3 @@ select version, id, state from test final where state=0;
 │       2 │  1 │     0 │
 └─────────┴────┴───────┘
 ```
-

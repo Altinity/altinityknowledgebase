@@ -4,10 +4,9 @@ linkTitle: "AggregatingMergeTree"
 description: >
     AggregatingMergeTree
 ---
-
 Q. What happens with columns which are nor the part of ORDER BY key, nor have the AggregateFunction type?
 
-A. it picks the first value met, \(similar to `any`\)
+A. it picks the first value met, (similar to `any`)
 
 ```sql
 CREATE TABLE agg_test
@@ -47,6 +46,3 @@ SELECT * FROM agg_test;
 │ a │ 1 │ 3 │
 └───┴───┴───┘
 ```
-
-
-

@@ -4,7 +4,6 @@ linkTitle: "assumeNotNull and friends"
 description: >
     assumeNotNull and friends
 ---
-
 `assumeNotNull` result is implementation specific:
 
 ```sql
@@ -25,7 +24,6 @@ SELECT
 ┌─column─┬───x─┐
 │   ᴺᵁᴸᴸ │ 999 │
 └────────┴─────┘
-
 
 CREATE TABLE test_null
 (
@@ -51,7 +49,7 @@ FROM test_null;
 └─────┴─────────┘
 
 ALTER TABLE test_null
-    UPDATE value = NULL WHERE key = 3; 
+    UPDATE value = NULL WHERE key = 3;
 
 SELECT *
 FROM test_null;
@@ -75,7 +73,6 @@ FROM test_null;
 │   3 │ value 3              │
 └─────┴──────────────────────┘
 
-
 WITH CAST(NULL, 'Nullable(Enum8(\'a\' = 1, \'b\' = 0))') AS test
 SELECT assumeNotNull(test)
 
@@ -91,9 +88,9 @@ select assumeNotNull(test); ;':
 Code: 36, e.displayText() = DB::Exception: Unexpected value 0 in enum, Stack trace (when copying this message, always include the lines below):
 ```
 
-{% hint style="info" %}
-Null values in ClickHouse are stored in a separate dictionary: is this value Null. And for faster dispatch of functions there is no check on Null value while function execution, so functions like plus can modify internal column value \(which has default value\). In normal conditions it’s not a problem because on read attempt, ClickHouse first would check the Null dictionary and return value from column itself for non-Nulls only. And `assumeNotNull` function just ignores this Null dictionary. So it would return only column values, and in certain cases it’s possible to have unexpected results.
-{% endhint %}
+{{% alert title="Info" color="info" %}}
+Null values in ClickHouse are stored in a separate dictionary: is this value Null. And for faster dispatch of functions there is no check on Null value while function execution, so functions like plus can modify internal column value (which has default value). In normal conditions it’s not a problem because on read attempt, ClickHouse first would check the Null dictionary and return value from column itself for non-Nulls only. And `assumeNotNull` function just ignores this Null dictionary. So it would return only column values, and in certain cases it’s possible to have unexpected results.
+{{% /alert %}}
 
 If it's possible to have Null values, it's better to use `ifNull` function instead.
 
@@ -139,9 +136,6 @@ WHERE NOT ignore(toNullable(number))
 1 rows in set. Elapsed: 0.050 sec. Processed 1.00 billion rows, 8.00 GB (20.19 billion rows/s., 161.56 GB/s.)
 ```
 
-{% hint style="info" %}
+{{% alert title="Info" color="info" %}}
 There is no overhead for `assumeNotNull` at all.
-{% endhint %}
-
-
-
+{{% /alert %}}
