@@ -14,7 +14,7 @@ Agreement shall mean this agreement to grant intellectual property rights made b
 
 Contributor shall mean an individual with necessary legal capacities that signed this Agreement and consented to all its provisions.
 
-Altinity Inc shall mean Altinity Inc, a legal entity registered under laws of the United States of America located  2001 Addison Street, Suite 300, Berkeley, CA, 94704, United States.
+Altinity Inc shall mean Altinity Inc, a legal entity registered under laws of the United States of America located at 2001 Addison Street, Suite 300, Berkeley, CA, 94704, United States.
 
 Affiliates shall mean legal entities able to control Altinity Inc’s activities, directly or indirectly, and legal entities, which activities can be controlled by Altinity Inc, directly or indirectly; in this respect, “control” shall mean the direct or indirect holding of more than 50% of voting shares/stock in the authorized (share) capital or the right to manage or the right to influence the controlled legal entity’s executive staff or policy obtained otherwise.
 
