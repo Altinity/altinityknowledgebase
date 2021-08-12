@@ -4,7 +4,6 @@ linkTitle: "Who ate my memory"
 description: >
     Who ate my memory
 ---
-
 ```sql
 SELECT formatReadableSize(sum(bytes_allocated)) FROM system.dictionaries;
 
@@ -48,6 +47,3 @@ WHERE (event_date >= today()) AND (event_time >= (now() - 7200))
 ORDER BY memory_usage DESC
 LIMIT 10;
 ```
-
-
-

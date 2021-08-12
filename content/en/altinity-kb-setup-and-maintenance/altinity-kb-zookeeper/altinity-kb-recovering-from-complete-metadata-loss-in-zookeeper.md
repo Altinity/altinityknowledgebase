@@ -4,8 +4,7 @@ linkTitle: "Recovering from complete metadata loss in ZooKeeper"
 description: >
     Recovering from complete metadata loss in ZooKeeper
 ---
-
-## Problem <a id="Recoveringfromcompletemetadatalossinzookeeper-Problem"></a>
+## Problem
 
 Every ClickHouse user experienced a loss of ZooKeeper one day. While the data is available and replicas respond to queries, inserts are no longer possible. ClickHouse uses ZooKeeper in order to store the reference version of the table structure and part of data, and when it is not available can not guarantee data consistency anymore. Replicated tables turn to the read-only mode. In this article we describe step-by-step instructions of how to restore ZooKeeper metadata and bring ClickHouse cluster back to normal operation.
 
@@ -17,12 +16,12 @@ CREATE TABLE table_name ... ENGINE=ReplicatedMergeTree('zookeeper_path','replica
 
 The second and more difficult task is to populate zookeeper with information of clickhouse data parts. As mentioned above, ClickHouse stores the reference data about all parts of replicated tables in ZooKeeper, so we have to traverse all partitions and re-attach them to the recovered replicated table in order to fix that.
 
-## Test case <a id="Recoveringfromcompletemetadatalossinzookeeper-Testcase"></a>
+## Test case
 
 Let's say we have replicated table `table_repl`.
 
 ```sql
-CREATE TABLE table_repl 
+CREATE TABLE table_repl
 (
    `number` UInt32
 )
@@ -61,7 +60,7 @@ INSERT INTO table_repl SELECT number AS number FROM numbers(1000,2000) WHERE num
 
 And now we have an exception that we lost all metadata in zookeeper. It is time to recover!
 
-## Current Solution <a id="Recoveringfromcompletemetadatalossinzookeeper-CurrentSolution"></a>
+## Current Solution
 
 1. Detach replicated table.
 
@@ -133,8 +132,3 @@ If the table has many partitions, it may require some shell script to make it ea
 ### Automated approach
 
 For a large number of tables, you can use script  [https://github.com/Altinity/clickhouse-zookeeper-recovery](https://github.com/Altinity/clickhouse-zookeeper-recovery) which partially automates the above approach.
-
-
-
-
-

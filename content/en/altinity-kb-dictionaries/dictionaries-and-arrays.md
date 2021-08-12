@@ -64,12 +64,12 @@ CREATE TABLE arr_src (
     array_str   text[]
 );
 
-INSERT INTO arr_src VALUES 
+INSERT INTO arr_src VALUES
   (42, '{0,42,84,126,168}','{"str0","str42","str84","str126","str168"}'),
   (66, '{0,66,132,198,264}','{"str0","str66","str132","str198","str264"}');
 ```
 
-### Dictionary
+### Dictionary Example
 
 ```sql
 CREATE DICTIONARY pg_arr_dict
@@ -79,7 +79,7 @@ CREATE DICTIONARY pg_arr_dict
     array_str Array(String) DEFAULT ['1','2','3']
 )
 PRIMARY KEY key
-SOURCE(POSTGRESQL(PORT 5432 HOST 'pg-host' 
+SOURCE(POSTGRESQL(PORT 5432 HOST 'pg-host'
          user 'ch' password 'chch'  DATABASE  'ch' TABLE 'arr_src'))
 LIFETIME(120)
 LAYOUT(HASHED());

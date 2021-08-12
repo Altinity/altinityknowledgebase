@@ -4,7 +4,6 @@ linkTitle: "Nulls in order by"
 description: >
     Nulls in order by
 ---
-
 ```sql
 CREATE TABLE x
 (
@@ -25,6 +24,3 @@ SELECT * FROM x;
 │ ᴺᵁᴸᴸ │ ᴺᵁᴸᴸ │   2 │
 └──────┴──────┴─────┘
 ```
-
-
-

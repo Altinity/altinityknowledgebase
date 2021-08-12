@@ -4,7 +4,6 @@ linkTitle: "Dictionary on the top of the several tables using VIEW"
 description: >
     Dictionary on the top of the several tables using VIEW
 ---
-
 ```sql
 
 DROP TABLE IF EXISTS dictionary_source_en;
@@ -48,4 +47,3 @@ SELECT
     dictGet(concat(currentDatabase(), '.flat_dictionary'), 'value_ru', number + 1)
 FROM numbers(3);
 ```
-

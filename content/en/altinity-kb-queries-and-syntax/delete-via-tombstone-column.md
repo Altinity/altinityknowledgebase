@@ -4,7 +4,6 @@ linkTitle: "DELETE via tombstone column"
 description: >
     DELETE via tombstone column
 ---
-
 ```sql
 CREATE TABLE test_delete
 (
@@ -87,4 +86,3 @@ WHERE key = 400000
 │ 400000 │  2 │ totally different string │ another totally different string │ last string │         1 │
 └────────┴────┴──────────────────────────┴──────────────────────────────────┴─────────────┴───────────┘
 ```
-

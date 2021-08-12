@@ -4,10 +4,9 @@ linkTitle: "Simple aggregate functions & combinators"
 description: >
     Simple aggregate functions & combinators
 ---
-
 ### Q. What is SimpleAggregateFunction? Are there advantages to use it instead of  AggregateFunction in AggregatingMergeTree?
 
-SimpleAggregateFunction can be used for those aggregations when the function state is exactly the same as the resulting function value. Typical example is `max` function: it only requires storing the single value which is already maximum, and no extra steps needed to get the final value. In contrast `avg` need to store two numbers - sum & count, which should be divided to get the final value of aggregation \(done by the `-Merge` step at the very end\). 
+SimpleAggregateFunction can be used for those aggregations when the function state is exactly the same as the resulting function value. Typical example is `max` function: it only requires storing the single value which is already maximum, and no extra steps needed to get the final value. In contrast `avg` need to store two numbers - sum & count, which should be divided to get the final value of aggregation (done by the `-Merge` step at the very end).
 
 <table>
   <thead>
@@ -78,38 +77,37 @@ SimpleAggregateFunction can be used for those aggregations when the function sta
   </tbody>
 </table>
 
-See also   
-[https://github.com/ClickHouse/ClickHouse/pull/4629](https://github.com/ClickHouse/ClickHouse/pull/4629)  
-[https://github.com/ClickHouse/ClickHouse/issues/3852](https://github.com/ClickHouse/ClickHouse/issues/3852)  
-
+See also
+[https://github.com/ClickHouse/ClickHouse/pull/4629](https://github.com/ClickHouse/ClickHouse/pull/4629)
+[https://github.com/ClickHouse/ClickHouse/issues/3852](https://github.com/ClickHouse/ClickHouse/issues/3852)
 
 ### Q. How maxSimpleState combinator result differs from plain max?
 
-They produce the same result, but types differ \(the first have `SimpleAggregateFunction` datatype\). Both can be pushed to SimpleAggregateFunction or to the underlying type. So they are interchangeable. 
+They produce the same result, but types differ (the first have `SimpleAggregateFunction` datatype). Both can be pushed to SimpleAggregateFunction or to the underlying type. So they are interchangeable.
 
-{% hint style="info" %}
-`-SimpleState` is useful for implicit Materialized View creation, like  
-`CREATE MATERIALIZED VIEW mv  
-ENGINE = AggregatingMergeTree  
-ORDER BY date AS  
-SELECT  
-    date,  
-    sumSimpleState(1) AS cnt,  
-    sumSimpleState(revenue) AS rev  
-FROM table  
+{{% alert title="Info" color="info" %}}
+`-SimpleState` is useful for implicit Materialized View creation, like
+`CREATE MATERIALIZED VIEW mv
+ENGINE = AggregatingMergeTree
+ORDER BY date AS
+SELECT
+    date,
+    sumSimpleState(1) AS cnt,
+    sumSimpleState(revenue) AS rev
+FROM table
 GROUP BY date`
-{% endhint %}
+{{% /alert %}}
 
-{% hint style="warning" %}
-`-SimpleState` supported since 21.1.  
+{{% alert title="Warning" color="warning" %}}
+`-SimpleState` supported since 21.1.
 See [https://github.com/ClickHouse/ClickHouse/pull/16853/](https://github.com/ClickHouse/ClickHouse/pull/16853/commits/5b1e5679b4a292e33ee5e60c0ba9cefa1e8388bd)
-{% endhint %}
+{{% /alert %}}
 
 ### Q. Can I use -If combinator with SimpleAggregateFunction?
 
-Something like `SimpleAggregateFunction(maxIf, UInt64, UInt8)` is NOT possible. But is 100% ok to push `maxIf` \(or `maxSimpleStateIf`\)  into `SimpleAggregateFunction(max, UInt64)`
+Something like `SimpleAggregateFunction(maxIf, UInt64, UInt8)` is NOT possible. But is 100% ok to push `maxIf` (or `maxSimpleStateIf`)  into `SimpleAggregateFunction(max, UInt64)`
 
-There is one problem with that approach:  
+There is one problem with that approach:
 `-SimpleStateIf` Would produce 0 as result in case of no-match, and it can mess up some aggregate functions state. It wouldn't affect functions like `max/argMax/sum`, but could affect functions like `min/argMin/any/anyLast`
 
 ```sql
@@ -133,8 +131,9 @@ FROM
 └─────────────────────┴──────────────┘
 ```
 
-You can easily workaround that:  
-1. Using Nullable datatype.  
+You can easily workaround that:
+
+1. Using Nullable datatype.
 2. Set result to some big number in case of no-match, which would be bigger than any possible value, so it would be safe to use. But it would work only for `min/argMin`
 
 ```sql
@@ -195,8 +194,3 @@ byteSize(state_2):   2
 byteSize(state_1):   10
 byteSize(state_2):   1
 ```
-
-
-
-
-

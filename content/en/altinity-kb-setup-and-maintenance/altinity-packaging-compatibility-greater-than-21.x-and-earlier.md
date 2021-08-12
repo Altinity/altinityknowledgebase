@@ -4,35 +4,34 @@ linkTitle: "Altinity packaging compatibility &gt;21.x and earlier"
 description: >
     Altinity packaging compatibility &gt;21.x and earlier
 ---
-
 ## Working with Altinity & Yandex packaging together
 
-Since version 21.1 Altinity switches to the same packaging as used by Yandex. That is needed for syncing things and introduces several improvements \(like adding systemd service file\).
+Since version 21.1 Altinity switches to the same packaging as used by Yandex. That is needed for syncing things and introduces several improvements (like adding systemd service file).
 
-Unfortunately, that change leads to compatibility issues - automatic dependencies resolution gets confused by the conflicting package names: both when you update ClickHouse to the new version \(the one which uses older packaging\) and when you want to install older altinity packages \(20.8 and older\).
+Unfortunately, that change leads to compatibility issues - automatic dependencies resolution gets confused by the conflicting package names: both when you update ClickHouse to the new version (the one which uses older packaging) and when you want to install older altinity packages (20.8 and older).
 
-### Installing old clickhouse version \(with old packaging schema\)
+### Installing old clickhouse version (with old packaging schema)
 
 When you try to install versions 20.8 or older from Altinity repo -
 
 ```text
-version=20.8.12.2-1.el7 
+version=20.8.12.2-1.el7
 yum install clickhouse-client-${version} clickhouse-server-${version}
 ```
 
 yum outputs smth like
 
 ```text
-yum install clickhouse-client-${version} clickhouse-server-${version} 
+yum install clickhouse-client-${version} clickhouse-server-${version}
 Loaded plugins: fastestmirror, ovl
 Loading mirror speeds from cached hostfile
  * base: centos.hitme.net.pl
  * extras: centos1.hti.pl
  * updates: centos1.hti.pl
-Altinity_clickhouse-altinity-stable/x86_64/signature                                                                                                                                |  833 B  00:00:00     
-Altinity_clickhouse-altinity-stable/x86_64/signature                                                                                                                                | 1.0 kB  00:00:01 !!! 
-Altinity_clickhouse-altinity-stable-source/signature                                                                                                                                |  833 B  00:00:00     
-Altinity_clickhouse-altinity-stable-source/signature                                                                                                                                |  951 B  00:00:00 !!! 
+Altinity_clickhouse-altinity-stable/x86_64/signature                                                                                                                                |  833 B  00:00:00
+Altinity_clickhouse-altinity-stable/x86_64/signature                                                                                                                                | 1.0 kB  00:00:01 !!!
+Altinity_clickhouse-altinity-stable-source/signature                                                                                                                                |  833 B  00:00:00
+Altinity_clickhouse-altinity-stable-source/signature                                                                                                                                |  951 B  00:00:00 !!!
 Resolving Dependencies
 --> Running transaction check
 ---> Package clickhouse-client.x86_64 0:20.8.12.2-1.el7 will be installed
@@ -63,12 +62,12 @@ Error: Package: clickhouse-server-20.8.12.2-1.el7.x86_64 (Altinity_clickhouse-al
 
 As you can see yum has an issue with resolving `clickhouse-server-common` dependency, which marked as obsoleted by newer packages.
 
-#### Solution
+#### Solution with Old Packaging Scheme
 
 add `--setopt=obsoletes=0` flag to the yum call.
 
 ```text
-version=20.8.12.2-1.el7 
+version=20.8.12.2-1.el7
 yum install --setopt=obsoletes=0 clickhouse-client-${version} clickhouse-server-${version}
 ---
 title: "installation succeeded"
@@ -80,7 +79,7 @@ description: >
 
 Alternatively, you can add `obsoletes=0` into `/etc/yum.conf`.
 
-### To update to new ClickHouse version \(from old packaging schema to new packaging schema\)
+### To update to new ClickHouse version (from old packaging schema to new packaging schema)
 
 ```text
 version=21.1.7.1-2
@@ -93,16 +92,16 @@ Loading mirror speeds from cached hostfile
  * base: centos.hitme.net.pl
  * extras: centos1.hti.pl
  * updates: centos1.hti.pl
-Altinity_clickhouse-altinity-stable/x86_64/signature                                                                                                                                |  833 B  00:00:00     
-Altinity_clickhouse-altinity-stable/x86_64/signature                                                                                                                                | 1.0 kB  00:00:01 !!! 
-Altinity_clickhouse-altinity-stable-source/signature                                                                                                                                |  833 B  00:00:00     
-Altinity_clickhouse-altinity-stable-source/signature                                                                                                                                |  951 B  00:00:00 !!! 
+Altinity_clickhouse-altinity-stable/x86_64/signature                                                                                                                                |  833 B  00:00:00
+Altinity_clickhouse-altinity-stable/x86_64/signature                                                                                                                                | 1.0 kB  00:00:01 !!!
+Altinity_clickhouse-altinity-stable-source/signature                                                                                                                                |  833 B  00:00:00
+Altinity_clickhouse-altinity-stable-source/signature                                                                                                                                |  951 B  00:00:00 !!!
 Nothing to do
 ```
 
 It is caused by wrong dependencies resolution.
 
-#### Solution
+#### Solution with New Package Scheme
 
 To update to the latest available version - just add `clickhouse-server-common`:
 
@@ -110,12 +109,12 @@ To update to the latest available version - just add `clickhouse-server-common`:
 yum install clickhouse-client clickhouse-server clickhouse-server-common
 ```
 
-This way the latest available version will be installed \(even if you will request some other version explicitly\).
+This way the latest available version will be installed (even if you will request some other version explicitly).
 
 To install some specific version remove old packages first, then install new ones.
 
 ```text
-yum erase clickhouse-client clickhouse-server clickhouse-server-common clickhouse-common-static 
+yum erase clickhouse-client clickhouse-server clickhouse-server-common clickhouse-common-static
 version=21.1.7.1
 yum install clickhouse-client-${version} clickhouse-server-${version}
 ```
@@ -159,7 +158,7 @@ Error: Package: clickhouse-server-20.8.12.2-1.el7.x86_64 (Altinity_clickhouse-al
  You could try running: rpm -Va --nofiles --nodigest
 ```
 
-#### Solution
+#### Solution With Downgrading
 
 Remove packages first, then install older versions:
 
@@ -168,4 +167,3 @@ yum erase clickhouse-client clickhouse-server clickhouse-server-common clickhous
 version=20.8.12.2-1.el7
 yum install --setopt=obsoletes=0 clickhouse-client-${version} clickhouse-server-${version}
 ```
-

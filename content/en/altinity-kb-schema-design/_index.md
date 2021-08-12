@@ -4,6 +4,3 @@ linkTitle: "Schema design"
 description: >
     Schema design
 ---
-
-
-

@@ -4,7 +4,6 @@ linkTitle: "Example: minmax"
 description: >
     Example: minmax
 ---
-
 ### Use cases
 
 #### Strong correlation between column from table ORDER BY / PARTITION BY key and other column which is regularly being used in WHERE condition.
@@ -32,7 +31,7 @@ SELECT count()
 FROM skip_idx_corr
 WHERE id = 6000000
 
-1 rows in set. Elapsed: 0.167 sec. Processed 100.00 million rows, 400.00 MB 
+1 rows in set. Elapsed: 0.167 sec. Processed 100.00 million rows, 400.00 MB
 (599.96 million rows/s., 2.40 GB/s.)
 
 
@@ -44,7 +43,7 @@ SELECT count()
 FROM skip_idx_corr
 WHERE id = 6000000
 
-1 rows in set. Elapsed: 0.017 sec. Processed 6.29 million rows, 25.17 MB 
+1 rows in set. Elapsed: 0.017 sec. Processed 6.29 million rows, 25.17 MB
 (359.78 million rows/s., 1.44 GB/s.)
 ```
 
@@ -78,21 +77,21 @@ SELECT count()
 FROM skip_idx_multiple
 WHERE date > (now() + toIntervalDay(105));
 
-1 rows in set. Elapsed: 0.048 sec. Processed 14.02 million rows, 28.04 MB 
+1 rows in set. Elapsed: 0.048 sec. Processed 14.02 million rows, 28.04 MB
 (290.96 million rows/s., 581.92 MB/s.)
 
 SELECT count()
 FROM skip_idx_multiple
 WHERE time > (now() + toIntervalDay(105));
 
-1 rows in set. Elapsed: 0.188 sec. Processed 100.00 million rows, 400.00 MB 
+1 rows in set. Elapsed: 0.188 sec. Processed 100.00 million rows, 400.00 MB
 (530.58 million rows/s., 2.12 GB/s.)
 
 SELECT count()
 FROM skip_idx_multiple
 WHERE created_at > (now() + toIntervalDay(105));
 
-1 rows in set. Elapsed: 0.400 sec. Processed 100.00 million rows, 400.00 MB 
+1 rows in set. Elapsed: 0.400 sec. Processed 100.00 million rows, 400.00 MB
 (250.28 million rows/s., 1.00 GB/s.)
 
 
@@ -103,7 +102,7 @@ SELECT count()
 FROM skip_idx_multiple
 WHERE time > (now() + toIntervalDay(105));
 
-1 rows in set. Elapsed: 0.036 sec. Processed 14.02 million rows, 56.08 MB 
+1 rows in set. Elapsed: 0.036 sec. Processed 14.02 million rows, 56.08 MB
 (391.99 million rows/s., 1.57 GB/s.)
 
 
@@ -114,7 +113,7 @@ SELECT count()
 FROM skip_idx_multiple
 WHERE created_at > (now() + toIntervalDay(105));
 
-1 rows in set. Elapsed: 0.076 sec. Processed 14.02 million rows, 56.08 MB 
+1 rows in set. Elapsed: 0.076 sec. Processed 14.02 million rows, 56.08 MB
 (184.90 million rows/s., 739.62 MB/s.)
 ```
 
@@ -147,7 +146,7 @@ SELECT count()
 FROM skip_idx_outlier
 WHERE value > 15;
 
-1 rows in set. Elapsed: 0.059 sec. Processed 10.00 million rows, 40.00 MB 
+1 rows in set. Elapsed: 0.059 sec. Processed 10.00 million rows, 40.00 MB
 (170.64 million rows/s., 682.57 MB/s.)
 
 ALTER TABLE skip_idx_outlier ADD INDEX value_idx value TYPE minmax GRANULARITY 10;
@@ -159,6 +158,3 @@ WHERE value > 15;
 
 1 rows in set. Elapsed: 0.004 sec.
 ```
-
-
-

@@ -4,7 +4,6 @@ linkTitle: "ALTER MODIFY COLUMN is stuck, the column is inaccessible."
 description: >
     ALTER MODIFY COLUMN is stuck, the column is inaccessible.
 ---
-
 ## Problem
 
 You have table:
@@ -100,7 +99,7 @@ Run fixed ALTER MODIFY COLUMN query.
 ALTER TABLE modify_column MODIFY COLUMN column_n Enum8('key_a'=1, 'key_b'=2, 'key_c'=3);
 ```
 
-You can monitor progress of column type change with system.mutations or system.parts\_columns tables:
+You can monitor progress of column type change with system.mutations or system.parts_columns tables:
 
 ```sql
 SELECT
@@ -122,6 +121,3 @@ GROUP BY
     column,
     type
 ```
-
-
-

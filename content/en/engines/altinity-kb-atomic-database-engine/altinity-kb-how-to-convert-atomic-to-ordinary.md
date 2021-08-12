@@ -4,12 +4,11 @@ linkTitle: "How to Convert Atomic to Ordinary"
 description: >
     How to Convert Atomic to Ordinary
 ---
-
 The following instructions are an example on how to convert a database with the Engine type **Atomic** to a database with the Engine type **Ordinary**.
 
-{% hint style="warning" %}
+{{% alert title="Warning" color="warning" %}}
 That can be used only for simple schemas. Schemas with MATERIALIZED views will require extra manipulations.
-{% endhint %}
+{{% /alert %}}
 
 ```sql
 CREATE DATABASE atomic_db ENGINE = Atomic;
@@ -69,9 +68,9 @@ CREATE MATERIALIZED VIEW atomic_db.z_mv TO atomic_db.z AS SELECT * FROM atomic_d
 INSERT INTO atomic_db.x SELECT * FROM numbers(100);
 
 --- USE atomic_db;
---- 
+---
 --- Query id: 28af886d-a339-4e9c-979c-8bdcfb32fd95
---- 
+---
 --- ┌─name───────────────────────────────────────────┐
 --- │ .inner_id.b7906fec-f4b2-455b-bf9b-2b18ca64842c │
 --- │ .inner_id.bd32d79b-272d-4710-b5ad-bca78d09782f │
@@ -98,7 +97,7 @@ WHERE mv_storage.name LIKE '.inner_id.%' AND mv_storage.database = 'atomic_db';
 
 /* STEP 1: prepare rename statements, also to rename implicit mv storage table to explicit one */
 
-SELECT 
+SELECT
 if(
    t.name LIKE '.inner_id.%',
   'RENAME TABLE `' || t.database || '`.`' ||  t.name || '` TO `ordinary_db`.`' || mv.name || '_storage`;',
@@ -115,20 +114,20 @@ FORMAT TSVRaw;
 -- RENAME TABLE `atomic_db`.`z` TO `ordinary_db`.`z`;
 
 
-/* STEP 2: prepare statements to reattach MV */ 
+/* STEP 2: prepare statements to reattach MV */
 -- Can be done manually: pick existing MV definition (SHOW CREATE TABLE), and change it in the following way:
--- 1) add TO keyword 2) remove column names and engine settings after mv name 
+-- 1) add TO keyword 2) remove column names and engine settings after mv name
 
 
-SELECT 
+SELECT
 if(
    t.name LIKE '.inner_id.%',
-   replaceRegexpOne(mv.create_table_query, '^CREATE MATERIALIZED VIEW ([^ ]+) \\(.*? AS ', 'CREATE MATERIALIZED VIEW \\1 TO \\1_storage AS '),
+   replaceRegexpOne(mv.create_table_query, '^CREATE MATERIALIZED VIEW ([^ ]+) \(.*? AS ', 'CREATE MATERIALIZED VIEW \\1 TO \\1_storage AS '),
    mv.create_table_query
 )
 FROM system.tables as mv
 LEFT JOIN system.tables t ON (substring(t.name,11) = toString(mv.uuid) AND t.database =  mv.database)
-WHERE mv.database = 'atomic_db' AND mv.engine='MaterializedView' 
+WHERE mv.database = 'atomic_db' AND mv.engine='MaterializedView'
 FORMAT TSVRaw;
 
 -- CREATE MATERIALIZED VIEW atomic_db.x_mv TO atomic_db.x_mv_storage AS SELECT * FROM atomic_db.x
@@ -136,15 +135,15 @@ FORMAT TSVRaw;
 
 /* STEP 3: stop inserts, fire renames statements prepared at the step 1 (hint: use clickhouse-client -mn) */
 
-RENAME ... 
+RENAME ...
 
-/* STEP 4: ensure that only MaterialiedView left in source db, and drop it.  */ 
+/* STEP 4: ensure that only MaterialiedView left in source db, and drop it.  */
 
 SELECT * FROM system.tables WHERE database = 'atomic_db' and engine <> 'MaterializedView';
 DROP DATABASE atomic_db;
 
 
-/* STEP 4. rename table to old name: */ 
+/* STEP 4. rename table to old name: */
 
 DETACH DATABASE ordinary_db;
 
@@ -161,6 +160,3 @@ ATTACH DATABASE atomic_db;
 
 /* STEP 5. restore MV using statements created on STEP 2 */
 ```
-
-
-

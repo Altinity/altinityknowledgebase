@@ -4,7 +4,6 @@ linkTitle: "Cumulative Anything"
 description: >
     Cumulative Anything
 ---
-
 ## Sample data
 
 ```sql
@@ -72,7 +71,7 @@ ORDER BY ts ASC
 └─────────────────────┴──────┘
 ```
 
-## Using window functions \(starting from Clickhouse 21.3\)
+## Using window functions (starting from Clickhouse 21.3)
 
 ```sql
 SELECT
@@ -97,7 +96,7 @@ ORDER BY ts ASC
 └─────────────────────┴──────┘
 ```
 
-## Using runningAccumulate \(incorrect result over blocks\)
+## Using runningAccumulate (incorrect result over blocks)
 
 ```sql
 SELECT
@@ -122,4 +121,3 @@ ORDER BY ts ASC
 │ 2021-05-03 00:00:00 │    7 │
 └─────────────────────┴──────┘
 ```
-

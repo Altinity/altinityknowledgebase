@@ -4,7 +4,6 @@ linkTitle: "Version Upgrades"
 description: >
     Version Upgrades
 ---
-
 Update itself is simple: update packages, restart clickhouse-server service afterwards.
 
 1. Check if the version you want to upgrade to is stable. We highly recommend the Altinity ClickHouse Stable Releases.
@@ -15,6 +14,5 @@ Update itself is simple: update packages, restart clickhouse-server service afte
 5. Test and verify that everything works properly. Check for any errors in the log files.
 6. If everything is working well, update the rest of the cluster.
 
-For small clusters, the [BlueGreenDeployment technique](https://martinfowler.com/bliki/BlueGreenDeployment.html) is also a good option.  
+For small clusters, the [BlueGreenDeployment technique](https://martinfowler.com/bliki/BlueGreenDeployment.html) is also a good option.
 ****
-

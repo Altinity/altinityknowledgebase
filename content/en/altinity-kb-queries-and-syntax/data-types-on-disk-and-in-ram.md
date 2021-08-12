@@ -4,7 +4,6 @@ linkTitle: "Data types on disk and in RAM"
 description: >
     Data types on disk and in RAM
 ---
-
 <table>
   <thead>
     <tr>
@@ -40,7 +39,4 @@ description: >
   </tbody>
 </table>
 
-See also [https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup41/data\_processing.pdf](https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup41/data_processing.pdf) \(slide 17-22\)
-
-
-
+See also [https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup41/data_processing.pdf](https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup41/data_processing.pdf) (slide 17-22)

@@ -2,25 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/mutations/</loc>
-    <lastmod>2021-08-09T14:45:46-06:00</lastmod>
-  </url><url>
-    <loc>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/pivot-unpivot/</loc>
-    <lastmod>2021-08-10T10:53:19-06:00</lastmod>
-  </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/sampling-example/</loc>
-    <lastmod>2021-08-09T14:45:46-06:00</lastmod>
-  </url><url>
-    <loc>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/skip-indexes/skip-index-bloom_filter-for-array-column/</loc>
     <lastmod>2021-08-09T14:45:46-06:00</lastmod>
   </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/ttl/ttl-group-by-examples/</loc>
     <lastmod>2021-08-09T14:45:46-06:00</lastmod>
   </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/ttl/ttl-recompress-example/</loc>
-    <lastmod>2021-08-09T14:45:46-06:00</lastmod>
-  </url><url>
-    <loc>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/remote-...-table-function/</loc>
     <lastmod>2021-08-09T14:45:46-06:00</lastmod>
   </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/zookeeper-monitoring/</loc>
@@ -59,8 +47,8 @@
     <loc>http://beta.kb.altinity.com/altinity-kb-functions/assumenotnull-and-friends/</loc>
     <lastmod>2021-08-09T14:45:46-06:00</lastmod>
   </url><url>
-    <loc>http://beta.kb.altinity.com/engines/altinity-kb-atomic-database-engine/readme/</loc>
-    <lastmod>2021-08-10T10:53:19-06:00</lastmod>
+    <loc>http://beta.kb.altinity.com/engines/altinity-kb-atomic-database-engine/</loc>
+    <lastmod>2021-08-11T10:03:50-06:00</lastmod>
   </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/atomic-insert/</loc>
     <lastmod>2021-08-10T10:53:19-06:00</lastmod>
@@ -95,7 +83,7 @@
     <loc>http://beta.kb.altinity.com/altinity-kb-interfaces/altinity-kb-clickhouse-client/</loc>
     <lastmod>2021-08-10T10:53:19-06:00</lastmod>
   </url><url>
-    <loc>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/altinity-kb-clickhouse-copier/readme/</loc>
+    <loc>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/altinity-kb-clickhouse-copier/</loc>
     <lastmod>2021-08-10T10:53:19-06:00</lastmod>
   </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/altinity-kb-clickhouse-copier/altinity-kb-clickhouse-copier-20.3-and-earlier/</loc>
@@ -150,12 +138,13 @@
     <lastmod>2021-08-10T10:53:19-06:00</lastmod>
   </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-dictionaries/dictionaries-and-arrays/</loc>
-    <lastmod>2021-08-09T14:45:46-06:00</lastmod>
+    <lastmod>2021-08-11T10:03:50-06:00</lastmod>
   </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-schema-design/altinity-kb-dictionaries-vs-lowcardinality/</loc>
     <lastmod>2021-08-10T10:53:19-06:00</lastmod>
   </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-dictionaries/dictionary-on-top-tables/</loc>
+    <lastmod>2021-08-10T10:58:35-06:00</lastmod>
   </url><url>
     <loc>http://beta.kb.altinity.com/engines/altinity-kb-embeddedrocksdb-and-dictionary/</loc>
     <lastmod>2021-08-10T10:53:19-06:00</lastmod>
@@ -170,7 +159,7 @@
     <lastmod>2021-08-10T10:53:19-06:00</lastmod>
   </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-dictionaries/example-of-postgresql-dictionary/</loc>
-    <lastmod>2021-08-09T14:45:46-06:00</lastmod>
+    <lastmod>2021-08-10T10:58:35-06:00</lastmod>
   </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/skip-indexes/minmax/</loc>
     <lastmod>2021-08-09T14:45:46-06:00</lastmod>
@@ -191,7 +180,7 @@
     <lastmod>2021-08-09T14:45:46-06:00</lastmod>
   </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-functions/</loc>
-    <lastmod>2021-08-10T10:53:19-06:00</lastmod>
+    <lastmod>2021-08-11T10:03:50-06:00</lastmod>
   </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/schema-migration-tools/golang-migrate/</loc>
     <lastmod>2021-08-09T14:45:46-06:00</lastmod>
@@ -218,10 +207,10 @@
     <lastmod>2021-08-09T14:45:46-06:00</lastmod>
   </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-integrations/</loc>
-    <lastmod>2021-08-10T10:53:19-06:00</lastmod>
+    <lastmod>2021-08-11T10:03:50-06:00</lastmod>
   </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-interfaces/</loc>
-    <lastmod>2021-08-10T10:53:19-06:00</lastmod>
+    <lastmod>2021-08-11T10:03:50-06:00</lastmod>
   </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-schema-design/how-to-store-ips/</loc>
     <lastmod>2021-08-09T14:45:46-06:00</lastmod>
@@ -260,7 +249,7 @@
     <lastmod>2021-08-10T10:53:19-06:00</lastmod>
   </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-kubernetes/</loc>
-    <lastmod>2021-08-10T10:53:19-06:00</lastmod>
+    <lastmod>2021-08-11T10:03:50-06:00</lastmod>
   </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/lag-lead/</loc>
     <lastmod>2021-08-10T10:53:19-06:00</lastmod>
@@ -275,13 +264,13 @@
     <lastmod>2021-08-09T14:45:46-06:00</lastmod>
   </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-schema-design/materialized-views/</loc>
-    <lastmod>2021-08-09T17:10:04-06:00</lastmod>
+    <lastmod>2021-08-11T10:03:50-06:00</lastmod>
   </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-memory-configuration-settings/</loc>
     <lastmod>2021-08-10T10:53:19-06:00</lastmod>
   </url><url>
-    <loc>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/readme/</loc>
-    <lastmod>2021-08-09T14:45:46-06:00</lastmod>
+    <loc>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/</loc>
+    <lastmod>2021-08-11T10:03:50-06:00</lastmod>
   </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-monitoring/</loc>
     <lastmod>2021-08-10T10:53:19-06:00</lastmod>
@@ -291,6 +280,9 @@
   </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-moving-table-to-another-device./</loc>
     <lastmod>2021-08-10T10:53:19-06:00</lastmod>
+  </url><url>
+    <loc>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/mutations/</loc>
+    <lastmod>2021-08-09T14:45:46-06:00</lastmod>
   </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-dictionaries/mysql8-source-for-dictionaries/</loc>
     <lastmod>2021-08-09T14:45:46-06:00</lastmod>
@@ -314,7 +306,10 @@
     <lastmod>2021-08-10T10:53:19-06:00</lastmod>
   </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-dictionaries/partial-updates/</loc>
-    <lastmod>2021-08-09T14:45:46-06:00</lastmod>
+    <lastmod>2021-08-10T10:58:35-06:00</lastmod>
+  </url><url>
+    <loc>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/pivot-unpivot/</loc>
+    <lastmod>2021-08-10T10:53:19-06:00</lastmod>
   </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/altinity-kb-possible-deadlock-avoided.-client-should-retry/</loc>
     <lastmod>2021-08-10T10:53:19-06:00</lastmod>
@@ -332,19 +327,21 @@
     <lastmod>2021-08-10T10:53:19-06:00</lastmod>
   </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/</loc>
-    <lastmod>2021-08-10T10:53:19-06:00</lastmod>
+    <lastmod>2021-08-11T10:03:50-06:00</lastmod>
   </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-dictionaries/altinity-kb-range_hashed-example-open-intervals/</loc>
-    <lastmod>2021-08-10T10:53:19-06:00</lastmod>
+    <lastmod>2021-08-11T10:03:50-06:00</lastmod>
   </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/altinity-kb-recovering-from-complete-metadata-loss-in-zookeeper/</loc>
     <lastmod>2021-08-10T10:53:19-06:00</lastmod>
   </url><url>
+    <loc>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/remote-table-function/</loc>
+  </url><url>
     <loc>http://beta.kb.altinity.com/upgrade/removing-empty-parts/</loc>
     <lastmod>2021-08-09T14:45:46-06:00</lastmod>
   </url><url>
-    <loc>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/replacingmergetree/readme/</loc>
-    <lastmod>2021-08-10T10:53:19-06:00</lastmod>
+    <loc>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/replacingmergetree/</loc>
+    <lastmod>2021-08-11T10:03:50-06:00</lastmod>
   </url><url>
     <loc>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/replacingmergetree/altinity-kb-replacingmergetree-does-not-collapse-duplicates/</loc>
     <lastmod>2021-08-10T10:53:19-06:00</lastmod>
@@ -391,11 +388,14 @@
     <loc>http://beta.kb.altinity.com/engines/mergetree-table-engine-family/skip-index/</loc>
     <lastmod>2021-08-09T14:45:46-06:00</lastmod>
   </url><url>
+    <loc>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/skip-indexes/skip-index-bloom_filter-for-array-column/</loc>
+    <lastmod>2021-08-09T14:45:46-06:00</lastmod>
+  </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/skip-indexes/</loc>
     <lastmod>2021-08-09T17:10:04-06:00</lastmod>
   </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-dictionaries/altinity-kb-sparse_hashed-vs-hashed/</loc>
-    <lastmod>2021-08-10T10:53:19-06:00</lastmod>
+    <lastmod>2021-08-11T10:03:50-06:00</lastmod>
   </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/ssl-connection-unexpectedly-closed/</loc>
     <lastmod>2021-08-09T14:45:46-06:00</lastmod>
@@ -431,7 +431,7 @@
     <lastmod>2021-08-09T17:10:04-06:00</lastmod>
   </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-useful-queries/</loc>
-    <lastmod>2021-08-10T10:53:19-06:00</lastmod>
+    <lastmod>2021-08-11T10:03:50-06:00</lastmod>
   </url><url>
     <loc>http://beta.kb.altinity.com/altinity-kb-queries-and-syntax/values-mapping/</loc>
     <lastmod>2021-08-09T14:45:46-06:00</lastmod>

@@ -4,7 +4,6 @@ linkTitle: "Adjusting librdkafka settings"
 description: >
     Adjusting librdkafka settings
 ---
-
 * To set rdkafka options - add to `<kafka>` section in `config.xml` or preferably use a separate file in `config.d/`:
   * [https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md](https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md)
 
@@ -29,9 +28,9 @@ Some random example:
 </kafka>
 ```
 
-## Authentication / connectivity <a id="Adjustinglibrdkafkasettings-Authentication/connectivity"></a>
+## Authentication / connectivity
 
-### Amazon MSK <a id="Adjustinglibrdkafkasettings-AmazonMSK"></a>
+### Amazon MSK
 
 ```markup
 <yandex>
@@ -45,7 +44,7 @@ Some random example:
 
 [https://leftjoin.ru/all/clickhouse-as-a-consumer-to-amazon-msk/](https://leftjoin.ru/all/clickhouse-as-a-consumer-to-amazon-msk/)
 
-### Inline Kafka certs <a id="Adjustinglibrdkafkasettings-Inlinekafkacerts"></a>
+### Inline Kafka certs
 
 To connect to some Kafka cloud services you may need to use certificates.
 
@@ -76,14 +75,14 @@ See also
 
 [https://stackoverflow.com/questions/991758/how-to-get-pem-file-from-key-and-crt-files](https://stackoverflow.com/questions/991758/how-to-get-pem-file-from-key-and-crt-files)
 
-### Azure Event Hub <a id="Adjustinglibrdkafkasettings-AzureEventHub"></a>
+### Azure Event Hub
 
 See [https://github.com/ClickHouse/ClickHouse/issues/12609](https://github.com/ClickHouse/ClickHouse/issues/12609)
 
-### Kerberos <a id="Adjustinglibrdkafkasettings-Kerberos"></a>
+### Kerberos
 
 * [https://clickhouse.tech/docs/en/engines/table-engines/integrations/kafka/\#kafka-kerberos-support](https://clickhouse.tech/docs/en/engines/table-engines/integrations/kafka/#kafka-kerberos-support)
-* [https://github.com/ClickHouse/ClickHouse/blob/master/tests/integration/test\_storage\_kerberized\_kafka/configs/kafka.xml](https://github.com/ClickHouse/ClickHouse/blob/master/tests/integration/test_storage_kerberized_kafka/configs/kafka.xml)
+* [https://github.com/ClickHouse/ClickHouse/blob/master/tests/integration/test_storage_kerberized_kafka/configs/kafka.xml](https://github.com/ClickHouse/ClickHouse/blob/master/tests/integration/test_storage_kerberized_kafka/configs/kafka.xml)
 
 ```markup
   <!-- Kerberos-aware Kafka -->
@@ -106,9 +105,9 @@ See [https://github.com/ClickHouse/ClickHouse/issues/12609](https://github.com/C
         <sasl_username>username</sasl_username>
         <sasl_password>password</sasl_password>
         <ssl_ca_location>probe</ssl_ca_location>
-        <!-- 
-          <ssl_ca_location>/path/to/cert.pem</ssl_ca_location>         
-        --> 
+        <!--
+          <ssl_ca_location>/path/to/cert.pem</ssl_ca_location>      
+        -->
         </kafka>
     </yandex>
 ```
@@ -117,21 +116,13 @@ See [https://github.com/ClickHouse/ClickHouse/issues/12609](https://github.com/C
 
 ## How to test connection settings
 
-Use kafkacat utility - it internally uses same library to access Kafla as clickhouse itself and allows easily to test different settings   
-
+Use kafkacat utility - it internally uses same library to access Kafla as clickhouse itself and allows easily to test different settings.
 
 ```text
 kafkacat -b my_broker:9092 -C -o -10 -t my_topic \
    -X security.protocol=SASL_SSL  \
    -X sasl.mechanisms=PLAIN \
    -X sasl.username=uerName \
-   -X sasl.password=Password 
-   
+   -X sasl.password=Password
+
 ```
-
-  
-  
-
-
-
-

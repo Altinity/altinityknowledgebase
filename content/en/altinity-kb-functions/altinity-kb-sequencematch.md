@@ -4,7 +4,6 @@ linkTitle: "sequenceMatch"
 description: >
     sequenceMatch
 ---
-
 ## Question
 
 I expect the sequence here to only match once as a is only directly after a once - but it matches with gaps. Why is that?
@@ -22,7 +21,7 @@ SELECT sequenceCount('(?1)(?2)')(sequence, page ILIKE '%a%', page ILIKE '%a%') A
 
 ```sql
 SELECT sequenceMatch('(?1)(?2)')(sequence,page='a',page='b') AS sequences　FROM values( 'page String, sequence UInt16' , ('a', 1), ('c',2), ('b', 3));
-1 # ?? 
+1 # ??
 
 SELECT sequenceMatch('(?1).(?2)')(sequence,page='a',page='b') AS sequences　FROM values( 'page String, sequence UInt16' , ('a', 1), ('c',2), ('b', 3));
 0 # ???
@@ -47,6 +46,3 @@ description: >
     1
 ---
 ```
-
-
-

@@ -4,13 +4,12 @@ linkTitle: "clickhouse-client"
 description: >
     clickhouse-client
 ---
-
 Q. How can I input multi-line SQL code? can you guys give me an example?
 
-A. Just run clickhouse-client with `-m` switch, and it starts executing only after you finish the line with a semicolon.  
-  
-Q. How can i use pager with clickhouse-client  
-  
+A. Just run clickhouse-client with `-m` switch, and it starts executing only after you finish the line with a semicolon.
+
+Q. How can i use pager with clickhouse-client
+
 A. Here is an example: `clickhouse-client --pager 'less -RS'`
 
 Q. Data is returned in chunks / several tables.
@@ -23,7 +22,7 @@ A. Data get streamed from the server in blocks, every block is formatted individ
 
 Q. Сustomize client config
 
-A. you can change it globally \(for all users of the workstation\)
+A. you can change it globally (for all users of the workstation)
 
 ```markup
 nano /etc/clickhouse-client/conf.d/user.xml
@@ -50,6 +49,3 @@ Also, it’s possible to have several client config files and pass one of them t
 References:
 
 * [https://clickhouse.tech/docs/en/interfaces/cli/](https://clickhouse.tech/docs/en/interfaces/cli/)
-
-
-

@@ -28,7 +28,7 @@
 &lt;p&gt;One of the best options is to fill one partition at a time, and if it breaks you can drop the partition and refill it.&lt;/p&gt;
 &lt;p&gt;If you need to construct a single partition from several sources - then the following approach may be the best.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;CREATE TABLE mv_import AS mv;
-INSERT INTO mv_import SELECT * FROM huge_table WHERE toYYYYMM(ts) = 202105; 
+INSERT INTO mv_import SELECT * FROM huge_table WHERE toYYYYMM(ts) = 202105;
 /* or other partition expresssion*/
 
 /* that insert select may take a lot of time, if something bad will happen

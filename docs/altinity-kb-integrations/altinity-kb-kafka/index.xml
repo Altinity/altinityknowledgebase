@@ -47,8 +47,8 @@
     &amp;lt;ssl_key_location&amp;gt;/etc/clickhouse-server/ssl/client_clickhouse_client.key&amp;lt;/ssl_key_location&amp;gt;
     &amp;lt;ssl_key_password&amp;gt;pass&amp;lt;/ssl_key_password&amp;gt;
 &amp;lt;/kafka&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;authentication--connectivity-a-idadjustinglibrdkafkasettings-authenticationconnectivitya&#34;&gt;Authentication / connectivity &lt;a id=&#34;Adjustinglibrdkafkasettings-Authentication/connectivity&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-&lt;h3 id=&#34;amazon-msk-a-idadjustinglibrdkafkasettings-amazonmska&#34;&gt;Amazon MSK &lt;a id=&#34;Adjustinglibrdkafkasettings-AmazonMSK&#34;&gt;&lt;/a&gt;&lt;/h3&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;authentication--connectivity&#34;&gt;Authentication / connectivity&lt;/h2&gt;
+&lt;h3 id=&#34;amazon-msk&#34;&gt;Amazon MSK&lt;/h3&gt;
 &lt;pre&gt;&lt;code class=&#34;language-markup&#34; data-lang=&#34;markup&#34;&gt;&amp;lt;yandex&amp;gt;
   &amp;lt;kafka&amp;gt;
     &amp;lt;security_protocol&amp;gt;sasl_ssl&amp;lt;/security_protocol&amp;gt;
@@ -57,7 +57,7 @@
   &amp;lt;/kafka&amp;gt;
 &amp;lt;/yandex&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;a href=&#34;https://leftjoin.ru/all/clickhouse-as-a-consumer-to-amazon-msk/&#34; target=&#34;_blank&#34;&gt;https://leftjoin.ru/all/clickhouse-as-a-consumer-to-amazon-msk/&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&#34;inline-kafka-certs-a-idadjustinglibrdkafkasettings-inlinekafkacertsa&#34;&gt;Inline Kafka certs &lt;a id=&#34;Adjustinglibrdkafkasettings-Inlinekafkacerts&#34;&gt;&lt;/a&gt;&lt;/h3&gt;
+&lt;h3 id=&#34;inline-kafka-certs&#34;&gt;Inline Kafka certs&lt;/h3&gt;
 &lt;p&gt;To connect to some Kafka cloud services you may need to use certificates.&lt;/p&gt;
 &lt;p&gt;If needed they can be converted to pem format and inlined into ClickHouse config.&lt;/p&gt;
 &lt;p&gt;Example:&lt;/p&gt;
@@ -78,9 +78,9 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;See also&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://help.aiven.io/en/articles/489572-getting-started-with-aiven-kafka&#34; target=&#34;_blank&#34;&gt;https://help.aiven.io/en/articles/489572-getting-started-with-aiven-kafka&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://stackoverflow.com/questions/991758/how-to-get-pem-file-from-key-and-crt-files&#34; target=&#34;_blank&#34;&gt;https://stackoverflow.com/questions/991758/how-to-get-pem-file-from-key-and-crt-files&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&#34;azure-event-hub-a-idadjustinglibrdkafkasettings-azureeventhuba&#34;&gt;Azure Event Hub &lt;a id=&#34;Adjustinglibrdkafkasettings-AzureEventHub&#34;&gt;&lt;/a&gt;&lt;/h3&gt;
+&lt;h3 id=&#34;azure-event-hub&#34;&gt;Azure Event Hub&lt;/h3&gt;
 &lt;p&gt;See &lt;a href=&#34;https://github.com/ClickHouse/ClickHouse/issues/12609&#34; target=&#34;_blank&#34;&gt;https://github.com/ClickHouse/ClickHouse/issues/12609&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&#34;kerberos-a-idadjustinglibrdkafkasettings-kerberosa&#34;&gt;Kerberos &lt;a id=&#34;Adjustinglibrdkafkasettings-Kerberos&#34;&gt;&lt;/a&gt;&lt;/h3&gt;
+&lt;h3 id=&#34;kerberos&#34;&gt;Kerberos&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://clickhouse.tech/docs/en/engines/table-engines/integrations/kafka/#kafka-kerberos-support&#34; target=&#34;_blank&#34;&gt;https://clickhouse.tech/docs/en/engines/table-engines/integrations/kafka/#kafka-kerberos-support&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/ClickHouse/ClickHouse/blob/master/tests/integration/test_storage_kerberized_kafka/configs/kafka.xml&#34; target=&#34;_blank&#34;&gt;https://github.com/ClickHouse/ClickHouse/blob/master/tests/integration/test_storage_kerberized_kafka/configs/kafka.xml&lt;/a&gt;&lt;/li&gt;
@@ -101,20 +101,20 @@
         &amp;lt;sasl_username&amp;gt;username&amp;lt;/sasl_username&amp;gt;
         &amp;lt;sasl_password&amp;gt;password&amp;lt;/sasl_password&amp;gt;
         &amp;lt;ssl_ca_location&amp;gt;probe&amp;lt;/ssl_ca_location&amp;gt;
-        &amp;lt;!-- 
-          &amp;lt;ssl_ca_location&amp;gt;/path/to/cert.pem&amp;lt;/ssl_ca_location&amp;gt;         
-        --&amp;gt; 
+        &amp;lt;!--
+          &amp;lt;ssl_ca_location&amp;gt;/path/to/cert.pem&amp;lt;/ssl_ca_location&amp;gt;      
+        --&amp;gt;
         &amp;lt;/kafka&amp;gt;
     &amp;lt;/yandex&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;a href=&#34;https://docs.confluent.io/cloud/current/client-apps/config-client.html&#34; target=&#34;_blank&#34;&gt;https://docs.confluent.io/cloud/current/client-apps/config-client.html&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;how-to-test-connection-settings&#34;&gt;How to test connection settings&lt;/h2&gt;
-&lt;p&gt;Use kafkacat utility - it internally uses same library to access Kafla as clickhouse itself and allows easily to test different settings&lt;/p&gt;
+&lt;p&gt;Use kafkacat utility - it internally uses same library to access Kafla as clickhouse itself and allows easily to test different settings.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;kafkacat -b my_broker:9092 -C -o -10 -t my_topic \
    -X security.protocol=SASL_SSL  \
    -X sasl.mechanisms=PLAIN \
    -X sasl.username=uerName \
-   -X sasl.password=Password 
-   
+   -X sasl.password=Password
+
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
       </description>
     </item>
@@ -129,9 +129,9 @@
         
         
         &lt;h2 id=&#34;pre-216&#34;&gt;Pre 21.6&lt;/h2&gt;
-&lt;p&gt;There are couple options:&lt;br&gt;
-Certain formats which has schema in built in them (like JSONEachRow) could silently skip any unexpected fields after enabling setting &lt;code&gt;input_format_skip_unknown_fields&lt;/code&gt;&lt;br&gt;
-It&amp;rsquo;s also possible to skip up to N malformed messages for each block, with used setting &lt;code&gt;kafka_skip_broken_messages&lt;/code&gt; but it&amp;rsquo;s also does not support all possible formats.&lt;/p&gt;
+&lt;p&gt;There are couple options:&lt;/p&gt;
+&lt;p&gt;Certain formats which has schema in built in them (like JSONEachRow) could silently skip any unexpected fields after enabling setting &lt;code&gt;input_format_skip_unknown_fields&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;It&amp;rsquo;s also possible to skip up to N malformed messages for each block, with used setting &lt;code&gt;kafka_skip_broken_messages&lt;/code&gt; but it&amp;rsquo;s also does not support all possible formats.&lt;/p&gt;
 &lt;h2 id=&#34;after-216&#34;&gt;After 21.6&lt;/h2&gt;
 &lt;p&gt;It&amp;rsquo;s possible to stream messages which could not be parsed, this behavior could be enabled via setting: &lt;code&gt;kafka_handle_error_mode=&#39;stream&#39;&lt;/code&gt; and clickhouse wil write error and message from Kafka itself to two new virtual columns: &lt;code&gt;_error, _raw_message&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;So you can create another Materialized View which would collect to a separate table all errors happening while parsing with all important information like offset and content of message.&lt;/p&gt;
@@ -141,10 +141,10 @@ It&amp;rsquo;s also possible to skip up to N malformed messages for each block, 
 &lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;`&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;s&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;`&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;String&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;ENGINE&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;Kafka&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;SETTINGS&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;kafka_broker_list&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;kafka:9092&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; 
-&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;kafka_topic_list&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;topic&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; 
-&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;kafka_group_name&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;clickhouse&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; 
-&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;kafka_format&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;JSONEachRow&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; 
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;SETTINGS&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;kafka_broker_list&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;kafka:9092&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;kafka_topic_list&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;topic&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;kafka_group_name&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;clickhouse&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;kafka_format&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;JSONEachRow&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;kafka_handle_error_mode&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;stream&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;;&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;CREATE&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;MATERIALIZED&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;VIEW&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;default&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;kafka_errors&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
@@ -166,10 +166,10 @@ It&amp;rsquo;s also possible to skip up to N malformed messages for each block, 
 &lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;_error&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;AS&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;error&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;FROM&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;default&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;kafka_engine&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;WHERE&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;length&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;_error&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;../../.gitbook/assets/untitled-2021-08-05-1027.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
-&lt;p&gt;{% embed url=&amp;ldquo;&lt;a href=&#34;https://github.com/ClickHouse/ClickHouse/pull/20249&#34;&gt;https://github.com/ClickHouse/ClickHouse/pull/20249&lt;/a&gt;#issuecomment-779054737&amp;rdquo; %}&lt;/p&gt;
-&lt;p&gt;{% embed url=&amp;ldquo;&lt;a href=&#34;https://github.com/ClickHouse/ClickHouse/pull/21850%22&#34;&gt;https://github.com/ClickHouse/ClickHouse/pull/21850&amp;quot;&lt;/a&gt; %}&lt;/p&gt;
-&lt;p&gt;{% embed url=&amp;ldquo;&lt;a href=&#34;https://altinity.com/blog/clickhouse-kafka-engine-faq%22&#34;&gt;https://altinity.com/blog/clickhouse-kafka-engine-faq&amp;quot;&lt;/a&gt; %}&lt;/p&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://beta.kb.altinity.com/assets/Untitled-2021-08-05-1027.png&#34; alt=&#34;Table connections&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/ClickHouse/ClickHouse/pull/20249%5c#issuecomment-779054737&#34; target=&#34;_blank&#34;&gt;https://github.com/ClickHouse/ClickHouse/pull/20249#issuecomment-779054737&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/ClickHouse/ClickHouse/pull/21850&#34; target=&#34;_blank&#34;&gt;https://github.com/ClickHouse/ClickHouse/pull/21850&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://altinity.com/blog/clickhouse-kafka-engine-faq&#34; target=&#34;_blank&#34;&gt;https://altinity.com/blog/clickhouse-kafka-engine-faq&lt;/a&gt;&lt;/p&gt;
 
       </description>
     </item>
@@ -214,8 +214,8 @@ It&amp;rsquo;s also possible to skip up to N malformed messages for each block, 
 &lt;li&gt;Do commit (commit after write = at-least-once).&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;On any error, during that process, Kafka client is restarted (leading to rebalancing - leave the group and get back in few seconds).&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../../.gitbook/assets/128942286.png&#34; alt=&#34;Kafka batching&#34;&gt;&lt;/p&gt;
-&lt;h2 id=&#34;important-settings-a-idkafkamainparsingloop-importantsettingsa&#34;&gt;Important settings &lt;a id=&#34;Kafkamainparsingloop-Importantsettings&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;http://beta.kb.altinity.com/assets/128942286.png&#34; alt=&#34;Kafka batching&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;important-settings&#34;&gt;Important settings&lt;/h2&gt;
 &lt;p&gt;These usually should not be adjusted:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;kafka_poll_max_batch_size&lt;/code&gt; = max_block_size (65536)&lt;/li&gt;
@@ -226,7 +226,7 @@ It&amp;rsquo;s also possible to skip up to N malformed messages for each block, 
 &lt;li&gt;&lt;code&gt;kafka_flush_interval_ms&lt;/code&gt; = stream_poll_timeout_ms (7500ms)&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;kafka_max_block_size&lt;/code&gt; = min_insert_block_size / kafka_num_consumers (for the single consumer: 1048576)&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;see-also-a-idkafkamainparsingloop-seealsoa&#34;&gt;See also &lt;a id=&#34;Kafkamainparsingloop-Seealso&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id=&#34;see-also&#34;&gt;See also&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/ClickHouse/ClickHouse/pull/11388&#34; target=&#34;_blank&#34;&gt;https://github.com/ClickHouse/ClickHouse/pull/11388&lt;/a&gt;&lt;/p&gt;
 
       </description>

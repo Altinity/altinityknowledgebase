@@ -4,23 +4,20 @@ linkTitle: "Atomic Database Engine"
 description: >
     Atomic Database Engine
 ---
-
 In version 20.5 ClickHouse first introduced database engine=Atomic.
 
-Since version 20.10 it is a default database engine \(before engine=Ordinary was used\).
+Since version 20.10 it is a default database engine (before engine=Ordinary was used).
 
-Those 2 database engine differs in a way how they store data on a filesystem, and engine Atomic allows to resolve some of the issues existed in engine=Ordinary.  
+Those 2 database engine differs in a way how they store data on a filesystem, and engine Atomic allows to resolve some of the issues existed in engine=Ordinary.
 
 engine=Atomic supports
 
 * non-blocking drop table / rename table
-* tables delete \(&detach\) async \(wait for selects finish but invisible for new selects\)
-* atomic drop table \(all files / folders removed\)
-* atomic table swap \(table swap by "EXCHANGE TABLES t1 AND t2;"\)
+* tables delete (&detach) async (wait for selects finish but invisible for new selects)
+* atomic drop table (all files / folders removed)
+* atomic table swap (table swap by "EXCHANGE TABLES t1 AND t2;")
 * rename dictionary / rename database
 * unique automatic UUID paths in FS and ZK for Replicated
-
-
 
 ## FAQ
 
@@ -28,16 +25,16 @@ engine=Atomic supports
 
 A. Use`DROP TABLE t SYNC;`
 
-Or use parameter \(user level\) database\_atomic\_wait\_for\_drop\_and\_detach\_synchronously`:`
+Or use parameter (user level) database_atomic_wait_for_drop_and_detach_synchronously`:`
 
 ```sql
 SET database_atomic_wait_for_drop_and_detach_synchronously = 1;
 ```
 
-Also, you can decrease the delay used by Atomic for real table drop \(it’s 8 minutes by default\)
+Also, you can decrease the delay used by Atomic for real table drop (it’s 8 minutes by default)
 
 ```bash
-cat /etc/clickhouse-server/config.d/database_atomic_delay_before_drop_table.xml 
+cat /etc/clickhouse-server/config.d/database_atomic_delay_before_drop_table.xml
 <yandex>
     <database_atomic_delay_before_drop_table_sec>1</database_atomic_delay_before_drop_table_sec>
 </yandex>
@@ -47,33 +44,33 @@ cat /etc/clickhouse-server/config.d/database_atomic_delay_before_drop_table.xml
 
 A. This happens because real table deletion occurs with a controlled delay. See the previous question to remove the table immediately.
 
-With engine=Atomic it’s possible \(and is a good practice if you do it correctly\) to include UUID into zookeeper path, i.e. :
+With engine=Atomic it’s possible (and is a good practice if you do it correctly) to include UUID into zookeeper path, i.e. :
 
 ```sql
-CREATE ... 
-ON CLUSTER ... 
+CREATE ...
+ON CLUSTER ...
 ENGINE=ReplicatedMergeTree('/clickhouse/tables/{uuid}/{shard}/', '{replica}')
 ```
 
-See also: [https://github.com/ClickHouse/ClickHouse/issues/12135\#issuecomment-653932557](https://github.com/ClickHouse/ClickHouse/issues/12135#issuecomment-653932557)
+See also: [https://github.com/ClickHouse/ClickHouse/issues/12135#issuecomment-653932557](https://github.com/ClickHouse/ClickHouse/issues/12135#issuecomment-653932557)
 
 It’s very important that the table will have the same UUID cluster-wide.
 
-When the table is created using _ON CLUSTER_ - all tables will get the same UUID automatically.  
-When it needs to be done manually \(for example - you need to add one more replica\), pick CREATE TABLE statement with UUID from one of the existing replicas.
+When the table is created using _ON CLUSTER_ - all tables will get the same UUID automatically.
+When it needs to be done manually (for example - you need to add one more replica), pick CREATE TABLE statement with UUID from one of the existing replicas.
 
 ```sql
 set show_table_uuid_in_table_create_qquery_if_not_nil=1　;
 SHOW CREATE TABLE xxx; /* or SELECT create_table_query FROM system.tables WHERE ... */
 ```
 
-### Q. Should I use Atomic or Ordinary for new setups? <a id="Using-Ordinary-by-default-instead-of-Atomic-[hardBreak]"></a>
+### Q. Should I use Atomic or Ordinary for new setups?
 
 All things inside clickhouse itself should work smoothly with `Atomic`.
 
 But some external tools - backup tools, things involving other kinds of direct manipulations with clickhouse files & folders may have issues with `Atomic`.
 
-`Ordinary` layout on the filesystem is simpler. And the issues which address Atomic \(lock-free renames, drops, atomic exchange of table\) are not so critical in most cases.
+`Ordinary` layout on the filesystem is simpler. And the issues which address Atomic (lock-free renames, drops, atomic exchange of table) are not so critical in most cases.
 
 <table>
   <thead>
@@ -160,7 +157,7 @@ But some external tools - backup tools, things involving other kinds of direct m
 title: "cat /etc/clickhouse-server/users.d/disable_atomic_database.xml "
 linkTitle: "cat /etc/clickhouse-server/users.d/disable_atomic_database.xml "
 description: >
-    cat /etc/clickhouse-server/users.d/disable_atomic_database.xml 
+    cat /etc/clickhouse-server/users.d/disable_atomic_database.xml
 ---
 <?xml version="1.0"?>
 <yandex>
@@ -174,9 +171,6 @@ description: >
 
 ## Other sources
 
-Presentation [https://youtu.be/1LVJ\_WcLgF8?t=2744](https://youtu.be/1LVJ_WcLgF8?t=2744)
+Presentation [https://youtu.be/1LVJ_WcLgF8?t=2744](https://youtu.be/1LVJ_WcLgF8?t=2744)
 
-{% embed url="https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup46/database\_engines.pdf" %}
-
-
-
+[https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup46/database_engines.pdf](https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup46/database_engines.pdf)

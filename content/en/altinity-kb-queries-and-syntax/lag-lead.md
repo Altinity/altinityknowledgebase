@@ -4,7 +4,6 @@ linkTitle: "Lag / Lead"
 description: >
     Lag / Lead
 ---
-
 ## Sample data
 
 ```sql
@@ -39,8 +38,8 @@ SELECT * FROM llexample ORDER BY g,a;
 ```sql
 select g, (arrayJoin(tuple_ll) as ll).1 a, ll.2 prev, ll.3 next
 from (
-select g, arrayMap( i,j,k -> (i,j,k), 
-                    arraySort(groupArray(a)) as aa, 
+select g, arrayMap( i,j,k -> (i,j,k),
+                    arraySort(groupArray(a)) as aa,
                     arrayPopBack(arrayPushFront(aa, toDate(0))),
                     arrayPopFront(arrayPushBack(aa, toDate(0))) ) tuple_ll
 from llexample
@@ -61,7 +60,7 @@ order by g, a;
 └───┴────────────┴────────────┴────────────┘
 ```
 
-## Using window functions \(starting from Clickhouse 21.3\)
+## Using window functions (starting from Clickhouse 21.3)
 
 ```sql
 SET allow_experimental_window_functions = 1;
@@ -69,9 +68,9 @@ SET allow_experimental_window_functions = 1;
 SELECT
     g,
     a,
-    any(a) OVER (PARTITION BY g ORDER BY a ASC ROWS 
+    any(a) OVER (PARTITION BY g ORDER BY a ASC ROWS
                  BETWEEN 1 PRECEDING AND 1 PRECEDING) AS prev,
-    any(a) OVER (PARTITION BY g ORDER BY a ASC ROWS 
+    any(a) OVER (PARTITION BY g ORDER BY a ASC ROWS
                  BETWEEN 1 FOLLOWING AND 1 FOLLOWING) AS next
 FROM llexample
 ORDER BY
@@ -92,15 +91,15 @@ ORDER BY
 └───┴────────────┴────────────┴────────────┘
 ```
 
-## Using lagInFrame/leadInFrame \(starting from ClickHouse 21.4\)
+## Using lagInFrame/leadInFrame (starting from ClickHouse 21.4)
 
 ```sql
 SELECT
     g,
     a,
-    lagInFrame(a) OVER (PARTITION BY g ORDER BY a ASC ROWS 
+    lagInFrame(a) OVER (PARTITION BY g ORDER BY a ASC ROWS
                  BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS prev,
-    leadInFrame(a) OVER (PARTITION BY g ORDER BY a ASC ROWS 
+    leadInFrame(a) OVER (PARTITION BY g ORDER BY a ASC ROWS
                  BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS next
 FROM llexample
 ORDER BY
@@ -121,7 +120,7 @@ ORDER BY
 └───┴────────────┴────────────┴────────────┘
 ```
 
-## Using neighbor \(no grouping, incorrect result over blocks\)
+## Using neighbor (no grouping, incorrect result over blocks)
 
 ```sql
 SELECT
@@ -151,6 +150,3 @@ FROM
 │ 2 │ 2020-01-09 │ 2020-01-06 │ 1970-01-01 │
 └───┴────────────┴────────────┴────────────┘
 ```
-
-
-

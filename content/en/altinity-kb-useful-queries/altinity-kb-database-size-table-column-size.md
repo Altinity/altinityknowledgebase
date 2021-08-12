@@ -4,7 +4,6 @@ linkTitle: "Database Size - Table - Column size"
 description: >
     Database Size - Table - Column size
 ---
-
 ## Tables
 
 ### Table size
@@ -86,6 +85,3 @@ GROUP BY
     column
 ORDER BY size DESC;
 ```
-
-
-

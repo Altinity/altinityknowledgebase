@@ -4,7 +4,6 @@ linkTitle: "ZooKeeper schema"
 description: >
     ZooKeeper schema
 ---
-
 ## /metadata
 
 Table schema.
@@ -17,7 +16,7 @@ mode -> type of MergeTree table
 sign column -> sign - CollapsingMergeTree / VersionedCollapsingMergeTree
 primary key -> ORDER BY key if PRIMARY KEY not defined.
 sorting key -> ORDER BY key if PRIMARY KEY defined.
-data format version -> 1 
+data format version -> 1
 partition key -> PARTITION BY
 granularity bytes -> index_granularity_bytes
 
@@ -37,11 +36,11 @@ Log of latest mutations
 
 ## /columns
 
-List of columns for latest \(reference\) table version. Replicas would try to reach this state.
+List of columns for latest (reference) table version. Replicas would try to reach this state.
 
 ## /log
 
-Log of latest actions with table. Used mostly for debug purposes.  
+Log of latest actions with table. Used mostly for debug purposes.
 Related settings:
 
 ```sql
@@ -55,27 +54,26 @@ Related settings:
 
 List of table replicas.
 
-## /replicas/replica\_name/
+## /replicas/replica_name/
 
-### /replicas/replica\_name/mutation\_pointer
+### /replicas/replica_name/mutation_pointer
 
 Pointer to the latest mutation executed by replica
 
-### /replicas/replica\_name/log\_pointer
+### /replicas/replica_name/log_pointer
 
-Pointer to the latest task from replication\_queue executed by replica
+Pointer to the latest task from replication_queue executed by replica
 
-### /replicas/replica\_name/max\_processed\_insert\_time
+### /replicas/replica_name/max_processed_insert_time
 
-### /replica/replica\_name/metadata
+### /replica/replica_name/metadata
 
 Table schema of specific replica
 
-### /replica/replica\_name/columns
+### /replica/replica_name/columns
 
 Columns list of specific replica.
 
 ## /quorum
 
 Used for quorum inserts.
-

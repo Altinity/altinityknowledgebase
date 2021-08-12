@@ -4,10 +4,7 @@ linkTitle: "SSL connection unexpectedly closed"
 description: >
     SSL connection unexpectedly closed
 ---
-
 ClickHouse doesn't probe CA path which is default on CentOS and Amazon Linux.
-
-
 
 #### ClickHouse client:
 
@@ -38,11 +35,6 @@ cat /etc/clickhouse-server/conf.d/openssl-ca.xml
 </config>
 ```
 
-{% embed url="https://github.com/ClickHouse/ClickHouse/issues/17803" %}
+[https://github.com/ClickHouse/ClickHouse/issues/17803](https://github.com/ClickHouse/ClickHouse/issues/17803)
 
-{% embed url="https://github.com/ClickHouse/ClickHouse/issues/18869" %}
-
-
-
-
-
+[https://github.com/ClickHouse/ClickHouse/issues/18869](https://github.com/ClickHouse/ClickHouse/issues/18869)

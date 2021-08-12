@@ -4,7 +4,6 @@ linkTitle: "-State & -Merge combinators"
 description: >
     -State & -Merge combinators
 ---
-
 -State combinator doesn't actually store information about -If combinator, so aggregate functions with -If and without have the same serialized data.
 
 ```sql
@@ -65,6 +64,3 @@ FROM
 │   3 │   0 │     2 │
 └─────┴─────┴───────┘
 ```
-
-
-

@@ -6,7 +6,6 @@ description: >
 ---
 
 
-
 Moving from a single ClickHouse server to a clustered format provides several benefits:
 
 * Replication guarantees data integrity.
@@ -25,4 +24,3 @@ Setting up a ClickHouse cluster for a production environment requires the follow
 * Setting Up Backups
 * Staging Plans
 * Upgrading The Cluster
-

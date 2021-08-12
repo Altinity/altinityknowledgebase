@@ -3,26 +3,22 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="generator" content="Hugo 0.83.1" /><META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<meta name="generator" content="Hugo 0.83.1" /><link rel="alternate" type="application/rss&#43;xml" href="http://beta.kb.altinity.com/engines/altinity-kb-atomic-database-engine/index.xml">
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
 <link rel="shortcut icon" href="/favicons/favicon.ico" >
 <link rel="icon" href="/favicons/favicon.ico" >
-<title>clickhouse-copier | Altinity Beta Knowledgebase</title>
-<meta name="description" content="Altinity Beta Knowledgebase"><meta property="og:title" content="clickhouse-copier" />
-<meta property="og:description" content="clickhouse-copier
+<title>Atomic Database Engine | Altinity Beta Knowledgebase</title>
+<meta name="description" content="Altinity Beta Knowledgebase"><meta property="og:title" content="Atomic Database Engine" />
+<meta property="og:description" content="Atomic Database Engine
 " />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/altinity-kb-clickhouse-copier/readme/" /><meta property="article:section" content="altinity-kb-setup-and-maintenance" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="http://beta.kb.altinity.com/engines/altinity-kb-atomic-database-engine/" /><meta property="og:site_name" content="Altinity Beta Knowledgebase" />
 
-<meta property="article:modified_time" content="2021-08-10T10:53:19-06:00" /><meta property="og:site_name" content="Altinity Beta Knowledgebase" />
-
-<meta itemprop="name" content="clickhouse-copier">
-<meta itemprop="description" content="clickhouse-copier
-">
-<meta itemprop="dateModified" content="2021-08-10T10:53:19-06:00" />
-<meta itemprop="wordCount" content="178">
-<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="clickhouse-copier"/>
-<meta name="twitter:description" content="clickhouse-copier
+<meta itemprop="name" content="Atomic Database Engine">
+<meta itemprop="description" content="Atomic Database Engine
+"><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Atomic Database Engine"/>
+<meta name="twitter:description" content="Atomic Database Engine
 "/>
 
 
@@ -52,7 +48,7 @@
 
 
   </head>
-  <body class="td-page">
+  <body class="td-section">
     <header>
       
 <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
@@ -78,7 +74,7 @@
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/offline-search-index.5c487e5f157ca24ac9b3f8c01d39cf9e.json"
+  data-offline-search-index-json-src="/offline-search-index.ef30ca3ebb1005531b1b9d3b96bf3b6e.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="10"
 >
@@ -106,7 +102,7 @@
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/offline-search-index.5c487e5f157ca24ac9b3f8c01d39cf9e.json"
+  data-offline-search-index-json-src="/offline-search-index.ef30ca3ebb1005531b1b9d3b96bf3b6e.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="10"
 >
@@ -138,36 +134,45 @@
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-dictionariespartial-updates-li">
   <a href="/altinity-kb-dictionaries/partial-updates/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-dictionariespartial-updates"><span class="">Partial updates</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-dictionariesaltinity-kb-range_hashed-example-open-intervals-li">
-  <a href="/altinity-kb-dictionaries/altinity-kb-range_hashed-example-open-intervals/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-dictionariesaltinity-kb-range_hashed-example-open-intervals"><span class="">range hashed example - open intervals</span></a>
+  <a href="/altinity-kb-dictionaries/altinity-kb-range_hashed-example-open-intervals/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-dictionariesaltinity-kb-range_hashed-example-open-intervals"><span class="">range_hashed example - open intervals</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-dictionariesaltinity-kb-sparse_hashed-vs-hashed-li">
-  <a href="/altinity-kb-dictionaries/altinity-kb-sparse_hashed-vs-hashed/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-dictionariesaltinity-kb-sparse_hashed-vs-hashed"><span class="">SPARSE HASHED VS HASHED</span></a>
+  <a href="/altinity-kb-dictionaries/altinity-kb-sparse_hashed-vs-hashed/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-dictionariesaltinity-kb-sparse_hashed-vs-hashed"><span class="">SPARSE_HASHED VS HASHED</span></a>
 </li>
   </ul>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-engines-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-engines-li">
   <a href="/engines/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-engines"><span class="">Engines</span></a>
   <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-enginesaltinity-kb-atomic-database-engine-li">
+  <a href="/engines/altinity-kb-atomic-database-engine/" class="align-left pl-0 active td-sidebar-link td-sidebar-link__section" id="m-enginesaltinity-kb-atomic-database-engine"><span class="td-sidebar-nav-active-item">Atomic Database Engine</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-enginesaltinity-kb-atomic-database-enginealtinity-kb-how-to-convert-atomic-to-ordinary-li">
+  <a href="/engines/altinity-kb-atomic-database-engine/altinity-kb-how-to-convert-atomic-to-ordinary/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-enginesaltinity-kb-atomic-database-enginealtinity-kb-how-to-convert-atomic-to-ordinary"><span class="">How to Convert Atomic to Ordinary</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-enginesaltinity-kb-embeddedrocksdb-and-dictionary-li">
+  <a href="/engines/altinity-kb-embeddedrocksdb-and-dictionary/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-enginesaltinity-kb-embeddedrocksdb-and-dictionary"><span class="">EmbeddedRocksDB &amp; dictionary</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-enginesmergetree-table-engine-family-li">
+  <a href="/engines/mergetree-table-engine-family/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-enginesmergetree-table-engine-family"><span class="">MergeTree table engine family</span></a>
+  <ul class="ul-3 foldable">
     <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-enginesmergetree-table-engine-familyaggregatingmergetree-li">
   <a href="/engines/mergetree-table-engine-family/aggregatingmergetree/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-enginesmergetree-table-engine-familyaggregatingmergetree"><span class="">AggregatingMergeTree</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-enginesaltinity-kb-atomic-database-enginereadme-li">
-  <a href="/engines/altinity-kb-atomic-database-engine/readme/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-enginesaltinity-kb-atomic-database-enginereadme"><span class="">Atomic Database Engine</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-enginesaltinity-kb-embeddedrocksdb-and-dictionary-li">
-  <a href="/engines/altinity-kb-embeddedrocksdb-and-dictionary/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-enginesaltinity-kb-embeddedrocksdb-and-dictionary"><span class="">EmbeddedRocksDB &amp; dictionary</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-enginesaltinity-kb-atomic-database-enginealtinity-kb-how-to-convert-atomic-to-ordinary-li">
-  <a href="/engines/altinity-kb-atomic-database-engine/altinity-kb-how-to-convert-atomic-to-ordinary/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-enginesaltinity-kb-atomic-database-enginealtinity-kb-how-to-convert-atomic-to-ordinary"><span class="">How to Convert Atomic to Ordinary</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-enginesmergetree-table-engine-familyindex-and-column-files-li">
   <a href="/engines/mergetree-table-engine-family/index-and-column-files/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-enginesmergetree-table-engine-familyindex-and-column-files"><span class="">index &amp; column files</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-enginesmergetree-table-engine-familyreadme-li">
-  <a href="/engines/mergetree-table-engine-family/readme/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-enginesmergetree-table-engine-familyreadme"><span class="">MergeTree table engine family</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-enginesmergetree-table-engine-familyaltinity-kb-nulls-in-order-by-li">
   <a href="/engines/mergetree-table-engine-family/altinity-kb-nulls-in-order-by/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-enginesmergetree-table-engine-familyaltinity-kb-nulls-in-order-by"><span class="">Nulls in order by</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-enginesmergetree-table-engine-familyreplacingmergetreereadme-li">
-  <a href="/engines/mergetree-table-engine-family/replacingmergetree/readme/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-enginesmergetree-table-engine-familyreplacingmergetreereadme"><span class="">ReplacingMergeTree</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-enginesmergetree-table-engine-familyreplacingmergetreealtinity-kb-replacingmergetree-does-not-collapse-duplicates-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-enginesmergetree-table-engine-familyreplacingmergetree-li">
+  <a href="/engines/mergetree-table-engine-family/replacingmergetree/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-enginesmergetree-table-engine-familyreplacingmergetree"><span class="">ReplacingMergeTree</span></a>
+  <ul class="ul-4 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-enginesmergetree-table-engine-familyreplacingmergetreealtinity-kb-replacingmergetree-does-not-collapse-duplicates-li">
   <a href="/engines/mergetree-table-engine-family/replacingmergetree/altinity-kb-replacingmergetree-does-not-collapse-duplicates/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-enginesmergetree-table-engine-familyreplacingmergetreealtinity-kb-replacingmergetree-does-not-collapse-duplicates"><span class="">ReplacingMergeTree does not collapse duplicates</span></a>
+</li>
+  </ul>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-enginesmergetree-table-engine-familyskip-index-li">
   <a href="/engines/mergetree-table-engine-family/skip-index/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-enginesmergetree-table-engine-familyskip-index"><span class="">Skip index</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-enginesmergetree-table-engine-familysummingmergetree-li">
   <a href="/engines/mergetree-table-engine-family/summingmergetree/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-enginesmergetree-table-engine-familysummingmergetree"><span class="">SummingMergeTree</span></a>
+</li>
+  </ul>
 </li>
   </ul>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-altinity-kb-functions-li">
@@ -226,11 +231,7 @@
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-altinity-kb-queries-and-syntax-li">
   <a href="/altinity-kb-queries-and-syntax/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-altinity-kb-queries-and-syntax"><span class="">Queries &amp; Syntax</span></a>
   <ul class="ul-2 foldable">
-    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-queries-and-syntaxmutations-li">
-  <a href="/altinity-kb-queries-and-syntax/mutations/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxmutations"><span class=""></span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-queries-and-syntaxpivot-unpivot-li">
-  <a href="/altinity-kb-queries-and-syntax/pivot-unpivot/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxpivot-unpivot"><span class=""></span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-queries-and-syntaxsampling-example-li">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-queries-and-syntaxsampling-example-li">
   <a href="/altinity-kb-queries-and-syntax/sampling-example/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxsampling-example"><span class=""></span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-queries-and-syntaxstate-and-merge-combinators-li">
   <a href="/altinity-kb-queries-and-syntax/state-and-merge-combinators/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxstate-and-merge-combinators"><span class="">-State &amp; -Merge combinators</span></a>
@@ -271,10 +272,14 @@
   <a href="/altinity-kb-queries-and-syntax/lag-lead/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxlag-lead"><span class="">Lag / Lead</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-queries-and-syntaxmachine-learning-in-clickhouse-li">
   <a href="/altinity-kb-queries-and-syntax/machine-learning-in-clickhouse/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxmachine-learning-in-clickhouse"><span class="">Machine learning in ClickHouse</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-queries-and-syntaxmutations-li">
+  <a href="/altinity-kb-queries-and-syntax/mutations/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxmutations"><span class="">Mutations</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-queries-and-syntaxaltinity-kb-optimize-vs-optimize-final-li">
   <a href="/altinity-kb-queries-and-syntax/altinity-kb-optimize-vs-optimize-final/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxaltinity-kb-optimize-vs-optimize-final"><span class="">OPTIMIZE vs OPTIMIZE FINAL</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-queries-and-syntaxaltinity-kb-parameterized-views-li">
   <a href="/altinity-kb-queries-and-syntax/altinity-kb-parameterized-views/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxaltinity-kb-parameterized-views"><span class="">Parameterized views</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-queries-and-syntaxpivot-unpivot-li">
+  <a href="/altinity-kb-queries-and-syntax/pivot-unpivot/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxpivot-unpivot"><span class="">PIVOT / UNPIVOT</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-queries-and-syntaxaltinity-kb-possible-deadlock-avoided-client-should-retry-li">
   <a href="/altinity-kb-queries-and-syntax/altinity-kb-possible-deadlock-avoided.-client-should-retry/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxaltinity-kb-possible-deadlock-avoided-client-should-retry"><span class="">Possible deadlock avoided. Client should retry</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-queries-and-syntaxprojections-examples-li">
@@ -286,10 +291,10 @@
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-altinity-kb-queries-and-syntaxskip-indexes-li">
   <a href="/altinity-kb-queries-and-syntax/skip-indexes/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-altinity-kb-queries-and-syntaxskip-indexes"><span class="">Skip indexes</span></a>
   <ul class="ul-3 foldable">
-    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-queries-and-syntaxskip-indexesskip-index-bloom_filter-for-array-column-li">
-  <a href="/altinity-kb-queries-and-syntax/skip-indexes/skip-index-bloom_filter-for-array-column/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxskip-indexesskip-index-bloom_filter-for-array-column"><span class=""></span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-queries-and-syntaxskip-indexesminmax-li">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-queries-and-syntaxskip-indexesminmax-li">
   <a href="/altinity-kb-queries-and-syntax/skip-indexes/minmax/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxskip-indexesminmax"><span class="">Example: minmax</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-queries-and-syntaxskip-indexesskip-index-bloom_filter-for-array-column-li">
+  <a href="/altinity-kb-queries-and-syntax/skip-indexes/skip-index-bloom_filter-for-array-column/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-queries-and-syntaxskip-indexesskip-index-bloom_filter-for-array-column"><span class="">Skip index bloom_filter Example</span></a>
 </li>
   </ul>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-queries-and-syntaxtime-zones-li">
@@ -352,58 +357,61 @@
   </ul>
 </li>
   </ul>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-altinity-kb-setup-and-maintenance-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-altinity-kb-setup-and-maintenance-li">
   <a href="/altinity-kb-setup-and-maintenance/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-altinity-kb-setup-and-maintenance"><span class="">Setup &amp; maintenance</span></a>
   <ul class="ul-2 foldable">
-    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-setup-and-maintenanceclickhouse-backup-li">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenanceclickhouse-backup-li">
   <a href="/altinity-kb-setup-and-maintenance/clickhouse-backup/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenanceclickhouse-backup"><span class=""></span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-setup-and-maintenancelogging-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancelogging-li">
   <a href="/altinity-kb-setup-and-maintenance/logging/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancelogging"><span class=""></span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-setup-and-maintenancealtinity-packaging-compatibility-greater-than-21x-and-earlier-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-packaging-compatibility-greater-than-21x-and-earlier-li">
   <a href="/altinity-kb-setup-and-maintenance/altinity-packaging-compatibility-greater-than-21.x-and-earlier/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-packaging-compatibility-greater-than-21x-and-earlier"><span class="">Altinity packaging compatibility &amp;gt;21.x and earlier</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-setup-and-maintenanceaws-ebs-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenanceaws-ebs-li">
   <a href="/altinity-kb-setup-and-maintenance/aws-ebs/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenanceaws-ebs"><span class="">AWS EBS</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-setup-and-maintenancealtinity-kb-clickhouse-in-docker-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-clickhouse-in-docker-li">
   <a href="/altinity-kb-setup-and-maintenance/altinity-kb-clickhouse-in-docker/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-clickhouse-in-docker"><span class="">ClickHouse in Docker</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-setup-and-maintenanceuntitled-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenanceuntitled-li">
   <a href="/altinity-kb-setup-and-maintenance/untitled/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenanceuntitled"><span class="">ClickHouse versions</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-setup-and-maintenancealtinity-kb-converting-mergetree-to-replicated-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-converting-mergetree-to-replicated-li">
   <a href="/altinity-kb-setup-and-maintenance/altinity-kb-converting-mergetree-to-replicated/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-converting-mergetree-to-replicated"><span class="">Converting MergeTree to Replicated</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-altinity-kb-setup-and-maintenancealtinity-kb-data-migration-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-data-migration-li">
   <a href="/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-altinity-kb-setup-and-maintenancealtinity-kb-data-migration"><span class="">Data Migration</span></a>
   <ul class="ul-3 foldable">
-    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-setup-and-maintenancealtinity-kb-data-migrationremote--table-function-li">
-  <a href="/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/remote-...-table-function/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-data-migrationremote--table-function"><span class=""></span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-altinity-kb-setup-and-maintenancealtinity-kb-data-migrationaltinity-kb-clickhouse-copierreadme-li">
-  <a href="/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/altinity-kb-clickhouse-copier/readme/" class="align-left pl-0 active td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-data-migrationaltinity-kb-clickhouse-copierreadme"><span class="td-sidebar-nav-active-item">clickhouse-copier</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-setup-and-maintenancealtinity-kb-data-migrationaltinity-kb-clickhouse-copieraltinity-kb-clickhouse-copier-203-and-earlier-li">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-data-migrationaltinity-kb-clickhouse-copier-li">
+  <a href="/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/altinity-kb-clickhouse-copier/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-altinity-kb-setup-and-maintenancealtinity-kb-data-migrationaltinity-kb-clickhouse-copier"><span class="">clickhouse-copier</span></a>
+  <ul class="ul-4 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-data-migrationaltinity-kb-clickhouse-copieraltinity-kb-clickhouse-copier-203-and-earlier-li">
   <a href="/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/altinity-kb-clickhouse-copier/altinity-kb-clickhouse-copier-20.3-and-earlier/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-data-migrationaltinity-kb-clickhouse-copieraltinity-kb-clickhouse-copier-203-and-earlier"><span class="">clickhouse-copier 20.3 and earlier</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-setup-and-maintenancealtinity-kb-data-migrationaltinity-kb-clickhouse-copieraltinity-kb-clickhouse-copier-204-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-data-migrationaltinity-kb-clickhouse-copieraltinity-kb-clickhouse-copier-204-li">
   <a href="/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/altinity-kb-clickhouse-copier/altinity-kb-clickhouse-copier-20.4&#43;/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-data-migrationaltinity-kb-clickhouse-copieraltinity-kb-clickhouse-copier-204"><span class="">clickhouse-copier 20.4&#43;</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-setup-and-maintenancealtinity-kb-data-migrationrsync-li">
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-data-migrationremote-table-function-li">
+  <a href="/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/remote-table-function/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-data-migrationremote-table-function"><span class="">Remote table function</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-data-migrationrsync-li">
   <a href="/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/rsync/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-data-migrationrsync"><span class="">rsync</span></a>
 </li>
   </ul>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-altinity-kb-setup-and-maintenancealtinity-kb-ddlworker-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-ddlworker-li">
   <a href="/altinity-kb-setup-and-maintenance/altinity-kb-ddlworker/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-altinity-kb-setup-and-maintenancealtinity-kb-ddlworker"><span class="">DDLWorker</span></a>
   <ul class="ul-3 foldable">
     <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-ddlworkerthere-are-n-unfinished-hosts-0-of-them-are-currently-active-li">
   <a href="/altinity-kb-setup-and-maintenance/altinity-kb-ddlworker/there-are-n-unfinished-hosts-0-of-them-are-currently-active/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-ddlworkerthere-are-n-unfinished-hosts-0-of-them-are-currently-active"><span class="">There are N unfinished hosts (0 of them are currently active).</span></a>
 </li>
   </ul>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-setup-and-maintenancehigh-cpu-usage-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancehigh-cpu-usage-li">
   <a href="/altinity-kb-setup-and-maintenance/high-cpu-usage/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancehigh-cpu-usage"><span class="">High CPU usage</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-setup-and-maintenanceload-balancers-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenanceload-balancers-li">
   <a href="/altinity-kb-setup-and-maintenance/load-balancers/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenanceload-balancers"><span class="">Load balancers</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-setup-and-maintenancealtinity-kb-memory-configuration-settings-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-memory-configuration-settings-li">
   <a href="/altinity-kb-setup-and-maintenance/altinity-kb-memory-configuration-settings/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-memory-configuration-settings"><span class="">memory configuration settings</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-setup-and-maintenancealtinity-kb-monitoring-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-monitoring-li">
   <a href="/altinity-kb-setup-and-maintenance/altinity-kb-monitoring/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-monitoring"><span class="">Monitoring</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-setup-and-maintenancealtinity-kb-moving-table-to-another-device-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-moving-table-to-another-device-li">
   <a href="/altinity-kb-setup-and-maintenance/altinity-kb-moving-table-to-another-device./" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-moving-table-to-another-device"><span class="">Moving table to another device.</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-setup-and-maintenancealtinity-kb-object-consistency-in-a-cluster-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-object-consistency-in-a-cluster-li">
   <a href="/altinity-kb-setup-and-maintenance/altinity-kb-object-consistency-in-a-cluster/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-object-consistency-in-a-cluster"><span class="">Object consistency in a cluster</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-altinity-kb-setup-and-maintenancecluster-production-configuration-guide-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-altinity-kb-setup-and-maintenancecluster-production-configuration-guide-li">
   <a href="/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-altinity-kb-setup-and-maintenancecluster-production-configuration-guide"><span class="">Production Cluster Configuration Guide</span></a>
   <ul class="ul-3 foldable">
     <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancecluster-production-configuration-guidehardening-clickhouse-security-li">
@@ -422,32 +430,32 @@
   <a href="/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/version-upgrades/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancecluster-production-configuration-guideversion-upgrades"><span class="">Version Upgrades</span></a>
 </li>
   </ul>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-setup-and-maintenancealtinity-kb-replication-queue-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-replication-queue-li">
   <a href="/altinity-kb-setup-and-maintenance/altinity-kb-replication-queue/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-replication-queue"><span class="">Replication queue</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-altinity-kb-setup-and-maintenanceschema-migration-tools-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-altinity-kb-setup-and-maintenanceschema-migration-tools-li">
   <a href="/altinity-kb-setup-and-maintenance/schema-migration-tools/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-altinity-kb-setup-and-maintenanceschema-migration-tools"><span class="">Schema migration tools for ClickHouse</span></a>
   <ul class="ul-3 foldable">
     <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenanceschema-migration-toolsgolang-migrate-li">
   <a href="/altinity-kb-setup-and-maintenance/schema-migration-tools/golang-migrate/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenanceschema-migration-toolsgolang-migrate"><span class="">golang-migrate</span></a>
 </li>
   </ul>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-setup-and-maintenancealtinity-kb-server-config-files-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-server-config-files-li">
   <a href="/altinity-kb-setup-and-maintenance/altinity-kb-server-config-files/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-server-config-files"><span class="">Server config files</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-setup-and-maintenancealtinity-kb-settings-to-adjust-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-settings-to-adjust-li">
   <a href="/altinity-kb-setup-and-maintenance/altinity-kb-settings-to-adjust/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-settings-to-adjust"><span class="">Settings to adjust</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-setup-and-maintenancealtinity-kb-shutting-down-a-node-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-shutting-down-a-node-li">
   <a href="/altinity-kb-setup-and-maintenance/altinity-kb-shutting-down-a-node/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-shutting-down-a-node"><span class="">Shutting down a node</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-setup-and-maintenancessl-connection-unexpectedly-closed-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancessl-connection-unexpectedly-closed-li">
   <a href="/altinity-kb-setup-and-maintenance/ssl-connection-unexpectedly-closed/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancessl-connection-unexpectedly-closed"><span class="">SSL connection unexpectedly closed</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-setup-and-maintenancealtinity-kb-system-tables-eat-my-disk-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-system-tables-eat-my-disk-li">
   <a href="/altinity-kb-setup-and-maintenance/altinity-kb-system-tables-eat-my-disk/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-system-tables-eat-my-disk"><span class="">System tables eat my disk</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-setup-and-maintenancealtinity-kb-threads-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-threads-li">
   <a href="/altinity-kb-setup-and-maintenance/altinity-kb-threads/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-threads"><span class="">Threads</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-setup-and-maintenancealtinity-kb-who-ate-my-memory-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-who-ate-my-memory-li">
   <a href="/altinity-kb-setup-and-maintenance/altinity-kb-who-ate-my-memory/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancealtinity-kb-who-ate-my-memory"><span class="">Who ate my memory</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-setup-and-maintenancex-rows-of-y-total-rows-in-filesystem-are-suspicious-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancex-rows-of-y-total-rows-in-filesystem-are-suspicious-li">
   <a href="/altinity-kb-setup-and-maintenance/x-rows-of-y-total-rows-in-filesystem-are-suspicious/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancex-rows-of-y-total-rows-in-filesystem-are-suspicious"><span class="">X rows of Y total rows in filesystem are suspicious</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-altinity-kb-setup-and-maintenancealtinity-kb-zookeeper-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-zookeeper-li">
   <a href="/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-altinity-kb-setup-and-maintenancealtinity-kb-zookeeper"><span class="">ZooKeeper</span></a>
   <ul class="ul-3 foldable">
     <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-setup-and-maintenancealtinity-kb-zookeeperzookeeper-monitoring-li">
@@ -521,9 +529,9 @@
     
     
 
-    <a href="https://github.com/Altinity/betaknowledgebase/edit/main/content/en/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/altinity-kb-clickhouse-copier/README.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
-    <a href="https://github.com/Altinity/betaknowledgebase/new/main/content/en/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/altinity-kb-clickhouse-copier/README.md?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" target="_blank"><i class="fa fa-edit fa-fw"></i> Create child page</a>
-    <a href="https://github.com/Altinity/betaknowledgebase/issues/new?title=/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/altinity-kb-clickhouse-copier/readme/" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
+    <a href="https://github.com/Altinity/betaknowledgebase/edit/main/content/en/engines/altinity-kb-atomic-database-engine/_index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+    <a href="https://github.com/Altinity/betaknowledgebase/new/main/content/en/engines/altinity-kb-atomic-database-engine/_index.md?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" target="_blank"><i class="fa fa-edit fa-fw"></i> Create child page</a>
+    <a href="https://github.com/Altinity/betaknowledgebase/issues/new?title=/engines/altinity-kb-atomic-database-engine/" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
     
 
   
@@ -533,6 +541,20 @@
 
             
 
+
+<div class="td-toc"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#faq">FAQ</a>
+      <ul>
+        <li><a href="#q-data-is-not-removed-immediately"><strong>Q. Data is not removed immediately</strong></a></li>
+        <li><a href="#q-i-cannot-reuse-zookeeper-path-after-dropping-the-table"><strong>Q. I cannot reuse zookeeper path after dropping the table.</strong></a></li>
+        <li><a href="#q-should-i-use-atomic-or-ordinary-for-new-setups">Q. Should I use Atomic or Ordinary for new setups?</a></li>
+      </ul>
+    </li>
+    <li><a href="#using-ordinary-by-default-instead-of-atomic">Using Ordinary by default instead of Atomic</a></li>
+    <li><a href="#other-sources">Other sources</a></li>
+  </ul>
+</nav></div>
 
 
 
@@ -571,25 +593,15 @@
 
 
 
-
-
-
 <li class="breadcrumb-item" >
-	<a href="http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/">Setup &amp; maintenance</a>
-</li>
-
-
-
-
-<li class="breadcrumb-item" >
-	<a href="http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/">Data Migration</a>
+	<a href="http://beta.kb.altinity.com/engines/">Engines</a>
 </li>
 
 
 
 
 <li class="breadcrumb-item active" aria-current="page">
-	<a href="http://beta.kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/altinity-kb-clickhouse-copier/readme/">clickhouse-copier</a>
+	<a href="http://beta.kb.altinity.com/engines/altinity-kb-atomic-database-engine/">Atomic Database Engine</a>
 </li>
 
 	</ol>
@@ -597,46 +609,213 @@
 
             
 <div class="td-content">
-	<h1>clickhouse-copier</h1>
-    <div class="lead">clickhouse-copier	
-	</div>
-	
-	       
-	<p>The description of the utility and its parameters, as well as examples of the config files that you need to create for the copier are in the doc <a href="https://clickhouse.tech/docs/en/operations/utilities/clickhouse-copier/" target="_blank">https://clickhouse.tech/docs/en/operations/utilities/clickhouse-copier/</a></p>
-<p>The steps to run a task:</p>
-<ol>
-<li>
-<p>Create a config file for clickhouse-copier (zookeeper.xml)</p>
-<p><a href="https://clickhouse.tech/docs/en/operations/utilities/clickhouse-copier/#format-of-zookeeper-xml" target="_blank">https://clickhouse.tech/docs/en/operations/utilities/clickhouse-copier/#format-of-zookeeper-xml</a></p>
-</li>
-<li>
-<p>Create a config file for the task (task1.xml)</p>
-<p><a href="https://clickhouse.tech/docs/en/operations/utilities/clickhouse-copier/#configuration-of-copying-tasks" target="_blank">https://clickhouse.tech/docs/en/operations/utilities/clickhouse-copier/#configuration-of-copying-tasks</a></p>
-</li>
-<li>
-<p>Create the task in ZooKeeper and start an instance of clickhouse-copier<code>clickhouse-copier --daemon --base-dir=/opt/clickhouse-copier --config /opt/clickhouse-copier/zookeeper.xml --task-path /clickhouse/copier/task1 --task-file /opt/clickhouse-copier/task1.xml</code></p>
-</li>
-</ol>
-<p>If the node in ZooKeeper already exists and you want to change it, you need to add the <code>task-upload-force</code> parameter:</p>
-<p><code>clickhouse-copier --daemon --base-dir=/opt/clickhouse-copier --config /opt/clickhouse-copier/zookeeper.xml --task-path /clickhouse/copier/task1 --task-file /opt/clickhouse-copier/task1.xml --task-upload-force 1</code></p>
-<p>If you want to run another instance of clickhouse-copier for the same task, you need to copy the config file (zookeeper.xml) to another server, and run this command:</p>
-<p><code>clickhouse-copier --daemon --base-dir=/opt/clickhouse-copier --config /opt/clickhouse-copier/zookeeper.xml --task-path /clickhouse/copier/task1</code></p>
-<p>The number of simultaneously running instances is controlled be the <code>max_workers</code> parameter in your task configuration file. If you run more workers superfluous workers will sleep and log messages like this:</p>
-<p><code>&lt;Debug&gt; ClusterCopier: Too many workers (1, maximum 1). Postpone processing</code></p>
+	<h1>Atomic Database Engine</h1>
+  <div class="lead">Atomic Database Engine</div>
+	<header class="article-meta">
+		
+		
+			
+				
+
+
+			
+				
+
+
+			
+		
+		
+	</header>
+	<p>In version 20.5 ClickHouse first introduced database engine=Atomic.</p>
+<p>Since version 20.10 it is a default database engine (before engine=Ordinary was used).</p>
+<p>Those 2 database engine differs in a way how they store data on a filesystem, and engine Atomic allows to resolve some of the issues existed in engine=Ordinary.</p>
+<p>engine=Atomic supports</p>
+<ul>
+<li>non-blocking drop table / rename table</li>
+<li>tables delete (&amp;detach) async (wait for selects finish but invisible for new selects)</li>
+<li>atomic drop table (all files / folders removed)</li>
+<li>atomic table swap (table swap by &ldquo;EXCHANGE TABLES t1 AND t2;&quot;)</li>
+<li>rename dictionary / rename database</li>
+<li>unique automatic UUID paths in FS and ZK for Replicated</li>
+</ul>
+<h2 id="faq">FAQ</h2>
+<h3 id="q-data-is-not-removed-immediately"><strong>Q. Data is not removed immediately</strong></h3>
+<p>A. Use<code>DROP TABLE t SYNC;</code></p>
+<p>Or use parameter (user level) database_atomic_wait_for_drop_and_detach_synchronously<code>:</code></p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#204a87;font-weight:bold">SET</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">database_atomic_wait_for_drop_and_detach_synchronously</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></code></pre></div><p>Also, you can decrease the delay used by Atomic for real table drop (it’s 8 minutes by default)</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cat /etc/clickhouse-server/config.d/database_atomic_delay_before_drop_table.xml
+&lt;yandex&gt;
+    &lt;database_atomic_delay_before_drop_table_sec&gt;1&lt;/database_atomic_delay_before_drop_table_sec&gt;
+&lt;/yandex&gt;
+</code></pre></div><h3 id="q-i-cannot-reuse-zookeeper-path-after-dropping-the-table"><strong>Q. I cannot reuse zookeeper path after dropping the table.</strong></h3>
+<p>A. This happens because real table deletion occurs with a controlled delay. See the previous question to remove the table immediately.</p>
+<p>With engine=Atomic it’s possible (and is a good practice if you do it correctly) to include UUID into zookeeper path, i.e. :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#204a87;font-weight:bold">CREATE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">...</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">ON</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">CLUSTER</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">...</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">ENGINE</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#000">ReplicatedMergeTree</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#39;/clickhouse/tables/{uuid}/{shard}/&#39;</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;{replica}&#39;</span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></code></pre></div><p>See also: <a href="https://github.com/ClickHouse/ClickHouse/issues/12135#issuecomment-653932557" target="_blank">https://github.com/ClickHouse/ClickHouse/issues/12135#issuecomment-653932557</a></p>
+<p>It’s very important that the table will have the same UUID cluster-wide.</p>
+<p>When the table is created using <em>ON CLUSTER</em> - all tables will get the same UUID automatically.
+When it needs to be done manually (for example - you need to add one more replica), pick CREATE TABLE statement with UUID from one of the existing replicas.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#204a87;font-weight:bold">set</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">show_table_uuid_in_table_create_qquery_if_not_nil</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#f8f8f8;text-decoration:underline">　</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">SHOW</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">CREATE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">TABLE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">xxx</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#8f5902;font-style:italic">/* or SELECT create_table_query FROM system.tables WHERE ... */</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></code></pre></div><h3 id="q-should-i-use-atomic-or-ordinary-for-new-setups">Q. Should I use Atomic or Ordinary for new setups?</h3>
+<p>All things inside clickhouse itself should work smoothly with <code>Atomic</code>.</p>
+<p>But some external tools - backup tools, things involving other kinds of direct manipulations with clickhouse files &amp; folders may have issues with <code>Atomic</code>.</p>
+<p><code>Ordinary</code> layout on the filesystem is simpler. And the issues which address Atomic (lock-free renames, drops, atomic exchange of table) are not so critical in most cases.</p>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left"></th>
+      <th style="text-align:left">Ordinary</th>
+      <th style="text-align:left">Atomic</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">filesystem layout</td>
+      <td style="text-align:left">very simple</td>
+      <td style="text-align:left">more complicated</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">external tool support
+        <br />(like clickhouse-backup)</td>
+      <td style="text-align:left">good / mature</td>
+      <td style="text-align:left">limited / beta</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">
+        <p>some DDL queries (DROP / RENAME) may</p>
+        <p>hang for a long time (waiting for some other things)</p>
+      </td>
+      <td style="text-align:left">yes &#x1F44E;</td>
+      <td style="text-align:left">no &#x1F44D;</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">Possibility to swap 2 tables</td>
+      <td style="text-align:left">
+        <p>rename
+          <br />a to a_old,
+          <br />b to a,</p>
+        <p>a_old to b;</p>
+        <p>Operation is not atomic, and
+          <br />can break in the middle (while chances are low).</p>
+      </td>
+      <td style="text-align:left">
+        <p></p>
+        <p>EXCHANGE TABLES t1 AND t2</p>
+        <p>Atomic, have no intermediate states.</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">uuid in zookeeper path</td>
+      <td style="text-align:left">
+        <p>Not possible to use.</p>
+        <p>The typical pattern is to add version suffix to zookeeper path when you
+          need to create
+          <br />the new version of the same table.</p>
+      </td>
+      <td style="text-align:left">
+        <p>You can use uuid in zookeeper paths.
+          <br />That requires some extra care when you expand the cluster, and makes zookeeper
+          paths harder to map to real table.</p>
+        <p>But allows to to do any kind of manipulations on tables (rename, recreate
+          with same name etc).</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">
+        <p>Materialized view without TO syntax</p>
+        <p>(!we recommend using TO syntax always!)</p>
+      </td>
+      <td style="text-align:left">
+        <p>.inner.mv_name</p>
+        <p>The name is predictable, easy to match with MV.</p>
+      </td>
+      <td style="text-align:left">
+        <p>.inner_id.{uuid}</p>
+        <p>The name is unpredictable, hard to match with MV (maybe problematic for
+          MV chains, and similar scenarios)</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<h2 id="using-ordinary-by-default-instead-of-atomic">Using Ordinary by default instead of Atomic</h2>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">---
+title: <span style="color:#4e9a06">&#34;cat /etc/clickhouse-server/users.d/disable_atomic_database.xml &#34;</span>
+linkTitle: <span style="color:#4e9a06">&#34;cat /etc/clickhouse-server/users.d/disable_atomic_database.xml &#34;</span>
+description: &gt;
+    cat /etc/clickhouse-server/users.d/disable_atomic_database.xml
+---
+&lt;?xml <span style="color:#000">version</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#34;1.0&#34;</span>?&gt;
+&lt;yandex&gt;
+    &lt;profiles&gt;
+        &lt;default&gt;
+            &lt;default_database_engine&gt;Ordinary&lt;/default_database_engine&gt;
+        &lt;/default&gt;
+    &lt;/profiles&gt;
+&lt;/yandex&gt;
+</code></pre></div><h2 id="other-sources">Other sources</h2>
+<p>Presentation <a href="https://youtu.be/1LVJ_WcLgF8?t=2744" target="_blank">https://youtu.be/1LVJ_WcLgF8?t=2744</a></p>
+<p><a href="https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup46/database_engines.pdf" target="_blank">https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup46/database_engines.pdf</a></p>
+
+        <div class="section-index">
+    
+    
+    
+    
+    
+    <hr class="panel-line">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+                <div class="entry">
+                    <h5>
+                        <a href="/engines/altinity-kb-atomic-database-engine/altinity-kb-how-to-convert-atomic-to-ordinary/">How to Convert Atomic to Ordinary</a>
+                    </h5>
+                    <p>How to Convert Atomic to Ordinary
+                        
+                        
+                    </p>
+                </div>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+</div>
 
 	
 	
-	
-	<div class="text-muted mt-5 pt-3 border-top"><div class="text-muted mt-5 pt-3 border-top">
+	<div class="text-muted mt-5 pt-3 border-top">
 
     Last modified
-    2021.08.10
-    : <a  href="https://github.com/Altinity/betaknowledgebase/commit/8d6e784339a19eabc96043f696ddf069431ce2cb">Update copyright. (8d6e784)</a>
+    2021.08.11
+    : <a  href="https://github.com/Altinity/betaknowledgebase/commit/cba736143ce8af8848a8256e79fb16ee67338d36">CLA testing. (cba7361)</a>
 
 </div>
-</div>
-</div>
 
+</div>
 
           </main>
         </div>
