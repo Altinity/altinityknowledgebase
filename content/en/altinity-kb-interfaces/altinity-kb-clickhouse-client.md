@@ -50,4 +50,4 @@ References:
 
 * [https://clickhouse.tech/docs/en/interfaces/cli/](https://clickhouse.tech/docs/en/interfaces/cli/)
 
-Testing workflow after change to YAML file.
+Forcing update to the altinity-knowledgebase branch.
