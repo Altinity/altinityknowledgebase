@@ -1,4 +1,4 @@
-name: github pages
+name: Render Knowledgebase
 
 on:
   push:
@@ -22,7 +22,8 @@ jobs:
           # extended: true
 
       - name: Build
-        run: hugo --minify
+        # run: hugo --minify
+        run: env HUGO_ENV="production" hugo --gc
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
