@@ -1,0 +1,87 @@
+/*
+
+Styles to override the theme.
+
+*/
+
+.td-navbar {
+  background: #333;
+}
+
+.td-navbar .navbar-brand svg {
+  margin: -8px 10px 0;
+}
+
+img {
+  max-width:100%;
+  height: auto;
+}
+
+button {
+  border-radius: 50px;
+  background: #fe4954;
+  color: #fff;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-width: 0;
+}
+
+.lead {
+  margin-bottom: 1em;
+  padding-bottom: 1em;
+  border-bottom: 1px solid #dee2e6;
+  color: rgba(85,85,85,0.5);
+  font-weight: 300;
+}
+
+h1, .h1 {
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: #667373;
+  @media (min-width:768px){
+    font-size: 3rem;
+  }
+}
+
+h2, .h2, h3, .h3 {
+  margin-top: 1.5em;
+  font-weight: 700;
+  color: #667373;
+}
+
+li {
+  margin-bottom: 0.5rem;
+}
+
+table {
+  border-radius: 6px;
+  margin-bottom: 2em;
+  overflow:hidden;
+}
+
+td, th {
+  padding: 0.5rem;
+}
+
+th {
+  background: #667373;
+  color: #fff;
+}
+
+tr:nth-child(odd) {
+  background: $td-sidebar-bg-color;
+} 
+
+tr:nth-child(even) {
+  background-color: rgba(233, 236, 240, 0.5);
+} 
+
+
+.feedback--title {
+  border-top: 1px solid #dee2e6;
+  padding-top: 1em;
+}
+
+.feedback--answer {
+  width: 4em;
+}
