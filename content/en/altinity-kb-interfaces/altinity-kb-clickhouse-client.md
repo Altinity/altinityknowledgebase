@@ -49,6 +49,3 @@ Also, it’s possible to have several client config files and pass one of them t
 References:
 
 * [https://clickhouse.tech/docs/en/interfaces/cli/](https://clickhouse.tech/docs/en/interfaces/cli/)
-
-This is a test.
-
