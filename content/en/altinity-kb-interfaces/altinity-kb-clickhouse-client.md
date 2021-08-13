@@ -50,4 +50,4 @@ References:
 
 * [https://clickhouse.tech/docs/en/interfaces/cli/](https://clickhouse.tech/docs/en/interfaces/cli/)
 
-This is a test from the public side.  Neat.
+This is John Hummel, doing the render directly to Main as a member of the team.
