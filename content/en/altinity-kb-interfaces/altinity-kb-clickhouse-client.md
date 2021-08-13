@@ -50,4 +50,4 @@ References:
 
 * [https://clickhouse.tech/docs/en/interfaces/cli/](https://clickhouse.tech/docs/en/interfaces/cli/)
 
-Changing this page to retest the workflow.
+Testing workflow after change to YAML file.
