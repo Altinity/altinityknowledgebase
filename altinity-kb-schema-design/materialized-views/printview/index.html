@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.96.0" /><link rel="canonical" type="text/html" href="http://kb.altinity.com/altinity-kb-schema-design/materialized-views/">
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+<link rel="shortcut icon" href="/favicons/favicon.ico" >
+<link rel="icon" href="/favicons/favicon.ico" >
+<title>MATERIALIZED VIEWS | Altinity Knowledge Base</title>
+<meta name="description" content="Altinity Knowledge Base"><meta property="og:title" content="MATERIALIZED VIEWS" />
+<meta property="og:description" content="MATERIALIZED VIEWS
+" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="http://kb.altinity.com/altinity-kb-schema-design/materialized-views/" /><meta property="og:site_name" content="Altinity Knowledge Base" />
+
+<meta itemprop="name" content="MATERIALIZED VIEWS">
+<meta itemprop="description" content="MATERIALIZED VIEWS
+"><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="MATERIALIZED VIEWS"/>
+<meta name="twitter:description" content="MATERIALIZED VIEWS
+"/>
+
+
+
+
+<link rel="preload" href="/scss/main.min.ec0d259783afc2c6841272db4924ae5f6ab47953b32356793cb392fb1f3c3e5d.css" as="style">
+<link href="/scss/main.min.ec0d259783afc2c6841272db4924ae5f6ab47953b32356793cb392fb1f3c3e5d.css" rel="stylesheet" integrity="">
+
+
+<script
+  src="https://code.jquery.com/jquery-3.5.1.min.js"
+  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+  crossorigin="anonymous"></script>
+
+<script
+  src="https://unpkg.com/lunr@2.3.8/lunr.min.js"
+  integrity="sha384-vRQ9bDyE0Wnu+lMfm57BlYLO0/XauFuKpVsZPs7KEDwYKktWi5+Kz3MP8++DFlRY"
+  crossorigin="anonymous"></script>
+
+
+
+<link rel="stylesheet" href="/css/prism.css"/>
+
+<meta name="keywords" content="">
+
+
+
+
+  </head>
+  <body class="td-section">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="/">
+		<span class="navbar-logo"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 97.68 112.95"><defs><linearGradient id="linear-gradient" x1="49.43" y1="564.05" x2="21.19" y2="486.25" gradientTransform="matrix(1, 0, 0, -1, 0, 550.11)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#009cd0"/><stop offset=".16" stop-color="#02a0d4"/><stop offset=".33" stop-color="#08acdf"/><stop offset=".49" stop-color="#12c0f1"/><stop offset=".66" stop-color="#10bced"/><stop offset=".83" stop-color="#0ab0e2"/><stop offset="1" stop-color="#009cd0"/></linearGradient><linearGradient id="linear-gradient-2" x1="0" y1="472.36" x2="48.75" y2="472.36" xlink:href="#linear-gradient"/><linearGradient id="linear-gradient-3" x1=".05" y1="493.62" x2="24.5" y2="493.62" gradientTransform="matrix(1, 0, 0, -1, 0, 550.11)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff"/><stop offset=".03" stop-color="#f2f7fb"/><stop offset=".19" stop-color="#b3d2e7"/><stop offset=".34" stop-color="#7cb2d5"/><stop offset=".5" stop-color="#5097c7"/><stop offset=".64" stop-color="#2d83bc"/><stop offset=".78" stop-color="#1474b4"/><stop offset=".9" stop-color="#056bb0"/><stop offset="1" stop-color="#0068ae"/></linearGradient><linearGradient id="linear-gradient-4" x1="73.23" y1="507.9" x2="97.68" y2="507.9" gradientTransform="matrix(1, 0, 0, -1, 0, 550.11)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0068ae"/><stop offset=".12" stop-color="#046aaf"/><stop offset=".25" stop-color="#1072b3"/><stop offset=".38" stop-color="#257eba"/><stop offset=".5" stop-color="#418fc3"/><stop offset=".63" stop-color="#66a4ce"/><stop offset=".76" stop-color="#93bfdd"/><stop offset=".88" stop-color="#c7deed"/><stop offset="1" stop-color="#fff"/></linearGradient><linearGradient id="linear-gradient-5" x1="50.7" y1="522" x2="74.92" y2="522" gradientTransform="matrix(1, 0, 0, -1, 0, 550.11)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0068ae"/><stop offset=".09" stop-color="#096eb1"/><stop offset=".23" stop-color="#237db9"/><stop offset=".41" stop-color="#4d95c6"/><stop offset=".62" stop-color="#86b8d9"/><stop offset=".86" stop-color="#cfe3f0"/><stop offset="1" stop-color="#fff"/></linearGradient></defs><title>logo_1</title><g style="isolation:isolate"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path d="M97.68 56.29h0L73.23 42.21V98.58L97.68 112.7V56.29z" style="fill:#009cd0"/><path d="M73.23 42.21 97.68 56.32V28.09z" style="fill:#009cd0"/><path d="M73.25 42.2 97.68 28.09 73.25 14h0L48.79 28.08 73.23 42.19v0h0z" style="fill:#009cd0"/><path d="M73.34 14.12 48.89.0V0L24.45 14.18h0L.1 28.23h0L0 28.29l.09.05V56.46L24.45 42.4h0 .1.0L49.4 27.94 73.34 14.12z" style="fill:url(#linear-gradient)"/><path d="M48.75 84.87 24.45 70.52v-28L.21 56.53l-.12-.07v.14L0 56.66l.09.05V84.65L0 84.7l.09.06V113L24.3 99v0L48.75 84.87z" style="fill:url(#linear-gradient-2)"/><path d="M.05 56.44 24.5 70.55V42.32z" style="fill:#009cd0"/><path d="M.05 56.49 24.5 70.6V42.37z" style="mix-blend-mode:multiply;fill:url(#linear-gradient-3)"/><path d="M73.23 42.21 97.68 56.32V28.09z" style="mix-blend-mode:multiply;fill:url(#linear-gradient-4)"/><path d="M97.68 28.09 73.23 14v0L48.79 28.13 73.25 42.25v0z" style="mix-blend-mode:multiply;fill:url(#linear-gradient-5)"/></g></g></g></svg></span><span class="text-uppercase font-weight-bold">Altinity Knowledge Base</span>
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block">
+
+
+
+<input
+  type="search"
+  class="form-control td-search-input"
+  placeholder="&#xf002; Search this site…"
+  aria-label="Search this site…"
+  autocomplete="off"
+  
+  data-offline-search-index-json-src="/offline-search-index.9f88c2900b11dcd5146da70a8cc84431.json"
+  data-offline-search-base-href="/"
+  data-offline-search-max-results="10"
+>
+
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+          </div>
+          <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+          </div>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+
+
+
+
+<div class="td-content">
+<div class="pageinfo pageinfo-primary d-print-none">
+<p>
+This the multi-page printable view of this section.
+<a href="#" onclick="print();return false;">Click here to print</a>.
+</p><p>
+<a href="/altinity-kb-schema-design/materialized-views/">Return to the regular view of this page</a>.
+</p>
+</div>
+
+
+
+<h1 class="title">MATERIALIZED VIEWS</h1>
+<div class="lead">MATERIALIZED VIEWS</div>
+
+
+
+
+    <ul>
+    
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>1: <a href="#pg-efd5546f247797daa53f929da20153b0">Idempotent inserts into a materialized view</a></li>
+
+
+    
+  
+    
+    
+	
+<li>2: <a href="#pg-7eccdd4920775fe5f6841654ebe7a03d">Backfill/populate MV in a controlled manner</a></li>
+
+
+    
+  
+
+    </ul>
+
+
+<div class="content">
+      
+
+<div class="alert alert-info" role="alert">
+<h4 class="alert-heading">Info</h4>
+
+    MATERIALIZED VIEWs in ClickHouse behave like AFTER INSERT TRIGGER to the left-most table listed in its SELECT statement.
+
+</div>
+
+<h1 id="materialized-views">MATERIALIZED VIEWS</h1>
+<ul>
+<li>Clickhouse and the magic of materialized views. Basics explained with examples: <a href="https://altinity.com/webinarspage/2019/6/26/clickhouse-and-the-magic-of-materialized-views" target="_blank">webinar recording</a></li>
+<li>Everything you should know about materialized views. Very detailed information about internals: <a href="https://youtu.be/ckChUkC3Pns?t=9353" target="_blank">video</a>, <a href="https://den-crane.github.io/Everything_you_should_know_about_materialized_views_commented.pdf" target="_blank">annotated presentation</a>, <a href="https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup47/materialized_views.pdf" target="_blank">presentation</a></li>
+</ul>
+<h2 id="best-practices">Best practices</h2>
+<ol>
+<li>
+<p>Use MATERIALIZED VIEW with TO syntax (explicit storage table)</p>
+<p>First you create the table which will store the data calculated by MV explicitly, and after that create materialized view itself with TO syntax.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">CREATE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">TABLE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">target</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">(</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">...</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">Engine</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#000">ReplacingSummingMergeTree</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">CREATE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">MATERIALIZED</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">VIEW</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">mv_source2target</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">TO</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">target</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">AS</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">SELECT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">...</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">FROM</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">source</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span></code></pre></div><p>That way it&rsquo;s bit simpler to do schema migrations or build more complicated pipelines when one table is filled by several MV.</p>
+<p>With engine=Atomic it hard to map undelying table with the MV.</p>
+</li>
+<li>
+<p>Avoid using POPULATE when creating MATERIALIZED VIEW on big tables.</p>
+<p>Use manual backfilling (with the same query) instead.</p>
+<ul>
+<li>With POPULATE the data ingested to the source table <strong>during MV populating will not appear in MV</strong>.</li>
+<li>POPULATE doesn&rsquo;t work with TO syntax.</li>
+<li>With manual backfilling, you have much better control on the process - you can do it in parts, adjust settings etc.</li>
+<li>In case of some failure &lsquo;in the middle (for example due to timeouts), it&rsquo;s hard to understand the state of the MV.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">CREATE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">MATERIALIZED</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">VIEW</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">mv_source2target</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">TO</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">target</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">AS</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">SELECT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">...</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">FROM</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">source</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">WHERE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">cond</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">&gt;</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">...</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">INSERT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">INTO</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">target</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">SELECT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">...</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">FROM</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">source</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">WHERE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">cond</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">&lt;</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">...</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span></code></pre></div><p>This way you have full control backfilling process (you can backfill in smaller parts to avoid timeouts, do some cross-checks / integrity-checks, change some settings, etc.)</p>
+</li>
+</ol>
+<h2 id="faq">FAQ</h2>
+<h3 id="q-can-i-attach-materialized-view-to-the-view-or-enginemerge-or-enginemysql-etc">Q. Can I attach MATERIALIZED VIEW to the VIEW, or engine=Merge, or engine=MySQL, etc.?</h3>
+<p>Since MATERIALIZED VIEWs are updated on every INSERT to the underlying table and you can not insert anything to the usual VIEW, the materialized view update will never be triggered.</p>
+<p>Normally you should build MATERIALIZED VIEWs on the top of the table with MergeTree engine family.</p>
+<h3 id="q-ive-created-materialized-error-with-some-error-and-since-its-it-reading-from-kafka-i-dont-understand-where-the-error-is">Q. I&rsquo;ve created materialized error with some error, and since it&rsquo;s it reading from Kafka I don&rsquo;t understand where the error is</h3>
+<p>Server logs will help you. Also, see the next question.</p>
+<h3 id="q-how-to-debug-misbehaving-materialized-view">Q. How to debug misbehaving MATERIALIZED VIEW?</h3>
+<p>You can also attach the same MV to some dummy table with engine=Log (or even Null) and do some manual inserts there to debug the behavior. Similar way (as the Materialized view often can contain some pieces of the business logic of the application) you can create tests for your schema.</p>
+
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    Always test MATERIALIZED VIEWs first on staging or testing environments
+
+</div>
+
+<p>Possible test  scenario:</p>
+<ol>
+<li>create a copy of the original table <code>CREATE TABLE src_copy ... AS src</code></li>
+<li>create MV on that copy <code>CREATE MATERIALIZED VIEW ... AS SELECT ... FROM src_copy</code></li>
+<li>check if inserts to src_copy work properly, and mv is properly filled.   <code>INSERT INTO src_copy SELECT * FROM src LIMIT 100</code></li>
+<li>cleanup the temp stuff and recreate MV on real table.</li>
+</ol>
+<h3 id="q-can-i-use-subqueries--joins-in-mv">Q. Can I use subqueries / joins in MV?</h3>
+<p>It is possible but it is <strong>a very bad idea</strong> for most of the use cases**.**</p>
+<p>So it will most probably work not as you expect and will hit insert performance significantly.</p>
+<p>The MV will be attached (as AFTER INSERT TRIGGER) to the left-most table in the MV SELECT statement, and it will &lsquo;see&rsquo; only freshly inserted rows there. It will &lsquo;see&rsquo; the whole set of rows of other tables, and the query will be executed EVERY TIME you do the insert to the left-most table. That will impact the performance speed there significantly.
+If you really need to update the MV with the left-most table, not impacting the performance so much you can consider using dictionary / engine=Join / engine=Set for right-hand table / subqueries (that way it will be always in memory, ready to use).</p>
+<h3 id="q-how-to-alter-mv-implicit-storage-wo-to-syntax">Q. How to alter MV implicit storage (w/o TO syntax)</h3>
+<ol>
+<li>
+<p>take the existing MV definition</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">SHOW</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">CREATE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">TABLE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">dbname</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">mvname</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span></code></pre></div><p>Adjust the query in the following manner:</p>
+<ul>
+<li>replace &lsquo;CREATE MATERIALIZED VIEW&rsquo; to &lsquo;ATTACH MATERIALIZED VIEW&rsquo;</li>
+<li>add needed columns;</li>
+</ul>
+</li>
+<li>
+<p>Detach materialized view with the command:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#000">DETACH</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">TABLE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">dbname</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">mvname</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">ON</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">CLUSTER</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">cluster_name</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span></code></pre></div></li>
+<li>
+<p>Add the needed column to the underlying ReplicatedAggregatingMergeTree table</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">-- if the Materialized view was created without TO keyword
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">ALTER</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">TABLE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">dbname</span><span style="color:#000;font-weight:bold">.</span><span style="color:#ce5c00;font-weight:bold">`</span><span style="color:#000;font-weight:bold">.</span><span style="color:#204a87;font-weight:bold">inner</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">mvname</span><span style="color:#ce5c00;font-weight:bold">`</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">ON</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">CLUSTER</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">cluster_name</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">add</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">column</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">tokens</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">AggregateFunction</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">uniq</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">UInt64</span><span style="color:#000;font-weight:bold">);</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#8f5902;font-style:italic">-- othewise just alter the target table used in `CREATE MATERIALIZED VIEW ...`  `TO ...` clause
+</span></span></span></code></pre></div></li>
+<li>
+<p>attach MV back using the query you create at p. 1.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#000">ATTACH</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">MATERIALIZED</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">VIEW</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">dbname</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">mvname</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">ON</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">CLUSTER</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">cluster_name</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000;font-weight:bold">(</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#8f5902;font-style:italic">/* ... */</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#ce5c00;font-weight:bold">`</span><span style="color:#000">tokens</span><span style="color:#ce5c00;font-weight:bold">`</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">AggregateFunction</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">uniq</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">UInt64</span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">ENGINE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">ReplicatedAggregatingMergeTree</span><span style="color:#000;font-weight:bold">(...)</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">ORDER</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">BY</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">...</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">AS</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">SELECT</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#8f5902;font-style:italic">/* ... */</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#000">uniqState</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">rand64</span><span style="color:#000;font-weight:bold">())</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">as</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">tokens</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">FROM</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#8f5902;font-style:italic">/* ... */</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">GROUP</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">BY</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#8f5902;font-style:italic">/* ... */</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span></code></pre></div></li>
+</ol>
+<p>As you can see that operation is NOT atomic, so the safe way is to stop data ingestion during that procedure.</p>
+<p>If you have version 19.16.13 or newer you can change the order of step 2 and 3 making the period when MV is detached and not working shorter (related issue <a href="https://github.com/ClickHouse/ClickHouse/issues/7878" target="_blank">https://github.com/ClickHouse/ClickHouse/issues/7878</a>).</p>
+<p>See also:</p>
+<ul>
+<li><a href="https://github.com/ClickHouse/ClickHouse/issues/1226" target="_blank">https://github.com/ClickHouse/ClickHouse/issues/1226</a></li>
+<li><a href="https://github.com/ClickHouse/ClickHouse/pull/7533" target="_blank">https://github.com/ClickHouse/ClickHouse/pull/7533</a></li>
+</ul>
+
+</div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-efd5546f247797daa53f929da20153b0">1 - Idempotent inserts into a materialized view</h1>
+    <div class="lead">How to make idempotent inserts into a materialized view&quot;.</div>
+	<h2 id="why-inserts-into-materialized-views-are-not-idempotent">Why inserts into materialized views are not idempotent?</h2>
+<p>ClickHouse still does not have transactions. They will be implemented around 2022Q2.</p>
+<p>Because of Clickhouse materialized view is a trigger. And an insert into a table and an insert into a subordinate materialized view it&rsquo;s two different inserts so they are not atomic alltogether.</p>
+<p>And insert into a materialized view may fail after the succesful insert into the table. In case of any failure a client gets the error about failed insertion.
+You may enable insert_deduplication (it&rsquo;s enabled by default for Replciated engines) and repeate the insert with an idea to achive idempotate insertion,
+and insertion will be skipped into the source table becase of deduplication but it will be skipped for materialized view as well because
+by default materialized view inherites deduplication from the source table.
+It&rsquo;s controlled by a parameter <code>deduplicate_blocks_in_dependent_materialized_views</code> <a href="https://clickhouse.com/docs/en/operations/settings/settings/#settings-deduplicate-blocks-in-dependent-materialized-views" target="_blank">https://clickhouse.com/docs/en/operations/settings/settings/#settings-deduplicate-blocks-in-dependent-materialized-views</a></p>
+<p>If your materialized view is wide enought and always have enought data for constistent deduplication then you can enable <code>deduplicate_blocks_in_dependent_materialized_views</code>.
+Or you may add information for deduplication (some unique information / insert identifier).</p>
+<h3 id="example-1-inconsistency-with-deduplicate_blocks_in_dependent_materialized_views-0">Example 1. Inconsistency with deduplicate_blocks_in_dependent_materialized_views 0</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">create</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">table</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">test</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">A</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">Int64</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">D</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87">Date</span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">Engine</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#f8f8f8;text-decoration:underline">  </span><span style="color:#000">ReplicatedMergeTree</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#39;/clickhouse/{cluster}/tables/{table}&#39;</span><span style="color:#000;font-weight:bold">,</span><span style="color:#4e9a06">&#39;{replica}&#39;</span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">partition</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">by</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">toYYYYMM</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">D</span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">order</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">by</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">A</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">create</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">materialized</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">view</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">test_mv</span><span style="color:#f8f8f8;text-decoration:underline"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">Engine</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">ReplicatedSummingMergeTree</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#39;/clickhouse/{cluster}/tables/{table}&#39;</span><span style="color:#000;font-weight:bold">,</span><span style="color:#4e9a06">&#39;{replica}&#39;</span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">partition</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">by</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">D</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">order</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">by</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">D</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">as</span><span style="color:#f8f8f8;text-decoration:underline"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">select</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">D</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">count</span><span style="color:#000;font-weight:bold">()</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">CNT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">from</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">test</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">group</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">by</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">D</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">set</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">max_partitions_per_insert_block</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#8f5902;font-style:italic">-- trick to fail insert into MV.
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">insert</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">into</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">test</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">select</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87">number</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">today</span><span style="color:#000;font-weight:bold">()</span><span style="color:#ce5c00;font-weight:bold">+</span><span style="color:#204a87">number</span><span style="color:#ce5c00;font-weight:bold">%</span><span style="color:#0000cf;font-weight:bold">3</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">from</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">numbers</span><span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">100</span><span style="color:#000;font-weight:bold">);</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#000">DB</span><span style="color:#000;font-weight:bold">::</span><span style="color:#204a87;font-weight:bold">Exception</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">Received</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">from</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">localhost</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">9000</span><span style="color:#000;font-weight:bold">.</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">DB</span><span style="color:#000;font-weight:bold">::</span><span style="color:#204a87;font-weight:bold">Exception</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">Too</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">many</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">partitions</span><span style="color:#f8f8f8;text-decoration:underline"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">select</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">count</span><span style="color:#000;font-weight:bold">()</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">from</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">test</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">┌─</span><span style="color:#204a87;font-weight:bold">count</span><span style="color:#000;font-weight:bold">()</span><span style="color:#a40000">─┐</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">     </span><span style="color:#0000cf;font-weight:bold">100</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">  </span><span style="color:#8f5902;font-style:italic">-- Insert was successful into the test table
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#a40000">└─────────┘</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">select</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">sum</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">CNT</span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">from</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">test_mv</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">rows</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">in</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">set</span><span style="color:#000;font-weight:bold">.</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">Elapsed</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">.</span><span style="color:#0000cf;font-weight:bold">001</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">sec</span><span style="color:#000;font-weight:bold">.</span><span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#8f5902;font-style:italic">-- Insert was unsuccessful into the test_mv table (DB::Exception)
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#8f5902;font-style:italic">-- Let&#39;s try to retry insertion
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">set</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">max_partitions_per_insert_block</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#0000cf;font-weight:bold">100</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#8f5902;font-style:italic">-- disable trick
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">insert</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">into</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">test</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">select</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87">number</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">today</span><span style="color:#000;font-weight:bold">()</span><span style="color:#ce5c00;font-weight:bold">+</span><span style="color:#204a87">number</span><span style="color:#ce5c00;font-weight:bold">%</span><span style="color:#0000cf;font-weight:bold">3</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">from</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">numbers</span><span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">100</span><span style="color:#000;font-weight:bold">);</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#8f5902;font-style:italic">-- insert retry / No error
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#f8f8f8;text-decoration:underline"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">select</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">count</span><span style="color:#000;font-weight:bold">()</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">from</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">test</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">┌─</span><span style="color:#204a87;font-weight:bold">count</span><span style="color:#000;font-weight:bold">()</span><span style="color:#a40000">─┐</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">     </span><span style="color:#0000cf;font-weight:bold">100</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">  </span><span style="color:#8f5902;font-style:italic">-- insert was deduplicated
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#a40000">└─────────┘</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">select</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">sum</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">CNT</span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">from</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">test_mv</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">rows</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">in</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">set</span><span style="color:#000;font-weight:bold">.</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">Elapsed</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">.</span><span style="color:#0000cf;font-weight:bold">001</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">sec</span><span style="color:#000;font-weight:bold">.</span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#8f5902;font-style:italic">-- Inconsistency! Unfortunatly insert into MV was deduplicated as well
+</span></span></span></code></pre></div><h3 id="example-2-inconsistency-with-deduplicate_blocks_in_dependent_materialized_views-1">Example 2. Inconsistency with deduplicate_blocks_in_dependent_materialized_views 1</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">create</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">table</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">test</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">A</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">Int64</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">D</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87">Date</span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">Engine</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#f8f8f8;text-decoration:underline">  </span><span style="color:#000">ReplicatedMergeTree</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#39;/clickhouse/{cluster}/tables/{table}&#39;</span><span style="color:#000;font-weight:bold">,</span><span style="color:#4e9a06">&#39;{replica}&#39;</span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">partition</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">by</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">toYYYYMM</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">D</span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">order</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">by</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">A</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">create</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">materialized</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">view</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">test_mv</span><span style="color:#f8f8f8;text-decoration:underline"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">Engine</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">ReplicatedSummingMergeTree</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#39;/clickhouse/{cluster}/tables/{table}&#39;</span><span style="color:#000;font-weight:bold">,</span><span style="color:#4e9a06">&#39;{replica}&#39;</span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">partition</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">by</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">D</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">order</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">by</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">D</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">as</span><span style="color:#f8f8f8;text-decoration:underline"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">select</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">D</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">count</span><span style="color:#000;font-weight:bold">()</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">CNT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">from</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">test</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">group</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">by</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">D</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">set</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">deduplicate_blocks_in_dependent_materialized_views</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">insert</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">into</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">test</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">select</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87">number</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">today</span><span style="color:#000;font-weight:bold">()</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">from</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">numbers</span><span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">100</span><span style="color:#000;font-weight:bold">);</span><span style="color:#f8f8f8;text-decoration:underline">      </span><span style="color:#8f5902;font-style:italic">-- insert 100 rows
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">insert</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">into</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">test</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">select</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87">number</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">today</span><span style="color:#000;font-weight:bold">()</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">from</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">numbers</span><span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">100</span><span style="color:#000;font-weight:bold">,</span><span style="color:#0000cf;font-weight:bold">100</span><span style="color:#000;font-weight:bold">);</span><span style="color:#f8f8f8;text-decoration:underline">  </span><span style="color:#8f5902;font-style:italic">-- insert another 100 rows
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">select</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">count</span><span style="color:#000;font-weight:bold">()</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">from</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">test</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">┌─</span><span style="color:#204a87;font-weight:bold">count</span><span style="color:#000;font-weight:bold">()</span><span style="color:#a40000">─┐</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">     </span><span style="color:#0000cf;font-weight:bold">200</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">  </span><span style="color:#8f5902;font-style:italic">-- 200 rows in the source test table
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#a40000">└─────────┘</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">select</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">sum</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">CNT</span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">from</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">test_mv</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">┌─</span><span style="color:#204a87;font-weight:bold">sum</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">CNT</span><span style="color:#000;font-weight:bold">)</span><span style="color:#a40000">─┐</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">      </span><span style="color:#0000cf;font-weight:bold">100</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#8f5902;font-style:italic">-- Inconsistency! The second insert was falsely deduplicated because count() was = 100 both times 
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#a40000">└──────────┘</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span></code></pre></div><h3 id="example-3-solution-no-inconsistency-with-deduplicate_blocks_in_dependent_materialized_views-1">Example 3. Solution: no inconsistency with deduplicate_blocks_in_dependent_materialized_views 1</h3>
+<p>Let&rsquo;s add some artificial <code>insert_id</code> generated by the source of inserts:</p>
+<pre tabindex="0"><code>create table test (A Int64, D Date, insert_id Int64) 
+Engine =  ReplicatedMergeTree(&#39;/clickhouse/{cluster}/tables/{table}&#39;,&#39;{replica}&#39;) 
+partition by toYYYYMM(D) order by A;
+
+create materialized view test_mv 
+Engine = ReplicatedSummingMergeTree(&#39;/clickhouse/{cluster}/tables/{table}&#39;,&#39;{replica}&#39;) 
+partition by D order by D as 
+select D, count() CNT, any(insert_id) insert_id from test group by D;
+
+set deduplicate_blocks_in_dependent_materialized_views=1;
+
+insert into test select number, today(), 333 from numbers(100);
+insert into test select number, today(), 444 from numbers(100,100);
+
+
+select count() from test;
+┌─count()─┐
+│     200 │
+└─────────┘
+
+select sum(CNT) from test_mv;
+┌─sum(CNT)─┐
+│      200 │ -- no inconsistency, the second (100) was not deduplicated because 333&lt;&gt;444
+└──────────┘
+
+set max_partitions_per_insert_block=1;   -- trick to fail insert into MV.
+insert into test select number, today()+number%3, 555 from numbers(100);  
+    DB::Exception: Too many partitions for single INSERT block (more than 1)
+
+
+select count() from test;
+┌─count()─┐
+│     300 │  -- insert is successful into the test table
+└─────────┘
+
+select sum(CNT) from test_mv;
+┌─sum(CNT)─┐
+│      200 │  -- insert was unsuccessful into the test_mv table
+└──────────┘
+
+set max_partitions_per_insert_block=100;
+insert into test select number, today()+number%3, 555 from numbers(100);   -- insert retry
+
+
+select count() from test;
+┌─count()─┐
+│     300 │  -- insert was deduplicated
+└─────────┘
+
+select sum(CNT) from test_mv;
+┌─sum(CNT)─┐
+│      300 │  -- No inconsistency! Insert was not deduplicated.
+└──────────┘
+</code></pre><p>Idea how to fix it in Clickhouse source code <a href="https://github.com/ClickHouse/ClickHouse/issues/30240" target="_blank">https://github.com/ClickHouse/ClickHouse/issues/30240</a></p>
+<h3 id="fake-unused-metric-to-add-uniqueness">Fake (unused) metric to add uniqueness.</h3>
+<pre tabindex="0"><code>create materialized view test_mv
+   Engine = ReplicatedSummingMergeTree(&#39;/clickhouse/{cluster}/tables/{table}&#39;,&#39;{replica}&#39;) 
+   partition by D
+   order by D
+  as
+   select
+     D,
+     count() CNT,
+     sum( cityHash(*) ) insert_id
+  from test group by D;
+</code></pre>
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-7eccdd4920775fe5f6841654ebe7a03d">2 - Backfill/populate MV in a controlled manner</h1>
+    <div class="lead">Backfill/populate MV in a controlled manner</div>
+	<p>Q. How to populate MV create with TO syntax? INSERT INTO mv SELECT * FROM huge_table? Will it work if the source table has billions of rows?</p>
+<p>A. single huge <code>insert ... select ...</code> actually will work, but it will take A LOT of time, and during that time lot of bad things can happen (lack of disk space, hard restart etc). Because of that, it&rsquo;s better to do such backfill in a more controlled manner and in smaller pieces.</p>
+<p>One of the best options is to fill one partition at a time, and if it breaks you can drop the partition and refill it.</p>
+<p>If you need to construct a single partition from several sources - then the following approach may be the best.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">CREATE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">TABLE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">mv_import</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">AS</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">mv</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">INSERT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">INTO</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">mv_import</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">SELECT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">FROM</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">huge_table</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">WHERE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">toYYYYMM</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">ts</span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">202105</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#8f5902;font-style:italic">/* or other partition expression*/</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#8f5902;font-style:italic">/* that insert select may take a lot of time, if something bad will happen
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">  during that - just truncate mv_import and restart the process */</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#8f5902;font-style:italic">/* after successful loading of mv_import do*/</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">ALTER</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">TABLE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">mv</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">ATTACH</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">PARTITION</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">ID</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;202105&#39;</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">FROM</span><span style="color:#f8f8f8;text-decoration:underline">  </span><span style="color:#000">mv_import</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span></code></pre></div><p>See also <a href="https://clickhouse.tech/docs/en/sql-reference/statements/alter/partition/%5c#alter_attach-partition-from" target="_blank">https://clickhouse.tech/docs/en/sql-reference/statements/alter/partition/#alter_attach-partition-from</a>.</p>
+
+</div>
+
+
+
+    
+	
+  
+
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Twitter" aria-label="Twitter">
+    <a class="text-white" target="_blank" rel="noopener noreferrer" href="https://twitter.com/AltinityDB">
+      <i class="fab fa-twitter"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Youtube" aria-label="Youtube">
+    <a class="text-white" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/channel/UCE3Y2lDKl_ZfjaCrh62onYA">
+      <i class="fab fa-youtube"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="LinkedIn" aria-label="LinkedIn">
+    <a class="text-white" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/company/altinity/">
+      <i class="fab fa-linkedin"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" rel="noopener noreferrer" href="https://github.com/orgs/Altinity/">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2022  Altinity Inc. All Rights Reserved</small>
+        <small class="ml-1"><a href="https://altinity.com/privacy-policy/" target="_blank">Privacy Policy</a></small>
+	
+		
+	
+      </div>
+    </div>
+  </div>
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-101676615-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-101676615-2');
+</script>
+</footer>
+
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.min.7fa9e3e39f56ebd66798993ef3c080218d9696c971a28ef8872d750b7416a435.js" integrity="sha256-f6nj459W69ZnmJk&#43;88CAIY2Wlslxoo74hy11C3QWpDU=" crossorigin="anonymous"></script>
+
+
+
+<script src='/js/prism.js'></script>
+
+
+
+  </body>
+</html>

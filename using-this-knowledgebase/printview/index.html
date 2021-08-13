@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.96.0" /><link rel="canonical" type="text/html" href="http://kb.altinity.com/using-this-knowledgebase/">
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+<link rel="shortcut icon" href="/favicons/favicon.ico" >
+<link rel="icon" href="/favicons/favicon.ico" >
+<title>Using This Knowledge Base | Altinity Knowledge Base</title>
+<meta name="description" content="Altinity Knowledge Base"><meta property="og:title" content="Using This Knowledge Base" />
+<meta property="og:description" content="Add pages, make updates, and contribute to this ClickHouse knowledge base.
+" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="http://kb.altinity.com/using-this-knowledgebase/" /><meta property="og:site_name" content="Altinity Knowledge Base" />
+
+<meta itemprop="name" content="Using This Knowledge Base">
+<meta itemprop="description" content="Add pages, make updates, and contribute to this ClickHouse knowledge base.
+"><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Using This Knowledge Base"/>
+<meta name="twitter:description" content="Add pages, make updates, and contribute to this ClickHouse knowledge base.
+"/>
+
+
+
+
+<link rel="preload" href="/scss/main.min.ec0d259783afc2c6841272db4924ae5f6ab47953b32356793cb392fb1f3c3e5d.css" as="style">
+<link href="/scss/main.min.ec0d259783afc2c6841272db4924ae5f6ab47953b32356793cb392fb1f3c3e5d.css" rel="stylesheet" integrity="">
+
+
+<script
+  src="https://code.jquery.com/jquery-3.5.1.min.js"
+  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+  crossorigin="anonymous"></script>
+
+<script
+  src="https://unpkg.com/lunr@2.3.8/lunr.min.js"
+  integrity="sha384-vRQ9bDyE0Wnu+lMfm57BlYLO0/XauFuKpVsZPs7KEDwYKktWi5+Kz3MP8++DFlRY"
+  crossorigin="anonymous"></script>
+
+
+
+<link rel="stylesheet" href="/css/prism.css"/>
+
+<meta name="keywords" content="clickhouse updates, clickhouse contributions">
+
+
+
+
+  </head>
+  <body class="td-section">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="/">
+		<span class="navbar-logo"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 97.68 112.95"><defs><linearGradient id="linear-gradient" x1="49.43" y1="564.05" x2="21.19" y2="486.25" gradientTransform="matrix(1, 0, 0, -1, 0, 550.11)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#009cd0"/><stop offset=".16" stop-color="#02a0d4"/><stop offset=".33" stop-color="#08acdf"/><stop offset=".49" stop-color="#12c0f1"/><stop offset=".66" stop-color="#10bced"/><stop offset=".83" stop-color="#0ab0e2"/><stop offset="1" stop-color="#009cd0"/></linearGradient><linearGradient id="linear-gradient-2" x1="0" y1="472.36" x2="48.75" y2="472.36" xlink:href="#linear-gradient"/><linearGradient id="linear-gradient-3" x1=".05" y1="493.62" x2="24.5" y2="493.62" gradientTransform="matrix(1, 0, 0, -1, 0, 550.11)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff"/><stop offset=".03" stop-color="#f2f7fb"/><stop offset=".19" stop-color="#b3d2e7"/><stop offset=".34" stop-color="#7cb2d5"/><stop offset=".5" stop-color="#5097c7"/><stop offset=".64" stop-color="#2d83bc"/><stop offset=".78" stop-color="#1474b4"/><stop offset=".9" stop-color="#056bb0"/><stop offset="1" stop-color="#0068ae"/></linearGradient><linearGradient id="linear-gradient-4" x1="73.23" y1="507.9" x2="97.68" y2="507.9" gradientTransform="matrix(1, 0, 0, -1, 0, 550.11)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0068ae"/><stop offset=".12" stop-color="#046aaf"/><stop offset=".25" stop-color="#1072b3"/><stop offset=".38" stop-color="#257eba"/><stop offset=".5" stop-color="#418fc3"/><stop offset=".63" stop-color="#66a4ce"/><stop offset=".76" stop-color="#93bfdd"/><stop offset=".88" stop-color="#c7deed"/><stop offset="1" stop-color="#fff"/></linearGradient><linearGradient id="linear-gradient-5" x1="50.7" y1="522" x2="74.92" y2="522" gradientTransform="matrix(1, 0, 0, -1, 0, 550.11)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0068ae"/><stop offset=".09" stop-color="#096eb1"/><stop offset=".23" stop-color="#237db9"/><stop offset=".41" stop-color="#4d95c6"/><stop offset=".62" stop-color="#86b8d9"/><stop offset=".86" stop-color="#cfe3f0"/><stop offset="1" stop-color="#fff"/></linearGradient></defs><title>logo_1</title><g style="isolation:isolate"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path d="M97.68 56.29h0L73.23 42.21V98.58L97.68 112.7V56.29z" style="fill:#009cd0"/><path d="M73.23 42.21 97.68 56.32V28.09z" style="fill:#009cd0"/><path d="M73.25 42.2 97.68 28.09 73.25 14h0L48.79 28.08 73.23 42.19v0h0z" style="fill:#009cd0"/><path d="M73.34 14.12 48.89.0V0L24.45 14.18h0L.1 28.23h0L0 28.29l.09.05V56.46L24.45 42.4h0 .1.0L49.4 27.94 73.34 14.12z" style="fill:url(#linear-gradient)"/><path d="M48.75 84.87 24.45 70.52v-28L.21 56.53l-.12-.07v.14L0 56.66l.09.05V84.65L0 84.7l.09.06V113L24.3 99v0L48.75 84.87z" style="fill:url(#linear-gradient-2)"/><path d="M.05 56.44 24.5 70.55V42.32z" style="fill:#009cd0"/><path d="M.05 56.49 24.5 70.6V42.37z" style="mix-blend-mode:multiply;fill:url(#linear-gradient-3)"/><path d="M73.23 42.21 97.68 56.32V28.09z" style="mix-blend-mode:multiply;fill:url(#linear-gradient-4)"/><path d="M97.68 28.09 73.23 14v0L48.79 28.13 73.25 42.25v0z" style="mix-blend-mode:multiply;fill:url(#linear-gradient-5)"/></g></g></g></svg></span><span class="text-uppercase font-weight-bold">Altinity Knowledge Base</span>
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block">
+
+
+
+<input
+  type="search"
+  class="form-control td-search-input"
+  placeholder="&#xf002; Search this site…"
+  aria-label="Search this site…"
+  autocomplete="off"
+  
+  data-offline-search-index-json-src="/offline-search-index.9f88c2900b11dcd5146da70a8cc84431.json"
+  data-offline-search-base-href="/"
+  data-offline-search-max-results="10"
+>
+
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+          </div>
+          <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+          </div>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+
+
+
+
+<div class="td-content">
+<div class="pageinfo pageinfo-primary d-print-none">
+<p>
+This the multi-page printable view of this section.
+<a href="#" onclick="print();return false;">Click here to print</a>.
+</p><p>
+<a href="/using-this-knowledgebase/">Return to the regular view of this page</a>.
+</p>
+</div>
+
+
+
+<h1 class="title">Using This Knowledge Base</h1>
+<div class="lead">Add pages, make updates, and contribute to this ClickHouse knowledge base.</div>
+
+
+
+
+    <ul>
+    
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>1: <a href="#pg-f1063c4f3271fd257a46a31c58807110">Mermaid Example</a></li>
+
+
+    
+  
+
+    </ul>
+
+
+<div class="content">
+      <p>The Altinity Knowledge Base is built on GitHub Pages, using Hugo and Docsy.  This guide provides a brief description on how to make updates and add to this knowledge base.</p>
+<h2 id="page-and-section-basics">Page and Section Basics</h2>
+<p>The knowledge base is structured in a simple directory format, with the content of the Knowledge Base stored under the directory <code>content/en</code>.</p>
+<p>Each section is a directory, with the file <code>_index.md</code> that provides that sections information.  For example, the <code>Upgrade</code> section has the following layout:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>├── upgrade
+</span></span><span style="display:flex;"><span>│   ├── _index.md
+</span></span><span style="display:flex;"><span>│   └── removing-empty-parts.md
+</span></span></code></pre></div><p>Each Markdown file provides the section&rsquo;s information and the title that is displayed on the left navigation panel, with the file <code>_index.md</code> providing the top level information on the section.</p>
+<p>Each page is set in the following format that sets the page attributes:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#000">---</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">title</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#34;Using This Knowledge Base&#34;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">linkTitle</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#34;Using This Knowledge Base&#34;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">description</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">&gt;</span><span style="color:#8f5902;font-style:italic">
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">    </span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#000">How to add pages, make updates, and expand this knowledge base.</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">weight</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">11</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">---</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">The content of the page in Markdown format.</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span></code></pre></div><p>The attributes are as follows:</p>
+<ul>
+<li><strong>title</strong>: The title of the page displayed at the top of the page.</li>
+<li><strong>linkTitle</strong>: The title used in the left navigation panel.</li>
+<li><strong>description</strong>:  A short description of the page listed under the title.</li>
+<li><strong>weight</strong>: The placement of the page in the hierarchy in the left navigation panel.  The higher the weight, the higher in the display order it will be.  For example, the file <code>engines/_index.md</code> has a weight of <code>1</code>, pushing its display to the top of the list.</li>
+</ul>
+<h2 id="create-pages-and-sections">Create Pages and Sections</h2>
+<h3 id="create-or-edit-a-page">Create or Edit A Page</h3>
+<p>To create a new page or edit an existing one in the knowledge base:</p>
+<ol>
+<li>From the page to start from:
+<ol>
+<li>To create a new page, select <strong>Create child page</strong>.</li>
+<li>To edit an existing page, select <strong>Edit this page</strong>.</li>
+</ol>
+</li>
+<li>This will open the page&rsquo;s location in the GitHub repository.  Update the page using Markdown.  See the Docsy Formatting Options section below for tips and details.
+<ol>
+<li>View how the page will look <strong>Preview</strong>.  The GitHub Preview is not 100% the same as the page will be displayed on the knowledge base, but it is a close enough approximation.</li>
+</ol>
+</li>
+<li>Saving the file will depend on your role.
+<ol>
+<li>
+<p>For those who have been granted <strong>Knowledgebase Contributor</strong> status, select <strong>Commit New File</strong>.  The changes will be automatically applied to the GitHub repository, and the additions will be displayed to the knowledge base within 1-5 minutes.</p>
+</li>
+<li>
+<p>For those who have not been granted <strong>Knowledgebase Contributor</strong> status, they will have to fork the changes and then create a new pull request through the following process:</p>
+<ol>
+<li>
+<p>When editing is complete, select <strong>Propose New File</strong>.  This will being you to the <strong>GitHub Pull Request</strong> page.</p>
+</li>
+<li>
+<p>Verify the new file is accurate, then select <strong>Create Pull Request</strong>.</p>
+</li>
+<li>
+<p>Name the Pull Request, then select <strong>Create pull request</strong>.</p>
+</li>
+<li>
+<p>First time contributors will be required to review and sign the <a href="https://altinity.com/legal/content-licensing-agreement-cla/" target="_blank">Contributor License Agreement(CLA)</a>.  To signify they agree with the CLA, the following comment must be left as part of the pull request:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>I have read the CLA Document and I hereby sign the CLA
+</span></span></code></pre></div></li>
+</ol>
+<p>This signature will be stored as part of the GitHub repository indicating the GitHub username, the date of the agreement, and the pull request where the signer indicated their consent with the CLA.</p>
+<ol>
+<li>The Pull Request will be reviewed and if approved, the changes will be applied to the Knowledge Base.</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="create-a-new-section">Create a New Section</h3>
+<p>To create a new section in the knowledge base, add a new directory under <code>content/en</code> from either the <a href="https://github.com/Altinity/altinityknowledgebase/tree/main" target="_blank">GitHub Repository</a> or through some other GitHub related method., and add the file <code>index.md</code>.  The same submission process will be followed as outlined in <a href="#create-or-edit-a-page">Create or Edit A Page</a>.</p>
+<h2 id="docsy-formatting-options">Docsy Formatting Options</h2>
+<p>Docsy uses <a href="https://www.markdownguide.org/getting-started/" target="_blank">Markdown</a>, providing a simple method of formatting documents.  Refer to the Markdown documentation for how to edit pages and achieve the display results.</p>
+<p>The following guide recommendations should be followed:</p>
+<ul>
+<li>Code should should be code segments, which uses three back tics to start and end a code section, with the type of code used.  For example, if the code segment is regarding SQL then the section would start with ```sql` .</li>
+<li>Display text should be in <strong>bold</strong>.  For example, when requesting someone click Create New Page on a page, <strong>Create New Page</strong> is in bold.</li>
+</ul>
+<h3 id="adding-images">Adding Images</h3>
+<p>New images and other static files are stored in the directory <code>static</code>, with the following categories:</p>
+<ul>
+<li>Images are stored under <code>static/assets</code>.</li>
+<li>Pdf files are stored under <code>static/assets</code></li>
+</ul>
+
+</div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-f1063c4f3271fd257a46a31c58807110">1 - Mermaid Example</h1>
+    <div class="lead">A short example of using the Mermaid library to add charts.</div>
+	<p>This Knowledge Base now supports <a href="https://mermaid-js.github.io/mermaid/#/" target="_blank">Mermaid</a>, a handy way to create charts from text.  The following example shows a very simple chart, and the code to use.</p>
+<p>To add a Mermaid chart, encase the Mermaid code between {{&lt; mermaid &gt;}}, as follows:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>{{&lt;mermaid&gt;}}
+</span></span><span style="display:flex;"><span>graph TD;
+</span></span><span style="display:flex;"><span>  A--&gt;B;
+</span></span><span style="display:flex;"><span>  A--&gt;C;
+</span></span><span style="display:flex;"><span>  B--&gt;D;
+</span></span><span style="display:flex;"><span>  C--&gt;D;
+</span></span><span style="display:flex;"><span>{{&lt;/mermaid&gt;}}
+</span></span></code></pre></div><p>And it renders as so:</p>
+<script async type="application/javascript" src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js">
+    var config = {
+      startOnLoad:true,
+      theme:'dark',
+      align:'center'
+    };
+    mermaid.initialize(config);
+</script>
+  
+<div class="mermaid">
+
+graph TD;
+  A-->B;
+  A-->C;
+  B-->D;
+  C-->D;
+
+</div>
+
+</div>
+
+
+
+    
+	
+  
+
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Twitter" aria-label="Twitter">
+    <a class="text-white" target="_blank" rel="noopener noreferrer" href="https://twitter.com/AltinityDB">
+      <i class="fab fa-twitter"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Youtube" aria-label="Youtube">
+    <a class="text-white" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/channel/UCE3Y2lDKl_ZfjaCrh62onYA">
+      <i class="fab fa-youtube"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="LinkedIn" aria-label="LinkedIn">
+    <a class="text-white" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/company/altinity/">
+      <i class="fab fa-linkedin"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" rel="noopener noreferrer" href="https://github.com/orgs/Altinity/">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2022  Altinity Inc. All Rights Reserved</small>
+        <small class="ml-1"><a href="https://altinity.com/privacy-policy/" target="_blank">Privacy Policy</a></small>
+	
+		
+	
+      </div>
+    </div>
+  </div>
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-101676615-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-101676615-2');
+</script>
+</footer>
+
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.min.7fa9e3e39f56ebd66798993ef3c080218d9696c971a28ef8872d750b7416a435.js" integrity="sha256-f6nj459W69ZnmJk&#43;88CAIY2Wlslxoo74hy11C3QWpDU=" crossorigin="anonymous"></script>
+
+
+
+<script src='/js/prism.js'></script>
+
+
+
+  </body>
+</html>

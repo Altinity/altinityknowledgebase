@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.96.0" /><link rel="canonical" type="text/html" href="http://kb.altinity.com/altinity-kb-kubernetes/">
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+<link rel="shortcut icon" href="/favicons/favicon.ico" >
+<link rel="icon" href="/favicons/favicon.ico" >
+<title>Kubernetes | Altinity Knowledge Base</title>
+<meta name="description" content="Altinity Knowledge Base"><meta property="og:title" content="Kubernetes" />
+<meta property="og:description" content="Run ClickHouse in Kubernetes without any issues.
+" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="http://kb.altinity.com/altinity-kb-kubernetes/" /><meta property="og:site_name" content="Altinity Knowledge Base" />
+
+<meta itemprop="name" content="Kubernetes">
+<meta itemprop="description" content="Run ClickHouse in Kubernetes without any issues.
+"><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Kubernetes"/>
+<meta name="twitter:description" content="Run ClickHouse in Kubernetes without any issues.
+"/>
+
+
+
+
+<link rel="preload" href="/scss/main.min.ec0d259783afc2c6841272db4924ae5f6ab47953b32356793cb392fb1f3c3e5d.css" as="style">
+<link href="/scss/main.min.ec0d259783afc2c6841272db4924ae5f6ab47953b32356793cb392fb1f3c3e5d.css" rel="stylesheet" integrity="">
+
+
+<script
+  src="https://code.jquery.com/jquery-3.5.1.min.js"
+  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+  crossorigin="anonymous"></script>
+
+<script
+  src="https://unpkg.com/lunr@2.3.8/lunr.min.js"
+  integrity="sha384-vRQ9bDyE0Wnu+lMfm57BlYLO0/XauFuKpVsZPs7KEDwYKktWi5+Kz3MP8++DFlRY"
+  crossorigin="anonymous"></script>
+
+
+
+<link rel="stylesheet" href="/css/prism.css"/>
+
+<meta name="keywords" content="clickhouse in kubernetes, kubernetes issues">
+
+
+
+
+  </head>
+  <body class="td-section">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="/">
+		<span class="navbar-logo"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 97.68 112.95"><defs><linearGradient id="linear-gradient" x1="49.43" y1="564.05" x2="21.19" y2="486.25" gradientTransform="matrix(1, 0, 0, -1, 0, 550.11)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#009cd0"/><stop offset=".16" stop-color="#02a0d4"/><stop offset=".33" stop-color="#08acdf"/><stop offset=".49" stop-color="#12c0f1"/><stop offset=".66" stop-color="#10bced"/><stop offset=".83" stop-color="#0ab0e2"/><stop offset="1" stop-color="#009cd0"/></linearGradient><linearGradient id="linear-gradient-2" x1="0" y1="472.36" x2="48.75" y2="472.36" xlink:href="#linear-gradient"/><linearGradient id="linear-gradient-3" x1=".05" y1="493.62" x2="24.5" y2="493.62" gradientTransform="matrix(1, 0, 0, -1, 0, 550.11)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff"/><stop offset=".03" stop-color="#f2f7fb"/><stop offset=".19" stop-color="#b3d2e7"/><stop offset=".34" stop-color="#7cb2d5"/><stop offset=".5" stop-color="#5097c7"/><stop offset=".64" stop-color="#2d83bc"/><stop offset=".78" stop-color="#1474b4"/><stop offset=".9" stop-color="#056bb0"/><stop offset="1" stop-color="#0068ae"/></linearGradient><linearGradient id="linear-gradient-4" x1="73.23" y1="507.9" x2="97.68" y2="507.9" gradientTransform="matrix(1, 0, 0, -1, 0, 550.11)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0068ae"/><stop offset=".12" stop-color="#046aaf"/><stop offset=".25" stop-color="#1072b3"/><stop offset=".38" stop-color="#257eba"/><stop offset=".5" stop-color="#418fc3"/><stop offset=".63" stop-color="#66a4ce"/><stop offset=".76" stop-color="#93bfdd"/><stop offset=".88" stop-color="#c7deed"/><stop offset="1" stop-color="#fff"/></linearGradient><linearGradient id="linear-gradient-5" x1="50.7" y1="522" x2="74.92" y2="522" gradientTransform="matrix(1, 0, 0, -1, 0, 550.11)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0068ae"/><stop offset=".09" stop-color="#096eb1"/><stop offset=".23" stop-color="#237db9"/><stop offset=".41" stop-color="#4d95c6"/><stop offset=".62" stop-color="#86b8d9"/><stop offset=".86" stop-color="#cfe3f0"/><stop offset="1" stop-color="#fff"/></linearGradient></defs><title>logo_1</title><g style="isolation:isolate"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path d="M97.68 56.29h0L73.23 42.21V98.58L97.68 112.7V56.29z" style="fill:#009cd0"/><path d="M73.23 42.21 97.68 56.32V28.09z" style="fill:#009cd0"/><path d="M73.25 42.2 97.68 28.09 73.25 14h0L48.79 28.08 73.23 42.19v0h0z" style="fill:#009cd0"/><path d="M73.34 14.12 48.89.0V0L24.45 14.18h0L.1 28.23h0L0 28.29l.09.05V56.46L24.45 42.4h0 .1.0L49.4 27.94 73.34 14.12z" style="fill:url(#linear-gradient)"/><path d="M48.75 84.87 24.45 70.52v-28L.21 56.53l-.12-.07v.14L0 56.66l.09.05V84.65L0 84.7l.09.06V113L24.3 99v0L48.75 84.87z" style="fill:url(#linear-gradient-2)"/><path d="M.05 56.44 24.5 70.55V42.32z" style="fill:#009cd0"/><path d="M.05 56.49 24.5 70.6V42.37z" style="mix-blend-mode:multiply;fill:url(#linear-gradient-3)"/><path d="M73.23 42.21 97.68 56.32V28.09z" style="mix-blend-mode:multiply;fill:url(#linear-gradient-4)"/><path d="M97.68 28.09 73.23 14v0L48.79 28.13 73.25 42.25v0z" style="mix-blend-mode:multiply;fill:url(#linear-gradient-5)"/></g></g></g></svg></span><span class="text-uppercase font-weight-bold">Altinity Knowledge Base</span>
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block">
+
+
+
+<input
+  type="search"
+  class="form-control td-search-input"
+  placeholder="&#xf002; Search this site…"
+  aria-label="Search this site…"
+  autocomplete="off"
+  
+  data-offline-search-index-json-src="/offline-search-index.9f88c2900b11dcd5146da70a8cc84431.json"
+  data-offline-search-base-href="/"
+  data-offline-search-max-results="10"
+>
+
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+          </div>
+          <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+          </div>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+
+
+
+
+<div class="td-content">
+<div class="pageinfo pageinfo-primary d-print-none">
+<p>
+This the multi-page printable view of this section.
+<a href="#" onclick="print();return false;">Click here to print</a>.
+</p><p>
+<a href="/altinity-kb-kubernetes/">Return to the regular view of this page</a>.
+</p>
+</div>
+
+
+
+<h1 class="title">Kubernetes</h1>
+<div class="lead">Run ClickHouse in Kubernetes without any issues.</div>
+
+
+
+
+    <ul>
+    
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>1: <a href="#pg-db244c569fcd4919a29e678e1b91303c">Possible issues with running ClickHouse in k8s</a></li>
+
+
+    
+  
+
+    </ul>
+
+
+<div class="content">
+      <h2 id="clickhouse-backup">clickhouse-backup</h2>
+<p><a href="https://github.com/Altinity/clickhouse-operator/blob/eb3fc4e28514d0d6ea25a40698205b02949bcf9d/docs/chi-examples/03-persistent-volume-07-do-not-chown.yaml" target="_blank">setup-example.yaml</a></p>
+
+</div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+<div class="td-content" style="">
+    
+	<h1 id="pg-db244c569fcd4919a29e678e1b91303c">1 - Possible issues with running ClickHouse in k8s</h1>
+    <div class="lead">Possible issues with running ClickHouse in k8s</div>
+	<p>The biggest problem with running ClickHouse in k8s, happens when clickhouse-server can&rsquo;t start for some reason and pod is falling in CrashloopBackOff, so you can&rsquo;t easily get in the pod and check/fix/restart ClickHouse.</p>
+<p>There is multiple possible reasons for this, some of them can be fixed without manual intervention in pod:</p>
+<ol>
+<li>Wrong configuration files Fix: Check templates which are being used for config file generation and fix them.</li>
+<li>While upgrade some backward incompatible changes prevents ClickHouse from start. Fix: Downgrade and check backward incompatible changes for all versions in between.</li>
+</ol>
+<p>Next reasons would require to have manual intervention in pod/volume.
+There is two ways, how you can get access to data:</p>
+<ol>
+<li>Change entry point of ClickHouse pod to something else, so pod wouldn’t be terminated due ClickHouse error.</li>
+<li>Attach ClickHouse data volume to some generic pod (like Ubuntu).</li>
+<li>Unclear restart which produced broken files and/or state on disk is differs too much from state in zookeeper for replicated tables. Fix: Create <code>force_restore_data</code> flag.</li>
+<li>Wrong file permission for ClickHouse files in pod. Fix: Use chown to set right ownership for files and directories.</li>
+<li>Errors in ClickHouse table schema prevents ClickHouse from start. Fix: Rename problematic <code>table.sql</code> scripts to <code>table.sql.bak</code></li>
+<li>Occasional failure of distributed queries because of wrong user/password. Due nature of k8s with dynamic ip allocations, it&rsquo;s possible that ClickHouse would cache wrong ip-&gt; hostname combination and disallow connections because of mismatched hostname. Fix: run <code>SYSTEM DROP DNS CACHE;</code> <code>&lt;disable_internal_dns_cache&gt;1&lt;/disable_internal_dns_cache&gt;</code> in config.xml.</li>
+</ol>
+<p>Caveats:</p>
+<ol>
+<li>Not all configuration/state folders are being covered by persistent volumes. (<a href="https://clickhouse.tech/docs/en/sql-reference/functions/ym-dict-functions/#multiple-geobases" target="_blank">geobases</a>)</li>
+<li>Page cache belongs to k8s node and pv are being mounted to pod, in case of fast shutdown there is possibility to loss some data(needs to be clarified)</li>
+<li>Some cloud providers (GKE) can have slow unlink command, which is important for clickhouse because it&rsquo;s needed for parts management. (<code>max_part_removal_threads</code> setting)</li>
+</ol>
+<p>Useful commands:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl logs chi-chcluster-2-1-0 -c clickhouse-pod -n chcluster --previous
+</span></span><span style="display:flex;"><span>kubectl describe pod chi-chcluster-2-1-0 -n chcluster
+</span></span></code></pre></div><p>Q. Clickhouse is caching the Kafka pod&rsquo;s IP and trying to connect to the same ip even when there is a new Kafka pod running and the old one is deprecated. Is there some setting where we could refresh the connection</p>
+<p><code>&lt;disable_internal_dns_cache&gt;1&lt;/disable_internal_dns_cache&gt;</code> in config.xml</p>
+<h3 id="clickhouse-init-process-failed">ClickHouse init process failed</h3>
+<p>It&rsquo;s due to low value for env <code>CLICKHOUSE_INIT_TIMEOUT</code> value. Consider increasing it up to 1 min.
+<a href="https://github.com/ClickHouse/ClickHouse/blob/9f5cd35a6963cc556a51218b46b0754dcac7306a/docker/server/entrypoint.sh#L120" target="_blank">https://github.com/ClickHouse/ClickHouse/blob/9f5cd35a6963cc556a51218b46b0754dcac7306a/docker/server/entrypoint.sh#L120</a></p>
+
+</div>
+
+
+
+    
+	
+  
+
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Twitter" aria-label="Twitter">
+    <a class="text-white" target="_blank" rel="noopener noreferrer" href="https://twitter.com/AltinityDB">
+      <i class="fab fa-twitter"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Youtube" aria-label="Youtube">
+    <a class="text-white" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/channel/UCE3Y2lDKl_ZfjaCrh62onYA">
+      <i class="fab fa-youtube"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="LinkedIn" aria-label="LinkedIn">
+    <a class="text-white" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/company/altinity/">
+      <i class="fab fa-linkedin"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" rel="noopener noreferrer" href="https://github.com/orgs/Altinity/">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2022  Altinity Inc. All Rights Reserved</small>
+        <small class="ml-1"><a href="https://altinity.com/privacy-policy/" target="_blank">Privacy Policy</a></small>
+	
+		
+	
+      </div>
+    </div>
+  </div>
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-101676615-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-101676615-2');
+</script>
+</footer>
+
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.min.7fa9e3e39f56ebd66798993ef3c080218d9696c971a28ef8872d750b7416a435.js" integrity="sha256-f6nj459W69ZnmJk&#43;88CAIY2Wlslxoo74hy11C3QWpDU=" crossorigin="anonymous"></script>
+
+
+
+<script src='/js/prism.js'></script>
+
+
+
+  </body>
+</html>

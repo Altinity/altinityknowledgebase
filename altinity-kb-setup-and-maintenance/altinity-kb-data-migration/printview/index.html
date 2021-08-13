@@ -1,0 +1,832 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.96.0" /><link rel="canonical" type="text/html" href="http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/">
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+<link rel="shortcut icon" href="/favicons/favicon.ico" >
+<link rel="icon" href="/favicons/favicon.ico" >
+<title>Data Migration | Altinity Knowledge Base</title>
+<meta name="description" content="Altinity Knowledge Base"><meta property="og:title" content="Data Migration" />
+<meta property="og:description" content="Data Migration
+" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/" /><meta property="og:site_name" content="Altinity Knowledge Base" />
+
+<meta itemprop="name" content="Data Migration">
+<meta itemprop="description" content="Data Migration
+"><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Data Migration"/>
+<meta name="twitter:description" content="Data Migration
+"/>
+
+
+
+
+<link rel="preload" href="/scss/main.min.ec0d259783afc2c6841272db4924ae5f6ab47953b32356793cb392fb1f3c3e5d.css" as="style">
+<link href="/scss/main.min.ec0d259783afc2c6841272db4924ae5f6ab47953b32356793cb392fb1f3c3e5d.css" rel="stylesheet" integrity="">
+
+
+<script
+  src="https://code.jquery.com/jquery-3.5.1.min.js"
+  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+  crossorigin="anonymous"></script>
+
+<script
+  src="https://unpkg.com/lunr@2.3.8/lunr.min.js"
+  integrity="sha384-vRQ9bDyE0Wnu+lMfm57BlYLO0/XauFuKpVsZPs7KEDwYKktWi5+Kz3MP8++DFlRY"
+  crossorigin="anonymous"></script>
+
+
+
+<link rel="stylesheet" href="/css/prism.css"/>
+
+<meta name="keywords" content="">
+
+
+
+
+  </head>
+  <body class="td-section">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="/">
+		<span class="navbar-logo"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 97.68 112.95"><defs><linearGradient id="linear-gradient" x1="49.43" y1="564.05" x2="21.19" y2="486.25" gradientTransform="matrix(1, 0, 0, -1, 0, 550.11)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#009cd0"/><stop offset=".16" stop-color="#02a0d4"/><stop offset=".33" stop-color="#08acdf"/><stop offset=".49" stop-color="#12c0f1"/><stop offset=".66" stop-color="#10bced"/><stop offset=".83" stop-color="#0ab0e2"/><stop offset="1" stop-color="#009cd0"/></linearGradient><linearGradient id="linear-gradient-2" x1="0" y1="472.36" x2="48.75" y2="472.36" xlink:href="#linear-gradient"/><linearGradient id="linear-gradient-3" x1=".05" y1="493.62" x2="24.5" y2="493.62" gradientTransform="matrix(1, 0, 0, -1, 0, 550.11)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff"/><stop offset=".03" stop-color="#f2f7fb"/><stop offset=".19" stop-color="#b3d2e7"/><stop offset=".34" stop-color="#7cb2d5"/><stop offset=".5" stop-color="#5097c7"/><stop offset=".64" stop-color="#2d83bc"/><stop offset=".78" stop-color="#1474b4"/><stop offset=".9" stop-color="#056bb0"/><stop offset="1" stop-color="#0068ae"/></linearGradient><linearGradient id="linear-gradient-4" x1="73.23" y1="507.9" x2="97.68" y2="507.9" gradientTransform="matrix(1, 0, 0, -1, 0, 550.11)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0068ae"/><stop offset=".12" stop-color="#046aaf"/><stop offset=".25" stop-color="#1072b3"/><stop offset=".38" stop-color="#257eba"/><stop offset=".5" stop-color="#418fc3"/><stop offset=".63" stop-color="#66a4ce"/><stop offset=".76" stop-color="#93bfdd"/><stop offset=".88" stop-color="#c7deed"/><stop offset="1" stop-color="#fff"/></linearGradient><linearGradient id="linear-gradient-5" x1="50.7" y1="522" x2="74.92" y2="522" gradientTransform="matrix(1, 0, 0, -1, 0, 550.11)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0068ae"/><stop offset=".09" stop-color="#096eb1"/><stop offset=".23" stop-color="#237db9"/><stop offset=".41" stop-color="#4d95c6"/><stop offset=".62" stop-color="#86b8d9"/><stop offset=".86" stop-color="#cfe3f0"/><stop offset="1" stop-color="#fff"/></linearGradient></defs><title>logo_1</title><g style="isolation:isolate"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path d="M97.68 56.29h0L73.23 42.21V98.58L97.68 112.7V56.29z" style="fill:#009cd0"/><path d="M73.23 42.21 97.68 56.32V28.09z" style="fill:#009cd0"/><path d="M73.25 42.2 97.68 28.09 73.25 14h0L48.79 28.08 73.23 42.19v0h0z" style="fill:#009cd0"/><path d="M73.34 14.12 48.89.0V0L24.45 14.18h0L.1 28.23h0L0 28.29l.09.05V56.46L24.45 42.4h0 .1.0L49.4 27.94 73.34 14.12z" style="fill:url(#linear-gradient)"/><path d="M48.75 84.87 24.45 70.52v-28L.21 56.53l-.12-.07v.14L0 56.66l.09.05V84.65L0 84.7l.09.06V113L24.3 99v0L48.75 84.87z" style="fill:url(#linear-gradient-2)"/><path d="M.05 56.44 24.5 70.55V42.32z" style="fill:#009cd0"/><path d="M.05 56.49 24.5 70.6V42.37z" style="mix-blend-mode:multiply;fill:url(#linear-gradient-3)"/><path d="M73.23 42.21 97.68 56.32V28.09z" style="mix-blend-mode:multiply;fill:url(#linear-gradient-4)"/><path d="M97.68 28.09 73.23 14v0L48.79 28.13 73.25 42.25v0z" style="mix-blend-mode:multiply;fill:url(#linear-gradient-5)"/></g></g></g></svg></span><span class="text-uppercase font-weight-bold">Altinity Knowledge Base</span>
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block">
+
+
+
+<input
+  type="search"
+  class="form-control td-search-input"
+  placeholder="&#xf002; Search this site…"
+  aria-label="Search this site…"
+  autocomplete="off"
+  
+  data-offline-search-index-json-src="/offline-search-index.9f88c2900b11dcd5146da70a8cc84431.json"
+  data-offline-search-base-href="/"
+  data-offline-search-max-results="10"
+>
+
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+          </div>
+          <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+          </div>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+
+
+
+
+<div class="td-content">
+<div class="pageinfo pageinfo-primary d-print-none">
+<p>
+This the multi-page printable view of this section.
+<a href="#" onclick="print();return false;">Click here to print</a>.
+</p><p>
+<a href="/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/">Return to the regular view of this page</a>.
+</p>
+</div>
+
+
+
+<h1 class="title">Data Migration</h1>
+<div class="lead">Data Migration</div>
+
+
+
+
+    <ul>
+    
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>1: <a href="#pg-49f38a883c7ec4fc908726a6854c7bbe">clickhouse-copier</a></li>
+
+
+    
+    <ul>
+        
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>1.1: <a href="#pg-e1f1d825521583c133a8d3bf2a72f6e7">clickhouse-copier 20.3 and earlier</a></li>
+
+
+    
+  
+    
+    
+	
+<li>1.2: <a href="#pg-7cba4646c1996d768d76c912356b9762">clickhouse-copier 20.4 - 21.6</a></li>
+
+
+    
+  
+
+    </ul>
+    
+  
+    
+    
+	
+<li>2: <a href="#pg-384352a945ec192141ea6fb13e0f518f">Remote table function</a></li>
+
+
+    
+  
+    
+    
+	
+<li>3: <a href="#pg-69e50f36eba192534d9f891226a8196a">rsync</a></li>
+
+
+    
+  
+
+    </ul>
+
+
+<div class="content">
+      <h2 id="export--import-into-common-data-formats">Export &amp; Import into common data formats</h2>
+<p>Pros:</p>
+<ul>
+<li>Data can be inserted into any DBMS.</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>Decoding &amp; encoding of common data formats may be slower / require more CPU</li>
+<li>The data size is usually bigger than ClickHouse formats.</li>
+<li>Some of the common data formats have limitations.</li>
+</ul>
+
+
+<div class="alert alert-info" role="alert">
+<h4 class="alert-heading">Info</h4>
+
+    <p>The best approach to do that is using clickhouse-client, in that case, encoding/decoding of format happens client-side, while client and server speak clickhouse Native format (columnar &amp; compressed).</p>
+<p>In contrast: when you use HTTP protocol, the server do encoding/decoding and more data is passed between client and server.</p>
+
+
+</div>
+
+<h2 id="remoteremotesecure-or-clusterdistributed-table">remote/remoteSecure or cluster/Distributed table</h2>
+<p>Pros:</p>
+<ul>
+<li>Simple to run.</li>
+<li>It’s possible to change the schema and distribution of data between shards.</li>
+<li>It’s possible to copy only some subset of data.</li>
+<li>Needs only access to ClickHouse TCP port.</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>Uses CPU / RAM (mostly on the receiver side)</li>
+</ul>
+<p>See details in:</p>
+<p><a href="http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/remote-table-function/">remote-table-function.md</a></p>
+<h2 id="clickhouse-copier">clickhouse-copier</h2>
+<p>Pros:</p>
+<ul>
+<li>Possible to do <strong>some</strong> changes in schema.</li>
+<li>Needs only access to ClickHouse TCP port.</li>
+<li>It’s possible to change the distribution of data between shards.</li>
+<li>Suitable for large clusters: many clickhouse-copier can execute the same task together.</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>May create an inconsistent result if source cluster data is changing during the process.</li>
+<li>Hard to setup.</li>
+<li>Requires zookeeper.</li>
+<li>Uses CPU / RAM (mostly on the clickhouse-copier and receiver side)</li>
+</ul>
+
+
+<div class="alert alert-info" role="alert">
+<h4 class="alert-heading">Info</h4>
+
+    Internally it works like smart <code>INSERT INTO cluster(…) SELECT * FROM ...</code> with some consistency checks.
+
+</div>
+
+
+
+<div class="alert alert-info" role="alert">
+<h4 class="alert-heading">Info</h4>
+
+    Run clickhouse copier on the same nodes as receiver clickhouse, to avoid doubling the network load.
+
+</div>
+
+<p>See details in:</p>
+<p><a href="http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/altinity-kb-clickhouse-copier/">altinity-kb-clickhouse-copier</a></p>
+<h2 id="manual-parts-moving-freeze--rsync--attach">Manual parts moving: freeze / rsync / attach</h2>
+<p>Pros:</p>
+<ul>
+<li>Low CPU / RAM usage.</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>Table schema should be the same.</li>
+<li>A lot of manual operations/scripting.</li>
+</ul>
+
+
+<div class="alert alert-info" role="alert">
+<h4 class="alert-heading">Info</h4>
+
+    With some additional care and scripting, it’s possible to do cheap re-sharding on parts level.
+
+</div>
+
+<p>See details in:</p>
+<p><a href="http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/rsync/">rsync.md</a></p>
+<h2 id="clickhouse-backup">clickhouse-backup</h2>
+<p>Pros:</p>
+<ul>
+<li>Low CPU / RAM usage.</li>
+<li>Suitable to recover both schema &amp; data for all tables at once.</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>Table schema should be the same.</li>
+</ul>
+<p>Just create the backup on server 1, upload it to server 2, and restore the backup.</p>
+<p>See <a href="https://github.com/AlexAkulov/clickhouse-backup" target="_blank">https://github.com/AlexAkulov/clickhouse-backup</a></p>
+<p><a href="%22https://altinity.com/blog/introduction-to-clickhouse-backups-and-clickhouse-backup%22">https://altinity.com/blog/introduction-to-clickhouse-backups-and-clickhouse-backup</a></p>
+<h2 id="fetch-from-zookeeper-path">Fetch from zookeeper path</h2>
+<p>Pros:</p>
+<ul>
+<li>Low CPU / RAM usage.</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>Table schema should be the same.</li>
+<li>Works only when the source and the destination clickhouse servers share the same zookeeper (without chroot)</li>
+<li>Needs to access zookeeper and ClickHouse replication ports: (<code>interserver_http_port</code> or <code>interserver_https_port</code>)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">ALTER</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">TABLE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">table_name</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">FETCH</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">PARTITION</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">partition_expr</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">FROM</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;path-in-zookeeper&#39;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span></code></pre></div><h2 id="replication-protocol">Replication protocol</h2>
+<p>Just make one more replica in another place.</p>
+<p>Pros:</p>
+<ul>
+<li>Simple to setup</li>
+<li>Data is consistent all the time automatically.</li>
+<li>Low CPU and network usage.</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>Needs to reach both zookeeper client (2181) and ClickHouse replication ports: (<code>interserver_http_port</code> or <code>interserver_https_port</code>)</li>
+<li>In case of cluster migration, zookeeper need’s to be migrated too.</li>
+<li>Replication works both ways.</li>
+</ul>
+<p><a href="../altinity-kb-zookeeper/altinity-kb-zookeeper-cluster-migration.md">../altinity-kb-zookeeper/altinity-kb-zookeeper-cluster-migration.md</a></p>
+<h2 id="see-also">See also</h2>
+<h3 id="github-issues">Github issues</h3>
+<p><a href="https://github.com/ClickHouse/ClickHouse/issues/10943" target="_blank">https://github.com/ClickHouse/ClickHouse/issues/10943</a>
+<a href="https://github.com/ClickHouse/ClickHouse/issues/20219" target="_blank">https://github.com/ClickHouse/ClickHouse/issues/20219</a>
+<a href="https://github.com/ClickHouse/ClickHouse/pull/17871" target="_blank">https://github.com/ClickHouse/ClickHouse/pull/17871</a></p>
+<h3 id="other-links">Other links</h3>
+<p><a href="https://habr.com/ru/company/avito/blog/500678/" target="_blank">https://habr.com/ru/company/avito/blog/500678/</a></p>
+
+</div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-49f38a883c7ec4fc908726a6854c7bbe">1 - clickhouse-copier</h1>
+    <div class="lead">clickhouse-copier</div>
+	<p>The description of the utility and its parameters, as well as examples of the config files that you need to create for the copier are in the doc <a href="https://clickhouse.tech/docs/en/operations/utilities/clickhouse-copier/" target="_blank">https://clickhouse.tech/docs/en/operations/utilities/clickhouse-copier/</a></p>
+<p>The steps to run a task:</p>
+<ol>
+<li>
+<p>Create a config file for clickhouse-copier (zookeeper.xml)</p>
+<p><a href="https://clickhouse.tech/docs/en/operations/utilities/clickhouse-copier/#format-of-zookeeper-xml" target="_blank">https://clickhouse.tech/docs/en/operations/utilities/clickhouse-copier/#format-of-zookeeper-xml</a></p>
+</li>
+<li>
+<p>Create a config file for the task (task1.xml)</p>
+<p><a href="https://clickhouse.tech/docs/en/operations/utilities/clickhouse-copier/#configuration-of-copying-tasks" target="_blank">https://clickhouse.tech/docs/en/operations/utilities/clickhouse-copier/#configuration-of-copying-tasks</a></p>
+</li>
+<li>
+<p>Create the task in ZooKeeper and start an instance of clickhouse-copier<code>clickhouse-copier --daemon --base-dir=/opt/clickhouse-copier --config /opt/clickhouse-copier/zookeeper.xml --task-path /clickhouse/copier/task1 --task-file /opt/clickhouse-copier/task1.xml</code></p>
+</li>
+</ol>
+<p>If the node in ZooKeeper already exists and you want to change it, you need to add the <code>task-upload-force</code> parameter:</p>
+<p><code>clickhouse-copier --daemon --base-dir=/opt/clickhouse-copier --config /opt/clickhouse-copier/zookeeper.xml --task-path /clickhouse/copier/task1 --task-file /opt/clickhouse-copier/task1.xml --task-upload-force 1</code></p>
+<p>If you want to run another instance of clickhouse-copier for the same task, you need to copy the config file (zookeeper.xml) to another server, and run this command:</p>
+<p><code>clickhouse-copier --daemon --base-dir=/opt/clickhouse-copier --config /opt/clickhouse-copier/zookeeper.xml --task-path /clickhouse/copier/task1</code></p>
+<p>The number of simultaneously running instances is controlled be the <code>max_workers</code> parameter in your task configuration file. If you run more workers superfluous workers will sleep and log messages like this:</p>
+<p><code>&lt;Debug&gt; ClusterCopier: Too many workers (1, maximum 1). Postpone processing</code></p>
+<h3 id="see-also">See also</h3>
+<ul>
+<li><a href="https://clickhouse.tech/docs/en/operations/utilities/clickhouse-copier/" target="_blank">https://clickhouse.tech/docs/en/operations/utilities/clickhouse-copier/</a></li>
+<li>Никита Михайлов. Кластер ClickHouse ctrl-с ctrl-v. HighLoad++ Весна 2021 <a href="https://raw.githubusercontent.com/ClickHouse/clickhouse-presentations/master/highload2021/copier.pdf" target="_blank">slides</a></li>
+<li>21.7 have a huge bulk of fixes / improvements. <a href="https://github.com/ClickHouse/ClickHouse/pull/23518" target="_blank">https://github.com/ClickHouse/ClickHouse/pull/23518</a></li>
+<li><a href="https://altinity.com/blog/2018/8/22/clickhouse-copier-in-practice" target="_blank">https://altinity.com/blog/2018/8/22/clickhouse-copier-in-practice</a></li>
+<li><a href="http://www.clickhouse.com.cn/topic/601fb322b06e5e0f21ba79e1" target="_blank">http://www.clickhouse.com.cn/topic/601fb322b06e5e0f21ba79e1</a></li>
+<li><a href="https://github.com/getsentry/snuba/blob/master/docs/clickhouse-copier.md" target="_blank">https://github.com/getsentry/snuba/blob/master/docs/clickhouse-copier.md</a></li>
+<li><a href="https://hughsite.com/post/clickhouse-copier-usage.html" target="_blank">https://hughsite.com/post/clickhouse-copier-usage.html</a></li>
+<li><a href="https://www.jianshu.com/p/c058edd664a6" target="_blank">https://www.jianshu.com/p/c058edd664a6</a></li>
+</ul>
+
+</div>
+
+
+
+    
+      
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-e1f1d825521583c133a8d3bf2a72f6e7">1.1 - clickhouse-copier 20.3 and earlier</h1>
+    <div class="lead">clickhouse-copier 20.3 and earlier</div>
+	<p>Clickhouse-copier was created to move data between clusters.
+It runs simple INSERT…SELECT queries and can copy data between tables with different engine parameters and between clusters with different number of shards.
+In the task configuration file you need to describe the layout of the source and the target cluster, and list the tables that you need to copy. You can copy whole tables or specific partitions.
+Clickhouse-copier uses temporary distributed tables to select from the source cluster and insert into the target cluster.</p>
+<h2 id="the-process-is-as-follows">The process is as follows</h2>
+<ol>
+<li>Process the configuration files.</li>
+<li>Discover the list of partitions if not provided in the config.</li>
+<li>Copy partitions one by one.
+<ol>
+<li>Drop the partition from the target table if it’s not empty</li>
+<li>Copy data from source shards one by one.
+<ol>
+<li>Check if there is data for the partition on a source shard.</li>
+<li>Check the status of the task in ZooKeeper.</li>
+<li>Create target tables on all shards of the target cluster.</li>
+<li>Insert the partition of data into the target table.</li>
+</ol>
+</li>
+<li>Mark the partition as completed in ZooKeeper.</li>
+</ol>
+</li>
+</ol>
+<p>If there are several workers running simultaneously, they will assign themselves to different source shards.
+If a worker was interrupted, another worker can be started to continue the task. The next worker will drop incomplete partitions and resume the copying.</p>
+<h2 id="configuring-the-engine-of-the-target-table">Configuring the engine of the target table</h2>
+<p>Clickhouse-copier uses the engine from the task configuration file for these purposes:</p>
+<ul>
+<li>to create target tables if they don’t exist.</li>
+<li>PARTITION BY: to SELECT a partition of data from the source table, to DROP existing partitions from target tables.</li>
+</ul>
+<p>Clickhouse-copier does not support the old MergeTree format.
+However, you can create the target tables manually and specify the engine in the task configuration file in the new format so that clickhouse-copier can parse it for its SELECT queries.</p>
+<h2 id="how-to-monitor-the-status-of-running-tasks">How to monitor the status of running tasks</h2>
+<p>Clickhouse-copier uses ZooKeeper to keep track of the progress and to communicate between workers.
+Here is a list of queries that you can use to see what’s happening.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">--task-path /clickhouse/copier/task1
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#8f5902;font-style:italic">-- The task config
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">select</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">from</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">system</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">zookeeper</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">where</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">path</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#39;&lt;task-path&gt;&#39;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">name</span><span style="color:#f8f8f8;text-decoration:underline">                        </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">ctime</span><span style="color:#f8f8f8;text-decoration:underline">               </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">mtime</span><span style="color:#f8f8f8;text-decoration:underline">           
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#8f5902;font-style:italic">----------------------------+---------------------+--------------------
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000">description</span><span style="color:#f8f8f8;text-decoration:underline">                 </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2019</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">10</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">18</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">15</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">40</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">00</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2020</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">09</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">11</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">16</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">01</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">14</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">task_active_workers_version</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2019</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">10</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">18</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">16</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">00</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">09</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2020</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">09</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">11</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">16</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">07</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">08</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">tables</span><span style="color:#f8f8f8;text-decoration:underline">                      </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2019</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">10</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">18</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">16</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">00</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">25</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2019</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">10</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">18</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">16</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">00</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">25</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">task_active_workers</span><span style="color:#f8f8f8;text-decoration:underline">         </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2019</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">10</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">18</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">16</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">00</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">09</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2019</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">10</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">18</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">16</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">00</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">09</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#8f5902;font-style:italic">-- Running workers
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">select</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">from</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">system</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">zookeeper</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">where</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">path</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#39;&lt;task-path&gt;/task_active_workers&#39;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#8f5902;font-style:italic">-- The list of processed tables
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">select</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">from</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">system</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">zookeeper</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">where</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">path</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#39;&lt;task-path&gt;/tables&#39;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#8f5902;font-style:italic">-- The list of processed partitions
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">select</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">from</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">system</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">zookeeper</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">where</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">path</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#39;&lt;task-path&gt;/tables/&lt;table&gt;&#39;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">name</span><span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">ctime</span><span style="color:#f8f8f8;text-decoration:underline">           
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#8f5902;font-style:italic">-------+--------------------
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#0000cf;font-weight:bold">201909</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2019</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">10</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">18</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">18</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">24</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">18</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#8f5902;font-style:italic">-- The status of a partition
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">select</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">from</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">system</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">zookeeper</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">where</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">path</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#39;&lt;task-path&gt;/tables/&lt;table&gt;/&lt;partition&gt;&#39;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">name</span><span style="color:#f8f8f8;text-decoration:underline">                     </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">ctime</span><span style="color:#f8f8f8;text-decoration:underline">           
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#8f5902;font-style:italic">-------------------------+--------------------
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000">shards</span><span style="color:#f8f8f8;text-decoration:underline">                   </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2019</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">10</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">18</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">18</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">24</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">18</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">partition_active_workers</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2019</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">10</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">18</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">18</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">24</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">18</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#8f5902;font-style:italic">-- The status of source shards
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">select</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">from</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">system</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">zookeeper</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">where</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">path</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#39;&lt;task-path&gt;/tables/&lt;table&gt;/&lt;partition&gt;/shards&#39;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">name</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">ctime</span><span style="color:#f8f8f8;text-decoration:underline">               </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">mtime</span><span style="color:#f8f8f8;text-decoration:underline">           
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#8f5902;font-style:italic">-----+---------------------+--------------------
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2019</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">10</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">18</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">22</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">37</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">48</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2019</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">10</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">18</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">22</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">49</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">29</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span></code></pre></div>
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-7cba4646c1996d768d76c912356b9762">1.2 - clickhouse-copier 20.4 - 21.6</h1>
+    <div class="lead">clickhouse-copier 20.4 - 21.6</div>
+	<p>Clickhouse-copier was created to move data between clusters.
+It runs simple INSERT…SELECT queries and can copy data between tables with different engine parameters and between clusters with different number of shards.
+In the task configuration file you need to describe the layout of the source and the target cluster, and list the tables that you need to copy. You can copy whole tables or specific partitions.
+Clickhouse-copier uses temporary distributed tables to select from the source cluster and insert into the target cluster.</p>
+<p>The behavior of clickhouse-copier was changed in 20.4:</p>
+<ul>
+<li>Now clickhouse-copier inserts data into intermediate tables, and after the insert finishes successfully clickhouse-copier attaches the completed partition into the target table. This allows for incremental data copying, because the data in the target table is intact during the process. <strong>Important note:</strong> ATTACH PARTITION respects the <code>max_partition_size_to_drop</code> limit. Make sure the <code>max_partition_size_to_drop</code> limit is big enough (or set to zero) in the destination cluster. If clickhouse-copier is unable to attach a partition because of the limit, it will proceed to the next partition, and it will drop the intermediate table when the task is finished (if the intermediate table is less than the <code>max_table_size_to_drop</code> limit). <strong>Another important note:</strong> ATTACH PARTITION is replicated. The attached partition will need to be downloaded by the other replicas. This can create significant network traffic between ClickHouse nodes. If an attach takes a long time, clickhouse-copier will log a timeout and will proceed to the next step.</li>
+<li>Now clickhouse-copier splits the source data into chunks and copies them one by one. This is useful for big source tables, when inserting one partition of data can take hours. If there is an error during the insert clickhouse-copier has to drop the whole partition and start again. The <code>number_of_splits</code> parameter lets you split your data into chunks so that in case of an exception clickhouse-copier has to re-insert only one chunk of the data.</li>
+<li>Now clickhouse-copier runs <code>OPTIMIZE target_table PARTITION ... DEDUPLICATE</code> for non-Replicated MergeTree tables. <strong>Important note:</strong> This is a very strange feature that can do more harm than good. We recommend to disable it by configuring the engine of the target table as Replicated in the task configuration file, and create the target tables manually if they are not supposed to be replicated. Intermediate tables are always created as plain MergeTree.</li>
+</ul>
+<h2 id="the-process-is-as-follows">The process is as follows</h2>
+<ol>
+<li>Process the configuration files.</li>
+<li>Discover the list of partitions if not provided in the config.</li>
+<li>Copy partitions one by one <em><strong>I’m not sure of the order since I was copying from 1 shard to 4 shards.</strong></em> <em><strong>The metadata in ZooKeeper suggests the order described here.</strong></em>
+<ol>
+<li>Copy chunks of data one by one.
+<ol>
+<li>Copy data from source shards one by one.
+<ol>
+<li>Create intermediate tables on all shards of the target cluster.</li>
+<li>Check the status of the chunk in ZooKeeper.</li>
+<li>Drop the partition from the intermediate table if the previous attempt was interrupted.</li>
+<li>Insert the chunk of data into the intermediate tables.</li>
+<li>Mark the shard as completed in ZooKeeper</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>Attach the chunks of the completed partition into the target table one by one
+<ol>
+<li>Attach a chunk into the target table.</li>
+<li><strong>non-Replicated:</strong> Run OPTIMIZE target_table DEDUPLICATE for the partition on the target table.</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>Drop intermediate tables (may not succeed if the tables are bigger than <code>max_table_size_to_drop</code>).</li>
+</ol>
+<p>If there are several workers running simultaneously, they will assign themselves to different source shards.
+If a worker was interrupted, another worker can be started to continue the task. The next worker will drop incomplete partitions and resume the copying.</p>
+<h2 id="configuring-the-engine-of-the-target-table">Configuring the engine of the target table</h2>
+<p>Clickhouse-copier uses the engine from the task configuration file for these purposes:</p>
+<ul>
+<li>to create target and intermediate tables if they don’t exist.</li>
+<li>PARTITION BY: to SELECT a partition of data from the source table, to ATTACH partitions into target tables, to DROP incomplete partitions from intermediate tables, to OPTIMIZE partitions after they are attached to the target.</li>
+<li>ORDER BY: to SELECT a chunk of data from the source table.</li>
+</ul>
+<p>Here is an example of SELECT that clickhouse-copier runs to get the sixth of ten chunks of data:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">WHERE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">(</span><span style="color:#ce5c00;font-weight:bold">&lt;</span><span style="color:#000">the</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">PARTITION</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">BY</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">clause</span><span style="color:#ce5c00;font-weight:bold">&gt;</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">(</span><span style="color:#ce5c00;font-weight:bold">&lt;</span><span style="color:#000">a</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">value</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">of</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">the</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">PARTITION</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">BY</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">expression</span><span style="color:#ce5c00;font-weight:bold">&gt;</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">AS</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">partition_key</span><span style="color:#000;font-weight:bold">))</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">  </span><span style="color:#204a87;font-weight:bold">AND</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">cityHash64</span><span style="color:#000;font-weight:bold">(</span><span style="color:#ce5c00;font-weight:bold">&lt;</span><span style="color:#000">the</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">ORDER</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">BY</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">clause</span><span style="color:#ce5c00;font-weight:bold">&gt;</span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">%</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">10</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">6</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span></code></pre></div><p>Clickhouse-copier does not support the old MergeTree format.
+However, you can create the intermediate tables manually with the same engine as the target tables (otherwise ATTACH will not work), and specify the engine in the task configuration file in the new format so that clickhouse-copier can parse it for SELECT, ATTACH PARTITION and DROP PARTITION queries.</p>
+<p><strong>Important note</strong>: always configure engine as Replicated to disable OPTIMIZE … DEDUPLICATE (unless you know why you need clickhouse-copier to run OPTIMIZE … DEDUPLICATE).</p>
+<h2 id="how-to-configure-the-number-of-chunks">How to configure the number of chunks</h2>
+<p>The default value for <code>number_of_splits</code> is 10.
+You can change this parameter in the <code>table</code> section of the task configuration file. We recommend setting it to 1 for smaller tables.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">&lt;cluster_push&gt;</span>target_cluster<span style="color:#204a87;font-weight:bold">&lt;/cluster_push&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">&lt;database_push&gt;</span>target_database<span style="color:#204a87;font-weight:bold">&lt;/database_push&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">&lt;table_push&gt;</span>target_table<span style="color:#204a87;font-weight:bold">&lt;/table_push&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">&lt;number_of_splits&gt;</span>1<span style="color:#204a87;font-weight:bold">&lt;/number_of_splits&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">&lt;engine&gt;</span>Engine=Replicated...<span style="color:#204a87;font-weight:bold">&lt;engine&gt;</span>
+</span></span></code></pre></div><h2 id="how-to-monitor-the-status-of-running-tasks">How to monitor the status of running tasks</h2>
+<p>Clickhouse-copier uses ZooKeeper to keep track of the progress and to communicate between workers.
+Here is a list of queries that you can use to see what’s happening.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">--task-path /clickhouse/copier/task1
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#8f5902;font-style:italic">-- The task config
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">select</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">from</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">system</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">zookeeper</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">where</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">path</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#39;&lt;task-path&gt;&#39;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">name</span><span style="color:#f8f8f8;text-decoration:underline">                        </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">ctime</span><span style="color:#f8f8f8;text-decoration:underline">               </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">mtime</span><span style="color:#f8f8f8;text-decoration:underline">           
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#8f5902;font-style:italic">----------------------------+---------------------+--------------------
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000">description</span><span style="color:#f8f8f8;text-decoration:underline">                 </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">03</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">22</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">13</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">15</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">48</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">03</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">22</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">13</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">25</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">28</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">task_active_workers_version</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">03</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">22</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">13</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">15</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">48</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">03</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">22</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">20</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">32</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">09</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">tables</span><span style="color:#f8f8f8;text-decoration:underline">                      </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">03</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">22</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">13</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">16</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">47</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">03</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">22</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">13</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">16</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">47</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">task_active_workers</span><span style="color:#f8f8f8;text-decoration:underline">         </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">03</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">22</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">13</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">15</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">48</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">03</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">22</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">13</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">15</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">48</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#8f5902;font-style:italic">-- Running workers
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">select</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">from</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">system</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">zookeeper</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">where</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">path</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#39;&lt;task-path&gt;/task_active_workers&#39;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#8f5902;font-style:italic">-- The list of processed tables
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">select</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">from</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">system</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">zookeeper</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">where</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">path</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#39;&lt;task-path&gt;/tables&#39;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#8f5902;font-style:italic">-- The list of processed partitions
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">select</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">from</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">system</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">zookeeper</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">where</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">path</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#39;&lt;task-path&gt;/tables/&lt;table&gt;&#39;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">name</span><span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">ctime</span><span style="color:#f8f8f8;text-decoration:underline">           
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#8f5902;font-style:italic">-------+--------------------
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#0000cf;font-weight:bold">202103</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">03</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">22</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">13</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">16</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">47</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#0000cf;font-weight:bold">202102</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">03</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">22</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">13</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">18</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">31</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#0000cf;font-weight:bold">202101</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">03</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">22</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">13</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">27</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">36</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#0000cf;font-weight:bold">202012</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">03</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">22</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">14</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">05</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">08</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#8f5902;font-style:italic">-- The status of a partition
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">select</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">from</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">system</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">zookeeper</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">where</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">path</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#39;&lt;task-path&gt;/tables/&lt;table&gt;/&lt;partition&gt;&#39;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">name</span><span style="color:#f8f8f8;text-decoration:underline">           </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">ctime</span><span style="color:#f8f8f8;text-decoration:underline">           
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#8f5902;font-style:italic">---------------+--------------------
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000">piece_0</span><span style="color:#f8f8f8;text-decoration:underline">        </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">03</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">22</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">13</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">18</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">31</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">attach_is_done</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">03</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">22</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">14</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">05</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">05</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#8f5902;font-style:italic">-- The status of a piece
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">select</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">from</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">system</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">zookeeper</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">where</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">path</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#39;&lt;task-path&gt;/tables/&lt;table&gt;/&lt;partition&gt;/piece_N&#39;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">name</span><span style="color:#f8f8f8;text-decoration:underline">                           </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">ctime</span><span style="color:#f8f8f8;text-decoration:underline">           
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#8f5902;font-style:italic">-------------------------------+--------------------
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000">shards</span><span style="color:#f8f8f8;text-decoration:underline">                         </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">03</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">22</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">13</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">18</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">31</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">is_dirty</span><span style="color:#f8f8f8;text-decoration:underline">                       </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">03</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">22</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">13</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">26</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">51</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">partition_piece_active_workers</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">03</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">22</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">13</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">26</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">54</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">clean_start</span><span style="color:#f8f8f8;text-decoration:underline">                    </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">03</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">22</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">13</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">26</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">54</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#8f5902;font-style:italic">-- The status of source shards
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">select</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">from</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">system</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">zookeeper</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">where</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">path</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#39;&lt;task-path&gt;/tables/&lt;table&gt;/&lt;partition&gt;/piece_N/shards&#39;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">name</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">ctime</span><span style="color:#f8f8f8;text-decoration:underline">               </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">mtime</span><span style="color:#f8f8f8;text-decoration:underline">           
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#8f5902;font-style:italic">-----+---------------------+--------------------
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">03</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">22</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">13</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">26</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">54</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">|</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2021</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">03</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">22</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">14</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">05</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">05</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span></code></pre></div>
+</div>
+
+
+
+    
+	
+  
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-384352a945ec192141ea6fb13e0f518f">2 - Remote table function</h1>
+    <div class="lead">Remote table function</div>
+	<h2 id="remote-table-function">remote(&hellip;) table function</h2>
+<p>Suitable for moving up to hundreds of gigabytes of data.</p>
+<p>With bigger tables recommended approach is to slice the original data by some <code>WHERE</code> condition, ideally - apply the condition on partitioning key, to avoid writing data to many partitions at once.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">INSERT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">INTO</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">staging_table</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">SELECT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">FROM</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">remote</span><span style="color:#000;font-weight:bold">(...)</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">WHERE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87">date</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#39;2021-04-13&#39;</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">INSERT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">INTO</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">staging_table</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">SELECT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">FROM</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">remote</span><span style="color:#000;font-weight:bold">(...)</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">WHERE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87">date</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#39;2021-04-12&#39;</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">INSERT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">INTO</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">staging_table</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">SELECT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">FROM</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">remote</span><span style="color:#000;font-weight:bold">(...)</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">WHERE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87">date</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#39;2021-04-11&#39;</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000;font-weight:bold">....</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span></code></pre></div><h3 id="q-can-it-create-a-bigger-load-on-the-source-system">Q. Can it create a bigger load on the source system?</h3>
+<p>Yes, it may use disk read &amp; network write bandwidth. But typically write speed is worse than the read speed, so most probably the receiver side will be a bottleneck, and the sender side will not be overloaded.</p>
+<p>While of course it should be checked, every case is different.</p>
+<h3 id="q-can-i-tune-insert-speed-to-make-it-faster">Q. Can I tune INSERT speed to make it faster?</h3>
+<p>Yes, by the cost of extra memory usage (on the receiver side).</p>
+<p>Clickhouse tries to form blocks of data in memory and while one of limit: <code>min_insert_block_size_rows</code> or <code>min_insert_block_size_bytes</code> being hit, clickhouse dump this block on disk. If clickhouse tries to execute insert in parallel (<code>max_insert_threads &gt; 1</code>), it would form multiple blocks at one time.<br>
+So maximum memory usage can be calculated like this: <code>max_insert_threads * first(min_insert_block_size_rows OR min_insert_block_size_bytes)</code></p>
+<p>Default values:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#a40000">┌─</span><span style="color:#000">name</span><span style="color:#a40000">────────────────────────┬─</span><span style="color:#000">value</span><span style="color:#a40000">─────┐</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">min_insert_block_size_rows</span><span style="color:#f8f8f8;text-decoration:underline">  </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">1048545</span><span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">min_insert_block_size_bytes</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">268427520</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">max_insert_threads</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#f8f8f8;text-decoration:underline">         </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">&lt;-</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">Values</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">or</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">means</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">that</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">INSERT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">SELECT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">is</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">not</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">run</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">in</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">parallel</span><span style="color:#000;font-weight:bold">.</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">└─────────────────────────────┴───────────┘</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span></code></pre></div><p>Tune those settings depending on your table average row size and amount of memory which are safe to occupy by <code>INSERT SELECT</code> query.</p>
+<h3 id="q-ive-got-the-error-all-connection-tries-failed">Q. I&rsquo;ve got the error &ldquo;All connection tries failed&rdquo;</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">SELECT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">count</span><span style="color:#000;font-weight:bold">()</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">FROM</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">remote</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#39;server.from.remote.dc:9440&#39;</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;default.table&#39;</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;admin&#39;</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;password&#39;</span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">Received</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">exception</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">from</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">server</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">version</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">20</span><span style="color:#000;font-weight:bold">.</span><span style="color:#0000cf;font-weight:bold">8</span><span style="color:#000;font-weight:bold">.</span><span style="color:#0000cf;font-weight:bold">11</span><span style="color:#000;font-weight:bold">):</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">Code</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">519</span><span style="color:#000;font-weight:bold">.</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">DB</span><span style="color:#000;font-weight:bold">::</span><span style="color:#204a87;font-weight:bold">Exception</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">Received</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">from</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">localhost</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">9000</span><span style="color:#000;font-weight:bold">.</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">DB</span><span style="color:#000;font-weight:bold">::</span><span style="color:#204a87;font-weight:bold">Exception</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">All</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">attempts</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">to</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">get</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">table</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">structure</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">failed</span><span style="color:#000;font-weight:bold">.</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">Log</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">Code</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">279</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">e</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">displayText</span><span style="color:#000;font-weight:bold">()</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">DB</span><span style="color:#000;font-weight:bold">::</span><span style="color:#000">NetException</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">All</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">connection</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">tries</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">failed</span><span style="color:#000;font-weight:bold">.</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">Log</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">Code</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">209</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">e</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">displayText</span><span style="color:#000;font-weight:bold">()</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">DB</span><span style="color:#000;font-weight:bold">::</span><span style="color:#000">NetException</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">Timeout</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">connect</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">timed</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">out</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">192</span><span style="color:#000;font-weight:bold">.</span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">.</span><span style="color:#0000cf;font-weight:bold">2</span><span style="color:#000;font-weight:bold">.</span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">9440</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">server</span><span style="color:#000;font-weight:bold">.</span><span style="color:#204a87;font-weight:bold">from</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">remote</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">dc</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">9440</span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">version</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">20</span><span style="color:#000;font-weight:bold">.</span><span style="color:#0000cf;font-weight:bold">8</span><span style="color:#000;font-weight:bold">.</span><span style="color:#0000cf;font-weight:bold">11</span><span style="color:#000;font-weight:bold">.</span><span style="color:#0000cf;font-weight:bold">17</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">official</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">build</span><span style="color:#000;font-weight:bold">))</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">Code</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">209</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">e</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">displayText</span><span style="color:#000;font-weight:bold">()</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">DB</span><span style="color:#000;font-weight:bold">::</span><span style="color:#000">NetException</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">Timeout</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">connect</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">timed</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">out</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">192</span><span style="color:#000;font-weight:bold">.</span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">.</span><span style="color:#0000cf;font-weight:bold">2</span><span style="color:#000;font-weight:bold">.</span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">9440</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">server</span><span style="color:#000;font-weight:bold">.</span><span style="color:#204a87;font-weight:bold">from</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">remote</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">dc</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">9440</span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">version</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">20</span><span style="color:#000;font-weight:bold">.</span><span style="color:#0000cf;font-weight:bold">8</span><span style="color:#000;font-weight:bold">.</span><span style="color:#0000cf;font-weight:bold">11</span><span style="color:#000;font-weight:bold">.</span><span style="color:#0000cf;font-weight:bold">17</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">official</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">build</span><span style="color:#000;font-weight:bold">))</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">Code</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">209</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">e</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">displayText</span><span style="color:#000;font-weight:bold">()</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">DB</span><span style="color:#000;font-weight:bold">::</span><span style="color:#000">NetException</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">Timeout</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">connect</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">timed</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">out</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">192</span><span style="color:#000;font-weight:bold">.</span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">.</span><span style="color:#0000cf;font-weight:bold">2</span><span style="color:#000;font-weight:bold">.</span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">9440</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">server</span><span style="color:#000;font-weight:bold">.</span><span style="color:#204a87;font-weight:bold">from</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">remote</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">dc</span><span style="color:#000;font-weight:bold">:</span><span style="color:#0000cf;font-weight:bold">9440</span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">version</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">20</span><span style="color:#000;font-weight:bold">.</span><span style="color:#0000cf;font-weight:bold">8</span><span style="color:#000;font-weight:bold">.</span><span style="color:#0000cf;font-weight:bold">11</span><span style="color:#000;font-weight:bold">.</span><span style="color:#0000cf;font-weight:bold">17</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">official</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">build</span><span style="color:#000;font-weight:bold">))</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span></code></pre></div><ol>
+<li>Using remote(&hellip;) table function with secure TCP port (default values is 9440). There is remoteSecure() function for that.</li>
+<li>High (&gt;50ms) ping between servers, values for <code>connect_timeout_with_failover_ms,</code>  <code>connect_timeout_with_failover_secure_ms</code> need&rsquo;s to be adjusted accordingly.</li>
+</ol>
+<p>Default values:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#a40000">┌─</span><span style="color:#000">name</span><span style="color:#a40000">────────────────────────────────────┬─</span><span style="color:#000">value</span><span style="color:#a40000">─┐</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">connect_timeout_with_failover_ms</span><span style="color:#f8f8f8;text-decoration:underline">        </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">50</span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">connect_timeout_with_failover_secure_ms</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">100</span><span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">└─────────────────────────────────────────┴───────┘</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span></code></pre></div>
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-69e50f36eba192534d9f891226a8196a">3 - rsync</h1>
+    <div class="lead">rsync</div>
+	<h3 id="short-instruction">Short Instruction</h3>
+<ol>
+<li>
+<p>Do <a href="https://clickhouse.tech/docs/en/sql-reference/statements/alter/partition/#alter_freeze-partition" target="_blank">FREEZE TABLE</a> on needed table, partition. It would produce consistent snapshot of table data.</p>
+</li>
+<li>
+<p>Run rsync command.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rsync -ravlW --bwlimit<span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#0000cf;font-weight:bold">100000</span> /var/lib/clickhouse/data/shadow/N/database/table
+</span></span><span style="display:flex;"><span>    root@remote_host:/var/lib/clickhouse/data/database/table/detached
+</span></span></code></pre></div><p><code>--bwlimit</code> is transfer limit in KBytes per second.</p>
+</li>
+<li>
+<p>Run <a href="https://clickhouse.tech/docs/en/sql-reference/statements/alter/partition/#alter_attach-partition" target="_blank">ATTACH PARTITION</a> for each partition from <code>./detached</code> directory.</p>
+</li>
+</ol>
+
+</div>
+
+
+
+    
+	
+  
+
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Twitter" aria-label="Twitter">
+    <a class="text-white" target="_blank" rel="noopener noreferrer" href="https://twitter.com/AltinityDB">
+      <i class="fab fa-twitter"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Youtube" aria-label="Youtube">
+    <a class="text-white" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/channel/UCE3Y2lDKl_ZfjaCrh62onYA">
+      <i class="fab fa-youtube"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="LinkedIn" aria-label="LinkedIn">
+    <a class="text-white" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/company/altinity/">
+      <i class="fab fa-linkedin"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" rel="noopener noreferrer" href="https://github.com/orgs/Altinity/">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2022  Altinity Inc. All Rights Reserved</small>
+        <small class="ml-1"><a href="https://altinity.com/privacy-policy/" target="_blank">Privacy Policy</a></small>
+	
+		
+	
+      </div>
+    </div>
+  </div>
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-101676615-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-101676615-2');
+</script>
+</footer>
+
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.min.7fa9e3e39f56ebd66798993ef3c080218d9696c971a28ef8872d750b7416a435.js" integrity="sha256-f6nj459W69ZnmJk&#43;88CAIY2Wlslxoo74hy11C3QWpDU=" crossorigin="anonymous"></script>
+
+
+
+<script src='/js/prism.js'></script>
+
+
+
+  </body>
+</html>

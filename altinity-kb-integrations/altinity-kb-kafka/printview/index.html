@@ -1,0 +1,712 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.96.0" /><link rel="canonical" type="text/html" href="http://kb.altinity.com/altinity-kb-integrations/altinity-kb-kafka/">
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+<link rel="shortcut icon" href="/favicons/favicon.ico" >
+<link rel="icon" href="/favicons/favicon.ico" >
+<title>Kafka | Altinity Knowledge Base</title>
+<meta name="description" content="Altinity Knowledge Base"><meta property="og:title" content="Kafka" />
+<meta property="og:description" content="Kafka
+" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="http://kb.altinity.com/altinity-kb-integrations/altinity-kb-kafka/" /><meta property="og:site_name" content="Altinity Knowledge Base" />
+
+<meta itemprop="name" content="Kafka">
+<meta itemprop="description" content="Kafka
+"><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Kafka"/>
+<meta name="twitter:description" content="Kafka
+"/>
+
+
+
+
+<link rel="preload" href="/scss/main.min.ec0d259783afc2c6841272db4924ae5f6ab47953b32356793cb392fb1f3c3e5d.css" as="style">
+<link href="/scss/main.min.ec0d259783afc2c6841272db4924ae5f6ab47953b32356793cb392fb1f3c3e5d.css" rel="stylesheet" integrity="">
+
+
+<script
+  src="https://code.jquery.com/jquery-3.5.1.min.js"
+  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+  crossorigin="anonymous"></script>
+
+<script
+  src="https://unpkg.com/lunr@2.3.8/lunr.min.js"
+  integrity="sha384-vRQ9bDyE0Wnu+lMfm57BlYLO0/XauFuKpVsZPs7KEDwYKktWi5+Kz3MP8++DFlRY"
+  crossorigin="anonymous"></script>
+
+
+
+<link rel="stylesheet" href="/css/prism.css"/>
+
+<meta name="keywords" content="">
+
+
+
+
+  </head>
+  <body class="td-section">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="/">
+		<span class="navbar-logo"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 97.68 112.95"><defs><linearGradient id="linear-gradient" x1="49.43" y1="564.05" x2="21.19" y2="486.25" gradientTransform="matrix(1, 0, 0, -1, 0, 550.11)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#009cd0"/><stop offset=".16" stop-color="#02a0d4"/><stop offset=".33" stop-color="#08acdf"/><stop offset=".49" stop-color="#12c0f1"/><stop offset=".66" stop-color="#10bced"/><stop offset=".83" stop-color="#0ab0e2"/><stop offset="1" stop-color="#009cd0"/></linearGradient><linearGradient id="linear-gradient-2" x1="0" y1="472.36" x2="48.75" y2="472.36" xlink:href="#linear-gradient"/><linearGradient id="linear-gradient-3" x1=".05" y1="493.62" x2="24.5" y2="493.62" gradientTransform="matrix(1, 0, 0, -1, 0, 550.11)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff"/><stop offset=".03" stop-color="#f2f7fb"/><stop offset=".19" stop-color="#b3d2e7"/><stop offset=".34" stop-color="#7cb2d5"/><stop offset=".5" stop-color="#5097c7"/><stop offset=".64" stop-color="#2d83bc"/><stop offset=".78" stop-color="#1474b4"/><stop offset=".9" stop-color="#056bb0"/><stop offset="1" stop-color="#0068ae"/></linearGradient><linearGradient id="linear-gradient-4" x1="73.23" y1="507.9" x2="97.68" y2="507.9" gradientTransform="matrix(1, 0, 0, -1, 0, 550.11)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0068ae"/><stop offset=".12" stop-color="#046aaf"/><stop offset=".25" stop-color="#1072b3"/><stop offset=".38" stop-color="#257eba"/><stop offset=".5" stop-color="#418fc3"/><stop offset=".63" stop-color="#66a4ce"/><stop offset=".76" stop-color="#93bfdd"/><stop offset=".88" stop-color="#c7deed"/><stop offset="1" stop-color="#fff"/></linearGradient><linearGradient id="linear-gradient-5" x1="50.7" y1="522" x2="74.92" y2="522" gradientTransform="matrix(1, 0, 0, -1, 0, 550.11)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0068ae"/><stop offset=".09" stop-color="#096eb1"/><stop offset=".23" stop-color="#237db9"/><stop offset=".41" stop-color="#4d95c6"/><stop offset=".62" stop-color="#86b8d9"/><stop offset=".86" stop-color="#cfe3f0"/><stop offset="1" stop-color="#fff"/></linearGradient></defs><title>logo_1</title><g style="isolation:isolate"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path d="M97.68 56.29h0L73.23 42.21V98.58L97.68 112.7V56.29z" style="fill:#009cd0"/><path d="M73.23 42.21 97.68 56.32V28.09z" style="fill:#009cd0"/><path d="M73.25 42.2 97.68 28.09 73.25 14h0L48.79 28.08 73.23 42.19v0h0z" style="fill:#009cd0"/><path d="M73.34 14.12 48.89.0V0L24.45 14.18h0L.1 28.23h0L0 28.29l.09.05V56.46L24.45 42.4h0 .1.0L49.4 27.94 73.34 14.12z" style="fill:url(#linear-gradient)"/><path d="M48.75 84.87 24.45 70.52v-28L.21 56.53l-.12-.07v.14L0 56.66l.09.05V84.65L0 84.7l.09.06V113L24.3 99v0L48.75 84.87z" style="fill:url(#linear-gradient-2)"/><path d="M.05 56.44 24.5 70.55V42.32z" style="fill:#009cd0"/><path d="M.05 56.49 24.5 70.6V42.37z" style="mix-blend-mode:multiply;fill:url(#linear-gradient-3)"/><path d="M73.23 42.21 97.68 56.32V28.09z" style="mix-blend-mode:multiply;fill:url(#linear-gradient-4)"/><path d="M97.68 28.09 73.23 14v0L48.79 28.13 73.25 42.25v0z" style="mix-blend-mode:multiply;fill:url(#linear-gradient-5)"/></g></g></g></svg></span><span class="text-uppercase font-weight-bold">Altinity Knowledge Base</span>
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block">
+
+
+
+<input
+  type="search"
+  class="form-control td-search-input"
+  placeholder="&#xf002; Search this site…"
+  aria-label="Search this site…"
+  autocomplete="off"
+  
+  data-offline-search-index-json-src="/offline-search-index.9f88c2900b11dcd5146da70a8cc84431.json"
+  data-offline-search-base-href="/"
+  data-offline-search-max-results="10"
+>
+
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+          </div>
+          <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+          </div>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+
+
+
+
+<div class="td-content">
+<div class="pageinfo pageinfo-primary d-print-none">
+<p>
+This the multi-page printable view of this section.
+<a href="#" onclick="print();return false;">Click here to print</a>.
+</p><p>
+<a href="/altinity-kb-integrations/altinity-kb-kafka/">Return to the regular view of this page</a>.
+</p>
+</div>
+
+
+
+<h1 class="title">Kafka</h1>
+<div class="lead">Kafka</div>
+
+
+
+
+    <ul>
+    
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>1: <a href="#pg-b11bb1875d00a2b0ff0e60950c5360ed">Adjusting librdkafka settings</a></li>
+
+
+    
+  
+    
+    
+	
+<li>2: <a href="#pg-d58f1474300f709dea11df04812ed578">Error handling</a></li>
+
+
+    
+  
+    
+    
+	
+<li>3: <a href="#pg-d8f2388a49c064f3f21643937cbfcedc">Exactly once semantics</a></li>
+
+
+    
+  
+    
+    
+	
+<li>4: <a href="#pg-7b4e8063954e9a7aaa7e048590c82f0d">Kafka main parsing loop</a></li>
+
+
+    
+  
+    
+    
+	
+<li>5: <a href="#pg-8de9ef71664f1495dde935e5d9c292a4">Kafka parallel consuming</a></li>
+
+
+    
+  
+    
+    
+	
+<li>6: <a href="#pg-70048b9cd8c627a770ed4410dcd3a6d4">Rewind / fast-forward / replay</a></li>
+
+
+    
+  
+    
+    
+	
+<li>7: <a href="#pg-8441aefeee7f594b90b90afa09a25289">SELECTs from engine=Kafka</a></li>
+
+
+    
+  
+
+    </ul>
+
+
+<div class="content">
+      <div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git log -- contrib/librdkafka <span style="color:#000;font-weight:bold">|</span> git name-rev --stdin
+</span></span></code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>ClickHouse version</strong></th>
+<th style="text-align:left"><strong>librdkafka version</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">21.10+ (<a href="https://github.com/ClickHouse/ClickHouse/pull/27883" target="_blank">#27883</a>)</td>
+<td style="text-align:left"><a href="https://github.com/edenhill/librdkafka/blob/v1.6.1/CHANGELOG.md" target="_blank">1.6.1</a> + snappy fixes + boring ssl + illumos_build fixes + edenhill#3279 fix</td>
+</tr>
+<tr>
+<td style="text-align:left">21.6+ (<a href="https://github.com/ClickHouse/ClickHouse/pull/23874" target="_blank">#23874</a>)</td>
+<td style="text-align:left"><a href="https://github.com/edenhill/librdkafka/blob/v1.6.1/CHANGELOG.md" target="_blank">1.6.1</a> + snappy fixes + boring ssl + illumos_build fixes</td>
+</tr>
+<tr>
+<td style="text-align:left">21.1+ (<a href="https://github.com/ClickHouse/ClickHouse/pull/18671" target="_blank">#18671</a>)</td>
+<td style="text-align:left"><a href="https://github.com/edenhill/librdkafka/blob/v1.6.0-RC3/CHANGELOG.md" target="_blank">1.6.0-RC3</a> + snappy fixes + boring ssl</td>
+</tr>
+<tr>
+<td style="text-align:left">20.13+ (<a href="https://github.com/ClickHouse/ClickHouse/pull/18053" target="_blank">#18053</a>)</td>
+<td style="text-align:left"><a href="https://github.com/edenhill/librdkafka/blob/v1.5.0/CHANGELOG.md" target="_blank">1.5.0</a> + msan fixes + snappy fixes + boring ssl</td>
+</tr>
+<tr>
+<td style="text-align:left">20.7+ (<a href="https://github.com/ClickHouse/ClickHouse/pull/12991" target="_blank">#12991</a>)</td>
+<td style="text-align:left"><a href="https://github.com/edenhill/librdkafka/blob/v1.5.0/CHANGELOG.md" target="_blank">1.5.0</a> + msan fixes</td>
+</tr>
+<tr>
+<td style="text-align:left">20.5+ (<a href="https://github.com/ClickHouse/ClickHouse/pull/11256" target="_blank">#11256</a>)</td>
+<td style="text-align:left"><a href="https://github.com/edenhill/librdkafka/blob/v1.4.2/CHANGELOG.md" target="_blank">1.4.2</a></td>
+</tr>
+<tr>
+<td style="text-align:left">20.2+ (<a href="https://github.com/ClickHouse/ClickHouse/pull/9000" target="_blank">#9000</a>)</td>
+<td style="text-align:left"><a href="https://github.com/edenhill/librdkafka/releases?after=v1.4.0-PRE1" target="_blank">1.3.0</a></td>
+</tr>
+<tr>
+<td style="text-align:left">19.11+ (<a href="https://github.com/ClickHouse/ClickHouse/pull/5872" target="_blank">#5872</a>)</td>
+<td style="text-align:left"><a href="https://github.com/edenhill/librdkafka/releases?after=v1.1.0-selfstatic-test12" target="_blank">1.1.0</a></td>
+</tr>
+<tr>
+<td style="text-align:left">19.5+ (<a href="https://github.com/ClickHouse/ClickHouse/pull/4799" target="_blank">#4799</a>)</td>
+<td style="text-align:left"><a href="https://github.com/edenhill/librdkafka/releases?after=v1.0.1-RC1" target="_blank">1.0.0</a></td>
+</tr>
+<tr>
+<td style="text-align:left">19.1+ (<a href="https://github.com/ClickHouse/ClickHouse/pull/4025" target="_blank">#4025</a>)</td>
+<td style="text-align:left">1.0.0-RC5</td>
+</tr>
+<tr>
+<td style="text-align:left">v1.1.54382+ (<a href="https://github.com/ClickHouse/ClickHouse/pull/2276" target="_blank">#2276</a>)</td>
+<td style="text-align:left"><a href="https://github.com/edenhill/librdkafka/releases?after=v0.11.4-adminapi-post1" target="_blank">0.11.4</a></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-b11bb1875d00a2b0ff0e60950c5360ed">1 - Adjusting librdkafka settings</h1>
+    <div class="lead">Adjusting librdkafka settings</div>
+	<ul>
+<li>To set rdkafka options - add to <code>&lt;kafka&gt;</code> section in <code>config.xml</code> or preferably use a separate file in <code>config.d/</code>:
+<ul>
+<li><a href="https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md" target="_blank">https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md</a></li>
+</ul>
+</li>
+</ul>
+<p>Some random example:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">&lt;kafka&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">&lt;max_poll_interval_ms&gt;</span>60000<span style="color:#204a87;font-weight:bold">&lt;/max_poll_interval_ms&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">&lt;session_timeout_ms&gt;</span>60000<span style="color:#204a87;font-weight:bold">&lt;/session_timeout_ms&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">&lt;heartbeat_interval_ms&gt;</span>10000<span style="color:#204a87;font-weight:bold">&lt;/heartbeat_interval_ms&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">&lt;reconnect_backoff_ms&gt;</span>5000<span style="color:#204a87;font-weight:bold">&lt;/reconnect_backoff_ms&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">&lt;reconnect_backoff_max_ms&gt;</span>60000<span style="color:#204a87;font-weight:bold">&lt;/reconnect_backoff_max_ms&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">&lt;request_timeout_ms&gt;</span>20000<span style="color:#204a87;font-weight:bold">&lt;/request_timeout_ms&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">&lt;retry_backoff_ms&gt;</span>500<span style="color:#204a87;font-weight:bold">&lt;/retry_backoff_ms&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">&lt;message_max_bytes&gt;</span>20971520<span style="color:#204a87;font-weight:bold">&lt;/message_max_bytes&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">&lt;debug&gt;</span>all<span style="color:#204a87;font-weight:bold">&lt;/debug&gt;</span><span style="color:#8f5902;font-style:italic">&lt;!-- only to get the errors --&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">&lt;security_protocol&gt;</span>SSL<span style="color:#204a87;font-weight:bold">&lt;/security_protocol&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">&lt;ssl_ca_location&gt;</span>/etc/clickhouse-server/ssl/kafka-ca-qa.crt<span style="color:#204a87;font-weight:bold">&lt;/ssl_ca_location&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">&lt;ssl_certificate_location&gt;</span>/etc/clickhouse-server/ssl/client_clickhouse_client.pem<span style="color:#204a87;font-weight:bold">&lt;/ssl_certificate_location&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">&lt;ssl_key_location&gt;</span>/etc/clickhouse-server/ssl/client_clickhouse_client.key<span style="color:#204a87;font-weight:bold">&lt;/ssl_key_location&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">&lt;ssl_key_password&gt;</span>pass<span style="color:#204a87;font-weight:bold">&lt;/ssl_key_password&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">&lt;/kafka&gt;</span>
+</span></span></code></pre></div><h2 id="authentication--connectivity">Authentication / connectivity</h2>
+<h3 id="amazon-msk">Amazon MSK</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">&lt;yandex&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#204a87;font-weight:bold">&lt;kafka&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">&lt;security_protocol&gt;</span>sasl_ssl<span style="color:#204a87;font-weight:bold">&lt;/security_protocol&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">&lt;sasl_username&gt;</span>root<span style="color:#204a87;font-weight:bold">&lt;/sasl_username&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">&lt;sasl_password&gt;</span>toor<span style="color:#204a87;font-weight:bold">&lt;/sasl_password&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#204a87;font-weight:bold">&lt;/kafka&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">&lt;/yandex&gt;</span>
+</span></span></code></pre></div><h3 id="saslscram">SASL/SCRAM</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">&lt;yandex&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#204a87;font-weight:bold">&lt;kafka&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">&lt;security_protocol&gt;</span>sasl_ssl<span style="color:#204a87;font-weight:bold">&lt;/security_protocol&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">&lt;sasl_mechanism&gt;</span>SCRAM-SHA-512<span style="color:#204a87;font-weight:bold">&lt;/sasl_mechanism&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">&lt;sasl_username&gt;</span>root<span style="color:#204a87;font-weight:bold">&lt;/sasl_username&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">&lt;sasl_password&gt;</span>toor<span style="color:#204a87;font-weight:bold">&lt;/sasl_password&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#204a87;font-weight:bold">&lt;/kafka&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">&lt;/yandex&gt;</span>
+</span></span></code></pre></div><p><a href="https://leftjoin.ru/all/clickhouse-as-a-consumer-to-amazon-msk/" target="_blank">https://leftjoin.ru/all/clickhouse-as-a-consumer-to-amazon-msk/</a></p>
+<h3 id="inline-kafka-certs">Inline Kafka certs</h3>
+<p>To connect to some Kafka cloud services you may need to use certificates.</p>
+<p>If needed they can be converted to pem format and inlined into ClickHouse config.xml
+Example:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">&lt;kafka&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">&lt;ssl_key_pem&gt;</span><span style="color:#8f5902;font-style:italic">&lt;![CDATA[
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">  RSA Private-Key: (3072 bit, 2 primes)
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">    ....
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">-----BEGIN RSA PRIVATE KEY-----
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">...
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">-----END RSA PRIVATE KEY-----
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">]]&gt;</span><span style="color:#204a87;font-weight:bold">&lt;/ssl_key_pem&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">&lt;ssl_certificate_pem&gt;</span><span style="color:#8f5902;font-style:italic">&lt;![CDATA[
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">-----BEGIN CERTIFICATE-----
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">...
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">-----END CERTIFICATE-----
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">]]&gt;</span><span style="color:#204a87;font-weight:bold">&lt;/ssl_certificate_pem&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">&lt;/kafka&gt;</span>
+</span></span></code></pre></div><p>See xml</p>
+<p><a href="https://help.aiven.io/en/articles/489572-getting-started-with-aiven-kafka" target="_blank">https://help.aiven.io/en/articles/489572-getting-started-with-aiven-kafka</a></p>
+<p><a href="https://stackoverflow.com/questions/991758/how-to-get-pem-file-from-key-and-crt-files" target="_blank">https://stackoverflow.com/questions/991758/how-to-get-pem-file-from-key-and-crt-files</a></p>
+<h3 id="azure-event-hub">Azure Event Hub</h3>
+<p>See <a href="https://github.com/ClickHouse/ClickHouse/issues/12609" target="_blank">https://github.com/ClickHouse/ClickHouse/issues/12609</a></p>
+<h3 id="kerberos">Kerberos</h3>
+<ul>
+<li><a href="https://clickhouse.tech/docs/en/engines/table-engines/integrations/kafka/#kafka-kerberos-support" target="_blank">https://clickhouse.tech/docs/en/engines/table-engines/integrations/kafka/#kafka-kerberos-support</a></li>
+<li><a href="https://github.com/ClickHouse/ClickHouse/blob/master/tests/integration/test_storage_kerberized_kafka/configs/kafka.xml" target="_blank">https://github.com/ClickHouse/ClickHouse/blob/master/tests/integration/test_storage_kerberized_kafka/configs/kafka.xml</a></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span>  <span style="color:#8f5902;font-style:italic">&lt;!-- Kerberos-aware Kafka --&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#204a87;font-weight:bold">&lt;kafka&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">&lt;security_protocol&gt;</span>SASL_PLAINTEXT<span style="color:#204a87;font-weight:bold">&lt;/security_protocol&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">&lt;sasl_kerberos_keytab&gt;</span>/home/kafkauser/kafkauser.keytab<span style="color:#204a87;font-weight:bold">&lt;/sasl_kerberos_keytab&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">&lt;sasl_kerberos_principal&gt;</span>kafkauser/kafkahost@EXAMPLE.COM<span style="color:#204a87;font-weight:bold">&lt;/sasl_kerberos_principal&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#204a87;font-weight:bold">&lt;/kafka&gt;</span>
+</span></span></code></pre></div><h3 id="confluent-cloud">confluent cloud</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">&lt;yandex&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#204a87;font-weight:bold">&lt;kafka&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#204a87;font-weight:bold">&lt;auto_offset_reset&gt;</span>smallest<span style="color:#204a87;font-weight:bold">&lt;/auto_offset_reset&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#204a87;font-weight:bold">&lt;security_protocol&gt;</span>SASL_SSL<span style="color:#204a87;font-weight:bold">&lt;/security_protocol&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#204a87;font-weight:bold">&lt;ssl_endpoint_identification_algorithm&gt;</span>https<span style="color:#204a87;font-weight:bold">&lt;/ssl_endpoint_identification_algorithm&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#204a87;font-weight:bold">&lt;sasl_mechanism&gt;</span>PLAIN<span style="color:#204a87;font-weight:bold">&lt;/sasl_mechanism&gt;</span>
+</span></span><span style="display:flex;"><span>xml<span style="color:#204a87;font-weight:bold">&lt;sasl_username&gt;</span>username<span style="color:#204a87;font-weight:bold">&lt;/sasl_username&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#204a87;font-weight:bold">&lt;sasl_password&gt;</span>password<span style="color:#204a87;font-weight:bold">&lt;/sasl_password&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#204a87;font-weight:bold">&lt;ssl_ca_location&gt;</span>probe<span style="color:#204a87;font-weight:bold">&lt;/ssl_ca_location&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#8f5902;font-style:italic">&lt;!--
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">          &lt;ssl_ca_location&gt;/path/to/cert.pem&lt;/ssl_ca_location&gt;      
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">        --&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#204a87;font-weight:bold">&lt;/kafka&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">&lt;/yandex&gt;</span>
+</span></span></code></pre></div><p><a href="https://docs.confluent.io/cloud/current/client-apps/config-client.html" target="_blank">https://docs.confluent.io/cloud/current/client-apps/config-client.html</a></p>
+<h2 id="how-to-test-connection-settings">How to test connection settings</h2>
+<p>Use kafkacat utility - it internally uses same library to access Kafla as clickhouse itself and allows easily to test different settings.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kafkacat -b my_broker:9092 -C -o -10 -t my_topic <span style="color:#4e9a06">\
+</span></span></span><span style="display:flex;"><span><span style="color:#4e9a06"></span>   -X security.protocol<span style="color:#ce5c00;font-weight:bold">=</span>SASL_SSL  <span style="color:#4e9a06">\
+</span></span></span><span style="display:flex;"><span><span style="color:#4e9a06"></span>   -X sasl.mechanisms<span style="color:#ce5c00;font-weight:bold">=</span>PLAIN <span style="color:#4e9a06">\
+</span></span></span><span style="display:flex;"><span><span style="color:#4e9a06"></span>   -X sasl.username<span style="color:#ce5c00;font-weight:bold">=</span>uerName <span style="color:#4e9a06">\
+</span></span></span><span style="display:flex;"><span><span style="color:#4e9a06"></span>   -X sasl.password<span style="color:#ce5c00;font-weight:bold">=</span>Password
+</span></span></code></pre></div><h1 id="different-configurations-for-different-tables">Different configurations for different tables?</h1>
+<blockquote>
+<p>Is there some more documentation how to use this multiconfiguration for Kafka ?</p>
+</blockquote>
+<p>The whole logic is here:
+<a href="https://github.com/ClickHouse/ClickHouse/blob/da4856a2be035260708fe2ba3ffb9e437d9b7fef/src/Storages/Kafka/StorageKafka.cpp#L466-L475" target="_blank">https://github.com/ClickHouse/ClickHouse/blob/da4856a2be035260708fe2ba3ffb9e437d9b7fef/src/Storages/Kafka/StorageKafka.cpp#L466-L475</a></p>
+<p>So it load the main config first, after that it load (with overwrites) the configs for all topics,  <strong>listed in <code>kafka_topic_list</code> of the table</strong>.</p>
+<p>Also since v21.12 it&rsquo;s possible to use more straght-forward way using named_collections:
+<a href="https://github.com/ClickHouse/ClickHouse/pull/31691" target="_blank">https://github.com/ClickHouse/ClickHouse/pull/31691</a></p>
+<p>So you can say something like</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">CREATE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">TABLE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">test</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">kafka</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">key</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">UInt64</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">value</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">UInt64</span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">ENGINE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">Kafka</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">kafka1</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">kafka_format</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#39;CSV&#39;</span><span style="color:#000;font-weight:bold">);</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span></code></pre></div><p>And after that in configuration:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">&lt;clickhouse&gt;</span>
+</span></span><span style="display:flex;"><span> <span style="color:#204a87;font-weight:bold">&lt;named_collections&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#204a87;font-weight:bold">&lt;kafka1&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#204a87;font-weight:bold">&lt;kafka_broker_list&gt;</span>kafka1:19092<span style="color:#204a87;font-weight:bold">&lt;/kafka_broker_list&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#204a87;font-weight:bold">&lt;kafka_topic_list&gt;</span>conf<span style="color:#204a87;font-weight:bold">&lt;/kafka_topic_list&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#204a87;font-weight:bold">&lt;kafka_group_name&gt;</span>conf<span style="color:#204a87;font-weight:bold">&lt;/kafka_group_name&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#204a87;font-weight:bold">&lt;/kafka1&gt;</span>
+</span></span><span style="display:flex;"><span> <span style="color:#204a87;font-weight:bold">&lt;/named_collections&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">&lt;/clickhouse&gt;</span>
+</span></span></code></pre></div><p>The same fragment of code in newer versions:
+<a href="https://github.com/ClickHouse/ClickHouse/blob/d19e24f530c30f002488bc136da78f5fb55aedab/src/Storages/Kafka/StorageKafka.cpp#L474-L496" target="_blank">https://github.com/ClickHouse/ClickHouse/blob/d19e24f530c30f002488bc136da78f5fb55aedab/src/Storages/Kafka/StorageKafka.cpp#L474-L496</a></p>
+
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-d58f1474300f709dea11df04812ed578">2 - Error handling</h1>
+    <div class="lead">Error handling</div>
+	<h2 id="pre-216">Pre 21.6</h2>
+<p>There are couple options:</p>
+<p>Certain formats which has schema in built in them (like JSONEachRow) could silently skip any unexpected fields after enabling setting <code>input_format_skip_unknown_fields</code></p>
+<p>It&rsquo;s also possible to skip up to N malformed messages for each block, with used setting <code>kafka_skip_broken_messages</code> but it&rsquo;s also does not support all possible formats.</p>
+<h2 id="after-216">After 21.6</h2>
+<p>It&rsquo;s possible to stream messages which could not be parsed, this behavior could be enabled via setting: <code>kafka_handle_error_mode='stream'</code> and clickhouse wil write error and message from Kafka itself to two new virtual columns: <code>_error, _raw_message</code>.</p>
+<p>So you can create another Materialized View which would collect to a separate table all errors happening while parsing with all important information like offset and content of message.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">CREATE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">TABLE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">default</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">kafka_engine</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000;font-weight:bold">(</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#ce5c00;font-weight:bold">`</span><span style="color:#000">i</span><span style="color:#ce5c00;font-weight:bold">`</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">Int64</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#ce5c00;font-weight:bold">`</span><span style="color:#000">s</span><span style="color:#ce5c00;font-weight:bold">`</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">String</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">ENGINE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">Kafka</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">SETTINGS</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">kafka_broker_list</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;kafka:9092&#39;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">kafka_topic_list</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;topic&#39;</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">kafka_group_name</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;clickhouse&#39;</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">kafka_format</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;JSONEachRow&#39;</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">kafka_handle_error_mode</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#39;stream&#39;</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">CREATE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">MATERIALIZED</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">VIEW</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">default</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">kafka_errors</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000;font-weight:bold">(</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#ce5c00;font-weight:bold">`</span><span style="color:#000">topic</span><span style="color:#ce5c00;font-weight:bold">`</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">String</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#ce5c00;font-weight:bold">`</span><span style="color:#000">partition</span><span style="color:#ce5c00;font-weight:bold">`</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">Int64</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#ce5c00;font-weight:bold">`</span><span style="color:#204a87;font-weight:bold">offset</span><span style="color:#ce5c00;font-weight:bold">`</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">Int64</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#ce5c00;font-weight:bold">`</span><span style="color:#000">raw</span><span style="color:#ce5c00;font-weight:bold">`</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">String</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#ce5c00;font-weight:bold">`</span><span style="color:#000">error</span><span style="color:#ce5c00;font-weight:bold">`</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">String</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">ENGINE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">MergeTree</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">ORDER</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">BY</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">topic</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">partition</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">offset</span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#000">SETTINGS</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">index_granularity</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">8192</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">AS</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">SELECT</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#000">_topic</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">AS</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">topic</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#000">_partition</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">AS</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">partition</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#000">_offset</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">AS</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">offset</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#000">_raw_message</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">AS</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">raw</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#000">_error</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">AS</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">error</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">FROM</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">default</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">kafka_engine</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">WHERE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">length</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">_error</span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">&gt;</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span></code></pre></div><p><img src="/assets/Untitled-2021-08-05-1027.png" alt="Table connections"></p>
+<p><a href="https://github.com/ClickHouse/ClickHouse/pull/20249%5c#issuecomment-779054737" target="_blank">https://github.com/ClickHouse/ClickHouse/pull/20249#issuecomment-779054737</a></p>
+<p><a href="https://github.com/ClickHouse/ClickHouse/pull/21850" target="_blank">https://github.com/ClickHouse/ClickHouse/pull/21850</a></p>
+<p><a href="https://altinity.com/blog/clickhouse-kafka-engine-faq" target="_blank">https://altinity.com/blog/clickhouse-kafka-engine-faq</a></p>
+
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-d8f2388a49c064f3f21643937cbfcedc">3 - Exactly once semantics</h1>
+    <div class="lead">Exactly once semantics</div>
+	<p>EOS consumer (isolation.level=read_committed) is enabled by default since librdkafka 1.2.0, so for ClickHouse - since 20.2</p>
+<p>See:</p>
+<ul>
+<li><a href="https://github.com/edenhill/librdkafka/commit/6b2a1552ac2a4ea09d915015183f268dd2df96e6" target="_blank">edenhill/librdkafka@6b2a155</a></li>
+<li><a href="https://github.com/ClickHouse/ClickHouse/commit/9de5dffb5c97eb93545ae25eaf87ec195a590148" target="_blank">9de5dff</a></li>
+</ul>
+<p>BUT: while EOS semantics will guarantee you that no duplicates will happen on the Kafka side (i.e. even if you produce the same messages few times it will be consumed once), but ClickHouse as a Kafka client can currently guarantee only at-least-once. And in some corner cases (connection lost etc) you can get duplicates.</p>
+<p>We need to have something like transactions on ClickHouse side to be able to avoid that. Adding something like simple transactions is in plans for Y2022.</p>
+<h2 id="block-aggregator-by-ebay">block-aggregator by eBay</h2>
+<p>Block Aggregator is a data loader that subscribes to Kafka topics, aggregates the Kafka messages into blocks that follow the Clickhouse’s table schemas, and then inserts the blocks into ClickHouse. Block Aggregator provides exactly-once delivery guarantee to load data from Kafka to ClickHouse. Block Aggregator utilizes Kafka’s metadata to keep track of blocks that are intended to send to ClickHouse, and later uses this metadata information to deterministically re-produce ClickHouse blocks for re-tries in case of failures. The identical blocks are guaranteed to be deduplicated by ClickHouse.</p>
+<p><a href="https://github.com/eBay/block-aggregator" target="_blank">eBay/block-aggregator</a></p>
+
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-7b4e8063954e9a7aaa7e048590c82f0d">4 - Kafka main parsing loop</h1>
+    <div class="lead">Kafka main parsing loop</div>
+	<p>One of the threads from scheduled_pool (pre 20.9) / <code>background_message_broker_schedule_pool</code> (after 20.9) do that in infinite loop:</p>
+<ol>
+<li>Batch poll (time limit: <code>kafka_poll_timeout_ms</code> 500ms, messages limit: <code>kafka_poll_max_batch_size</code> 65536)</li>
+<li>Parse messages.</li>
+<li>If we don&rsquo;t have enough data (rows limit: <code>kafka_max_block_size</code> 1048576) or time limit reached (<code>kafka_flush_interval_ms</code> 7500ms) - continue polling (goto p.1)</li>
+<li>Write a collected block of data to MV</li>
+<li>Do commit (commit after write = at-least-once).</li>
+</ol>
+<p>On any error, during that process, Kafka client is restarted (leading to rebalancing - leave the group and get back in few seconds).</p>
+<p><img src="/assets/128942286.png" alt="Kafka batching"></p>
+<h2 id="important-settings">Important settings</h2>
+<p>These usually should not be adjusted:</p>
+<ul>
+<li><code>kafka_poll_max_batch_size</code> = max_block_size (65536)</li>
+<li><code>kafka_poll_timeout_ms</code> = stream_poll_timeout_ms (500ms)</li>
+</ul>
+<p>You may want to adjust those depending on your scenario:</p>
+<ul>
+<li><code>kafka_flush_interval_ms</code> = stream_poll_timeout_ms (7500ms)</li>
+<li><code>kafka_max_block_size</code> = min_insert_block_size / kafka_num_consumers (for the single consumer: 1048576)</li>
+</ul>
+<h2 id="see-also">See also</h2>
+<p><a href="https://github.com/ClickHouse/ClickHouse/pull/11388" target="_blank">https://github.com/ClickHouse/ClickHouse/pull/11388</a></p>
+
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-8de9ef71664f1495dde935e5d9c292a4">5 - Kafka parallel consuming</h1>
+    <div class="lead">Kafka parallel consuming</div>
+	<p>For very large topics when you need more parallelism (especially on the insert side) you may use several tables with the same pipeline (pre 20.9) or enable <code>kafka_thread_per_consumer</code> (after 20.9).</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#c4a000">kafka_num_consumers</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#4e9a06">N,</span>
+</span></span><span style="display:flex;"><span><span style="color:#c4a000">kafka_thread_per_consumer</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">1</span>
+</span></span></code></pre></div><p>Notes:</p>
+<ul>
+<li>the inserts will happen in parallel (without that setting inserts happen linearly)</li>
+<li>enough partitions are needed.</li>
+</ul>
+<p>Before increasing <code>kafka_num_consumers</code> with keeping <code>kafka_thread_per_consumer=0</code> may improve consumption &amp; parsing speed, but flushing &amp; committing still happens by a single thread there (so inserts are linear).</p>
+
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-70048b9cd8c627a770ed4410dcd3a6d4">6 - Rewind / fast-forward / replay</h1>
+    <div class="lead">Rewind / fast-forward / replay</div>
+	<ul>
+<li>Step 1: Detach Kafka tables in ClickHouse</li>
+<li>Step 2: <code>kafka-consumer-groups.sh --bootstrap-server kafka:9092 --topic topic:0,1,2 --group id1 --reset-offsets --to-latest --execute</code>
+<ul>
+<li>More samples: <a href="https://gist.github.com/filimonov/1646259d18b911d7a1e8745d6411c0cc" target="_blank">https://gist.github.com/filimonov/1646259d18b911d7a1e8745d6411c0cc</a></li>
+</ul>
+</li>
+<li>Step: Attach Kafka tables back</li>
+</ul>
+<p>See also these configuration settings:</p>
+<pre tabindex="0"><code class="language-markup" data-lang="markup">&lt;kafka&gt;
+  &lt;auto_offset_reset&gt;smallest&lt;/auto_offset_reset&gt;
+&lt;/kafka&gt;
+</code></pre>
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-8441aefeee7f594b90b90afa09a25289">7 - SELECTs from engine=Kafka</h1>
+    <div class="lead">SELECTs from engine=Kafka</div>
+	<h2 id="question">Question</h2>
+<p>What will happen, if we would run SELECT query from working Kafka table with MV attached? Would data showed in SELECT query appear later in MV destination table?</p>
+<h2 id="answer">Answer</h2>
+<ol>
+<li>Most likely SELECT query would show nothing.</li>
+<li>If you lucky enough and something would show up, those rows <strong>wouldn&rsquo;t appear</strong> in MV destination table.</li>
+</ol>
+<p>So it&rsquo;s not recommended to run SELECT queries on working Kafka tables.</p>
+<p>In case of debug it&rsquo;s possible to use another Kafka table with different <code>consumer_group</code>, so it wouldn&rsquo;t affect your main pipeline.</p>
+
+</div>
+
+
+
+    
+	
+  
+
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Twitter" aria-label="Twitter">
+    <a class="text-white" target="_blank" rel="noopener noreferrer" href="https://twitter.com/AltinityDB">
+      <i class="fab fa-twitter"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Youtube" aria-label="Youtube">
+    <a class="text-white" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/channel/UCE3Y2lDKl_ZfjaCrh62onYA">
+      <i class="fab fa-youtube"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="LinkedIn" aria-label="LinkedIn">
+    <a class="text-white" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/company/altinity/">
+      <i class="fab fa-linkedin"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" rel="noopener noreferrer" href="https://github.com/orgs/Altinity/">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2022  Altinity Inc. All Rights Reserved</small>
+        <small class="ml-1"><a href="https://altinity.com/privacy-policy/" target="_blank">Privacy Policy</a></small>
+	
+		
+	
+      </div>
+    </div>
+  </div>
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-101676615-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-101676615-2');
+</script>
+</footer>
+
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.min.7fa9e3e39f56ebd66798993ef3c080218d9696c971a28ef8872d750b7416a435.js" integrity="sha256-f6nj459W69ZnmJk&#43;88CAIY2Wlslxoo74hy11C3QWpDU=" crossorigin="anonymous"></script>
+
+
+
+<script src='/js/prism.js'></script>
+
+
+
+  </body>
+</html>
