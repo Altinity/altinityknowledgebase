@@ -6,15 +6,9 @@
 
 3. Grant of Copyright License. Subject to the terms and conditions of this Agreement, you hereby grant to Altinity Inc and to recipients of software distributed by Altinity Inc a perpetual, worldwide, non-exclusive, no-charge, royalty-free, irrevocable copyright license to reproduce, prepare derivative works of, publicly display, publicly perform, sublicense, and distribute your Contributions and such derivative works.
 
-<<<<<<< HEAD
 4. You represent that you are legally entitled to grant the above license. If you are a legal entity, you represent that the person entering into this Agreement on behalf of the legal entity has the authority to bind the legal entity to the terms and conditions of this Agreement. If your employee(s) has rights to intellectual property that is included in your Contributions, you represent that you have received permission to make Contributions on behalf of such employee(s), that such employee(s) has waived such rights for such Contributions to Altinity Inc, or that such employee(s) has executed a separate Contributor Agreement with Altinity Inc.
 
 5. You represent that each of your Contributions is your or your employees’ original creation (see Section 7 for submissions on behalf of others). You represent that your Contribution submissions include complete details of any third party license or other restriction (including, but not limited to, related patents and trademarks) of which you are aware and which is associated with any part of your Contributions.
-=======
-Contributions shall mean independent results of intellectual activity and means of individualization (including, but not limited to source code, design items, texts, documentation) being elements of the Programs.
-
-Programs shall mean software, including mobile applications, developed by Altinity Inc or third parties as instructed by Altinity Inc and new (future) versions of such programs. The term “Programs” referred to hereinafter shall mean both Programs and their components unless the text of the Agreement defines it otherwise.
->>>>>>> 5c921f11826b46380efc8fc1fbd76e1ba64dade7
 
 6. You are not expected to provide support for your Contributions, except to the extent you desire to provide support. You may provide support for free, for a fee, or not at all. Unless required by applicable law or agreed to in writing, you provide your Contribution(s) on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied, including, without limitation, any warranties or conditions of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A PARTICULAR PURPOSE.
 
