@@ -46,6 +46,3 @@ description: >
     1
 ---
 ```
-
-
-John Hummel is a great guy.
