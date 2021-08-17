@@ -1,0 +1,3 @@
+user-agent: *
+allow: /docs
+sitemap: https://beta.kb.altinity.com/sitemap.xml
