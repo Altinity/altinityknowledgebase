@@ -1,3 +1,12 @@
 {
-   "signedContributors": []
+  "signedContributors": [
+    {
+      "name": "johnhummel",
+      "id": 19691833,
+      "comment_id": 900416147,
+      "created_at": "2021-08-17T15:50:46Z",
+      "repoId": 358618261,
+      "pullRequestNo": 20
+    }
+  ]
 }
