@@ -38,11 +38,4 @@ So for your example - just introduce one more 'nothing matched' condition:
 ```sql
 SELECT sequenceCount('(?1)(?2)')(sequence, page ILIKE '%a%', page ILIKE '%a%', NOT (page ILIKE '%a%')) AS sequences
 FROM values('page String, sequence UInt16', ('a', 1), ('a', 2), ('b', 3), ('b', 4), ('a', 5), ('b', 6), ('a', 7))
-
----
-title: "1"
-linkTitle: "1"
-description: >
-    1
----
 ```
