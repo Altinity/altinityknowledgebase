@@ -13,13 +13,13 @@ More safer way:
 * Wait until all already running queries would finish execution on it.
   It’s possible to check it via query:
 
-  ```text
+  ```sql
   SHOW PROCESSLIST;
   ```
 
 * Run sync replica query in related shard replicas via query:
 
-  ```text
+  ```sql
   SYSTEM SYNC REPLICA db.table;
   ```
 

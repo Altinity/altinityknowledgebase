@@ -14,7 +14,7 @@ MATERIALIZED VIEWs in ClickHouse behave like AFTER INSERT TRIGGER to the left-mo
 
     First you create the table which will store the data calculated by MV explicitly, and after that create materialized view itself with TO syntax.
 
-    ```text
+    ```sql
     CREATE TABLE target ( ... ) Engine=ReplacingSummingMergeTree;
 
     CREATE MATERIALIZED VIEW mv_source2target TO target
@@ -34,7 +34,7 @@ MATERIALIZED VIEWs in ClickHouse behave like AFTER INSERT TRIGGER to the left-mo
     * With manual backfilling, you have much better control on the process - you can do it in parts, adjust settings etc.
     * In case of some failure 'in the middle (for example due to timeouts), it's hard to understand the state of the MV.
 
-    ```text
+    ```sql
     CREATE MATERIALIZED VIEW mv_source2target TO target
     AS SELECT ... FROM source WHERE cond > ...
 

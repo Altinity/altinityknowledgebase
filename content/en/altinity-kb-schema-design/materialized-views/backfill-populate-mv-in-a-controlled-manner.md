@@ -12,7 +12,7 @@ One of the best options is to fill one partition at a time, and if it breaks you
 
 If you need to construct a single partition from several sources - then the following approach may be the best.
 
-```text
+```sql
 CREATE TABLE mv_import AS mv;
 INSERT INTO mv_import SELECT * FROM huge_table WHERE toYYYYMM(ts) = 202105;
 /* or other partition expression*/

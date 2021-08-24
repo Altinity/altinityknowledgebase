@@ -69,7 +69,7 @@ cat /etc/clickhouse-server/users.d/enable_access_management_for_user_default.xml
 
 BTW, you can define any macro in your configuration and use them in Zookeeper paths
 
-```text
+```xml
  ReplicatedMergeTree('/clickhouse/{cluster}/tables/my_table','{replica}')
 ```
 
@@ -218,7 +218,7 @@ You can start multiple **clickhouse-server** each with own **--config-file.**
 
 For example:
 
-```text
+```bash
 /usr/bin/clickhouse-server --config-file /etc/clickhouse-server-node1/config.xml
   /etc/clickhouse-server-node1/  config.xml ... users.xml
   /etc/clickhouse-server-node1/config.d/disable_open_network.xml
@@ -232,7 +232,7 @@ For example:
 
 If you need to run multiple servers for CI purposes you can combine all settings in a single fat XML file and start ClickHouse without config folders/sub-folders.
 
-```text
+```bash
 /usr/bin/clickhouse-server --config-file /tmp/ch1.xml
 /usr/bin/clickhouse-server --config-file /tmp/ch2.xml
 /usr/bin/clickhouse-server --config-file /tmp/ch3.xml
@@ -242,7 +242,7 @@ Each ClickHouse instance must work with own **data-folder** and **tmp-folder**.
 
 By default ClickHouse uses **/var/lib/clickhouse/**. It can be overridden in path settings
 
-```markup
+```xml
 <path>/data/clickhouse-ch1/</path>
 
 <tmp_path>/data/clickhouse-ch1/tmp/</tmp_path>

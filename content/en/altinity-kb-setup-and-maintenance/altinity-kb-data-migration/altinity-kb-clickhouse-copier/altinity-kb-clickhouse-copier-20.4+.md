@@ -45,7 +45,7 @@ Clickhouse-copier uses the engine from the task configuration file for these pur
 
 Here is an example of SELECT that clickhouse-copier runs to get the sixth of ten chunks of data:
 
-```text
+```sql
 WHERE (<the PARTITION BY clause> = (<a value of the PARTITION BY expression> AS partition_key))
   AND (cityHash64(<the ORDER BY clause>) % 10 = 6 )
 ```
@@ -60,7 +60,7 @@ However, you can create the intermediate tables manually with the same engine as
 The default value for `number_of_splits` is 10.
 You can change this parameter in the `table` section of the task configuration file. We recommend setting it to 1 for smaller tables.
 
-```text
+```xml
 <cluster_push>target_cluster</cluster_push>
 <database_push>target_database</database_push>
 <table_push>target_table</table_push>
@@ -73,7 +73,7 @@ You can change this parameter in the `table` section of the task configuration f
 Clickhouse-copier uses ZooKeeper to keep track of the progress and to communicate between workers.
 Here is a list of queries that you can use to see what’s happening.
 
-```text
+```sql
 --task-path /clickhouse/copier/task1
 
 -- The task config

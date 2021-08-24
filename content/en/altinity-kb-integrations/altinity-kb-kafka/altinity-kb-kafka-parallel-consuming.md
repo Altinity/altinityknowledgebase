@@ -6,7 +6,7 @@ description: >
 ---
 For very large topics when you need more parallelism (especially on the insert side) you may use several tables with the same pipeline (pre 20.9) or enable `kafka_thread_per_consumer` (after 20.9).
 
-```text
+```ini
 kafka_num_consumers = N,
 kafka_thread_per_consumer=1
 ```

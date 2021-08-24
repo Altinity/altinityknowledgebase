@@ -40,7 +40,7 @@ However, you can create the target tables manually and specify the engine in the
 Clickhouse-copier uses ZooKeeper to keep track of the progress and to communicate between workers.
 Here is a list of queries that you can use to see what’s happening.
 
-```text
+```sql
 --task-path /clickhouse/copier/task1
 
 -- The task config
