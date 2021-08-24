@@ -44,4 +44,4 @@ time clickhouse-client -t -q 'insert into n format Avro' < speed.avro
 11.491  real	0m11.519s  user	0m12.166s
 ```
 
-As you can see the JSONEachRow is the worst format  \(user 0m30.235s\) for this synthetic dataset. Native is the best \(user 0m1.945s\). TSV / CSV are good in wall time but spend a lot of CPU \(user time\).
+As you can see the JSONEachRow is the worst format  (user 0m30.235s) for this synthetic dataset. Native is the best (user 0m1.945s). TSV / CSV are good in wall time but spend a lot of CPU (user time).

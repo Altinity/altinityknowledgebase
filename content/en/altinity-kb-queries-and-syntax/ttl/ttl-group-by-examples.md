@@ -81,7 +81,7 @@ GROUP BY m;
 └────────┴─────────┴────────────┴────────────────┴────────────────┘
 ```
 
-As you can see 100 rows were rolled up into 5 rows \(key has 5 values\) for rows older than 30 days.
+As you can see 100 rows were rolled up into 5 rows (key has 5 values) for rows older than 30 days.
 
 ### Example with SummingMergeTree table
 
@@ -178,7 +178,7 @@ GROUP BY m;
 └────────┴─────────┴────────────┴────────────────┴────────────────┘
 ```
 
-During merges Clickhouse re-calculates **ts** columns as **min\(toStartOfDay\(ts\)\)**. It's possible **only for the last column** of `SummingMergeTree` `ORDER BY` section `ORDER BY (key1, key2, toStartOfDay(ts), ts)` otherwise it will **break** the order of rows in the table.
+During merges Clickhouse re-calculates **ts** columns as **min(toStartOfDay(ts))**. It's possible **only for the last column** of `SummingMergeTree` `ORDER BY` section `ORDER BY (key1, key2, toStartOfDay(ts), ts)` otherwise it will **break** the order of rows in the table.
 
 ### Multilevel TTL Group by
 

@@ -115,7 +115,7 @@ With that approach you can have as many metrics as you need and they can be very
 
 At any time you can decide to move one more metric to a separate column `ALTER TABLE ... ADD COLUMN metricX Float64 MATERIALIZED metrics.value[indexOf(metrics.names,'metricX')];`
 
-### 2e Subcolumns \[future\]
+### 2e Subcolumns [future]
 
 [https://github.com/ClickHouse/ClickHouse/issues/23516](https://github.com/ClickHouse/ClickHouse/issues/23516)
 

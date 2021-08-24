@@ -26,9 +26,9 @@ While of course it should be checked, every case is different.
 
 ### Q. Can I tune INSERT speed to make it faster?
 
-Yes, by the cost of extra memory usage \(on the receiver side\).
+Yes, by the cost of extra memory usage (on the receiver side).
 
-Clickhouse tries to form blocks of data in memory and while one of limit: `min_insert_block_size_rows` or `min_insert_block_size_bytes` being hit, clickhouse dump this block on disk. If clickhouse tries to execute insert in parallel \(`max_insert_threads > 1`\), it would form multiple blocks at one time.  
+Clickhouse tries to form blocks of data in memory and while one of limit: `min_insert_block_size_rows` or `min_insert_block_size_bytes` being hit, clickhouse dump this block on disk. If clickhouse tries to execute insert in parallel (`max_insert_threads > 1`), it would form multiple blocks at one time.  
 So maximum memory usage can be calculated like this: `max_insert_threads * first(min_insert_block_size_rows OR min_insert_block_size_bytes)`
 
 Default values:
@@ -56,8 +56,8 @@ Code: 209, e.displayText() = DB::NetException: Timeout: connect timed out: 192.0
 Code: 209, e.displayText() = DB::NetException: Timeout: connect timed out: 192.0.2.1:9440 (server.from.remote.dc:9440) (version 20.8.11.17 (official build))
 ```
 
-1. Using remote\(...\) table function with secure TCP port \(default values is 9440\). There is remoteSecure\(\) function for that.  
-2. High \(&gt;50ms\) ping between servers, values for `connect_timeout_with_failover_ms,`  `connect_timeout_with_failover_secure_ms` need's to be adjusted accordingly.  
+1. Using remote(...) table function with secure TCP port (default values is 9440). There is remoteSecure() function for that.  
+2. High (&gt;50ms) ping between servers, values for `connect_timeout_with_failover_ms,`  `connect_timeout_with_failover_secure_ms` need's to be adjusted accordingly.  
 
 Default values:
 
