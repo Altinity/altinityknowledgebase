@@ -70,13 +70,13 @@ And now we have an exception that we lost all metadata in zookeeper. It is time 
 
 1. Detach replicated table.
 
-   ```text
+   ```sql
    DETACH TABLE table_repl;
    ```
 
 2. Save the table’s attach script and change engine of replicated table to non-replicated \*mergetree analogue. Table definition is located in the ‘metadata’ folder, ‘`/var/lib/clickhouse/metadata/default/table_repl.sql`’ in our example. Please make a backup copy and modify the file as follows:
 
-   ```text
+   ```sql
    ATTACH TABLE table_repl
    (
       `number` UInt32
@@ -89,7 +89,7 @@ And now we have an exception that we lost all metadata in zookeeper. It is time 
 
    Needs to be replaced with this:
 
-   ```text
+   ```sql
    ATTACH TABLE table_repl
    (
       `number` UInt32
@@ -102,19 +102,19 @@ And now we have an exception that we lost all metadata in zookeeper. It is time 
 
 3. Attach non-replicated table.
 
-   ```text
+   ```sql
    ATTACH TABLE table_repl;
    ```
 
 4. Rename non-replicated table.
 
-   ```text
+   ```sql
    RENAME TABLE table_repl TO table_repl_old;
    ```
 
 5. Create a new replicated table. Take the saved attach script and replace ATTACH with CREATE, and run it.
 
-   ```text
+   ```sql
    CREATE TABLE table_repl
    (
       `number` UInt32
@@ -127,7 +127,7 @@ And now we have an exception that we lost all metadata in zookeeper. It is time 
 
 6. Attach parts from old table to new.
 
-   ```text
+   ```sql
    ALTER TABLE table_repl ATTACH PARTITION 1 FROM table_repl_old;
 
    ALTER TABLE table_repl ATTACH PARTITION 2 FROM table_repl_old;

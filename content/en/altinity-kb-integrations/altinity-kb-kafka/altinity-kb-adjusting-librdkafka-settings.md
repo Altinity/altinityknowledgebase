@@ -95,7 +95,7 @@ See [https://github.com/ClickHouse/ClickHouse/issues/12609](https://github.com/C
 
 ### confluent cloud
 
-```text
+```xml
     <yandex>
         <kafka>
         <auto_offset_reset>smallest</auto_offset_reset>
@@ -118,7 +118,7 @@ See [https://github.com/ClickHouse/ClickHouse/issues/12609](https://github.com/C
 
 Use kafkacat utility - it internally uses same library to access Kafla as clickhouse itself and allows easily to test different settings.
 
-```text
+```bash
 kafkacat -b my_broker:9092 -C -o -10 -t my_topic \
    -X security.protocol=SASL_SSL  \
    -X sasl.mechanisms=PLAIN \

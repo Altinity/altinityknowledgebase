@@ -13,7 +13,7 @@ Important things to know:
 5. clickhouse-client also by default tries to use server timezone (see also `--use_client_time_zone` flag)
 6. If you want you can store the timezone name inside the data type, in that case, timestamp &lt;-&gt; human-readable time rules of that timezone will be applied.
 
-```text
+```sql
 SELECT
     timezone(),
     toDateTime(now()) AS t,
@@ -38,7 +38,7 @@ Since version 20.4 clickhouse uses embedded tzdata (see [https://github.com/Clic
 
 You get used tzdata version
 
-```text
+```sql
 SELECT *
 FROM system.build_options
 WHERE name = 'TZDATA_VERSION'
@@ -52,7 +52,7 @@ Query id: 0a9883f0-dadf-4fb1-8b42-8fe93f561430
 
 and list of available time zones
 
-```text
+```sql
 SELECT *
 FROM system.time_zones
 WHERE time_zone LIKE '%Anta%'
@@ -81,7 +81,7 @@ Query id: 855453d7-eccd-44cb-9631-f63bb02a273c
 
 ### When the conversion using different rules happen
 
-```text
+```sql
 SELECT timezone()
 
 ┌─timezone()─┐

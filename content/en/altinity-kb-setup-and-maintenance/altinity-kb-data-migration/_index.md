@@ -92,7 +92,7 @@ Pros and cons:
 ![(minus)](/assets/forbidden.png) Works only when the source and the destination clickhouse servers share the same zookeeper (without chroot)
 ![(minus)](/assets/forbidden.png) Needs to access zookeeper and ClickHouse replication ports: (`interserver_http_port` or `interserver_https_port`)
 
-```text
+```sql
 ALTER TABLE table_name FETCH PARTITION partition_expr FROM 'path-in-zookeeper'
 ```
 

@@ -10,7 +10,7 @@ Article on docs site:
 
 Check number of followers:
 
-```text
+```bash
 echo mntr | nc zookeeper 2187 | grep foll
 zk_synced_followers    2
 zk_synced_non_voting_followers    0

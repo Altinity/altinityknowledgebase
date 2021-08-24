@@ -27,7 +27,7 @@ By default, to properly data loading from MySQL8 source to dictionaries, please 
 
 You can change default behavior with create `/etc/mysql/conf.d/information_schema_cache.cnf`with following content:
 
-```text
+```ini
 [mysqld]
 information_schema_stats_expiry=0
 ```

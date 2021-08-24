@@ -14,14 +14,14 @@ Unfortunately, that change leads to compatibility issues - automatic dependencie
 
 When you try to install versions 20.8 or older from Altinity repo -
 
-```text
+```bash
 version=20.8.12.2-1.el7
 yum install clickhouse-client-${version} clickhouse-server-${version}
 ```
 
 yum outputs smth like
 
-```text
+```bash
 yum install clickhouse-client-${version} clickhouse-server-${version}
 Loaded plugins: fastestmirror, ovl
 Loading mirror speeds from cached hostfile
@@ -66,7 +66,7 @@ As you can see yum has an issue with resolving `clickhouse-server-common` depend
 
 add `--setopt=obsoletes=0` flag to the yum call.
 
-```text
+```bash
 version=20.8.12.2-1.el7
 yum install --setopt=obsoletes=0 clickhouse-client-${version} clickhouse-server-${version}
 ---
@@ -81,12 +81,12 @@ Alternatively, you can add `obsoletes=0` into `/etc/yum.conf`.
 
 ### To update to new ClickHouse version (from old packaging schema to new packaging schema)
 
-```text
+```bash
 version=21.1.7.1-2
 yum install clickhouse-client-${version} clickhouse-server-${version}
 ```
 
-```text
+```bash
 Loaded plugins: fastestmirror, ovl
 Loading mirror speeds from cached hostfile
  * base: centos.hitme.net.pl
@@ -105,7 +105,7 @@ It is caused by wrong dependencies resolution.
 
 To update to the latest available version - just add `clickhouse-server-common`:
 
-```text
+```bash
 yum install clickhouse-client clickhouse-server clickhouse-server-common
 ```
 
@@ -113,7 +113,7 @@ This way the latest available version will be installed (even if you will reques
 
 To install some specific version remove old packages first, then install new ones.
 
-```text
+```bash
 yum erase clickhouse-client clickhouse-server clickhouse-server-common clickhouse-common-static
 version=21.1.7.1
 yum install clickhouse-client-${version} clickhouse-server-${version}
@@ -121,14 +121,14 @@ yum install clickhouse-client-${version} clickhouse-server-${version}
 
 ### Downgrade from new version to old one
 
-```text
+```bash
 version=20.8.12.2-1.el7
 yum downgrade  clickhouse-client-${version} clickhouse-server-${version}
 ```
 
 will not work:
 
-```text
+```bash
 Loaded plugins: fastestmirror, ovl
 Loading mirror speeds from cached hostfile
  * base: ftp.agh.edu.pl
@@ -162,7 +162,7 @@ Error: Package: clickhouse-server-20.8.12.2-1.el7.x86_64 (Altinity_clickhouse-al
 
 Remove packages first, then install older versions:
 
-```text
+```bash
 yum erase clickhouse-client clickhouse-server clickhouse-server-common clickhouse-common-static
 version=20.8.12.2-1.el7
 yum install --setopt=obsoletes=0 clickhouse-client-${version} clickhouse-server-${version}
