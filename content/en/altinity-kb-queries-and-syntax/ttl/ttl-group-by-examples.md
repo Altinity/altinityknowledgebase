@@ -1,9 +1,4 @@
 ---
-description: >-
-  TTL GROUP BY -- a feature which allows to roll-up old rows. For example to
-  reduce data granularity to one hour for rows older than one month.
----
----
 title: "TTL GROUP BY Examples"
 linkTitle: "TTL GROUP BY Examples"
 description: >
