@@ -6,7 +6,7 @@ description: >
 ---
 ### Use cases
 
-#### Strong correlation between column from table ORDER BY / PARTITION BY key and other column which is regularly being used in WHERE condition.
+#### Strong correlation between column from table ORDER BY / PARTITION BY key and other column which is regularly being used in WHERE condition
 
 Good example is incremental ID which increasing with time.
 
@@ -117,7 +117,7 @@ WHERE created_at > (now() + toIntervalDay(105));
 (184.90 million rows/s., 739.62 MB/s.)
 ```
 
-#### Condition in query trying to filter outlier value.
+#### Condition in query trying to filter outlier value
 
 ```sql
 CREATE TABLE skip_idx_outlier

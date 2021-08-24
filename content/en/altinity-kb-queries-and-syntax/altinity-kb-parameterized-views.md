@@ -9,7 +9,7 @@ Custom settings allows to emulate parameterized views.
 You need to enable custom settings and define any prefixes for settings.
 
 ```markup
-$ cat /etc/clickhouse-server/config.d/custom_settigs_prefixes.xml
+$ cat /etc/clickhouse-server/config.d/custom_settings_prefixes.xml
 <?xml version="1.0" ?>
 <yandex>
     <custom_settings_prefixes>my,my2</custom_settings_prefixes>

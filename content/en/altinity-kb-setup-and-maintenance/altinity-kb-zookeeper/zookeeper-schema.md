@@ -9,7 +9,7 @@ description: >
 Table schema.
 
 ```bash
-date column -> legacy MergeTree partition expresison.
+date column -> legacy MergeTree partition expression.
 sampling expression -> SAMPLE BY
 index granularity -> index_granularity
 mode -> type of MergeTree table

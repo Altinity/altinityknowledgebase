@@ -32,7 +32,7 @@ On certain stages (executing scalar sub-query) the query can not be killed at al
 
 > I see. Is there a workaround?
 >
-> This is our usecase:
+> This is our use case:
 >
 > A user requests an analytics report which has a query that takes several settings, the user makes changes to the report (e.g. to filters, metrics, dimensions...). Since the user changed what he is looking for the query results from the initial query are never used and we would like to cancel it when starting the new query (edited)
 

@@ -137,7 +137,7 @@ FORMAT TSVRaw;
 
 RENAME ...
 
-/* STEP 4: ensure that only MaterialiedView left in source db, and drop it.  */
+/* STEP 4: ensure that only MaterializedView left in source db, and drop it.  */
 
 SELECT * FROM system.tables WHERE database = 'atomic_db' and engine <> 'MaterializedView';
 DROP DATABASE atomic_db;

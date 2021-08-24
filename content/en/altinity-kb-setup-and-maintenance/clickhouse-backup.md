@@ -1,11 +1,8 @@
 ---
-description: clickhouse-backup + backblaze
----
----
 title: "clickhouse-backup"
 linkTitle: "clickhouse-backup"
 description: >
-    clickhouse-backup
+    clickhouse-backup + backblaze
 ---
 ### Installation and configuration
 
@@ -114,7 +111,7 @@ DROP DATABASE test;
 ### Restore
 
 * download the remote backup
-*  restore database
+* restore database
 
 ```bash
 $ sudo ./clickhouse-backup list -c config.yml

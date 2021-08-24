@@ -4,7 +4,7 @@ linkTitle: "JVM sizes and garbage collector settings"
 description: >
     JVM sizes and garbage collector settings
 ---
-## **TLDR version**:
+## TLDR version
 
 use fresh Java version (11 or newer), disable swap and set up (for 4 Gb node):
 
@@ -20,23 +20,23 @@ JAVA_OPTS="-Xms7G -Xmx7G -XX:+AlwaysPreTouch -Djute.maxbuffer=8388608 -XX:MaxGCP
 
 ## Details
 
-1) ZooKeeper runs as in JVM. Depending on version different garbage collectors are avaliable.
+1. ZooKeeper runs as in JVM. Depending on version different garbage collectors are available.
 
-2) Recent JVM versions (starting from 10) use `G1` garbage collector by default (should work fine).
+1. Recent JVM versions (starting from 10) use `G1` garbage collector by default (should work fine).
 On JVM 13-14 using `ZGC` or `Shenandoah` garbage collector may reduce pauses.
 On older JVM version (before 10) you may want to make some tuning to decrease pauses, ParNew + CMS garbage collectors (like in Yandex config) is one of the best options.
 
-2) One of the most important setting for JVM application is heap size. A heap size of &gt;1 GB is recommended for most use cases and monitoring heap usage to ensure no delays are caused by garbage collection. We recommend to use at least 4Gb of RAM for zookeeper nodes (8Gb is better, that will make difference only when zookeeper is heavily loaded).
+1. One of the most important setting for JVM application is heap size. A heap size of &gt;1 GB is recommended for most use cases and monitoring heap usage to ensure no delays are caused by garbage collection. We recommend to use at least 4Gb of RAM for zookeeper nodes (8Gb is better, that will make difference only when zookeeper is heavily loaded).
 
 Set the Java heap size smaller than available RAM size on the node. This is very important to avoid swapping, which will seriously degrade ZooKeeper performance. Be conservative - use a maximum heap size of 3GB for a 4GB machine.
 
-3) Set min (`Xms`) and max (`Xmx`) heap size to same value to avoid resizing. Add `XX:+AlwaysPreTouch` flag as well to load the memory pages into memory at the start of the zookeeper.
+1. Set min (`Xms`) and max (`Xmx`) heap size to same value to avoid resizing. Add `XX:+AlwaysPreTouch` flag as well to load the memory pages into memory at the start of the zookeeper.
 
-4) `MaxGCPauseMillis=50` (by default 200) - the 'target' acceptable pause for garbage collection (milliseconds)
+1. `MaxGCPauseMillis=50` (by default 200) - the 'target' acceptable pause for garbage collection (milliseconds)
 
-4) `jute.maxbuffer` limits the maximum size of znode content. By default it's 1Mb. In some usecases (lot of partitions in table) ClickHouse may need to create bigger znodes.
+1. `jute.maxbuffer` limits the maximum size of znode content. By default it's 1Mb. In some usecases (lot of partitions in table) ClickHouse may need to create bigger znodes.
 
-5) (optional) enable GC logs: `-Xloggc:/path_to/gc.log`
+1. (optional) enable GC logs: `-Xloggc:/path_to/gc.log`
 
 ## Zookeeper configurarion used by Yandex Metrika (from 2017)
 

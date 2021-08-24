@@ -6,7 +6,7 @@ description: >
 ---
 ClickHouse doesn't probe CA path which is default on CentOS and Amazon Linux.
 
-#### ClickHouse client:
+## ClickHouse client
 
 ```markup
 cat /etc/clickhouse-client/conf.d/openssl-ca.xml
@@ -19,7 +19,7 @@ cat /etc/clickhouse-client/conf.d/openssl-ca.xml
 </config>
 ```
 
-#### ClickHouse server:
+## ClickHouse server
 
 ```markup
 cat /etc/clickhouse-server/conf.d/openssl-ca.xml

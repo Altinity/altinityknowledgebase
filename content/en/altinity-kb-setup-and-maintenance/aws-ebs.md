@@ -49,8 +49,6 @@ It's pretty straightforward to set up a ClickHouse for using multiple EBS volume
 
 It's a new type of volume, which is 20% cheaper than gp2 per GB-month and has lower free throughput: only 125 MB/s vs 250 MB/s. But you can buy additional throughput for volume and gp3 pricing became comparable with multiple gp2 volumes starting from 1000-1500GB size.
 
-
-
 [https://altinity.com/blog/2019/11/27/amplifying-clickhouse-capacity-with-multi-volume-storage-part-1](https://altinity.com/blog/2019/11/27/amplifying-clickhouse-capacity-with-multi-volume-storage-part-1)
 
 [https://altinity.com/blog/2019/11/29/amplifying-clickhouse-capacity-with-multi-volume-storage-part-2](https://altinity.com/blog/2019/11/29/amplifying-clickhouse-capacity-with-multi-volume-storage-part-2)

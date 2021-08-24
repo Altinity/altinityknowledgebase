@@ -108,7 +108,7 @@ ORDER BY suppkey ASC
 └─────────┴─────────┴──────────┴──────────┘
 ```
 
-### Using tupleToNameValuePairs \(starting from ClickHouse 21.9\) 
+### Using tupleToNameValuePairs \(starting from ClickHouse 21.9\)
 
 ```sql
 SELECT

@@ -41,7 +41,7 @@ SimpleAggregateFunction can be used for those aggregations when the function sta
       <td style="text-align:left">typically is much better due to better compression/codecs</td>
       <td style="text-align:left">
         <p>in very rare cases it can be more optimal than raw values</p>
-        <p>adaptive granularity doesn&apos;t work for large states</p>
+        <p>adaptive granularity doesn't work for large states</p>
       </td>
     </tr>
     <tr>

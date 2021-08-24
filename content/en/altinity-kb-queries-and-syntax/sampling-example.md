@@ -1,11 +1,8 @@
 ---
-description: Clickhouse table sampling example
----
----
 title: "Sampling Example"
 linkTitle: "Sampling Example"
 description: >
-    Sampling Example
+    Clickhouse table sampling example
 ---
 The most important idea about sampling that the primary index must have **low cardinality**. The following example demonstrates how sampling can be setup correctly, and an example if it being set up incorrectly as a comparison.
 

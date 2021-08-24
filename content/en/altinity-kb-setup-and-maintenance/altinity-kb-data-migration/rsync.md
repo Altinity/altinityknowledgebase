@@ -16,4 +16,4 @@ description: >
 
    `--bwlimit` is transfer limit in KBytes per second.
 
-3. Run[ ATTACH PARTITION](https://clickhouse.tech/docs/en/sql-reference/statements/alter/partition/#alter_attach-partition) for each partition from `./detached` directory.
+3. Run [ATTACH PARTITION](https://clickhouse.tech/docs/en/sql-reference/statements/alter/partition/#alter_attach-partition) for each partition from `./detached` directory.
