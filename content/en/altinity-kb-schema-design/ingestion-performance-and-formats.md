@@ -2,7 +2,7 @@
 title: "Ingestion performance and formats"
 linkTitle: "Ingestion performance and formats"
 ---
-```text
+```sql
 clickhouse-client -q 'select toString(number) s, number n, number/1000 f from numbers(100000000) format TSV' > speed.tsv
 clickhouse-client -q 'select toString(number) s, number n, number/1000 f from numbers(100000000) format RowBinary' > speed.RowBinary
 clickhouse-client -q 'select toString(number) s, number n, number/1000 f from numbers(100000000) format Native' > speed.Native
