@@ -7,86 +7,131 @@ description: >
 ## PIVOT
 
 ```sql
-CREATE OR REPLACE TABLE monthly_sales(empid INT, amount INT, month TEXT) ENGINE=Memory();
+CREATE TABLE sales(suppkey UInt8, category String, quantity UInt32) ENGINE=Memory(); 
 
-INSERT INTO monthly_sales VALUES
-(1, 10000, 'JAN'),(1, 400, 'JAN'),(2, 4500, 'JAN'),(2, 35000, 'JAN'), (1, 5000, 'FEB'),
-(1, 3000, 'FEB'), (2, 200, 'FEB'), (2, 90500, 'FEB'), (1, 6000, 'MAR'), (1, 5000, 'MAR'),
-(2, 2500, 'MAR'), (2, 9500, 'MAR'), (1, 8000, 'APR'), (1, 10000, 'APR'), (2, 800, 'APR'),
-(2, 4500, 'APR');
+INSERT INTO sales VALUES (2, 'AA' ,7500),(1, 'AB' , 4000),(1, 'AA' , 6900),(1, 'AB', 8900), (1, 'AC', 8300), (1, 'AA', 7000), (1, 'AC', 9000), (2,'AA', 9800), (2,'AB', 9600), (1,'AC', 8900),(1, 'AD', 400), (2,'AD', 900), (2,'AD', 1200), (1,'AD', 2600), (2, 'AC', 9600),(1, 'AC', 6200);
 ```
+
+### Using Map data type \(starting from Clickhouse 21.1\)
 
 ```sql
-SET allow_experimental_map_type=1;
-
-WITH CAST(sumMap([month], [amount]), 'Map(String, UInt32)') AS map
+WITH CAST(sumMap([category], [quantity]), 'Map(String, UInt32)') AS map
 SELECT
-    empid,
-    map['JAN'] AS JAN,
-    map['FEB'] AS FEB,
-    map['MAR'] AS MAR,
-    map['APR'] AS APR
-FROM monthly_sales
-GROUP BY empid
-ORDER BY empid ASC
+    suppkey,
+    map['AA'] AS AA,
+    map['AB'] AS AB,
+    map['AC'] AS AC,
+    map['AD'] AS AD
+FROM sales
+GROUP BY suppkey
+ORDER BY suppkey ASC
 
-┌─empid─┬───JAN─┬───FEB─┬───MAR─┬───APR─┐
-│     1 │ 10400 │  8000 │ 11000 │ 18000 │
-│     2 │ 39500 │ 90700 │ 12000 │  5300 │
-└───────┴───────┴───────┴───────┴───────┘
+┌─suppkey─┬────AA─┬────AB─┬────AC─┬───AD─┐
+│       1 │ 13900 │ 12900 │ 32400 │ 3000 │
+│       2 │ 17300 │  9600 │  9600 │ 2100 │
+└─────────┴───────┴───────┴───────┴──────┘
 ```
+
+### Using -If combinator
 
 ```sql
 SELECT
-    empid,
-    sumIf(amount, month = 'JAN') AS JAN,
-    sumIf(amount, month = 'FEB') AS FEB,
-    sumIf(amount, month = 'MAR') AS MAR,
-    sumIf(amount, month = 'APR') AS APR
-FROM monthly_sales
-GROUP BY empid
-ORDER BY empid ASC
+    suppkey,
+    sumIf(quantity, category = 'AA') AS AA,
+    sumIf(quantity, category = 'AB') AS AB,
+    sumIf(quantity, category = 'AC') AS AC,
+    sumIf(quantity, category = 'AD') AS AD
+FROM sales
+GROUP BY suppkey
+ORDER BY suppkey ASC
 
-┌─empid─┬───JAN─┬───FEB─┬───MAR─┬───APR─┐
-│     1 │ 10400 │  8000 │ 11000 │ 18000 │
-│     2 │ 39500 │ 90700 │ 12000 │  5300 │
-└───────┴───────┴───────┴───────┴───────┘
+┌─suppkey─┬────AA─┬────AB─┬────AC─┬───AD─┐
+│       1 │ 13900 │ 12900 │ 32400 │ 3000 │
+│       2 │ 17300 │  9600 │  9600 │ 2100 │
+└─────────┴───────┴───────┴───────┴──────┘
+```
+
+### Using -Resample combinator
+
+```sql
+WITH sumResample(0, 4, 1)(quantity, transform(category, ['AA', 'AB', 'AC', 'AD'], [0, 1, 2, 3], 4)) AS sum
+SELECT
+    suppkey,
+    sum[1] AS AA,
+    sum[2] AS AB,
+    sum[3] AS AC,
+    sum[4] AS AD
+FROM sales
+GROUP BY suppkey
+ORDER BY suppkey ASC
+
+┌─suppkey─┬────AA─┬────AB─┬────AC─┬───AD─┐
+│       1 │ 13900 │ 12900 │ 32400 │ 3000 │
+│       2 │ 17300 │  9600 │  9600 │ 2100 │
+└─────────┴───────┴───────┴───────┴──────┘
 ```
 
 ## UNPIVOT
 
 ```sql
-CREATE OR REPLACE TABLE monthly_sales(empid INT, dept TEXT, jan INT, feb INT, mar INT,
-april INT) ENGINE=Memory();
+CREATE TABLE sales_w(suppkey UInt8, brand String, AA UInt32, AB UInt32, AC UInt32,
+AD UInt32) ENGINE=Memory();
 
-INSERT INTO monthly_sales VALUES (1, 'electronics', 100, 200, 300, 100),
-(2, 'clothes', 100, 300, 150, 200),(3, 'cars', 200, 400, 100, 50);
+ INSERT INTO sales_w VALUES (1, 'BRAND_A', 1500, 4200, 1600, 9800), (2, 'BRAND_B', 6200, 1300, 5800, 3100), (3, 'BRAND_C', 5000, 8900, 6900, 3400);
 ```
 
 ```sql
 SELECT
-    empid,
-    dept,
-    month,
-    sales
-FROM monthly_sales
+    suppkey,
+    brand,
+    category,
+    quantity
+FROM sales_w
 ARRAY JOIN
-    [jan, feb, mar, april] AS sales,
-    splitByString(', ', 'jan, feb, mar, april') AS month
-ORDER BY empid ASC
+    [AA, AB, AC, AD] AS quantity,
+    splitByString(', ', 'AA, AB, AC, AD') AS category
+ORDER BY suppkey ASC
 
-┌─empid─┬─dept────────┬─month─┬─sales─┐
-│     1 │ electronics │ jan   │   100 │
-│     1 │ electronics │ feb   │   200 │
-│     1 │ electronics │ mar   │   300 │
-│     1 │ electronics │ april │   100 │
-│     2 │ clothes     │ jan   │   100 │
-│     2 │ clothes     │ feb   │   300 │
-│     2 │ clothes     │ mar   │   150 │
-│     2 │ clothes     │ april │   200 │
-│     3 │ cars        │ jan   │   200 │
-│     3 │ cars        │ feb   │   400 │
-│     3 │ cars        │ mar   │   100 │
-│     3 │ cars        │ april │    50 │
-└───────┴─────────────┴───────┴───────┘
+┌─suppkey─┬─brand───┬─category─┬─quantity─┐
+│       1 │ BRAND_A │ AA       │     1500 │
+│       1 │ BRAND_A │ AB       │     4200 │
+│       1 │ BRAND_A │ AC       │     1600 │
+│       1 │ BRAND_A │ AD       │     9800 │
+│       2 │ BRAND_B │ AA       │     6200 │
+│       2 │ BRAND_B │ AB       │     1300 │
+│       2 │ BRAND_B │ AC       │     5800 │
+│       2 │ BRAND_B │ AD       │     3100 │
+│       3 │ BRAND_C │ AA       │     5000 │
+│       3 │ BRAND_C │ AB       │     8900 │
+│       3 │ BRAND_C │ AC       │     6900 │
+│       3 │ BRAND_C │ AD       │     3400 │
+└─────────┴─────────┴──────────┴──────────┘
+```
+
+### Using tupleToNameValuePairs \(starting from ClickHouse 21.9\) 
+
+```sql
+SELECT
+    suppkey,
+    brand,
+    tpl.1 AS category,
+    tpl.2 AS quantity
+FROM sales_w
+ARRAY JOIN tupleToNameValuePairs((AA, AB, AC, AD)) AS tpl
+ORDER BY suppkey ASC
+
+┌─suppkey─┬─brand───┬─category─┬─quantity─┐
+│       1 │ BRAND_A │ AA       │     1500 │
+│       1 │ BRAND_A │ AB       │     4200 │
+│       1 │ BRAND_A │ AC       │     1600 │
+│       1 │ BRAND_A │ AD       │     9800 │
+│       2 │ BRAND_B │ AA       │     6200 │
+│       2 │ BRAND_B │ AB       │     1300 │
+│       2 │ BRAND_B │ AC       │     5800 │
+│       2 │ BRAND_B │ AD       │     3100 │
+│       3 │ BRAND_C │ AA       │     5000 │
+│       3 │ BRAND_C │ AB       │     8900 │
+│       3 │ BRAND_C │ AC       │     6900 │
+│       3 │ BRAND_C │ AD       │     3400 │
+└─────────┴─────────┴──────────┴──────────┘
 ```
