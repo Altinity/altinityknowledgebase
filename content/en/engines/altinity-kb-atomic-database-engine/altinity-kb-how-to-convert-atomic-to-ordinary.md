@@ -122,7 +122,7 @@ FORMAT TSVRaw;
 SELECT
 if(
    t.name LIKE '.inner_id.%',
-   replaceRegexpOne(mv.create_table_query, '^CREATE MATERIALIZED VIEW ([^ ]+) \(.*? AS ', 'CREATE MATERIALIZED VIEW \\1 TO \\1_storage AS '),
+   replaceRegexpOne(mv.create_table_query, '^CREATE MATERIALIZED VIEW ([^ ]+) (.*? AS ', 'CREATE MATERIALIZED VIEW \\1 TO \\1_storage AS '),
    mv.create_table_query
 )
 FROM system.tables as mv
