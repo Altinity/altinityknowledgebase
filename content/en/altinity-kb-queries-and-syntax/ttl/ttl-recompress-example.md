@@ -1,7 +1,4 @@
 ---
-description: Clickhouse able to recomress old data with more "heavy" compressor.
----
----
 title: "TTL Recompress example"
 linkTitle: "TTL Recompress example"
 description: >
