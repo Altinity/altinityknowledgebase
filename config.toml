@@ -100,7 +100,7 @@ version = "0.0"
 url_latest_version = "https://beta.kb.altinity.com"
 
 # Repository configuration (URLs for in-page links to opening issues and suggesting changes)
-github_repo = "https://github.com/Altinity/betaknowledgebase"
+github_repo = "https://github.com/Altinity/altinityknowledgebase"
 github_branch = "main"
 
 
