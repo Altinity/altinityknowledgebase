@@ -13,5 +13,7 @@ You have 40 parts in 3 partitions. This unscheduled merge selects some partition
 `OPTIMIZE TABLE xyz FINAL` -- initiates a cycle of unscheduled merges.
 
 ClickHouse merges parts in this table until will remains 1 part in each partition (if a system has enough free disk space). As a result, you get 3 parts, 1 part per partition. In this case, CH rewrites parts even if they are already merged into a single part. It creates a huge CPU / Disk load if the table ( XYZ) is huge. ClickHouse reads / uncompress / merge / compress / writes all data in the table.
+
 If this table has size 1TB it could take around 3 hours to complete.
+
 So we don't recommend running `OPTIMIZE TABLE xyz FINAL` against tables with more than 10million rows.

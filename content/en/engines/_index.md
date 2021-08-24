@@ -31,7 +31,7 @@ You can use Distribured table for inserts, in that case, it will pass the data t
 3. if your data is too big to fit/ to process on one server - use sharding
 4. to balance the load between replicas and to combine the result of selects from different shards - use Distributed table.
 
-#### More...
+#### More
 
 Official tutorial clarify that a bit: [https://clickhouse.yandex/tutorial.html](https://clickhouse.yandex/tutorial.html)
 

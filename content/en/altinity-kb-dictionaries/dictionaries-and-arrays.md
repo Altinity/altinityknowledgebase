@@ -48,7 +48,7 @@ SELECT
 └───────────────────┴──────────┘
 ```
 
-## Dictionary with Postgresql as a source
+## Dictionary with PostgreSQL as a source
 
 ### Test data in PG
 

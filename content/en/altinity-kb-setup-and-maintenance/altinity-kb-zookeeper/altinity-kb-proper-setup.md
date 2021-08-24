@@ -6,12 +6,13 @@ description: >
 ---
 ### Main docs article
 
-[https://docs.altinity.com/operationsguide/clickhouse-zookeeper/zookeeper-installation/" caption="](https://docs.altinity.com/operationsguide/clickhouse-zookeeper/zookeeper-installation/" caption=")
+[https://docs.altinity.com/operationsguide/clickhouse-zookeeper/zookeeper-installation/](https://docs.altinity.com/operationsguide/clickhouse-zookeeper/zookeeper-installation/)
 
-### Hardware requirements:
+### Hardware requirements
 
 TLDR version:
-1) USE DEDICATED FAST DISKS for the transaction log! (crucial for performance due to write-ahead-log, NVMe is preferred for heavy load setup)
+
+1) USE DEDICATED FAST DISKS for the transaction log! (crucial for performance due to write-ahead-log, NVMe is preferred for heavy load setup).
 2) use 3 nodes (more nodes = slower quorum, less = no HA).
 3) low network latency between zookeeper nodes is very important (latency, not bandwidth).
 4) have at least 4Gb of RAM, disable swap, tune JVM sizes, and garbage collector settings.
@@ -39,5 +40,3 @@ Cite from [https://zookeeper.apache.org/doc/r3.5.7/zookeeperAdmin.html\#sc_commo
 > * _incorrect placement of transaction log_ : The most performance critical part of ZooKeeper is the transaction log. ZooKeeper syncs transactions to media before it returns a response. A dedicated transaction log device is key to consistent good performance. Putting the log on a busy device will adversely affect performance. If you only have one storage device, increase the snapCount so that snapshot files are generated less often; it does not eliminate the problem, but it makes more resources available for the transaction log.
 > * _incorrect Java heap size_ : You should take special care to set your Java max heap size correctly. In particular, you should not create a situation in which ZooKeeper swaps to disk. The disk is death to ZooKeeper. Everything is ordered, so if processing one request swaps the disk, all other queued requests will probably do the same. the disk. DON'T SWAP. Be conservative in your estimates: if you have 4G of RAM, do not set the Java max heap size to 6G or even 4G. For example, it is more likely you would use a 3G heap for a 4G machine, as the operating system and the cache also need memory. The best and only recommend practice for estimating the heap size your system needs is to run load tests, and then make sure you are well below the usage limit that would cause the system to swap.
 > * _Publicly accessible deployment_ : A ZooKeeper ensemble is expected to operate in a trusted computing environment. It is thus recommended to deploy ZooKeeper behind a firewall.
-
-## 

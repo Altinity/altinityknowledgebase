@@ -6,7 +6,7 @@ description: >
 ---
 In general - one of the simplest option to do load balancing is to implement it on the client side.
 
-I.e. list serveral endpoints for clickhouse connections and add some logic to pick one of the nodes.
+I.e. list several endpoints for clickhouse connections and add some logic to pick one of the nodes.
 
 Many client libraries support that.
 

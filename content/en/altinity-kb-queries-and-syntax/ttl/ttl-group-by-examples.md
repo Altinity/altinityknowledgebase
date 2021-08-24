@@ -26,7 +26,7 @@ TTL ts + interval 30 day
     ts = min(toStartOfDay(ts));
 ```
 
-During TTL merges Clickhouse re-calculates values of columns in the SET section. 
+During TTL merges Clickhouse re-calculates values of columns in the SET section.
 
 GROUP BY section should be a prefix of a table's ORDER BY.
 

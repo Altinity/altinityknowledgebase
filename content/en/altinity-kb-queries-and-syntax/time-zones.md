@@ -79,7 +79,7 @@ Query id: 855453d7-eccd-44cb-9631-f63bb02a273c
 
 ```
 
-### When the conversion using different rules happen:
+### When the conversion using different rules happen
 
 ```text
 SELECT timezone()

@@ -6,7 +6,7 @@ description: >
 ---
 ## ClickHouse versioning schema
 
-![](/assets/illyustraciya_bez_nazvaniya.png)
+![ClickHouse Version Breakdown](/assets/illyustraciya_bez_nazvaniya.png)
 
 Example:
 
@@ -20,7 +20,7 @@ Example:
 
 ### What is Altinity Stable version?
 
-It is one of general / public version of ClickHouse which has passed some extra testings, the upgrade path and changelog was analyzed, known issues are documented, and at least few big companies use it on production. All those things take some time, so usually that means that Altinity Stable is always a  'behind' the main releses.
+It is one of general / public version of ClickHouse which has passed some extra testings, the upgrade path and changelog was analyzed, known issues are documented, and at least few big companies use it on production. All those things take some time, so usually that means that Altinity Stable is always a  'behind' the main releases.
 
 Altinity version - is an option for conservative users, who prefer bit older but better known things.
 

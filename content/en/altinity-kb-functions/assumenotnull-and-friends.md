@@ -13,7 +13,7 @@ SELECT
     assumeNotNull(column + 999) AS x;
 
 ┌─column─┬─x─┐
-│   ᴺᵁᴸᴸ │ 0 │
+│   null │ 0 │
 └────────┴───┘
 
 WITH CAST(NULL, 'Nullable(UInt8)') AS column
@@ -22,7 +22,7 @@ SELECT
     assumeNotNull(materialize(column) + 999) AS x;
 
 ┌─column─┬───x─┐
-│   ᴺᵁᴸᴸ │ 999 │
+│   null │ 999 │
 └────────┴─────┘
 
 CREATE TABLE test_null
@@ -58,7 +58,7 @@ FROM test_null;
 │   0 │ value 0 │
 │   1 │ value 1 │
 │   2 │ value 2 │
-│   3 │ ᴺᵁᴸᴸ    │
+│   3 │ null    │
 └─────┴─────────┘
 
 SELECT

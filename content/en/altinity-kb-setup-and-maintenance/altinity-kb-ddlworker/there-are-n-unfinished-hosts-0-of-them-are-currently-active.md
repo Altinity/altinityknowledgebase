@@ -6,9 +6,9 @@ description: >
 ---
 Sometimes your Distributed DDL queries are being stuck, and not executing on all or subset of nodes, there are a lot of possible reasons for that kind of behavior, so it would take some time and effort to investigate.
 
-#### Possible reasons:
+## Possible reasons
 
-#### Clickhouse node can't recognize itself.
+### Clickhouse node can't recognize itself
 
 ```sql
 SELECT * FROM system.clusters; -- check is_local column, it should have 1 for itself
@@ -24,13 +24,13 @@ cat /etc/hostname
 
 [./](./)
 
-#### Debian / Ubuntu
+### Debian / Ubuntu
 
 There is an issue in Debian based images, when hostname being mapped to 127.0.1.1 address which doesn't literally match network interface and clickhouse fails to detect this address as local.
 
 [https://github.com/ClickHouse/ClickHouse/issues/23504](https://github.com/ClickHouse/ClickHouse/issues/23504)
 
-#### Previous task is being executed and taking some time.
+#### Previous task is being executed and taking some time
 
 It's usually some heavy operations like merges, mutations, alter columns, so it make sense to check those tables:
 
@@ -42,7 +42,7 @@ SELECT * FROM system.mutations;
 
 In that case, you can just wait completion of previous task.
 
-#### Previous task is stuck because of some error.
+### Previous task is stuck because of some error
 
 In that case, the first step is to understand which exact task is stuck and why. There are some queries which can help with that.
 
@@ -68,7 +68,7 @@ SELECT query FROM system.query_log WHERE query LIKE '%ddl_entry%' AND type = 2 O
 grep -C 40 "ddl_entry" /var/log/clickhouse-server/clickhouse-server*.log
 ```
 
-#### Issues that can prevent the task execution:
+#### Issues that can prevent the task execution
 
 Obsolete replicas left in zookeeper.
 

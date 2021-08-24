@@ -17,55 +17,55 @@ If it is acceptable for you - please check the following options for limiting th
 
 These are custom settings that can be tweaked in several ways:
 
-1) by specifying them when connecting a client, for example
+1. by specifying them when connecting a client, for example
 
-```text
-clickhouse-client --os_thread_priority = 19 -q 'SELECT max (number) from numbers (100000000)'
+    ```bash
+    clickhouse-client --os_thread_priority = 19 -q 'SELECT max (number) from numbers (100000000)'
 
-echo 'SELECT max (number) from numbers (100000000)' | curl 'http://localhost:8123/?os_thread_priority=19' --data-binary @-
-```
+    echo 'SELECT max (number) from numbers (100000000)' | curl 'http://localhost:8123/?os_thread_priority=19' --data-binary @-
+    ```
 
-2) via dedicated API / connection parameters in client libraries
+1. via dedicated API / connection parameters in client libraries
 
-3) using the SQL command SET (works only within the session)
+1. using the SQL command SET (works only within the session)
 
-```text
-SET os_thread_priority = 19; SELECT max (number) from numbers (100000000)
-```
+    ```sql
+    SET os_thread_priority = 19; SELECT max (number) from numbers (100000000)
+    ```
 
-4) using different profiles of settings for different users. Something like
+1. using different profiles of settings for different users. Something like
 
-```text
-<?xml version="1.0"?>
-<yandex>
-    <profiles>
-        <default>
-           ...
-        </default>
+    ```xml
+    <?xml version="1.0"?>
+    <yandex>
+        <profiles>
+            <default>
+            ...
+            </default>
 
-        <lowcpu>
-            <os_thread_priority>19</os_thread_priority>
-            <max_threads>4</max_threads>
-        </lowcpu>
-    </profiles>
+            <lowcpu>
+                <os_thread_priority>19</os_thread_priority>
+                <max_threads>4</max_threads>
+            </lowcpu>
+        </profiles>
 
-    <!-- Users and ACL. -->
-    <users>
-        <!-- If user name was not specified, 'default' user is used. -->
-        <limited_user>
-            <password>123</password>
-            <networks>
-                <ip>::/0</ip>
-            </networks>
-            <profile>lowcpu</profile>
+        <!-- Users and ACL. -->
+        <users>
+            <!-- If user name was not specified, 'default' user is used. -->
+            <limited_user>
+                <password>123</password>
+                <networks>
+                    <ip>::/0</ip>
+                </networks>
+                <profile>lowcpu</profile>
 
-            <!-- Quota for user. -->
-            <quota>default</quota>
-        </limited_user>
-    </users>
+                <!-- Quota for user. -->
+                <quota>default</quota>
+            </limited_user>
+        </users>
 
-</yandex>
-```
+    </yandex>
+    ```
 
 There are also plans to introduce a system of more flexible control over the assignment of resources to different requests.
 

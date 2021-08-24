@@ -9,7 +9,7 @@ It runs simple INSERT…SELECT queries and can copy data between tables with dif
 In the task configuration file you need to describe the layout of the source and the target cluster, and list the tables that you need to copy. You can copy whole tables or specific partitions.
 Clickhouse-copier uses temporary distributed tables to select from the source cluster and insert into the target cluster.
 
-## The process is as follows:
+## The process is as follows
 
 1. Process the configuration files.
 2. Discover the list of partitions if not provided in the config.
