@@ -16,12 +16,18 @@ CREATE TABLE table_name ... ENGINE=ReplicatedMergeTree('zookeeper_path','replica
 
 The second and more difficult task is to populate zookeeper with information of clickhouse data parts. As mentioned above, ClickHouse stores the reference data about all parts of replicated tables in ZooKeeper, so we have to traverse all partitions and re-attach them to the recovered replicated table in order to fix that.
 
+{% hint style="info" %}
+Starting from ClickHouse version 21.7 there is SYSTEM RESTORE REPLICA command
+{% endhint %}
+
+[https://altinity.com/blog/a-new-way-to-restore-clickhouse-after-zookeeper-metadata-is-lost](https://altinity.com/blog/a-new-way-to-restore-clickhouse-after-zookeeper-metadata-is-lost)
+
 ## Test case
 
 Let's say we have replicated table `table_repl`.
 
 ```sql
-CREATE TABLE table_repl
+CREATE TABLE table_repl 
 (
    `number` UInt32
 )
