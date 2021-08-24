@@ -56,3 +56,18 @@ SELECT *
 FROM my_new_view
 SETTINGS my2_category = 'hot deals';
 ```
+
+If the custom setting is not set when the view is being created, you need to explicitly define the list of columns for the view:
+
+```sql
+CREATE VIEW my_new_view (c1 Int, c2 String, ...)
+AS
+SELECT *
+FROM deals
+WHERE category_id IN
+(
+    SELECT category_id
+    FROM deal_categories
+    WHERE category = getSetting('my2_category')
+);
+```
