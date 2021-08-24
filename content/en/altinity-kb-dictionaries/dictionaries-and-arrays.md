@@ -104,6 +104,8 @@ SELECT
 ### Test data in MySQL
 
 ```sql
+-- casted into CH Arrays
+
 create table arr_src(
    _key bigint(20) NOT NULL, 
    _array_int text, 
@@ -130,6 +132,7 @@ CREATE TABLE arr_src
 )
 ENGINE = MySQL('mysql_host', 'ch', 'arr_src', 'ch', 'pass');
 
+-- dictionary fetches data from the supporting table
 CREATE DICTIONARY mysql_arr_dict
 (
     _key UInt64,
