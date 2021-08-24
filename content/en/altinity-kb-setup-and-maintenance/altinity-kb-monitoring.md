@@ -20,4 +20,4 @@ description: >
 
 ### ZooKeeper Monitoring
 
-[Zookeeper Monitoring]({{<ref "zookeeper-monitoring.md" }})
+[Zookeeper Monitoring]({{<ref "zookeeper-monitoring.md" >}})
