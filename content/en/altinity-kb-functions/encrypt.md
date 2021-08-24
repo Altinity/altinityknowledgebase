@@ -45,4 +45,4 @@ WHERE reinterpretAsFloat32(encrypt('aes-256-ctr', value, 'xxxxxxxxxxxxxxxxxxxxxx
 
 {{% alert title="Info" color="info" %}}
 Because encryption and decryption can be expensive due re-initialization of keys and iv, usually it make sense to use those functions over literal values instead of table column.
-{{% /info %}}
+{{% /alert %}}
