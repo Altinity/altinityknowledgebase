@@ -1,6 +1,6 @@
-baseURL = "http://beta.kb.altinity.com/"
+baseURL = "http://kb.altinity.com/"
 languageCode = "en-us"
-title = "Altinity Beta Knowledgebase"
+title = "Altinity Knowledgebase"
 theme = ["docsy"]
 publishDir = "docs"
 enableRobotsTXT = true
@@ -53,8 +53,8 @@ anchor = "smart"
 
 [languages]
 [languages.en]
-title = "Altinity Beta Knowledgebase"
-description = "Altinity Beta Knowledgebase"
+title = "Altinity Knowledgebase"
+description = "Altinity Knowledgebase"
 languageName ="English"
 # Weight used for sorting.
 weight = 1
