@@ -2,7 +2,7 @@
 title: "Server config files"
 linkTitle: "Server config files"
 description: >
-    Server config files
+    How to manage server config files in Clickhouse
 ---
 * [Сonfig management (recommended structure)](altinity-kb-server-config-files.md#Serverconfigfiles-Сonfigmanagement%28recommendedstructure%29)
 * [Settings & restart](altinity-kb-server-config-files.md#Serverconfigfiles-Settings&restart)
