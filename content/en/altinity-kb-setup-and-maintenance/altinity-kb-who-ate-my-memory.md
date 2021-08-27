@@ -47,3 +47,16 @@ WHERE (event_date >= today()) AND (event_time >= (now() - 7200))
 ORDER BY memory_usage DESC
 LIMIT 10;
 ```
+
+```bash
+for i in `seq 1 600`; do clickhouse-client --empty_result_for_aggregation_by_empty_set=0 -q "select (select 'Merges: \
+'||formatReadableSize(sum(memory_usage)) from system.merges), (select \
+'Processes: '||formatReadableSize(sum(memory_usage)) from system.processes)";\
+sleep 3;  done 
+
+Merges: 96.57 MiB	Processes: 41.98 MiB
+Merges: 82.24 MiB	Processes: 41.91 MiB
+Merges: 66.33 MiB	Processes: 41.91 MiB
+Merges: 66.49 MiB	Processes: 37.13 MiB
+Merges: 67.78 MiB	Processes: 37.13 MiB
+```
