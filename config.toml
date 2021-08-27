@@ -1,6 +1,6 @@
 baseURL = "http://kb.altinity.com/"
 languageCode = "en-us"
-title = "Altinity Knowledgebase"
+title = "Altinity Knowledge Base"
 theme = ["docsy"]
 publishDir = "docs"
 enableRobotsTXT = true
@@ -53,9 +53,9 @@ anchor = "smart"
 
 [languages]
 [languages.en]
-title = "Altinity Knowledgebase"
-description = "Altinity Knowledgebase"
-languageName ="English"
+title = "Altinity Knowledge Base"
+description = "Altinity Knowledge Base"
+languageName = "English"
 # Weight used for sorting.
 weight = 1
 time_format_default = "2006.01.02"
