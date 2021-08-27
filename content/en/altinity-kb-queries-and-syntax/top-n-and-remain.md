@@ -139,3 +139,47 @@ ORDER BY res ASC
 │ null │ 49000050 │
 └──────┴──────────┘
 ```
+
+```sql
+SELECT
+    k,
+    sum(sum) AS res
+FROM
+(
+    SELECT
+        if(rn > 10, NULL, k) AS k,
+        sum
+    FROM
+    (
+        SELECT
+            k,
+            sum,
+            row_number() OVER () AS rn
+        FROM
+        (
+            SELECT
+                k,
+                sum(number) AS sum
+            FROM top_with_rest
+            GROUP BY k
+            ORDER BY sum DESC
+        )
+    )
+)
+GROUP BY k
+ORDER BY res
+
+┌─k────┬──────res─┐
+│ 990  │    99045 │
+│ 991  │    99145 │
+│ 992  │    99245 │
+│ 993  │    99345 │
+│ 994  │    99445 │
+│ 995  │    99545 │
+│ 996  │    99645 │
+│ 997  │    99745 │
+│ 998  │    99845 │
+│ 999  │    99945 │
+│ null │ 49000050 │
+└──────┴──────────┘
+```
