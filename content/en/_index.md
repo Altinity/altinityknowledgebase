@@ -1,6 +1,6 @@
 ---
-title: "Altinity Beta Knowledgebase"
-linkTitle: "Altinity Beta Knowledgebase"
+title: "Altinity Knowledge Base"
+linkTitle: "Altinity Knowledge Base"
 no_list: true
 cascade:
 - type: "docs"
