@@ -97,7 +97,7 @@ version = "0.0"
 
 # A link to latest version of the docs. Used in the "version-banner" partial to
 # point people to the main doc site.
-url_latest_version = "https://beta.kb.altinity.com"
+url_latest_version = "https://kb.altinity.com"
 
 # Repository configuration (URLs for in-page links to opening issues and suggesting changes)
 github_repo = "https://github.com/Altinity/altinityknowledgebase"
