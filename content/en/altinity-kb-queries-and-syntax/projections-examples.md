@@ -60,3 +60,10 @@ from z
 group by Browser,Country format Null;
 Elapsed: 0.005 sec. Processed 22.43 thousand rows
 ```
+
+
+# See also 
+
+* Amos Bird - kuaishou.com - Projections in ClickHouse. [slides](percona2021/projections.pdf). [video](https://youtu.be/jJ5VuLr2k5k?list=PLWhC0zeznqkkNYzcvHEfZ8hly3Cu9ojKk)
+* [Documentation](https://clickhouse.tech/docs/en/engines/table-engines/mergetree-family/mergetree/#projections)
+* [tinybird blog article](https://blog.tinybird.co/2021/07/09/projections/) 
