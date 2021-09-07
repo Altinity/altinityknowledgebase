@@ -68,11 +68,11 @@ vim /etc/clickhouse-backup/config.yml
 crontab -e
 
 # full backup at 0:00 Monday
-0 0 * * 1 clickhouse /bin/clickhouse-backup-cron.sh
+0 0 * * 1 clickhouse /opt/clickhouse-backup-diff/clickhouse-backup-cron.sh
 # differential backup every hour (except of 00:00) Monday 
-0 1-23 * * 1 clickhouse /bin/clickhouse-backup-cron.sh run_diff
+0 1-23 * * 1 clickhouse /opt/clickhouse-backup-diff/clickhouse-backup-cron.sh run_diff
 # differential backup every hour Sunday, Tuesday-Saturday
-0 */1 * * 0,2-6 
+0 */1 * * 0,2-6 clickhouse /opt/clickhouse-backup-diff/clickhouse-backup-cron.sh run_diff
 ```
 
 5. Recover the last backup:
