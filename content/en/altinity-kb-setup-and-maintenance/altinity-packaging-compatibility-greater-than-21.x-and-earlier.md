@@ -1,8 +1,8 @@
 ---
-title: "Altinity packaging compatibility &gt;21.x and earlier"
-linkTitle: "Altinity packaging compatibility &gt;21.x and earlier"
+title: "Altinity packaging compatibility >21.x and earlier"
+linkTitle: "Altinity packaging compatibility >21.x and earlier"
 description: >
-    Altinity packaging compatibility &gt;21.x and earlier
+    Altinity packaging compatibility >21.x and earlier
 ---
 ## Working with Altinity & Yandex packaging together
 
