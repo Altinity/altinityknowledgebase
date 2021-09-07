@@ -11,7 +11,7 @@ Important things to know:
 3. Depending on the place where that conversion happened rules of different timezones may be applied.
 4. You can check server timezone using `SELECT timezone()`
 5. clickhouse-client also by default tries to use server timezone (see also `--use_client_time_zone` flag)
-6. If you want you can store the timezone name inside the data type, in that case, timestamp &lt;-&gt; human-readable time rules of that timezone will be applied.
+6. If you want you can store the timezone name inside the data type, in that case, timestamp <-> human-readable time rules of that timezone will be applied.
 
 ```sql
 SELECT

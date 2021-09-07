@@ -23,4 +23,4 @@ Default comression is LZ4 [https://clickhouse.tech/docs/en/operations/server-con
 
 These TTL rules recompress data after 1 and 6 months.
 
-CODEC(Delta, Default) -- **Default** means to use default compression (LZ4 -&gt; ZSTD1 -&gt; ZSTD6) in this case.
+CODEC(Delta, Default) -- **Default** means to use default compression (LZ4 -> ZSTD1 -> ZSTD6) in this case.

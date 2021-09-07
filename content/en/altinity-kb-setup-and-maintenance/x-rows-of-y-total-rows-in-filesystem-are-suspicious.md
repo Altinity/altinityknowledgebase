@@ -12,7 +12,7 @@ ClickHouse has a registry of parts in ZooKeeper.
 
 And during the start ClickHouse compares that list of parts on a local disk is consistent with a list in ZooKeeper. If the lists are too different ClickHouse denies to start because it could be an issue with settings, wrong Shard or wrong Replica macros. But this safe-limiter throws an exception if the difference is more 50% (in rows).
 
-In your case the table is very small and the difference &gt;50% ( 100.00 vs 150.00 ) is only a single part mismatch, which can be the result of hard restart.
+In your case the table is very small and the difference >50% ( 100.00 vs 150.00 ) is only a single part mismatch, which can be the result of hard restart.
 
 ```sql
 SELECT * FROM system.merge_tree_settings WHERE name = 'replicated_max_ratio_of_wrong_parts'

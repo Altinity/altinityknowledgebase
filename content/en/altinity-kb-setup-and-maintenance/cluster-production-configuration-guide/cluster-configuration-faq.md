@@ -35,4 +35,4 @@ See [altinity-kb-clickhouse-client]({{<ref "altinity-kb-clickhouse-client" >}})
 
 ## I Can’t Connect From Other Hosts.  What do I do?
 
-Check the &lt;listen&gt; settings in config.xml. Verify that the connection can connect on both IPV4 and IPV6.
+Check the <listen> settings in config.xml. Verify that the connection can connect on both IPV4 and IPV6.

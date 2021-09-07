@@ -57,7 +57,7 @@ Code: 209, e.displayText() = DB::NetException: Timeout: connect timed out: 192.0
 ```
 
 1. Using remote(...) table function with secure TCP port (default values is 9440). There is remoteSecure() function for that.  
-2. High (&gt;50ms) ping between servers, values for `connect_timeout_with_failover_ms,`  `connect_timeout_with_failover_secure_ms` need's to be adjusted accordingly.  
+2. High (>50ms) ping between servers, values for `connect_timeout_with_failover_ms,`  `connect_timeout_with_failover_secure_ms` need's to be adjusted accordingly.  
 
 Default values:
 
