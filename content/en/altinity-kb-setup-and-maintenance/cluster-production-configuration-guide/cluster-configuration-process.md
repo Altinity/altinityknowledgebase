@@ -198,7 +198,7 @@ The following are recommended Best Practices when it comes to setting up a Click
 </yandex>
 ```
 
-1. Some parts of configuration will contain repeated elements (like allowed ips for all the users). To avoid repeating that - use substitutions file. By default its /etc/metrika.xml, but you can change it for example to /etc/clickhouse-server/substitutions.xml with the &lt;include_from&gt; section of the main config. Put the repeated parts into substitutions file, like this:
+1. Some parts of configuration will contain repeated elements (like allowed ips for all the users). To avoid repeating that - use substitutions file. By default its /etc/metrika.xml, but you can change it for example to /etc/clickhouse-server/substitutions.xml with the <include_from> section of the main config. Put the repeated parts into substitutions file, like this:
 
 ```markup
 <?xml version="1.0"?>
@@ -221,10 +221,10 @@ This way you have full flexibility; you’re not limited to the settings describ
 
 Other configurations that should be evaluated:
 
-* &lt;listen&gt; in config.xml: Determines which IP addresses and ports the ClickHouse servers listen for incoming communications.
-* &lt;max_memory_..&gt; and &lt;max_bytes_before_external_...&gt; in users.xml. These are part of the profile &lt;default&gt;.
-* &lt;max_execution_time&gt;
-* &lt;log_queries&gt;
+* <listen> in config.xml: Determines which IP addresses and ports the ClickHouse servers listen for incoming communications.
+* <max_memory_..> and <max_bytes_before_external_...> in users.xml. These are part of the profile <default>.
+* <max_execution_time>
+* <log_queries>
 
 The following extra debug logs should be considered:
 

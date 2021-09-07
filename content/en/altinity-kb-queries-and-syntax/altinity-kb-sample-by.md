@@ -10,7 +10,7 @@ So that works this way:
 
 1. ClickHouse does partition pruning based on `WHERE` conditions.
 2. For every partition, it picks a columns ranges (aka 'marks' / 'granulas') based on primary key conditions.
-3. Here the sampling logic is applied: a) in case of `SAMPLE k` (`k` in `0..1` range) it adds conditions `WHERE sample_key < k * max_int_of_sample_key_type` b) in case of `SAMPLE k OFFSET m` it adds conditions `WHERE sample_key BETWEEN m * max_int_of_sample_key_type AND (m + k) * max_int_of_sample_key_type`c) in case of `SAMPLE N` (N&gt;1) if first estimates how many rows are inside the range we need to read and based on that convert it to 3a case (calculate k based on number of rows in ranges and desired number of rows)
+3. Here the sampling logic is applied: a) in case of `SAMPLE k` (`k` in `0..1` range) it adds conditions `WHERE sample_key < k * max_int_of_sample_key_type` b) in case of `SAMPLE k OFFSET m` it adds conditions `WHERE sample_key BETWEEN m * max_int_of_sample_key_type AND (m + k) * max_int_of_sample_key_type`c) in case of `SAMPLE N` (N>1) if first estimates how many rows are inside the range we need to read and based on that convert it to 3a case (calculate k based on number of rows in ranges and desired number of rows)
 4. on the data returned by those other conditions are applied (so here the number of rows can be decreased here)
 
 [Source Code](https://github.com/ClickHouse/ClickHouse/blob/92c937db8b50844c7216d93c5c398d376e82f6c3/src/Storages/MergeTree/MergeTreeDataSelectExecutor.cpp#L355)

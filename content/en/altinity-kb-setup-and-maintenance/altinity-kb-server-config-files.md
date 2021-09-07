@@ -114,9 +114,9 @@ All users settings don’t need server restart but applied on connect. User need
 
 Most of server settings applied only on a server start, except sections:
 
-1. &lt;remote_servers&gt; (cluster config)
-2. &lt;dictionaries&gt; (ext.dictionaries)
-3. &lt;max_table_size_to_drop&gt; & &lt;max_partition_size_to_drop&gt;
+1. <remote_servers> (cluster config)
+2. <dictionaries> (ext.dictionaries)
+3. <max_table_size_to_drop> & <max_partition_size_to_drop>
 
 ## Dictionaries
 

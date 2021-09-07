@@ -11,7 +11,7 @@ ClickHouse will use all available hardware to maximize performance. So the more 
 * Minimum Hardware: 4-core CPU with support of SSE4.2, 16 Gb RAM, 1Tb HDD.
   * Recommended for development and staging environments.
   * SSE4.2 is required, and going below 4 Gb of RAM is not recommended.
-* Recommended Hardware: &gt;=16-cores, &gt;=64Gb RAM, HDD-raid or SSD.
+* Recommended Hardware: >=16-cores, >=64Gb RAM, HDD-raid or SSD.
   * For processing up to hundreds of millions / billions of rows.
 
 For clouds: disk throughput is the more important factor compared to IOPS. Be aware of burst / baseline disk speed difference.

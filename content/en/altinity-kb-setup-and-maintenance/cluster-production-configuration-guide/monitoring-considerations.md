@@ -103,7 +103,7 @@ The following health checks should be monitored:
     </tr>
     <tr>
       <td style="text-align:left">Some replication tasks are stuck</td>
-      <td style="text-align:left">select count()from system.replication_queuewhere num_tries &gt; 100</td>
+      <td style="text-align:left">select count()from system.replication_queuewhere num_tries > 100</td>
       <td
       style="text-align:left">High</td>
     </tr>

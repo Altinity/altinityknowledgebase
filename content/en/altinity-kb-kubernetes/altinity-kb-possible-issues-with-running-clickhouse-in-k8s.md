@@ -19,7 +19,7 @@ There is two ways, how you can get access to data:
 3. Unclear restart which produced broken files and/or state on disk is differs too much from state in zookeeper for replicated tables. Fix: Create `force_restore_data` flag.
 4. Wrong file permission for ClickHouse files in pod. Fix: Use chown to set right ownership for files and directories.
 5. Errors in ClickHouse table schema prevents ClickHouse from start. Fix: Rename problematic `table.sql` scripts to `table.sql.bak`
-6. Occasional failure of distributed queries because of wrong user/password. Due nature of k8s with dynamic ip allocations, it's possible that ClickHouse would cache wrong ip-&gt; hostname combination and disallow connections because of mismatched hostname. Fix: run `SYSTEM DROP DNS CACHE;` `<disable_internal_dns_cache>1</disable_internal_dns_cache>` in config.xml.
+6. Occasional failure of distributed queries because of wrong user/password. Due nature of k8s with dynamic ip allocations, it's possible that ClickHouse would cache wrong ip-> hostname combination and disallow connections because of mismatched hostname. Fix: run `SYSTEM DROP DNS CACHE;` `<disable_internal_dns_cache>1</disable_internal_dns_cache>` in config.xml.
 
 Caveats:
 
