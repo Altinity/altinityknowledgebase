@@ -1,3 +1,10 @@
+---
+title: "differential backups using clickhouse-backup"
+linkTitle: "differential backups using clickhouse-backup"
+description: >
+    differential backups using clickhouse-backup
+---
+### differential backups using clickhouse-backup
 
 1. Download the latest clickhouse-backup for your platform https://github.com/AlexAkulov/clickhouse-backup/releases
 
