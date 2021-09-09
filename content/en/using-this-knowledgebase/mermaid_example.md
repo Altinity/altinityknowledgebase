@@ -12,13 +12,13 @@ To add a Mermaid chart, encase the Mermaid code between {{</* mermaid */>}}, as 
 
 
 ```text
-{{</* mermaid */>}}
+{{</*mermaid*/>}}
 graph TD;
   A-->B;
   A-->C;
   B-->D;
   C-->D;
-{{</* /mermaid */>}}
+{{</*/mermaid*/>}}
 ```
 
 And it renders as so:
