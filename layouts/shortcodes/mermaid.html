@@ -1,3 +1,12 @@
+<script async type="application/javascript" src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js">
+    var config = {
+      startOnLoad:true,
+      theme:'{{ if .Get "theme" }}{{ .Get "theme" }}{{ else }}dark{{ end }}',
+      align:'{{ if .Get "align" }}{{ .Get "align" }}{{ else }}center{{ end }}'
+    };
+    mermaid.initialize(config);
+</script>
+  
 <div class="mermaid">
-    {{.Inner}}
-  </div>
+{{.Inner}}
+</div>
