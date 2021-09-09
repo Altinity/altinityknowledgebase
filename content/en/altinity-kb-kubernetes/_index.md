@@ -3,6 +3,7 @@ title: "Kubernetes"
 linkTitle: "Kubernetes"
 description: >
     Kubernetes
+weight: 8
 ---
 ## clickhouse-backup
 

@@ -11,6 +11,8 @@ cascade:
 
 This knowledge base is supported by [Altinity](http://altinity.com/) engineers to provide quick answers to common questions and issues involving ClickHouse.
 
+The [Altinity Knowledge Base is licensed under Apache 2.0](https://github.com/Altinity/altinityknowledgebase/blob/main/LICENSE), and available to all ClickHouse users.  The information and code samples are available freely and distributed under the Apache 2.0 license.
+
 For more detailed information about Altinity services support, see the following:
 
 * [Altinity](https://altinity.com/): Providers of Altinity.Cloud, providing SOC-2 certified support for ClickHouse.
