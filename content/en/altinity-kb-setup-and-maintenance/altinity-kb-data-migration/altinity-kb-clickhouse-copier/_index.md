@@ -29,3 +29,14 @@ If you want to run another instance of clickhouse-copier for the same task, you 
 The number of simultaneously running instances is controlled be the `max_workers` parameter in your task configuration file. If you run more workers superfluous workers will sleep and log messages like this:
 
 `<Debug> ClusterCopier: Too many workers (1, maximum 1). Postpone processing`
+
+### See also
+
+* https://clickhouse.tech/docs/en/operations/utilities/clickhouse-copier/
+* Никита Михайлов. Кластер ClickHouse ctrl-с ctrl-v. HighLoad++ Весна 2021 [slides]( https://raw.githubusercontent.com/ClickHouse/clickhouse-presentations/master/highload2021/copier.pdf)
+* 21.7 have a huge bulk of fixes / improvements. https://github.com/ClickHouse/ClickHouse/pull/23518
+* https://altinity.com/blog/2018/8/22/clickhouse-copier-in-practice 
+* http://www.clickhouse.com.cn/topic/601fb322b06e5e0f21ba79e1
+* https://github.com/getsentry/snuba/blob/master/docs/clickhouse-copier.md
+* https://hughsite.com/post/clickhouse-copier-usage.html
+* https://www.jianshu.com/p/c058edd664a6
