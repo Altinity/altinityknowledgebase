@@ -21,11 +21,11 @@ EXPLAIN AST
 SELECT ...
 ```
 
-AST - abstract syntax tree
-SYNTAX - query text after AST-level optimizations
-PLAN - query execution plan
-PIPELINE - query execution pipeline
-ESTIMATE - https://github.com/ClickHouse/ClickHouse/pull/26131 (since 21.9)
+* `AST` - abstract syntax tree
+* `SYNTAX` - query text after AST-level optimizations
+* `PLAN` - query execution plan
+* `PIPELINE` - query execution pipeline
+* `ESTIMATE` - https://github.com/ClickHouse/ClickHouse/pull/26131 (since 21.9)
 
 
 References
