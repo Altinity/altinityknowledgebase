@@ -30,6 +30,6 @@ SELECT ...
 
 References
 * https://clickhouse.tech/docs/en/sql-reference/statements/explain/
-* [https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup47/explain.pdf](https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup47/explain.pdf)
+* Nikolai Kochetov from Yandeх. EXPLAIN query in ClickHouse. [slides](https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup47/explain.pdf), [video](https://youtu.be/ckChUkC3Pns?t=1387)
 * [https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup39/query-profiling.pdf](https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup39/query-profiling.pdf)
 * https://github.com/ClickHouse/ClickHouse/issues/28847
