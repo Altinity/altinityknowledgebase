@@ -4,7 +4,7 @@ linkTitle: "Google S3 (GCS)"
 description: >
     "Google S3 GCS"
 ---
-GCS with the table function - seems to work correctly!
+GCS with the table function - seems to work correctly for simple scenarios.
 
 Essentially you can follow the steps from the [Migrating from Amazon S3 to Cloud Storage](https://cloud.google.com/storage/docs/migrating#migration-simple).
 
@@ -13,3 +13,6 @@ Essentially you can follow the steps from the [Migrating from Amazon S3 to Cloud
 3. Generate a HMAC key for the account, can be done in settings -> interoperability, in the section for user account access keys.
 4. In ClickHouse, replace the S3 bucket endpoint with the GCS bucket endpoint This must be done with the path-style GCS endpoint: `https://storage.googleapis.com/BUCKET_NAME/OBJECT_NAME`.
 5. Replace the aws access key id and aws secret access key with the corresponding parts of the HMAC key.
+
+
+s3 Disk on the top of GCS and writing to GSC may be NOT working because GCS don't support some of bulk S3 API calls, see https://github.com/ClickHouse/ClickHouse/issues/24246 
