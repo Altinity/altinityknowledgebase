@@ -9,7 +9,9 @@ description: >-
 ## Replication using MaterializeMySQL
 
 https://clickhouse.tech/docs/en/engines/database-engines/materialized-mysql/
+
 https://translate.google.com/translate?sl=auto&tl=en&u=https://www.jianshu.com/p/d0d4306411b3
+
 https://raw.githubusercontent.com/ClickHouse/clickhouse-presentations/master/meetup47/materialize_mysql.pdf
 
 It reads mysql binlog directly and transform queries into something which clickhouse can support. Supports updates and deletes (under the hood implemented via something like ReplacingMergeTree with enforced FINAL and 'deleted' flag). Status is 'experimental', there are quite a lot of known limitations and issues, but some people use it. The original author of that went to another project, and the main team don't have a lot of resource to improve that for now (more important thing in the backlog)
@@ -23,7 +25,7 @@ Please remeber that currently Kafka engine supports only at-least-once delivery 
 
 It's used by several companies, quite nice & flexible. But initial setup may require some efforts.
 
-2a.Same as above but using https://maxwells-daemon.io/ instead of debezium.
+### Same as above but using https://maxwells-daemon.io/ instead of debezium.
 
 Have no experience / feedback there, but should be very similar to debezium.
 
