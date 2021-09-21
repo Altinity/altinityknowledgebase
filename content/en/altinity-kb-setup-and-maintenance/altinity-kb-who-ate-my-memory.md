@@ -60,3 +60,22 @@ Merges: 66.33 MiB	Processes: 41.91 MiB
 Merges: 66.49 MiB	Processes: 37.13 MiB
 Merges: 67.78 MiB	Processes: 37.13 MiB
 ```
+
+```bash
+echo "         Merges      Processes       PrimaryK       TempTabs          Dicts"; \
+for i in `seq 1 600`; do clickhouse-client --empty_result_for_aggregation_by_empty_set=0  -q "select \
+(select leftPad(formatReadableSize(sum(memory_usage)),15, ' ') from system.merges)||
+(select leftPad(formatReadableSize(sum(memory_usage)),15, ' ') from system.processes)||
+(select leftPad(formatReadableSize(sum(primary_key_bytes_in_memory_allocated)),15, ' ') from system.parts)|| \
+(select leftPad(formatReadableSize(sum(total_bytes)),15, ' ') from system.tables \
+ WHERE engine IN ('Memory','Set','Join'))||
+(select leftPad(formatReadableSize(sum(bytes_allocated)),15, ' ') FROM system.dictionaries)
+"; sleep 3;  done 
+
+         Merges      Processes       PrimaryK       TempTabs          Dicts
+         0.00 B         0.00 B      21.36 MiB       1.58 GiB     911.07 MiB
+         0.00 B         0.00 B      21.36 MiB       1.58 GiB     911.07 MiB
+         0.00 B         0.00 B      21.35 MiB       1.58 GiB     911.07 MiB
+         0.00 B         0.00 B      21.36 MiB       1.58 GiB     911.07 MiB
+
+```
