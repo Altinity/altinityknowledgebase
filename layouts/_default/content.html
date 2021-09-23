@@ -1,6 +1,6 @@
 <div class="td-content">
 	<h1>{{ .Title }}</h1>
-    <div class="lead">{{ with .Params.description }}{{ . | markdownify }}{{ end }}	
+    <div class="lead">{{ if ne (.Title|markdownify) (.Params.description|markdownify) }}{{ with .Params.description }}{{ . | markdownify }}{{ end }}{{ end }}
 	{{ if .Date }} <br />{{ .Date.Format "January 2, 2006" }} {{ end }}</div>
 	
 	{{ if (and (not .Params.hide_readingtime) (.Site.Params.ui.readingtime.enable)) }}

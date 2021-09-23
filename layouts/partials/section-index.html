@@ -22,7 +22,7 @@
                     <h5>
                         <a href="{{ .RelPermalink }}">{{- .Title -}}</a>
                     </h5>
-                    <p>{{ .Description | markdownify }}
+                    <p>{{ if ne (.Description | markdownify) (.Title | markdownify) }}{{ .Description | markdownify }}{{ end }}
                         {{ if .Date }}
                         <span class="text-muted">({{- .Date.Format "January 2, 2006" -}})</span>
                         {{ end }}
