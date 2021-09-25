@@ -36,7 +36,7 @@ See details in:
 ## clickhouse-copier
 
 Pros:
-* Possible to do **some** changes schema.
+* Possible to do **some** changes in schema.
 * Needs only access to ClickHouse TCP port.
 * It’s possible to change the distribution of data between shards.
 * Suitable for large clusters: many clickhouse-copier can execute the same task together.
