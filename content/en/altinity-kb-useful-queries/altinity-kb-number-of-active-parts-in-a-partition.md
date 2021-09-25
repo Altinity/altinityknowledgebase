@@ -13,3 +13,5 @@ Merge scheduler selects parts by own algorithm based on the current node workloa
 CH merge scheduler balances between a big number of parts and a wasting resources on merges.
 
 Merges are CPU/DISK IO expensive. If CH will merge every new part then all resources will be spend on merges and will no resources remain on queries (selects ).
+
+CH will not merge parts with a combined size greater than 100 GB.
