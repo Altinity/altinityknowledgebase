@@ -113,7 +113,7 @@ It's happens due of missing tzdata package in migrate/migrate docker image of go
 There is 2 possible solutions:
 
 1. You can build your own golang-migrate image from official with tzdata package.
-2. If you using it as part of your CI you can add installing tzdata package as one of step in ci before using golang-migrate.
+2. If you using it as part of your CI you can add installing tzdata package as one of step in CI before using golang-migrate.
 
 Related GitHub issues:
 [https://github.com/golang-migrate/migrate/issues/494](https://github.com/golang-migrate/migrate/issues/494)

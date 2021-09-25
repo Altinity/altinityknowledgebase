@@ -25,6 +25,6 @@ More safer way:
 
 * Shutdown server.
 
-`SYSTEM SHUTDOWN` query doesn’t wait until query completion and tries to kill all queries immediately after receiving signal, even if there is setting `shutdown_wait_unfinished`.
+`SYSTEM SHUTDOWN` query doesn’t wait until query completion and tries to kill all queries immediately after receiving signal, even if setting `shutdown_wait_unfinished` being used.
 
 [https://github.com/ClickHouse/ClickHouse/blob/master/programs/server/Server.cpp\#L1353](https://github.com/ClickHouse/ClickHouse/blob/master/programs/server/Server.cpp#L1353)
