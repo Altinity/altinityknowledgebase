@@ -37,7 +37,7 @@ description: >
 
 ### GP2
 
-In usual conditions ClickHouse being limited by throughput of volumes only and amount of provided IOPS doesn't make any big difference for performance. So the most native choice for clickhouse is gp2 and gp3 volumes.
+In usual conditions ClickHouse being limited by throughput of volumes and amount of provided IOPS doesn't make any big difference for performance starting from a certain number. So the most native choice for clickhouse is gp2 and gp3 volumes.
 
 ‌Because gp2 volumes have a hard limit of 250 MiB/s per volume (for volumes bigger than 334 GB), it usually makes sense to split one big volume in multiple smaller volumes larger than 334GB in order to have maximum possible throughput.
 
@@ -47,7 +47,12 @@ It's pretty straightforward to set up a ClickHouse for using multiple EBS volume
 
 ### GP3
 
-It's a new type of volume, which is 20% cheaper than gp2 per GB-month and has lower free throughput: only 125 MB/s vs 250 MB/s. But you can buy additional throughput for volume and gp3 pricing became comparable with multiple gp2 volumes starting from 1000-1500GB size.
+It's a new type of volume, which is 20% cheaper than gp2 per GB-month and has lower free throughput: only 125 MB/s vs 250 MB/s. But you can buy additional throughput for volume and gp3 pricing became comparable with multiple gp2 volumes starting from 1000-1500GB size. It also works better if most of your queries read only one or several parts, because in that case you are not being limited by performance of a single ebs disk, as parts can be located only on one disk at once.
+
+For best performance, it's suggested to buy:
+* 7000 IOPS
+* Throughput up to the limit of your EC2 instance
+
 
 [https://altinity.com/blog/2019/11/27/amplifying-clickhouse-capacity-with-multi-volume-storage-part-1](https://altinity.com/blog/2019/11/27/amplifying-clickhouse-capacity-with-multi-volume-storage-part-1)
 
