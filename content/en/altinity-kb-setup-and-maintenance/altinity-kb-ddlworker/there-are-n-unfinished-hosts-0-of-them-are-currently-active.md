@@ -85,7 +85,7 @@ SYSTEM START REPLICATION QUEUES;
 
 [https://clickhouse.tech/docs/en/sql-reference/statements/system/\#query_language-system-drop-replica](https://clickhouse.tech/docs/en/sql-reference/statements/system/\#query_language-system-drop-replica)
 
- Task were removed from DDL queue but left it Replicated\*MergeTree table queue.
+Task were removed from DDL queue, but left in Replicated\*MergeTree table queue.
 
 ```bash
 grep -C 40 "ddl_entry" /var/log/clickhouse-server/clickhouse-server*.log
@@ -109,8 +109,11 @@ grep -C 40 "ddl_entry" /var/log/clickhouse-server/clickhouse-server*.log
 /var/log/clickhouse-server/clickhouse-server.log:2021.05.04 12:41:29.053951 [ 599 ] {} <Debug> DDLWorker: Processing task query-0000211211 (ALTER TABLE db.table_local ON CLUSTER `all-replicated` DELETE WHERE id = 1)
 ```
 
-So context of this problem is:
-Constant pressure of cheap ON CLUSTER DELETE queries.
-One replica was down for certain amount of time.
-Because of constant pressure on DDL queue, it purge old records due `task_max_lifetime` setting.
-When lagging replica
+Context of this problem is:
+* Constant pressure of cheap ON CLUSTER DELETE queries.
+* One replica was down for a long amount of time (multiple days).
+* Because of pressure on the DDL queue, it purged old records due to the `task_max_lifetime` setting.
+* When a lagging replica comes up, it's fail's execute old queries from DDL queue, because at this point they were purged from it.
+
+Solution:
+* Reload/Restore this replica from scratch.
