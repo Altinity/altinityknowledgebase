@@ -6,7 +6,7 @@ description: >
 ---
 ## Settings
 
-### allow_suspicious_low_cardinality_types
+#### allow_suspicious_low_cardinality_types
 
 In CREATE TABLE statement allows specifying LowCardinality modifier for types of small fixed size (8 or less). Enabling this may increase merge times and memory consumption.
 

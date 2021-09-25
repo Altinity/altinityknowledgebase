@@ -46,3 +46,14 @@ Sampling is:
   * You can use _sample_factor virtual column to determine the relative sample factor; SAMPLE 1/10 OFFSET 1/10
 * Select second 1/10 of all possible sample keys; SET max_parallel_replicas = 3
 * Select from multiple replicas of each shard in parallel;
+
+## SAMPLE emulation via WHERE condition
+
+Sometimes, it's easier to emulate sampling via conditions in WHERE clause instead of using SAMPLE key.
+
+```
+SELECT count() FROM table WHERE ... AND cityHash64(some_high_card_key) % 10 = 0; -- Deterministic
+SELECT count() FROM table WHERE ... AND rand() % 10 = 0; -- Non-deterministic
+```
+
+ClickHouse will read more data from disk compared to an example with a good SAMPLE key, but it's more universal and can be used if you can't change table ORDER BY key.
