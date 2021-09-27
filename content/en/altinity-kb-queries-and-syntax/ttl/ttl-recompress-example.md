@@ -4,6 +4,10 @@ linkTitle: "TTL Recompress example"
 description: >
     TTL Recompress example
 ---
+
+
+## Example how to create a table and define recompression rules
+
 ```sql
 CREATE TABLE hits
 (
@@ -25,7 +29,7 @@ These TTL rules recompress data after 1 and 6 months.
 
 CODEC(Delta, Default) -- **Default** means to use default compression (LZ4 -> ZSTD1 -> ZSTD6) in this case.
 
-# Change existing table 
+## Example how to define recompression rules for an existing table 
 
 ```sql
 CREATE TABLE hits
