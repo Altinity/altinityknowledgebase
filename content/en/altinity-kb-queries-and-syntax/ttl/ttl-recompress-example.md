@@ -24,3 +24,25 @@ Default comression is LZ4 [https://clickhouse.tech/docs/en/operations/server-con
 These TTL rules recompress data after 1 and 6 months.
 
 CODEC(Delta, Default) -- **Default** means to use default compression (LZ4 -> ZSTD1 -> ZSTD6) in this case.
+
+# Change existing table 
+
+```sql
+CREATE TABLE hits
+(
+    `banner_id` UInt64,
+    `event_time` DateTime CODEC(Delta, LZ4),
+    `c_name` String,
+    `c_cost` Float64
+)
+ENGINE = MergeTree
+PARTITION BY toYYYYMM(event_time)
+ORDER BY (banner_id, event_time);
+
+ALTER TABLE hits 
+  modify column event_time DateTime CODEC(Delta, Default),
+  modify TTL event_time + toIntervalMonth(1) RECOMPRESS CODEC(ZSTD(1)),
+       event_time + toIntervalMonth(6) RECOMPRESS CODEC(ZSTD(6));
+```sql
+
+All columns have implicite default compression from server config, except `event_time`, that's why need to change to compression to `Default` for this column otherwise it won't be recompressed.
