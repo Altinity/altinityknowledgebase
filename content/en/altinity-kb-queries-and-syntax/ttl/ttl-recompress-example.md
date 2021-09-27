@@ -43,6 +43,6 @@ ALTER TABLE hits
   modify column event_time DateTime CODEC(Delta, Default),
   modify TTL event_time + toIntervalMonth(1) RECOMPRESS CODEC(ZSTD(1)),
        event_time + toIntervalMonth(6) RECOMPRESS CODEC(ZSTD(6));
-```sql
+```
 
 All columns have implicite default compression from server config, except `event_time`, that's why need to change to compression to `Default` for this column otherwise it won't be recompressed.
