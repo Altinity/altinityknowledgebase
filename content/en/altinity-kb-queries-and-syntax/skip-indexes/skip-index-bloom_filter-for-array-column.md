@@ -6,7 +6,7 @@ description: >
 ---
 tested with 20.8.17.25
 
-[https://clickhouse.tech/docs/en/engines/table-engines/mergetree-family/mergetree/\#table_engine-mergetree-data_skipping-indexes](https://clickhouse.tech/docs/en/engines/table-engines/mergetree-family/mergetree/\#table_engine-mergetree-data_skipping-indexes)
+[https://clickhouse.tech/docs/en/engines/table-engines/mergetree-family/mergetree/\#table_engine-mergetree-data_skipping-indexes](https://clickhouse.tech/docs/en/engines/table-engines/mergetree-family/mergetree/#table_engine-mergetree-data_skipping-indexes)
 
 ### Let's create test data
 
