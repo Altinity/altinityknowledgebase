@@ -23,6 +23,7 @@ Important things:
 * `--ulimit nofile=262144:262144`
 * You can also set on some linux capabilities to enable some of extra features of ClickHouse (not obligatory): `SYS_PTRACE NET_ADMIN IPC_LOCK SYS_NICE`
 * you may also mount in the folder `/docker-entrypoint-initdb.d/` - all SQL or bash scripts there will be executed during container startup.
+* if you use cgroup limits - it may misbehave https://github.com/ClickHouse/ClickHouse/issues/2261 (set up `<max_server_memory_usage>` manually) 
 * there are several ENV switches, see: [https://github.com/ClickHouse/ClickHouse/blob/master/docker/server/entrypoint.sh](https://github.com/ClickHouse/ClickHouse/blob/master/docker/server/entrypoint.sh)
 
 TLDR version: use it as a starting point:
