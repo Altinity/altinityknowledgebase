@@ -6,8 +6,6 @@ description: >-
      Logging configuration and issues
 ---
 
-# Logging
-
 Q. I get errors:
 
 ```bash
@@ -25,7 +23,7 @@ File not found: /var/log/clickhouse-server/clickhouse-server.log.8.gz.
 5. DB::OwnSplitChannel::log(Poco::Message const&) @ 0x8682e41 in /usr/bin/clickhouse
 ```
 
-�A. Check if you have proper permission to a log files folder, and enough disk space \(& inode numbers\) on the block device used for logging.
+A. Check if you have proper permission to a log files folder, and enough disk space \(& inode numbers\) on the block device used for logging.
 
 ```bash
 ls -la /var/log/clickhouse-server/
@@ -33,6 +31,6 @@ df -Th
 df -Thi
 ```
 
-�Q. How to configure logging in clickhouse?
+Q. How to configure logging in clickhouse?
 
 A. See [https://github.com/ClickHouse/ClickHouse/blob/ceaf6d57b7f00e1925b85754298cf958a278289a/programs/server/config.xml\#L9-L62](https://github.com/ClickHouse/ClickHouse/blob/ceaf6d57b7f00e1925b85754298cf958a278289a/programs/server/config.xml#L9-L62)
