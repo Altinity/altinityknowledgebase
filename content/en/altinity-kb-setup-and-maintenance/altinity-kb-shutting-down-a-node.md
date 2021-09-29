@@ -10,7 +10,7 @@ More safer way:
 
 * Remove server (which is going to be disabled) from remote_server section of config.xml on all servers.
 * Remove server from load balancer, so new queries wouldn’t hit it.
-* Detach Kafka / Rabbit tables (if used), and Materialized* databases.
+* Detach Kafka / Rabbit / Buffer tables (if used), and Materialized* databases.
 * Wait until all already running queries would finish execution on it.
   It’s possible to check it via query:
 
