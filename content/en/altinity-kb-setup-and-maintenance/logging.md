@@ -5,7 +5,6 @@ weight: 100
 description: >-
      Logging configuration and issues
 ---
-
 Q. I get errors:
 
 ```bash
