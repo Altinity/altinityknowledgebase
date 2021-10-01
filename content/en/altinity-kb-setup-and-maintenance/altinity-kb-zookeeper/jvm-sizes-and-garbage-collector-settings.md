@@ -9,13 +9,13 @@ description: >
 use fresh Java version (11 or newer), disable swap and set up (for 4 Gb node):
 
 ```bash
-JAVA_OPTS="-Xms3G -Xmx3G -XX:+AlwaysPreTouch -Djute.maxbuffer=8388608 -XX:MaxGCPauseMillis=50"
+JAVA_OPTS="-Xms512m -Xmx3G -XX:+AlwaysPreTouch -Djute.maxbuffer=8388608 -XX:MaxGCPauseMillis=50"
 ```
 
 If you have a node with more RAM - change it accordingly, for example for 8Gb node:
 
 ```bash
-JAVA_OPTS="-Xms7G -Xmx7G -XX:+AlwaysPreTouch -Djute.maxbuffer=8388608 -XX:MaxGCPauseMillis=50"
+JAVA_OPTS="-Xms512m -Xmx7G -XX:+AlwaysPreTouch -Djute.maxbuffer=8388608 -XX:MaxGCPauseMillis=50"
 ```
 
 ## Details
@@ -30,13 +30,17 @@ On older JVM version (before 10) you may want to make some tuning to decrease pa
 
 Set the Java heap size smaller than available RAM size on the node. This is very important to avoid swapping, which will seriously degrade ZooKeeper performance. Be conservative - use a maximum heap size of 3GB for a 4GB machine.
 
-1. Set min (`Xms`) and max (`Xmx`) heap size to same value to avoid resizing. Add `XX:+AlwaysPreTouch` flag as well to load the memory pages into memory at the start of the zookeeper.
+1. Add `XX:+AlwaysPreTouch` flag as well to load the memory pages into memory at the start of the zookeeper.
+
+1. Set min (`Xms`) heap size to the values like 512Mb, or even to the same value as max (`Xmx`) to avoid resizing and returning the RAM to OS. Add `XX:+AlwaysPreTouch` flag as well to load the memory pages into memory at the start of the zookeeper.
 
 1. `MaxGCPauseMillis=50` (by default 200) - the 'target' acceptable pause for garbage collection (milliseconds)
 
 1. `jute.maxbuffer` limits the maximum size of znode content. By default it's 1Mb. In some usecases (lot of partitions in table) ClickHouse may need to create bigger znodes.
 
 1. (optional) enable GC logs: `-Xloggc:/path_to/gc.log`
+
+
 
 ## Zookeeper configurarion used by Yandex Metrika (from 2017)
 
