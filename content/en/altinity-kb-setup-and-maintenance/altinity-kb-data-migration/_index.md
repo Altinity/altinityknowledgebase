@@ -8,6 +8,7 @@ description: >
 
 Pros:
 * Data can be inserted into any DBMS.
+
 Cons:
 * Decoding & encoding of common data formats may be slower / require more CPU
 * The data size is usually bigger than ClickHouse formats.
@@ -24,8 +25,9 @@ In contrast: when you use HTTP protocol, the server do encoding/decoding and mor
 Pros:
 * Simple to run.
 * It’s possible to change the schema and distribution of data between shards.
-* It’s possible to copy only some subset of data
+* It’s possible to copy only some subset of data.
 * Needs only access to ClickHouse TCP port.
+
 Cons:
 * Uses CPU / RAM (mostly on the receiver side)
 
@@ -40,8 +42,9 @@ Pros:
 * Needs only access to ClickHouse TCP port.
 * It’s possible to change the distribution of data between shards.
 * Suitable for large clusters: many clickhouse-copier can execute the same task together.
+
 Cons:
-* May create an inconsistent result if source cluster data is changing during the process
+* May create an inconsistent result if source cluster data is changing during the process.
 * Hard to setup.
 * Requires zookeeper.
 * Uses CPU / RAM (mostly on the clickhouse-copier and receiver side)
@@ -62,6 +65,7 @@ See details in:
 
 Pros:
 * Low CPU / RAM usage.
+
 Cons:
 * Table schema should be the same.
 * A lot of manual operations/scripting.
@@ -79,6 +83,7 @@ See details in:
 Pros:
 * Low CPU / RAM usage.
 * Suitable to recover both schema & data for all tables at once.
+
 Cons:
 * Table schema should be the same.
 
@@ -91,7 +96,8 @@ See [https://github.com/AlexAkulov/clickhouse-backup](https://github.com/AlexAku
 ## Fetch from zookeeper path
 
 Pros:
-* Low CPU / RAM usage
+* Low CPU / RAM usage.
+
 Cons:
 * Table schema should be the same.
 * Works only when the source and the destination clickhouse servers share the same zookeeper (without chroot)
@@ -109,6 +115,7 @@ Pros:
 * Simple to setup
 * Data is consistent all the time automatically.
 * Low CPU and network usage.
+
 Cons:
 * Needs to reach both zookeeper client (2181) and ClickHouse replication ports: (`interserver_http_port` or `interserver_https_port`)
 * In case of cluster migration, zookeeper need’s to be migrated too.
