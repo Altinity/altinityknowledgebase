@@ -7,7 +7,7 @@ description: >
 Insert would be atomic only if those conditions met:
 
 * Insert data only in single partition.
-* Numbers of rows is less than `max_insert_block_size`.
+* Numbers of rows is less than `max_insert_block_size` (default is `1048545`) 
 * Table doesn't have Materialized Views (there is no atomicity Table <> MV)
 * For TSV, TKSV, CSV, and JSONEachRow formats, setting `input_format_parallel_parsing=0` is set.
 
