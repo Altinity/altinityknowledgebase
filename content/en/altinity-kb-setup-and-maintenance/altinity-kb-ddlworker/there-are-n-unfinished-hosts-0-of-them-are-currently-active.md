@@ -64,6 +64,23 @@ SELECT name, numChildren as success_nodes FROM system.zookeeper WHERE path = '/c
 -- Latest successfull executed tasks from query_log.
 SELECT query FROM system.query_log WHERE query LIKE '%ddl_entry%' AND type = 2 ORDER BY event_time DESC LIMIT 5;
 
+SELECT
+    FQDN(),
+    *
+FROM clusterAllReplicas('cluster', system.metrics)
+WHERE metric LIKE '%MaxDDLEntryID%'
+
+┌─FQDN()───────────────────┬─metric────────┬─value─┬─description───────────────────────────┐
+│ chi-ab.svc.cluster.local │ MaxDDLEntryID │  1468 │ Max processed DDL entry of DDLWorker. │
+└──────────────────────────┴───────────────┴───────┴───────────────────────────────────────┘
+┌─FQDN()───────────────────┬─metric────────┬─value─┬─description───────────────────────────┐
+│ chi-ab.svc.cluster.local │ MaxDDLEntryID │  1468 │ Max processed DDL entry of DDLWorker. │
+└──────────────────────────┴───────────────┴───────┴───────────────────────────────────────┘
+┌─FQDN()───────────────────┬─metric────────┬─value─┬─description───────────────────────────┐
+│ chi-ab.svc.cluster.local │ MaxDDLEntryID │  1468 │ Max processed DDL entry of DDLWorker. │
+└──────────────────────────┴───────────────┴───────┴───────────────────────────────────────┘
+
+
 -- Information about task execution from logs.
 grep -C 40 "ddl_entry" /var/log/clickhouse-server/clickhouse-server*.log
 ```
