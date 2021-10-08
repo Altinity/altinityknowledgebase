@@ -6,7 +6,7 @@ description: >
 ---
 See
 
-[altinity-kb-how-to-test-different-compression-codecs.md](altinity-kb-how-to-test-different-compression-codecs.md)
+[How to test different compression codecs](altinity-kb-how-to-test-different-compression-codecs.md)
 
 [https://altinity.com/blog/2019/7/new-encodings-to-improve-clickhouse](https://altinity.com/blog/2019/7/new-encodings-to-improve-clickhouse)
 
