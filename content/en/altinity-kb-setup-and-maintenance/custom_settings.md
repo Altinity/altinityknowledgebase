@@ -10,13 +10,13 @@ description: >-
 
 You can not use the cutsom settings in config file 'as is', because clickhouse don't know which datatype should be used to parse it.
 
-```
+```xml
 cat /etc/clickhouse-server/users.d/default_profile.xml 
 <?xml version="1.0"?>
 <yandex>
     <profiles>
         <default>
-     	     <custom_data_version>1</custom_data_version> <!-- will not work! -->
+     	     <custom_data_version>1</custom_data_version> <!-- will not work! see below -->
         </default>
     </profiles>
 </yandex>
@@ -47,13 +47,25 @@ That will end up with the following error:
 ```
 
 To make it work you need to change it an the following way:
-```
+```xml
 cat /etc/clickhouse-server/users.d/default_profile.xml 
 <?xml version="1.0"?>
 <yandex>
     <profiles>
         <default>
             <custom_data_version>UInt64_1</custom_data_version>
+        </default>
+    </profiles>
+</yandex>
+```
+or
+```xml
+cat /etc/clickhouse-server/users.d/default_profile.xml 
+<?xml version="1.0"?>
+<yandex>
+    <profiles>
+        <default>
+            <custom_data_version>'1'</custom_data_version>
         </default>
     </profiles>
 </yandex>
