@@ -8,7 +8,7 @@ Custom settings allows to emulate parameterized views.
 
 You need to enable custom settings and define any prefixes for settings.
 
-```markup
+```xml
 $ cat /etc/clickhouse-server/config.d/custom_settings_prefixes.xml
 <?xml version="1.0" ?>
 <yandex>
@@ -16,21 +16,23 @@ $ cat /etc/clickhouse-server/config.d/custom_settings_prefixes.xml
 </yandex>
 ```
 
-You can also set the default value for user settings in the default section of the user configuration.
-```markup
-$ cat /etc/clickhouse-server/users.xml
+You can also set the default value for user settings in the default section of the user configuration. 
+```xml
+cat /etc/clickhouse-server/users.d/custom_settings_default.xml
 <?xml version="1.0"?>
 <yandex>
-    <!-- Profiles of settings. -->
     <profiles>
-        <!-- Default settings. -->
         <default>
             <my2_category>'hot deals'</my2_category>
-            ...
+        </default>
+    </profiles>
+</yandex>
 ```
+See also: https://kb.altinity.com/altinity-kb-setup-and-maintenance/custom_settings/ 
+
 A server restart is required for the default value to be applied
-```markup
-$ service clickhouse-server restart
+```bash
+$ systemctl restart clickhouse-server
 ```
 
 Now you can set settings as any other settings, and query them using **getSetting()** function.
