@@ -4,12 +4,6 @@ linkTitle: "Server config files"
 description: >
     How to manage server config files in Clickhouse
 ---
-* [Сonfig management (recommended structure)](altinity-kb-server-config-files.md#Serverconfigfiles-Сonfigmanagement%28recommendedstructure%29)
-* [Settings & restart](altinity-kb-server-config-files.md#Serverconfigfiles-Settings&restart)
-* [Dictionaries](altinity-kb-server-config-files.md#Serverconfigfiles-Dictionaries)
-* [incl attribute & metrica.xml](altinity-kb-server-config-files.md#Serverconfigfiles-inclattribute&metrica.xml)
-* [Multiple Clickhouse instances at one host](altinity-kb-server-config-files.md#Serverconfigfiles-MultipleClickhouseinstancesatonehost)
-* [preprocessed_configs](altinity-kb-server-config-files.md#Serverconfigfiles-preprocessed_configs)
 
 ## Сonfig management (recommended structure)
 
