@@ -1,0 +1,12 @@
+{{ $twitterurl := printf "https://twitter.com/intent/tweet?text=%s&url=%s" (htmlEscape .Title ) (htmlEscape .Permalink) }}
+{{ $facebookurl := printf "https://www.facebook.com/sharer/sharer.php?u=%s" (htmlEscape .Permalink) }}
+{{ $linkedinurl := printf "https://www.linkedin.com/shareArticle?mini=true&url=%s&title=%s" (htmlEscape .Permalink) (htmlEscape .Title ) }}
+<div style="color: #888; line-height: 0.5;">
+  <p>&nbsp;</p>
+  <p>Share on Social Media:</p>
+  <span style="display:flex; flex-direction: row; justify-content: space-between; align-items: flex-start; padding-left: 10px; padding-right: 75px;">
+    <a href="{{$twitterurl}}" target="_blank" class="fab fa-twitter"></a>
+    <a target="_blank" href="{{$facebookurl}}" target="_blank" class="fab fa-facebook"></a>
+    <a href="{{$linkedinurl}}"target="_blank" class="fab fa-linkedin"></a>
+  </span>
+</div>
