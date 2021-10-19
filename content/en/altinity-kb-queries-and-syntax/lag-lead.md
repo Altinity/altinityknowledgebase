@@ -38,7 +38,7 @@ SELECT * FROM llexample ORDER BY g,a;
 ```sql
 select g, (arrayJoin(tuple_ll) as ll).1 a, ll.2 prev, ll.3 next
 from (
-select g, arrayZip(  arraySort(groupArray(a)) as aa,
+select g, arrayZip( arraySort(groupArray(a)) as aa,
                     arrayPopBack(arrayPushFront(aa, toDate(0))),
                     arrayPopFront(arrayPushBack(aa, toDate(0))) ) tuple_ll
 from llexample
