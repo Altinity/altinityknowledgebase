@@ -20,5 +20,7 @@ description: >
 * phpMigrations
   * [https://github.com/smi2/phpMigrationsClickhouse](https://github.com/smi2/phpMigrationsClickhouse)
   * [https://habrahabr.ru/company/smi2/blog/317682/](https://habrahabr.ru/company/smi2/blog/317682/)
+* dbmate 
+  * [https://github.com/amacneil/dbmate#clickhouse](https://github.com/amacneil/dbmate#clickhouse)
 
 know more?
