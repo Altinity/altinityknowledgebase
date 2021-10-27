@@ -42,6 +42,19 @@ Some random example:
 </yandex>
 ```
 
+### SASL/SCRAM
+
+```markup
+<yandex>
+  <kafka>
+    <security_protocol>sasl_ssl</security_protocol>
+    <sasl_mechanism>SCRAM-SHA-512</sasl_mechanism>
+    <sasl_username>root</sasl_username>
+    <sasl_password>toor</sasl_password>
+  </kafka>
+</yandex>
+```
+
 [https://leftjoin.ru/all/clickhouse-as-a-consumer-to-amazon-msk/](https://leftjoin.ru/all/clickhouse-as-a-consumer-to-amazon-msk/)
 
 ### Inline Kafka certs
