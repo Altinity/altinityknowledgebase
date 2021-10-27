@@ -5,6 +5,8 @@ description: >
     Schema migration tools for ClickHouse
 ---
 * golang-migrate tool - see [golang-migrate](golang-migrate.md)
+* bytebase
+  * [https://bytebase.com](https://bytebase.com)
 * Flyway - there are a lot of PRs introducing ClickHouse support, maintainer doesn't merge them (maybe he will change his mind soon), but's it's not hard to build flyway from one of those PRs (latest at the top)
   * [https://github.com/flyway/flyway/pull/3134](https://github.com/flyway/flyway/pull/3134) Сlickhouse support
   * [https://github.com/flyway/flyway/pull/3133](https://github.com/flyway/flyway/pull/3133) Add support clickhouse
@@ -20,5 +22,7 @@ description: >
 * phpMigrations
   * [https://github.com/smi2/phpMigrationsClickhouse](https://github.com/smi2/phpMigrationsClickhouse)
   * [https://habrahabr.ru/company/smi2/blog/317682/](https://habrahabr.ru/company/smi2/blog/317682/)
+* dbmate 
+  * [https://github.com/amacneil/dbmate#clickhouse](https://github.com/amacneil/dbmate#clickhouse)
 
 know more?
