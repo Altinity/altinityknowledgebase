@@ -89,9 +89,17 @@ ORDER BY size DESC;
 ## Understanding the columns data properties:
 
 ```sql
-SELECT count(), * APPLY (uniq), * APPLY (max), * APPLY (min), * APPLY(topK(5)) FROM table_name FORMAT Vertical;
+SELECT
+   count(),
+   * APPLY (uniq),
+   * APPLY (max),
+   * APPLY (min),
+   * APPLY(topK(5))
+FROM table_name 
+FORMAT Vertical;
 
 -- also you can add * APPLY (entropy) to show entropy (i.e. 'randomness' of the column).
+-- if the table is huge add some WHERE condition to slice some 'representative' data range, for example single month / week / day of data.
 ```
 
 ## Understanding the ingest pattern:
