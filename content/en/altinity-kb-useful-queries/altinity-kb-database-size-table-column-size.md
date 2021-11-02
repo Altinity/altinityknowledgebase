@@ -88,15 +88,15 @@ ORDER BY size DESC;
  
 ## Understanding the columns data properties:
 
-```
+```sql
 SELECT count(), * APPLY (uniq), * APPLY (max), * APPLY (min), * APPLY(topK(5)) FROM table_name FORMAT Vertical;
 
-# also you can add * APPLY (entropy) to show entropy (i.e. 'randomness' of the column).
+-- also you can add * APPLY (entropy) to show entropy (i.e. 'randomness' of the column).
 ```
 
 ## Understanding the ingest pattern:
 
-```
+```sql
 SELECT
     database,
     table,
@@ -120,7 +120,7 @@ ORDER BY count() DESC
 
 ## Understanding the partitioning
 
-```
+```sql
 SELECT
     database,
     table,
