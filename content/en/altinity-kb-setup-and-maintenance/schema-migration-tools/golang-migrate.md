@@ -17,12 +17,6 @@ To store information about migrations state `migrate` creates one additional tab
 [download](https://github.com/golang-migrate/migrate/releases) the `migrate` executable for your platform and put it to the folder listed in your %PATH.
 
 ```bash
----
-title: "on Linux:"
-linkTitle: "on Linux:"
-description: >
-    on Linux:
----
 #wget https://github.com/golang-migrate/migrate/releases/download/v3.2.0/migrate.linux-amd64.tar.gz
 wget https://github.com/golang-migrate/migrate/releases/download/v4.14.1/migrate.linux-amd64.tar.gz
 tar -xzf migrate.linux-amd64.tar.gz
@@ -38,36 +32,18 @@ mkdir migrations
 echo 'create table test(id UInt8) Engine = Memory;' > migrations/000001_my_database_init.up.sql
 echo 'DROP TABLE test;' > migrations/000001_my_database_init.down.sql
 
----
-title: "you can also auto-create file with new migrations with automatic numbering like that:"
-linkTitle: "you can also auto-create file with new migrations with automatic numbering like that:"
-description: >
-    you can also auto-create file with new migrations with automatic numbering like that:
----
----
-title: "> migrate create -dir migrations -seq -digits 6 -ext sql my_database_init"
-linkTitle: "> migrate create -dir migrations -seq -digits 6 -ext sql my_database_init"
-description: >
-    > migrate create -dir migrations -seq -digits 6 -ext sql my_database_init
----
----
-title: "edit migrations/000001_my_database_init.up.sql & migrations/000001_my_database_init.down.sql"
-linkTitle: "edit migrations/000001_my_database_init.up.sql & migrations/000001_my_database_init.down.sql"
-description: >
-    edit migrations/000001_my_database_init.up.sql & migrations/000001_my_database_init.down.sql
----
-➜ migrate -database 'clickhouse://localhost:9000' -path ./migrations up
+# you can also auto-create file with new migrations with automatic numbering like that:
+migrate create -dir migrations -seq -digits 6 -ext sql my_database_init
+
+edit migrations/000001_my_database_init.up.sql & migrations/000001_my_database_init.down.sql
+
+migrate -database 'clickhouse://localhost:9000' -path ./migrations up
 1/u my_database_init (6.502974ms)
 
-➜ migrate -database 'clickhouse://localhost:9000' -path ./migrations down
+migrate -database 'clickhouse://localhost:9000' -path ./migrations down
 1/d my_database_init (2.164394ms)
 
----
-title: "clears the database (use carefully - will not ask any confirmations)"
-linkTitle: "clears the database (use carefully - will not ask any confirmations)"
-description: >
-    clears the database (use carefully - will not ask any confirmations)
----
+# clears the database (use carefully - will not ask any confirmations)
 ➜ migrate -database 'clickhouse://localhost:9000' -path ./migrations drop
 ```
 
