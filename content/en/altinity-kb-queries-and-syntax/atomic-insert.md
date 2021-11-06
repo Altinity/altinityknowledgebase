@@ -26,7 +26,7 @@ https://github.com/ClickHouse/ClickHouse/issues/5148#issuecomment-487757235
 ```bash
 create table trg(A Int64, S String) Engine=MergeTree order by A;
 
--- Generate test data in Native and TSV format ( 10 millions rows )
+-- Generate test data in Native and TSV format ( 100 millions rows )
 clickhouse-client -q \
      'select toInt64(number) A, toString(number) S from numbers(100000000) format Native' > t.native
 clickhouse-client -q \
