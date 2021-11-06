@@ -15,7 +15,8 @@ An insert will create one part if:
     * Number of rows is less than `max_insert_block_size` (default is `1048545`) 
     * Parallel formatting is disabled (For TSV, TKSV, CSV, and JSONEachRow formats setting `input_format_parallel_parsing=0` is set).
 * For INSERT SELECT:
-    * Number of rows is less than `max_block_size`, `min_insert_block_size_rows` and `min_insert_block_size_bytes`
+    * Number of rows is less than `max_block_size`
+* Smaller blocks are properly squashed up to the configured block size (`min_insert_block_size_rows` and `min_insert_block_size_bytes`)
 
 https://github.com/ClickHouse/ClickHouse/issues/9195#issuecomment-587500824
 https://github.com/ClickHouse/ClickHouse/issues/5148#issuecomment-487757235
