@@ -93,4 +93,6 @@ perf script > /tmp/out.perf
 
 ### also 
 
+https://kb.altinity.com/altinity-kb-queries-and-syntax/troubleshooting/#flamegraph
+
 https://github.com/samber/grafana-flamegraph-panel/pull/2
