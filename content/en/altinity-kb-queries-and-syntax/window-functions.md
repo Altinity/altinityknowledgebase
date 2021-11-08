@@ -21,3 +21,30 @@ description: >
 1. Group with groupArray.
 2. Calculate the needed metrics.
 3. Ungroup back using arrayJoin.
+
+### NTILE
+
+```sql
+SELECT intDiv((num - 1) - (cnt % 3), 3) AS ntile
+FROM
+(
+    SELECT
+        row_number() OVER (ORDER BY number ASC) AS num,
+        count() OVER () AS cnt
+    FROM numbers(11)
+)
+
+┌─ntile─┐
+│     0 │
+│     0 │
+│     0 │
+│     0 │
+│     0 │
+│     1 │
+│     1 │
+│     1 │
+│     2 │
+│     2 │
+│     2 │
+└───────┘
+```
