@@ -68,7 +68,7 @@ $ cat /etc/clickhouse-server/config.d/keeper.xml
     </zookeeper>
 
     <distributed_ddl>
-        <path>/clickhouse/int/task_queue/ddl</path>
+        <path>/clickhouse/testcluster/task_queue/ddl</path>
     </distributed_ddl>
 </yandex>
 
@@ -127,7 +127,7 @@ $ cat /etc/clickhouse-server/config.d/keeper.xml
     </zookeeper>
 
     <distributed_ddl>
-        <path>/clickhouse/int/task_queue/ddl</path>
+        <path>/clickhouse/testcluster/task_queue/ddl</path>
     </distributed_ddl>
 </yandex>
 
