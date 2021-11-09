@@ -6,22 +6,19 @@ description: >-
      ZooKeeper session has expired.
 ---
 
-# ZooKeeper session has expired
+> **Q. we see a lot of these: ZooKeeper session has expired. Switching to a new session**
 
-> we see a lot of these: ZooKeeper session has expired. Switching to a new session
-
-There is a single zookeeper session per server. But there are many threads that can use zookeeper simultaneously.
+A. There is a single zookeeper session per server. But there are many threads that can use zookeeper simultaneously.
 So the same event (we lose the single zookeeper session we had), will be reported by all the threads/queries which were using that zookeeper session.
 
 Usually after loosing the zookeeper session that exception is printed by all the thread which watch zookeeper replication queues, and all the threads which had some in-flight zookeeper operations (for example inserts, `ON CLUSTER` commands etc).
-If you see a lot of those - that just means you have a lot of threads talking to zookeeper simultaniously (may be you have many replicated tables?).
+If you see a lot of those - that just means you have a lot of threads talking to zookeeper simultaniously (or may be you have many replicated tables?).
 
 BTW: every Replicated table comes with its own cost, so you can't scale the number of replicated tables indefinitely.
 
-Typically after several hundred (sometimes thousands) of replicated tables, the clickhouse server becomes unusable: it can't do any other work, but only keeping replication housekeeping tasks.
-'ClickHouse-way' is to have a few (maybe dozens) of very huge tables instead of having thousands of tiny tables. (Side note: the number of not-replicated tables can be scaled much better).
+Typically after several hundreds (sometimes thousands) of replicated tables, the clickhouse server becomes unusable: it can't do any other work, but only keeping replication housekeeping tasks. 'ClickHouse-way' is to have a few (maybe dozens) of very huge tables instead of having thousands of tiny tables. (Side note: the number of not-replicated tables can be scaled much better).
 
-> We are wondering what is causing that session to "timeout" as the default looks like 30 seconds, and there's certainly stuff happening much more frequently than every 30 seconds.
+> **Q. We are wondering what is causing that session to "timeout" as the default looks like 30 seconds, and there's certainly stuff happening much more frequently than every 30 seconds.** 
 
 Typically that has nothing with an expiration/timeout - even if you do nothing there are heartbeat events in the zookeeper protocol.
 
