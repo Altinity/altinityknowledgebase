@@ -6,6 +6,14 @@ description: >-
      ZooKeeper session has expired.
 ---
 
+> **Q. I get "ZooKeeper session has expired" once. What should i do? Should I worry? **
+
+Getting exceptions or lack of acknolegment in distributed system from time to time is a normal situation. 
+Your client should do the retry. If that happened once and your client do retries correctly - nothing to worry about.
+
+It it happens often, or with every retry - it may be a sign of some misconfiguration / issue in cluster (see below).
+
+
 > **Q. we see a lot of these: ZooKeeper session has expired. Switching to a new session**
 
 A. There is a single zookeeper session per server. But there are many threads that can use zookeeper simultaneously.
