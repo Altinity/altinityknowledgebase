@@ -6,7 +6,7 @@ description: >-
      ZooKeeper session has expired.
 ---
 
-> **Q. I get "ZooKeeper session has expired" once. What should i do? Should I worry? **
+> **Q. I get "ZooKeeper session has expired" once. What should i do? Should I worry?**
 
 Getting exceptions or lack of acknolegment in distributed system from time to time is a normal situation. 
 Your client should do the retry. If that happened once and your client do retries correctly - nothing to worry about.
