@@ -19,21 +19,11 @@ Another issue that sometimes DDLWorker thread can crash then ClickHouse node sto
 Check that DDLWorker is alive:
 
 ```bash
----
-title: "ps -eL|grep DDL"
-linkTitle: "ps -eL|grep DDL"
-description: >
-    ps -eL|grep DDL
----
+ps -eL|grep DDL
 18829 18876 ?        00:00:00 DDLWorkerClnr
 18829 18879 ?        00:00:00 DDLWorker
 
----
-title: "ps -ef|grep 18829|grep -v grep"
-linkTitle: "ps -ef|grep 18829|grep -v grep"
-description: >
-    ps -ef|grep 18829|grep -v grep
----
+ps -ef|grep 18829|grep -v grep
 clickho+ 18829 18828  1 Feb09 ?        00:55:00 /usr/bin/clickhouse-server --con...
 ```
 
