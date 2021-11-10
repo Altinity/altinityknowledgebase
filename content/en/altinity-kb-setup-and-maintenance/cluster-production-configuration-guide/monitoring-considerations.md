@@ -56,7 +56,7 @@ The following queries are recommended to be included in monitoring:
 
 Configure the notifications for events and thresholds based on the following table:
 
-* [Monitor and Alerts](http://localhost:1313/csv/clickhouse_kubernetes_monitoring_and_alerts.csv)
+* [Monitor and Alerts](https://docs.google.com/spreadsheets/d/1K92yZr5slVQEvDglfZ88k_7bfsAKqahY9RPp_2tSdVU/edit#gid=521173956)
 
 #### Health Checks
 
