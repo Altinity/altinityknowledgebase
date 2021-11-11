@@ -20,11 +20,14 @@ A. There is a single zookeeper session per server. But there are many threads th
 So the same event (we lose the single zookeeper session we had), will be reported by all the threads/queries which were using that zookeeper session.
 
 Usually after loosing the zookeeper session that exception is printed by all the thread which watch zookeeper replication queues, and all the threads which had some in-flight zookeeper operations (for example inserts, `ON CLUSTER` commands etc).
-If you see a lot of those - that just means you have a lot of threads talking to zookeeper simultaniously (or may be you have many replicated tables?).
+
+If you see a lot of those simultaniously - that just means you have a lot of threads talking to zookeeper simultaniously (or may be you have many replicated tables?).
 
 BTW: every Replicated table comes with its own cost, so you can't scale the number of replicated tables indefinitely.
 
 Typically after several hundreds (sometimes thousands) of replicated tables, the clickhouse server becomes unusable: it can't do any other work, but only keeping replication housekeeping tasks. 'ClickHouse-way' is to have a few (maybe dozens) of very huge tables instead of having thousands of tiny tables. (Side note: the number of not-replicated tables can be scaled much better).
+
+So again if during short period of time you see lot of those exceptions and that don't happen anymore for a while - nothing to worry about. Just ensure your client is doing retries properly.
 
 > **Q. We are wondering what is causing that session to "timeout" as the default looks like 30 seconds, and there's certainly stuff happening much more frequently than every 30 seconds.** 
 
@@ -32,13 +35,18 @@ Typically that has nothing with an expiration/timeout - even if you do nothing t
 
 So internally inside clickhouse:
 1) we have a 'zookeeper client' which in practice is a single zookeeper connection (TCP socket), with 2 threads - one serving reads, the seconds serving writes, and some API around.
-2) we may have hundreds of 'users' of that zookeeper client - those are threads that do some housekeeping, serve queries etc.
-3) zookeeper client normally have dozen 'in-flight' requests (asked by different threads). And if something bad happens with that
+2) while everything is ok zookeeper client keeps a single logical 'zookeeper session' (also by sending heartbeats etc).  
+3) we may have hundreds of 'users' of that zookeeper client - those are threads that do some housekeeping, serve queries etc.
+4) zookeeper client normally have dozen 'in-flight' requests (asked by different threads). And if something bad happens with that
 (disconnect, some issue with zookeeper server, some other failure), zookeeper client needs to re-establish the connection and switch to the new session
 so all those 'in-flight' requests will be terminated with a 'session expired' exception.
 
+> **Q. That problem happens very often (all the time, every X minutes / hours / days).** 
+
 Sometimes the real issue can be visible somewhere close to the first 'session expired' exception in the log. (i.e. zookeeper client thread can
 know & print to logs the real reason, while all 'user' threads just get 'session expired').
+
+Also zookeeper logs may ofter have a clue to that was the real problem.
 
 Known issues which can lead to session termination by zookeeper:
 1) connectivity / network issues.
