@@ -21,18 +21,73 @@ An insert will create one part if:
 https://github.com/ClickHouse/ClickHouse/issues/9195#issuecomment-587500824
 https://github.com/ClickHouse/ClickHouse/issues/5148#issuecomment-487757235
 
-## Examples
+## Example how to make a large insert atomicaly
+
+### Generate test data in Native and TSV format ( 100 millions rows )
+
+Text formats and Native format requier different set of settings, here I want to find / demonstrate mandatory minumum of settings for any case.
 
 ```bash
-create table trg(A Int64, S String) Engine=MergeTree order by A;
-
--- Generate test data in Native and TSV format ( 100 millions rows )
 clickhouse-client -q \
      'select toInt64(number) A, toString(number) S from numbers(100000000) format Native' > t.native
 clickhouse-client -q \
      'select toInt64(number) A, toString(number) S from numbers(100000000) format TSV' > t.tsv
+```
+
+### Insert with default settings (not atomic)
+
+```bash
+drop table if exists trg;
+create table trg(A Int64, S String) Engine=MergeTree order by A;
 
 -- Load data in Native format
+clickhouse-client  -q 'insert into trg format Native' <t.native
+
+-- Check how many parts is created
+SELECT 
+    count(),
+    min(rows),
+    max(rows),
+    sum(rows)
+FROM system.parts
+WHERE (level = 0) AND (table = 'trg');
+┌─count()─┬─min(rows)─┬─max(rows)─┬─sum(rows)─┐
+│      90 │    890935 │   1113585 │ 100000000 │
+└─────────┴───────────┴───────────┴───────────┘
+
+--- 90 parts! was created - not atomic
+
+
+
+drop table if exists trg;
+create table trg(A Int64, S String) Engine=MergeTree order by A;
+
+-- Load data in TSV format
+clickhouse-client  -q 'insert into trg format TSV' <t.tsv
+
+-- Check how many parts is created
+SELECT 
+    count(),
+    min(rows),
+    max(rows),
+    sum(rows)
+FROM system.parts
+WHERE (level = 0) AND (table = 'trg');
+┌─count()─┬─min(rows)─┬─max(rows)─┬─sum(rows)─┐
+│      85 │    898207 │   1449610 │ 100000000 │
+└─────────┴───────────┴───────────┴───────────┘
+
+--- 85 parts! was created - not atomic
+```
+
+### Insert with adjusted settings (atomic)
+
+Atomic insert use more memory because it needs 100 millions rows in memory.
+
+```bash
+drop table if exists trg;
+create table trg(A Int64, S String) Engine=MergeTree order by A;
+
 clickhouse-client --input_format_parallel_parsing=0 \
                   --min_insert_block_size_bytes=0 \
                   --min_insert_block_size_rows=1000000000 \
@@ -40,20 +95,23 @@ clickhouse-client --input_format_parallel_parsing=0 \
                   -q 'insert into trg format Native' <t.native
 
 -- Check that only one part is created
-SELECT 
+SELECT
     count(),
     min(rows),
     max(rows),
     sum(rows)
 FROM system.parts
-WHERE (level = 0) AND (table = 'trg')
-
+WHERE (level = 0) AND (table = 'trg');
 ┌─count()─┬─min(rows)─┬─max(rows)─┬─sum(rows)─┐
 │       1 │ 100000000 │ 100000000 │ 100000000 │
 └─────────┴───────────┴───────────┴───────────┘
 
+-- 1 part, success.
 
-truncate table trg　;
+
+
+drop table if exists trg;
+create table trg(A Int64, S String) Engine=MergeTree order by A;
 
 -- Load data in TSV format
 clickhouse-client --input_format_parallel_parsing=0 \
@@ -69,10 +127,10 @@ SELECT
     max(rows),
     sum(rows)
 FROM system.parts
-WHERE (level = 0) AND (table = 'trg')
-
+WHERE (level = 0) AND (table = 'trg');
 ┌─count()─┬─min(rows)─┬─max(rows)─┬─sum(rows)─┐
 │       1 │ 100000000 │ 100000000 │ 100000000 │
 └─────────┴───────────┴───────────┴───────────┘
 
+-- 1 part, success.
 ```
