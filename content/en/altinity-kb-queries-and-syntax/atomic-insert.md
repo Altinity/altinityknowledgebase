@@ -40,7 +40,7 @@ clickhouse-client --input_format_parallel_parsing=0 \
                   -q 'insert into trg format Native' <t.native
 
 -- Check that only one part is created
-select count(), min(rows), max(rows) from system.parts where active and table='trg'　;
+select count(), min(rows), max(rows) from system.parts where level=0 and table='trg'　;
 ┌─count()─┬─min(rows)─┬─max(rows)─┐
 │       1 │ 100000000 │ 100000000 │
 └─────────┴───────────┴───────────┘
@@ -55,7 +55,7 @@ clickhouse-client --input_format_parallel_parsing=0 \
                   -q 'insert into trg format TSV' <t.tsv
 
 -- Check that only one part is created
-select count(), min(rows), max(rows) from system.parts where active and table='trg'　;
+select count(), min(rows), max(rows) from system.parts where level=0 and table='trg'　; 
 ┌─count()─┬─min(rows)─┬─max(rows)─┐
 │       1 │ 100000000 │ 100000000 │
 └─────────┴───────────┴───────────┘
