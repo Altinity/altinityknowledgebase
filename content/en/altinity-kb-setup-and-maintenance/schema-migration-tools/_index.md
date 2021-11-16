@@ -4,7 +4,7 @@ linkTitle: "Schema migration tools for ClickHouse"
 description: >
     Schema migration tools for ClickHouse
 ---
-* golang-migrate tool - see [golang-migrate](golang-migrate.md)
+* golang-migrate tool - see [golang-migrate](golang-migrate)
 * bytebase
   * [https://bytebase.com](https://bytebase.com)
 * Flyway - there are a lot of PRs introducing ClickHouse support, maintainer doesn't merge them (maybe he will change his mind soon), but's it's not hard to build flyway from one of those PRs (latest at the top)
