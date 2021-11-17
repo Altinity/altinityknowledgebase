@@ -61,14 +61,16 @@ GROUP BY
 └──────────┴──────────────────┴──────────────┴──────────────┘
 ```
 ## Compare the list of parts in ZooKeeper with the list of parts on disk
-```
+```sql
 select zoo.p_path as part_zoo, zoo.ctime, zoo.mtime, disk.p_path as part_disk
 from
-( select concat(path,'/',name) as p_path, ctime, mtime
+(
+  select concat(path,'/',name) as p_path, ctime, mtime
   from system.zookeeper where path in (select concat(replica_path,'/parts') from system.replicas)
 ) zoo
 left join 
-( select concat(replica_path,'/parts/',name) as p_path
+(
+  select concat(replica_path,'/parts/',name) as p_path
   from system.parts inner join system.replicas using (database, table)
 ) disk on zoo.p_path = disk.p_path
 where part_disk=''
