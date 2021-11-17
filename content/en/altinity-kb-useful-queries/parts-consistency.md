@@ -2,6 +2,7 @@
 title: "Parts consistency"
 linkTitle: "Parts consistency"
 ---
+## Check if there are blocks missing
 ```sql
 SELECT
     database,
@@ -41,7 +42,7 @@ ARRAY JOIN missing_ranges AS ranges
 │ system   │ query_thread_log │ 202108       │ 202108_864_1637_556 │ 202108_1639_1639_0 │                  1637 │              1639 │ [1638]                │
 └──────────┴──────────────────┴──────────────┴─────────────────────┴────────────────────┴───────────────────────┴───────────────────┴───────────────────────┘
 ```
-
+## Find the number of blocks in a table
 ```sql
 SELECT
     database,
@@ -58,4 +59,18 @@ GROUP BY
 ┌─database─┬─table────────────┬─partition_id─┬─blocks_count─┐
 │ system   │ query_thread_log │ 202108       │         1635 │
 └──────────┴──────────────────┴──────────────┴──────────────┘
+```
+## Compare the list of parts in ZooKeeper with the list of parts on disk
+```
+select zoo.p_path as part_zoo, zoo.ctime, zoo.mtime, disk.p_path as part_disk
+from
+( select concat(path,'/',name) as p_path, ctime, mtime
+  from system.zookeeper where path in (select concat(replica_path,'/parts') from system.replicas)
+) zoo
+left join 
+( select concat(replica_path,'/parts/',name) as p_path
+  from system.parts inner join system.replicas using (database, table)
+) disk on zoo.p_path = disk.p_path
+where part_disk=''
+order by part_zoo;
 ```
