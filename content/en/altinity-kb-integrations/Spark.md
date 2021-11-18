@@ -10,11 +10,11 @@ description: >-
 
 ### jdbc 
 
-The trivial & natural way to talk to ClickHouse from Spark there is using jdbc. There are 2 jdbc drivers:
+The trivial & natural way to talk to ClickHouse from Spark is using jdbc. There are 2 jdbc drivers:
 * https://github.com/ClickHouse/clickhouse-jdbc/
 * https://github.com/housepower/ClickHouse-Native-JDBC#integration-with-spark
 
-ClickHouse-Native-JDBC have some hints about integration with Spark even in the main README file. 
+ClickHouse-Native-JDBC has some hints about integration with Spark even in the main README file. 
 
 'Official' driver does support some conversion of complex data types (Roarring bitmaps) for Spark-Clickhouse integration: https://github.com/ClickHouse/clickhouse-jdbc/pull/596
 
@@ -52,7 +52,7 @@ You can call other commands from Spark. Those commands can be `clickhouse-client
 In many cases you can do everything inside ClickHouse without Spark help :)
 Arrays, Higher-order functions, machine learning, integration with lot of different things including the possibility to run some external code using executable dictionaries or UDF. 
 
-## More info + some unordered links (mostly in Chineese / Russian)
+## More info + some unordered links (mostly in Chinese / Russian)
 
 * Spark + ClickHouse: not a fight, but a symbiosis https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup28/spark_and_clickhouse.pdf (russian)
 * Using a bunch of ClickHouse and Spark in MFI Soft https://www.youtube.com/watch?v=ID8eTnmag0s (russian)
@@ -61,8 +61,8 @@ Arrays, Higher-order functions, machine learning, integration with lot of differ
 * Spark JDBC write clickhouse operation summary https://www.jianshu.com/p/43f78c8a025b?hmsr=toutiao.io&utm_campaign=toutiao.io&utm_medium=toutiao.io&utm_source=toutiao.io  https://toutiao.io/posts/m63yw89/preview
 * Spark-sql is based on Clickhouse's DataSourceV2 data source extension (russian)
 https://www.cnblogs.com/mengyao/p/4689866.html  
-* alibaba integration instructions https://www.alibabacloud.com/help/doc-detail/191192.htm 
-* tencent integration instructions https://intl.cloud.tencent.com/document/product/1026/35884
+* Alibaba integration instructions https://www.alibabacloud.com/help/doc-detail/191192.htm 
+* Tencent integration instructions https://intl.cloud.tencent.com/document/product/1026/35884
 * Yandex DataProc demo: loading files from S3 to ClickHouse with Spark https://www.youtube.com/watch?v=N3bZW0_rRzI
 * Clickhouse official documentation_Spark JDBC writes some pits of ClickHouse  https://blog.csdn.net/weixin_39615984/article/details/111206050
 * ClickHouse data import (Flink, Spark, Kafka, MySQL, Hive) https://zhuanlan.zhihu.com/p/299094269 
