@@ -1,5 +1,5 @@
 ---
-title: "Spark"
+title: "ClickHouse + Spark"
 linkTitle: "Spark"
 weight: 100
 description: >-
