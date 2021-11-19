@@ -104,13 +104,48 @@ Example how to replace **remote_servers** section defined on higher level in the
 
 ## Settings & restart
 
-All users settings don’t need server restart but applied on connect. User need to reconnect to Clickhouse server.
+General 'rule of thumb': config.xml and config.d changes require restart, while `users.xml` and `users.d` setting don’t need server restart.
 
-Most of server settings applied only on a server start, except sections:
+But there are exceptions from those rules.
 
-1. <remote_servers> (cluster config)
-2. <dictionaries> (ext.dictionaries)
-3. <max_table_size_to_drop> & <max_partition_size_to_drop>
+### Server config (config.xml) sections which don't require resart
+
+* max_server_memory_usage / max_server_memory_usage_to_ram_ratio
+* max_table_size_to_drop / max_partition_size_to_drop / max_concurrent_queries
+* macros
+* remote_servers
+* dictionaries_config / dictionaries
+* user_defined_executable_functions_config / functions
+* models_config / models
+* keeper_server / zookeeper 
+* storage_configuration
+* user_directories / access_control_path
+* encryption_codecs
+
+See also https://github.com/ClickHouse/ClickHouse/blob/445b0ba7cc6b82e69fef28296981fbddc64cd634/programs/server/Server.cpp#L809-L883
+
+## User settings which require restart. 
+
+Most of user setting changes don't require restart, but they get applied at the connect time, so existing connection may still use old user-level settings.
+That means that that new setting will be applied to new sessions / after reconnect.
+
+The list of user setting which require server restart:
+
+* background_buffer_flush_schedule_pool_size
+* background_pool_size
+* background_merges_mutations_concurrency_ratio
+* background_move_pool_size
+* background_fetches_pool_size
+* background_common_pool_size
+* background_schedule_pool_size
+* background_message_broker_schedule_pool_size
+* background_distributed_schedule_pool_size
+* max_replicated_fetches_network_bandwidth_for_server
+* max_replicated_sends_network_bandwidth_for_server
+
+See also `select * from system.settings where description ilike '%start%'`
+
+Also there are several 'long-running' user sessions which are almost never restarted and can keep the setting from the server start (it's DDLWorker, Kafka, and some other service things).
 
 ## Dictionaries
 
