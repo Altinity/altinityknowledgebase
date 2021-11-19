@@ -121,10 +121,11 @@ But there are exceptions from those rules.
 * storage_configuration
 * user_directories / access_control_path
 * encryption_codecs
+* logger (since 21.11)
 
 See also https://github.com/ClickHouse/ClickHouse/blob/445b0ba7cc6b82e69fef28296981fbddc64cd634/programs/server/Server.cpp#L809-L883
 
-## User settings which require restart. 
+### User settings which require restart. 
 
 Most of user setting changes don't require restart, but they get applied at the connect time, so existing connection may still use old user-level settings.
 That means that that new setting will be applied to new sessions / after reconnect.
