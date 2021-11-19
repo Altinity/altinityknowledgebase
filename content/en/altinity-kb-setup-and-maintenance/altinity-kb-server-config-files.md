@@ -104,24 +104,37 @@ Example how to replace **remote_servers** section defined on higher level in the
 
 ## Settings & restart
 
-General 'rule of thumb': config.xml and config.d changes require restart, while `users.xml` and `users.d` setting don’t need server restart.
+General 'rule of thumb':
+* **server** settings (`config.xml` and `config.d`) changes **require restart**;
+* **user** settings (`users.xml` and `users.d`) changes **don't require restart**.
 
-But there are exceptions from those rules.
+But there are **exceptions** from those rules (see below).
 
 ### Server config (config.xml) sections which don't require resart
 
-* max_server_memory_usage / max_server_memory_usage_to_ram_ratio
-* max_table_size_to_drop / max_partition_size_to_drop / max_concurrent_queries
-* macros
-* remote_servers
-* dictionaries_config / dictionaries
-* user_defined_executable_functions_config / functions
-* models_config / models
-* keeper_server / zookeeper 
-* storage_configuration
-* user_directories / access_control_path
-* encryption_codecs
-* logger (since 21.11)
+* `<max_server_memory_usage>` 
+* `<max_server_memory_usage_to_ram_ratio>`
+* `<max_table_size_to_drop>`
+* `<max_partition_size_to_drop>` 
+* `<max_concurrent_queries>`
+* `<macros>`
+* `<remote_servers>`
+* `<dictionaries_config>`
+* `<user_defined_executable_functions_config>`
+* `<models_config>`
+* `<keeper_server>`
+* `<zookeeper>` (but reconnect don't happen automatically)
+* `<storage_configuration>`
+* `<user_directories>`
+* `<access_control_path>`
+* `<encryption_codecs>`
+* `<logger>` (since 21.11)
+
+Those sections (live in separate files):
+* `<dictionaries>`
+* `<functions>`
+* `<models>`
+
 
 See also https://github.com/ClickHouse/ClickHouse/blob/445b0ba7cc6b82e69fef28296981fbddc64cd634/programs/server/Server.cpp#L809-L883
 
@@ -132,17 +145,17 @@ That means that that new setting will be applied to new sessions / after reconne
 
 The list of user setting which require server restart:
 
-* background_buffer_flush_schedule_pool_size
-* background_pool_size
-* background_merges_mutations_concurrency_ratio
-* background_move_pool_size
-* background_fetches_pool_size
-* background_common_pool_size
-* background_schedule_pool_size
-* background_message_broker_schedule_pool_size
-* background_distributed_schedule_pool_size
-* max_replicated_fetches_network_bandwidth_for_server
-* max_replicated_sends_network_bandwidth_for_server
+* `<background_buffer_flush_schedule_pool_size>`
+* `<background_pool_size>`
+* `<background_merges_mutations_concurrency_ratio>`
+* `<background_move_pool_size>`
+* `<background_fetches_pool_size>`
+* `<background_common_pool_size>`
+* `<background_schedule_pool_size>`
+* `<background_message_broker_schedule_pool_size>`
+* `<background_distributed_schedule_pool_size>`
+* `<max_replicated_fetches_network_bandwidth_for_server>`
+* `<max_replicated_sends_network_bandwidth_for_server>`
 
 See also `select * from system.settings where description ilike '%start%'`
 
