@@ -24,4 +24,3 @@ The following sites are also useful references regarding ClickHouse:
 * [ClickHouse.tech documentation](https://clickhouse.tech/docs/en/): From Yandex, the creators of ClickHouse
 * [ClickHouse at Stackoverflow](https://stackoverflow.com/questions/tagged/clickhouse): Community driven responses to questions regarding ClickHouse
 * [Google groups (Usenet) yes we remember it](https://groups.google.com/g/clickhouse): The grandparent of all modern discussion boards.
-
