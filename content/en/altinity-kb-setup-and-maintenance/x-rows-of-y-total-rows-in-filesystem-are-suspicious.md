@@ -34,9 +34,9 @@ When storage policy changes (one disk was removed from it), ClickHouse compared 
 After we add the removed disk to storage_policy back, ClickHouse finds missing parts, but at this moment they are not registered for that replica.
 ClickHouse produce error message like this:
 
-```
+{{% alert title="Warning" color="warning" %}}
 <Error> Application: DB::Exception: The local set of parts of table default.tbl doesn't look like the set of parts in ZooKeeper: 14.96 billion rows of 16.24 billion total rows in filesystem are suspicious. There are 45 unexpected parts with 14960302620 rows (43 of them is not just-written with 14959824636 rows), 0 missing parts (with 0 blocks).: Cannot attach table `default`.`tbl` from metadata file /var/lib/clickhouse/metadata/default/tbl.sql from query ATTACH TABLE default.tbl ... ENGINE=ReplicatedMergeTree('/clickhouse/tables/0/default/tbl', 'replica-0')... SETTINGS index_granularity = 1024, storage_policy = 'ebs_hot_and_cold': while loading database `default` from path /var/lib/clickhouse/metadata/data
-```
+{{% /alert %}}
 
 At this point, it's possible to either tune setting `replicated_max_ratio_of_wrong_parts` or do force restore, but it will end up downloading all "missing" parts from other replicas, which can take a lot of time for big tables.
 
