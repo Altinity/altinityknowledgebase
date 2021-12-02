@@ -63,134 +63,196 @@ Configure the notifications for events and thresholds based on the following tab
 The following health checks should be monitored:
 
 <table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Check Name</th>
-      <th style="text-align:left">Shell or SQL command</th>
-      <th style="text-align:left">Severity</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left">ClickHouse status</td>
-      <td style="text-align:left">$ curl &apos;http://localhost:8123/&apos;Ok.</td>
-      <td style="text-align:left">Critical</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">Too many simultaneous queries. Maximum: 100</td>
-      <td style="text-align:left">select value from system.metrics where metric=&apos;Query&apos;</td>
-      <td
-      style="text-align:left">Critical</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">Replication status</td>
-      <td style="text-align:left">$ curl &apos;http://localhost:8123/replicas_status&apos;Ok.</td>
-      <td style="text-align:left">High</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">Read only replicas (reflected by replicas_status as well)</td>
-      <td style="text-align:left">select value from system.metrics where metric=&apos;ReadonlyReplica&#x2019;</td>
-      <td
-      style="text-align:left">High</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">ReplicaPartialShutdown (not reflected by replicas_status, but seems to
-        correlate with ZooKeeperHardwareExceptions)</td>
-      <td style="text-align:left">select value from system.events where event=&apos;ReplicaPartialShutdown&apos;</td>
-      <td
-      style="text-align:left">HighI turned this one off. It almost always correlates with ZooKeeperHardwareExceptions,
-        and when it&#x2019;s not, then there is nothing bad happening&#x2026;</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">Some replication tasks are stuck</td>
-      <td style="text-align:left">select count()from system.replication_queuewhere num_tries > 100</td>
-      <td
-      style="text-align:left">High</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">ZooKeeper is available</td>
-      <td style="text-align:left">select count() from system.zookeeper where path=&apos;/&apos;</td>
-      <td
-      style="text-align:left">Critical for writes</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">ZooKeeper exceptions</td>
-      <td style="text-align:left">select value from system.events where event=&apos;ZooKeeperHardwareExceptions&apos;</td>
-      <td
-      style="text-align:left">Medium</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">Other CH nodes are available</td>
-      <td style="text-align:left">$ for node in `echo &quot;select distinct host_address from system.clusters
-        where host_name !=&apos;localhost&apos;&quot;</td>
-      <td style="text-align:left">curl &apos;http://localhost:8123/&apos; &#x2013;silent &#x2013;data-binary
-        @-`; do curl &quot;http://$node:8123/&quot; &#x2013;silent ; done</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">All CH clusters are available (i.e. every configured cluster has enough
-        replicas to serve queries)</td>
-      <td style="text-align:left">for cluster in `echo &quot;select distinct cluster from system.clusters
-        where host_name !=&apos;localhost&apos;&quot;</td>
-      <td style="text-align:left">curl &apos;http://localhost:8123/&apos; &#x2013;silent &#x2013;data-binary
-        @-` ; do clickhouse-client &#x2013;query=&quot;select &apos;$cluster&apos;,
-        &apos;OK&apos; from cluster(&apos;$cluster&apos;, system, one)&quot; ;
-        done</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">There are files in &apos;detached&apos; folders</td>
-      <td style="text-align:left">$ find /var/lib/clickhouse/data///detached/* -type d</td>
-      <td style="text-align:left">
-        <p>wc -l;</p>
-        <p>19.8+select count() from system.detached_parts</p>
-      </td>
-    </tr>
-    <tr>
-      <td style="text-align:left">
-        <p>Too many parts:</p>
-        <p>Number of parts is growing;</p>
-        <p>Inserts are being delayed;</p>
-        <p>Inserts are being rejected</p>
-      </td>
-      <td style="text-align:left">
-        <p>select value from system.asynchronous_metrics where metric=&apos;MaxPartCountForPartition&apos;;select
-          value from system.events/system.metrics where event/metric=&apos;DelayedInserts&apos;;</p>
-        <p>select value from system.events where event=&apos;RejectedInserts&apos;</p>
-      </td>
-      <td style="text-align:left">Critical</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">Dictionaries: exception</td>
-      <td style="text-align:left">select concat(name,&apos;: &apos;,last_exception) from system.dictionarieswhere
-        last_exception != &apos;&apos;</td>
-      <td style="text-align:left">Medium</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">ClickHouse has been restarted</td>
-      <td style="text-align:left">select uptime();select value from system.asynchronous_metrics where metric=&apos;Uptime&apos;</td>
-      <td
-      style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">DistributedFilesToInsert should not be always increasing</td>
-      <td style="text-align:left">select value from system.metrics where metric=&apos;DistributedFilesToInsert&apos;</td>
-      <td
-      style="text-align:left">Medium</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">A data part was lost</td>
-      <td style="text-align:left">select value from system.events where event=&apos;ReplicatedDataLoss&apos;</td>
-      <td
-      style="text-align:left">High</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">Data parts are not the same on different replicas</td>
-      <td style="text-align:left">
-        <p>select value from system.events where event=&apos;DataAfterMergeDiffersFromReplica&apos;;</p>
-        <p>select value from system.events where event=&apos;DataAfterMutationDiffersFromReplica&apos;</p>
-      </td>
-      <td style="text-align:left">Medium</td>
-    </tr>
-  </tbody>
+  <tr>
+   <td><strong>Check Name</strong>
+   </td>
+   <td><strong><code>Shell or SQL command</code></strong>
+   </td>
+   <td><strong><code>Severity</code></strong>
+   </td>
+  </tr>
+  <tr>
+   <td>ClickHouse status
+   </td>
+   <td><code>$ curl 'http://localhost:8123/'</code>
+<p>
+<code>Ok.</code>
+   </td>
+   <td><code>Critical</code>
+   </td>
+  </tr>
+  <tr>
+   <td>Too many simultaneous queries. Maximum: 100 (by default)
+   </td>
+   <td><code>select value from system.metrics </code>
+<p>
+<code>where metric='Query'</code>
+   </td>
+   <td><code>Critical</code>
+   </td>
+  </tr>
+  <tr>
+   <td>Replication status
+   </td>
+   <td><code>$ curl 'http://localhost:8123/replicas_status'</code>
+<p>
+<code>Ok.</code>
+   </td>
+   <td><code>High</code>
+   </td>
+  </tr>
+  <tr>
+   <td>Read only replicas (reflected by <code>replicas_status</code> as well)
+   </td>
+   <td><code>select value from system.metrics </code>
+<p>
+<code>where metric='ReadonlyReplica'</code>
+   </td>
+   <td><code>High</code>
+   </td>
+  </tr>
+  <tr>
+   <td>Some replication tasks are stuck
+   </td>
+   <td><code>select count()</code>
+<p>
+<code>from system.replication_queue</code>
+<p>
+<code>where num_tries > 100 or num_postponed > 1000</code>
+   </td>
+   <td><code>High</code>
+   </td>
+  </tr>
+  <tr>
+   <td>ZooKeeper is available
+   </td>
+   <td><code>select count() from system.zookeeper </code>
+<p>
+<code>where path='/'</code>
+   </td>
+   <td><code>Critical for writes</code>
+   </td>
+  </tr>
+  <tr>
+   <td>ZooKeeper exceptions
+   </td>
+   <td><code>select value from system.events </code>
+<p>
+<code>where event='ZooKeeperHardwareExceptions'</code>
+   </td>
+   <td><code>Medium</code>
+   </td>
+  </tr>
+  <tr>
+   <td>Other CH nodes are available
+   </td>
+   <td><code>$ for node in `echo "select distinct host_address from system.clusters where host_name !='localhost'" | curl 'http://localhost:8123/' --silent --data-binary @-`; do curl "http://$node:8123/" --silent ; done | sort -u</code>
+<p>
+<code>Ok.</code>
+   </td>
+   <td><code>High</code>
+   </td>
+  </tr>
+  <tr>
+   <td>All CH clusters are available (i.e. every configured cluster has enough replicas to serve queries)
+   </td>
+   <td><code>for cluster in `echo "select distinct cluster from system.clusters where host_name !='localhost'" | curl 'http://localhost:8123/' --silent --data-binary @-` ; do clickhouse-client --query="select '$cluster', 'OK' from cluster('$cluster', system, one)" ; done </code>
+   </td>
+   <td><code>Critical</code>
+   </td>
+  </tr>
+  <tr>
+   <td>There are files in 'detached' folders
+   </td>
+   <td><code>$ find /var/lib/clickhouse/data/*/*/detached/* -type d | wc -l; \
+19.8+</code>
+<p>
+<code>select count() from system.detached_parts</code>
+   </td>
+   <td><code>Medium</code>
+   </td>
+  </tr>
+  <tr>
+   <td>Too many parts: \
+Number of parts is growing; \
+Inserts are being delayed; \
+Inserts are being rejected
+   </td>
+   <td><code>select value from system.asynchronous_metrics </code>
+<p>
+<code>where metric='MaxPartCountForPartition';</code>
+<p>
+<code>select value from system.events/system.metrics </code>
+<p>
+<code>where event/metric='DelayedInserts'; \
+select value from system.events </code>
+<p>
+<code>where event='RejectedInserts'</code>
+   </td>
+   <td><code>Critical</code>
+   </td>
+  </tr>
+  <tr>
+   <td>Dictionaries: exception
+   </td>
+   <td><code>select concat(name,': ',last_exception) </code>
+<p>
+<code>from system.dictionaries</code>
+<p>
+<code>where last_exception != ''</code>
+   </td>
+   <td><code>Medium</code>
+   </td>
+  </tr>
+  <tr>
+   <td>ClickHouse has been restarted
+   </td>
+   <td><code>select uptime();</code>
+<p>
+<code>select value from system.asynchronous_metrics </code>
+<p>
+<code>where metric='Uptime'</code>
+   </td>
+   <td>
+   </td>
+  </tr>
+  <tr>
+   <td>DistributedFilesToInsert should not be always increasing
+   </td>
+   <td><code>select value from system.metrics </code>
+<p>
+<code>where metric='DistributedFilesToInsert'</code>
+   </td>
+   <td><code>Medium</code>
+   </td>
+  </tr>
+  <tr>
+   <td>A data part was lost
+   </td>
+   <td><code>select value from system.events </code>
+<p>
+<code>where event='ReplicatedDataLoss'</code>
+   </td>
+   <td><code>High</code>
+   </td>
+  </tr>
+  <tr>
+   <td>Data parts are not the same on different replicas
+   </td>
+   <td><code>select value from system.events where event='DataAfterMergeDiffersFromReplica'; \
+select value from system.events where event='DataAfterMutationDiffersFromReplica'</code>
+   </td>
+   <td><code>Medium</code>
+   </td>
+  </tr>
+  <tr>
+   <td>
+   </td>
+   <td>
+   </td>
+   <td>
+   </td>
+  </tr>
 </table>
 
 #### Monitoring References
