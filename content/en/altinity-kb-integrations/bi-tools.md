@@ -15,3 +15,4 @@ description: >
 * Mondrian: [https://altinity.com/blog/accessing-clickhouse-from-excel-using-mondrian-rolap-engine](https://altinity.com/blog/accessing-clickhouse-from-excel-using-mondrian-rolap-engine)
 * Grafana
 * Cumul.io
+* tablum https://tablum.io
