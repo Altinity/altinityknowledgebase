@@ -137,6 +137,7 @@ See also:
 
 * [https://youtu.be/ckChUkC3Pns?t=9353](https://youtu.be/ckChUkC3Pns?t=9353)
 * [https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup47/materialized_views.pdf](https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup47/materialized_views.pdf)
+* [https://den-crane.github.io/Everything_you_should_know_about_materialized_views_commented.pdf](https://den-crane.github.io/Everything_you_should_know_about_materialized_views_commented.pdf)
 
 Webinar:
 
