@@ -21,7 +21,7 @@ An insert will create one part if:
 https://github.com/ClickHouse/ClickHouse/issues/9195#issuecomment-587500824
 https://github.com/ClickHouse/ClickHouse/issues/5148#issuecomment-487757235
 
-## Example how to make a large insert atomicaly
+## Example how to make a large insert atomically
 
 ### Generate test data in Native and TSV format ( 100 millions rows )
 
