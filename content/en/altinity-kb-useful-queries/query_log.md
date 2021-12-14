@@ -42,7 +42,7 @@ FORMAT Vertical
 
 ## Find queries which were started but not finished at some moment in time
 
-```
+```sql
 SELECT
   query_id,
   min(event_time) t,
@@ -52,4 +52,11 @@ where event_date = today() and event_time > '2021-11-25 02:29:12'
 GROUP BY query_id
 HAVING countIf(type='QueryFinish') = 0 OR sum(query_duration_ms) > 100000
 order by t;
+
+select
+     query_id,
+     any(query)
+from system.query_log
+where event_time between '2021-09-24 07:00:00' and '2021-09-24 09:00:00'
+group by query_id HAVING countIf(type=1) <> countIf(type!=1)
 ```
