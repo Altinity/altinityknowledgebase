@@ -39,3 +39,17 @@ ORDER BY UserTime DESC
 LIMIT 30
 FORMAT Vertical
 ```
+
+## Find queries which were started but not finished at some moment in time
+
+```
+SELECT
+  query_id,
+  min(event_time) t,
+  any(query)
+FROM system.query_log
+where event_date = today() and event_time > '2021-11-25 02:29:12'
+GROUP BY query_id
+HAVING countIf(type='QueryFinish') = 0 OR sum(query_duration_ms) > 100000
+order by t;
+```
