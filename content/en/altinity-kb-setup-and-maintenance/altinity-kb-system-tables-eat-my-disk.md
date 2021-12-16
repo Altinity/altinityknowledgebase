@@ -25,8 +25,6 @@ $ cat /etc/clickhouse-server/config.d/z_log_disable.xml
     <asynchronous_metric_log remove="1"/>
     <metric_log remove="1"/>
     <part_log remove="1" />
-    <query_log remove="1" /> <!-- normally it's better to keep it turned on! -->
-    <query_thread_log remove="1" />
     <session_log remove="1"/>
     <text_log remove="1" />
     <trace_log remove="1"/>
@@ -48,6 +46,18 @@ $ cat /etc/clickhouse-server/users.d/z_log_queries.xml
 ```
 
 Hint: `z_log_disable.xml` is named with **z_** in the beginning, it means this config will be applied the last and will override all other config files with these sections (config are applied in alphabetical order).
+
+You can also configure these settings to reduce the amount of data in the `system.query_log` table:
+
+```markup
+name                              | value       | description                                                                                                                                                       
+----------------------------------+-------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+log_queries_min_type              | QUERY_START | Minimal type in query_log to log, possible values (from low to high): QUERY_START, QUERY_FINISH, EXCEPTION_BEFORE_START, EXCEPTION_WHILE_PROCESSING.
+log_queries_min_query_duration_ms | 0           | Minimal time for the query to run, to get to the query_log/query_thread_log.
+log_queries_cut_to_length         | 100000      | If query length is greater than specified threshold (in bytes), then cut query when writing to query log. Also limit length of printed query in ordinary text log.
+log_profile_events                | 1           | Log query performance statistics into the query_log and query_thread_log.
+log_query_settings                | 1           | Log query settings into the query_log.
+```
 
 ## You can configure TTL
 
@@ -83,9 +93,9 @@ Usual TTL (without `ttl_only_drop_parts=1`) is heavy CPU / Disk I/O consuming op
 You can add TTL without ClickHouse restart (and table dropping or renaming):
 
 ```sql
-ALTER TABLE system.query_log MODIFY TTL event_date + INTERVAL 14 DAY;
-
 ALTER TABLE system.query_log MODIFY SETTING ttl_only_drop_parts = 1;
+
+ALTER TABLE system.query_log MODIFY TTL event_date + INTERVAL 14 DAY;
 ```
 
 But in this case ClickHouse will drop only whole monthly partitions (will store data older than 14 days).
