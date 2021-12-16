@@ -25,7 +25,7 @@ $ cat /etc/clickhouse-server/config.d/z_log_disable.xml
     <asynchronous_metric_log remove="1"/>
     <metric_log remove="1"/>
     <part_log remove="1" />
-    <query_log remove="1" />
+    <query_log remove="1" /> <!-- normally it's better to keep it turned on! -->
     <query_thread_log remove="1" />
     <session_log remove="1"/>
     <text_log remove="1" />
@@ -40,7 +40,7 @@ $ cat /etc/clickhouse-server/users.d/z_log_queries.xml
 <yandex>
     <profiles>
         <default>
-            <log_queries>0</log_queries>
+            <log_queries>0</log_queries> <!-- normally it's better to keep it turned on! -->
             <log_query_threads>0</log_query_threads>
         </default>
     </profiles>
