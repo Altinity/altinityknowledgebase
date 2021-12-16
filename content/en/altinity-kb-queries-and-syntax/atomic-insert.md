@@ -9,7 +9,6 @@ An insert is atomic if it creates only one part.
 An insert will create one part if:
 
 * Data is inserted directly into a MergeTree table
-* The MergeTree table doesn't have Materialized Views (there is no atomicity Table <> MV)
 * Data is inserted into a single partition.
 * For INSERT FORMAT:
     * Number of rows is less than `max_insert_block_size` (default is `1048545`) 
@@ -17,6 +16,7 @@ An insert will create one part if:
 * For INSERT SELECT:
     * Number of rows is less than `max_block_size`
 * Smaller blocks are properly squashed up to the configured block size (`min_insert_block_size_rows` and `min_insert_block_size_bytes`)
+* The MergeTree table doesn't have Materialized Views (there is no atomicity Table <> MV)
 
 https://github.com/ClickHouse/ClickHouse/issues/9195#issuecomment-587500824
 https://github.com/ClickHouse/ClickHouse/issues/5148#issuecomment-487757235
