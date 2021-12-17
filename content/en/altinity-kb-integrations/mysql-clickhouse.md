@@ -6,7 +6,7 @@ description: >-
      Integration Clickhouse with MySQL
 ---
 
-### Replication using MaterializeMySQL
+### Replication using MaterializeMySQL.
 
 - https://clickhouse.tech/docs/en/engines/database-engines/materialized-mysql/
 - https://translate.google.com/translate?sl=auto&tl=en&u=https://www.jianshu.com/p/d0d4306411b3
