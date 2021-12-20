@@ -52,7 +52,7 @@ Dozens is still ok. More may require having more complex (non-flat) routing.
 
 ### Number of replicas in a single shard 
 
-3 is a 'golden standard'. Up to 6-8 is still ok. If you have more - it can impact the zookeeper traffic.
+2 is minimum for HA. 3 is a 'golden standard'. Up to 6-8 is still ok. If you have more - it can impact the zookeeper traffic.
 
 ## Number of zookeeper nodes in the ensemble 
 
