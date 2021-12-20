@@ -56,5 +56,5 @@ Dozens is still ok. More may require having more complex (non-flat) routing.
 
 ## Number of zookeeper nodes in the ensemble 
 
-3 (Three) for most of the cases is enough (you can loose one node). 
+3 (Three) for most of the cases is enough (you can loose one node). Using more nodes allows to scale up read throughput for zookeeper, but don't improve writes at all.
 
