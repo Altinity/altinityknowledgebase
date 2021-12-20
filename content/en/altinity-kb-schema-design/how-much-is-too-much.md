@@ -54,7 +54,24 @@ Dozens is still ok. More may require having more complex (non-flat) routing.
 
 2 is minimum for HA. 3 is a 'golden standard'. Up to 6-8 is still ok. If you have more with realtime inserts - it can impact the zookeeper traffic.
 
-## Number of zookeeper nodes in the ensemble 
+### Number of zookeeper nodes in the ensemble 
 
 3 (Three) for most of the cases is enough (you can loose one node). Using more nodes allows to scale up read throughput for zookeeper, but don't improve writes at all.
 
+### Number of materialized view attached to a single table.
+
+Up to few. The less the better if the table is getting realtime inserts. (no matter if MV are chained or all are feeded from the same source table). 
+
+The more you have the more costy your inserts are, and the bigger risks to get some inconsitencies between some MV (inserts to MV and main table are not atomic).
+
+If the table don't have realtime inserts you can have more MV. 
+
+### Number of projections inside a single table.
+
+Up to few. Similar to MV above. 
+
+### Number of secondary indexes a single table.
+
+One to about a dozen. Different types of indexes has different penalty, bloom_filter is 100 times heavier than min_max index
+At some point your inserts will slow down. Try to create possible minimum of indexes.
+You can combine many columns into a single index and this index will work for any predicate but create less impact. 
