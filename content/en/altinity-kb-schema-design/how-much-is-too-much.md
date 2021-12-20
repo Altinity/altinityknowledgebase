@@ -8,8 +8,7 @@ description: >-
 
 ## How much is too much?
 
-In most of the cases clickhouse don't have any hard limits in most of scen
-[zookeeper@hdp1 ~] ecarios. So theoretically there are almost no limits.
+In most of the cases clickhouse don't have any hard limits in most of scenarios. So theoretically there are almost no limits.
 But at the same time there are some practical barriers which make using clickhouse after reaching some number problematic. 
 
 ### Number of tables (system-wide, across all databases)
@@ -20,7 +19,7 @@ But at the same time there are some practical barriers which make using clickhou
 
 ### Number of databases 
 
-Less than number of tables. 
+Fewer than number of tables (above). Dozens / hundreds is usually still acceptable.
 
 ### Number of columns in the table
 
