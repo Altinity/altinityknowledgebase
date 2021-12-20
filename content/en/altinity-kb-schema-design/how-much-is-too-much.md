@@ -8,8 +8,11 @@ description: >-
 
 ## How much is too much?
 
-In most of the cases clickhouse don't have any hard limits in most of scenarios. So theoretically there are almost no limits.
-But at the same time there are some practical barriers which make using clickhouse after reaching some number problematic. 
+In most of the cases clickhouse don't have any hard limits. But obsiously there there are some practical limitation / barriers for different things - often they are caused by some system / network / filesystem limitation.
+
+So after reaching some limits you can get different kind of problems, usually it never a failures / errors, but different kinds of degradations (slower queries / high cpu/memory usage, extra load on the network / zookeeper etc).
+
+While those numbers can vary a lot depending on your hardware & settings there is some safe 'Goldilocks' zone where ClickHouse work the best with default settings & usual hardware.
 
 ### Number of tables (system-wide, across all databases)
 
@@ -33,7 +36,7 @@ One is enough. Single ClickHouse can use resources of the node very efficiently,
 
 More than several dozens thousands may lead to performance degradation.
 
-### Number of partitions touched by a single insert
+### Number of tables & partitions touched by a single insert
 
 If you have realtime / frequent inserts no more than few. 
 
