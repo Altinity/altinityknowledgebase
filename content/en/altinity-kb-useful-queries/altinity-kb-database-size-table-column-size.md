@@ -34,7 +34,9 @@ SELECT
     column,
     formatReadableSize(sum(column_data_compressed_bytes) AS size) AS compressed,
     formatReadableSize(sum(column_data_uncompressed_bytes) AS usize) AS uncompressed,
-    round(usize / size, 2) AS compr_rate
+    round(usize / size, 2) AS compr_rate,
+    sum(rows) rows_cnt,
+    round(sum(column_data_uncompressed_bytes)/sum(rows) ,2) avg_row_size
 FROM system.parts_columns
 WHERE (active = 1) AND (table LIKE 'query_log')
 GROUP BY
