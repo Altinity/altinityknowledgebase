@@ -29,8 +29,6 @@ create role dba on cluster '{cluster}';
 grant all on *.* to dba on cluster '{cluster}';
 create user `user1` identified  by 'pass1234' on cluster '{cluster}';
 grant dba to user1 on cluster '{cluster}';
-set default role dba TO user1;  -- run on all nodes (on_cluster is not imlemented)
-
 
 
 create role dashboard_ro on cluster '{cluster}';
@@ -50,7 +48,6 @@ TO dashboard_ro;
 create user `dash1` identified  by 'pass1234' on cluster '{cluster}';
 
 grant dashboard_ro to dash1 on cluster '{cluster}';
-set default role dashboard_ro TO dash1;  // run on all nodes (on_cluster is not imlemented)
 
 
 
@@ -70,7 +67,6 @@ TO ingester_rw;
 create user `ingester_app1` identified  by 'pass1234'　on cluster '{cluster}';
 
 grant ingester_rw to ingester_app1 on cluster '{cluster}';
-set default role ingester_rw TO ingester_app1; // run on all nodes (on_cluster is not imlemented)
 ```
 
 ## check
@@ -96,3 +92,43 @@ $ clickhouse-client -u ingester_app1 --password pass1234
 select count() from system.numbers limit 1000000000000;
    DB::Exception: Received from localhost:9000. DB::Exception: Limit for rows or bytes to read exceeded, max rows: 1.00 billion
 ```
+
+## clean up
+
+```sql
+show profiles;
+┌─name─────────────────┐
+│ default              │
+│ profile_dashboard_ro │
+│ profile_ingester_rw  │
+│ readonly             │
+└──────────────────────┘
+
+drop profile if exists readonly on cluster '{cluster}';
+drop profile if exists profile_dashboard_ro on cluster '{cluster}';
+drop profile if exists profile_ingester_rw on cluster '{cluster}';
+
+
+show roles;
+┌─name─────────┐
+│ dashboard_ro │
+│ dba          │
+│ ingester_rw  │
+└──────────────┘
+
+drop role if exists dba on cluster '{cluster}';
+drop role if exists dashboard_ro on cluster '{cluster}';
+drop role if exists ingester_rw on cluster '{cluster}';
+
+
+show users;
+┌─name──────────┐
+│ dash1         │
+│ default       │
+│ ingester_app1 │
+│ user1         │
+└───────────────┘
+
+drop user if exists ingester_app1 on cluster '{cluster}';
+drop user if exists user1 on cluster '{cluster}';
+drop user if exists dash1 on cluster '{cluster}';
