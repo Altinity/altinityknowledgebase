@@ -13,6 +13,6 @@ description: >
 * SeekTable
 * ReDash
 * Mondrian: [https://altinity.com/blog/accessing-clickhouse-from-excel-using-mondrian-rolap-engine](https://altinity.com/blog/accessing-clickhouse-from-excel-using-mondrian-rolap-engine)
-* Grafana
+* Grafana: [Integrating Grafana with ClickHouse](https://docs.altinity.com/integrations/clickhouse-and-grafana/)
 * Cumul.io
-* tablum https://tablum.io
+* Tablum: https://tablum.io
