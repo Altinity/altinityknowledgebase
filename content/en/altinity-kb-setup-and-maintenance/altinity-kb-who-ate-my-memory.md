@@ -24,6 +24,7 @@ SELECT formatReadableSize(sum(memory_usage)) FROM system.processes;
 
 SELECT
     initial_query_id,
+    elapsed,
     formatReadableSize(memory_usage),
     formatReadableSize(peak_memory_usage),
     query
@@ -43,6 +44,8 @@ SELECT
 FROM system.parts;
 
 SELECT
+    type,
+    event_time,
     initial_query_id,
     formatReadableSize(memory_usage),
     query
