@@ -1,3 +1,10 @@
+---
+title: "Suspiciously many broken parts"
+linkTitle: "Suspiciously many broken parts"
+description: >
+    Suspiciously many broken parts error during the server startup.
+---
+
 ## Symptom:
 
 clickhouse don't start with a message `DB::Exception: Suspiciously many broken parts to remove.`
