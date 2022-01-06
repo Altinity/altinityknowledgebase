@@ -4,45 +4,50 @@ clickhouse don't start with a message `DB::Exception: Suspiciously many broken p
 
 ## Cause:
 
-Why has this exception? Because CH safeguard / circuit braker check found lot of broken parts。
+That exception is just a safeguard check/circuit breaker, triggered when clickhouse detects a lot of broken parts during server startup.
 
-why parts are considered broken? bad checksum because some data was currupted on the disk.
+Parts are considered broken if they have bad checksums or some files are missing or malformed. Usually, that means the data was corrupted on the disk.
 
-Why data was corrupted?
+Why data could be corrupted?
 
-1.most probably is the system has hard restart and data was not flushed to disk, because ClickHouse is not durable (in terms of ACID), it uses Linux file cache without fsync.
+1. the most often reason is a hard restart of the system, leading to a loss of the data which was not fully flushed to disk from the system page cache. Please be aware that by default ClickHouse doesn't do fsync, so data is considered inserted after it was passed to the Linux page cache. See fsync-related settings in ClickHouse.
 
-2.disk failure, maybe there are Bad Sectors or Bad Blocks on Hard Disk.
+2. it can also be caused by disk failures, maybe there are bad blocks on hard disk, or logical problems, or some raid issue. Check system journals, use `fsck` / `mdadm` and other standard tools to diagnose the disk problem. 
 
-3.other reasons: manual intervention / bugs etc, for example, the data files or folders are removed by mistake or move to other folder.
+3. other reasons: manual intervention/bugs etc, for example, the data files or folders are removed by mistake or moved to another folder.
 
 ## Action:
 
-1.If you ok to accept the data loss: setup force_restrore_data flag and clickhouse will move the parts to detached. 
+1. If you ok to accept the data loss: set up `force_restrore_data` flag and clickhouse will move the parts to detached. 
 
-`sudo -u clickhouse touch /var/lib/clickhouse/flags/force_restore_data` 
+    ```bash
+    sudo -u clickhouse touch /var/lib/clickhouse/flags/force_restore_data
+    ``` 
 
-then restart clickhouse, the table will be attached, and the broken parts will be detached, that means the data on those parts will loss.
+    then restart clickhouse, the table will be attached, and the broken parts will be detached, which means the data from those parts will not be available for the selects. You can see the list of those parts in the `system.detached_parts` table and drop them if needed using `ALTER TABLE ...  DROP DETACHED PART ...` commands.
 
-or you can config the max_suspicious_broken_parts setting:
+    If you are ok to tolerate bigger losses automatically you can change that safeguard configuration to be less sensitive by increasing `max_suspicious_broken_parts` setting:
 
-```
-cat /etc/clickhouse-server/config.d/max_suspicious_broken_parts.xml
-<?xml version="1.0"?>
-<yandex>
-     <merge_tree>
-         <max_suspicious_broken_parts>50</max_suspicious_broken_parts>
-     </merge_tree>
-</yandex>
-```
-https://clickhouse.com/docs/en/operations/settings/merge-tree-settings/
+    ```
+    cat /etc/clickhouse-server/config.d/max_suspicious_broken_parts.xml
+    <?xml version="1.0"?>
+    <yandex>
+         <merge_tree>
+             <max_suspicious_broken_parts>50</max_suspicious_broken_parts>
+         </merge_tree>
+    </yandex>
+    ```
+    this limit is set to 10 by default, we can set a bigger value (50 or 100 or more), but the data will lose because of the corruption.
 
-this limit is set to 10 by default, we can set bigger value(50 or 100 or more), but the data will lose because the corruption.
+    Check also a similar setting `max_suspicious_broken_parts_bytes`.  
+    See https://clickhouse.com/docs/en/operations/settings/merge-tree-settings/
 
-2.If you can't accept the data loss - recover data from backups / re-insert it once again /etc
+2. If you can't accept the data loss - you should recover data from backups / re-insert it once again etc.
+
+    If you don't want to tolerate automatic detaching of broken parts, you can set `max_suspicious_broken_parts_bytes` and `max_suspicious_broken_parts` to 0.
 
 
-## scenario illustrating / testing
+## Scenario illustrating / testing
 
 1. Create table
 ```
