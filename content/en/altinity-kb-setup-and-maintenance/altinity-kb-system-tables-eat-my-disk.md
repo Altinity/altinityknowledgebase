@@ -63,6 +63,7 @@ log_queries_min_query_duration_ms | 0           | Minimal time for the query to 
 log_queries_cut_to_length         | 100000      | If query length is greater than specified threshold (in bytes), then cut query when writing to query log. Also limit length of printed query in ordinary text log.
 log_profile_events                | 1           | Log query performance statistics into the query_log and query_thread_log.
 log_query_settings                | 1           | Log query settings into the query_log.
+log_queries_probability           | 1           | Log queries with the specified probabality.
 ```
 
 ## You can configure TTL
