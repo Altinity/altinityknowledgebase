@@ -23,10 +23,16 @@ $ cat /etc/clickhouse-server/config.d/z_log_disable.xml
 <?xml version="1.0"?>
 <yandex>
     <asynchronous_metric_log remove="1"/>
+    <query_thread_log remove="1"/>
     <metric_log remove="1"/>
-    <part_log remove="1" />
-    <session_log remove="1"/>
+    <query_thread_log remove="1" />
+    <query_log remove="1" />
+    <query_views_log remove="1" />
     <text_log remove="1" />
+    <trace_log remove="1"/>
+    <session_log remove="1"/>
+    <part_log remove="1"/>
+    <text_log remove="1"/>
     <trace_log remove="1"/>
  </yandex>
 ```
