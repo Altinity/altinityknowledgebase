@@ -5,3 +5,4 @@ package-lock.json
 docs/*
 node_modules/.package-lock.json
 yarn.lock
+.hugo_build.lock
