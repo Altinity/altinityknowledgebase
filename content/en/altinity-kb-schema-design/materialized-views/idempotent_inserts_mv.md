@@ -36,18 +36,19 @@ select D, count() CNT from test group by D;
 set max_partitions_per_insert_block=1; -- trick to fail insert into MV.
 
 insert into test select number, today()+number%3 from numbers(100);
-   DB::Exception: Received from localhost:9000. DB::Exception: 
+   DB::Exception: Received from localhost:9000. DB::Exception: Too many partitions 
 
 select count() from test;
 ┌─count()─┐
-│     100 │  -- insert is successful into the test table
+│     100 │  -- Insert was successful into the test table
 └─────────┘
 
 select sum(CNT) from test_mv;
-0 rows in set. Elapsed: 0.001 sec.   -- insert was unsuccessful into the test_mv table
+0 rows in set. Elapsed: 0.001 sec.   -- Insert was unsuccessful into the test_mv table (DB::Exception)
 
+-- Let's try to retry insertion
 set max_partitions_per_insert_block=100; -- disable trick
-insert into test select number, today()+number%3 from numbers(100); -- insert retry
+insert into test select number, today()+number%3 from numbers(100); -- insert retry / No error
  
 select count() from test;
 ┌─count()─┐
@@ -55,7 +56,7 @@ select count() from test;
 └─────────┘
  
 select sum(CNT) from test_mv;
-0 rows in set. Elapsed: 0.001 sec.    -- Inconsistency unfortunatly insert was deduplicated as well
+0 rows in set. Elapsed: 0.001 sec.    -- Inconsistency! Unfortunatly insert into MV was deduplicated as well
 ```
 
 ### Example 2. Inconsistency with deduplicate_blocks_in_dependent_materialized_views 1
@@ -72,8 +73,8 @@ select D, count() CNT from test group by D;
 
 set deduplicate_blocks_in_dependent_materialized_views=1;
 
-insert into test select number, today() from numbers(100);         --- insert 100 rows
-insert into test select number, today() from numbers(100,100);     --- insert another 100 rows
+insert into test select number, today() from numbers(100);      -- insert 100 rows
+insert into test select number, today() from numbers(100,100);  -- insert another 100 rows
 
 
 select count() from test;
@@ -83,7 +84,7 @@ select count() from test;
 
 select sum(CNT) from test_mv;
 ┌─sum(CNT)─┐
-│      200 │ -- Inconsistency - the second insert was falsely deduplicated because count() = 100 both times 
+│      100 │ -- Inconsistency! The second insert was falsely deduplicated because count() was = 100 both times 
 └──────────┘
 ```
 
@@ -143,7 +144,7 @@ select count() from test;
 
 select sum(CNT) from test_mv;
 ┌─sum(CNT)─┐
-│      300 │  -- No inconsistency insert was not deduplicated
+│      300 │  -- No inconsistency! Insert was not deduplicated.
 └──────────┘
 ```
 
