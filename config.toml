@@ -186,3 +186,9 @@ isHTML = true
 mediaType = "text/html"
 path = "printview"
 permalinkable = false
+
+# Controls the ability to print.
+[outputs]
+#home = ["HTML", "print"]
+section = [ "HTML", "print"]
+#page = ["HTML", "print"]
