@@ -10,12 +10,12 @@ description: >-
 
 ClickHouse still does not have transactions. They will be implemented around 2022Q2.
 
-So an insert into a table and an insert into a subordinate materialized view, it's two inserts and they are not atomic alltogether. 
-Insert into a materialized view may fail after the succesful insert into the table. 
-In case of any failure a client gets the error about failed insertion.
-You may enable insert_deduptication (it's enabled by default for Replciated engines) and repeate the insert with idea to achive idempotate insertion,
+Because of Clickhouse materialized view is a trigger. And an insert into a table and an insert into a subordinate materialized view it's two different inserts so they are not atomic alltogether. 
+
+And insert into a materialized view may fail after the succesful insert into the table. In case of any failure a client gets the error about failed insertion.
+You may enable insert_deduplication (it's enabled by default for Replciated engines) and repeate the insert with an idea to achive idempotate insertion,
 and insertion will be skipped into the source table becase of deduplication but it will be skipped for materialized view as well because 
-by default materialized views inherite deduplication from the source table. 
+by default materialized view inherites deduplication from the source table. 
 It's controlled by a parameter `deduplicate_blocks_in_dependent_materialized_views` https://clickhouse.com/docs/en/operations/settings/settings/#settings-deduplicate-blocks-in-dependent-materialized-views
 
 If your materialized view is wide enought and always have enought data for constistent deduplication then you can enable `deduplicate_blocks_in_dependent_materialized_views`.
