@@ -86,4 +86,4 @@ The following guide recommendations should be followed:
 New images and other static files are stored in the directory `static`, with the following categories:
 
 * Images are stored under `static/assets`.
-* Pdf files are stored under `statis/assets`
+* Pdf files are stored under `static/assets`
