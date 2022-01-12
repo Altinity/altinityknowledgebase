@@ -40,6 +40,6 @@ To add the `access_management` setting to an Altinity.Cloud ClickHouse Cluster:
         </yandex>
         ```
 
-access_management=1 means that it's enabled for users admin, clickhouse_operator (they are able to create users using SQL and grant them privileges).
+    access_management=1 means that users `admin`, `clickhouse_operator` are able to create users and grant them privileges using SQL.
 
 1. Select **OK**.  The cluster will restart, and users can now be created in the cluster that can be granted administrative access.
