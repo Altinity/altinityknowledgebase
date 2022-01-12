@@ -77,7 +77,7 @@ You should do the following:
 Check which mutation is stuck and kill it:
 
 ```sql
-SELECT * FROM system.mutations table = 'modify_column' AND is_done=0 FORMAT Vertical;
+SELECT * FROM system.mutations WHERE table = 'modify_column' AND is_done=0 FORMAT Vertical;
 KILL MUTATION WHERE table = 'modify_column' AND mutation_id = 'id_of_stuck_mutation';
 ```
 
