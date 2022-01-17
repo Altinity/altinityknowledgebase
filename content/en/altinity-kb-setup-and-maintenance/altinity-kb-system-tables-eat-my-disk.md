@@ -34,7 +34,7 @@ $ cat /etc/clickhouse-server/config.d/z_log_disable.xml
 </yandex>
 ```
 
-**We do not recommend removing `query_log` and `query_thread_log` as queries' logging can be easily turned off without a restart through user profiles:**
+**We do not recommend removing `query_log` and `query_thread_log` as queries' (they have very useful information for debugging), and logging can be easily turned off without a restart through user profiles:**
 
 ```markup
 $ cat /etc/clickhouse-server/users.d/z_log_queries.xml
