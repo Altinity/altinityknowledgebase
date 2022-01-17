@@ -40,7 +40,8 @@ List of columns for latest (reference) table version. Replicas would try to reac
 
 ## /log
 
-Log of latest actions with table. Used mostly for debug purposes.
+Log of latest actions with table. 
+
 Related settings:
 
 ```sql
