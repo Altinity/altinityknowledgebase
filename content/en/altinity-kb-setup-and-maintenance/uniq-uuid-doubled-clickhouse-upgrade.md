@@ -305,4 +305,68 @@ CREATE TABLE default.uniq_state_3
 ENGINE = MergeTree
 ORDER BY key
 SETTINGS index_granularity = 8192
+
+-- Option 3, CAST uniqState(UInt64) to String.
+
+CREATE TABLE uniq_state_4
+ENGINE = MergeTree
+ORDER BY key AS
+SELECT *
+FROM uniq_state
+
+Ok.
+
+0 rows in set. Elapsed: 0.146 sec. Processed 10.00 thousand rows, 1.16 MB (68.50 thousand rows/s., 7.98 MB/s.)
+
+INSERT INTO uniq_state_4 (key, value) SELECT
+    number % 10000 AS key,
+    CAST(uniqState(sipHash64(reinterpretAsUUID(number))), 'String')
+FROM numbers(1000000)
+GROUP BY key
+
+Ok.
+
+0 rows in set. Elapsed: 0.476 sec. Processed 1.05 million rows, 8.38 MB (2.20 million rows/s., 17.63 MB/s.)
+
+SELECT
+    key % 20,
+    uniqMerge(value)
+FROM uniq_state_4
+GROUP BY key % 20
+
+┌─modulo(key, 20)─┬─uniqMerge(value)─┐
+│               0 │            50000 │
+│               1 │            50000 │
+│               2 │            50000 │
+│               3 │            50000 │
+│               4 │            50000 │
+│               5 │            50000 │
+│               6 │            49999 │
+│               7 │            50000 │
+│               8 │            49999 │
+│               9 │            50000 │
+│              10 │            50000 │
+│              11 │            50000 │
+│              12 │            50000 │
+│              13 │            50000 │
+│              14 │            50000 │
+│              15 │            50000 │
+│              16 │            50000 │
+│              17 │            50000 │
+│              18 │            50000 │
+│              19 │            50000 │
+└─────────────────┴──────────────────┘
+
+20 rows in set. Elapsed: 0.281 sec. Processed 20.00 thousand rows, 2.33 MB (71.04 thousand rows/s., 8.27 MB/s.)
+
+SHOW CREATE TABLE uniq_state_4;
+
+CREATE TABLE default.uniq_state_4
+(
+    `key` UInt32,
+    `value` AggregateFunction(uniq, UUID)
+)
+ENGINE = MergeTree
+ORDER BY key
+SETTINGS index_granularity = 8192
 ```
