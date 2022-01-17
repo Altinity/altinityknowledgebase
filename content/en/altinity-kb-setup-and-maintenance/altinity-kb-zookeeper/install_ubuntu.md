@@ -12,22 +12,25 @@ Tested on Ubuntu 20.
 
 ```bash
 # install java runtime environment
+sudo apt-get update
 sudo apt install default-jre
 
-# download and install files 
+# prepare folders, logs folder should be on the low-latency disk.
 sudo mkdir -p /var/lib/zookeeper/data /var/lib/zookeeper/logs /etc/zookeeper /var/log/zookeeper /opt 
 
-wget https://dlcdn.apache.org/zookeeper/zookeeper-3.6.3/apache-zookeeper-3.6.3-bin.tar.gz -O /tmp/apache-zookeeper-3.6.3-bin.tar.gz
-sudo tar -xvf /tmp/apache-zookeeper-3.6.3-bin.tar.gz -C /opt
-rm -rf /tmp/apache-zookeeper-3.6.3-bin.tar.gz
+# download and install files 
+export ZOOKEEPER_VERSION=3.6.3
+wget https://dlcdn.apache.org/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/apache-zookeeper-${ZOOKEEPER_VERSION}-bin.tar.gz -O /tmp/apache-zookeeper-${ZOOKEEPER_VERSION}-bin.tar.gz
+sudo tar -xvf /tmp/apache-zookeeper-${ZOOKEEPER_VERSION}-bin.tar.gz -C /opt
+rm -rf /tmp/apache-zookeeper-${ZOOKEEPER_VERSION}-bin.tar.gz
 
 # create the user 
 sudo groupadd -r zookeeper
 sudo useradd -r -g zookeeper --home-dir=/var/lib/zookeeper --shell=/bin/false zookeeper
 
 # symlink pointing to the used version of zookeeper distibution
-sudo ln -s /opt/apache-zookeeper-3.6.3-bin /opt/zookeeper 
-sudo chown -R zookeeper:zookeeper /var/lib/zookeeper /var/log/zookeeper /etc/zookeeper /opt/apache-zookeeper-3.6.3-bin
+sudo ln -s /opt/apache-zookeeper-${ZOOKEEPER_VERSION}-bin /opt/zookeeper 
+sudo chown -R zookeeper:zookeeper /var/lib/zookeeper /var/log/zookeeper /etc/zookeeper /opt/apache-zookeeper-${ZOOKEEPER_VERSION}-bin
 sudo chown -h zookeeper:zookeeper /opt/zookeeper
 
 # shortcuts in /usr/local/bin/
@@ -47,7 +50,7 @@ maxClientCnxns=2000
 preAllocSize=131072
 snapCount=3000000
 dataDir=/var/lib/zookeeper/data
-dataLogDir=/var/lib/zookeeper/logs
+dataLogDir=/var/lib/zookeeper/logs # use low-latency disk!
 clientPort=2181
 #clientPortAddress=nthk-zoo1.localdomain
 autopurge.snapRetainCount=10
