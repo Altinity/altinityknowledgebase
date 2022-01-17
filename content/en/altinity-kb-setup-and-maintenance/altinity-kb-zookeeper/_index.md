@@ -6,7 +6,7 @@ description: >
 ---
 Article on docs site:
 
-[https://docs.altinity.com/operationsguide/clickhouse-zookeeper/"](https://docs.altinity.com/operationsguide/clickhouse-zookeeper/")
+[https://docs.altinity.com/operationsguide/clickhouse-zookeeper/](https://docs.altinity.com/operationsguide/clickhouse-zookeeper/)
 
 Check number of followers:
 
