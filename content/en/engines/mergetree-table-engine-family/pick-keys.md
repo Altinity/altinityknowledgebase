@@ -27,6 +27,7 @@ ORDER BY (tenantid, site_id, utm_source, clientid, timestamp)
 
 ```
 ORDER BY (site_id, toStartOfHour(timestamp), sessionid, timestamp )
+PRIMARY KEY (site_id, toStartOfHour(timestamp), sessionid)
 ```
 
 ### For Summing / Aggregating
