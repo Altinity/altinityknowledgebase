@@ -150,3 +150,18 @@ select sum(CNT) from test_mv;
 
 Idea how to fix it in Clickhouse source code https://github.com/ClickHouse/ClickHouse/issues/30240
 
+
+### Fake (unused) metric to add uniqueness.
+
+```
+create materialized view test_mv
+   Engine = ReplicatedSummingMergeTree('/clickhouse/{cluster}/tables/{table}','{replica}') 
+   partition by D
+   order by D
+  as
+   select
+     D,
+     count() CNT,
+     sum( cityHash(*) ) insert_id
+  from test group by D;
+```
