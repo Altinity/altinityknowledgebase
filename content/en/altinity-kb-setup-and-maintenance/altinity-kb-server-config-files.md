@@ -110,7 +110,7 @@ General 'rule of thumb':
 
 But there are **exceptions** from those rules (see below).
 
-### Server config (config.xml) sections which don't require resart
+### Server config (config.xml) sections which don't require restart
 
 * `<max_server_memory_usage>` 
 * `<max_server_memory_usage_to_ram_ratio>`
