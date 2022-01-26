@@ -43,3 +43,21 @@ To add the `access_management` setting to an Altinity.Cloud ClickHouse Cluster:
     access_management=1 means that users `admin`, `clickhouse_operator` are able to create users and grant them privileges using SQL.
 
 1. Select **OK**.  The cluster will restart, and users can now be created in the cluster that can be granted administrative access.
+
+1. If you are running ClickHouse 21.9 and above you can enable storing access management in ZooKeeper. in this case it will be automatically propagated to the cluster. This requires yet another configuration file:
+    1. **Setting Type**: Select **config.d file**
+    2. **Filename**: `user_directories.xml`
+    3. **Contents**:
+    
+       ```xml
+       <yandex>
+         <user_directories replace="replace">
+           <users_xml>
+             <path>/etc/clickhouse-server/users.xml</path>
+           </users_xml>
+           <replicated>
+             <zookeeper_path>/clickhouse/access/</zookeeper_path>
+           </replicated>
+         </user_directories>
+       </yandex>
+       ```
