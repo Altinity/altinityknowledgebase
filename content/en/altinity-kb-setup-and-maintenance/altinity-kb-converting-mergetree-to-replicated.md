@@ -18,7 +18,8 @@ Note: ATTACH PARTITION ID 'bar' FROM 'foo'` is practically free from compute and
 
 ```sql
 create table foo( A Int64, D Date, S String ) 
-Engine MergeTree partition by toYYYYMM(D) order by A;
+Engine MergeTree 
+partition by toYYYYMM(D) order by A;
 
 insert into foo select number, today(), '' from numbers(1e8);
 insert into foo select number, today()-60, '' from numbers(1e8);
