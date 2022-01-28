@@ -17,15 +17,19 @@ Options here are:
 Note: ATTACH PARTITION ID 'bar' FROM 'foo'` is practically free from compute and disk space perpespective. This feature utilizes filesysem hard-links and the fact that files are immutable in Clickhouse ( it's the core of the Clickhouse design, filesysem hard-links and such file manipulations are widely used ).
 
 ```sql
-create table foo( A Int64, D Date, S String ) Engine MergeTree partition by toYYYYMM(D) order by A;
+create table foo( A Int64, D Date, S String ) 
+Engine MergeTree partition by toYYYYMM(D) order by A;
+
 insert into foo select number, today(), '' from numbers(1e8);
 insert into foo select number, today()-60, '' from numbers(1e8);
+
 select count() from foo;
 ┌───count()─┐
 │ 200000000 │
 └───────────┘
 
-create table foo_replicated as foo Engine ReplicatedMergeTree('/clickhouse/{cluster}/tables/{database}/{shard}/{table}','{replica}')
+create table foo_replicated as foo 
+Engine ReplicatedMergeTree('/clickhouse/{cluster}/tables/{database}/{shard}/{table}','{replica}')
 partition by toYYYYMM(D) order by A;
 
 SELECT DISTINCT 'ALTER TABLE foo_replicated ATTACH PARTITION ID \'' || partition_id || '\' FROM foo;' from system.parts WHERE table = 'foo';
