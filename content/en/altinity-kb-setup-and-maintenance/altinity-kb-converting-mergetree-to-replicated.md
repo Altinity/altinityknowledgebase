@@ -48,4 +48,6 @@ SELECT count() FROM foo_replicated;
 
 rename table foo to foo_old, foo_replicated to foo;
 
+-- you can drop foo_old any time later, it's kinda a cheap backup, 
+-- it cost nothing until you insert a lot of additional data into foo_replicated
 ```
