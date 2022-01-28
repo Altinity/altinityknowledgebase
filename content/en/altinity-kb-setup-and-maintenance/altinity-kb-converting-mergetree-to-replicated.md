@@ -30,7 +30,7 @@ select count() from foo;
 └───────────┘
 
 create table foo_replicated as foo 
-Engine ReplicatedMergeTree('/clickhouse/{cluster}/tables/{database}/{shard}/{table}','{replica}')
+Engine ReplicatedMergeTree('/clickhouse/{cluster}/tables/{database}/{table}/{shard}','{replica}')
 partition by toYYYYMM(D) order by A;
 
 SELECT DISTINCT 'ALTER TABLE foo_replicated ATTACH PARTITION ID \'' || partition_id || '\' FROM foo;' from system.parts WHERE table = 'foo';
