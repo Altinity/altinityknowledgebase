@@ -49,6 +49,17 @@ In `clickhouse-server.log` you may see trace messages `Block with ID ... already
 ..17:52:45.076738.. Block with ID all_7615936253566048997_747463735222236827 already exists locally as part all_0_0_0; ignoring it.
 ```
 
+Deduplication checksums are stored in Zookeeper in `/blocks` table's znode for each partition separatly, so when you drop partition, they could be identified and removed for this partition.
+(withing `alter table delete` it's impossible to match checksum, that's why checksums stay in Zookeeper).
+```sql
+SELECT name, value
+FROM system.zookeeper
+WHERE path = '/clickhouse/LT/tables/test/blocks'
+┌─name───────────────────────────────────────┬─value─────┐
+│ all_7615936253566048997_747463735222236827 │ all_0_0_0 │
+└────────────────────────────────────────────┴───────────┘
+```
+
 ## insert_deduplicate setting
 
 Insert deduplication is controled by [insert_deduplicate](https://clickhouse.com/docs/en/operations/settings/settings/#settings-insert-deduplicate) setting
@@ -102,9 +113,6 @@ How to disable insert_deduplicate by default for all queries:
     </profile
 </yandex>    
 ```
-
-Deduplication checksums are stored in Zookeeper in `/blocks` table's znode for each partition separatly, so when you drop partition, they could be identified and removed for this partition.
-(withing `alter table delete` it's impossible to match checksum, that's why checksums stay in Zookeeper).
 
 Other related settings: [replicated_deduplication_window](https://clickhouse.com/docs/en/operations/settings/merge-tree-settings/#replicated-deduplication-window), [replicated_deduplication_window_seconds](https://clickhouse.com/docs/en/operations/settings/merge-tree-settings/#replicated-deduplication-window-seconds)
 
