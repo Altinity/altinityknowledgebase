@@ -151,7 +151,7 @@ select * from test_insert;
 In case of not replicated tables, deduplication checksums are stored in files in table's folder:
 
 ```bash
-cat /var/lib/clickhouse/data/dw/test_insert/deduplication_logs/deduplication_log_1.txt
+cat /var/lib/clickhouse/data/default/test_insert/deduplication_logs/deduplication_log_1.txt
 1	all_1_1_0	all_7615936253566048997_747463735222236827
 1	all_4_4_0	all_636943575226146954_4277555262323907666
 ```
