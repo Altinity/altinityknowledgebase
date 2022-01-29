@@ -72,14 +72,10 @@ insert into test_insert values(1);
 insert into test_insert values(1);
 insert into test_insert values(1);
 
-select * from test_insert;
+select * from test_insert format PrettyCompactMonoBlock;
 ┌─A─┐
 │ 1 │
-└───┘
-┌─A─┐
 │ 1 │
-└───┘
-┌─A─┐
 │ 1 │                                   -- all 3 insterted rows are in the table
 └───┘
 
@@ -88,11 +84,9 @@ alter table test_insert delete where 1;
 insert into test_insert values(1);
 insert into test_insert values(1);
 
-select * from test_insert;
+select * from test_insert format PrettyCompactMonoBlock;
 ┌─A─┐
 │ 1 │
-└───┘
-┌─A─┐
 │ 1 │
 └───┘
 ```
@@ -139,11 +133,9 @@ insert into test_insert values(1);
 insert into test_insert values(2);
 insert into test_insert values(2);
 
-select * from test_insert;
+select * from test_insert format PrettyCompactMonoBlock;
 ┌─A─┐
 │ 2 │
-└───┘
-┌─A─┐
 │ 1 │
 └───┘
 ```
