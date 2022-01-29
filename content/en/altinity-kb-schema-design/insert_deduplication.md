@@ -40,6 +40,15 @@ select * from test_insert;
                                            -- but `alter table drop partition` and `truncate` clear checksums
 ```
 
+In `clickhouse-server.log` you may see trace messages `Block with ID ... already exists locally as part ... ignoring it`
+```
+# cat /var/log/clickhouse-server/clickhouse-server.log|grep test_insert|grep Block
+..17:52:45.064974.. Block with ID all_7615936253566048997_747463735222236827 already exists locally as part all_0_0_0; ignoring it.
+..17:52:45.068979.. Block with ID all_7615936253566048997_747463735222236827 already exists locally as part all_0_0_0; ignoring it.
+..17:52:45.072883.. Block with ID all_7615936253566048997_747463735222236827 already exists locally as part all_0_0_0; ignoring it.
+..17:52:45.076738.. Block with ID all_7615936253566048997_747463735222236827 already exists locally as part all_0_0_0; ignoring it.
+```
+
 ## insert_deduplicate setting
 
 Insert deduplication is controled by [insert_deduplicate](https://clickhouse.com/docs/en/operations/settings/settings/#settings-insert-deduplicate) setting
