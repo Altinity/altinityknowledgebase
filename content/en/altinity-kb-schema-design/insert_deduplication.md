@@ -17,7 +17,7 @@ _Data blocks are deduplicated. For multiple writes of the same data block (data 
 
 ```sql
 create table test_insert ( A Int64 ) 
-Engine=ReplicatedMergeTree('/clickhouse/{cluster}/tables/test','{replica}') 
+Engine=ReplicatedMergeTree('/clickhouse/cluster_test/tables/{table}','{replica}') 
 order by A;
  
 insert into test_insert values(1);
@@ -54,7 +54,7 @@ Deduplication checksums are stored in Zookeeper in `/blocks` table's znode for e
 ```sql
 SELECT name, value
 FROM system.zookeeper
-WHERE path = '/clickhouse/LT/tables/test/blocks'
+WHERE path = '/clickhouse/cluster_test/tables/test_insert/blocks'
 ┌─name───────────────────────────────────────┬─value─────┐
 │ all_7615936253566048997_747463735222236827 │ all_0_0_0 │
 └────────────────────────────────────────────┴───────────┘
