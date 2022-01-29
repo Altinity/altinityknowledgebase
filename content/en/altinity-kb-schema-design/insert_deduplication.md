@@ -94,7 +94,9 @@ Disable insert_deduplicate by default for all queries
 ```
 
 Deduplication checksums are stored in Zookeeper in `/blocks` table's znode for each partition separatly, so when you drop partition, they could be identified and removed for this partition.
-(withing `alter table delete` it's impossible to match checksum, that's why checksums stay in Zookeeper)
+(withing `alter table delete` it's impossible to match checksum, that's why checksums stay in Zookeeper).
+
+Other related settings: [replicated_deduplication_window](https://clickhouse.com/docs/en/operations/settings/merge-tree-settings/#replicated-deduplication-window), [replicated_deduplication_window_seconds](https://clickhouse.com/docs/en/operations/settings/merge-tree-settings/#replicated-deduplication-window-seconds)
 
 More info: https://github.com/ClickHouse/ClickHouse/issues/16037 https://github.com/ClickHouse/ClickHouse/issues/3322
 
