@@ -27,17 +27,17 @@ insert into test_insert values(1);
 
 select * from test_insert;
 ┌─A─┐
-│ 1 │  -- only one row has been inserted, other were deduplicated
+│ 1 │                                       -- only one row has been inserted, other were deduplicated
 └───┘
 
-alter table test_insert delete where 1;  -- that single row was removed
+alter table test_insert delete where 1;    -- that single row was removed
 
 insert into test_insert values(1);
 
 select * from test_insert;
-0 rows in set. Elapsed: 0.001 sec.  -- the last insert was deduplicated again, 
-                                    -- because `alter ... delete` does not clear deduplication checksums
-                                    -- but `alter table drop partition` and `truncate` clear checksums
+0 rows in set. Elapsed: 0.001 sec.         -- the last insert was deduplicated again, 
+                                           -- because `alter ... delete` does not clear deduplication checksums
+                                           -- but `alter table drop partition` and `truncate` clear checksums
 ```
 
 ## insert_deduplicate setting
@@ -46,7 +46,8 @@ Insert deduplication is controled by [insert_deduplicate](https://clickhouse.com
 
 Let's disable it:
 ```sql
-set insert_deduplicate = 0;
+set insert_deduplicate = 0;              -- insert_deduplicate now disabled in this session
+
 insert into test_insert values(1);
 insert into test_insert values(1);
 insert into test_insert values(1);
@@ -59,7 +60,7 @@ select * from test_insert;
 │ 1 │
 └───┘
 ┌─A─┐
-│ 1 │
+│ 1 │                                   -- all 3 insterted rows are in the table
 └───┘
 
 alter table test_insert delete where 1;
@@ -80,8 +81,7 @@ Insert deduplication is a user-level setting, it can be disabled in a session or
  
 `clickhouse-client --insert_deduplicate=0 ....`
 
-Disable insert_deduplicate by default for all queries
-
+How to disable insert_deduplicate by default for all queries:
 ```xml
 # cat /etc/clickhouse-server/users.d/insert_deduplicate.xml
 <?xml version="1.0"?>
@@ -113,11 +113,12 @@ Example:
 create table test_insert ( A Int64 ) 
 Engine=MergeTree 
 order by A
-settings non_replicated_deduplication_window = 100; -- 100 - how many last checksums to store
+settings non_replicated_deduplication_window = 100;          -- 100 - how many last checksums to store
  
 insert into test_insert values(1);
 insert into test_insert values(1);
 insert into test_insert values(1);
+
 insert into test_insert values(2);
 insert into test_insert values(2);
 
