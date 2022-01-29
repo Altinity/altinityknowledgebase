@@ -17,7 +17,8 @@ _Data blocks are deduplicated. For multiple writes of the same data block (data 
 
 ```sql
 create table test_insert ( A Int64 ) 
-Engine=ReplicatedMergeTree('/clickhouse/{cluster}/tables/test','{replica}') order by A;
+Engine=ReplicatedMergeTree('/clickhouse/{cluster}/tables/test','{replica}') 
+order by A;
  
 insert into test_insert values(1);
 insert into test_insert values(1);
@@ -109,7 +110,9 @@ It can be enabled by the [merge_tree](https://clickhouse.com/docs/en/operations/
 Example:
 
 ```
-create table test_insert ( A Int64 ) Engine=MergeTree order by A
+create table test_insert ( A Int64 ) 
+Engine=MergeTree 
+order by A
 settings non_replicated_deduplication_window = 100; -- 100 - how many last checksums to store
  
 insert into test_insert values(1);
