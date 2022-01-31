@@ -13,7 +13,7 @@ Replicated tables have a special feature insert deduplication (enabled by defaul
 [Documentation:](https://clickhouse.com/docs/en/engines/table-engines/mergetree-family/replication/)
 _Data blocks are deduplicated. For multiple writes of the same data block (data blocks of the same size containing the same rows in the same order), the block is only written once. The reason for this is in case of network failures when the client application does not know if the data was written to the DB, so the INSERT query can simply be repeated. It does not matter which replica INSERTs were sent to with identical data. INSERTs are idempotent. Deduplication parameters are controlled by merge_tree server settings._
  
-## Example
+### Example
 
 ```sql
 create table test_insert ( A Int64 ) 
@@ -156,7 +156,7 @@ Insert data is separated to parts by table's partitioning.
 
 Parts contain rows sorted by table `order by` and all values of functions (i.e. `now()`) or Default/Materialized columns are expanded.
 
-Example with parial insert because of partitioning.
+### Example with parial insert because of partitioning:
 ```sql
 create table test_insert ( A Int64, B Int64 ) 
 Engine=MergeTree 
@@ -175,7 +175,7 @@ select * from test_insert format PrettyCompactMonoBlock;
 └───┴───┘
 ```
 
-Example with deduplication despite the rows order:
+### Example with deduplication despite the rows order:
 ```sql
 drop table test_insert;
 
@@ -193,9 +193,9 @@ select * from test_insert format PrettyCompactMonoBlock;
 │ 1 │ 2 │
 └───┴───┘
 2 rows in set. Elapsed: 0.001 sec.                        -- the second insert was skipped despite the rows order
+```
 
-
-Example to demonstrate how Default/Materialize columns are expanded:
+### Example to demonstrate how Default/Materialize columns are expanded:
 ```sql
 drop table test_insert;
 
@@ -223,8 +223,8 @@ select * from test_insert format PrettyCompactMonoBlock;
 ```
 
 
-Example to demonstrate how functions are expanded:
-```
+### Example to demonstrate how functions are expanded:
+```sql
 drop table test_insert;
 create table test_insert ( A Int64, B DateTime64 ) 
 Engine=MergeTree 
