@@ -24,18 +24,37 @@ description: >
    </yandex>
    ```
 
-2. `query_thread_log` - typically is not useful, you can disable it (or set up TTL).
+
+    <query_views_log remove="1" />
+    <part_log remove="1"/>
+    <session_log remove="1"/>
+    <text_log remove="1" />
+    <trace_log remove="1"/>
+
+2. `query_thread_log` - typically is not too useful for end users, you can disable it (or set up TTL).
 
    ```markup
    cat /etc/clickhouse-server/config.d/disable_query_thread_log.xml
    <yandex>
        <query_thread_log remove="1" />
-       <metric_log remove="1" />
+   
+   <metric_log remove="1" />
        <asynchronous_metric_log remove="1" />
        <!-- if you have a good monitoring outside you don't need to store metrics
        in ClickHouse too -->
    </yandex>
    ```
+
+2. If you have a good monitoring outside ClickHouse you don't need to store the history of metrics in ClickHouse
+
+   ```markup
+   cat /etc/clickhouse-server/config.d/disable_metric_logs.xml
+   <yandex>
+       <metric_log remove="1" />
+       <asynchronous_metric_log remove="1" />
+]   </yandex>
+   ```
+
 
 3. `part_log` - may be nice, especially at the beginning / during system tuning/analyze.
 
