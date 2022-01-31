@@ -4,43 +4,35 @@ linkTitle: "Threads"
 description: >
     Threads
 ---
-Collect thread names & counts using ps & clickhouse-local
+
+
+### Count threads used by clickhouse-server
+
+```bash
+cat /proc/$(pidof -s clickhouse-server)/status | grep Threads
+Threads: 103
+
+ps hH $(pidof -s clickhouse-server) | wc -l
+103
+
+ps hH -AF | grep clickhouse | wc -l
+116
+```
+
+### Thread counts by type (using ps & clickhouse-local)
+
 
 ```bash
 ps H -o 'tid comm' $(pidof -s clickhouse-server) |  tail -n +2 | awk '{ printf("%s\t%s\n", $1, $2) }' | clickhouse-local -S "threadid UInt16, name String" -q "SELECT name, count() FROM table GROUP BY name WITH TOTALS ORDER BY count() DESC FORMAT PrettyCompact"
 ```
 
-Check threads used by running queries:
+### Threads used by running queries:
 
 ```sql
 SELECT query, length(thread_ids) AS threads_count FROM system.processes ORDER BY threads_count;
 ```
 
-```bash
----
-title: "cat /proc/$(pidof -s clickhouse-server)/status | grep Threads"
-linkTitle: "cat /proc/$(pidof -s clickhouse-server)/status | grep Threads"
-description: >
-    cat /proc/$(pidof -s clickhouse-server)/status | grep Threads
----
-Threads: 103
----
-title: "ps hH $(pidof -s clickhouse-server) | wc -l"
-linkTitle: "ps hH $(pidof -s clickhouse-server) | wc -l"
-description: >
-    ps hH $(pidof -s clickhouse-server) | wc -l
----
-103
----
-title: "ps hH -AF | grep clickhouse | wc -l"
-linkTitle: "ps hH -AF | grep clickhouse | wc -l"
-description: >
-    ps hH -AF | grep clickhouse | wc -l
----
-116
-```
-
-Pools
+### Thread pools limits & usage
 
 ```sql
 SELECT
@@ -81,9 +73,44 @@ WHERE metric LIKE 'Background%'
 │ BackgroundDistributedSchedulePoolTask   │     0 │
 │ BackgroundMessageBrokerSchedulePoolTask │     0 │
 └─────────────────────────────────────────┴───────┘
+
+
+SELECT *
+FROM system.asynchronous_metrics
+WHERE lower(metric) LIKE '%thread%'
+ORDER BY metric ASC
+
+┌─metric───────────────────────────────────┬─value─┐
+│ HTTPThreads                              │     0 │
+│ InterserverThreads                       │     0 │
+│ MySQLThreads                             │     0 │
+│ OSThreadsRunnable                        │     2 │
+│ OSThreadsTotal                           │  2910 │
+│ PostgreSQLThreads                        │     0 │
+│ TCPThreads                               │     1 │
+│ jemalloc.background_thread.num_runs      │     0 │
+│ jemalloc.background_thread.num_threads   │     0 │
+│ jemalloc.background_thread.run_intervals │     0 │
+└──────────────────────────────────────────┴───────┘
+
+
+SELECT *
+FROM system.metrics
+WHERE lower(metric) LIKE '%thread%'
+ORDER BY metric ASC
+
+Query id: 6acbb596-e28f-4f89-94b2-27dccfe88ee9
+
+┌─metric─────────────┬─value─┬─description───────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ GlobalThread       │   151 │ Number of threads in global thread pool.                                                                          │
+│ GlobalThreadActive │   144 │ Number of threads in global thread pool running a task.                                                           │
+│ LocalThread        │     0 │ Number of threads in local thread pools. The threads in local thread pools are taken from the global thread pool. │
+│ LocalThreadActive  │     0 │ Number of threads in local thread pools running a task.                                                           │
+│ QueryThread        │     0 │ Number of query processing threads                                                                                │
+└────────────────────┴───────┴───────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
-Stack traces
+### Stack traces of the working threads from the pools
 
 ```sql
 SET allow_introspection_functions = 1;
@@ -95,4 +122,5 @@ SELECT
     arrayStringConcat(all, '\n') AS res
 FROM system.stack_trace
 WHERE res ILIKE '%Pool%'
+FORMAT Vertical;
 ```
