@@ -151,7 +151,7 @@ cat /var/lib/clickhouse/data/default/test_insert/deduplication_logs/deduplicatio
 ## Checksums calculation
 
 Checksums are calculated not from the inserted data but from a formed part.
-The insert is sepparated to parts by partitioning. 
+The insert is separated to parts by table's partitioning. 
 Parts contain rows sorted by table `order by` and all values of functions (i.e. `now()`) or Default/Materialized columns are expanded.
 
 Example with parial insert because of partitioning.
