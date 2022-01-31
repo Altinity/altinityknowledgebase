@@ -25,8 +25,15 @@ Why data could be corrupted?
 
 ## Action:
 
-If you are ok to tolerate bigger losses automatically you can change that safeguard configuration to be less sensitive by increasing `max_suspicious_broken_parts` setting (otherwise you need to clean broken parts manually):
+1. If you ok to accept the data loss: set up `force_restrore_data` flag and clickhouse will move the parts to detached. 
 
+    ```bash
+    sudo -u clickhouse touch /var/lib/clickhouse/flags/force_restore_data
+    ``` 
+
+    then restart clickhouse, the table will be attached, and the broken parts will be detached, which means the data from those parts will not be available for the selects. You can see the list of those parts in the `system.detached_parts` table and drop them if needed using `ALTER TABLE ...  DROP DETACHED PART ...` commands.
+
+    If you are ok to tolerate bigger losses automatically you can change that safeguard configuration to be less sensitive by increasing `max_suspicious_broken_parts` setting:
     ```
     cat /etc/clickhouse-server/config.d/max_suspicious_broken_parts.xml
     <?xml version="1.0"?>
