@@ -148,3 +148,94 @@ cat /var/lib/clickhouse/data/default/test_insert/deduplication_logs/deduplicatio
 1	all_4_4_0	all_636943575226146954_4277555262323907666
 ```
 
+## Checksums calculation
+
+Checksums are calculated not from the inserted data but from a formed part.
+The insert is sepparated to parts by partitioning. 
+Parts contain rows sorted by table `order by` and all values of functions (i.e. `now()`) or Default/Materialized columns are expanded.
+
+Example with parial insert because of partitioning.
+```sql
+create table test_insert ( A Int64, B Int64 ) 
+Engine=MergeTree 
+partition by B 
+order by A
+settings non_replicated_deduplication_window = 100;  
+
+
+insert into test_insert values (1,1);
+insert into test_insert values (1,1)(1,2);
+
+select * from test_insert format PrettyCompactMonoBlock;
+┌─A─┬─B─┐
+│ 1 │ 1 │
+│ 1 │ 2 │                                                -- the second insert was skipped for only one partition!!!
+└───┴───┘
+```
+
+Example with deduplication despite the rows order:
+```sql
+drop table test_insert;
+
+create table test_insert ( A Int64, B Int64 ) 
+Engine=MergeTree 
+order by (A, B)
+settings non_replicated_deduplication_window = 100;  
+
+insert into test_insert values (1,1)(1,2);
+insert into test_insert values (1,2)(1,1);               -- the order of rows is not equal with the first insert
+
+select * from test_insert format PrettyCompactMonoBlock;
+┌─A─┬─B─┐
+│ 1 │ 1 │
+│ 1 │ 2 │
+└───┴───┘
+2 rows in set. Elapsed: 0.001 sec.                        -- the second insert was skipped despite the rows order
+
+
+Example to demonstrate how Default/Materialize columns are expanded:
+```sql
+drop table test_insert;
+
+create table test_insert ( A Int64, B Int64 Default rand() ) 
+Engine=MergeTree 
+order by (A, B)
+settings non_replicated_deduplication_window = 100;
+
+insert into test_insert(A) values (1);
+insert into test_insert(A) values (1);
+
+select * from test_insert format PrettyCompactMonoBlock;
+┌─A─┬──────────B─┐
+│ 1 │ 3467561058 │
+│ 1 │ 3981927391 │
+└───┴────────────┘
+
+insert into test_insert(A, B) values (1, 3467561058);
+
+select * from test_insert format PrettyCompactMonoBlock;
+┌─A─┬──────────B─┐
+│ 1 │ 3981927391 │
+│ 1 │ 3467561058 │
+└───┴────────────┘
+```
+
+
+Example to demonstrate how functions are expanded:
+```
+drop table test_insert;
+create table test_insert ( A Int64, B DateTime64 ) 
+Engine=MergeTree 
+order by A
+settings non_replicated_deduplication_window = 100;
+
+insert into test_insert values (1, now64());
+....
+insert into test_insert values (1, now64());
+
+select * from test_insert format PrettyCompactMonoBlock;
+┌─A─┬───────────────────────B─┐
+│ 1 │ 2022-01-31 15:43:45.364 │
+│ 1 │ 2022-01-31 15:43:41.944 │
+└───┴─────────────────────────┘
+```
