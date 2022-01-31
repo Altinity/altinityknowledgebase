@@ -121,10 +121,6 @@ ORDER BY progress DESC
 
 SELECT *　FROM system.dictionaries　WHERE name = 'item_dict'　\G
 
-SELECT *
-FROM system.dictionaries
-WHERE name = 'item_dict'
-
 Row 1:
 ──────
 database:                    test
