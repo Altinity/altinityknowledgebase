@@ -156,7 +156,7 @@ Insert data is separated to parts by table's partitioning.
 
 Parts contain rows sorted by table `order by` and all values of functions (i.e. `now()`) or Default/Materialized columns are expanded.
 
-### Example with parial insert because of partitioning:
+### Example with partial insertion because of partitioning:
 ```sql
 create table test_insert ( A Int64, B Int64 ) 
 Engine=MergeTree 
@@ -201,11 +201,11 @@ drop table test_insert;
 
 create table test_insert ( A Int64, B Int64 Default rand() ) 
 Engine=MergeTree 
-order by (A, B)
+order by A
 settings non_replicated_deduplication_window = 100;
 
-insert into test_insert(A) values (1);
-insert into test_insert(A) values (1);
+insert into test_insert(A) values (1);                       -- B calculated as  rand()
+insert into test_insert(A) values (1);                       -- B calculated as  rand()
 
 select * from test_insert format PrettyCompactMonoBlock;
 ┌─A─┬──────────B─┐
@@ -213,7 +213,7 @@ select * from test_insert format PrettyCompactMonoBlock;
 │ 1 │ 3981927391 │
 └───┴────────────┘
 
-insert into test_insert(A, B) values (1, 3467561058);
+insert into test_insert(A, B) values (1, 3467561058);         -- B is not calculated / will be deduplicated
 
 select * from test_insert format PrettyCompactMonoBlock;
 ┌─A─┬──────────B─┐
