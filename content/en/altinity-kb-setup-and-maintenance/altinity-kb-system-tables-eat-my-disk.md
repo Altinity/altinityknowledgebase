@@ -31,6 +31,9 @@ $ cat /etc/clickhouse-server/config.d/z_log_disable.xml
     <session_log remove="1"/>
     <text_log remove="1" />
     <trace_log remove="1"/>
+    <crash_log remove="1"/>
+    <opentelemetry_span_log remove="1"/>
+    <zookeeper_log remove="1"/>
 </yandex>
 ```
 
