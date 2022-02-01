@@ -27,7 +27,7 @@ insert into test_insert values(1);
 
 select * from test_insert;
 ┌─A─┐
-│ 1 │                                       -- only one row has been inserted, other were deduplicated
+│ 1 │                                       -- only one row has been inserted, the other rows were deduplicated
 └───┘
 
 alter table test_insert delete where 1;    -- that single row was removed
@@ -37,7 +37,7 @@ insert into test_insert values(1);
 select * from test_insert;
 0 rows in set. Elapsed: 0.001 sec.         -- the last insert was deduplicated again, 
                                            -- because `alter ... delete` does not clear deduplication checksums
-                                           -- but `alter table drop partition` and `truncate` clear checksums
+                                           -- only `alter table drop partition` and `truncate` clear checksums
 ```
 
 In `clickhouse-server.log` you may see trace messages `Block with ID ... already exists locally as part ... ignoring it`
@@ -49,8 +49,8 @@ In `clickhouse-server.log` you may see trace messages `Block with ID ... already
 ..17:52:45.076738.. Block with ID all_7615936253566048997_747463735222236827 already exists locally as part all_0_0_0; ignoring it.
 ```
 
-Deduplication checksums are stored in Zookeeper in `/blocks` table's znode for each partition separatly, so when you drop partition, they could be identified and removed for this partition.
-(while `alter table delete` it's impossible to match checksum, that's why checksums stay in Zookeeper).
+Deduplication checksums are stored in Zookeeper in `/blocks` table's znode for each partition separately, so when you drop partition, they could be identified and removed for this partition.
+(during `alter table delete` it's impossible to match checksums, that's why checksums stay in Zookeeper).
 ```sql
 SELECT name, value
 FROM system.zookeeper
@@ -62,11 +62,11 @@ WHERE path = '/clickhouse/cluster_test/tables/test_insert/blocks'
 
 ## insert_deduplicate setting
 
-Insert deduplication is controled by [insert_deduplicate](https://clickhouse.com/docs/en/operations/settings/settings/#settings-insert-deduplicate) setting
+Insert deduplication is controled by the [insert_deduplicate](https://clickhouse.com/docs/en/operations/settings/settings/#settings-insert-deduplicate) setting
 
 Let's disable it:
 ```sql
-set insert_deduplicate = 0;              -- insert_deduplicate now disabled in this session
+set insert_deduplicate = 0;              -- insert_deduplicate is now disabled in this session
 
 insert into test_insert values(1);
 insert into test_insert values(1);
@@ -91,11 +91,11 @@ select * from test_insert format PrettyCompactMonoBlock;
 └───┘
 ```
  
-Insert deduplication is a user-level setting, it can be disabled in a session or in user's profile (insert_deduplicate=0).
+Insert deduplication is a user-level setting, it can be disabled in a session or in a user's profile (insert_deduplicate=0).
  
 `clickhouse-client --insert_deduplicate=0 ....`
 
-How to disable insert_deduplicate by default for all queries:
+How to disable `insert_deduplicate` by default for all queries:
 ```xml
 # cat /etc/clickhouse-server/users.d/insert_deduplicate.xml
 <?xml version="1.0"?>
@@ -112,19 +112,19 @@ Other related settings: [replicated_deduplication_window](https://clickhouse.com
 
 More info: https://github.com/ClickHouse/ClickHouse/issues/16037 https://github.com/ClickHouse/ClickHouse/issues/3322
 
-## Not replicated MergeTree tables
+## Non-replicated MergeTree tables
 
-By default insert deduplication is disabled for not replicated tables (for backward compatibility).
+By default insert deduplication is disabled for non-replicated tables (for backward compatibility).
 
 It can be enabled by the [merge_tree](https://clickhouse.com/docs/en/operations/settings/merge-tree-settings/#merge-tree-settings) setting [non_replicated_deduplication_window](https://clickhouse.com/docs/en/operations/settings/merge-tree-settings/#non-replicated-deduplication-window).
 
 Example:
 
-```
+```sql
 create table test_insert ( A Int64 ) 
 Engine=MergeTree 
 order by A
-settings non_replicated_deduplication_window = 100;          -- 100 - how many last checksums to store
+settings non_replicated_deduplication_window = 100;          -- 100 - how many latest checksums to store
  
 insert into test_insert values(1);
 insert into test_insert values(1);
@@ -140,7 +140,7 @@ select * from test_insert format PrettyCompactMonoBlock;
 └───┘
 ```
 
-In case of not replicated tables, deduplication checksums are stored in files in table's folder:
+In case of non-replicated tables deduplication checksums are stored in files in the table's folder:
 
 ```bash
 cat /var/lib/clickhouse/data/default/test_insert/deduplication_logs/deduplication_log_1.txt
@@ -150,11 +150,11 @@ cat /var/lib/clickhouse/data/default/test_insert/deduplication_logs/deduplicatio
 
 ## Checksums calculation
 
-Checksums are calculated not from the inserted data but from a formed part.
+Checksums are calculated not from the inserted data but from formed parts.
 
 Insert data is separated to parts by table's partitioning. 
 
-Parts contain rows sorted by table `order by` and all values of functions (i.e. `now()`) or Default/Materialized columns are expanded.
+Parts contain rows sorted by the table's `order by` and all values of functions (i.e. `now()`) or Default/Materialized columns are expanded.
 
 ### Example with partial insertion because of partitioning:
 ```sql
@@ -171,7 +171,7 @@ insert into test_insert values (1,1)(1,2);
 select * from test_insert format PrettyCompactMonoBlock;
 ┌─A─┬─B─┐
 │ 1 │ 1 │
-│ 1 │ 2 │                                                -- the second insert was skipped for only one partition!!!
+│ 1 │ 2 │                                   -- the second insert was skipped for only one partition!!!
 └───┴───┘
 ```
 
@@ -185,14 +185,14 @@ order by (A, B)
 settings non_replicated_deduplication_window = 100;  
 
 insert into test_insert values (1,1)(1,2);
-insert into test_insert values (1,2)(1,1);               -- the order of rows is not equal with the first insert
+insert into test_insert values (1,2)(1,1);  -- the order of rows is not equal with the first insert
 
 select * from test_insert format PrettyCompactMonoBlock;
 ┌─A─┬─B─┐
 │ 1 │ 1 │
 │ 1 │ 2 │
 └───┴───┘
-2 rows in set. Elapsed: 0.001 sec.                        -- the second insert was skipped despite the rows order
+2 rows in set. Elapsed: 0.001 sec.          -- the second insert was skipped despite the rows order
 ```
 
 ### Example to demonstrate how Default/Materialize columns are expanded:
@@ -204,8 +204,8 @@ Engine=MergeTree
 order by A
 settings non_replicated_deduplication_window = 100;
 
-insert into test_insert(A) values (1);                       -- B calculated as  rand()
-insert into test_insert(A) values (1);                       -- B calculated as  rand()
+insert into test_insert(A) values (1);                 -- B calculated as  rand()
+insert into test_insert(A) values (1);                 -- B calculated as  rand()
 
 select * from test_insert format PrettyCompactMonoBlock;
 ┌─A─┬──────────B─┐
@@ -213,7 +213,7 @@ select * from test_insert format PrettyCompactMonoBlock;
 │ 1 │ 3981927391 │
 └───┴────────────┘
 
-insert into test_insert(A, B) values (1, 3467561058);         -- B is not calculated / will be deduplicated
+insert into test_insert(A, B) values (1, 3467561058);  -- B is not calculated / will be deduplicated
 
 select * from test_insert format PrettyCompactMonoBlock;
 ┌─A─┬──────────B─┐
