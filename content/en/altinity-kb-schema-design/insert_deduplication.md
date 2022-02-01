@@ -50,7 +50,7 @@ In `clickhouse-server.log` you may see trace messages `Block with ID ... already
 ```
 
 Deduplication checksums are stored in Zookeeper in `/blocks` table's znode for each partition separatly, so when you drop partition, they could be identified and removed for this partition.
-(withing `alter table delete` it's impossible to match checksum, that's why checksums stay in Zookeeper).
+(while `alter table delete` it's impossible to match checksum, that's why checksums stay in Zookeeper).
 ```sql
 SELECT name, value
 FROM system.zookeeper
