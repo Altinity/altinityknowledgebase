@@ -53,11 +53,20 @@ SELECT * FROM system.zookeeper WHERE path = '/clickhouse/task_queue/ddl/query-00
 SELECT * FROM system.zookeeper WHERE path = '/clickhouse/task_queue/ddl/' AND name = 'query-0000001000';
 
 -- How many nodes executed this task
-SELECT name, numChildren as success_nodes FROM system.zookeeper WHERE path = '/clickhouse/task_queue/ddl/query-0000001000/' AND name = 'finished';
+SELECT name, numChildren as finished_nodes FROM system.zookeeper
+WHERE path = '/clickhouse/task_queue/ddl/query-0000001000/finished/';
 
-┌─name─────┬─success_nodes─┐
-│ finished │             0 │
-└──────────┴───────────────┘
+┌─name─────┬─finished_nodes─┐
+│ finished │              0 │
+└──────────┴────────────────┘
+
+-- The nodes that are running the task
+SELECT name, value, ctime, mtime FROM system.zookeeper 
+WHERE path = '/clickhouse/task_queue/ddl/query-0000001000/active/';
+
+-- What was the result for the finished nodes 
+SELECT name, value, ctime, mtime FROM system.zookeeper 
+WHERE path = '/clickhouse/task_queue/ddl/query-0000001000/finished/';
 
 -- Latest successfull executed tasks from query_log.
 SELECT query FROM system.query_log WHERE query LIKE '%ddl_entry%' AND type = 2 ORDER BY event_time DESC LIMIT 5;
