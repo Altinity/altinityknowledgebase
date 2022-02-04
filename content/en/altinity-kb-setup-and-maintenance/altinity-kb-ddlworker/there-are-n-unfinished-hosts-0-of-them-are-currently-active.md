@@ -54,7 +54,7 @@ SELECT * FROM system.zookeeper WHERE path = '/clickhouse/task_queue/ddl/' AND na
 
 -- How many nodes executed this task
 SELECT name, numChildren as finished_nodes FROM system.zookeeper
-WHERE path = '/clickhouse/task_queue/ddl/query-0000001000/finished/';
+WHERE path = '/clickhouse/task_queue/ddl/query-0000001000/' AND name = 'finished';
 
 ┌─name─────┬─finished_nodes─┐
 │ finished │              0 │
