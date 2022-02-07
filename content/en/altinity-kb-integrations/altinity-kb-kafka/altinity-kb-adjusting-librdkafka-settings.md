@@ -139,3 +139,38 @@ kafkacat -b my_broker:9092 -C -o -10 -t my_topic \
    -X sasl.password=Password
 
 ```
+
+# Different configurations for different tables?
+
+> Is there some more documentation how to use this multiconfiguration for Kafka ?
+
+The whole logic is here:
+https://github.com/ClickHouse/ClickHouse/blob/da4856a2be035260708fe2ba3ffb9e437d9b7fef/src/Storages/Kafka/StorageKafka.cpp#L466-L475
+ 
+So it load the main config first, after that it load (with overwrites) the configs for all topics,  **listed in `kafka_topic_list` of the table**.  
+ 
+Also since v21.12 it's possible to use more straght-forward way using named_collections:
+https://github.com/ClickHouse/ClickHouse/pull/31691
+ 
+So you can say something like
+ 
+```sql
+CREATE TABLE test.kafka (key UInt64, value UInt64) ENGINE = Kafka(kafka1, kafka_format='CSV');
+```
+ 
+And after that in configuration:
+ 
+```xml
+<clickhouse>
+ <named_collections>
+  <kafka1>
+   <kafka_broker_list>kafka1:19092</kafka_broker_list>
+   <kafka_topic_list>conf</kafka_topic_list>
+   <kafka_group_name>conf</kafka_group_name>
+  </kafka1>
+ </named_collections>
+</clickhouse>
+```
+ 
+The same fragment of code in newer versions:
+https://github.com/ClickHouse/ClickHouse/blob/d19e24f530c30f002488bc136da78f5fb55aedab/src/Storages/Kafka/StorageKafka.cpp#L474-L496
