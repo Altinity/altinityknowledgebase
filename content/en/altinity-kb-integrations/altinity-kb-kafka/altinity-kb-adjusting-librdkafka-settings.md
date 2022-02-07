@@ -9,7 +9,7 @@ description: >
 
 Some random example:
 
-```markup
+```xml
 <kafka>
     <max_poll_interval_ms>60000</max_poll_interval_ms>
     <session_timeout_ms>60000</session_timeout_ms>
@@ -32,7 +32,7 @@ Some random example:
 
 ### Amazon MSK
 
-```markup
+```xml
 <yandex>
   <kafka>
     <security_protocol>sasl_ssl</security_protocol>
@@ -44,7 +44,7 @@ Some random example:
 
 ### SASL/SCRAM
 
-```markup
+```xml
 <yandex>
   <kafka>
     <security_protocol>sasl_ssl</security_protocol>
@@ -61,11 +61,10 @@ Some random example:
 
 To connect to some Kafka cloud services you may need to use certificates.
 
-If needed they can be converted to pem format and inlined into ClickHouse config.
-
+If needed they can be converted to pem format and inlined into ClickHouse config.xml
 Example:
 
-```markup
+```xml
 <kafka>
 <ssl_key_pem><![CDATA[
   RSA Private-Key: (3072 bit, 2 primes)
@@ -82,7 +81,7 @@ Example:
 </kafka>
 ```
 
-See also
+See xml
 
 [https://help.aiven.io/en/articles/489572-getting-started-with-aiven-kafka](https://help.aiven.io/en/articles/489572-getting-started-with-aiven-kafka)
 
@@ -97,7 +96,7 @@ See [https://github.com/ClickHouse/ClickHouse/issues/12609](https://github.com/C
 * [https://clickhouse.tech/docs/en/engines/table-engines/integrations/kafka/\#kafka-kerberos-support](https://clickhouse.tech/docs/en/engines/table-engines/integrations/kafka/#kafka-kerberos-support)
 * [https://github.com/ClickHouse/ClickHouse/blob/master/tests/integration/test_storage_kerberized_kafka/configs/kafka.xml](https://github.com/ClickHouse/ClickHouse/blob/master/tests/integration/test_storage_kerberized_kafka/configs/kafka.xml)
 
-```markup
+```xml
   <!-- Kerberos-aware Kafka -->
   <kafka>
     <security_protocol>SASL_PLAINTEXT</security_protocol>
@@ -115,7 +114,7 @@ See [https://github.com/ClickHouse/ClickHouse/issues/12609](https://github.com/C
         <security_protocol>SASL_SSL</security_protocol>
         <ssl_endpoint_identification_algorithm>https</ssl_endpoint_identification_algorithm>
         <sasl_mechanism>PLAIN</sasl_mechanism>
-        <sasl_username>username</sasl_username>
+xml<sasl_username>username</sasl_username>
         <sasl_password>password</sasl_password>
         <ssl_ca_location>probe</ssl_ca_location>
         <!--
