@@ -52,7 +52,7 @@ description: >
    <yandex>
        <metric_log remove="1" />
        <asynchronous_metric_log remove="1" />
-]   </yandex>
+   </yandex>
    ```
 
 
