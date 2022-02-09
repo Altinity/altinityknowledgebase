@@ -1,6 +1,7 @@
 ---
 title: "Altinity Knowledge Base"
 linkTitle: "Altinity Knowledge Base"
+description: "Everything from Altinity Engineers"
 no_list: true
 cascade:
 - type: "docs"
