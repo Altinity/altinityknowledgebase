@@ -194,3 +194,5 @@ byteSize(state_2):   2
 byteSize(state_1):   10
 byteSize(state_2):   1
 ```
+
+See also https://gist.github.com/filimonov/a4f6754497f02fcef78e9f23a4d170ee
