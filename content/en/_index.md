@@ -1,7 +1,9 @@
 ---
 title: "Altinity Knowledge Base"
 linkTitle: "Altinity Knowledge Base"
-description: "Everything from Altinity Engineers"
+description: "Up-to-date ClickHouse knowledge base for every ClickHouse users."
+keywords:
+- ClickHouse Knowledge Base
 no_list: true
 cascade:
 - type: "docs"
