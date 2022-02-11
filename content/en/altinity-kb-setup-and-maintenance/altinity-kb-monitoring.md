@@ -35,7 +35,7 @@ The following metrics should be collected / monitored
   * Replication parts and queue (count)
 
 * For Zookeeper:
-  * See [ZooKeeper Monitoring Integration](https://sematext.com/docs/integration/zookeeper/).
+  * [See separate article](altinity-kb-zookeeper/zookeeper-monitoring.md)
 
 
 ## Monitoring tools
