@@ -6,4 +6,5 @@ description: >
 ---
 
 
-See [/altinity-kb-setup-and-maintenance/altinity-kb-monitoring.md]
+[Moved](../altinity-kb-monitoring.md)
+
