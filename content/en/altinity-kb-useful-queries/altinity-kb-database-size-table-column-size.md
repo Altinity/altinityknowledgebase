@@ -152,6 +152,25 @@ ORDER BY
     database ASC,
     table ASC,
     m ASC
+    
+WITH 30 * 60 AS frame_size
+SELECT
+    toStartOfInterval(event_time, toIntervalSecond(frame_size)) AS m,
+    database,
+    table,
+    ROUND(countIf(event_type = 'NewPart') / frame_size, 2) AS inserts_per_sec,
+    ROUND(sumIf(rows, event_type = 'NewPart') / frame_size, 2) AS rows_per_sec,
+    ROUND(sumIf(size_in_bytes, event_type = 'NewPart') / frame_size, 2) AS bytes_per_sec
+FROM system.part_log
+WHERE event_time > (now() - toIntervalHour(24))
+GROUP BY
+    m,
+    database,
+    table
+ORDER BY
+    database ASC,
+    table ASC,
+    m ASC
 ```               
 
 
