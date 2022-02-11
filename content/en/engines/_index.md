@@ -1,7 +1,10 @@
 ---
 title: "Engines"
 linkTitle: "Engines"
-description: >
+keywords:
+- clickhouse engine
+- clickhouse mergetree
+description: "Learn about ClickHouse engines, from MergeTree, Atomic Database to RocksDB."
     Engines
 weight: 1
 ---
