@@ -4,6 +4,8 @@ linkTitle: "Altinity Knowledge Base"
 description: "Up-to-date ClickHouse knowledge base for every ClickHouse user."
 keywords:
 - ClickHouse Knowledge Base
+- Altinity Knowledge Base
+- ClickHouse users
 no_list: true
 cascade:
 - type: "docs"
