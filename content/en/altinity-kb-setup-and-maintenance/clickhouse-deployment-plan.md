@@ -46,7 +46,7 @@ description: >-
 2.  Create good config & automate config / os / restarts (ansible / puppet etc)
 	- https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-settings-to-adjust/
 	- for docker: https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-clickhouse-in-docker/
-	- for k8: https://kb.altinity.com/altinity-kb-kubernetes/altinity-kb-possible-issues-with-running-clickhouse-in-k8s/
+	- for k8, use clickhouse-operator OR https://kb.altinity.com/altinity-kb-kubernetes/altinity-kb-possible-issues-with-running-clickhouse-in-k8s/
 3.  Set up monitoring / log processing / alerts etc.
     - https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-monitoring/#build-your-own-monitoring
 4.  Set up users.
