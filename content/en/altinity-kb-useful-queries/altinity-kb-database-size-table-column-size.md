@@ -128,6 +128,33 @@ GROUP BY
 ORDER BY count() DESC
 ```
 
+## part_log
+
+```sql
+WITH 30 * 60 AS frame_size
+SELECT
+    toStartOfInterval(event_time, toIntervalSecond(frame_size)) AS m,
+    database,
+    table,
+    ROUND(countIf(event_type = 'NewPart') / frame_size, 2) AS new,
+    ROUND(countIf(event_type = 'MergeParts') / frame_size, 2) AS merge,
+    ROUND(countIf(event_type = 'DownloadPart') / frame_size, 2) AS dl,
+    ROUND(countIf(event_type = 'RemovePart') / frame_size, 2) AS rm,
+    ROUND(countIf(event_type = 'MutatePart') / frame_size, 2) AS mut,
+    ROUND(countIf(event_type = 'MovePart') / frame_size, 2) AS mv
+FROM system.part_log
+WHERE event_time > (now() - toIntervalHour(24))
+GROUP BY
+    m,
+    database,
+    table
+ORDER BY
+    database ASC,
+    table ASC,
+    m ASC
+```               
+
+
 ## Understanding the partitioning
 
 ```sql
