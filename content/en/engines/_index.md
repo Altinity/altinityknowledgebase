@@ -4,8 +4,8 @@ linkTitle: "Engines"
 keywords:
 - clickhouse engine
 - clickhouse mergetree
-description: "Learn about ClickHouse engines, from MergeTree, Atomic Database to RocksDB."
-    Engines
+description: >
+    Learn about ClickHouse engines, from MergeTree, Atomic Database to RocksDB.
 weight: 1
 ---
 Generally: the **main** engine in Clickhouse is called [MergeTree](https://clickhouse.yandex/docs/en/table_engines/mergetree/). It allows to store and process data on one server and feel all the advantages of Clickhouse. Basic usage of MergeTree does not require any special configuration, and you can start using it 'out of the box'.
