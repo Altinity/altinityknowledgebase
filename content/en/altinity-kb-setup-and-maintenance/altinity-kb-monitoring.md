@@ -300,6 +300,18 @@ The following queries are recommended to be included in monitoring:
 * `SELECT * FROM system.mutations`
   * This is the source of information on the speed and progress of currently executed merges.
 
+## Logs monitoring
+
+ClickHouse logs can be another important source of information. There are 2 logs enabled by default
+* /var/log/clickhouse-server/clickhouse-server.err.log (error & warning, you may want to keep an eye on that or send it to some monitoring system)
+* /var/log/clickhouse-server/clickhouse-server.log (trace logs,  very detailed, useful for debugging, usually too verbose to monitor).
+
+You can additionally enable system.text_log table to have an access to the logs from clickhouse sql queries.
+
+## OpenTelemetry support
+
+See https://clickhouse.com/docs/en/operations/opentelemetry/
+
 ## Other sources
 
 * [https://tech.marksblogg.com/clickhouse-prometheus-grafana.html](https://tech.marksblogg.com/clickhouse-prometheus-grafana.html)
