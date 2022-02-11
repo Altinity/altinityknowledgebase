@@ -293,11 +293,11 @@ select value from system.events where event='DataAfterMutationDiffersFromReplica
 
 The following queries are recommended to be included in monitoring:
 
-* `SELECT \* FROM system.replicas`
+* `SELECT * FROM system.replicas`
   * For more information, see the ClickHouse guide on [System Tables](https://clickhouse.tech/docs/en/operations/system_tables/#system_tables-replicas)
-* `SELECT \* FROM system.merges`
+* `SELECT * FROM system.merges`
   * Checks on the speed and progress of currently executed merges.
-* `SELECT \* FROM system.mutations`
+* `SELECT * FROM system.mutations`
   * This is the source of information on the speed and progress of currently executed merges.
 
 ## Other sources
