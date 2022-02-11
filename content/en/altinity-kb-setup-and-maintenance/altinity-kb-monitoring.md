@@ -306,7 +306,7 @@ ClickHouse logs can be another important source of information. There are 2 logs
 * /var/log/clickhouse-server/clickhouse-server.err.log (error & warning, you may want to keep an eye on that or send it to some monitoring system)
 * /var/log/clickhouse-server/clickhouse-server.log (trace logs,  very detailed, useful for debugging, usually too verbose to monitor).
 
-You can additionally enable system.text_log table to have an access to the logs from clickhouse sql queries.
+You can additionally enable system.text_log table to have an access to the logs from clickhouse sql queries (ensure that you will not expose some information to the users which should not see it).
 
 ## OpenTelemetry support
 
