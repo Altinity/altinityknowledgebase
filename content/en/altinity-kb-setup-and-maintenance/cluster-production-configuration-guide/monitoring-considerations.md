@@ -6,5 +6,5 @@ description: >
 ---
 
 
-[Moved](../altinity-kb-monitoring.md)
+[Moved](../altinity-kb-monitoring)
 
