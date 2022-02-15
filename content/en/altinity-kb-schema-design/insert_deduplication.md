@@ -108,7 +108,7 @@ How to disable `insert_deduplicate` by default for all queries:
 </yandex>    
 ```
 
-Other related settings: [replicated_deduplication_window](https://clickhouse.com/docs/en/operations/settings/merge-tree-settings/#replicated-deduplication-window), [replicated_deduplication_window_seconds](https://clickhouse.com/docs/en/operations/settings/merge-tree-settings/#replicated-deduplication-window-seconds)
+Other related settings: [replicated_deduplication_window](https://clickhouse.com/docs/en/operations/settings/merge-tree-settings/#replicated-deduplication-window), [replicated_deduplication_window_seconds](https://clickhouse.com/docs/en/operations/settings/merge-tree-settings/#replicated-deduplication-window-seconds), [insert_deduplication_token](https://clickhouse.com/docs/en/operations/settings/settings/#insert_deduplication_token).
 
 More info: https://github.com/ClickHouse/ClickHouse/issues/16037 https://github.com/ClickHouse/ClickHouse/issues/3322
 
@@ -240,4 +240,33 @@ select * from test_insert format PrettyCompactMonoBlock;
 │ 1 │ 2022-01-31 15:43:45.364 │
 │ 1 │ 2022-01-31 15:43:41.944 │
 └───┴─────────────────────────┘
+```
+
+## insert_deduplication_token
+
+Since Clikhouse 22.2 there is a new setting [insert_dedupplication_token](https://clickhouse.com/docs/en/operations/settings/settings/#insert_deduplication_token).
+This setting allows you to define an explicit token that will be used for deduplication instead of calculating a checksum from the inserted data.
+
+```sql
+CREATE TABLE test_table
+( A Int64 )
+ENGINE = MergeTree
+ORDER BY A
+SETTINGS non_replicated_deduplication_window = 100;
+
+INSERT INTO test_table FORMAT Values SETTINGS insert_deduplication_token = 'test' (1);
+
+-- the next insert won't be deduplicated because insert_deduplication_token is different
+INSERT INTO test_table FORMAT Values SETTINGS insert_deduplication_token = 'test1' (1);
+
+-- the next insert will be deduplicated because insert_deduplication_token 
+-- is the same as one of the previous
+INSERT INTO test_table FORMAT Values SETTINGS insert_deduplication_token = 'test' (2);
+SELECT * FROM test_table
+┌─A─┐
+│ 1 │
+└───┘
+┌─A─┐
+│ 1 │
+└───┘
 ```
