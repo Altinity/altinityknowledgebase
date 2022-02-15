@@ -8,6 +8,12 @@ description: >
 MATERIALIZED VIEWs in ClickHouse behave like AFTER INSERT TRIGGER to the left-most table listed in its SELECT statement.
 {{% /alert %}}
 
+
+# MATERIALIZED VIEWS
+
+* Clickhouse and the magic of materialized views. Basics explained with examples: [webinar recording](https://altinity.com/webinarspage/2019/6/26/clickhouse-and-the-magic-of-materialized-views)
+* Everything you should know about materialized views. Very detailed information about internals: [video](https://youtu.be/ckChUkC3Pns?t=9353), [annotated presentation](https://den-crane.github.io/Everything_you_should_know_about_materialized_views_commented.pdf), [presentation](https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup47/materialized_views.pdf)
+
 ## Best practices
 
 1. Use MATERIALIZED VIEW with TO syntax (explicit storage table)
@@ -132,13 +138,3 @@ See also:
 
 * [https://github.com/ClickHouse/ClickHouse/issues/1226](https://github.com/ClickHouse/ClickHouse/issues/1226)
 * [https://github.com/ClickHouse/ClickHouse/pull/7533](https://github.com/ClickHouse/ClickHouse/pull/7533)
-
-## Presentation
-
-* [https://youtu.be/ckChUkC3Pns?t=9353](https://youtu.be/ckChUkC3Pns?t=9353)
-* [https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup47/materialized_views.pdf](https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup47/materialized_views.pdf)
-* [https://den-crane.github.io/Everything_you_should_know_about_materialized_views_commented.pdf](https://den-crane.github.io/Everything_you_should_know_about_materialized_views_commented.pdf)
-
-Webinar:
-
-[https://altinity.com/webinarspage/2019/6/26/clickhouse-and-the-magic-of-materialized-views](https://altinity.com/webinarspage/2019/6/26/clickhouse-and-the-magic-of-materialized-views)
