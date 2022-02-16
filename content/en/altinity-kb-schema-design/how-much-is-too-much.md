@@ -26,7 +26,8 @@ Fewer than number of tables (above). Dozens / hundreds is usually still acceptab
 
 ### Number of columns in the table
 
-Up to a few hundreds. With thousands of columns the inserts / background merges may become slower / require more of RAM. See for example https://github.com/ClickHouse/ClickHouse/issues/6943
+Up to a few hundreds. With thousands of columns the inserts / background merges may become slower / require more of RAM.
+See for example https://github.com/ClickHouse/ClickHouse/issues/6943 https://github.com/ClickHouse/ClickHouse/issues/27502 
 
 ### ClickHouse instances on a single node / VM
 
