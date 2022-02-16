@@ -40,3 +40,17 @@ If this happens, then we think that after a restart of the replica with extra pa
 ## A query to find 'forgotten' parts
 
 https://kb.altinity.com/altinity-kb-useful-queries/parts-consistency/#compare-the-list-of-parts-in-zookeeper-with-the-list-of-parts-on-disk
+
+## A query to drop empty partitions with failing replication tasks
+
+```sql
+select 'alter table '||database||'.'||table||' drop partition id '''||partition_id||''';' 
+from (
+select database, table, splitByChar('_',new_part_name)[1] partition_id
+from system.replication_queue group by database, table, partition_id) q
+left join 
+(select database, table, partition_id, countIf(active) cnt_active, count() cnt_total
+from system.parts group by  database, table, partition_id
+) p using database, table, partition_id
+where cnt_active=0
+```
