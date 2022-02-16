@@ -24,6 +24,13 @@ File names of your xml files can be arbitrary but they applied in alphabetical o
 Examples:
 
 ```markup
+$ cat /etc/clickhouse-server/config.d/listen_host.xml
+<?xml version="1.0" ?>
+<yandex>
+  <listen_host>::</listen_host>
+</yandex>
+
+
 $ cat /etc/clickhouse-server/config.d/macros.xml
 <?xml version="1.0" ?>
 <yandex>
