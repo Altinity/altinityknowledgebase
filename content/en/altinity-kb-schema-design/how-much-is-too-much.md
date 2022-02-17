@@ -35,13 +35,17 @@ One is enough. Single ClickHouse can use resources of the node very efficiently,
 
 ### Number of parts / partitions (system-wide, across all databases)
 
-More than several dozens thousands may lead to performance degradation: slow starts (see https://github.com/ClickHouse/ClickHouse/issues/10087 ), and query speed degradation.
+More than several dozens thousands may lead to performance degradation: slow starts (see https://github.com/ClickHouse/ClickHouse/issues/10087 ).
 
 ### Number of tables & partitions touched by a single insert
 
 If you have realtime / frequent inserts no more than few. 
 
 For the inserts are rare - up to couple of dozens.
+
+### Number of parts / partitions in the single table
+
+More than ~ 5 thousands may lead to issues with alters in Replicated tables (caused by `jute.maxbuffer` overrun, see [details](../altinity-kb-setup-and-maintenance/zookeeper-session-expired.md), and query speed degradation.
 
 ### Disk size per shard
 
