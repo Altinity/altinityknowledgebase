@@ -35,7 +35,7 @@ One is enough. Single ClickHouse can use resources of the node very efficiently,
 
 ### Number of parts / partitions (system-wide, across all databases)
 
-More than several dozens thousands may lead to performance degradation.
+More than several dozens thousands may lead to performance degradation: slow starts (see https://github.com/ClickHouse/ClickHouse/issues/10087 ), and query speed degradation.
 
 ### Number of tables & partitions touched by a single insert
 
