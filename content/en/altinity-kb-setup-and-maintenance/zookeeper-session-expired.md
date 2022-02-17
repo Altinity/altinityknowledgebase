@@ -52,3 +52,21 @@ Known issues which can lead to session termination by zookeeper:
 1) connectivity / network issues.
 2) `jute.maxbuffer` overrun. If you need to pass too much data in a single zookeeper transaction. (often happens if you need to do ALTER table UPDATE or other mutation on the table with big number of parts). The fix is adjusting JVM setting: -Djute.maxbuffer=8388608. See https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/jvm-sizes-and-garbage-collector-settings/
 3) XID overflow. XID is a transaction counter in zookeeper, if you do too many transactions the counter reaches maxint32, and to restart the counter zookeeper closes all the connections. Usually, that happens rarely, and is not avoidable in zookeeper (well in clickhouse-keeper that problem solved). There are some corner cases / some schemas which may end up with that XID overflow happening quite often. (a worst case we saw was once per 3 weeks).
+
+> **Q. "ZooKeeper session has expired" happens every time I try to start the mutation / do other ALTER on Replicated table.** 
+
+During ALTERing replicated table ClickHouse need to create a record in zookeeper listing all the parts which should be mutated (that usually means = list names of all parts of the table). If the size of list of parts exceeds maximum buffer size - zookeeper drops the connection. 
+
+Parts name length can be different for different tables. In average with default `jute.maxbuffer` (1Mb) mutations start to fail for tables which have more than 5000 parts.
+
+Solutions:
+1) rethink partitioning, high number of parts in table is usually [not recommended](https://kb.altinity.com/altinity-kb-schema-design/how-much-is-too-much/#number-of-parts--partitions-system-wide-across-all-databases)
+2) increase `jute.maxbuffer` on zookeeper side [to values about 8M](https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/jvm-sizes-and-garbage-collector-settings/)
+3) use IN PARITION clause for mutations (where applicable) - since [20.12](https://github.com/ClickHouse/ClickHouse/pull/13403)
+4) switch to clickhouse-keeper
+
+Related issues:
+- https://github.com/ClickHouse/ClickHouse/issues/16307
+- https://github.com/ClickHouse/ClickHouse/issues/11933
+- https://github.com/ClickHouse/ClickHouse/issues/32646
+- https://github.com/ClickHouse/ClickHouse/issues/15882 
