@@ -16,8 +16,8 @@ While those numbers can vary a lot depending on your hardware & settings there i
 
 ### Number of tables (system-wide, across all databases)
 
-- non-replicated MergeTree-family tables = few thousands is still acceptable, if you don't do realtime inserts in more that few dozens of them. See [32259](https://github.com/ClickHouse/ClickHouse/issues/32259)
-- ReplicatedXXXMergeTree = few hundreds is still acceptable, if you don't do realtime inserts in more that few dozens of them. See [31919](https://github.com/ClickHouse/ClickHouse/issues/31919)
+- non-replicated MergeTree-family tables = few thousands is still acceptable, if you don't do realtime inserts in more that few dozens of them. See [#32259](https://github.com/ClickHouse/ClickHouse/issues/32259)
+- ReplicatedXXXMergeTree = few hundreds is still acceptable, if you don't do realtime inserts in more that few dozens of them. Every Replicated table comes with it's own cost (need to do housekeepeing operations, monitoing replication queues etc). See [#31919](https://github.com/ClickHouse/ClickHouse/issues/31919)
 - Log family table = even dozens of thousands is still ok, especially if database engine = Lazy is used.
 
 ### Number of databases 
