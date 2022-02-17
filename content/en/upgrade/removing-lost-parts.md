@@ -47,7 +47,9 @@ https://kb.altinity.com/altinity-kb-useful-queries/parts-consistency/#compare-th
 select 'alter table '||database||'.'||table||' drop partition id '''||partition_id||''';' 
 from (
 select database, table, splitByChar('_',new_part_name)[1] partition_id
-from system.replication_queue group by database, table, partition_id) q
+from system.replication_queue
+where type='GET_PART' and not is_currently_executing and create_time < toStartOfDay(yesterday())
+group by database, table, partition_id) q
 left join 
 (select database, table, partition_id, countIf(active) cnt_active, count() cnt_total
 from system.parts group by  database, table, partition_id
