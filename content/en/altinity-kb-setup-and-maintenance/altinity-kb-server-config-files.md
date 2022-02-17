@@ -19,7 +19,7 @@ We suggest never change vendor config files and place your changes into separate
 
 **/etc/clickhouse-server/conf.d** – sub-folder for any (both) settings.
 
-File names of your xml files can be arbitrary but they applied in alphabetical order.
+File names of your xml files can be arbitrary but they are applied in alphabetical order.
 
 Examples:
 
