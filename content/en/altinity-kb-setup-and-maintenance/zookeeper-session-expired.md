@@ -23,7 +23,7 @@ Usually after loosing the zookeeper session that exception is printed by all the
 
 If you see a lot of those simultaniously - that just means you have a lot of threads talking to zookeeper simultaniously (or may be you have many replicated tables?).
 
-BTW: every Replicated table comes with its own cost, so you can't scale the number of replicated tables indefinitely.
+BTW: every Replicated table comes with its own cost, so you [can't scale the number of replicated tables indefinitely](/altinity-kb-schema-design/how-much-is-too-much/#number-of-tables-system-wide-across-all-databases).
 
 Typically after several hundreds (sometimes thousands) of replicated tables, the clickhouse server becomes unusable: it can't do any other work, but only keeping replication housekeeping tasks. 'ClickHouse-way' is to have a few (maybe dozens) of very huge tables instead of having thousands of tiny tables. (Side note: the number of not-replicated tables can be scaled much better).
 
