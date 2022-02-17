@@ -25,7 +25,7 @@ See also [https://grafana.com/grafana/dashboards?search=ZooKeeper&dataSource=pro
 
 ### setup alert rules
 
-* embedded exporter [https://github.com/Altinity/clickhouse-operator/blob/master/deploy/prometheus/prometheus-alert-rules.yaml\#L480-L805](https://github.com/Altinity/clickhouse-operator/blob/master/deploy/prometheus/prometheus-alert-rules.yaml#L480-L805)
+* embedded exporter [link](https://github.com/Altinity/clickhouse-operator/blob/master/deploy/prometheus/prometheus-alert-rules-zookeeper.yaml)
 
 ### See also
 
