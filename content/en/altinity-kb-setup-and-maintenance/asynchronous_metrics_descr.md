@@ -6,8 +6,6 @@ description: >-
      Description of asynchronous_metrics
 ---
 
-# Description of asynchronous_metrics
-
 ```
 CompiledExpressionCacheCount    -- number or compiled cached expression (if CompiledExpressionCache is enabled)
 
