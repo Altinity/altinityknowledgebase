@@ -1,6 +1,9 @@
 ---
 title: "Using This Knowledge Base"
 linkTitle: "Using This Knowledge Base"
+keywords:
+- clickhouse updates
+- contribute to clickhouse
 description: >
     How to add pages, make updates, and expand this knowledge base.
 weight: 12
