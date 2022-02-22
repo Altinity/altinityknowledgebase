@@ -1,8 +1,12 @@
 ---
 title: "Dictionaries"
 linkTitle: "Dictionaries"
+keywords:
+- clickhouse dictionaries
+- clickhouse arrays
+- postgresql dictionary
 description: >
-    Dictionaries
+    All you need to know about creating and using ClickHouse dictionaries.
 weight: 11
 ---
 
