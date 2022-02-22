@@ -1,8 +1,11 @@
 ---
 title: "Kubernetes"
 linkTitle: "Kubernetes"
+keywords:
+- clickhouse in kubernetes
+- kubernetes issues
 description: >
-    Kubernetes
+    Run ClickHouse in Kubernetes without any issues.
 weight: 8
 ---
 ## clickhouse-backup
