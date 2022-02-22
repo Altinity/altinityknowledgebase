@@ -20,7 +20,7 @@ Errors like
    If server was restarted recently and don't accept the connections after the restart - most probably it still just starting. 
    During the startup sequence it need to iterate over all data folders in /var/lib/clickhouse-server 
    In case if you have a very high number of folders there (usually caused by a wrong partitioning, or a very high number of tables / databases)
-   that startup time can take a lot of time. 
+   that startup time can take a lot of time (same can happen if disk is very slow, for example NFS).
    
    You can check that by looking for 'Ready for connections' line in `/var/log/clickhouse-server/clickhouse-server.log` (`Information` log level neede)
    
