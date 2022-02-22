@@ -4,7 +4,7 @@ linkTitle: "clickhouse-client"
 keywords:
 - clickhouse client
 description: >
-    
+    ClickHouse client
 ---
 Q. How can I input multi-line SQL code? can you guys give me an example?
 
