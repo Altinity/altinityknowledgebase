@@ -14,6 +14,13 @@ description: >-
    systemctl status clickhouse-server
    ```
 
+   If server was restarted recently and don't accept the connections after the restart - most probably it still just starting. 
+   During the startup sequence it need to iterate over all data folders in /var/lib/clickhouse-server 
+   In case if you have a very high number of folders there (usually caused by a wrong partitioning, or a very high number of tables / databases)
+   that startup time can take a lot of time. 
+   
+   You can check that by looking for 'Ready for connections' line in `/var/log/clickhouse-server/clickhouse-server.log` (`Information` log level neede)
+   
 2. Ensure you use the proper port ip / interface?
 
    Ensure you're not trying to connect to secure port without tls / https or vice versa.
@@ -56,10 +63,15 @@ description: >-
    curl 127.0.0.1:8123
    ```
 
-6. Check number of sockets opened by clickhouse - can it
+6. Check number of sockets opened by clickhouse
 
    ```sh
    sudo lsof -i -a -p $(pidof clickhouse-server)
+   
+   # or (adjust 9000 / 8123 ports if needed)
+   netstat -tn 2>/dev/null | tail -n +3 | awk '{ printf("%s\t%s\t%s\t%s\t%s\t%s\n", $1, $2, $3, $4, $5, $6) }' | clickhouse-local -S "Proto String, RecvQ Int64, SendQ Int64, LocalAddress String, ForeignAddress String, State LowCardinality(String)" --query="SELECT * FROM table WHERE LocalAddress like '%:9000' FORMAT PrettyCompact"
+   
+   netstat -tn 2>/dev/null | tail -n +3 | awk '{ printf("%s\t%s\t%s\t%s\t%s\t%s\n", $1, $2, $3, $4, $5, $6) }' | clickhouse-local -S "Proto String, RecvQ Int64, SendQ Int64, LocalAddress String, ForeignAddress String, State LowCardinality(String)" --query="SELECT * FROM table WHERE LocalAddress like '%:8123' FORMAT PrettyCompact"
    ```
 
    ClickHouse has a limit of number of open connections (4000 by default).
