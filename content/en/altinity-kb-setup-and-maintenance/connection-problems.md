@@ -8,6 +8,9 @@ description: >-
 
 ## Can not connect to my ClickHouse server
 
+Errors like 
+"Connection reset by peer, while reading from socket"
+
 1. Ensure that the clickhouse-server is running
 
    ```sh
