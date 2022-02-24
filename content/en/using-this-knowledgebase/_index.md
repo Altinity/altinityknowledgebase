@@ -3,9 +3,9 @@ title: "Using This Knowledge Base"
 linkTitle: "Using This Knowledge Base"
 keywords:
 - clickhouse updates
-- contribute to clickhouse
+- clickhouse contributions
 description: >
-    How to add pages, make updates, and expand this knowledge base.
+    Add pages, make updates, and contribute to this ClickHouse knowledge base.
 weight: 12
 ---
 The Altinity Knowledge Base is built on GitHub Pages, using Hugo and Docsy.  This guide provides a brief description on how to make updates and add to this knowledge base.
