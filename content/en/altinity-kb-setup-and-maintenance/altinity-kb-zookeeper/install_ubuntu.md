@@ -44,6 +44,7 @@ sudo chmod +x /usr/local/bin/zkCli /usr/local/bin/zkServer /usr/local/bin/zkClea
 # put in the config
 sudo cp opt/zookeeper/conf/* /etc/zookeeper
 cat <<EOF | sudo tee /etc/zookeeper/zoo.cfg
+initLimit=20
 syncLimit=10
 maxSessionTimeout=60000000
 maxClientCnxns=2000
