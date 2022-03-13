@@ -66,6 +66,17 @@ cat /etc/clickhouse-server/users.d/enable_access_management_for_user_default.xml
     </default>
   </users>
 </yandex>
+
+cat /etc/clickhouse-server/users.d/memory_usage.xml
+<?xml version="1.0" ?>
+<yandex>
+    <profiles>
+        <default>
+            <max_bytes_before_external_group_by>25290221568</max_bytes_before_external_group_by>
+            <max_memory_usage>50580443136</max_memory_usage>
+        </default>
+    </profiles>
+</yandex>
 ```
 
 BTW, you can define any macro in your configuration and use them in Zookeeper paths
