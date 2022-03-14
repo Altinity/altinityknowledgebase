@@ -33,13 +33,17 @@ create table foo_replicated as foo
 Engine ReplicatedMergeTree('/clickhouse/{cluster}/tables/{database}/{table}/{shard}','{replica}')
 partition by toYYYYMM(D) order by A;
 
-SELECT DISTINCT 'ALTER TABLE foo_replicated ATTACH PARTITION ID \'' || partition_id || '\' FROM foo;' from system.parts WHERE table = 'foo';
+SYSTEM STOP MERGES;
+
+SELECT DISTINCT 'ALTER TABLE foo_replicated ATTACH PARTITION ID \'' || partition_id || '\' FROM foo;' from system.parts WHERE table = 'foo' AND active;
 ┌─concat('ALTER TABLE foo_replicated ATTACH PARTITION ID \'', partition_id, '\' FROM foo;')─┐
 │ ALTER TABLE foo_replicated ATTACH PARTITION ID '202111' FROM foo;                         │
 │ ALTER TABLE foo_replicated ATTACH PARTITION ID '202201' FROM foo;                         │
 └───────────────────────────────────────────────────────────────────────────────────────────┘
 
 clickhouse-client -q "SELECT DISTINCT 'ALTER TABLE foo_replicated ATTACH PARTITION ID \'' || partition_id || '\' FROM foo;' from system.parts WHERE table = 'foo' format TabSeparatedRaw" |clickhouse-client -mn
+
+SYSTEM START MERGES;
 
 SELECT count() FROM foo_replicated;
 ┌───count()─┐
