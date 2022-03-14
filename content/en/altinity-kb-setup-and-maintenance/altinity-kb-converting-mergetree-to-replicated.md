@@ -35,7 +35,7 @@ partition by toYYYYMM(D) order by A;
 
 SYSTEM STOP MERGES;
 
-SELECT DISTINCT 'ALTER TABLE foo_replicated ATTACH PARTITION ID \'' || partition_id || '\' FROM foo;' from system.parts WHERE table = 'foo' AND is_active;
+SELECT DISTINCT 'ALTER TABLE foo_replicated ATTACH PARTITION ID \'' || partition_id || '\' FROM foo;' from system.parts WHERE table = 'foo' AND active;
 ┌─concat('ALTER TABLE foo_replicated ATTACH PARTITION ID \'', partition_id, '\' FROM foo;')─┐
 │ ALTER TABLE foo_replicated ATTACH PARTITION ID '202111' FROM foo;                         │
 │ ALTER TABLE foo_replicated ATTACH PARTITION ID '202201' FROM foo;                         │
