@@ -21,8 +21,9 @@ description: >-
 6.  Review the partition by and order by. https://kb.altinity.com/engines/mergetree-table-engine-family/pick-keys/
 7.  Create the schema(s) with better/promising order by / partitioning, load data in. Pick the best schema.
 8.  consider different improvements of particular columns (codecs / better data types etc.) https://kb.altinity.com/altinity-kb-schema-design/codecs/altinity-kb-how-to-test-different-compression-codecs/
-9.  Repeat 2-8 for next big table(s). Avoid scenarios when you need to join big tables.
-10. Pick the clients library for you programming language (the most mature are python / golang / java / c++), build some pipeline - for inserts (low QPS, lot of rows in singe insert, check acknowledgements & retry the same block on failures), ETLs if needed, some reporting layer (https://kb.altinity.com/altinity-kb-integrations/bi-tools/) 
+9.  If the performance of certain queries is not enough - consider using PREWHERE / skipping indexes 
+10.  Repeat 2-9 for next big table(s). Avoid scenarios when you need to join big tables.
+11. Pick the clients library for you programming language (the most mature are python / golang / java / c++), build some pipeline - for inserts (low QPS, lot of rows in singe insert, check acknowledgements & retry the same block on failures), ETLs if needed, some reporting layer (https://kb.altinity.com/altinity-kb-integrations/bi-tools/) 
 
 ### Stage 1. Planning the production setup
 
