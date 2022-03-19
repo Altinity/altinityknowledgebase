@@ -53,6 +53,9 @@ FROM system.query_log
 WHERE (event_date >= today()) AND (event_time >= (now() - 7200))
 ORDER BY memory_usage DESC
 LIMIT 10;
+
+
+SELECT sum(data_uncompressed_bytes) FROM system.parts WHERE part_type = 'InMemory';
 ```
 
 ```bash
