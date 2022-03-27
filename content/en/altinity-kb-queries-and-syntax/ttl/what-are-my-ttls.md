@@ -29,7 +29,7 @@ ORDER BY (EventID, EventDate)
 TTL EventDate + toIntervalMonth(1)
 SETTINGS index_granularity = 8192
 ```
-This works even when there's no data in the table. It does not tell you when the 
+This works even when there's no data in the table. It does not tell you when the TTLs expire or anything specific to data in one or more of the table parts. 
 
 ## Using system.parts
 
