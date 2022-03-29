@@ -11,18 +11,60 @@ description: >-
 srv1 -- good replica
 srv2 -- lost replica / will restore it from srv1
 
+## test data 
 
-## generate script which will recteate databases (create_database.sql).
-srv1:
+srv1
+
 ```sql
-SELECT concat('ATTACH DATABASE "', name, '" UUID \'', toString(uuid), '\' ENGINE = ', engine, ' COMMENT \'', comment, '\';')
-FROM system.databases
-WHERE name NOT IN ('INFORMATION_SCHEMA', 'information_schema', 'system');
+create database testatomic on cluster '{cluster}' engine=Atomic;
+create table testatomic.test on cluster '{cluster}' (A Int64, D Date, s String)
+Engine = ReplicatedMergeTree('/clickhouse/{cluster}/tables/{database}/{table}','{replica}')
+partition by toYYYYMM(D)
+order by A;
+insert into testatomic.test select number, today(), '' from numbers(1000000);
 
-┌─concat('ATTACH DATABASE "', name, '" UUID \'', toString(uuid), '\' ENGINE = ', engine, ' COMMENT \'', comment, '\';')─┐
-│ ATTACH DATABASE "default" UUID '7d660319-f56a-4b83-a1af-b84d88383710' ENGINE = Atomic COMMENT '';                     │
-│ ATTACH DATABASE "test" UUID '9f2c5841-21f6-42e9-9f5a-cf477455876b' ENGINE = Atomic COMMENT '';                        │
-└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+create database testordinary on cluster '{cluster}' engine=Ordinary;
+create table testordinary.test on cluster '{cluster}' (A Int64, D Date, s String)
+Engine = ReplicatedMergeTree('/clickhouse/{cluster}/tables/{database}/{table}','{replica}')
+partition by toYYYYMM(D)
+order by A;
+insert into testordinary.test select number, today(), '' from numbers(1000000);
+
+
+create table default.test on cluster '{cluster}' (A Int64, D Date, s String)
+Engine = ReplicatedMergeTree('/clickhouse/{cluster}/tables/{database}/{table}','{replica}')
+partition by toYYYYMM(D)
+order by A;
+insert into default.test select number, today(), '' from numbers(1000000);
+```
+
+## destroy srv2
+
+srv2
+
+```
+/etc/init.d/clickhouse-server stop
+rm -rf /var/lib/clickhouse/*
+```
+
+## generate script which will re-create databases (create_database.sql).
+
+srv1
+
+```sql
+$ cat /home/ubuntu/generate_schema.sql
+SELECT concat('CREATE DATABASE "', name, '" ENGINE = ', engine, ' COMMENT \'', comment, '\';')
+FROM system.databases
+WHERE name NOT IN ('INFORMATION_SCHEMA', 'information_schema', 'system', 'default');
+```
+
+```bash
+clickhouse-client < /home/denis.zhuravlev/generate_schema.sql > create_database.sql
+
+$ cat create_database.sql
+CREATE DATABASE "testatomic" ENGINE = Atomic COMMENT '';
+CREATE DATABASE "testordinary" ENGINE = Ordinary COMMENT '';
 ```
 
 transfer this create_database.sql to srv2 (scp / rsync)
@@ -39,14 +81,9 @@ transfer this metadata_schema.tar to srv2 (scp / rsync)
 
 ## create databases at srv2
 
-start service `/etc/init.d/clickhouse-server start` at empty srv2 server.
-
-```sql
-drop database default;
-```
-need to drop default database to create it back with UUID from srv1.
 
 ```bash
+/etc/init.d/clickhouse-server start
 clickhouse-client < create_database.sql
 /etc/init.d/clickhouse-server stop
 ```
@@ -55,7 +92,7 @@ clickhouse-client < create_database.sql
 
 ```bash
 cd /var/lib/clickhouse/
-tar xkfv /home/ubuntur/metadata_schema.tar
+tar xkfv /home/ubuntu/metadata_schema.tar
 sudo -u clickhouse touch /var/lib/clickhouse/flags/force_restore_data
 /etc/init.d/clickhouse-server start
 ```
