@@ -57,12 +57,12 @@ $ cat /home/ubuntu/generate_schema.sql
 SELECT concat('CREATE DATABASE "', name, '" ENGINE = ', engine, ' COMMENT \'', comment, '\';')
 FROM system.databases
 WHERE name NOT IN ('INFORMATION_SCHEMA', 'information_schema', 'system', 'default');
+
+clickhouse-client < /home/denis.zhuravlev/generate_schema.sql > create_database.sql
 ```
 
 check the result
 ```bash
-clickhouse-client < /home/denis.zhuravlev/generate_schema.sql > create_database.sql
-
 $ cat create_database.sql
 CREATE DATABASE "testatomic" ENGINE = Atomic COMMENT '';
 CREATE DATABASE "testordinary" ENGINE = Ordinary COMMENT '';
