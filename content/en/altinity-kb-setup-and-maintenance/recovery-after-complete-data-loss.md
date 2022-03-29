@@ -79,7 +79,7 @@ srv1
 cd /var/lib/clickhouse/
 tar -cvhf /home/ubuntu/metadata_schema.tar metadata
 ```
-`-h` - is important!
+`-h` - is important! (-h, --dereference Follow symlinks; archive and dump the files they point to.)
 
 transfer this metadata_schema.tar to srv2 (scp / rsync)
 
@@ -104,7 +104,7 @@ sudo -u clickhouse touch /var/lib/clickhouse/flags/force_restore_data
 /etc/init.d/clickhouse-server start
 ```
 
-`tar xkfv` `-k` is important to save folders/symlinks created with create database.
+`tar xkfv` `-k` is important! To save folders/symlinks created with create database ( -k, --keep-old-files Don't replace existing files when extracting )
 
 ## check a recovery
 
