@@ -98,3 +98,22 @@ sudo -u clickhouse touch /var/lib/clickhouse/flags/force_restore_data
 ```
 
 `tar xkfv` `-k` is important to save folders/symlinks created with create database.
+
+## check recovery
+
+```sql
+SELECT count() FROM testatomic.test;
+┌─count()─┐
+│ 1000000 │
+└─────────┘
+
+SELECT count() FROM testordinary.test;
+┌─count()─┐
+│ 1000000 │
+└─────────┘
+
+SELECT count() FROM default.test;
+┌─count()─┐
+│ 1000000 │
+└─────────┘
+```
