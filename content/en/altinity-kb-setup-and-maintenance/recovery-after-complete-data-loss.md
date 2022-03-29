@@ -9,7 +9,8 @@ description: >-
 # Atomic & Ordinary databases.
 
 srv1 -- good replica
-srv2 -- lost replica / will restore it from srv1
+
+srv2 -- lost replica / we will restore it from srv1
 
 ## test data (3 tables (atomic & ordinary databases))
 
