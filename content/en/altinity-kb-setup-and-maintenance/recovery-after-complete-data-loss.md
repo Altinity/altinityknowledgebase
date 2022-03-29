@@ -11,7 +11,7 @@ description: >-
 srv1 -- good replica
 srv2 -- lost replica / will restore it from srv1
 
-## test data 
+## test data (3 tables (atomic & ordinary databases))
 
 srv1
 
@@ -59,6 +59,7 @@ FROM system.databases
 WHERE name NOT IN ('INFORMATION_SCHEMA', 'information_schema', 'system', 'default');
 ```
 
+check the result
 ```bash
 clickhouse-client < /home/denis.zhuravlev/generate_schema.sql > create_database.sql
 
@@ -70,7 +71,9 @@ CREATE DATABASE "testordinary" ENGINE = Ordinary COMMENT '';
 transfer this create_database.sql to srv2 (scp / rsync)
 
 ## make a copy of schema sql files (metadata_schema.tar)
-srv1:
+
+srv1
+
 ```bash
 cd /var/lib/clickhouse/
 tar -cvhf /home/ubuntu/metadata_schema.tar metadata
@@ -81,6 +84,7 @@ transfer this metadata_schema.tar to srv2 (scp / rsync)
 
 ## create databases at srv2
 
+srv2
 
 ```bash
 /etc/init.d/clickhouse-server start
@@ -89,6 +93,8 @@ clickhouse-client < create_database.sql
 ```
 
 ## create tables at srv2
+
+srv2
 
 ```bash
 cd /var/lib/clickhouse/
@@ -99,7 +105,9 @@ sudo -u clickhouse touch /var/lib/clickhouse/flags/force_restore_data
 
 `tar xkfv` `-k` is important to save folders/symlinks created with create database.
 
-## check recovery
+## check a recovery
+
+srv2
 
 ```sql
 SELECT count() FROM testatomic.test;
