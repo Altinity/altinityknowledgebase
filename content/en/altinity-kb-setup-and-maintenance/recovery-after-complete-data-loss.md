@@ -48,7 +48,7 @@ srv2
 rm -rf /var/lib/clickhouse/*
 ```
 
-## generate script which will re-create databases (create_database.sql).
+## generate script to re-create databases (create_database.sql).
 
 srv1
 
