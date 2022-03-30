@@ -26,7 +26,7 @@ WHERE name = 'max_threads'
 └─────────────┴───────────┘
 ```
 
-This make ClickHouse to execute all queries with a single thread (normal behavior is half of available CPU cores, cores = 64, then 'auto(32)').
+This makes ClickHouse to execute all queries with a single thread (normal behavior is half of available CPU cores, cores = 64, then 'auto(32)').
 
 We observe this cgroups behavior with AWS EKS (Kubernetes) environment and [Altinity 
 ClickHouse Operator](https://github.com/Altinity/clickhouse-operator) in case if requests.cpu and limits.cpu are not set for a resource.
