@@ -60,3 +60,33 @@ WHERE name = 'max_threads'
 │ max_threads │ 'auto(8)' │
 └─────────────┴───────────┘
 ```
+
+## in depth
+
+For some reason AWS EKS sets cgroup kernel parameters in case of empty requests.cpu & limits.cpu
+
+```bash
+# cat /sys/fs/cgroup/cpu/cpu.cfs_quota_us
+-1
+
+# cat /sys/fs/cgroup/cpu/cpu.cfs_period_us
+100000
+
+# cat /sys/fs/cgroup/cpu/cpu.shares
+2
+```
+
+This makes ClickHouse to set `max_threads = 1` because of 
+
+```text
+cgroup_share = /sys/fs/cgroup/cpu/cpu.shares
+PER_CPU_SHARES = 1024
+share_count = ceil( cgroup_share / PER_CPU_SHARES );
+
+
+-----------
+cat /sys/fs/cgroup/cpu/cpu.shares
+2
+
+share_count = ceil(2 / 1024); = 1
+```
