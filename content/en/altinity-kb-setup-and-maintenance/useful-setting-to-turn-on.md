@@ -30,3 +30,21 @@ Possible values:
 
 0 — The empty cells are filled with the default value of the corresponding field type.
 1 — JOIN behaves the same way as in standard SQL. The type of the corresponding field is converted to Nullable, and empty cells are filled with NULL.
+
+* [aggregate_functions_null_for_empty](https://clickhouse.com/docs/en/operations/settings/settings/#aggregate_functions_null_for_empty)
+
+Default behaviour is not compatible with ANSI SQL (ClickHouse avoids Nullable types by perfomance reasons)
+
+```sql
+select sum(x), avg(x) from (select 1 x where 0);
+┌─sum(x)─┬─avg(x)─┐
+│      0 │    nan │
+└────────┴────────┘
+
+set aggregate_functions_null_for_empty=1;
+
+select sum(x), avg(x) from (select 1 x where 0);
+┌─sumOrNull(x)─┬─avgOrNull(x)─┐
+│         ᴺᵁᴸᴸ │         ᴺᵁᴸᴸ │
+└──────────────┴──────────────┘
+```
