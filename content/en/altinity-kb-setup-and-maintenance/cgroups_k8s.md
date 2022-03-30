@@ -63,7 +63,7 @@ WHERE name = 'max_threads'
 
 ## in depth
 
-For some reason AWS EKS sets cgroup kernel parameters in case of empty requests.cpu & limits.cpu
+For some reason AWS EKS sets cgroup kernel parameters in case of empty requests.cpu & limits.cpu into these:
 
 ```bash
 # cat /sys/fs/cgroup/cpu/cpu.cfs_quota_us
