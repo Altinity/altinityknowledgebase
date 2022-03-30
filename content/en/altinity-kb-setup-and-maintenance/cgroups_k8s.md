@@ -79,14 +79,7 @@ For some reason AWS EKS sets cgroup kernel parameters in case of empty requests.
 This makes ClickHouse to set `max_threads = 1` because of 
 
 ```text
-cgroup_share = /sys/fs/cgroup/cpu/cpu.shares
+cgroup_share = /sys/fs/cgroup/cpu/cpu.shares (2)
 PER_CPU_SHARES = 1024
-share_count = ceil( cgroup_share / PER_CPU_SHARES );
-
-
------------
-cat /sys/fs/cgroup/cpu/cpu.shares
-2
-
-share_count = ceil(2 / 1024); = 1
+share_count = ceil( cgroup_share / PER_CPU_SHARES ) ---> ceil(2 / 1024) ---> 1
 ```
