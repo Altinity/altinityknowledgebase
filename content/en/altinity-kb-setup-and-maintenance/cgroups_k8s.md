@@ -31,6 +31,8 @@ This makes ClickHouse to execute all queries with a single thread (normal behavi
 We observe this cgroups behavior with AWS EKS (Kubernetes) environment and [Altinity 
 ClickHouse Operator](https://github.com/Altinity/clickhouse-operator) in case if requests.cpu and limits.cpu are not set for a resource.
 
+## Workaround
+
 We suggest to set requests.cpu = `half of available CPU cores`, and limits.cpu = `CPU cores`.
 
 
@@ -83,3 +85,7 @@ cgroup_share = /sys/fs/cgroup/cpu/cpu.shares (2)
 PER_CPU_SHARES = 1024
 share_count = ceil( cgroup_share / PER_CPU_SHARES ) ---> ceil(2 / 1024) ---> 1
 ```
+
+## Fix
+
+Incorrect calculation was fixed in https://github.com/ClickHouse/ClickHouse/pull/35815 and will work correctly on newer releases.
