@@ -28,7 +28,6 @@ ORDER BY (column1, column2)
 2. `Rename table example_table to example_table_old`
 
 3. Create the new table with the old name. This will preserve all dependencies like materialized views.
-
 ```sql
 CREATE TABLE example_table as example_table_old 
 ENGINE = ReplicatedMergeTree('/clickhouse/{cluster}/tables/{shard}/default/example_table_new', '{replica}')
@@ -38,65 +37,61 @@ ORDER BY (column1, column2, column3)
 
 4. Copy data from `example_table_old` into `example_table_temp`
 
-a. Use this query to generate a list of INSERT statements
+     a. Use this query to generate a list of INSERT statements
+     ```sql
+     select concat('insert into example_table_temp select * from example_table_old where toYYYYMM(date)=',partition) as cmd, 
+     database, table, partition, sum(rows), sum(bytes_on_disk), count()
+     from system.parts
+     where database='default' and table='example_table_old'
+     group by database, table, partition
+     order by partition
+     ```
 
-```sql
-select concat('insert into example_table_temp select * from example_table_old where toYYYYMM(date)=',partition) as cmd, 
-database, table, partition, sum(rows), sum(bytes_on_disk), count()
-from system.parts
-where database='default' and table='example_table_old'
-group by database, table, partition
-order by partition
-```
+     b. Create an intermediate table
+     ```sql
+     CREATE TABLE example_table_temp as example_table_old 
+     ENGINE = MergeTree
+     PARTITION BY toYYYYMM(date)
+     ORDER BY (column1, column2, column3)
+     ```
 
-b. Create an intermediate table
+     c. Run the queries one by one
 
-```sql
-CREATE TABLE example_table_temp as example_table_old 
-ENGINE = MergeTree
-PARTITION BY toYYYYMM(date)
-ORDER BY (column1, column2, column3)
-```
+     After each query compare the number of rows in both tables.
+     If the INSERT statement was interrupted and failed to copy data, drop the partition in `example_table` and repeat the INSERT.
+     If a partition was copied successfully, proceed to the next partition.
 
-c. Run the queries one by one
-
-After each query compare the number of rows in both tables.
-If the INSERT statement was interrupted and failed to copy data, drop the partition in `example_table` and repeat the INSERT.
-If a partition was copied successfully, proceed to the next partition.
-
-Here is a query to compare the tables:
-```sql
-select database, table, partition, sum(rows), sum(bytes_on_disk), count()
-from system.parts
-where database='default' and table like 'example_table%'
-group by database, table, partition
-order by partition
-```
+     Here is a query to compare the tables:
+     ```sql
+     select database, table, partition, sum(rows), sum(bytes_on_disk), count()
+     from system.parts
+     where database='default' and table like 'example_table%'
+     group by database, table, partition
+     order by partition
+     ```
 
 5. Attach data from the intermediate table to `example_table`
 
-a. Use this query to generate a list of ATTACH statements
+     a. Use this query to generate a list of ATTACH statements
+     ```sql
+     select concat('alter table example_table attach partition id ''',partition,''' from example_table_temp') as cmd, 
+     database, table, partition, sum(rows), sum(bytes_on_disk), count()
+     from system.parts
+     where database='default' and table='example_table_temp'
+     group by database, table, partition
+     order by partition
+     ```
 
-```sql
-select concat('alter table example_table attach partition id ''',partition,''' from example_table_temp') as cmd, 
-database, table, partition, sum(rows), sum(bytes_on_disk), count()
-from system.parts
-where database='default' and table='example_table_temp'
-group by database, table, partition
-order by partition
-```
+     b. Run the queries one by one
 
-b. Run the queries one by one
-
-Here is a query to compare the tables:
-
-```sql
-select hostName(), database, table, partition, sum(rows), sum(bytes_on_disk), count()
-from clusterAllReplicas('my-cluster',system.parts)
-where database='default' and table like 'example_table%'
-group by hostName(), database, table, partition
-order by partition
-```
+     Here is a query to compare the tables:
+     ```sql
+     select hostName(), database, table, partition, sum(rows), sum(bytes_on_disk), count()
+     from clusterAllReplicas('my-cluster',system.parts)
+     where database='default' and table like 'example_table%'
+     group by hostName(), database, table, partition
+     order by partition
+     ```
 
 6. Drop `example_table_old` and `example_table_temp`
 
