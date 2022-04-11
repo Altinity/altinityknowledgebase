@@ -8,14 +8,14 @@ List of missing tables
 
 ```sql
 WITH (
-     SELECT groupArray(FQDN()) FROM clusterAllReplicas({cluster},system,one)
+     SELECT groupArray(FQDN()) FROM clusterAllReplicas('{cluster}',system,one)
      ) AS hosts
 SELECT database,
        table,
        arrayFilter( i-> NOT has(groupArray(host),i), hosts) miss_table
 FROM (
         SELECT FQDN() host, database, name table
-        FROM clusterAllReplicas({cluster},system,tables)
+        FROM clusterAllReplicas('{cluster}',system,tables)
         WHERE engine NOT IN ('Log','Memory','TinyLog')
      )
 GROUP BY database, table
@@ -31,7 +31,7 @@ List of inconsistent tables
 
 ```sql
 SELECT database, name, engine, uniqExact(create_table_query) AS ddl
-FROM clusterAllReplicas({cluster},system.tables)
+FROM clusterAllReplicas('{cluster}',system.tables)
 GROUP BY database, name, engine HAVING ddl > 1
 ```
 
@@ -39,7 +39,7 @@ List of inconsistent columns
 
 ```sql
 WITH (
-     SELECT groupArray(FQDN()) FROM clusterAllReplicas({cluster},system,one)
+     SELECT groupArray(FQDN()) FROM clusterAllReplicas('{cluster}',system,one)
      ) AS hosts
 SELECT database,
        table,
@@ -48,7 +48,7 @@ SELECT database,
                                  (groupArray( (type,host) ) AS g)),', ') diff
 FROM (
         SELECT FQDN() host, database, table, name column, type
-        FROM clusterAllReplicas({cluster},system,columns)
+        FROM clusterAllReplicas('{cluster}',system,columns)
      )
 GROUP BY database, table, column
 HAVING length(arrayDistinct(g.1)) > 1 OR length(g.1) <> length(hosts)
@@ -63,7 +63,7 @@ List of inconsistent dictionaries
 
 ```sql
 WITH (
-     SELECT groupArray(FQDN()) FROM clusterAllReplicas({cluster},system,one)
+     SELECT groupArray(FQDN()) FROM clusterAllReplicas('{cluster}',system,one)
      ) AS hosts
 SELECT database,
        dictionary,
@@ -71,7 +71,7 @@ SELECT database,
        arrayReduce('median', (groupArray((element_count, host)) AS ec).1 )
 FROM (
         SELECT FQDN() host, database, name dictionary, element_count
-        FROM clusterAllReplicas({cluster},system,dictionaries)
+        FROM clusterAllReplicas('{cluster}',system,dictionaries)
      )
 GROUP BY database, dictionary
 HAVING miss_dict <> []
