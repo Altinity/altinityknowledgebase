@@ -14,7 +14,7 @@ Options here are:
 
 ## example for option 2
 
-Note: ATTACH PARTITION ID 'bar' FROM 'foo'` is practically free from compute and disk space perspective. This feature utilizes filesysem hard-links and the fact that files are immutable in Clickhouse ( it's the core of the Clickhouse design, filesystem hard-links and such file manipulations are widely used ).
+Note: ATTACH PARTITION ID 'bar' FROM 'foo'` is practically free from compute and disk space perspective. This feature utilizes filesystem hard-links and the fact that files are immutable in Clickhouse ( it's the core of the Clickhouse design, filesystem hard-links and such file manipulations are widely used ).
 
 ```sql
 create table foo( A Int64, D Date, S String ) 
