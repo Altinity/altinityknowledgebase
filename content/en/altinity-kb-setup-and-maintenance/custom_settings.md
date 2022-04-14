@@ -8,7 +8,7 @@ description: >-
 
 ## Using custom settings in config 
 
-You can not use the cutsom settings in config file 'as is', because clickhouse don't know which datatype should be used to parse it.
+You can not use the custom settings in config file 'as is', because clickhouse don't know which datatype should be used to parse it.
 
 ```xml
 cat /etc/clickhouse-server/users.d/default_profile.xml 
