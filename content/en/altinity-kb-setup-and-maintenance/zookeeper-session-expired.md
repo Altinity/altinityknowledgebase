@@ -8,7 +8,7 @@ description: >-
 
 > **Q. I get "ZooKeeper session has expired" once. What should i do? Should I worry?**
 
-Getting exceptions or lack of acknolegment in distributed system from time to time is a normal situation. 
+Getting exceptions or lack of acknowledgement in distributed system from time to time is a normal situation. 
 Your client should do the retry. If that happened once and your client do retries correctly - nothing to worry about.
 
 It it happens often, or with every retry - it may be a sign of some misconfiguration / issue in cluster (see below).
@@ -21,7 +21,7 @@ So the same event (we lose the single zookeeper session we had), will be reporte
 
 Usually after loosing the zookeeper session that exception is printed by all the thread which watch zookeeper replication queues, and all the threads which had some in-flight zookeeper operations (for example inserts, `ON CLUSTER` commands etc).
 
-If you see a lot of those simultaniously - that just means you have a lot of threads talking to zookeeper simultaniously (or may be you have many replicated tables?).
+If you see a lot of those simultaneously - that just means you have a lot of threads talking to zookeeper simultaneously (or may be you have many replicated tables?).
 
 BTW: every Replicated table comes with its own cost, so you [can't scale the number of replicated tables indefinitely](/altinity-kb-schema-design/how-much-is-too-much/#number-of-tables-system-wide-across-all-databases).
 
