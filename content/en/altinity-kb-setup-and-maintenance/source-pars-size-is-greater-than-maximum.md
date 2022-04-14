@@ -6,7 +6,7 @@ description: >-
      source parts size (...) is greater than the current maximum (...)
 ---
 
-## Symthom
+## Symptom
 
 I see messages like: `source parts size (...) is greater than the current maximum (...)` in the logs and/or inside `system.replication_queue`
 
