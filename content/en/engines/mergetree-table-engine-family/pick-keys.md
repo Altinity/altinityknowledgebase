@@ -8,7 +8,7 @@ description: >-
 
 ## How to pick an ORDER BY / PRIMARY KEY
 
-good order by usually have 3 to 5 columns, from lowest cardinal on the left (and the most important for filtering) to highest cardinal (and less important for filtering).
+Good `order by` usually have 3 to 5 columns, from lowest cardinal on the left (and the most important for filtering) to highest cardinal (and less important for filtering).
  
 Practical approach to create an good ORDER BY for a table:
 
@@ -32,11 +32,11 @@ PRIMARY KEY (site_id, toStartOfHour(timestamp), sessionid)
 
 ### For Summing / Aggregating
 
-All dimentions go to ORDER BY, all metrics - outside of that. 
+All dimensions go to ORDER BY, all metrics - outside of that. 
 
 The most important for filtering columns with the lowest cardinality should be the left most.
 
-If number of dimentions is high it's typically make sense to use a prefix of ORDER BY as a PRIMARY KEY to avoid polluting sparse index.
+If number of dimensions is high it's typically make sense to use a prefix of ORDER BY as a PRIMARY KEY to avoid polluting sparse index.
 
 Examples:
 
