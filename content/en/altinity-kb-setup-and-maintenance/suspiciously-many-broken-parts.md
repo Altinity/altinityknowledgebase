@@ -25,7 +25,7 @@ Why data could be corrupted?
 
 ## Action:
 
-1. If you ok to accept the data loss: set up `force_restore_data` flag and clickhouse will move the parts to detached. Data loss is possible the issue is a result of misconfiguration (someone accidentally changed configs for shard/replica macros, data will be moved to detached folder and can be recovered).
+1. If you ok to accept the data loss: set up `force_restore_data` flag and clickhouse will move the parts to detached. Data loss is possible if the issue is a result of misconfiguration (i.e. someone accidentally has fixed xml configs with incorrect shard/replica macros, data will be moved to detached folder and can be recovered).
 
     ```bash
     sudo -u clickhouse touch /var/lib/clickhouse/flags/force_restore_data
