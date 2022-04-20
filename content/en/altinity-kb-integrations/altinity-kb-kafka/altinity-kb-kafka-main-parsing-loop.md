@@ -26,7 +26,7 @@ These usually should not be adjusted:
 You may want to adjust those depending on your scenario:
 
 * `kafka_flush_interval_ms` = stream_poll_timeout_ms (7500ms)
-* `kafka_max_block_size` = min_insert_block_size / kafka_num_consumers (for the single consumer: 1048576)
+* `kafka_max_block_size` = max_insert_block_size / kafka_num_consumers (for the single consumer: 1048576)
 
 ## See also
 
