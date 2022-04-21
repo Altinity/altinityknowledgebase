@@ -11,9 +11,13 @@ description: >-
 ### Installation of vector.dev
 
 ```bash
+# arm64
 wget https://packages.timber.io/vector/0.15.2/vector_0.15.2-1_arm64.deb
 
-dpkg -i vector_0.15.2-1_arm64.deb
+# amd64
+wget https://packages.timber.io/vector/0.15.2/vector_0.15.2-1_amd64.deb
+
+dpkg -i vector_0.15.2-1_*.deb
 
 systemctl stop vector
 
