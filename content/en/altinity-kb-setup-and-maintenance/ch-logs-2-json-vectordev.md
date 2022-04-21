@@ -31,7 +31,7 @@ usermod -a -G clickhouse vector
 ### vector config
 
 ```toml
-cat /etc/vector/vector.toml
+# cat /etc/vector/vector.toml
 data_dir = "/var/lib/vector"
 
 [sources.clickhouse-log]
