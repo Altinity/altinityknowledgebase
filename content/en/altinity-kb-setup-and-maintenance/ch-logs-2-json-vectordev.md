@@ -72,8 +72,10 @@ tail /var/log/clickhouse-server-json/clickhouse-server.2022-04-21.ndjson
 
 ### sink logs into ClickHouse table
 
+Be carefull with logging ClickHouse messages into the same ClickHouse instance, it will cause endless recursive self-logging.
+
 ```sql
-create table clickhouse_logs(
+create table default.clickhouse_logs(
   timestamp DateTime64(3),
   host LowCardinality(String),
   thread_id LowCardinality(String),
@@ -85,7 +87,8 @@ Partition by toYYYYMM(timestamp)
 Order by (toStartOfHour(timestamp), host, severity, query_id);
 
 create user vector identified  by 'vector1234';
-grant insert on clickhouse_logs to vector;
+grant insert on default.clickhouse_logs to vector;
+create settings profile or replace profile_vector settings log_queries=0 readonly TO vector;
 ```
 
 ```toml
@@ -113,7 +116,7 @@ grant insert on clickhouse_logs to vector;
 ```
 
 ```sql
-select * from clickhouse_logs limit 10;
+select * from default.clickhouse_logs limit 10;
 ┌───────────────timestamp─┬─host───────┬─thread_id─┬─severity─┬─query_id─┬─message─────────────────────────────────────────────────────
 │ 2022-04-21 19:08:13.443 │ clickhouse │ 283155    │ Debug    │          │ HTTP-Session: 13e87050-7824-46b0-9bd5-29469a1b102f Authentic
 │ 2022-04-21 19:08:13.443 │ clickhouse │ 283155    │ Debug    │          │ HTTP-Session: 13e87050-7824-46b0-9bd5-29469a1b102f Authentic
