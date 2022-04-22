@@ -77,7 +77,7 @@ where part_disk=''
 order by part_zoo;
 ```
 
-You can clean this using this query (need to execute in zkCli):
+You can clean that orphan zk records (need to execute using `delete` in zkCli, `rm` in zk-shell):
 ```sql
 select 'delete '||part_zoo
 from (
