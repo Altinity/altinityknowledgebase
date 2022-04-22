@@ -80,3 +80,11 @@ Up to few. Similar to MV above.
 One to about a dozen. Different types of indexes has different penalty, bloom_filter is 100 times heavier than min_max index
 At some point your inserts will slow down. Try to create possible minimum of indexes.
 You can combine many columns into a single index and this index will work for any predicate but create less impact. 
+
+### Number of Kafka tables / consumers inside 
+
+High number of Kafka tables maybe quite expensive (every consumer = very expensive librdkafka object with several threads inside).
+Usually alternative approaches are preferrable (mixing several datastreams in one topic, denormalizing, consuming several topics of identical structure with a single Kafka table, etc).
+
+If you really need a lot of Kafka tables you may need more ram / CPU on the node and
+increase `background_message_broker_schedule_pool_size` (default is 16) to the number of Kafka tables.
