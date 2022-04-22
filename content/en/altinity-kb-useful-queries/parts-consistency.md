@@ -76,3 +76,22 @@ left join
 where part_disk=''
 order by part_zoo;
 ```
+
+You can clean this using this query (need to execute in zkCli):
+```sql
+select 'delete '||part_zoo
+from (
+select zoo.p_path as part_zoo, zoo.ctime, zoo.mtime, disk.p_path as part_disk
+from
+(
+  select concat(path,'/',name) as p_path, ctime, mtime
+  from system.zookeeper where path in (select concat(replica_path,'/parts') from system.replicas)
+) zoo
+left join 
+(
+  select concat(replica_path,'/parts/',name) as p_path
+  from system.parts inner join system.replicas using (database, table)
+) disk on zoo.p_path = disk.p_path
+where part_disk='' and zoo.mtime <= now() - interval 1 day
+order by part_zoo) format TSVRaw;
+```
