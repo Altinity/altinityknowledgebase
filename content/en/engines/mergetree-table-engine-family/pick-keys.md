@@ -61,7 +61,7 @@ PRIMARY KEY (tenantid, site_id) -- eventid is not used for filtering, needed onl
 ## PARTITION BY 
 
 * Good size for single partition is something like 1-300Gb.
-* For Summing/Replacing a but smaller (400Mb-40Gb)
+* For Summing/Replacing a bit smaller (400Mb-40Gb)
 * Better to avoid touching more that few dozens of partitions with typical SELECT query.
 * Single insert should bring data to one or few partitions.
 * The number of partitons in table - dozen or hundreds, not thousands.
