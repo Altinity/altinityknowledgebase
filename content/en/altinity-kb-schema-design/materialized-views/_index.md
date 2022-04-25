@@ -21,7 +21,7 @@ MATERIALIZED VIEWs in ClickHouse behave like AFTER INSERT TRIGGER to the left-mo
     First you create the table which will store the data calculated by MV explicitly, and after that create materialized view itself with TO syntax.
 
     ```sql
-    CREATE TABLE target ( ... ) Engine=ReplacingSummingMergeTree;
+    CREATE TABLE target ( ... ) Engine=[Replicated][Replacing/Summing/...]MergeTree ...;
 
     CREATE MATERIALIZED VIEW mv_source2target TO target
     AS SELECT ... FROM source;
