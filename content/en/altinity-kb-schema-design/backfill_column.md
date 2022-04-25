@@ -52,7 +52,7 @@ Lifetime(60000);
 
 
 
--- let's test that the discionary is working
+-- let's test that the dictionary is working
 
 select dictGetString('item_dict', 'S', tuple(toUInt64(1),'1','1'));
 ┌─dictGetString('item_dict', 'S', tuple(toUInt64(1), '1', '1'))─┐
