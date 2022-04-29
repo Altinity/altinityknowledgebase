@@ -37,7 +37,7 @@ SELECT
       sum(p.rows) AS rows,
       count() AS part_count
 FROM system.parts p left join system.tables t on p.database = t.database and p.table = '.inner_id.'||toString(t.uuid)
-WHERE (active = 1) AND (tbl LIKE '%test%') AND (database LIKE '%')
+WHERE (active = 1) AND (tbl LIKE '%') AND (database LIKE '%')
 GROUP BY
     p.database,
     tbl
