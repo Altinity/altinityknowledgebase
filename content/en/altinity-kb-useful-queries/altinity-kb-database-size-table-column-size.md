@@ -25,6 +25,27 @@ GROUP BY
 ORDER BY size DESC;
 ```
 
+### Table size + inner MatView (Atomic)
+
+```sql
+SELECT
+      p.database,
+      if(t.name = '', p.table, p.table||' ('||t.name||')') tbl,
+      formatReadableSize(sum(p.data_compressed_bytes) AS size) AS compressed,
+      formatReadableSize(sum(p.data_uncompressed_bytes) AS usize) AS uncompressed,
+      round(usize / size, 2) AS compr_rate,
+      sum(p.rows) AS rows,
+      count() AS part_count
+FROM system.parts p left join system.tables t on p.database = t.database and p.table = '.inner_id.'||toString(t.uuid)
+WHERE (active = 1) AND (tbl LIKE '%test%') AND (database LIKE '%')
+GROUP BY
+    p.database,
+    tbl
+ORDER BY size DESC;
+```
+
+
+
 ### Column size
 
 ```sql
