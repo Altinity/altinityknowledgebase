@@ -25,12 +25,17 @@ description: >
    ```
 
 2. `query_thread_log` - typically is not too useful for end users, you can disable it (or set up TTL).
+    We do not recommend removing this table completely as you might need it for debug one day and the threads' logging can be easily disabled/enabled without a restart through user profiles:
 
    ```markup
-   cat /etc/clickhouse-server/config.d/disable_query_thread_log.xml
-   <yandex>
-       <query_thread_log remove="1" />
-   </yandex>
+    $ cat /etc/clickhouse-server/users.d/z_log_queries.xml
+    <yandex>
+        <profiles>
+            <default>
+                <log_query_threads>0</log_query_threads>
+            </default>
+        </profiles>
+    </yandex>
    ```
 
 2. If you have a good monitoring outside ClickHouse you don't need to store the history of metrics in ClickHouse
