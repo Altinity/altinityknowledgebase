@@ -6,8 +6,6 @@ description: >-
      Query to gather information about ingestion rate from system.part_log. 
 ---
 
-## Ingestion metrics from system.part_log
-
 ```sql
 SELECT 
 	database, 
