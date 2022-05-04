@@ -18,7 +18,7 @@ SELECT
     sum(rows) AS rows,
     count() AS part_count
 FROM system.parts
-WHERE (active = 1) AND (table LIKE '%') AND (database LIKE '%')
+WHERE (active = 1) AND (database LIKE '%') AND (table LIKE '%')
 GROUP BY
     database,
     table
@@ -55,11 +55,11 @@ SELECT
     column,
     formatReadableSize(sum(column_data_compressed_bytes) AS size) AS compressed,
     formatReadableSize(sum(column_data_uncompressed_bytes) AS usize) AS uncompressed,
-    round(usize / size, 2) AS compr_rate,
+    round(usize / size, 2) AS compr_ratio,
     sum(rows) rows_cnt,
-    round(sum(column_data_uncompressed_bytes)/sum(rows) ,2) avg_row_size
+    round(usize / rows_cnt, 2) avg_row_size
 FROM system.parts_columns
-WHERE (active = 1) AND (table LIKE 'query_log')
+WHERE (active = 1) AND (database LIKE '%') AND (table LIKE '%')
 GROUP BY
     database,
     table,
