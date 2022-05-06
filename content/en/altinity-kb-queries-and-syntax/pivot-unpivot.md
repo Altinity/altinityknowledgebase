@@ -30,6 +30,22 @@ ORDER BY suppkey ASC
 │       1 │ 13900 │ 12900 │ 32400 │ 3000 │
 │       2 │ 17300 │  9600 │  9600 │ 2100 │
 └─────────┴───────┴───────┴───────┴──────┘
+
+WITH CAST(sumMap(map(category, quantity)), 'Map(LowCardinality(String), UInt32)') AS map
+SELECT
+    suppkey,
+    map['AA'] AS AA,
+    map['AB'] AS AB,
+    map['AC'] AS AC,
+    map['AD'] AS AD
+FROM sales
+GROUP BY suppkey
+ORDER BY suppkey ASC
+
+┌─suppkey─┬────AA─┬────AB─┬────AC─┬───AD─┐
+│       1 │ 13900 │ 12900 │ 32400 │ 3000 │
+│       2 │ 17300 │  9600 │  9600 │ 2100 │
+└─────────┴───────┴───────┴───────┴──────┘
 ```
 
 ### Using -If combinator
