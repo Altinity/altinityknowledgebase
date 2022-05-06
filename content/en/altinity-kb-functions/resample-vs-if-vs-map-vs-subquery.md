@@ -122,6 +122,17 @@ FROM
 )
 
 1 rows in set. Elapsed: 0.362 sec. Processed 1.00 billion rows, 8.00 GB (2.76 billion rows/s., 22.10 GB/s.)
+
+SELECT sumMap(map(id, sum)) AS sum
+FROM
+(
+    SELECT
+        number % 20 AS id,
+        sum(number) AS sum
+    FROM numbers_mt(1000000000)
+    GROUP BY id
+)
+
 ```
 
 ### sumMapResample
