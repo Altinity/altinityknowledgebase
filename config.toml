@@ -75,7 +75,8 @@ time_format_blog = "2006.01.02"
 # Everything below this are Site Params
 
 [params]
-copyright = " Altinity Inc."
+# copyright = " Altinity Inc."
+copyright = " Altinity Inc. Altinity® and Altinity.Cloud® are registered trademarks of Altinity, Inc. ClickHouse® is a registered trademark of ClickHouse, Inc."
 privacy_policy = "https://altinity.com/privacy-policy/"
 favicon = "/favicon.ico"
 
