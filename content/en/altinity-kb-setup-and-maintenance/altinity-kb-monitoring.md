@@ -59,10 +59,15 @@ The following metrics should be collected / monitored
 
 (unmaintained)
 
-### Dashboards quering clickhouse directly
+### Dashboards quering clickhouse directly via vertamedia / Altinity plugin
 
 * Overview: [https://grafana.com/grafana/dashboards/13606](https://grafana.com/grafana/dashboards/13606)
 * Queries dashboard (analyzing system.query_log) https://grafana.com/grafana/dashboards/2515
+
+
+## Dashboard quering clickhouse directly via Grafana plugin 
+
+* https://grafana.com/blog/2022/05/05/introducing-the-official-clickhouse-plugin-for-grafana/
 
 ### Zabbix
 
