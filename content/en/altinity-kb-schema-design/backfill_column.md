@@ -161,5 +161,6 @@ WHERE key1 = 11111
 └───────┴──────┴──────┴────────────┴──────────┘
 ```
 
-In case of replicated / sharded setup need to create dict_table / item_dict at all nodes and it has to have the EXACTLY same data (probaly it's easier to make dict_table replicated).
-Need to use `alter table test.fact ... setting allow_nondeterministic_mutations=1`
+In case of a replicated / sharded setup you need to have the dictionary and source table (dict_table / item_dict) on all nodes and they have to all have EXACTLY the same data. The easiest way to do this is to make dict_table replicated.
+
+In this case, you will need to set the setting `allow_nondeterministic_mutations=1` on the user that runs the `ALTER TABLE`. See the [ClickHouse docs](https://clickhouse.com/docs/en/operations/settings/settings#allow_nondeterministic_mutations) for more information about this setting.
