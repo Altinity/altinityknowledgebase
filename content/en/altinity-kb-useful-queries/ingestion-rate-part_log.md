@@ -28,5 +28,11 @@ WHERE
 	event_date >= today() - interval 15 day
 GROUP BY query_id,database, table, time_bucket
 ORDER BY time_bucket, database, table ASC
+
+
+select database, table, event_type, partition_id, count() c, round(avg(rows)) 
+from system.part_log where event_date >= today() and event_type = 'NewPart'
+group by database, table, event_type, partition_id
+order by c desc
 ```
 
