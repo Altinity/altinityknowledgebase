@@ -32,7 +32,7 @@ SELECT
     sum(result_rows) AS ResultRows,
     formatReadableSize(sum(result_bytes)) AS ResultBytes
 FROM system.query_log
-WHERE (event_time > (now() - 3600)) AND (type = 'QueryFinish')
+WHERE (event_time > (now() - 3600)) AND type in (2,4) -- QueryFinish, ExceptionWhileProcessing
 GROUP BY normalized_query_hash
     WITH TOTALS
 ORDER BY UserTime DESC
