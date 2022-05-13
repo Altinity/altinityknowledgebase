@@ -18,7 +18,7 @@ select database, table, time_bucket,
        median(rows_per_insert) median_rows_pi, 
        max(rows_per_insert) max_rows_pi, 
        sum(rows_per_insert) rows_inserted,
-       sum(duration_per_insert) duration,
+       sum(seconds_per_insert) parts_creation_seconds,
        count() inserts,
        sum(number_of_parts_per_insert) new_parts,
        max(last_part_pi) - min(first_part_pi) as insert_period,
@@ -38,7 +38,7 @@ from
 	median(size_in_bytes) AS median_bytes_per_part, 
 	sum(size_in_bytes) AS bytes_per_insert, 
 	median_bytes_per_part / median_rows_per_part AS avg_row_size,
-	sum(duration_ms) as duration_per_insert,
+	sum(duration_ms)/1000 as seconds_per_insert,
 	max(event_time) as last_part_pi,  min(event_time) as first_part_pi
 FROM 
 	system.part_log
