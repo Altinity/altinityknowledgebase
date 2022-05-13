@@ -106,6 +106,7 @@ Cons:
 ```sql
 ALTER TABLE table_name FETCH PARTITION partition_expr FROM 'path-in-zookeeper'
 ```
+[alter table fetch detail]({{<ref "fetch_alter_table" >}})
 
 ## Replication protocol
 
