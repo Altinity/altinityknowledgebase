@@ -80,7 +80,6 @@ $ cat /etc/clickhouse-server/config.d/query_log_ttl.xml
         <engine>ENGINE = MergeTree PARTITION BY (event_date)
                 ORDER BY (event_time)
                 TTL event_date + INTERVAL 14 DAY DELETE
-                SETTINGS ttl_only_drop_parts=1
         </engine>
         <flush_interval_milliseconds>7500</flush_interval_milliseconds>
     </query_log>
@@ -93,9 +92,9 @@ After that you need to restart ClickHouse and drop or rename the existing system
 RENAME TABLE system.query_log TO system.query_log_1;
 ```
 
-Important part here is a daily partitioning `PARTITION BY (event_date)` and `ttl_only_drop_parts=1`. In this case ClickHouse drops whole partitions. Dropping of partitions is very easy operation for CPU / Disk I/O.
+Important part here is a daily partitioning `PARTITION BY (event_date)` in this case TTL expression `event_date + INTERVAL 14 DAY DELETE` expires all rows at the same time. In this case ClickHouse drops whole partitions. Dropping of partitions is very easy operation for CPU / Disk I/O.
 
-Usual TTL (without `ttl_only_drop_parts=1`) is heavy CPU / Disk I/O consuming operation which re-writes data parts without expired rows.
+Usual TTL processing (when table partitioned by toYYYYMM and TTL by day) is heavy CPU / Disk I/O consuming operation which re-writes data parts without expired rows.
 
 You can add TTL without ClickHouse restart (and table dropping or renaming):
 
