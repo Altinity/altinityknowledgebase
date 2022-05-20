@@ -99,8 +99,6 @@ Usual TTL processing (when table partitioned by toYYYYMM and TTL by day) is heav
 You can add TTL without ClickHouse restart (and table dropping or renaming):
 
 ```sql
-ALTER TABLE system.query_log MODIFY SETTING ttl_only_drop_parts = 1;
-
 ALTER TABLE system.query_log MODIFY TTL event_date + INTERVAL 14 DAY;
 ```
 
