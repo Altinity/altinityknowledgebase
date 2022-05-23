@@ -23,7 +23,7 @@ FROM cluster('{cluster}', system.parts)
 WHERE database IN ('db1','db2' ... 'dbn') AND active
 ```
 
-This query will return all the partitions and parts stored in this node for the ```ORION``` and ```ORIONREPLICA``` databases and their tables. 
+This query will return all the partitions and parts stored in this node for the databases and their tables. 
 
 ### Fetch the partitions:
 
