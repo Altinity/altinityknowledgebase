@@ -10,6 +10,8 @@ description: >
 * Since 20.5   - final can be parallel, see [https://github.com/ClickHouse/ClickHouse/pull/10463](https://github.com/ClickHouse/ClickHouse/pull/10463)
 * Since 20.10 - you can use `do_not_merge_across_partitions_select_final` setting.
 
+* Unreleased (yet) - see https://github.com/ClickHouse/ClickHouse/issues/30387 and https://github.com/ClickHouse/ClickHouse/pull/36396 
+
 See [https://github.com/ClickHouse/ClickHouse/pull/15938](https://github.com/ClickHouse/ClickHouse/pull/15938) and [https://github.com/ClickHouse/ClickHouse/issues/11722](https://github.com/ClickHouse/ClickHouse/issues/11722)
 
 So it can work in the following way:
