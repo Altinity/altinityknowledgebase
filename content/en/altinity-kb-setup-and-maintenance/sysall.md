@@ -6,7 +6,7 @@ description: >-
      sysall database (system tables on a cluster level)
 ---
 
-## Prerequirments
+## Requirements
 
 The idea is that you have a macros `cluster` with cluster name.
 
