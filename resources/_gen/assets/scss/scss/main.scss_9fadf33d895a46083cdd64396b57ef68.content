@@ -14,7 +14,7 @@ See https://github.com/twbs/bootstrap/pull/23260
 @import url("https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap");
 @fa-font-path :        "../webfonts";
 /*!
- * Bootstrap v4.6.0 (https://getbootstrap.com/)
+ * Bootstrap v4.6.1 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
@@ -1420,9 +1420,6 @@ pre {
   .form-control::-ms-expand {
     background-color: transparent;
     border: 0; }
-  .form-control:-moz-focusring {
-    color: transparent;
-    text-shadow: 0 0 0 #495057; }
   .form-control:focus {
     color: #495057;
     background-color: #fff;
@@ -1441,6 +1438,10 @@ input[type="time"].form-control,
 input[type="datetime-local"].form-control,
 input[type="month"].form-control {
   appearance: none; }
+
+select.form-control:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #495057; }
 
 select.form-control:focus::-ms-value {
   color: #495057;
@@ -1580,7 +1581,7 @@ textarea.form-control {
 
 .was-validated .form-control:valid, .form-control.is-valid {
   border-color: #5ca012;
-  padding-right: calc(1.5em + 0.75rem);
+  padding-right: calc(1.5em + 0.75rem) !important;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath fill='%235ca012' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
   background-repeat: no-repeat;
   background-position: right calc(0.375em + 0.1875rem) center;
@@ -1589,13 +1590,17 @@ textarea.form-control {
     border-color: #5ca012;
     box-shadow: 0 0 0 0.2rem rgba(92, 160, 18, 0.25); }
 
+.was-validated select.form-control:valid, select.form-control.is-valid {
+  padding-right: 3rem !important;
+  background-position: right 1.5rem center; }
+
 .was-validated textarea.form-control:valid, textarea.form-control.is-valid {
   padding-right: calc(1.5em + 0.75rem);
   background-position: top calc(0.375em + 0.1875rem) right calc(0.375em + 0.1875rem); }
 
 .was-validated .custom-select:valid, .custom-select.is-valid {
   border-color: #5ca012;
-  padding-right: calc(0.75em + 2.3125rem);
+  padding-right: calc(0.75em + 2.3125rem) !important;
   background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%23333' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") right 0.75rem center/8px 10px no-repeat, #fff url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath fill='%235ca012' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e") center right 1.75rem/calc(0.75em + 0.375rem) calc(0.75em + 0.375rem) no-repeat; }
   .was-validated .custom-select:valid:focus, .custom-select.is-valid:focus {
     border-color: #5ca012;
@@ -1663,7 +1668,7 @@ textarea.form-control {
 
 .was-validated .form-control:invalid, .form-control.is-invalid {
   border-color: #fe4954;
-  padding-right: calc(1.5em + 0.75rem);
+  padding-right: calc(1.5em + 0.75rem) !important;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23fe4954' viewBox='0 0 12 12'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23fe4954' stroke='none'/%3e%3c/svg%3e");
   background-repeat: no-repeat;
   background-position: right calc(0.375em + 0.1875rem) center;
@@ -1672,13 +1677,17 @@ textarea.form-control {
     border-color: #fe4954;
     box-shadow: 0 0 0 0.2rem rgba(254, 73, 84, 0.25); }
 
+.was-validated select.form-control:invalid, select.form-control.is-invalid {
+  padding-right: 3rem !important;
+  background-position: right 1.5rem center; }
+
 .was-validated textarea.form-control:invalid, textarea.form-control.is-invalid {
   padding-right: calc(1.5em + 0.75rem);
   background-position: top calc(0.375em + 0.1875rem) right calc(0.375em + 0.1875rem); }
 
 .was-validated .custom-select:invalid, .custom-select.is-invalid {
   border-color: #fe4954;
-  padding-right: calc(0.75em + 2.3125rem);
+  padding-right: calc(0.75em + 2.3125rem) !important;
   background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%23333' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") right 0.75rem center/8px 10px no-repeat, #fff url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23fe4954' viewBox='0 0 12 12'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23fe4954' stroke='none'/%3e%3c/svg%3e") center right 1.75rem/calc(0.75em + 0.375rem) calc(0.75em + 0.375rem) no-repeat; }
   .was-validated .custom-select:invalid:focus, .custom-select.is-invalid:focus {
     border-color: #fe4954;
@@ -2553,16 +2562,21 @@ input[type="button"].btn-block {
   .input-group > .custom-file {
     display: flex;
     align-items: center; }
-    .input-group > .custom-file:not(:last-child) .custom-file-label, .input-group > .custom-file:not(:first-child) .custom-file-label {
+    .input-group > .custom-file:not(:last-child) .custom-file-label, .input-group > .custom-file:not(:last-child) .custom-file-label::after {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0; }
+    .input-group > .custom-file:not(:first-child) .custom-file-label {
       border-top-left-radius: 0;
       border-bottom-left-radius: 0; }
   .input-group:not(.has-validation) > .form-control:not(:last-child),
   .input-group:not(.has-validation) > .custom-select:not(:last-child),
+  .input-group:not(.has-validation) > .custom-file:not(:last-child) .custom-file-label,
   .input-group:not(.has-validation) > .custom-file:not(:last-child) .custom-file-label::after {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0; }
   .input-group.has-validation > .form-control:nth-last-child(n + 3),
   .input-group.has-validation > .custom-select:nth-last-child(n + 3),
+  .input-group.has-validation > .custom-file:nth-last-child(n + 3) .custom-file-label,
   .input-group.has-validation > .custom-file:nth-last-child(n + 3) .custom-file-label::after {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0; }
@@ -4642,8 +4656,11 @@ a.close.disabled {
   align-items: center;
   justify-content: center;
   width: 15%;
+  padding: 0;
   color: #fff;
   text-align: center;
+  background: none;
+  border: 0;
   opacity: 0.5;
   transition: opacity 0.15s ease; }
   @media (prefers-reduced-motion: reduce) {
@@ -4731,7 +4748,7 @@ a.close.disabled {
   display: inline-block;
   width: 2rem;
   height: 2rem;
-  vertical-align: text-bottom;
+  vertical-align: -0.125em;
   border: 0.25em solid currentColor;
   border-right-color: transparent;
   border-radius: 50%;
@@ -4753,7 +4770,7 @@ a.close.disabled {
   display: inline-block;
   width: 2rem;
   height: 2rem;
-  vertical-align: text-bottom;
+  vertical-align: -0.125em;
   background-color: currentColor;
   border-radius: 50%;
   opacity: 0;
@@ -7245,8 +7262,6 @@ a.text-dark:hover, a.text-dark:focus {
   blockquote {
     border: 1px solid #adb5bd;
     page-break-inside: avoid; }
-  thead {
-    display: table-header-group; }
   tr,
   img {
     page-break-inside: avoid; }
@@ -7289,7 +7304,7 @@ a.text-dark:hover, a.text-dark:focus {
     border-color: #dee2e6; } }
 
 /*!
- * Font Awesome Free 5.15.2 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 .fa,
@@ -11360,9 +11375,6 @@ readers do not read off random characters that represent icons */
 .fa-trello:before {
   content: "\f181"; }
 
-.fa-tripadvisor:before {
-  content: "\f262"; }
-
 .fa-trophy:before {
   content: "\f091"; }
 
@@ -11856,7 +11868,7 @@ readers do not read off random characters that represent icons */
   width: auto; }
 
 /*!
- * Font Awesome Free 5.15.2 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 @font-face {
@@ -11873,7 +11885,7 @@ readers do not read off random characters that represent icons */
   font-weight: 900; }
 
 /*!
- * Font Awesome Free 5.15.2 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 @font-face {
@@ -13531,7 +13543,8 @@ readers do not read off random characters that represent icons */
     text-transform: none;
     font-weight: 700; }
   .td-navbar .td-search-input {
-    border: none; }
+    border: none;
+    color: rgba(255, 255, 255, 0.75); }
     .td-navbar .td-search-input::-webkit-input-placeholder {
       color: rgba(255, 255, 255, 0.75); }
     .td-navbar .td-search-input:-moz-placeholder {
@@ -13761,7 +13774,7 @@ nav.foldable-nav .with-child ul {
     .td-sidebar-toc {
       position: sticky;
       top: 4rem;
-      height: calc(100vh - 10rem);
+      height: calc(100vh - 4rem);
       overflow-y: auto; } }
 
 .td-page-meta a {
@@ -13796,8 +13809,12 @@ nav.foldable-nav .with-child ul {
   .btn-sm, .btn-group-sm > .btn {
     border-radius: 1rem; }
 
-.breadcrumb {
-  background: none;
+@media print {
+  .td-breadcrumbs {
+    display: none !important; } }
+
+.td-breadcrumbs .breadcrumb {
+  background: inherit;
   padding-left: 0;
   padding-top: 0; }
 
@@ -13932,7 +13949,8 @@ tr:nth-child(even) {
   font-family: "Font Awesome 5 Free", "Arimo", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; }
   .td-search-input.form-control:focus {
     border-color: white;
-    box-shadow: 0 0 0 2px #8fd7f2; }
+    box-shadow: 0 0 0 2px #8fd7f2;
+    color: inherit; }
 
 .popover.offline-search-result {
   max-width: 90%; }
@@ -14287,6 +14305,38 @@ tr:nth-child(even) {
     font-family: "Font Awesome 5 Free";
     content: "\f122";
     padding-right: 0.5em; }
+
+div.drawio {
+  display: inline-block;
+  position: relative; }
+  div.drawio button {
+    position: absolute;
+    font-size: 0.8em;
+    bottom: 5px;
+    right: 5px;
+    background-color: rgba(255, 204, 0, 0.8);
+    color: white;
+    padding: 0.4em 0.5em;
+    display: none; }
+  div.drawio:hover button {
+    display: inline; }
+
+div.drawioframe {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0px;
+  z-index: 1000;
+  background: #000b;
+  border: 0; }
+  div.drawioframe iframe {
+    position: absolute;
+    height: 90%;
+    width: 90%;
+    top: 5%;
+    left: 5%;
+    z-index: 1010; }
 
 footer {
   min-height: 150px; }
