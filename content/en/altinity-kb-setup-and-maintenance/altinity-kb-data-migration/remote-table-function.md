@@ -16,6 +16,11 @@ INSERT INTO staging_table SELECT * FROM remote(...) WHERE date='2021-04-13';
 INSERT INTO staging_table SELECT * FROM remote(...) WHERE date='2021-04-12';
 INSERT INTO staging_table SELECT * FROM remote(...) WHERE date='2021-04-11';
 ....
+
+OR 
+
+INSERT INTO FUNCTION remote(...) SELECT * FROM staging_table WHERE date='2021-04-11';
+....
 ```
 
 ### Q. Can it create a bigger load on the source system?
