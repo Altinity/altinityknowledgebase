@@ -170,7 +170,7 @@ SELECT
 FROM sysall.disks
 ┌─nodeFQDN────────────┬─path─────────────────┬─free───────┬─total──────┐
 │ chhost1.localdomain │ /var/lib/clickhouse/ │ 511.04 GiB │ 937.54 GiB │
-│ chhost1.localdomain │ /var/lib/clickhouse/ │ 495.77 GiB │ 937.54 GiB │
+│ chhost2.localdomain │ /var/lib/clickhouse/ │ 495.77 GiB │ 937.54 GiB │
 └─────────────────────┴──────────────────────┴────────────┴────────────┘
 
 ```
