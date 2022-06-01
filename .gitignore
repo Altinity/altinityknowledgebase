@@ -1,8 +1,5 @@
 *.DS_Store*
-node_modules/
 package-lock.json
 .vscode/*
-docs/*
-node_modules/.package-lock.json
 yarn.lock
 .hugo_build.lock
