@@ -9,43 +9,43 @@ description: >-
 ## Example How to Convert Ordinary to Atomic
 
 ```sql
-create database db engine=Ordinary;
-create table db.test(A Int64) Engine=MergeTree order by A;
+CREATE DATABASE db ENGINE=Ordinary;
+CREATE TABLE db.test(A Int64) ENGINE=MergeTree ORDER BY A;
 
-create materialized view db.test_mv(A Int64) 
-Engine=MergeTree order by A as select * from db.test;
+CREATE MATERIALIZED VIEW db.test_mv(A Int64) 
+ENGINE=MergeTree ORDER BY A AS SELECT * FROM db.test;
 
-insert into db.test select * from numbers(1000);
+INSERT INTO db.test SELECT * FROM numbers(1000);
 
-create database db_temp engine=Atomic;
+CREATE DATABASE db_temp ENGINE=Atomic;
 
-rename table db.test to db_temp.test;
-rename table db.test_mv to db_temp.test_mv;
+RENAME TABLE db.test TO db_temp.test;
+RENAME TABLE db.test_mv TO db_temp.test_mv;
 
-drop database db;
-rename database db_temp to db;
+DROP DATABASE db;
+RENAME DATABASE db_temp TO db;
 
-use db;
-show tables;
+USE db;
+SHOW TABLES;
 ┌─name───────────────────────────────────────────┐
 │ .inner_id.37db402c-fc46-421d-b7db-402cfc46921d │
 │ test                                           │
 │ test_mv                                        │
 └────────────────────────────────────────────────┘
 
-insert into db.test select * from numbers(1000);
+INSERT INTO db.test SELECT * FROM numbers(1000);
 
-select count() from test;
+SELECT count() FROM test;
 ┌─count()─┐
 │    2000 │
 └─────────┘
 
-select count() from test_mv;
+SELECT count() FROM test_mv;
 ┌─count()─┐
 │    2000 │
 └─────────┘
 
-show create database db;
+SHOW CREATE DATABASE db;
 ┌─statement─────────────────────────┐
 │ CREATE DATABASE db
 ENGINE = Atomic │
