@@ -20,6 +20,8 @@ description: >-
         <skip_access_check>true</skip_access_check>
         <send_metadata>true</send_metadata>
       </s3>
+    </disks>
+  </storage_configuration>
 </clickhouse>
 ```
 
