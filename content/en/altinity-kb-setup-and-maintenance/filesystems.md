@@ -8,6 +8,14 @@ description: >-
 
 ## ClickHouse and different filesystems
 
+In general ClickHouse should work with any POSIX-compatible filesystem.
+
+* hard links and soft links support is mandatory.
+* clickhouse can use O_DIRECT mode to bypass the cache (and async io)
+* clickhouse can use renameat2 command for some atomic operations (not all the filesystems support that).
+* depending on the schema and details of the usage the filesystem load can vary between the setup. The most natural load - is high throughput, with low or moderate IOPS. 
+* data is compressed in clickhouse (LZ4 by default), while indexes / marks / metadata files  - no. Enabling disk-level compression can sometimes improve the compression, but can affect read / write speed.
+
 ### ext4 
 
 no issues, fully supported. 
