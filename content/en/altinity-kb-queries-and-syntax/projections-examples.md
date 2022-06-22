@@ -61,6 +61,52 @@ group by Browser,Country format Null;
 Elapsed: 0.005 sec. Processed 22.43 thousand rows
 ```
 
+## Emulation of an inverted index using orderby projection
+
+```sql
+CREATE TABLE test_a
+(
+    `src` String,
+    `dst` String,
+    `other_cols` String,
+    PROJECTION p1
+    (
+        SELECT
+            src,
+            dst
+        ORDER BY dst
+    )
+)
+ENGINE = MergeTree
+ORDER BY src;
+
+insert into test_a select number, -number, 'other_col '||toString(number) from numbers(1e8);
+
+select * from test_a where src='42';
+┌─src─┬─dst─┬─other_cols───┐
+│ 42  │ -42 │ other_col 42 │
+└─────┴─────┴──────────────┘
+1 row in set. Elapsed: 0.005 sec. Processed 16.38 thousand rows, 988.49 KB (3.14 million rows/s., 189.43 MB/s.)
+
+
+select * from test_a where dst='-42';
+┌─src─┬─dst─┬─other_cols───┐
+│ 42  │ -42 │ other_col 42 │
+└─────┴─────┴──────────────┘
+1 row in set. Elapsed: 0.625 sec. Processed 100.00 million rows, 1.79 GB (160.05 million rows/s., 2.86 GB/s.)
+
+-- optimization using projection
+select * from test_a where src in (select src from test_a where dst='-42') and dst='-42';
+┌─src─┬─dst─┬─other_cols───┐
+│ 42  │ -42 │ other_col 42 │
+└─────┴─────┴──────────────┘
+1 row in set. Elapsed: 0.013 sec. Processed 32.77 thousand rows, 660.75 KB (2.54 million rows/s., 51.26 MB/s.)
+```
+
+Elapsed: 0.625 sec. Processed 100.00 million rows
+VS
+Elapsed: 0.013 sec. Processed 32.77 thousand rows
+
 
 ## See also 
 
