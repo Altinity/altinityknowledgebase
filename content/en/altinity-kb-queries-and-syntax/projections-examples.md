@@ -63,6 +63,8 @@ Elapsed: 0.005 sec. Processed 22.43 thousand rows
 
 ## Emulation of an inverted index using orderby projection
 
+You can create an `orderby projection` and include all columns of a table, but if a table is very wide it will double of stored data. This expample demonstrate a trick, we create an `orderby projection` and include primary key columns and the target column and sort by the target column. This allows using subquery to find primary key values and after that to query the table using the primary key. 
+
 ```sql
 CREATE TABLE test_a
 (
