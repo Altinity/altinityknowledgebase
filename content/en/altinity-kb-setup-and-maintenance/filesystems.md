@@ -57,7 +57,7 @@ therefore some of the Atomic functionality will not be available.
 
 In old versions of clickhouse, you can face issues with the O_DIRECT mode.
 
-Also there is a well-known (and controversional) Linus Torvalds opinion: "Don't Use ZFS on Linux" [[1]](https://www.realworldtech.com/forum/?threadid=189711&curpostid=189959), [[2]](https://arstechnica.com/gadgets/2020/01/linus-torvalds-zfs-statements-arent-right-heres-the-straight-dope/), [[3]](https://arstechnica.com/gadgets/2020/01/linus-torvalds-zfs-statements-arent-right-heres-the-straight-dope/).
+Also there is a well-known (and controversional) Linus Torvalds opinion: "Don't Use ZFS on Linux" [[1]](https://www.realworldtech.com/forum/?threadid=189711&curpostid=189841), [[2]](https://arstechnica.com/gadgets/2020/01/linus-torvalds-zfs-statements-arent-right-heres-the-straight-dope/), [[3]](https://arstechnica.com/gadgets/2020/01/linus-torvalds-zfs-statements-arent-right-heres-the-straight-dope/).
 
 ### BTRFS
 
