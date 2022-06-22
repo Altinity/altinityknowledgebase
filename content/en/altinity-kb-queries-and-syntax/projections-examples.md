@@ -103,9 +103,11 @@ select * from test_a where src in (select src from test_a where dst='-42') and d
 1 row in set. Elapsed: 0.013 sec. Processed 32.77 thousand rows, 660.75 KB (2.54 million rows/s., 51.26 MB/s.)
 ```
 
-Elapsed: 0.625 sec. Processed 100.00 million rows
+**Elapsed: 0.625 sec. Processed 100.00 million rows** -- not optimized
+
 VS
-Elapsed: 0.013 sec. Processed 32.77 thousand rows
+
+**Elapsed: 0.013 sec. Processed 32.77 thousand rows** -- optimized
 
 
 ## See also 
