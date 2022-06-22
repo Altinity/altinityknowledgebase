@@ -65,3 +65,21 @@ There are reports that some people successfully use it in their setups.
 A fast network is required.
 
 There were some reports about data damage on the disks on older clickhouse versions, which could be caused by the issues with O_DIRECT or [async io support](https://lustre-discuss.lustre.narkive.com/zwcvyEEY/asynchronous-posix-i-o-with-lustre) on Lustre.
+
+### NFS (and EFS)
+
+Accouding to the reports - it works, throughput depends a lot on the network speed. IOPS / number of file operations per seconds can be super low (due to the locking mechanism).
+
+https://github.com/ClickHouse/ClickHouse/issues/31113
+
+### MooseFS
+
+There are installations using that. No extra info.
+
+### GlusterFS
+
+There are installations using that. No extra info.
+
+### Ceph
+
+There are installations using that. Some information: https://github.com/ClickHouse/ClickHouse/issues/8315 
