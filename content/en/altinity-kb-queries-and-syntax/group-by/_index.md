@@ -58,9 +58,10 @@ But it use much less memory, because ClickHouse can stream resultset and there i
 
 ## Last item cache
 
-ClickHouse saves value of previous hash calculation, just in case second value will be the same (need to confirm)
+ClickHouse saves value of previous hash calculation, just in case next value will be the same.
 
 https://github.com/ClickHouse/ClickHouse/pull/5417
+https://github.com/ClickHouse/ClickHouse/blob/808d9afd0f8110faba5ae027051bf0a64e506da3/src/Common/ColumnsHashingImpl.h#L40
 
 ## StringHashMap
 
