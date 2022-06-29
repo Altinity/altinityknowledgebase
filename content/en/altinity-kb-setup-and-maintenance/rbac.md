@@ -1,28 +1,98 @@
 ---
-title: "Access Control and Account Management example (RBAC)"
+title: "Access Control and Account Management (RBAC)"
 linkTitle: "RBAC example"
 weight: 100
 description: >-
-     Access Control and Account Management example (RBAC).
+     Access Control and Account Management (RBAC).
 ---
 
 Documentation https://clickhouse.com/docs/en/operations/access-rights/
 
-## Example: 3 roles (dba, dashboard_ro, ingester_rw)
+## Enable RBAC and create admin user
 
-You need to create an .xml file at each node to allow user `default` to manage access using SQL.
+Create an ```admin``` user like (root in MySQL or postgres in PostgreSQL) to do the DBA/admin ops in the `user.xml` file and [set the access management property for the admin user](https://clickhouse.com/docs/en/operations/access-rights/#enabling-access-control)
 
 ```xml
-cat /etc/clickhouse-server/users.d/access_management.xml
-<?xml version="1.0"?>
-<yandex>
-    <users>
-        <default>
-            <access_management>1</access_management>
-        </default>
-    </users>
-</yandex>
+<users>
+  <default>
+  ....
+  </default>
+  <admin>
+      <!--    
+        Password could be specified in plaintext or in SHA256 (in hex format).
+
+        If you want to specify password in plaintext (not recommended), place it in 'password' element.
+        Example: <password>qwerty</password>.
+        Password could be empty.
+
+        If you want to specify SHA256, place it in 'password_sha256_hex' element.
+        Example: <password_sha256_hex>65e84be33532fb784c48129675f9eff3a682b27168c0ea744b2cf58ee02337c5</password_sha256_hex>
+        Restrictions of SHA256: impossibility to connect to ClickHouse using MySQL JS client (as of July 2019).
+
+        If you want to specify double SHA1, place it in 'password_double_sha1_hex' element.
+        Example: <password_double_sha1_hex>e395796d6546b1b65db9d665cd43f0e858dd4303</password_double_sha1_hex>
+      -->
+      <password></password> 
+      <networks>
+          <ip>::/0</ip>
+      </networks>
+      <!-- Settings profile for user. -->
+      <profile>default</profile>
+      <!-- Quota for user. -->
+      <quota>default</quota>
+      <!-- Set This parameter to Enable RBAC
+      Admin user can create other users and grant rights to them. -->
+      <access_management>1</access_management>
+  </admin>
+...
 ```
+
+## default user
+
+As `default` is used for many internal and background operations, it is not recomended to set it up with a password. Best way to secure the default user is only allow localhost or trusted network connections like this in `users.xml`:
+
+```xml
+<users>
+    <default>
+    ......    
+        <networks>
+            <ip>127.0.0.1/8</ip>
+            <ip>10.10.10.0/24</ip>
+        </networks>
+    ......
+    </default>
+```
+
+## replication user
+
+The replication user is usually `default`. Ports 9009 and 9010(tls) provide low-level data access between servers.This ports should not be accessible from untrusted networks. You can specify credentials for authenthication between replicas. This is required when `interserver_https_port` is accessible from untrusted networks. You can do so creating a user with the `default` profile:
+
+```sql
+CREATE USER replication IDENTIFIED WITH sha256_hash BY 'password' SETTINGS PROFILE 'default'
+```
+
+After this assign this user to the interserver credentials:
+
+```xml
+  <interserver_http_credentials>
+      <user>replication</user>
+      <password>password</password>
+  </interserver_http_credentials>
+```
+
+We also can use sha256 passwords like this:
+
+```xml
+<password_sha256_hex>65e84be33532fb784c48129675f9eff3a682b27168c0ea744b2cf58ee02337c5</password_sha256_hex>
+```
+
+When the `CREATE USER` query is executed in the `clickhouse-client` it will echo the `sha256` digest to copy it wherever you need
+
+## Create users and roles
+
+Now we can setup users/roles using a generic best-practice approach for RBAC from other databases, like using roles, granting permissions to roles, creating users for different applications, etc...
+
+## Example: 3 roles (dba, dashboard_ro, ingester_rw)
 
 ```sql
 create role dba on cluster '{cluster}';
@@ -48,8 +118,6 @@ TO dashboard_ro;
 create user `dash1` identified  by 'pass1234' on cluster '{cluster}';
 
 grant dashboard_ro to dash1 on cluster '{cluster}';
-
-
 
 create role ingester_rw on cluster '{cluster}';
 grant select,insert on default.* to ingester_rw on cluster '{cluster}';
