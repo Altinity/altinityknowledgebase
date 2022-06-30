@@ -49,7 +49,7 @@ Create an ```admin``` user like (root in MySQL or postgres in PostgreSQL) to do 
 
 ## default user
 
-As `default` is used for many internal and background operations, it is not recomended to set it up with a password. Best way to secure the default user is only allow localhost or trusted network connections like this in `users.xml`:
+As `default` is used for many internal and background operations, so it is not convenient to set it up with a password, because you would have to change it in many configs/parts. Best way to secure the default user is only allow localhost or trusted network connections like this in `users.xml`:
 
 ```xml
 <users>
@@ -91,6 +91,9 @@ When the `CREATE USER` query is executed in the `clickhouse-client` it will echo
 ## Create users and roles
 
 Now we can setup users/roles using a generic best-practice approach for RBAC from other databases, like using roles, granting permissions to roles, creating users for different applications, etc...
+
+see [User Hardening article](https://docs.altinity.com/operationsguide/security/clickhouse-hardening-guide/user-hardening/)
+
 
 ## Example: 3 roles (dba, dashboard_ro, ingester_rw)
 
