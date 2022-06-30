@@ -7,22 +7,22 @@
 <meta name="robots" content="index, follow">
 <link rel="shortcut icon" href="/favicons/favicon.ico" >
 <link rel="icon" href="/favicons/favicon.ico" >
-<title>Access Control and Account Management example (RBAC) | Altinity Knowledge Base</title>
-<meta name="description" content="Access Control and Account Management example (RBAC).">
-<meta property="og:title" content="Access Control and Account Management example (RBAC)" />
-<meta property="og:description" content="Access Control and Account Management example (RBAC)." />
+<title>Access Control and Account Management (RBAC) | Altinity Knowledge Base</title>
+<meta name="description" content="Access Control and Account Management (RBAC).">
+<meta property="og:title" content="Access Control and Account Management (RBAC)" />
+<meta property="og:description" content="Access Control and Account Management (RBAC)." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://kb.altinity.com/altinity-kb-setup-and-maintenance/rbac/" /><meta property="article:section" content="altinity-kb-setup-and-maintenance" />
 
-<meta property="article:modified_time" content="2021-12-28T14:37:52-04:00" /><meta property="og:site_name" content="Altinity Knowledge Base" />
+<meta property="article:modified_time" content="2022-06-30T16:34:34+02:00" /><meta property="og:site_name" content="Altinity Knowledge Base" />
 
-<meta itemprop="name" content="Access Control and Account Management example (RBAC)">
-<meta itemprop="description" content="Access Control and Account Management example (RBAC).">
-<meta itemprop="dateModified" content="2021-12-28T14:37:52-04:00" />
-<meta itemprop="wordCount" content="483">
+<meta itemprop="name" content="Access Control and Account Management (RBAC)">
+<meta itemprop="description" content="Access Control and Account Management (RBAC).">
+<meta itemprop="dateModified" content="2022-06-30T16:34:34+02:00" />
+<meta itemprop="wordCount" content="820">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Access Control and Account Management example (RBAC)"/>
-<meta name="twitter:description" content="Access Control and Account Management example (RBAC)."/>
+<meta name="twitter:title" content="Access Control and Account Management (RBAC)"/>
+<meta name="twitter:description" content="Access Control and Account Management (RBAC)."/>
 
 
 
@@ -63,7 +63,7 @@
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/offline-search-index.c9719c658c1153189b5bf0c2106ca7aa.json"
+  data-offline-search-index-json-src="/offline-search-index.bf9d6b0954f5601c7c63864d3c887fcb.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="10"
 >
@@ -86,7 +86,7 @@
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/offline-search-index.c9719c658c1153189b5bf0c2106ca7aa.json"
+  data-offline-search-index-json-src="/offline-search-index.bf9d6b0954f5601c7c63864d3c887fcb.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="10"
 >
@@ -355,7 +355,7 @@
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-setup-and-maintenanceprecreate_parts_using_clickhouse_localsh-li">
   <a href="/altinity-kb-setup-and-maintenance/precreate_parts_using_clickhouse_local.sh/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenanceprecreate_parts_using_clickhouse_localsh"><span class="">Precreate parts using clickhouse-local</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-setup-and-maintenancerbac-li">
-  <a href="/altinity-kb-setup-and-maintenance/rbac/" title="Access Control and Account Management example (RBAC)" class="align-left pl-0 active td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancerbac"><span class="td-sidebar-nav-active-item">RBAC example</span></a>
+  <a href="/altinity-kb-setup-and-maintenance/rbac/" title="Access Control and Account Management (RBAC)" class="align-left pl-0 active td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancerbac"><span class="td-sidebar-nav-active-item">RBAC example</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-setup-and-maintenancerecovery-after-complete-data-loss-li">
   <a href="/altinity-kb-setup-and-maintenance/recovery-after-complete-data-loss/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-setup-and-maintenancerecovery-after-complete-data-loss"><span class="">recovery-after-complete-data-loss</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-setup-and-maintenancesource-pars-size-is-greater-than-maximum-li">
@@ -674,6 +674,10 @@
 
 <nav id="TableOfContents">
   <ul>
+    <li><a href="#enable-rbac-and-create-admin-user">Enable RBAC and create admin user</a></li>
+    <li><a href="#default-user">default user</a></li>
+    <li><a href="#replication-user">replication user</a></li>
+    <li><a href="#create-users-and-roles">Create users and roles</a></li>
     <li><a href="#example-3-roles-dba-dashboard_ro-ingester_rw">Example: 3 roles (dba, dashboard_ro, ingester_rw)</a></li>
     <li><a href="#check">check</a></li>
     <li><a href="#clean-up">clean up</a></li>
@@ -691,9 +695,9 @@
 
   <p>Share on Social Media:</p>
   <span style="display:flex; flex-direction: row; justify-content: space-between; align-items: flex-start; padding-left: 10px; padding-right: 75px;">
-    <a href="https://twitter.com/intent/tweet?text=Access%20Control%20and%20Account%20Management%20example%20%28RBAC%29&amp;url=http://kb.altinity.com/altinity-kb-setup-and-maintenance/rbac/" target="_blank" class="fab fa-twitter"></a>
+    <a href="https://twitter.com/intent/tweet?text=Access%20Control%20and%20Account%20Management%20%28RBAC%29&amp;url=http://kb.altinity.com/altinity-kb-setup-and-maintenance/rbac/" target="_blank" class="fab fa-twitter"></a>
     <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://kb.altinity.com/altinity-kb-setup-and-maintenance/rbac/" target="_blank" class="fab fa-facebook"></a>
-    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://kb.altinity.com/altinity-kb-setup-and-maintenance/rbac/&amp;title=Access%20Control%20and%20Account%20Management%20example%20%28RBAC%29"target="_blank" class="fab fa-linkedin"></a>
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://kb.altinity.com/altinity-kb-setup-and-maintenance/rbac/&amp;title=Access%20Control%20and%20Account%20Management%20%28RBAC%29"target="_blank" class="fab fa-linkedin"></a>
   </span>
 </div>
 
@@ -734,24 +738,73 @@
 </nav>
             
 <div class="td-content">
-	<h1>Access Control and Account Management example (RBAC)</h1>
-    <div class="lead">Access Control and Account Management example (RBAC).
+	<h1>Access Control and Account Management (RBAC)</h1>
+    <div class="lead">Access Control and Account Management (RBAC).
 	</div>
 	
 	       
 	<p>Documentation <a href="https://clickhouse.com/docs/en/operations/access-rights/" target="_blank">https://clickhouse.com/docs/en/operations/access-rights/</a></p>
+<h2 id="enable-rbac-and-create-admin-user">Enable RBAC and create admin user</h2>
+<p>Create an <code>admin</code> user like (root in MySQL or postgres in PostgreSQL) to do the DBA/admin ops in the <code>user.xml</code> file and <a href="https://clickhouse.com/docs/en/operations/access-rights/#enabling-access-control" target="_blank">set the access management property for the admin user</a></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">&lt;users&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#204a87;font-weight:bold">&lt;default&gt;</span>
+</span></span><span style="display:flex;"><span>  ....
+</span></span><span style="display:flex;"><span>  <span style="color:#204a87;font-weight:bold">&lt;/default&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#204a87;font-weight:bold">&lt;admin&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#8f5902;font-style:italic">&lt;!--    
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">        Password could be specified in plaintext or in SHA256 (in hex format).
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">        If you want to specify password in plaintext (not recommended), place it in &#39;password&#39; element.
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">        Example: &lt;password&gt;qwerty&lt;/password&gt;.
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">        Password could be empty.
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">        If you want to specify SHA256, place it in &#39;password_sha256_hex&#39; element.
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">        Example: &lt;password_sha256_hex&gt;65e84be33532fb784c48129675f9eff3a682b27168c0ea744b2cf58ee02337c5&lt;/password_sha256_hex&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">        Restrictions of SHA256: impossibility to connect to ClickHouse using MySQL JS client (as of July 2019).
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">        If you want to specify double SHA1, place it in &#39;password_double_sha1_hex&#39; element.
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">        Example: &lt;password_double_sha1_hex&gt;e395796d6546b1b65db9d665cd43f0e858dd4303&lt;/password_double_sha1_hex&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">      --&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#204a87;font-weight:bold">&lt;password&gt;&lt;/password&gt;</span> 
+</span></span><span style="display:flex;"><span>      <span style="color:#204a87;font-weight:bold">&lt;networks&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#204a87;font-weight:bold">&lt;ip&gt;</span>::/0<span style="color:#204a87;font-weight:bold">&lt;/ip&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#204a87;font-weight:bold">&lt;/networks&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#8f5902;font-style:italic">&lt;!-- Settings profile for user. --&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#204a87;font-weight:bold">&lt;profile&gt;</span>default<span style="color:#204a87;font-weight:bold">&lt;/profile&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#8f5902;font-style:italic">&lt;!-- Quota for user. --&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#204a87;font-weight:bold">&lt;quota&gt;</span>default<span style="color:#204a87;font-weight:bold">&lt;/quota&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#8f5902;font-style:italic">&lt;!-- Set This parameter to Enable RBAC
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">      Admin user can create other users and grant rights to them. --&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#204a87;font-weight:bold">&lt;access_management&gt;</span>1<span style="color:#204a87;font-weight:bold">&lt;/access_management&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#204a87;font-weight:bold">&lt;/admin&gt;</span>
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><h2 id="default-user">default user</h2>
+<p>As <code>default</code> is used for many internal and background operations, so it is not convenient to set it up with a password, because you would have to change it in many configs/parts. Best way to secure the default user is only allow localhost or trusted network connections like this in <code>users.xml</code>:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">&lt;users&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">&lt;default&gt;</span>
+</span></span><span style="display:flex;"><span>    ......    
+</span></span><span style="display:flex;"><span>        <span style="color:#204a87;font-weight:bold">&lt;networks&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#204a87;font-weight:bold">&lt;ip&gt;</span>127.0.0.1/8<span style="color:#204a87;font-weight:bold">&lt;/ip&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#204a87;font-weight:bold">&lt;ip&gt;</span>10.10.10.0/24<span style="color:#204a87;font-weight:bold">&lt;/ip&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#204a87;font-weight:bold">&lt;/networks&gt;</span>
+</span></span><span style="display:flex;"><span>    ......
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">&lt;/default&gt;</span>
+</span></span></code></pre></div><h2 id="replication-user">replication user</h2>
+<p>The replication user is usually <code>default</code>. Ports 9009 and 9010(tls) provide low-level data access between servers.This ports should not be accessible from untrusted networks. You can specify credentials for authenthication between replicas. This is required when <code>interserver_https_port</code> is accessible from untrusted networks. You can do so creating a user with the <code>default</code> profile:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">CREATE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">USER</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">replication</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">IDENTIFIED</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">WITH</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">sha256_hash</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">BY</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;password&#39;</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">SETTINGS</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">PROFILE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;default&#39;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span></code></pre></div><p>After this assign this user to the interserver credentials:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span>  <span style="color:#204a87;font-weight:bold">&lt;interserver_http_credentials&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#204a87;font-weight:bold">&lt;user&gt;</span>replication<span style="color:#204a87;font-weight:bold">&lt;/user&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#204a87;font-weight:bold">&lt;password&gt;</span>password<span style="color:#204a87;font-weight:bold">&lt;/password&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#204a87;font-weight:bold">&lt;/interserver_http_credentials&gt;</span>
+</span></span></code></pre></div><p>We also can use sha256 passwords like this:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">&lt;password_sha256_hex&gt;</span>65e84be33532fb784c48129675f9eff3a682b27168c0ea744b2cf58ee02337c5<span style="color:#204a87;font-weight:bold">&lt;/password_sha256_hex&gt;</span>
+</span></span></code></pre></div><p>When the <code>CREATE USER</code> query is executed in the <code>clickhouse-client</code> it will echo the <code>sha256</code> digest to copy it wherever you need</p>
+<h2 id="create-users-and-roles">Create users and roles</h2>
+<p>Now we can setup users/roles using a generic best-practice approach for RBAC from other databases, like using roles, granting permissions to roles, creating users for different applications, etc&hellip;</p>
+<p>see <a href="https://docs.altinity.com/operationsguide/security/clickhouse-hardening-guide/user-hardening/" target="_blank">User Hardening article</a></p>
 <h2 id="example-3-roles-dba-dashboard_ro-ingester_rw">Example: 3 roles (dba, dashboard_ro, ingester_rw)</h2>
-<p>You need to create an .xml file at each node to allow user <code>default</code> to manage access using SQL.</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span>cat /etc/clickhouse-server/users.d/access_management.xml
-</span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">&lt;?xml version=&#34;1.0&#34;?&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">&lt;yandex&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">&lt;users&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#204a87;font-weight:bold">&lt;default&gt;</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#204a87;font-weight:bold">&lt;access_management&gt;</span>1<span style="color:#204a87;font-weight:bold">&lt;/access_management&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#204a87;font-weight:bold">&lt;/default&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">&lt;/users&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">&lt;/yandex&gt;</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">create</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">role</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">dba</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">on</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">cluster</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;{cluster}&#39;</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">create</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">role</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">dba</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">on</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">cluster</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;{cluster}&#39;</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
 </span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">grant</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">all</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">on</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000;font-weight:bold">.</span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">to</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">dba</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">on</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">cluster</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;{cluster}&#39;</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
 </span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">create</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">user</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">`</span><span style="color:#000">user1</span><span style="color:#ce5c00;font-weight:bold">`</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">identified</span><span style="color:#f8f8f8;text-decoration:underline">  </span><span style="color:#204a87;font-weight:bold">by</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;pass1234&#39;</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">on</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">cluster</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;{cluster}&#39;</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
 </span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">grant</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">dba</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">to</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">user1</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">on</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">cluster</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;{cluster}&#39;</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
@@ -774,8 +827,6 @@
 </span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">create</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">user</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">`</span><span style="color:#000">dash1</span><span style="color:#ce5c00;font-weight:bold">`</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">identified</span><span style="color:#f8f8f8;text-decoration:underline">  </span><span style="color:#204a87;font-weight:bold">by</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;pass1234&#39;</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">on</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">cluster</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;{cluster}&#39;</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
 </span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
 </span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">grant</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">dashboard_ro</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">to</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">dash1</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">on</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">cluster</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;{cluster}&#39;</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
-</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
-</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
 </span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
 </span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">create</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">role</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">ingester_rw</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">on</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">cluster</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;{cluster}&#39;</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
 </span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">grant</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">select</span><span style="color:#000;font-weight:bold">,</span><span style="color:#204a87;font-weight:bold">insert</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">on</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">default</span><span style="color:#000;font-weight:bold">.</span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">to</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">ingester_rw</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">on</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">cluster</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;{cluster}&#39;</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
@@ -854,7 +905,7 @@
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified 2021.12.28: <a href="https://github.com/Altinity/altinityknowledgebase/commit/a783592525dd8f11a623432d702dff45c52aa9c9">Update rbac.md (a78359252)</a>
+  Last modified 2022.06.30: <a href="https://github.com/Altinity/altinityknowledgebase/commit/57adee09ec73f3e602bca0dd6f78cf72ecac44d0">Updated RBAC.md (57adee09e)</a>
 </div>
 
 </div>
