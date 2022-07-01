@@ -8,17 +8,21 @@
 <meta name="robots" content="index, follow">
 <link rel="shortcut icon" href="/favicons/favicon.ico" >
 <link rel="icon" href="/favicons/favicon.ico" >
-<title>Altinity-kb-schema-designs | Altinity Knowledge Base</title>
-<meta name="description" content="">
-<meta property="og:title" content="Altinity-kb-schema-designs" />
-<meta property="og:description" content="Altinity Knowledge Base" />
+<title>Schema design | Altinity Knowledge Base</title>
+<meta name="description" content="All you need to know about ClickHouse schema design, including materialized view, limitations, lowcardinality, codecs.
+">
+<meta property="og:title" content="Schema design" />
+<meta property="og:description" content="All you need to know about ClickHouse schema design, including materialized view, limitations, lowcardinality, codecs.
+" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="http://kb.altinity.com/altinity-kb-schema-design/" /><meta property="og:site_name" content="Altinity Knowledge Base" />
 
-<meta itemprop="name" content="Altinity-kb-schema-designs">
-<meta itemprop="description" content="Altinity Knowledge Base"><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Altinity-kb-schema-designs"/>
-<meta name="twitter:description" content="Altinity Knowledge Base"/>
+<meta itemprop="name" content="Schema design">
+<meta itemprop="description" content="All you need to know about ClickHouse schema design, including materialized view, limitations, lowcardinality, codecs.
+"><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Schema design"/>
+<meta name="twitter:description" content="All you need to know about ClickHouse schema design, including materialized view, limitations, lowcardinality, codecs.
+"/>
 
 
 
@@ -35,7 +39,7 @@
   integrity="sha384-203J0SNzyqHby3iU6hzvzltrWi/M41wOP5Gu+BiJMz5nwKykbkUx8Kp7iti0Lpli"
   crossorigin="anonymous"></script>
 <link rel="stylesheet" href="/css/prism.css"/>
-<meta name="keywords" content="">
+<meta name="keywords" content="clickhouse schema, clickhouse lowcardinality, clickhouse materialized view">
   </head>
   <body class="td-section">
     <header>
@@ -59,7 +63,7 @@
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/offline-search-index.bf9d6b0954f5601c7c63864d3c887fcb.json"
+  data-offline-search-index-json-src="/offline-search-index.c12c4d1cb932cbdc11386a4ec2cf1cfc.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="10"
 >
@@ -82,7 +86,7 @@
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/offline-search-index.bf9d6b0954f5601c7c63864d3c887fcb.json"
+  data-offline-search-index-json-src="/offline-search-index.c12c4d1cb932cbdc11386a4ec2cf1cfc.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="10"
 >
@@ -513,61 +517,8 @@
   <a href="/altinity-kb-useful-queries/parts-consistency/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-useful-queriesparts-consistency"><span class="">Parts consistency</span></a>
 </li>
   </ul>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-altinity-kb-kubernetes-li">
-  <a href="/altinity-kb-kubernetes/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-altinity-kb-kubernetes"><span class="">Kubernetes</span></a>
-  <ul class="ul-2 foldable">
-    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-kubernetesaltinity-kb-possible-issues-with-running-clickhouse-in-k8s-li">
-  <a href="/altinity-kb-kubernetes/altinity-kb-possible-issues-with-running-clickhouse-in-k8s/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-kubernetesaltinity-kb-possible-issues-with-running-clickhouse-in-k8s"><span class="">Possible issues with running ClickHouse in k8s</span></a>
-</li>
-  </ul>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-altinity-kb-interfaces-li">
-  <a href="/altinity-kb-interfaces/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-altinity-kb-interfaces"><span class="">Interfaces</span></a>
-  <ul class="ul-2 foldable">
-    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-interfacesaltinity-kb-clickhouse-client-li">
-  <a href="/altinity-kb-interfaces/altinity-kb-clickhouse-client/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-interfacesaltinity-kb-clickhouse-client"><span class="">clickhouse-client</span></a>
-</li>
-  </ul>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-upgrade-li">
-  <a href="/upgrade/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-upgrade"><span class="">Upgrade</span></a>
-  <ul class="ul-2 foldable">
-    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-upgradevulnerabilities-li">
-  <a href="/upgrade/vulnerabilities/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-upgradevulnerabilities"><span class="">Vulnerabilities</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-upgraderemoving-empty-parts-li">
-  <a href="/upgrade/removing-empty-parts/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-upgraderemoving-empty-parts"><span class="">Removing empty parts</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-upgraderemoving-lost-parts-li">
-  <a href="/upgrade/removing-lost-parts/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-upgraderemoving-lost-parts"><span class="">Removing lost parts</span></a>
-</li>
-  </ul>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-altinity-kb-dictionaries-li">
-  <a href="/altinity-kb-dictionaries/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-altinity-kb-dictionaries"><span class="">Dictionaries</span></a>
-  <ul class="ul-2 foldable">
-    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-dictionariesdictionaries-and-arrays-li">
-  <a href="/altinity-kb-dictionaries/dictionaries-and-arrays/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-dictionariesdictionaries-and-arrays"><span class="">Dictionaries &amp; arrays</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-dictionariesdictionary-on-top-tables-li">
-  <a href="/altinity-kb-dictionaries/dictionary-on-top-tables/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-dictionariesdictionary-on-top-tables"><span class="">Dictionary on the top of the several tables using VIEW</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-dictionariesexample-of-postgresql-dictionary-li">
-  <a href="/altinity-kb-dictionaries/example-of-postgresql-dictionary/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-dictionariesexample-of-postgresql-dictionary"><span class="">Example of PostgreSQL dictionary</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-dictionariesmysql8-source-for-dictionaries-li">
-  <a href="/altinity-kb-dictionaries/mysql8-source-for-dictionaries/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-dictionariesmysql8-source-for-dictionaries"><span class="">MySQL8 source for dictionaries</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-dictionariespartial-updates-li">
-  <a href="/altinity-kb-dictionaries/partial-updates/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-dictionariespartial-updates"><span class="">Partial updates</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-dictionariesaltinity-kb-range_hashed-example-open-intervals-li">
-  <a href="/altinity-kb-dictionaries/altinity-kb-range_hashed-example-open-intervals/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-dictionariesaltinity-kb-range_hashed-example-open-intervals"><span class="">range_hashed example - open intervals</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-dictionariesaltinity-kb-sparse_hashed-vs-hashed-li">
-  <a href="/altinity-kb-dictionaries/altinity-kb-sparse_hashed-vs-hashed/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-dictionariesaltinity-kb-sparse_hashed-vs-hashed"><span class="">SPARSE_HASHED VS HASHED</span></a>
-</li>
-  </ul>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-using-this-knowledgebase-li">
-  <a href="/using-this-knowledgebase/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-using-this-knowledgebase"><span class="">Using This Knowledge Base</span></a>
-  <ul class="ul-2 foldable">
-    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-using-this-knowledgebasemermaid_example-li">
-  <a href="/using-this-knowledgebase/mermaid_example/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-using-this-knowledgebasemermaid_example"><span class="">Mermaid Example</span></a>
-</li>
-  </ul>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-search-li">
-  <a href="/search/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-search"><span class=""></span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-altinity-kb-schema-design-li">
-  <a href="/altinity-kb-schema-design/" class="align-left pl-0 active td-sidebar-link td-sidebar-link__section" id="m-altinity-kb-schema-design"><span class="td-sidebar-nav-active-item">Altinity-kb-schema-designs</span></a>
+  <a href="/altinity-kb-schema-design/" class="align-left pl-0 active td-sidebar-link td-sidebar-link__section" id="m-altinity-kb-schema-design"><span class="td-sidebar-nav-active-item">Schema design</span></a>
   <ul class="ul-2 foldable">
     <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-altinity-kb-schema-designrow-level-deduplication-li">
   <a href="/altinity-kb-schema-design/row-level-deduplication/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-schema-designrow-level-deduplication"><span class="">ClickHouse row-level deduplication</span></a>
@@ -621,6 +572,59 @@
   </ul>
 </li>
   </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-altinity-kb-kubernetes-li">
+  <a href="/altinity-kb-kubernetes/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-altinity-kb-kubernetes"><span class="">Kubernetes</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-kubernetesaltinity-kb-possible-issues-with-running-clickhouse-in-k8s-li">
+  <a href="/altinity-kb-kubernetes/altinity-kb-possible-issues-with-running-clickhouse-in-k8s/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-kubernetesaltinity-kb-possible-issues-with-running-clickhouse-in-k8s"><span class="">Possible issues with running ClickHouse in k8s</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-altinity-kb-interfaces-li">
+  <a href="/altinity-kb-interfaces/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-altinity-kb-interfaces"><span class="">Interfaces</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-interfacesaltinity-kb-clickhouse-client-li">
+  <a href="/altinity-kb-interfaces/altinity-kb-clickhouse-client/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-interfacesaltinity-kb-clickhouse-client"><span class="">clickhouse-client</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-upgrade-li">
+  <a href="/upgrade/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-upgrade"><span class="">Upgrade</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-upgradevulnerabilities-li">
+  <a href="/upgrade/vulnerabilities/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-upgradevulnerabilities"><span class="">Vulnerabilities</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-upgraderemoving-empty-parts-li">
+  <a href="/upgrade/removing-empty-parts/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-upgraderemoving-empty-parts"><span class="">Removing empty parts</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-upgraderemoving-lost-parts-li">
+  <a href="/upgrade/removing-lost-parts/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-upgraderemoving-lost-parts"><span class="">Removing lost parts</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-altinity-kb-dictionaries-li">
+  <a href="/altinity-kb-dictionaries/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-altinity-kb-dictionaries"><span class="">Dictionaries</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-dictionariesdictionaries-and-arrays-li">
+  <a href="/altinity-kb-dictionaries/dictionaries-and-arrays/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-dictionariesdictionaries-and-arrays"><span class="">Dictionaries &amp; arrays</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-dictionariesdictionary-on-top-tables-li">
+  <a href="/altinity-kb-dictionaries/dictionary-on-top-tables/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-dictionariesdictionary-on-top-tables"><span class="">Dictionary on the top of the several tables using VIEW</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-dictionariesexample-of-postgresql-dictionary-li">
+  <a href="/altinity-kb-dictionaries/example-of-postgresql-dictionary/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-dictionariesexample-of-postgresql-dictionary"><span class="">Example of PostgreSQL dictionary</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-dictionariesmysql8-source-for-dictionaries-li">
+  <a href="/altinity-kb-dictionaries/mysql8-source-for-dictionaries/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-dictionariesmysql8-source-for-dictionaries"><span class="">MySQL8 source for dictionaries</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-dictionariespartial-updates-li">
+  <a href="/altinity-kb-dictionaries/partial-updates/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-dictionariespartial-updates"><span class="">Partial updates</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-dictionariesaltinity-kb-range_hashed-example-open-intervals-li">
+  <a href="/altinity-kb-dictionaries/altinity-kb-range_hashed-example-open-intervals/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-dictionariesaltinity-kb-range_hashed-example-open-intervals"><span class="">range_hashed example - open intervals</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-altinity-kb-dictionariesaltinity-kb-sparse_hashed-vs-hashed-li">
+  <a href="/altinity-kb-dictionaries/altinity-kb-sparse_hashed-vs-hashed/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-altinity-kb-dictionariesaltinity-kb-sparse_hashed-vs-hashed"><span class="">SPARSE_HASHED VS HASHED</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-using-this-knowledgebase-li">
+  <a href="/using-this-knowledgebase/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-using-this-knowledgebase"><span class="">Using This Knowledge Base</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-using-this-knowledgebasemermaid_example-li">
+  <a href="/using-this-knowledgebase/mermaid_example/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-using-this-knowledgebasemermaid_example"><span class="">Mermaid Example</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-search-li">
+  <a href="/search/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-search"><span class=""></span></a>
 </li>
   </ul>
 </li>
@@ -631,8 +635,43 @@
           </aside>
           <aside class="d-none d-xl-block col-xl-2 td-sidebar-toc d-print-none">
             
+  
+  
+  
+  
+  
+  <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+  
+    
+    
+      
+    
+    
+    <a href="https://altinity.com/contact/" target="_blank"><img src="/images/general/banners/altinity-docs-banner-support.png" width="200"></a>
+    <br />
+    
+    
+    
+    
+    
+    
+    
+
+    <a href="https://github.com/Altinity/altinityknowledgebase/edit/main/content/en/altinity-kb-schema-design/_index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+    <a href="https://github.com/Altinity/altinityknowledgebase/new/main/content/en/altinity-kb-schema-design/_index.md?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" target="_blank"><i class="fa fa-edit fa-fw"></i> Create child page</a>
+    <a href="https://github.com/Altinity/altinityknowledgebase/issues/new?title=/altinity-kb-schema-design/" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
+    
+
+  
+  
+    <a id="print" href="http://kb.altinity.com/altinity-kb-schema-design/printview/"><i class="fa fa-print fa-fw"></i> Print entire section</a>
+  
+  </div>
+
 
             
+
+
 
 
 
@@ -644,9 +683,9 @@
 
   <p>Share on Social Media:</p>
   <span style="display:flex; flex-direction: row; justify-content: space-between; align-items: flex-start; padding-left: 10px; padding-right: 75px;">
-    <a href="https://twitter.com/intent/tweet?text=Altinity-kb-schema-designs&amp;url=http://kb.altinity.com/altinity-kb-schema-design/" target="_blank" class="fab fa-twitter"></a>
+    <a href="https://twitter.com/intent/tweet?text=Schema%20design&amp;url=http://kb.altinity.com/altinity-kb-schema-design/" target="_blank" class="fab fa-twitter"></a>
     <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://kb.altinity.com/altinity-kb-schema-design/" target="_blank" class="fab fa-facebook"></a>
-    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://kb.altinity.com/altinity-kb-schema-design/&amp;title=Altinity-kb-schema-designs"target="_blank" class="fab fa-linkedin"></a>
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://kb.altinity.com/altinity-kb-schema-design/&amp;title=Schema%20design"target="_blank" class="fab fa-linkedin"></a>
   </span>
 </div>
 
@@ -678,14 +717,14 @@
             <nav aria-label="breadcrumb" class="td-breadcrumbs td-breadcrumbs__single">
   <ol class="breadcrumb">
   <li class="breadcrumb-item active" aria-current="page">
-    <a href="http://kb.altinity.com/altinity-kb-schema-design/">Altinity-kb-schema-designs</a>
+    <a href="http://kb.altinity.com/altinity-kb-schema-design/">Schema design</a>
   </li>
   </ol>
 </nav>
             
 <div class="td-content">
-	<h1>Altinity-kb-schema-designs</h1>
-    
+	<h1>Schema design</h1>
+    <div class="lead">All you need to know about ClickHouse schema design, including materialized view, limitations, lowcardinality, codecs.</div>
 	<header class="article-meta">
 		
 		
@@ -709,6 +748,8 @@
     
     
     
+        
+            
         
             
                 <div class="entry">
@@ -794,8 +835,6 @@
                         
                     </p>
                 </div>
-            
-        
             
         
             
@@ -931,7 +970,10 @@
 
 	
 	
-	
+	<div class="text-muted mt-5 pt-3 border-top">
+  Last modified 2022.07.01: <a href="https://github.com/Altinity/altinityknowledgebase/commit/3afee4956f6268c2d2cfccc5695bfe63b41cd449">Create _index.md (3afee4956)</a>
+</div>
+
 </div>
 
           </main>
