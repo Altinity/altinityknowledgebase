@@ -68,7 +68,7 @@ As `default` is used for many internal and background operations, so it is not c
 The replication user is usually `default`. Ports 9009 and 9010(tls) provide low-level data access between servers.This ports should not be accessible from untrusted networks. You can specify credentials for authenthication between replicas. This is required when `interserver_https_port` is accessible from untrusted networks. You can do so creating a user with the `default` profile:
 
 ```sql
-CREATE USER replication IDENTIFIED WITH sha256_hash BY 'password' SETTINGS PROFILE 'default'
+CREATE USER replication IDENTIFIED WITH sha256_password BY 'password' SETTINGS PROFILE 'default'
 ```
 
 After this assign this user to the interserver credentials:
