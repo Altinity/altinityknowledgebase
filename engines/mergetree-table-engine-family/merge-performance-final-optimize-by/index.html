@@ -16,13 +16,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://kb.altinity.com/engines/mergetree-table-engine-family/merge-performance-final-optimize-by/" /><meta property="article:section" content="engines" />
 
-<meta property="article:modified_time" content="2022-07-14T17:09:32+02:00" /><meta property="og:site_name" content="Altinity Knowledge Base" />
+<meta property="article:modified_time" content="2022-07-14T17:12:17+02:00" /><meta property="og:site_name" content="Altinity Knowledge Base" />
 
 <meta itemprop="name" content="Merge performance and OPTIMIZE FINAL">
 <meta itemprop="description" content="Merge performance and OPTIMIZE FINAL DEDUPLICATE BY expr
 ">
-<meta itemprop="dateModified" content="2022-07-14T17:09:32+02:00" />
-<meta itemprop="wordCount" content="309">
+<meta itemprop="dateModified" content="2022-07-14T17:12:17+02:00" />
+<meta itemprop="wordCount" content="306">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Merge performance and OPTIMIZE FINAL"/>
 <meta name="twitter:description" content="Merge performance and OPTIMIZE FINAL DEDUPLICATE BY expr
@@ -67,7 +67,7 @@
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/offline-search-index.0b5c6583dcd7efa06ad75bffa931d527.json"
+  data-offline-search-index-json-src="/offline-search-index.a984b7686cf7ed7c8379e10a68c6c033.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="10"
 >
@@ -90,7 +90,7 @@
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/offline-search-index.0b5c6583dcd7efa06ad75bffa931d527.json"
+  data-offline-search-index-json-src="/offline-search-index.a984b7686cf7ed7c8379e10a68c6c033.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="10"
 >
@@ -779,16 +779,15 @@
 <p>When using deduplicate feature in <code>OPTIMIZE FINAL</code>, the question is which row will remain and won&rsquo;t be deduped?</p>
 <p>For SELECT operations Clickhouse does not guarantee the order of the resultset unless you specify ORDER BY. This random ordering is affected by different parameters, like for example <code>max_threads</code>.</p>
 <p>In a merge operation ClickHouse reads rows sequentially in storage order, which is determined by ORDER BY specified in CREATE TABLE statement, and only the first unique row in that order survives deduplication. So it is a bit different from how SELECT actually works. As FINAL clause is used then ClickHouse will merge all rows across all partitions (If it is not specified then the merge operation will be done per partition), and so the first unique row of the first partition will survive deduplication. Merges are single-threaded because it is too complicated to apply merge ops in-parallel, and it generally makes no sense.</p>
-<p>Thanks to</p>
 <ul>
-<li><a href="https://github.com/ClickHouse/ClickHouse/pull/17846" target="_blank">https://github.com/ClickHouse/ClickHouse/pull/17846</a> VitalyNemkov@Altinity</li>
+<li><a href="https://github.com/ClickHouse/ClickHouse/pull/17846" target="_blank">https://github.com/ClickHouse/ClickHouse/pull/17846</a></li>
 <li><a href="https://clickhouse.com/docs/en/sql-reference/statements/optimize/" target="_blank">https://clickhouse.com/docs/en/sql-reference/statements/optimize/</a></li>
 </ul>
 
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified 2022.07.14: <a href="https://github.com/Altinity/altinityknowledgebase/commit/441ed9119194b77280bab353f059081621c2fc0e">Update merge-performance-final-optimize-by.md (441ed9119)</a>
+  Last modified 2022.07.14: <a href="https://github.com/Altinity/altinityknowledgebase/commit/1c2d9daf67b9ee22e832cd781f019c6a3447abac">Update merge-performance-final-optimize-by.md (1c2d9daf6)</a>
 </div>
 
 </div>
