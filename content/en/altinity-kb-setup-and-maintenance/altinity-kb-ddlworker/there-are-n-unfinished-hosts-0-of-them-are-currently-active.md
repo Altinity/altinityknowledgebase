@@ -51,6 +51,13 @@ SELECT * FROM system.zookeeper WHERE path = '/clickhouse/task_queue/ddl/';
 -- information about specific task.
 SELECT * FROM system.zookeeper WHERE path = '/clickhouse/task_queue/ddl/query-0000001000/';
 SELECT * FROM system.zookeeper WHERE path = '/clickhouse/task_queue/ddl/' AND name = 'query-0000001000';
+-- 22.3
+SELECT * FROM system.zookeeper WHERE path like '/clickhouse/task_queue/ddl/query-0000001000/%' 
+ORDER BY ctime, path SETTINGS allow_unrestricted_reads_from_keeper='true'
+-- 22.6
+SELECT path, name, value, ctime, mtime 
+FROM system.zookeeper WHERE path like '/clickhouse/task_queue/ddl/query-0000001000/%' 
+ORDER BY ctime, path SETTINGS allow_unrestricted_reads_from_keeper='true'
 
 -- How many nodes executed this task
 SELECT name, numChildren as finished_nodes FROM system.zookeeper
