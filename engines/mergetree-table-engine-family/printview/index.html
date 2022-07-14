@@ -63,7 +63,7 @@
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/offline-search-index.c0d6fb9783cd48d480534b1a07d71819.json"
+  data-offline-search-index-json-src="/offline-search-index.d6f1a9d051b363725f296052878ccc7f.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="10"
 >
@@ -149,7 +149,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>6: <a href="#pg-a1c8dd8eeb296b0b27c88e4b4cf38657">Nulls in order by</a></li>
+<li>6: <a href="#pg-612ea6e9ecd36d8f33ca4a03ba920b56">Merge performance and OPTIMIZE FINAL</a></li>
 
 
     
@@ -157,7 +157,15 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>7: <a href="#pg-77e174a17f4f34154cd99cabdcad1497">ReplacingMergeTree</a></li>
+<li>7: <a href="#pg-a1c8dd8eeb296b0b27c88e4b4cf38657">Nulls in order by</a></li>
+
+
+    
+  
+    
+    
+	
+<li>8: <a href="#pg-77e174a17f4f34154cd99cabdcad1497">ReplacingMergeTree</a></li>
 
 
     
@@ -172,7 +180,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>7.1: <a href="#pg-1b0b1062d846cf47875d5cb6db6349be">ReplacingMergeTree does not collapse duplicates</a></li>
+<li>8.1: <a href="#pg-1b0b1062d846cf47875d5cb6db6349be">ReplacingMergeTree does not collapse duplicates</a></li>
 
 
     
@@ -184,7 +192,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>8: <a href="#pg-0c1af116ef46ec0ccb74f6eaca080e18">Skip index</a></li>
+<li>9: <a href="#pg-0c1af116ef46ec0ccb74f6eaca080e18">Skip index</a></li>
 
 
     
@@ -192,7 +200,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>9: <a href="#pg-37369923d4954e60a24307e3acdc5c5f">SummingMergeTree</a></li>
+<li>10: <a href="#pg-37369923d4954e60a24307e3acdc5c5f">SummingMergeTree</a></li>
 
 
     
@@ -563,7 +571,61 @@ FINAL
 
 <div class="td-content" style="page-break-before: always">
     
-	<h1 id="pg-a1c8dd8eeb296b0b27c88e4b4cf38657">6 - Nulls in order by</h1>
+	<h1 id="pg-612ea6e9ecd36d8f33ca4a03ba920b56">6 - Merge performance and OPTIMIZE FINAL</h1>
+    <div class="lead">Merge performance and OPTIMIZE FINAL DEDUPLICATE BY expr</div>
+	<h2 id="merge-performance">Merge Performance</h2>
+<p>Main things affecting the merge speed are:</p>
+<ul>
+<li>Schema (especially compression codecs, some bad types, sorting order&hellip;)</li>
+<li>Horizontal vs Vertical merge
+<ul>
+<li>Horizontal = reads all columns at once, do merge sort, write new part</li>
+<li>Vertical = first read columns from order by, do merge sort, write them to disk, remember permutation, then process the rest of columns on by one, applying permutation.</li>
+</ul>
+</li>
+<li>compact vs wide parts</li>
+<li>Other things like server load, concurrent merges&hellip;</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">SELECT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">name</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">value</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">FROM</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">system</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">merge_tree_settings</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">WHERE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">name</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">LIKE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;%vert%&#39;</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">enable_vertical_merge_algorithm</span><span style="color:#f8f8f8;text-decoration:underline">                  </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#f8f8f8;text-decoration:underline">      
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">vertical_merge_algorithm_min_rows_to_activate</span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">131072</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">vertical_merge_algorithm_min_columns_to_activate</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">11</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span></code></pre></div><ul>
+<li><strong>Vertical merge</strong> will be used if part has more than 131072 rows and more than 11 columns in the table.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">-- Disable Vertical Merges
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">ALTER</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">TABLE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">test</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">MODIFY</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">SETTING</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">enable_vertical_merge_algorithm</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span></code></pre></div><ul>
+<li><strong>Horizontal merge</strong> used by default, will use more memory if there are more than 80 columns in the table</li>
+</ul>
+<h2 id="optimize-table-example-final-deduplicate-by-expr">OPTIMIZE TABLE example FINAL DEDUPLICATE BY expr</h2>
+<p>When using deduplicate feature in <code>OPTIMIZE FINAL</code>, the question is which row will remain and won&rsquo;t be deduped?</p>
+<p>For SELECT operations Clickhouse does not guarantee the order of the resultset unless you specify ORDER BY. This random ordering is affected by different parameters, like for example <code>max_threads</code>.</p>
+<p>In a merge operation ClickHouse reads rows sequentially in storage order, which is determined by ORDER BY specified in CREATE TABLE statement, and only the first unique row in that order survives deduplication. So it is a bit different from how SELECT actually works. As FINAL clause is used then ClickHouse will merge all rows across all partitions (If it is not specified then the merge operation will be done per partition), and so the first unique row of the first partition will survive deduplication. Merges are single-threaded because it is too complicated to apply merge ops in-parallel, and it generally makes no sense.</p>
+<p>Thanks to Vitaly Nemkov @Enmk</p>
+<ul>
+<li><a href="https://github.com/ClickHouse/ClickHouse/pull/17846" target="_blank">https://github.com/ClickHouse/ClickHouse/pull/17846</a></li>
+<li><a href="https://clickhouse.com/docs/en/sql-reference/statements/optimize/" target="_blank">https://clickhouse.com/docs/en/sql-reference/statements/optimize/</a></li>
+</ul>
+
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-a1c8dd8eeb296b0b27c88e4b4cf38657">7 - Nulls in order by</h1>
     <div class="lead">Nulls in order by</div>
 	<ol>
 <li>It is NOT RECOMMENDED for a general use</li>
@@ -603,7 +665,7 @@ FINAL
 
 <div class="td-content" style="page-break-before: always">
     
-	<h1 id="pg-77e174a17f4f34154cd99cabdcad1497">7 - ReplacingMergeTree</h1>
+	<h1 id="pg-77e174a17f4f34154cd99cabdcad1497">8 - ReplacingMergeTree</h1>
     <div class="lead">ReplacingMergeTree</div>
 	<h3 id="last-state">Last state</h3>
 <div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">CREATE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">TABLE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">repl_tbl</span><span style="color:#f8f8f8;text-decoration:underline">
@@ -783,7 +845,7 @@ FINAL
 
 <div class="td-content" style="page-break-before: always">
     
-	<h1 id="pg-1b0b1062d846cf47875d5cb6db6349be">7.1 - ReplacingMergeTree does not collapse duplicates</h1>
+	<h1 id="pg-1b0b1062d846cf47875d5cb6db6349be">8.1 - ReplacingMergeTree does not collapse duplicates</h1>
     <div class="lead">ReplacingMergeTree does not collapse duplicates</div>
 	<p><strong>Hi there, I have a question about replacing merge trees. I have set up a Materialized View with ReplacingMergeTree table, but even if I call optimize on it, the parts don&rsquo;t get merged. I filled that table yesterday, nothing happened since then. What should I do?</strong></p>
 <p>Merges are eventual and may never happen. It depends on the number of inserts that happened after, the number of parts in the partition, size of parts.
@@ -810,7 +872,7 @@ If the total size of input parts are greater than the maximum part size then the
 
 <div class="td-content" style="page-break-before: always">
     
-	<h1 id="pg-0c1af116ef46ec0ccb74f6eaca080e18">8 - Skip index</h1>
+	<h1 id="pg-0c1af116ef46ec0ccb74f6eaca080e18">9 - Skip index</h1>
     <div class="lead">Skip index</div>
 	
 
@@ -864,7 +926,7 @@ If the total size of input parts are greater than the maximum part size then the
 
 <div class="td-content" style="page-break-before: always">
     
-	<h1 id="pg-37369923d4954e60a24307e3acdc5c5f">9 - SummingMergeTree</h1>
+	<h1 id="pg-37369923d4954e60a24307e3acdc5c5f">10 - SummingMergeTree</h1>
     <div class="lead">SummingMergeTree</div>
 	<h2 id="nested-structures">Nested structures</h2>
 <p>In certain conditions it could make sense to collapse one of dimensions to set of arrays. It&rsquo;s usually profitable to do if this dimension is not commonly used in queries. It would reduce amount of rows in aggregated table and speed up queries which doesn&rsquo;t care about this dimension in exchange of aggregation performance by collapsed dimension.</p>
