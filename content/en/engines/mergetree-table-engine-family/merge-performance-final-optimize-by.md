@@ -43,6 +43,5 @@ For SELECT operations Clickhouse does not guarantee the order of the resultset u
 
 In a merge operation ClickHouse reads rows sequentially in storage order, which is determined by ORDER BY specified in CREATE TABLE statement, and only the first unique row in that order survives deduplication. So it is a bit different from how SELECT actually works. As FINAL clause is used then ClickHouse will merge all rows across all partitions (If it is not specified then the merge operation will be done per partition), and so the first unique row of the first partition will survive deduplication. Merges are single-threaded because it is too complicated to apply merge ops in-parallel, and it generally makes no sense.
 
-Thanks to 
-* [https://github.com/ClickHouse/ClickHouse/pull/17846](https://github.com/ClickHouse/ClickHouse/pull/17846) VitalyNemkov@Altinity 
+* [https://github.com/ClickHouse/ClickHouse/pull/17846](https://github.com/ClickHouse/ClickHouse/pull/17846)
 * [https://clickhouse.com/docs/en/sql-reference/statements/optimize/](https://clickhouse.com/docs/en/sql-reference/statements/optimize/)
