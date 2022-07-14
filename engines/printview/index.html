@@ -63,7 +63,7 @@
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/offline-search-index.d6f1a9d051b363725f296052878ccc7f.json"
+  data-offline-search-index-json-src="/offline-search-index.0b5c6583dcd7efa06ad75bffa931d527.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="10"
 >
@@ -1225,9 +1225,9 @@ FINAL
 <p>When using deduplicate feature in <code>OPTIMIZE FINAL</code>, the question is which row will remain and won&rsquo;t be deduped?</p>
 <p>For SELECT operations Clickhouse does not guarantee the order of the resultset unless you specify ORDER BY. This random ordering is affected by different parameters, like for example <code>max_threads</code>.</p>
 <p>In a merge operation ClickHouse reads rows sequentially in storage order, which is determined by ORDER BY specified in CREATE TABLE statement, and only the first unique row in that order survives deduplication. So it is a bit different from how SELECT actually works. As FINAL clause is used then ClickHouse will merge all rows across all partitions (If it is not specified then the merge operation will be done per partition), and so the first unique row of the first partition will survive deduplication. Merges are single-threaded because it is too complicated to apply merge ops in-parallel, and it generally makes no sense.</p>
-<p>Thanks to Vitaly Nemkov @Enmk</p>
+<p>Thanks to</p>
 <ul>
-<li><a href="https://github.com/ClickHouse/ClickHouse/pull/17846" target="_blank">https://github.com/ClickHouse/ClickHouse/pull/17846</a></li>
+<li><a href="https://github.com/ClickHouse/ClickHouse/pull/17846" target="_blank">https://github.com/ClickHouse/ClickHouse/pull/17846</a> VitalyNemkov@Altinity</li>
 <li><a href="https://clickhouse.com/docs/en/sql-reference/statements/optimize/" target="_blank">https://clickhouse.com/docs/en/sql-reference/statements/optimize/</a></li>
 </ul>
 
