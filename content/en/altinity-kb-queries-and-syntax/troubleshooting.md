@@ -60,6 +60,45 @@ Query id: d3db767b-34e9-4252-9f90-348cf958f822
 1 rows in set. Elapsed: 0.007 sec. Processed 1.00 thousand rows, 8.00 KB (136.43 thousand rows/s., 1.09 MB/s.)
 ```
 
+## system tables
+
+```sql
+SELECT sum(number)
+FROM numbers(1000);
+
+Query id: 34c61093-3303-47d0-860b-0d644fa7264b
+
+┌─sum(number)─┐
+│      499500 │
+└─────────────┘
+
+1 row in set. Elapsed: 0.002 sec. Processed 1.00 thousand rows, 8.00 KB (461.45 thousand rows/s., 3.69 MB/s.)
+
+SELECT *
+FROM system.query_log
+WHERE (event_date = today()) AND (query_id = '34c61093-3303-47d0-860b-0d644fa7264b');
+
+If query_thread_log enabled (SET log_query_threads = 1)
+
+SELECT *
+FROM system.query_thread_log
+WHERE (event_date = today()) AND (query_id = '34c61093-3303-47d0-860b-0d644fa7264b');
+
+If opentelemetry_span_log enabled (SET opentelemetry_start_trace_probability = 1, opentelemetry_trace_processors = 1) 
+
+SELECT *
+FROM system.opentelemetry_span_log
+WHERE (trace_id, finish_date) IN (
+    SELECT
+        trace_id,
+        finish_date
+    FROM system.opentelemetry_span_log
+    WHERE ((attribute['clickhouse.query_id']) = '34c61093-3303-47d0-860b-0d644fa7264b') AND (finish_date = today())
+);
+```
+
+
+
 ## Flamegraph
 
 [https://www.speedscope.app/](https://www.speedscope.app/)
