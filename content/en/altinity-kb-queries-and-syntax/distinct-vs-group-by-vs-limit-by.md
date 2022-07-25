@@ -58,7 +58,7 @@ MemoryTracker: Peak memory usage (for query): 847.05 KiB.
 0 rows in set. Elapsed: 0.448 sec. Processed 1.00 billion rows, 8.00 GB (2.23 billion rows/s., 17.88 GB/s.)
 ```
 
-* Single threaded
+* Final distinct step is single threaded
 * Stream resultset
 
 ## GROUP BY
