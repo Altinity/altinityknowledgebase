@@ -1079,9 +1079,17 @@ sumMap, *Resample
 https://kb.altinity.com/altinity-kb-functions/resample-vs-if-vs-map-vs-subquery/
 
 
-### Disable two-level
+### Play with two-level
 
-SET group_by_two_level_threshold = 0, group_by_two_level_threshold_bytes = 0;
+Disable:
+
+```sql
+SET group_by_two_level_threshold = 0, group_by_two_level_threshold_bytes = 0; 
+```
+
+From 22.4 ClickHouse can predict, when it make sense to initialize aggregation with two-level from start, instead of rehashing on fly.
+It can improve query time.
+https://github.com/ClickHouse/ClickHouse/pull/33439
 
 ### GROUP BY in external memory
 
@@ -1096,6 +1104,9 @@ Can lead to incorrect results as hash functions is not 1 to 1 mapping.
 ### Performance bugs
 
 https://github.com/ClickHouse/ClickHouse/issues/15005
+
 https://github.com/ClickHouse/ClickHouse/issues/29131
+
 https://github.com/ClickHouse/ClickHouse/issues/31120
-https://github.com/ClickHouse/ClickHouse/issues/35096
+
+https://github.com/ClickHouse/ClickHouse/issues/35096 Fixed in 22.7
