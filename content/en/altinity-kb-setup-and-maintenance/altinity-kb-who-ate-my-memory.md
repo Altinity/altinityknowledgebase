@@ -5,9 +5,15 @@ description: >
     Who ate my memory
 ---
 ```sql
-SELECT *, formatReadableSize(value) FROM system.asynchronous_metrics WHERE metric like '%Cach%' or metric like '%Mem%' order by metric format PrettyCompactMonoBlock;
+SELECT *, formatReadableSize(value) 
+FROM system.asynchronous_metrics 
+WHERE metric like '%Cach%' or metric like '%Mem%' 
+order by metric format PrettyCompactMonoBlock;
 
-SELECT event_time, metric, value, formatReadableSize(value) FROM system.asynchronous_metric_log WHERE event_time > now() - 600 and (metric like '%Cach%' or metric like '%Mem%') and value <> 0 order by metric, event_time format PrettyCompactMonoBlock;
+SELECT event_time, metric, value, formatReadableSize(value) 
+FROM system.asynchronous_metric_log 
+WHERE event_time > now() - 600 and (metric like '%Cach%' or metric like '%Mem%') and value <> 0 
+order by metric, event_time format PrettyCompactMonoBlock;
 
 SELECT formatReadableSize(sum(bytes_allocated)) FROM system.dictionaries;
 
@@ -17,6 +23,12 @@ SELECT
     formatReadableSize(total_bytes)
 FROM system.tables
 WHERE engine IN ('Memory','Set','Join');
+
+SELECT
+    sumIf(data_uncompressed_bytes, part_type = 'InMemory') as memory_parts,
+    formatReadableSize(sum(primary_key_bytes_in_memory)) AS primary_key_bytes_in_memory,
+    formatReadableSize(sum(primary_key_bytes_in_memory_allocated)) AS primary_key_bytes_in_memory_allocated
+FROM system.parts;
 
 SELECT formatReadableSize(sum(memory_usage)) FROM system.merges;
 
@@ -33,17 +45,6 @@ ORDER BY peak_memory_usage DESC
 LIMIT 10;
 
 SELECT
-    metric,
-    formatReadableSize(value)
-FROM system.asynchronous_metrics
-WHERE metric IN ('UncompressedCacheBytes', 'MarkCacheBytes');
-
-SELECT
-    formatReadableSize(sum(primary_key_bytes_in_memory)) AS primary_key_bytes_in_memory,
-    formatReadableSize(sum(primary_key_bytes_in_memory_allocated)) AS primary_key_bytes_in_memory_allocated
-FROM system.parts;
-
-SELECT
     type,
     event_time,
     initial_query_id,
@@ -54,8 +55,6 @@ WHERE (event_date >= today()) AND (event_time >= (now() - 7200))
 ORDER BY memory_usage DESC
 LIMIT 10;
 
-
-SELECT sum(data_uncompressed_bytes) FROM system.parts WHERE part_type = 'InMemory';
 ```
 
 ```bash
