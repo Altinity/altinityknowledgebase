@@ -56,6 +56,8 @@ SETTINGS skip_unavailable_shards = 1
 ## Script to create DB ojects
 
 ```sql
+CREATE DATABASE sysall;
+
 CREATE OR REPLACE VIEW sysall.cluster_state AS
 SELECT
     shard_num,
