@@ -6,7 +6,7 @@ description: >
 ---
 GCS with the table function - seems to work correctly for simple scenarios.
 
-Essentially you can follow the steps from the [Migrating from Amazon S3 to Cloud Storage](https://cloud.google.com/storage/docs/migrating#migration-simple).
+Essentially you can follow the steps from the [Migrating from Amazon S3 to Cloud Storage](https://cloud.google.com/storage/docs/aws-simple-migration).
 
 1. Set up a GCS bucket.
 2. This bucket must be set as part of the default project for the account. This configuration can be found in settings -> interoperability.
