@@ -76,7 +76,7 @@ LEFT JOIN
         FQDN() AS fqdn,
         materialize(uptime()) AS uptime
     FROM clusterAllReplicas('{cluster}', system.one)
-) USING (host_name)
+) as hosts_info USING (host_name)
 WHERE cluster = getMacro('cluster')
 SETTINGS skip_unavailable_shards = 1;
 
@@ -136,9 +136,6 @@ from clusterAllReplicas('{cluster}', system.columns) SETTINGS skip_unavailable_s
 
 CREATE OR REPLACE VIEW sysall.processes as select hostName() nodeHost, FQDN() nodeFQDN, *
 from clusterAllReplicas('{cluster}', system.processes) SETTINGS skip_unavailable_shards = 1;
-
-CREATE OR REPLACE VIEW sysall. as select hostName() nodeHost, FQDN() nodeFQDN, *
-from clusterAllReplicas('{cluster}', system.) SETTINGS skip_unavailable_shards = 1;
 
 CREATE OR REPLACE VIEW sysall.errors as select hostName() nodeHost, FQDN() nodeFQDN, *
 from clusterAllReplicas('{cluster}', system.errors) SETTINGS skip_unavailable_shards = 1;
