@@ -41,7 +41,7 @@ GROUP BY
 ## Current Processes
 
 ```sql
-select  node,elapsed, query from lf.processes where is_initial_query and elapsed > 2
+select elapsed, query from system.processes where is_initial_query and elapsed > 2
 ```
 
 ## Processes retrospectively
