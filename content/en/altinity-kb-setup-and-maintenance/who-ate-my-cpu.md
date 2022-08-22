@@ -18,7 +18,7 @@ SELECT
     formatReadableSize(total_size_bytes_compressed) AS size,
     formatReadableSize(memory_usage) AS mem
 FROM system.merges
-ORDER BY progress DESC
+ORDER BY elapsed DESC
 ```
 
 ## Mutations
