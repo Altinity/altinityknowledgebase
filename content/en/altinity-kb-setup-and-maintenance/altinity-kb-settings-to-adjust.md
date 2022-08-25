@@ -107,7 +107,7 @@ description: >
 
 7. merge_tree settings: `max_bytes_to_merge_at_max_space_in_pool` (may be reduced in some scenarios), `fsync_*` , `inactive_parts_to_throw_insert` - can be enabled, `replicated_deduplication_window` - can be extended if single insert create lot of parts , `merge_with_ttl_timeout` - when you use ttl
 8. settings `default_database_engine` / `insert_distributed_sync` / `fsync_metadata` / `do_not_merge_across_partitions_select_final` / fsync
-9. memory usage per server / query / user: [memory configuration settings](altinity-kb-memory-configuration-settings.md)
+9. memory usage per server / query / user: [memory configuration settings]({{<ref "altinity-kb-memory-configuration-settings.md">}})
 
 See also:
 
