@@ -13,6 +13,7 @@ Documentation https://clickhouse.com/docs/en/operations/access-rights/
 Create an ```admin``` user like (root in MySQL or postgres in PostgreSQL) to do the DBA/admin ops in the `user.xml` file and [set the access management property for the admin user](https://clickhouse.com/docs/en/operations/access-rights/#enabling-access-control)
 
 ```xml
+<clickhouse>
 <users>
   <default>
   ....
@@ -45,6 +46,7 @@ Create an ```admin``` user like (root in MySQL or postgres in PostgreSQL) to do 
       <access_management>1</access_management>
   </admin>
 ...
+</clickhouse>
 ```
 
 ## default user
@@ -52,6 +54,7 @@ Create an ```admin``` user like (root in MySQL or postgres in PostgreSQL) to do 
 As `default` is used for many internal and background operations, so it is not convenient to set it up with a password, because you would have to change it in many configs/parts. Best way to secure the default user is only allow localhost or trusted network connections like this in `users.xml`:
 
 ```xml
+<clickhouse>
 <users>
     <default>
     ......    
@@ -61,6 +64,7 @@ As `default` is used for many internal and background operations, so it is not c
         </networks>
     ......
     </default>
+</clickhouse>
 ```
 
 ## replication user
