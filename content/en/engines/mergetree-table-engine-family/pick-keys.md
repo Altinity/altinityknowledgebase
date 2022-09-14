@@ -88,3 +88,8 @@ PARTITION BY userid % 16
 
 For the small tables (smaller than few gigabytes) partitioning is usually not needed at all (just skip `PARTITION BY` expresssion when you create the table).
 
+### ClickHouse Anti-Patterns. Learning from Users' Mistakes
+
+A short talk by Mikhail Filimonov
+
+https://youtu.be/DP7l6Swkskw?t=3777
