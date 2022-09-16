@@ -170,7 +170,7 @@ $ cat /etc/clickhouse-server/config.d/clusters.xml
 Then create a table
 
 ```sql
-create table test on '{cluster}'   ( A Int64, S String)
+create table test on cluster '{cluster}'   ( A Int64, S String)
 Engine = ReplicatedMergeTree('/clickhouse/{cluster}/tables/{database}/{table}','{replica}')
 Order by A;
 
