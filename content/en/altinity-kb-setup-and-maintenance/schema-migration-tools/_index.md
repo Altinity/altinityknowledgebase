@@ -18,8 +18,10 @@ description: >
 * liquibase
   * [https://github.com/mediarithmics/liquibase-clickhouse](https://github.com/mediarithmics/liquibase-clickhouse)
   * [https://johntipper.org/how-to-execute-liquibase-changesets-against-clickhouse/](https://johntipper.org/how-to-execute-liquibase-changesets-against-clickhouse/)
-* custom tool for ClickHouse
+* custom tool for ClickHouse for python
   * [https://github.com/delium/clickhouse-migrator](https://github.com/delium/clickhouse-migrator)
+  * [https://github.com/zifter/clickhouse-migrations](https://github.com/zifter/clickhouse-migrations)
+  * [https://github.com/trushad0w/clickhouse-migrate](https://github.com/trushad0w/clickhouse-migrate)
 * phpMigrations
   * [https://github.com/smi2/phpMigrationsClickhouse](https://github.com/smi2/phpMigrationsClickhouse)
   * [https://habrahabr.ru/company/smi2/blog/317682/](https://habrahabr.ru/company/smi2/blog/317682/)
