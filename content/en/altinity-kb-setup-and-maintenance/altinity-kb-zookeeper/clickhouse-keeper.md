@@ -11,17 +11,14 @@ Since 2021 the developement of built-in alternative for Zookeeper is happening, 
 
 See slides:  https://presentations.clickhouse.com/meetup54/keeper.pdf and video  https://youtu.be/IfgtdU1Mrm0?t=2682
 
-## Status
+## Current status (last updated: September 2022)
 
 In the release 22.3 presentations, clickhouse-keeper was called 'production ready' by the ClickHouse team, but unfortunately, that was a bit too optimistic/premature.
 
-While it looks like all the main features are supported in 22.3, there are still major performance issues with that:
+Indeed the essential functionality is implemented and tested in 22.3, but there are still major performance issues preventing using clickhouse-keeper on loaded systems:
 
 * https://github.com/ClickHouse/ClickHouse/issues/41045
 * https://github.com/ClickHouse/ClickHouse/issues/35712#issuecomment-1206070436
-
-The development pace of keeper code is [still very high](https://github.com/ClickHouse/ClickHouse/pulls?q=is%3Apr+keeper)
-so every new version should bring improvements / cover the issues. 
 
 There is also a number of usability / operational issues:
 * https://github.com/ClickHouse/ClickHouse/issues?q=is%3Aopen+is%3Aissue+label%3Acomp-keeper 
@@ -29,10 +26,15 @@ There is also a number of usability / operational issues:
 Because of the above:
 1) Altinity does not recommend using clickhouse-keeper on highly-loaded systems (as of September 2022, at least until the performance issues listed above are fixed)
 2) at the same time clickhouse-keeper should work ok for on non-loaded (or development) clusters
-3) if you want to play with clickhouse-keeper in some environment - please use the most recent ClickHouse releases! And share your feedback.
 
+The development pace of keeper code is [still high](https://github.com/ClickHouse/ClickHouse/pulls?q=is%3Apr+keeper)
+so every new version should bring improvements / cover the issues, and stability/maturity grows from version to version, so 
+if you want to play with clickhouse-keeper in some environment - please use the most recent ClickHouse releases! And of course: share your feedback :)
 
 # How does it work
+
+Official docs: https://clickhouse.com/docs/en/guides/sre/keeper/clickhouse-keeper/
+
 
 Clickhouse-keeper still need to be started additionally on few nodes (similar to 'normal' zookeeper) and speaks normal zookeeper protocol - needed to simplify A/B tests with real zookeeper.
 
