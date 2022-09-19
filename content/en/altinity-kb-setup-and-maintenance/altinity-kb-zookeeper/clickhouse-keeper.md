@@ -4,9 +4,37 @@ linkTitle: "clickhouse-keeper"
 description: >
     clickhouse-keeper
 ---
-In 21.3 there is already an option to run own clickhouse zookeeper implementation. It's still experimental, and still need to be started additionally on few nodes (similar to 'normal' zookeeper) and speaks normal zookeeper protocol - needed to simplify A/B tests with real zookeeper.
 
-No docs, for now, only PR with code & tests. Of course, if you want to play with it - you can, and early feedback is very valuable. But be prepared for a lot of tiny issues here and there, so don't be disappointed if it will not satisfy your expectations for some reason. It's very-very fresh :slightly_smiling_face: It's ready for some trial runs, but not ready yet for production use cases.
+## clickhouse-keeper
+
+Since 2021 the developement of built-in alternative for Zookeeper is happening, which goal is to address several design pitfalls, and get rid of extra dependency. 
+
+See slides:  https://presentations.clickhouse.com/meetup54/keeper.pdf and video  https://youtu.be/IfgtdU1Mrm0?t=2682
+
+## Status
+
+In the release 22.3 presentations, clickhouse-keeper was called 'production ready' by the ClickHouse team, but unfortunately, that was a bit too optimistic/premature.
+
+While it looks like all the main features are supported in 22.3, there are still major performance issues with that:
+
+* https://github.com/ClickHouse/ClickHouse/issues/41045
+* https://github.com/ClickHouse/ClickHouse/issues/35712#issuecomment-1206070436
+
+The development pace of keeper code is [still very high](https://github.com/ClickHouse/ClickHouse/pulls?q=is%3Apr+keeper)
+so every new version should bring improvements / cover the issues. 
+
+There is also a number of usability / operational issues:
+* https://github.com/ClickHouse/ClickHouse/issues?q=is%3Aopen+is%3Aissue+label%3Acomp-keeper 
+
+Because of the above:
+1) Altinity does not recommend using clickhouse-keeper on highly-loaded systems (as of September 2022, at least until the performance issues listed above are fixed)
+2) at the same time clickhouse-keeper should work ok for on non-loaded (or development) clusters
+3) if you want to play with clickhouse-keeper in some environment - please use the most recent ClickHouse releases! And share your feedback.
+
+
+# How does it work
+
+Clickhouse-keeper still need to be started additionally on few nodes (similar to 'normal' zookeeper) and speaks normal zookeeper protocol - needed to simplify A/B tests with real zookeeper.
 
 To test that you need to run 3 instances of clickhouse-server (which will mimic zookeeper) with an extra config like that:
 
@@ -20,6 +48,11 @@ or event single instance with config like that: [https://github.com/ClickHouse/C
 And point all the clickhouses (zookeeper config secton) to those nodes / ports.
 
 Latest testing version is recommended. We will be thankful for any feedback.
+
+## systemd service file
+
+See 
+https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/clickhouse-keeper-service/
 
 ## Example of a simple cluster with 2 nodes of Clickhouse using built-in keeper
 
