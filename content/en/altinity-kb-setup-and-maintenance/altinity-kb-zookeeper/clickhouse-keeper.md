@@ -47,7 +47,7 @@ or event single instance with config like that: [https://github.com/ClickHouse/C
 
 And point all the clickhouses (zookeeper config secton) to those nodes / ports.
 
-Latest testing version is recommended. We will be thankful for any feedback.
+Latests version is recommended (even testing / master builds). We will be thankful for any feedback.
 
 ## systemd service file
 
