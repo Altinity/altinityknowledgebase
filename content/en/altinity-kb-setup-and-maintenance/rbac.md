@@ -62,6 +62,7 @@ As `default` is used for many internal and background operations, so it is not c
             <ip>127.0.0.1/8</ip>
             <ip>10.10.10.0/24</ip>
         </networks>
+    
     ......
     </default>
 </clickhouse>
@@ -69,7 +70,7 @@ As `default` is used for many internal and background operations, so it is not c
 
 ## replication user
 
-The replication user is usually `default`. Ports 9009 and 9010(tls) provide low-level data access between servers.This ports should not be accessible from untrusted networks. You can specify credentials for authenthication between replicas. This is required when `interserver_https_port` is accessible from untrusted networks. You can do so creating a user with the `default` profile:
+The replication user is usually `default`. **There is no need to create this user unless you know what you're doing** because you need an specific user for replication. Ports 9009 and 9010(tls) provide low-level data access between servers.This ports should not be accessible from untrusted networks. You can specify credentials for authenthication between replicas. This is required when `interserver_https_port` is accessible from untrusted networks. You can do so creating a user with the `default` profile:
 
 ```sql
 CREATE USER replication IDENTIFIED WITH sha256_password BY 'password' SETTINGS PROFILE 'default'
