@@ -5,8 +5,9 @@ description: >
     Schema migration tools for ClickHouse
 ---
 * golang-migrate tool - see [golang-migrate](golang-migrate)
-* bytebase
-  * [https://bytebase.com](https://bytebase.com)
+* liquibase
+  * [https://github.com/mediarithmics/liquibase-clickhouse](https://github.com/mediarithmics/liquibase-clickhouse)
+  * [https://johntipper.org/how-to-execute-liquibase-changesets-against-clickhouse/](https://johntipper.org/how-to-execute-liquibase-changesets-against-clickhouse/)
 * Flyway - there are a lot of PRs introducing ClickHouse support, maintainer doesn't merge them (maybe he will change his mind soon), but's it's not hard to build flyway from one of those PRs (latest at the top)
   * [https://github.com/flyway/flyway/pull/3333](https://github.com/flyway/flyway/pull/3333) Сlickhouse support
   * [https://github.com/flyway/flyway/pull/3134](https://github.com/flyway/flyway/pull/3134) Сlickhouse support
@@ -15,9 +16,10 @@ description: >
   * [https://github.com/flyway/flyway/pull/2640](https://github.com/flyway/flyway/pull/2640) Yet another ClickHouse support
   * [https://github.com/flyway/flyway/pull/2166](https://github.com/flyway/flyway/pull/2166) Clickhouse support (\#1772)
   * [https://github.com/flyway/flyway/pull/1773](https://github.com/flyway/flyway/pull/1773) Fixed \#1772: Add support for ClickHouse ([https://clickhouse.yandex/](https://clickhouse.yandex/))
-* liquibase
-  * [https://github.com/mediarithmics/liquibase-clickhouse](https://github.com/mediarithmics/liquibase-clickhouse)
-  * [https://johntipper.org/how-to-execute-liquibase-changesets-against-clickhouse/](https://johntipper.org/how-to-execute-liquibase-changesets-against-clickhouse/)
+* [alembic](https://alembic.sqlalchemy.org/en/latest/)
+  * see https://clickhouse-sqlalchemy.readthedocs.io/en/latest/migrations.html 
+* bytebase
+  * [https://bytebase.com](https://bytebase.com)
 * custom tool for ClickHouse for python
   * [https://github.com/delium/clickhouse-migrator](https://github.com/delium/clickhouse-migrator)
   * [https://github.com/zifter/clickhouse-migrations](https://github.com/zifter/clickhouse-migrations)
