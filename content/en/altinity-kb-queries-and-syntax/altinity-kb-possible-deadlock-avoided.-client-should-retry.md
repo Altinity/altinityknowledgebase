@@ -20,4 +20,8 @@ In 20.6 all table-level locks which were possible to remove were removed, so alt
 
 Typically issue was happening when doing some concurrent select on `system.parts` / `system.columns` / `system.table` with simultaneous table manipulations (doing some kind of ALTERS / TRUNCATES / DROP)I
 
-If that exception happens often in your use-case: An update is recommended. In the meantime, check which queries are running (especially to system.tables / system.parts and other system tables) and check if killing them / avoiding them helps to solve the issue.
+If that exception happens often in your use-case:
+- use recent clickhouse versions
+- ensure you use Atomic engine for the database (not Ordinary) (can be checked in system.databases)
+
+Sometime you can try to workaround issue by finding the queries which uses that table concurenly (especially to system.tables / system.parts and other system tables) and  try killing them (or avoiding them).
