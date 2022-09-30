@@ -53,7 +53,9 @@ migrate -database 'clickhouse://localhost:9000' -path ./migrations down
 
 | URL Query | Description |
 | :--- | :--- |
-| `x-migrations-table` | Name of the migrations table |
+| `x-migrations-table`| Name of the migrations table |
+| `x-migrations-table-engine`| Engine to use for the migrations table, defaults to TinyLog |
+| `x-cluster-name` | Name of cluster for creating table cluster wide |
 | `database` | The name of the database to connect to |
 | `username` | The user to sign in as |
 | `password` | The user's password |
@@ -63,23 +65,9 @@ migrate -database 'clickhouse://localhost:9000' -path ./migrations down
 
 #### Replicated / Distributed / Cluster environments
 
-By default `migrate` create table `schema_migrations` with the following structure
+`golang-migrate` supports a clustered Clickhouse environment since v4.15.0.
 
-```sql
-CREATE TABLE schema_migrations (
-  version UInt32,
-  dirty UInt8,
-  sequence UInt64
-) ENGINE = TinyLog
-```
-
-That allows storing version of schema locally.
-
-If you need to use `migrate` in some multi server environment (replicated / cluster) you should create `schema_migrations` manually with the same structure and with the appropriate Engine (Replicated / Distributed), otherwise, other servers will not know the version of the DB schema. As an alternative you can force the current version number on another server manually, like that:
-
-```bash
-migrate -database 'clickhouse://localhost:9000' -path ./migrations force 123456 # force version 123456
-```
+If you provide `x-cluster-name` query param, it will create the table to store migration data on the passed cluster.
 
 #### Known issues
 
