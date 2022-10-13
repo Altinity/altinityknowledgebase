@@ -10,7 +10,7 @@ description: >-
 
 > Metadata on replica is not up to date with common metadata in Zookeeper
 
-```
+```sql
 SELECT *, if( neighbor(name, -1) == name and name != 'is_active', neighbor(value, -1) == value , 1) as looks_good
 FROM (
 SELECT
@@ -38,6 +38,6 @@ ORDER BY
 
 vs. 
 
-```
+```sql
 SELECT metadata_modification_time, create_table_query FROM system.tables WHERE name = 'test_repl'
 ```
