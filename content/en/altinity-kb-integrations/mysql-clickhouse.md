@@ -16,12 +16,22 @@ It reads mysql binlog directly and transform queries into something which clickh
 
 The replication happens on the mysql database level.
 
-### Replication using debezium + Kafka
+### Replication using debezium + Kafka (+ Altinity Sink Connector)
 
-Debezium can read the binlog and transform it to Kafka messages. You can later capture the stream of message on ClickHouse side and process it as you like.
-Please remeber that currently Kafka engine supports only at-least-once delivery guarantees.
+Debezium can read the binlog and transform it to Kafka messages. 
 
+You can later capture the stream of message on ClickHouse side and process it as you like.
+Please remember that currently Kafka engine supports only at-least-once delivery guarantees.
 It's used by several companies, quite nice & flexible. But initial setup may require some efforts.
+
+#### Altinity Sink Connector
+
+Can handle transformation of debezium messages (with support for DELETEs and UPDATEs) and exactly-once delivery for you. 
+
+Links:
+* https://altinity.com/blog/fast-mysql-to-clickhouse-replication-announcing-the-altinity-sink-connector-for-clickhouse
+* https://altinity.com/mysql-to-clickhouse/
+* https://github.com/Altinity/clickhouse-sink-connector
 
 #### Same as above but using https://maxwells-daemon.io/ instead of debezium.
 
