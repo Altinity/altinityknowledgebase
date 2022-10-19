@@ -1,8 +1,8 @@
 ---
-title: "System tables eat my disk"
-linkTitle: "System tables eat my disk"
+title: "System tables ate my disk"
+linkTitle: "System tables ate my disk"
 description: >
-    System tables eat my disk
+    System tables ate my disk
 ---
 > **Note 1:** System database stores virtual tables (**parts**, **tables,** **columns, etc.**) and \***_log** tables.
 >
