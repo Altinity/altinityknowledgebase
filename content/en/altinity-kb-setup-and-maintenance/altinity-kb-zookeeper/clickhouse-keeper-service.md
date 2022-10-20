@@ -166,7 +166,7 @@ cat /etc/clickhouse-keeper/config.xml
 ```
 
 ```
-cat /etc/clickhouse-keeper/config.d/keeeper.xml
+cat /etc/clickhouse-keeper/config.d/keeper.xml
 <?xml version="1.0"?>
 <clickhouse>
     <listen_host>::</listen_host>
