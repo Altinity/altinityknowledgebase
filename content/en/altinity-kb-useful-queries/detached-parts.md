@@ -34,6 +34,7 @@ WHERE a.min_block_number >= b.min_block_number
 ```
 # rg forgetPartAndMoveToDetached --type cpp
 # rg renameToDetached --type cpp
+# rg makeCloneInDetached --type cpp
 broken
 unexpected
 ignored
@@ -41,4 +42,6 @@ noquorum
 merge-not-byte-identical
 mutate-not-byte-identical
 broken-on-start
+clone
+covered-by-broken
 ```
