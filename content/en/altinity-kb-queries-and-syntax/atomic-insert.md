@@ -29,19 +29,19 @@ Text formats and Native format require different set of settings, here I want to
 
 ```bash
 clickhouse-client -q \
-     'select toInt64(number) A, toString(number) S from numbers(100000000) format Native' > t.native
+     'SELECT toInt64(number) A, toString(number) S FROM numbers(100000000) FORMAT Native' > t.native
 clickhouse-client -q \
-     'select toInt64(number) A, toString(number) S from numbers(100000000) format TSV' > t.tsv
+     'SELECT toInt64(number) A, toString(number) S FROM numbers(100000000) FORMAT TSV' > t.tsv
 ```
 
 ### Insert with default settings (not atomic)
 
 ```bash
-drop table if exists trg;
-create table trg(A Int64, S String) Engine=MergeTree order by A;
+DROP TABLE IF EXISTS trg;
+CREATE TABLE trg(A Int64, S String) Engine=MergeTree ORDER BY A;
 
 -- Load data in Native format
-clickhouse-client  -q 'insert into trg format Native' <t.native
+clickhouse-client  -q 'INSERT INTO trg FORMAT Native' <t.native
 
 -- Check how many parts is created
 SELECT 
@@ -59,11 +59,11 @@ WHERE (level = 0) AND (table = 'trg');
 
 
 
-drop table if exists trg;
-create table trg(A Int64, S String) Engine=MergeTree order by A;
+DROP TABLE IF EXISTS trg;
+CREATE TABLE trg(A Int64, S String) Engine=MergeTree ORDER BY A;
 
 -- Load data in TSV format
-clickhouse-client  -q 'insert into trg format TSV' <t.tsv
+clickhouse-client  -q 'INSERT INTO trg FORMAT TSV' <t.tsv
 
 -- Check how many parts is created
 SELECT 
@@ -85,14 +85,13 @@ WHERE (level = 0) AND (table = 'trg');
 Atomic insert use more memory because it needs 100 millions rows in memory.
 
 ```bash
-drop table if exists trg;
-create table trg(A Int64, S String) Engine=MergeTree order by A;
+DROP TABLE IF EXISTS trg;
+CREATE TABLE trg(A Int64, S String) Engine=MergeTree ORDER BY A;
 
 clickhouse-client --input_format_parallel_parsing=0 \
                   --min_insert_block_size_bytes=0 \
                   --min_insert_block_size_rows=1000000000 \
-                  --max_insert_block_size=1000000000  \
-                  -q 'insert into trg format Native' <t.native
+                  -q 'INSERT INTO trg FORMAT Native' <t.native
 
 -- Check that only one part is created
 SELECT
@@ -110,15 +109,14 @@ WHERE (level = 0) AND (table = 'trg');
 
 
 
-drop table if exists trg;
-create table trg(A Int64, S String) Engine=MergeTree order by A;
+DROP TABLE IF EXISTS trg;
+CREATE TABLE trg(A Int64, S String) Engine=MergeTree ORDER BY A;
 
 -- Load data in TSV format
 clickhouse-client --input_format_parallel_parsing=0 \
                   --min_insert_block_size_bytes=0 \
                   --min_insert_block_size_rows=1000000000 \
-                  --max_insert_block_size=1000000000  \
-                  -q 'insert into trg format TSV' <t.tsv
+                  -q 'INSERT INTO trg FORMAT TSV' <t.tsv
 
 -- Check that only one part is created
 SELECT 
