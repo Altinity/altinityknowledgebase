@@ -45,3 +45,8 @@ broken-on-start
 clone
 covered-by-broken
 ```
+
+## See also 
+
+Since 22.6 clickhouse can clean old detached files automtically
+https://github.com/ClickHouse/ClickHouse/pull/37975/commits
