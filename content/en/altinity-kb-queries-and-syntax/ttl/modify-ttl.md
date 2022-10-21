@@ -12,7 +12,7 @@ It's 2 step process:
 
 1. `ALTER TABLE tbl MODIFY (ADD) TTL ...`
 
-Update table metadata: schema .sql & metadata in ZK
+Update table metadata: schema .sql & metadata in ZK.
 It's usually cheap and fast command. And any new INSERT after schema change will calculate TTL according to new rule.
 
 
