@@ -56,6 +56,7 @@ KILL MUTATION WHERE command LIKE '%MATERIALIZE TTL%' AND table = 'tbl'
 today: 2022-06-02
 
 Table tbl
+
 Daily partitioning by toYYYYMMDD(timestamp) -> 20220602
 
 #### Increase of TTL
