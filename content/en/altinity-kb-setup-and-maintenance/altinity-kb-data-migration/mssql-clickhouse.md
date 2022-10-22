@@ -13,13 +13,13 @@ description: >-
 ```bash
 LAPTOP.localdomain :) CREATE TABLE tbl(key UInt32) ENGINE=MergeTree ORDER BY key;
 
-root@LAPTOP:/home/unamed# sqlcmd -U sa -P Password78
+root@LAPTOP:/home/user# sqlcmd -U sa -P Password78
 1> WITH t0(i) AS (SELECT 0 UNION ALL SELECT 0), t1(i) AS (SELECT 0 FROM t0 a, t0 b), t2(i) AS (SELECT 0 FROM t1 a, t1 b), t3(i) AS (SELECT 0 FROM t2 a, t2 b), t4(i) AS (SELECT 0 FROM t3 a, t3 b), t5(i) AS (SELECT 0 FROM t4 a, t3 b),n(i) AS (SELECT ROW_NUMBER() OVER(ORDER BY (SELECT 0)) FROM t5) SELECT i INTO tbl FROM n WHERE i BETWEEN 1 AND 16777216
 2> GO
 
 (16777216 rows affected)
 
-root@LAPTOP:/home/unamed# sqlcmd -U sa -P Password78 -Q "SELECT count(*) FROM tbl"
+root@LAPTOP:/home/user# sqlcmd -U sa -P Password78 -Q "SELECT count(*) FROM tbl"
 
 -----------
    16777216
