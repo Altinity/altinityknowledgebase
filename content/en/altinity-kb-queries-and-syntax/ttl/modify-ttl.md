@@ -152,13 +152,13 @@ MergeTree settings:
 ```
 merge_with_ttl_timeout                      │   14400   │       0 │ Minimal time in seconds, when merge with delete TTL can be repeated.
 merge_with_recompression_ttl_timeout        │   14400   │       0 │ Minimal time in seconds, when merge with recompression TTL can be repeated.
-max_replicated_merges_with_ttl_in_queue     │ 1         │       0 │ How many tasks of merging parts with TTL are allowed simultaneously in ReplicatedMergeTree queue.
-max_number_of_merges_with_ttl_in_pool       │ 2         │       0 │ When there is more than specified number of merges with TTL entries in pool, do not assign new merge with TTL. This is to leave free threads for regular merges and avoid "Too many parts"
-ttl_only_drop_parts                         │ 0         │       0 │ Only drop altogether the expired parts and not partially prune them.
+max_replicated_merges_with_ttl_in_queue     │   1       │       0 │ How many tasks of merging parts with TTL are allowed simultaneously in ReplicatedMergeTree queue.
+max_number_of_merges_with_ttl_in_pool       │   2       │       0 │ When there is more than specified number of merges with TTL entries in pool, do not assign new merge with TTL. This is to leave free threads for regular merges and avoid "Too many parts"
+ttl_only_drop_parts                         │   0       │       0 │ Only drop altogether the expired parts and not partially prune them.
 ```
 
 Session settings:
 
 ```
-materialize_ttl_after_modify                │ 1         │       0 │ Apply TTL for old data, after ALTER MODIFY TTL query 
+materialize_ttl_after_modify                │   1       │       0 │ Apply TTL for old data, after ALTER MODIFY TTL query 
 ```
