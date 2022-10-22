@@ -80,6 +80,7 @@ Clock Time (ms.) Total     : 11540  Average : (1453831.5 rows per sec.)
 
 ### Another shell
 
+```bash
 root@LAPTOP:/home/user# for i in `seq 1 600`; do clickhouse-client -q "select count() from tbl";sleep 1;  done
 0
 0
@@ -97,3 +98,4 @@ root@LAPTOP:/home/user# for i in `seq 1 600`; do clickhouse-client -q "select co
 16777216
 16777216
 16777216
+```
