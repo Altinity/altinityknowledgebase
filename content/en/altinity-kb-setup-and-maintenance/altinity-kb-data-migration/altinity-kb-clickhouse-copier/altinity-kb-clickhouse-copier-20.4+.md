@@ -1,11 +1,11 @@
 ---
-title: "clickhouse-copier 20.4 - 21.6"
-linkTitle: "clickhouse-copier 20.4 - 21.6"
+title: "clickhouse-copier 20.4+"
+linkTitle: "clickhouse-copier 20.4+"
 description: >
-    clickhouse-copier 20.4 - 21.6
+    clickhouse-copier 20.4+
 ---
 Clickhouse-copier was created to move data between clusters.
-It runs simple INSERT…SELECT queries and can copy data between tables with different engine parameters and between clusters with different number of shards.
+It runs simple `INSERT…SELECT` queries and can copy data between tables with different engine parameters and between clusters with different number of shards.
 In the task configuration file you need to describe the layout of the source and the target cluster, and list the tables that you need to copy. You can copy whole tables or specific partitions.
 Clickhouse-copier uses temporary distributed tables to select from the source cluster and insert into the target cluster.
 
@@ -19,7 +19,7 @@ The behavior of clickhouse-copier was changed in 20.4:
 
 1. Process the configuration files.
 2. Discover the list of partitions if not provided in the config.
-3. Copy partitions one by one _**I’m not sure of the order since I was copying from 1 shard to 4 shards.**_ _**The metadata in ZooKeeper suggests the order described here.**_
+3. Copy partitions one by one  ** The metadata in ZooKeeper suggests the order described here.**
    1. Copy chunks of data one by one.
       1. Copy data from source shards one by one.
          1. Create intermediate tables on all shards of the target cluster.
@@ -74,7 +74,7 @@ Clickhouse-copier uses ZooKeeper to keep track of the progress and to communicat
 Here is a list of queries that you can use to see what’s happening.
 
 ```sql
---task-path /clickhouse/copier/task1
+--task-path=/clickhouse/copier/task1
 
 -- The task config
 select * from system.zookeeper
@@ -82,9 +82,15 @@ where path='<task-path>'
 name                        | ctime               | mtime           
 ----------------------------+---------------------+--------------------
 description                 | 2021-03-22 13:15:48 | 2021-03-22 13:25:28
+status                      | 2021-03-22 13:15:48 | 2021-03-22 13:25:28
 task_active_workers_version | 2021-03-22 13:15:48 | 2021-03-22 20:32:09
 tables                      | 2021-03-22 13:16:47 | 2021-03-22 13:16:47
 task_active_workers         | 2021-03-22 13:15:48 | 2021-03-22 13:15:48
+
+
+-- Status
+select * from system.zookeeper
+where path='<task-path>/status'
 
 
 -- Running workers
