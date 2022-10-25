@@ -176,7 +176,7 @@ Basically the job will download the official clickhouse image and will create a 
   
   - clickhouse-copier: This container will run the clickhouse-copier utility.
  
-  - sidecar-logging: This container will be used to read the logs of the clickhouse-copier container because clickhouse-copier does not send the logs to ```stdout/stderr```. Also using ```---daemon``` is not sending the logs to ```stdout/stderr``` either:
+  - sidecar-logging: This container will be used to read the logs of the clickhouse-copier container for different runs (this part can be improved):
 
 ```yaml
 ---
