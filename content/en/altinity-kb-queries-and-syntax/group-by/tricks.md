@@ -54,7 +54,7 @@ FROM numbers_mt(1000000000)
 
 
 
-All queries and datasets are unique, so in different situations different hacks could work better or worsen.
+All queries and datasets are unique, so in different situations different hacks could work better or worse.
 
 ### PreFilter values before GROUP BY
 
@@ -90,11 +90,11 @@ FORMAT `Null`
 
 ### Use Fixed-width data types instead of String 
 
-EG you have 2 strings which has values in special form like this
+For example, you have 2 strings which has values in special form like this
 
 'ABX 1412312312313' 
 
-You can just remove 4 first characters and convert rest of them to UInt64
+You can just remove the first 4 characters and convert the rest to UInt64
 
 toUInt64(substr('ABX 1412312312313',5))
 
@@ -193,7 +193,7 @@ Elapsed: 6.247 sec. Processed 1.00 billion rows, 27.00 GB (160.09 million rows/s
 
 ```
 
-It can be especially useful when you tries to do GROUP BY lc_column_1, lc_column_2 and ClickHouse falls back to serialized algorytm.
+It can be especially useful when you tries to do GROUP BY lc_column_1, lc_column_2 and ClickHouse falls back to serialized algorithm.
 
 
 ### Two LowCardinality Columns in GROUP BY 
@@ -281,9 +281,9 @@ Elapsed: 2.910 sec. Processed 1.00 billion rows, 27.00 GB (343.64 million rows/s
 ```
 ### Shard your data by one of common high cardinal GROUP BY key
 
-So on each shard you will have 1/N of all unique combination and this will result in smaller hash table.
+So on each shard you will have 1/N of all unique combination and this will result in smaller hash tables.
 
-Lets create 2 distributed tables with different distribution: rand() and by user_id
+Let's create 2 distributed tables with different distribution: rand() and by user_id
 
 ```sql
 CREATE TABLE sessions_distributed AS sessions
@@ -728,7 +728,7 @@ MemoryTracker: Peak memory usage (for query): 14.55 GiB.
 
 ### Reduce number of threads
 
-Because each thread use independent hash table, if you lower thread amount it will reduce number of hash tables as well and lower memory usage at the cost of slower query execution.
+Because each thread uses an independent hash table, if you lower thread amount it will reduce number of hash tables as well and lower memory usage at the cost of slower query execution.
 
 ```sql
 
@@ -1093,7 +1093,7 @@ https://github.com/ClickHouse/ClickHouse/pull/33439
 
 ### GROUP BY in external memory
 
-Slow
+Slow!
 
 ### Use hash function for GROUP BY keys
 
