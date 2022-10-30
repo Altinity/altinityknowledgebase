@@ -28,9 +28,10 @@ ALTER TABLE tbl MODIFY TTL .... SETTINGS materialize_ttl_after_modify=0;
 ```
 
 If you will disable materialization of TTL, it does mean that all old parts will be transformed according OLD TTL rules. 
+MATERIALIZE TTL:
 
-2.1 Recalculate TTL  (Kinda cheap, it read only column participate in TTL)
-2.2 Apply TTL        (Rewrite of table data for all columns)
+1. Recalculate TTL  (Kinda cheap, it read only column participate in TTL)
+2. Apply TTL        (Rewrite of table data for all columns)
 
 You also can disable apply TTL substep via `materialize_ttl_recalculate_only` merge_tree setting (by default it's 0, so clickhouse will apply TTL expression)
 
