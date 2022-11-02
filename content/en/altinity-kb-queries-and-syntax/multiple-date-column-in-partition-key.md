@@ -18,7 +18,7 @@ CREATE TABLE part_key_multiple_dates
     `inserted_at` DateTime
 )
 ENGINE = MergeTree
-PARTITION BY (toYYYYMM(date), ignore(created_at), ignore(inserted_at))
+PARTITION BY (toYYYYMM(date), ignore(created_at, inserted_at))
 ORDER BY (key, time);
 
 
