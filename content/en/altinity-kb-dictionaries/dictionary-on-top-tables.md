@@ -1,8 +1,8 @@
 ---
-title: "Dictionary on the top of the several tables using VIEW"
-linkTitle: "Dictionary on the top of the several tables using VIEW"
+title: "Dictionary on the top of several tables using VIEW"
+linkTitle: "Dictionary on the top of several tables using VIEW"
 description: >
-    Dictionary on the top of the several tables using VIEW
+    Dictionary on the top of several tables using VIEW
 ---
 ```sql
 
