@@ -99,7 +99,10 @@ WHERE metric LIKE '%MaxDDLEntryID%'
 grep -C 40 "ddl_entry" /var/log/clickhouse-server/clickhouse-server*.log
 ```
 
-#### Issues that can prevent the task execution
+
+### Issues that can prevent task execution
+
+#### Obsolete Replicas 
 
 Obsolete replicas left in zookeeper.
 
@@ -115,6 +118,8 @@ SYSTEM START REPLICATION QUEUES;
 ```
 
 [https://clickhouse.tech/docs/en/sql-reference/statements/system/\#query_language-system-drop-replica](https://clickhouse.tech/docs/en/sql-reference/statements/system/\#query_language-system-drop-replica)
+
+#### Tasks manually removed from DDL queue 
 
 Task were removed from DDL queue, but left in Replicated\*MergeTree table queue.
 
@@ -148,3 +153,29 @@ Context of this problem is:
 
 Solution:
 * Reload/Restore this replica from scratch.
+
+#### DDL path was changed in Zookeeper without restarting ClickHouse
+
+Changing the DDL queue path in Zookeeper without restarting ClickHouse will make ClickHouse confused. If you need to do this ensure that you restart ClickHouse before submitting additional distributed DDL commands. Here's an example. 
+
+```sql
+-- Path before change:
+SELECT *
+FROM system.zookeeper
+WHERE path = '/clickhouse/clickhouse101/task_queue'
+
+┌─name─┬─value─┬─path─────────────────────────────────┐
+│ ddl  │       │ /clickhouse/clickhouse101/task_queue │
+└──────┴───────┴──────────────────────────────────────┘
+
+-- Path after change
+SELECT *
+FROM system.zookeeper
+WHERE path = '/clickhouse/clickhouse101/task_queue'
+
+┌─name─┬─value─┬─path─────────────────────────────────┐
+│ ddl2 │       │ /clickhouse/clickhouse101/task_queue │
+└──────┴───────┴──────────────────────────────────────┘
+```
+
+The reason is that ClickHouse will not "see" this change and will continue to look for tasks in the old path. Altering paths in Zookeeper should be avoided if at all possible. If necessary it must be done *very carefuly*. 
