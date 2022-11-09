@@ -16,15 +16,17 @@ The steps to run a task:
 
    [Copy task configuration](https://clickhouse.com/docs/en/operations/utilities/clickhouse-copier/#configuration-of-copying-tasks)
 
-3. Create the task in ZooKeeper and start an instance of clickhouse-copier`clickhouse-copier --base-dir=/opt/clickhouse-copier --config=/opt/clickhouse-copier/zookeeper.xml --task-path=/clickhouse/copier/task1 --task-file=/opt/clickhouse-copier/task1.xml`
+3. Create the task in ZooKeeper and start an instance of clickhouse-copier
 
-If the node in ZooKeeper already exists and you want to change it, you need to add the `task-upload-force` parameter:
+    `clickhouse-copier --daemon --base-dir=/opt/clickhouse-copier --config=/opt/clickhouse-copier/zookeeper.xml --task-path=/clickhouse/copier/task1 --task-file=/opt/clickhouse-copier/task1.xml`
 
-`clickhouse-copier --base-dir=/opt/clickhouse-copier --config=/opt/clickhouse-copier/zookeeper.xml --task-path=/clickhouse/copier/task1 --task-file=/opt/clickhouse-copier/task1.xml --task-upload-force=1`
+    If the node in ZooKeeper already exists and you want to change it, you need to add the `task-upload-force` parameter:
 
-If you want to run another instance of clickhouse-copier for the same task, you need to copy the config file (zookeeper.xml) to another server, and run this command:
+    `clickhouse-copier --daemon --base-dir=/opt/clickhouse-copier --config=/opt/clickhouse-copier/zookeeper.xml --task-path=/clickhouse/copier/task1 --task-file=/opt/clickhouse-copier/task1.xml --task-upload-force=1`
 
-`clickhouse-copier --base-dir=/opt/clickhouse-copier --config=/opt/clickhouse-copier/zookeeper.xml --task-path=/clickhouse/copier/task1`
+    If you want to run another instance of clickhouse-copier for the same task, you need to copy the config file (zookeeper.xml) to another server, and run this command:
+
+    `clickhouse-copier --daemon --base-dir=/opt/clickhouse-copier --config=/opt/clickhouse-copier/zookeeper.xml --task-path=/clickhouse/copier/task1`
 
 The number of simultaneously running instances is controlled be the `max_workers` parameter in your task configuration file. If you run more workers superfluous workers will sleep and log messages like this:
 
