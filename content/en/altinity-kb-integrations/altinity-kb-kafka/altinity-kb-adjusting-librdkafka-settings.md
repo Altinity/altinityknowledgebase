@@ -10,22 +10,24 @@ description: >
 Some random example:
 
 ```xml
-<kafka>
-    <max_poll_interval_ms>60000</max_poll_interval_ms>
-    <session_timeout_ms>60000</session_timeout_ms>
-    <heartbeat_interval_ms>10000</heartbeat_interval_ms>
-    <reconnect_backoff_ms>5000</reconnect_backoff_ms>
-    <reconnect_backoff_max_ms>60000</reconnect_backoff_max_ms>
-    <request_timeout_ms>20000</request_timeout_ms>
-    <retry_backoff_ms>500</retry_backoff_ms>
-    <message_max_bytes>20971520</message_max_bytes>
-    <debug>all</debug><!-- only to get the errors -->
-    <security_protocol>SSL</security_protocol>
-    <ssl_ca_location>/etc/clickhouse-server/ssl/kafka-ca-qa.crt</ssl_ca_location>
-    <ssl_certificate_location>/etc/clickhouse-server/ssl/client_clickhouse_client.pem</ssl_certificate_location>
-    <ssl_key_location>/etc/clickhouse-server/ssl/client_clickhouse_client.key</ssl_key_location>
-    <ssl_key_password>pass</ssl_key_password>
-</kafka>
+<yandex>
+    <kafka>
+        <max_poll_interval_ms>60000</max_poll_interval_ms>
+        <session_timeout_ms>60000</session_timeout_ms>
+        <heartbeat_interval_ms>10000</heartbeat_interval_ms>
+        <reconnect_backoff_ms>5000</reconnect_backoff_ms>
+        <reconnect_backoff_max_ms>60000</reconnect_backoff_max_ms>
+        <request_timeout_ms>20000</request_timeout_ms>
+        <retry_backoff_ms>500</retry_backoff_ms>
+        <message_max_bytes>20971520</message_max_bytes>
+        <debug>all</debug><!-- only to get the errors -->
+        <security_protocol>SSL</security_protocol>
+        <ssl_ca_location>/etc/clickhouse-server/ssl/kafka-ca-qa.crt</ssl_ca_location>
+        <ssl_certificate_location>/etc/clickhouse-server/ssl/client_clickhouse_client.pem</ssl_certificate_location>
+        <ssl_key_location>/etc/clickhouse-server/ssl/client_clickhouse_client.key</ssl_key_location>
+        <ssl_key_password>pass</ssl_key_password>
+    </kafka>
+</yandex>
 ```
 
 ## Authentication / connectivity
