@@ -105,9 +105,15 @@ description: >
    You can find the preset example [here](https://clickhouse.tech/docs/en/operations/settings/settings-profiles/).
    Also, force_index_by_date + force_primary_key can be a nice idea to avoid queries that 'accidentally' do full scans, max_concurrent_queries_for_user
 
-7. merge_tree settings: `max_bytes_to_merge_at_max_space_in_pool` (may be reduced in some scenarios), `fsync_*` , `inactive_parts_to_throw_insert` - can be enabled, `replicated_deduplication_window` - can be extended if single insert create lot of parts , `merge_with_ttl_timeout` - when you use ttl
-8. settings `default_database_engine` / `insert_distributed_sync` / `fsync_metadata` / `do_not_merge_across_partitions_select_final` / fsync
+7. merge_tree settings: `max_bytes_to_merge_at_max_space_in_pool` (may be reduced in some scenarios), `inactive_parts_to_throw_insert` - can be enabled, `replicated_deduplication_window` - can be extended if single insert create lot of parts , `merge_with_ttl_timeout` - when you use ttl
+
+8. `insert_distributed_sync` - for small clusters you may sometimes want to enable it
+9. when the durability is the main requirement (or server / storage is not stable) - you may want to enable `fsync_*` setting (impacts the write performance significantly!!), and `insert_quorum`
+
+11. If you use FINAL queries - usually you want to enable  `do_not_merge_across_partitions_select_final`
+
 9. memory usage per server / query / user: [memory configuration settings](altinity-kb-memory-configuration-settings.md)
+
 10. if you use async_inserts - you often may want to increase max_concurrent_queries 
 
 ```
