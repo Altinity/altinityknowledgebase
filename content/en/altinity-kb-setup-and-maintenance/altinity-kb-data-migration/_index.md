@@ -31,9 +31,11 @@ Pros:
 Cons:
 * Uses CPU / RAM (mostly on the receiver side)
 
-See details in:
+See details of both approaches in:
 
 [remote-table-function.md]({{<ref "remote-table-function.md" >}})
+
+[distributed-table-cluster.md]({{<ref "distributed-table-cluster.md" >}})
 
 ## clickhouse-copier
 
