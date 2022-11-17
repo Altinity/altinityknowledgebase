@@ -138,3 +138,27 @@ GROUP BY timeframe
 ORDER BY timeframe
 FORMAT PrettyCompactMonoBlock;
 ```
+
+## retrospection analysis of trace_log
+
+```sql
+WITH 
+    now() - INTERVAL 24 HOUR AS min_time,  -- you can adjust that
+    now() AS max_time,   -- you can adjust that
+SELECT
+    trace_type,
+    count(),
+    topK(20)(query_id)
+FROM system.trace_log
+WHERE event_time BETWEEN min_time AND max_time
+GROUP BY trace_type;
+
+-- later on you can check particular query_ids in query_log
+```
+
+## analysis of the server text logs 
+
+```
+grep MemoryTracker /var/log/clickhouse-server.log
+zgrep MemoryTracker /var/log/clickhouse-server.log.*.gz
+```
