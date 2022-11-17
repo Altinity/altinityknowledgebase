@@ -105,8 +105,8 @@ SELECT
     formatReadableSize(maxIf(mem_by_type, event_type='MutatePart')) as mutate_ram,
     formatReadableSize(maxIf(mem_by_type, event_type='Alter'))      as alter_ram,
     formatReadableSize(maxIf(mem_by_type, event_type='Create'))     as create_ram,
-    formatReadableSize(maxIf(mem_by_type, event_type not IN ('Insert', 'Select', 'MergeParts', 'Alter', 'Create') )) as other_types_ram,
-    groupUniqArrayIf(event_type, event_type not IN ('Insert', 'Select', 'MergeParts', 'Alter', 'Create') ) as other_types
+    formatReadableSize(maxIf(mem_by_type, event_type not IN ('Insert', 'Select', 'MergeParts','MutatePart', 'Alter', 'Create') )) as other_types_ram,
+    groupUniqArrayIf(event_type, event_type not IN ('Insert', 'Select', 'MergeParts','MutatePart', 'Alter', 'Create') ) as other_types
 FROM (
     SELECT 
         toDateTime( toUInt32(ts) ) as event_timestamp,
