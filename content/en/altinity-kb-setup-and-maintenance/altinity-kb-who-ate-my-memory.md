@@ -132,7 +132,18 @@ FROM (
         data.2 as mem
         FROM system.query_log
         WHERE event_time BETWEEN min_time AND max_time AND memory_usage != 0
-    )
+
+        UNION ALL 
+
+        WITH 
+        arrayJoin([(toFloat64(event_time_microseconds) - (view_duration_ms / 1000), toInt64(peak_memory_usage)), (toFloat64(event_time_microseconds), -peak_memory_usage)]) AS data
+        SELECT
+        CAST(toString(view_type)||'View','LowCardinality(String)') as t,
+        data.1 as ts,
+        data.2 as mem
+        FROM system.query_views_log
+        WHERE event_time BETWEEN min_time AND max_time AND peak_memory_usage != 0
+)
 )
 GROUP BY timeframe
 ORDER BY timeframe
