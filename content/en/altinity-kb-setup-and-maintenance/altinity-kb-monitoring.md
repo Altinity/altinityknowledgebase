@@ -47,7 +47,7 @@ The following metrics should be collected / monitored
 
 ### Prometheus (embedded http handler with clickhouse-operator style metrics) + Grafana
 
-* Enable [http handler](./monitoring-operator-exporter-compatibility/)
+* Enable [http handler](../monitoring-operator-exporter-compatibility/)
 * Useful, if you want to use clickhouse-operator dashboard, but do not run ClickHouse in k8s.
 
 ### Prometheus (clickhouse-operator embedded exporter) + Grafana
