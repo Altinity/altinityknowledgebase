@@ -45,14 +45,19 @@ The following metrics should be collected / monitored
 * Enable [embedded exporter](https://clickhouse.com/docs/en/operations/server-configuration-parameters/settings/#server_configuration_parameters-prometheus)
 * Grafana dashboards [https://grafana.com/grafana/dashboards/14192](https://grafana.com/grafana/dashboards/14192) or [https://grafana.com/grafana/dashboards/13500](https://grafana.com/grafana/dashboards/13500)
 
-### clickhouse-operator embedded exporter
+### Prometheus (embedded http handler with clickhouse-operator style metrics) + Grafana
+
+* Enable [http handler](./monitoring-operator-exporter-compatibility/)
+* Useful, if you want to use clickhouse-operator dashboard, but do not run ClickHouse in k8s.
+
+### Prometheus (clickhouse-operator embedded exporter) + Grafana
 
 * exporter is included in clickhouse-operator, and enabled automatically
 * see instructions of [Prometheus](https://github.com/Altinity/clickhouse-operator/blob/eb3fc4e28514d0d6ea25a40698205b02949bcf9d/docs/prometheus_setup.md) and [Grafana](https://github.com/Altinity/clickhouse-operator/blob/eb3fc4e28514d0d6ea25a40698205b02949bcf9d/docs/grafana_setup.md) installation (if you don't have one)
 * Grafana dashboard [https://github.com/Altinity/clickhouse-operator/tree/master/grafana-dashboard](https://github.com/Altinity/clickhouse-operator/tree/master/grafana-dashboard)
 * Prometheus alerts [https://github.com/Altinity/clickhouse-operator/blob/master/deploy/prometheus/prometheus-alert-rules-clickhouse.yaml](https://github.com/Altinity/clickhouse-operator/blob/master/deploy/prometheus/prometheus-alert-rules-clickhouse.yaml)
 
-### Prometheus exporter (external) + Grafana
+### Prometheus (clickhouse external exporter) + Grafana
 
 * [clickhouse-exporter](https://github.com/ClickHouse/clickhouse_exporter)
 * Dashboard: https://grafana.com/grafana/dashboards/882 
