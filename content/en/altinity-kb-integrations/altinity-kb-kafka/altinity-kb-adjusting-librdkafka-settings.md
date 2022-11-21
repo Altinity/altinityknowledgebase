@@ -171,6 +171,27 @@ And after that in configuration:
   </kafka1>
  </named_collections>
 </clickhouse>
+
+
+<yandex>
+    <named_collections>
+        <kafka_preset1>
+            <kafka_broker_list>...</kafka_broker_list>
+            <kafka_topic_list>foo.bar</kafka_topic_list>
+            <kafka_group_name>foo.bar.group</kafka_group_name>
+            <kafka>
+                <security_protocol>...</security_protocol>
+                <sasl_mechanism>...</sasl_mechanism>
+                <sasl_username>...</sasl_username>
+                <sasl_password>...</sasl_password>
+                <auto_offset_reset>smallest</auto_offset_reset>
+                <ssl_endpoint_identification_algorithm>https</ssl_endpoint_identification_algorithm>
+                <ssl_ca_location>probe</ssl_ca_location>
+            </kafka>
+        </kafka_preset1>
+    </named_collections>
+</yandex>
+
 ```
  
 The same fragment of code in newer versions:
