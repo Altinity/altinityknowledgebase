@@ -46,3 +46,38 @@ do
   printf "|%s|%s,%s,%s,%s\n" "$f1" "$f2" "$size" "$result" "$time"
 done
 ```
+
+
+## groupBitmap
+
+Use [Roaring Bitmaps](https://roaringbitmap.org/) underneat. 
+Return amount of uniq values.
+
+Can be used with Int* types
+Works really great when your values quite similar. (Low memory usage / state size)
+
+Example with blockchain data, block_number is monotonically increasing number.
+
+```sql
+SELECT groupBitmap(block_number) FROM blockchain;
+
+┌─groupBitmap(block_number)─┐
+│                  48478157 │
+└───────────────────────────┘
+
+MemoryTracker: Peak memory usage (for query): 64.44 MiB.
+1 row in set. Elapsed: 32.044 sec. Processed 4.77 billion rows, 38.14 GB (148.77 million rows/s., 1.19 GB/s.)
+
+SELECT uniqExact(block_number) FROM blockchain;
+
+┌─uniqExact(block_number)─┐
+│                48478157 │
+└─────────────────────────┘
+
+MemoryTracker: Peak memory usage (for query): 4.27 GiB.
+1 row in set. Elapsed: 70.058 sec. Processed 4.77 billion rows, 38.14 GB (68.05 million rows/s., 544.38 MB/s.)
+```
+
+
+
+
