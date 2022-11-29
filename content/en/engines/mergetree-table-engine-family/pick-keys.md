@@ -207,7 +207,7 @@ Examples:
 
 ```
 -- for time-series:
-PARTITION BY toYYYY(timestamp)          -- long retention, not too much data
+PARTITION BY toYear(timestamp)          -- long retention, not too much data
 PARTITION BY toYYYYMM(timestamp)        --  
 PARTITION BY toMonday(timestamp)        -- 
 PARTITION BY toDate(timestamp)          --
