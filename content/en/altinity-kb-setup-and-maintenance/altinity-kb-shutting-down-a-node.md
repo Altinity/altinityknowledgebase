@@ -9,6 +9,7 @@ It’s possible to shutdown server on fly, but that would lead to failure of som
 More safer way:
 
 * Remove server (which is going to be disabled) from remote_server section of config.xml on all servers.
+  * avoid removing the last replica of the shard (that can lead to incorrect data placement if you use non-random distribution)
 * Remove server from load balancer, so new queries wouldn’t hit it.
 * Detach Kafka / Rabbit / Buffer tables (if used), and Materialized* databases.
 * Wait until all already running queries would finish execution on it.
