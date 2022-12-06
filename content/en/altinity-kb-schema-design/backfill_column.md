@@ -10,6 +10,15 @@ description: >-
 
 Sometimes you need to add a column into a huge table and backfill it with a data from another source, without reingesting all data.
 
+
+{{% alert title="Info" color="info" %}}
+In case of a replicated / sharded setup you need to have the dictionary and source table (dict_table / item_dict) on all nodes and they have to all have EXACTLY the same data. The easiest way to do this is to make dict_table replicated.
+
+In this case, you will need to set the setting `allow_nondeterministic_mutations=1` on the user that runs the `ALTER TABLE`. See the [ClickHouse docs](https://clickhouse.com/docs/en/operations/settings/settings#allow_nondeterministic_mutations) for more information about this setting.
+{{% /alert %}}
+
+
+
 Here is an example.
 
 ```sql
@@ -160,7 +169,3 @@ WHERE key1 = 11111
 │ 11111 │ 90   │ 9    │ 2021-11-30 │ 11111xxx │
 └───────┴──────┴──────┴────────────┴──────────┘
 ```
-
-In case of a replicated / sharded setup you need to have the dictionary and source table (dict_table / item_dict) on all nodes and they have to all have EXACTLY the same data. The easiest way to do this is to make dict_table replicated.
-
-In this case, you will need to set the setting `allow_nondeterministic_mutations=1` on the user that runs the `ALTER TABLE`. See the [ClickHouse docs](https://clickhouse.com/docs/en/operations/settings/settings#allow_nondeterministic_mutations) for more information about this setting.
