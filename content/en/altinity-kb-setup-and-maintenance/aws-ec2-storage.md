@@ -1,9 +1,29 @@
 ---
-title: "AWS EBS"
-linkTitle: "AWS EBS"
+title: "AWS EC2 Storage"
+linkTitle: "AWS EC2 Storage"
 description: >
-    AWS EBS
+    AWS EBS, EFS, FSx, Lustre
 ---
+
+# EBS
+
+Most native choose for ClickHouse as it usually guarantees best throughput, IOPS, latency for reasonable price.
+
+[https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-optimized.html](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-optimized.html)
+
+[https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html)
+
+
+## General Purpose SSD volumes
+
+In usual conditions ClickHouse being limited by throughput of volumes and amount of provided IOPS doesn't make any big difference for performance starting from a certain number. So the most native choice for clickhouse is gp3 and gp2 volumes.
+
+‌EC2 instances also have an EBS throughput limit, it depends on the size of the EC2 instance. That means if you would attach multiple volumes which would have high potential throughput, you would be limited by your EC2 instance, so usually there is no reason to have more than 1-3 GP3 volume or 4-5 GP2 volume per node.
+
+It's pretty straightforward to set up a ClickHouse for using multiple EBS volumes with jbod storage_policies.
+
+[general purpose](https://aws.amazon.com/ebs/general-purpose/)
+
 <table>
   <thead>
     <tr>
@@ -35,13 +55,6 @@ description: >
   </tbody>
 </table>
 
-## General Purpose SSD volumes
-
-In usual conditions ClickHouse being limited by throughput of volumes and amount of provided IOPS doesn't make any big difference for performance starting from a certain number. So the most native choice for clickhouse is gp3 and gp2 volumes.
-
-‌EC2 instances also have an EBS throughput limit, it depends on the size of the EC2 instance. That means if you would attach multiple volumes which would have high potential throughput, you would be limited by your EC2 instance, so usually there is no reason to have more than 1-3 GP3 volume or 4-5 GP2 volume per node.
-
-It's pretty straightforward to set up a ClickHouse for using multiple EBS volumes with jbod storage_policies.
 
 ### GP3
 
@@ -75,6 +88,21 @@ Looks like a good candidate for cheap cold storage for old data with decent maxi
 
 In 99.99% cases doesn't give any benefit for ClickHouse compared to GP3 option and perform worse because maximum throughput is limited to 500 MiB/s per volume if you buy less than 32 000 IOPS, which is really expensive (compared to other options) and unneded for ClickHouse. And if you have spare money, it's better to spend them on better EC2 instance.
 
+# EFS
+
+Works over NFSv4.1 version.
+We have clients, which run their ClickHouse installations over NFS. It works considerabely well as cold storage, so it's recommended to have EBS disks for hot data. A fast network is required.
+
+ClickHouse doesn't have any native option to reuse the same data on durable network disk via several replicas. You either need to store the same data twice or build custom tooling around ClickHouse and use it without Replicated*MergeTree tables. 
+
+# FSx
+
+## Lustre
+
+We have several clients, who use Lustre (some of them use AWS FSx Lustre, another is self managed Lustre) without any big issue. Fast network is requered.
+There were known problems with data damage on older versions caused by issues with O_DIRECT or [async IO](https://lustre-discuss.lustre.narkive.com/zwcvyEEY/asynchronous-posix-i-o-with-lustre) support on Lustre.
+
+ClickHouse doesn't have any native option to reuse the same data on durable network disk via several replicas. You either need to store the same data twice or build custom tooling around ClickHouse and use it without Replicated*MergeTree tables. 
 
 [https://altinity.com/blog/2019/11/27/amplifying-clickhouse-capacity-with-multi-volume-storage-part-1](https://altinity.com/blog/2019/11/27/amplifying-clickhouse-capacity-with-multi-volume-storage-part-1)
 
@@ -82,8 +110,5 @@ In 99.99% cases doesn't give any benefit for ClickHouse compared to GP3 option a
 
 [https://calculator.aws/\#/createCalculator/EBS?nc2=h_ql_pr_calc](https://calculator.aws/\#/createCalculator/EBS?nc2=h_ql_pr_calc)
 
-[https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-optimized.html](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-optimized.html)
 
-[https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html)
 
-[https://aws.amazon.com/ebs/general-purpose/](https://aws.amazon.com/ebs/general-purpose/)
