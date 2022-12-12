@@ -35,23 +35,45 @@ description: >
   </tbody>
 </table>
 
-### GP2
+## General Purpose SSD volumes
 
-In usual conditions ClickHouse being limited by throughput of volumes and amount of provided IOPS doesn't make any big difference for performance starting from a certain number. So the most native choice for clickhouse is gp2 and gp3 volumes.
+In usual conditions ClickHouse being limited by throughput of volumes and amount of provided IOPS doesn't make any big difference for performance starting from a certain number. So the most native choice for clickhouse is gp3 and gp2 volumes.
 
-‌Because gp2 volumes have a hard limit of 250 MiB/s per volume (for volumes bigger than 334 GB), it usually makes sense to split one big volume in multiple smaller volumes larger than 334GB in order to have maximum possible throughput.
+‌EC2 instances also have an EBS throughput limit, it depends on the size of the EC2 instance. That means if you would attach multiple volumes which would have high potential throughput, you would be limited by your EC2 instance, so usually there is no reason to have more than 1-3 GP3 volume or 4-5 GP2 volume per node.
 
-‌EC2 instances also have an EBS throughput limit, it depends on the size of the EC2 instance. That means if you would attach multiple volumes which would have high potential throughput, you would be limited by your EC2 instance, so usually there is no reason to have more than 4-5 volumes per node.
-
-It's pretty straightforward to set up a ClickHouse for using multiple EBS volumes with storage_policies.
+It's pretty straightforward to set up a ClickHouse for using multiple EBS volumes with jbod storage_policies.
 
 ### GP3
 
-It's a new type of volume, which is 20% cheaper than gp2 per GB-month and has lower free throughput: only 125 MB/s vs 250 MB/s. But you can buy additional throughput for volume and gp3 pricing became comparable with multiple gp2 volumes starting from 1000-1500GB size. It also works better if most of your queries read only one or several parts, because in that case you are not being limited by performance of a single ebs disk, as parts can be located only on one disk at once.
+It's **recommended option**, as it allow you to have only one volume, for instances which have less than 10 Gbps EBS Bandwidth (nodes =<32 VCPU usually) and still have maximum performance.
+For bigger instances, it make sense to look into option of having several GP3 volumes.
+
+It's a new type of volume, which is 20% cheaper than gp2 per GB-month and has lower free throughput: only 125 MiB/s vs 250 MiB/s. But you can buy additional throughput and IOPS for volume. It also works better if most of your queries read only one or several parts, because in that case you are not being limited by performance of a single EBS disk, as parts can be located only on one disk at once.
+
+Because, you need to have less GP3 volumes compared to GP2 option, it's suggested approach for now.  
 
 For best performance, it's suggested to buy:
 * 7000 IOPS
-* Throughput up to the limit of your EC2 instance
+* Throughput up to the limit of your EC2 instance (1000 MiB/s is safe option)
+
+
+### GP2
+
+‌GP2 volumes have a hard limit of 250 MiB/s per volume (for volumes bigger than 334 GB), it usually makes sense to split one big volume in multiple smaller volumes larger than 334GB in order to have maximum possible throughput. 
+
+## Throughput Optimized HDD volumes
+
+### ST1
+
+Looks like a good candidate for cheap cold storage for old data with decent maximum throughput 500 MiB/s. But it achieved only for big volumes >5 TiB.
+
+[Throughput credits and burst performance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/hdd-vols.html#EBSVolumeTypes_st1)
+
+## Provisioned IOPS SSD volumes
+
+### IO2 Block Express, IO2, IO1
+
+In 99.99% cases doesn't give any benefit for ClickHouse compared to GP3 option and perform worse because maximum throughput is limited to 500 MiB/s per volume if you buy less than 32 000 IOPS, which is really expensive (compared to other options) and unneded for ClickHouse. And if you have spare money, it's better to spend them on better EC2 instance.
 
 
 [https://altinity.com/blog/2019/11/27/amplifying-clickhouse-capacity-with-multi-volume-storage-part-1](https://altinity.com/blog/2019/11/27/amplifying-clickhouse-capacity-with-multi-volume-storage-part-1)
