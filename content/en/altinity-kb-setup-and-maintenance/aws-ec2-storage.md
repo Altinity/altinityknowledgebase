@@ -3,6 +3,8 @@ title: "AWS EC2 Storage"
 linkTitle: "AWS EC2 Storage"
 description: >
     AWS EBS, EFS, FSx, Lustre
+aliases:
+    - "/altinity-kb-setup-and-maintenance/aws-ebs/"
 ---
 
 # EBS
