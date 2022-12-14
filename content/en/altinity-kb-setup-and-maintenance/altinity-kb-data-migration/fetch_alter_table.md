@@ -50,9 +50,11 @@ If needed, after moving the data and checking that everything is sound, you can 
 ```sql
 -- Required for DROP REPLICA
 DETACH TABLE <table_name>;  
--- It will remove everything from /table_path_in_z
+
+-- This will remove everything from /table_path_in_z/replicas/replica_name
 -- but not the data. You could reattach the table again and
--- restore the replica if needed
+-- restore the replica if needed. Get the zookeeper_path and replica_name from system.replicas
+
 SYSTEM DROP REPLICA 'replica_name' FROM ZKPATH '/table_path_in_zk/';
 ```
 
