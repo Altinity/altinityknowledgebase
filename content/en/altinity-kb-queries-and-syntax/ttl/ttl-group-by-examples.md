@@ -28,7 +28,7 @@ TTL ts + interval 30 day
 
 During TTL merges Clickhouse re-calculates values of columns in the SET section.
 
-GROUP BY section should be a prefix of a table's ORDER BY.
+GROUP BY section should be a prefix of a table's PRIMARY KEY (the same as ORDER BY, if no separate PRIMARY KEY defined).
 
 ```sql
 -- stop merges to demonstrate data before / after 
