@@ -29,4 +29,4 @@ So for native protocol, there are only 3 possibilities:
 ## HTTP protocol (port 8123)
 
 There are many more options and you can use haproxy / nginx / chproxy, etc.
-chproxy give some extra clickhouse-specific features, you can find a list of them at [https://github.com/Vertamedia/chproxy](https://github.com/Vertamedia/chproxy)
+chproxy give some extra clickhouse-specific features, you can find a list of them at [https://chproxy.org](https://chproxy.org)
