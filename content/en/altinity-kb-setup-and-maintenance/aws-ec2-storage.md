@@ -9,7 +9,7 @@ aliases:
 
 # EBS
 
-Most native choose for ClickHouse as it usually guarantees best throughput, IOPS, latency for reasonable price.
+Most native choose for ClickHouse as fast storage, because it usually guarantees best throughput, IOPS, latency for reasonable price.
 
 [https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-optimized.html](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-optimized.html)
 
@@ -89,6 +89,16 @@ Looks like a good candidate for cheap cold storage for old data with decent maxi
 ### IO2 Block Express, IO2, IO1
 
 In 99.99% cases doesn't give any benefit for ClickHouse compared to GP3 option and perform worse because maximum throughput is limited to 500 MiB/s per volume if you buy less than 32 000 IOPS, which is really expensive (compared to other options) and unneded for ClickHouse. And if you have spare money, it's better to spend them on better EC2 instance.
+
+# S3
+
+Best option for cold data, it can give considerably good throughput and really good price, but latencies and IOPS much worse than EBS option.
+Another intresting point is, for EC2 instance throughput limit for EBS and S3 calculated separately, so if you access your data both from EBS and S3, you can get double  throughput.
+
+It's stated in AWS documentation, that S3 can fully utilize network capacity of EC2 instance. (up to 100 Gb/s)
+Latencies or (first-byte-out) estimated to be 100-200 milliseconds withing single region. 
+
+[S3 best practices](https://docs.aws.amazon.com/AmazonS3/latest/userguide/optimizing-performance.html)
 
 # EFS
 
