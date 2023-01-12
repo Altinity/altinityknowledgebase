@@ -20,6 +20,20 @@ SELECT
 └─────────────────┴─────────────┴────────────────────┴─────────────────────┘
 ```
 
+
+> When we try to type cast 64.32 to Decimal128(2) the resulted value is 64.31.
+
+When it sees a number with a decimal separator it interprets as `Float64` literal (where `64.32` have no accurate representation, and actually you get something like `64.319999999999999999`) and later that Float is casted to Decimal by removing the extra precision.
+
+Workaround is very simple - wrap the number in quotes (and it will be considered as a string literal by query parser, and will be transformed to Decimal directly), or use postgres-alike casting syntax:
+
+select cast(64.32,'Decimal128(2)') a, cast('64.32','Decimal128(2)') b, 64.32::Decimal128(2) c;
+
+┌─────a─┬─────b─┬─────c─┐
+│ 64.31 │ 64.32 │ 64.32 │
+└───────┴───────┴───────┘
+
+
 ## Float64
 
 ```sql
