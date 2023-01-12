@@ -26,14 +26,14 @@ Examples:
 ```markup
 $ cat /etc/clickhouse-server/config.d/listen_host.xml
 <?xml version="1.0" ?>
-<yandex>
+<clickhouse>
   <listen_host>::</listen_host>
-</yandex>
+</clickhouse>
 
 
 $ cat /etc/clickhouse-server/config.d/macros.xml
 <?xml version="1.0" ?>
-<yandex>
+<clickhouse>
   <macros>
     <cluster>test</cluster>
     <replica>host22</replica>
@@ -41,11 +41,11 @@ $ cat /etc/clickhouse-server/config.d/macros.xml
     <server_id>41295</server_id>
     <server_name>host22.server.com</server_name>
   </macros>
-</yandex>
+</clickhouse>
 
 cat /etc/clickhouse-server/config.d/zoo.xml
 <?xml version="1.0" ?>
-<yandex>
+<clickhouse>
   <zookeeper>
     <node>
       <host>localhost</host>
@@ -55,28 +55,28 @@ cat /etc/clickhouse-server/config.d/zoo.xml
   <distributed_ddl>
     <path>/clickhouse/test/task_queue/ddl</path>
   </distributed_ddl>
-</yandex>
+</clickhouse>
 
 cat /etc/clickhouse-server/users.d/enable_access_management_for_user_default.xml
 <?xml version="1.0" ?>
-<yandex>
+<clickhouse>
   <users>
     <default>
       <access_management>1</access_management>
     </default>
   </users>
-</yandex>
+</clickhouse>
 
 cat /etc/clickhouse-server/users.d/memory_usage.xml
 <?xml version="1.0" ?>
-<yandex>
+<clickhouse>
     <profiles>
         <default>
             <max_bytes_before_external_group_by>25290221568</max_bytes_before_external_group_by>
             <max_memory_usage>50580443136</max_memory_usage>
         </default>
     </profiles>
-</yandex>
+</clickhouse>
 ```
 
 BTW, you can define any macro in your configuration and use them in Zookeeper paths
@@ -101,23 +101,23 @@ Example how to delete **tcp_port** & **http_port** defined on higher level in th
 ```markup
 cat /etc/clickhouse-server/config.d/disable_open_network.xml
 <?xml version="1.0"?>
-<yandex>
+<clickhouse>
   <http_port remove="1"/>
   <tcp_port remove="1"/>
-</yandex>
+</clickhouse>
 ```
 
 Example how to replace **remote_servers** section defined on higher level in the main config.xml (it allows to remove default test clusters.
 
 ```markup
 <?xml version="1.0" ?>
-<yandex>
+<clickhouse>
   <remote_servers replace="1">
     <mycluster>
       ....
     </mycluster>
   </remote_servers>
-</yandex>
+</clickhouse>
 ```
 
 ## Settings & restart
@@ -201,10 +201,10 @@ and add to the configuration
 ```markup
 $ cat /etc/clickhouse-server/config.d/dictionaries.xml
 <?xml version="1.0"?>
-<yandex>
+<clickhouse>
   <dictionaries_config>dict/*.xml</dictionaries_config>
   <dictionaries_lazy_load>true</dictionaries_lazy_load>
-</yandex>
+</clickhouse>
 ```
 
 **dict/\*.xml** – relative path, servers seeks files in the folder **/etc/clickhouse-server/dict**. More info in [Multiple Clickhouse instances](altinity-kb-server-config-files.md#Multiple-Clickhouse-instances).
@@ -220,7 +220,7 @@ For example to avoid repetition of user/password for each dictionary you can cre
 ```markup
 $ cat /etc/clickhouse-server/dict_sources.xml
 <?xml version="1.0"?>
-<yandex>
+<clickhouse>
   <mysql_config>
       <port>3306</port>
       <user>user</user>
@@ -231,7 +231,7 @@ $ cat /etc/clickhouse-server/dict_sources.xml
       </replica>
       <db>my_database</db>
   </mysql_config>
-</yandex>
+</clickhouse>
 ```
 
 Include this file:
@@ -239,10 +239,10 @@ Include this file:
 ```markup
 $ cat /etc/clickhouse-server/config.d/dictionaries.xml
 <?xml version="1.0"?>
-<yandex>
+<clickhouse>
   ...
   <include_from>/etc/clickhouse-server/dict_sources.xml</include_from>
-</yandex>
+</clickhouse>
 ```
 
 And use in dictionary descriptions (**incl="mysql_config"**):
