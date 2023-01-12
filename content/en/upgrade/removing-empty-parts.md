@@ -33,11 +33,11 @@ Removing of empty parts can be disabled by adding `remove_empty_parts=0` to the 
 
 ```markup
 $ cat /etc/clickhouse-server/users.d/remove_empty_parts.xml
-<yandex>
+<clickhouse>
     <profiles>
         <default>
             <remove_empty_parts>0</remove_empty_parts>
         </default>
     </profiles>
-</yandex>
+</clickhouse>
 ```
