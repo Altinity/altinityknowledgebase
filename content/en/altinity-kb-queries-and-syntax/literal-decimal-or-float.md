@@ -27,12 +27,13 @@ When it sees a number with a decimal separator it interprets as `Float64` litera
 
 Workaround is very simple - wrap the number in quotes (and it will be considered as a string literal by query parser, and will be transformed to Decimal directly), or use postgres-alike casting syntax:
 
+```sql
 select cast(64.32,'Decimal128(2)') a, cast('64.32','Decimal128(2)') b, 64.32::Decimal128(2) c;
 
 ┌─────a─┬─────b─┬─────c─┐
 │ 64.31 │ 64.32 │ 64.32 │
 └───────┴───────┴───────┘
-
+```
 
 ## Float64
 
