@@ -21,7 +21,7 @@ Do not create log tables at all (a restart is needed for these changes to take e
 ```markup
 $ cat /etc/clickhouse-server/config.d/z_log_disable.xml
 <?xml version="1.0"?>
-<yandex>
+<clickhouse>
     <asynchronous_metric_log remove="1"/>
     <metric_log remove="1"/>
     <query_thread_log remove="1" />  
@@ -34,21 +34,21 @@ $ cat /etc/clickhouse-server/config.d/z_log_disable.xml
     <crash_log remove="1"/>
     <opentelemetry_span_log remove="1"/>
     <zookeeper_log remove="1"/>
-</yandex>
+</clickhouse>
 ```
 
 **We do not recommend removing `query_log` and `query_thread_log` as queries' (they have very useful information for debugging), and logging can be easily turned off without a restart through user profiles:**
 
 ```markup
 $ cat /etc/clickhouse-server/users.d/z_log_queries.xml
-<yandex>
+<clickhouse>
     <profiles>
         <default>
             <log_queries>0</log_queries> <!-- normally it's better to keep it turned on! -->
             <log_query_threads>0</log_query_threads>
         </default>
     </profiles>
-</yandex>
+</clickhouse>
 ```
 
 Hint: `z_log_disable.xml` is named with **z_** in the beginning, it means this config will be applied the last and will override all other config files with these sections (config are applied in alphabetical order).
@@ -73,7 +73,7 @@ Example for `query_log`. It drops partitions with data older than 14 days:
 ```markup
 $ cat /etc/clickhouse-server/config.d/query_log_ttl.xml
 <?xml version="1.0"?>
-<yandex>
+<clickhouse>
     <query_log>
         <database>system</database>
         <table>query_log</table>
@@ -83,7 +83,7 @@ $ cat /etc/clickhouse-server/config.d/query_log_ttl.xml
         </engine>
         <flush_interval_milliseconds>7500</flush_interval_milliseconds>
     </query_log>
-</yandex>
+</clickhouse>
 ```
 
 After that you need to restart ClickHouse and drop or rename the existing system.query_log table, then CH creates a new table with these settings.
@@ -111,13 +111,13 @@ This way just adds TTL to a table and leaves monthly (default) partitioning (wil
 ```markup
 $ cat /etc/clickhouse-server/config.d/query_log_ttl.xml
 <?xml version="1.0"?>
-<yandex>
+<clickhouse>
     <query_log>
         <database>system</database>
         <table>query_log</table>
         <ttl>event_date + INTERVAL 30 DAY DELETE</ttl>
     </query_log>
-</yandex>
+</clickhouse>
 ```
 
 After that you need to restart ClickHouse and drop or rename the existing system.query_log table, then CH creates a new table with this TTL setting.
@@ -132,12 +132,12 @@ Let’s disable query logging for all users (profile = default, all other profil
 
 ```markup
 cat /etc/clickhouse-server/users.d/log_queries.xml
-<yandex>
+<clickhouse>
     <profiles>
         <default>
             <log_queries>0</log_queries>
             <log_query_threads>0</log_query_threads>
         </default>
     </profiles>
-</yandex>
+</clickhouse>
 ```
