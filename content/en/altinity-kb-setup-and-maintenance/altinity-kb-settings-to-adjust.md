@@ -8,7 +8,7 @@ description: >
 
    ```markup
    cat /etc/clickhouse-server/config.d/query_log.xml
-   <yandex>
+   <clickhouse>
        <query_log replace="1">
            <database>system</database>
            <table>query_log</table>
@@ -21,7 +21,7 @@ description: >
    SETTINGS ttl_only_drop_parts=1
            </engine>
        </query_log>
-   </yandex>
+   </clickhouse>
    ```
 
 2. `query_thread_log` - typically is not too useful for end users, you can disable it (or set up TTL).
@@ -29,23 +29,23 @@ description: >
 
    ```markup
     $ cat /etc/clickhouse-server/users.d/z_log_queries.xml
-    <yandex>
+    <clickhouse>
         <profiles>
             <default>
                 <log_query_threads>0</log_query_threads>
             </default>
         </profiles>
-    </yandex>
+    </clickhouse>
    ```
 
 2. If you have a good monitoring outside ClickHouse you don't need to store the history of metrics in ClickHouse
 
    ```markup
    cat /etc/clickhouse-server/config.d/disable_metric_logs.xml
-   <yandex>
+   <clickhouse>
        <metric_log remove="1" />
        <asynchronous_metric_log remove="1" />
-   </yandex>
+   </clickhouse>
    ```
 
 
@@ -53,7 +53,7 @@ description: >
 
    ```markup
    cat /etc/clickhouse-server/config.d/part_log.xml
-   <yandex>
+   <clickhouse>
        <part_log replace="1">
            <database>system</database>
            <table>part_log</table>
@@ -66,34 +66,34 @@ description: >
    SETTINGS ttl_only_drop_parts=1
            </engine>
        </part_log>
-   </yandex>
+   </clickhouse>
    ```
 
 4. on older versions `log_queries` is disabled by default, it's worth having it enabled always.
 
    ```markup
    $ cat /etc/clickhouse-server/users.d/log_queries.xml
-   <yandex>
+   <clickhouse>
        <profiles>
            <default>
                <log_queries>1</log_queries>
            </default>
        </profiles>
-   </yandex>
+   </clickhouse>
    ```
 
 5. quite often you want to have on-disk group by / order by enabled (both disabled by default).
 
    ```markup
    cat /etc/clickhouse-server/users.d/enable_on_disk_operations.xml
-   <yandex>
+   <clickhouse>
        <profiles>
            <default>
               <max_bytes_before_external_group_by>2000000000</max_bytes_before_external_group_by>
               <max_bytes_before_external_sort>2000000000</max_bytes_before_external_sort>
            </default>
        </profiles>
-   </yandex>
+   </clickhouse>
    ```
 
 6. quite often you want to create more users with different limitations.
