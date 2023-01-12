@@ -35,9 +35,9 @@ Also, you can decrease the delay used by Atomic for real table drop (it’s 8 mi
 
 ```bash
 cat /etc/clickhouse-server/config.d/database_atomic_delay_before_drop_table.xml
-<yandex>
+<clickhouse>
     <database_atomic_delay_before_drop_table_sec>1</database_atomic_delay_before_drop_table_sec>
-</yandex>
+</clickhouse>
 ```
 
 ### **Q. I cannot reuse zookeeper path after dropping the table.**
@@ -160,13 +160,13 @@ description: >
     cat /etc/clickhouse-server/users.d/disable_atomic_database.xml
 ---
 <?xml version="1.0"?>
-<yandex>
+<clickhouse>
     <profiles>
         <default>
             <default_database_engine>Ordinary</default_database_engine>
         </default>
     </profiles>
-</yandex>
+</clickhouse>
 ```
 
 ## Other sources
