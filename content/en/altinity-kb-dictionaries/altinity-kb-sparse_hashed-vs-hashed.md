@@ -1,6 +1,6 @@
 ---
-title: "SPARSE_HASHED VS HASHED"
-linkTitle: "SPARSE_HASHED VS HASHED"
+title: "SPARSE_HASHED VS HASHED vs HASHED_ARRAY"
+linkTitle: "SPARSE_HASHED VS HASHED vs HASHED_ARRAY"
 description: >
     SPARSE_HASHED VS HASHED VS HASHED_ARRAY
 ---
@@ -63,4 +63,4 @@ FROM numbers(10000000)
 1 rows in set. Elapsed: 0.558 sec. Processed 10.01 million rows ...
 ```
 
-As you can see **SPARSE_HASHED** is memory efficient and use about 3 times less memory (!!!) but is almost 3 times slower as well. On the other side **HASHED_ARRAY** is even more efficient in terms of storage but maintains almost the same performance as **HASHED** layout.
+As you can see **SPARSE_HASHED** is memory efficient and use about 3 times less memory (!!!) but is almost 3 times slower as well. On the other side **HASHED_ARRAY** is even more efficient in terms of memory usage and maintains almost the same performance as **HASHED** layout.
