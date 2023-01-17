@@ -19,6 +19,7 @@ Practical approach to create an good ORDER BY for a table:
 5. if you added already all columns important for filtering and you still not addressing a single row with you pk - you can add more columns which can help to put similar records close to each other (to improve the compression)
 6. if you have something like hierarchy / tree-like relations between the columns - put there the records from 'root' to 'leaves' for example (continent, country, cityname). This way clickhouse can do lookup by country / city even if continent is not specified (it will just 'check all continents')
 special variants of MergeTree may require special ORDER BY to make the record unique etc.
+7. For timeseries it usually make sense to put timestamp as latest column in ORDER BY, it helps with putting the same data near by for better locality. There is only 2 major patterns  for timestamps in ORDER BY: (..., toStartOf(Day|Hour|...)(timestamp), ..., timestamp) and (..., timestamp). First one is useful when your often query small part of table partition. (table partitioned by months and your read only 1-4 days 90% of times)
 
 Some examples or good order by
 ```
@@ -29,6 +30,8 @@ ORDER BY (tenantid, site_id, utm_source, clientid, timestamp)
 ORDER BY (site_id, toStartOfHour(timestamp), sessionid, timestamp )
 PRIMARY KEY (site_id, toStartOfHour(timestamp), sessionid)
 ```
+
+
 
 ### For Summing / Aggregating
 
