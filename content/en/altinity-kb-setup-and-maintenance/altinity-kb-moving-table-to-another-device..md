@@ -1,8 +1,8 @@
 ---
-title: "Moving table to another device."
-linkTitle: "Moving table to another device."
+title: "Moving a table to another device."
+linkTitle: "Moving a table to another device."
 description: >
-    Moving table to another device.
+    Moving a table to another device.
 ---
 Suppose we mount a new device at path `/mnt/disk_1` and want to move `table_4` to it.
 
