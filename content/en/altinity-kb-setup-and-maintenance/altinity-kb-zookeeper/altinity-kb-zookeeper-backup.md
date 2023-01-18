@@ -4,30 +4,20 @@ linkTitle: "ZooKeeper backup"
 description: >
     ZooKeeper backup
 ---
-You may have a question: “Do I need to backup Zookeeper Database, because it’s pretty important for ClickHouse?”
 
-Answer: _ZK is in memory database. All nodes of ZK has exactly the same data._
+Question: Do I need to backup Zookeeper Database, because it’s pretty important for ClickHouse?
 
-_If you have 3 ZK servers, then you have 3 copies of (3 backups) already._
+TLDR answer: **NO, just backup ClickHouse data itself, and do SYSTEM RESTORE REPLICA during recovery to recreate zookeeper data**
 
-_To backup ZK has no sense because you need to have a snapshot of ZK + last ZK logs to exactly the last ZK transaction._
+Details:
 
-_You cannot use ZK database backed up 3 hours ago or 3 minutes ago._
+Zookeeper does not store any data, it stores the STATE of the distributed system ("that replica have those parts", "still need 2 merges to do", "alter is being applied" etc). That state always changes, and you can not capture / backup / and recover that state in a safe manner. So even backup from few seconds ago is represending some 'old state from the past' which is INCONSISTENT with actual state of the data.
 
-_ZK restored from the backup will be inconsistent with CH database._
+In other words - if clickhouse is working - then the state of distributed system always changes, and it's almost impossible to collect the current state of zookeeper (while you collecting it it will change many times). The only exception is 'stop-the-world' scenario (i.e. shutdown all clickhouse nodes, with all other zookeeper clients, then shutdown all the zookeeper, and only then take the backups, and backups of zookeeper & clickhouse will be consistent). 
+In that case restoring the backup is as simple (and is equal to) as starting all the nodes which was stopped before. But usually that scenario is very non-practical.
 
-_Answer2: Usually, it doesn't have too much sense. It's very hard to take zookeeper snapshot at exactly the same state as clickhouse. (well maybe if you will turn of clickhouses, then you can take snapshots of clickhouse AND zookeepers). So for example on clouds if you can stop all nodes and take disk snapshots - it will just work._
+But how to recover the state of zookeeper in the scenario when clickhouse data were lost? Just run the command `SYSTEM RESTORE REPLICA` command **AFTER** restoring the clickhouse data itself. That will recreate the state of the replica in the zookeeper as it exists on the filesystem after backup recovery. 
 
-_But while clickhouse is working it's almost impossible to collect the current state of zookeeper._
+Normally Zookeeper ensemble consists of 3 nodes, which is enough to survive hardware failures.
 
-_You need to restore zookeeper and clickhouse snapshots from EXACTLY THE SAME moment of time - no procedure is needed. Just start & run._
-
-_Also, that allows only to snapshot of clickhouse & zookeeper as a whole. You can not do partial backups then._
-
-_If you lose zookeeper data while having clickhouse data (or backups of clickhouse data) - you can restore the zookeeper state from clickhouse state._
-
-_With a couple of tables, it can be done manually._
-
-_On scale, you can use_ [https://github.com/Altinity/clickhouse-zookeeper-recovery](https://github.com/Altinity/clickhouse-zookeeper-recovery)
-
-_In future it will be even simpler_ [https://github.com/ClickHouse/ClickHouse/pull/13652](https://github.com/ClickHouse/ClickHouse/pull/13652)
+On older verion (which don't have `SYSTEM RESTORE REPLICA` command  - it can be done manually, using instruction https://clickhouse.com/docs/en/engines/table-engines/mergetree-family/replication/#converting-from-mergetree-to-replicatedmergetree), on scale you can try [https://github.com/Altinity/clickhouse-zookeeper-recovery](https://github.com/Altinity/clickhouse-zookeeper-recovery)
