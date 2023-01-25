@@ -62,6 +62,6 @@ source_path=vol1/
 
 ## Links
 
-https://altinity.com/blog/integrating-clickhouse-with-minio
-https://altinity.com/blog/clickhouse-object-storage-performance-minio-vs-aws-s3
-https://altinity.com/blog/tips-for-high-performance-clickhouse-clusters-with-s3-object-storage
+* https://altinity.com/blog/integrating-clickhouse-with-minio
+* https://altinity.com/blog/clickhouse-object-storage-performance-minio-vs-aws-s3
+* https://altinity.com/blog/tips-for-high-performance-clickhouse-clusters-with-s3-object-storage
