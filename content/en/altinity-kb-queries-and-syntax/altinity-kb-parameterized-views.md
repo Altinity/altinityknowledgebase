@@ -4,6 +4,28 @@ linkTitle: "Parameterized views"
 description: >
     Parameterized views
 ---
+
+## ClickHouse version 23.1+
+
+Have inbuild support for parametrized views:
+
+```sql
+CREATE VIEW my_new_view AS
+SELECT *
+FROM deals
+WHERE category_id IN (
+    SELECT category_id
+    FROM deal_categories
+    WHERE category = {category:String}
+)
+
+SELECT * FROM my_new_view(category = 'hot deals');
+```
+
+
+
+## ClickHouse versions per 23.1
+
 Custom settings allows to emulate parameterized views.
 
 You need to enable custom settings and define any prefixes for settings.
