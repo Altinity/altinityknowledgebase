@@ -110,20 +110,20 @@ See [https://github.com/ClickHouse/ClickHouse/issues/12609](https://github.com/C
 ### confluent cloud
 
 ```xml
-    <yandex>
-        <kafka>
-        <auto_offset_reset>smallest</auto_offset_reset>
-        <security_protocol>SASL_SSL</security_protocol>
-        <ssl_endpoint_identification_algorithm>https</ssl_endpoint_identification_algorithm>
-        <sasl_mechanism>PLAIN</sasl_mechanism>
-xml<sasl_username>username</sasl_username>
-        <sasl_password>password</sasl_password>
-        <ssl_ca_location>probe</ssl_ca_location>
-        <!--
-          <ssl_ca_location>/path/to/cert.pem</ssl_ca_location>      
-        -->
-        </kafka>
-    </yandex>
+<yandex>
+  <kafka>
+    <auto_offset_reset>smallest</auto_offset_reset>
+    <security_protocol>SASL_SSL</security_protocol>
+    <ssl_endpoint_identification_algorithm>https</ssl_endpoint_identification_algorithm>
+    <sasl_mechanism>PLAIN</sasl_mechanism>
+    <sasl_username>username</sasl_username>
+    <sasl_password>password</sasl_password>
+    <ssl_ca_location>probe</ssl_ca_location>
+    <!--
+    <ssl_ca_location>/path/to/cert.pem</ssl_ca_location>      
+    -->
+  </kafka>
+</yandex>
 ```
 
 [https://docs.confluent.io/cloud/current/client-apps/config-client.html](https://docs.confluent.io/cloud/current/client-apps/config-client.html)
