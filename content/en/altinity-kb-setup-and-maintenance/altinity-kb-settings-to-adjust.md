@@ -112,7 +112,7 @@ description: >
 
 11. If you use FINAL queries - usually you want to enable  `do_not_merge_across_partitions_select_final`
 
-9. memory usage per server / query / user: [memory configuration settings](altinity-kb-memory-configuration-settings.md)
+9. memory usage per server / query / user: [memory configuration settings](/altinity-kb-setup-and-maintenance/altinity-kb-memory-configuration-settings/)
 
 10. if you use async_inserts - you often may want to increase max_concurrent_queries 
 
