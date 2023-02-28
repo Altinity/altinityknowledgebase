@@ -124,6 +124,11 @@ description: >
 </clickhouse>
 ```
 
+11. materialize_ttl_after_modify=0
+12. access_management=1
+13. secret in <remote_servers>
+
+
 See also:
 
 [https://docs.altinity.com/operationsguide/security/clickhouse-hardening-guide/](https://docs.altinity.com/operationsguide/security/clickhouse-hardening-guide/)
