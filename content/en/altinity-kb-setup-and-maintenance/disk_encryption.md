@@ -3,7 +3,7 @@ title: "Clickhouse data/disk encryption (at rest)"
 linkTitle: "disk encryption"
 weight: 100
 description: >-
-     Example how to encryption data of tables using storage profiles.
+     Example how to encrypt data in tables using storage policies.
 ---
 
 ## Create folder
@@ -16,6 +16,8 @@ chown clickhouse.clickhouse /data/clickhouse_encrypted
 ## Configure encrypted disk and storage
 
 https://clickhouse.com/docs/en/operations/storing-data/#encrypted-virtual-file-system
+https://clickhouse.com/docs/en/operations/server-configuration-parameters/settings/#server-settings-encryption
+
 
 ```xml
 cat /etc/clickhouse-server/config.d/encrypted_storage.xml
@@ -126,3 +128,46 @@ select avg(c_float) from bench_encrypted;
 select avg(c_float) from bench_unencrypted;
 1 row in set. Elapsed: 0.874 sec. Processed 100.00 million rows, 800.00 MB (114.42 million rows/s., 915.39 MB/s.)
 ```
+
+## read key_hex from environment variable
+
+https://clickhouse.com/docs/en/operations/server-configuration-parameters/settings/#server-settings-encryption
+https://serverfault.com/questions/413397/how-to-set-environment-variable-in-systemd-service
+
+```xml
+cat /etc/clickhouse-server/config.d/encrypted_storage.xml
+<clickhouse>
+    <storage_configuration>
+        <disks>
+            <disk1>
+                <type>local</type>
+                <path>/data/clickhouse_encrypted/</path>
+            </disk1>
+            <encrypted_disk>
+                <type>encrypted</type>
+                <disk>disk1</disk>
+                <path>encrypted/</path>
+                <algorithm>AES_128_CTR</algorithm>
+                <key_hex from_env="DiskKey"/>
+            </encrypted_disk>
+        </disks>
+        <policies>
+            <encrypted>
+                <volumes>
+                    <encrypted_volume>
+                        <disk>encrypted_disk</disk>
+                    </encrypted_volume>
+                </volumes>
+            </encrypted>
+        </policies>
+    </storage_configuration>
+</clickhouse>
+
+cat /etc/default/clickhouse-server
+DiskKey=00112233445566778899aabbccddeeff
+```
+
+```bash
+systemctl restart clickhouse-server
+```
+
