@@ -15,8 +15,8 @@ chown clickhouse.clickhouse /data/clickhouse_encrypted
 
 ## Configure encrypted disk and storage
 
-https://clickhouse.com/docs/en/operations/storing-data/#encrypted-virtual-file-system
-https://clickhouse.com/docs/en/operations/server-configuration-parameters/settings/#server-settings-encryption
+* https://clickhouse.com/docs/en/operations/storing-data/#encrypted-virtual-file-system
+* https://clickhouse.com/docs/en/operations/server-configuration-parameters/settings/#server-settings-encryption
 
 
 ```xml
@@ -131,8 +131,8 @@ select avg(c_float) from bench_unencrypted;
 
 ## read key_hex from environment variable
 
-https://clickhouse.com/docs/en/operations/server-configuration-parameters/settings/#server-settings-encryption
-https://serverfault.com/questions/413397/how-to-set-environment-variable-in-systemd-service
+* https://clickhouse.com/docs/en/operations/server-configuration-parameters/settings/#server-settings-encryption
+* https://serverfault.com/questions/413397/how-to-set-environment-variable-in-systemd-service
 
 ```xml
 cat /etc/clickhouse-server/config.d/encrypted_storage.xml
