@@ -4,6 +4,104 @@ linkTitle: "ReplacingMergeTree"
 description: >
     ReplacingMergeTree
 ---
+ReplacingMergeTree is a powerful ClickHouse MergeTree engine. It is one of the techniques that can be used to guarantee unicity or exactly once delivery in ClickHouse.
+
+## General Operations
+
+### Engine Parameters
+
+```
+Engine = ReplacingMergeTree([version_column],[is_deleted_column])
+ORDER BY <list_of_columns>
+```
+
+* **ORDER BY** -- The ORDER BY defines the columns that need to be unique at merge time. Since merge time can not be decided most of the time, the FINAL keyword is required to remove duplicates.
+* **version_column** -- An monotonically increasing number, which can be based on a timestamp. Used for make sure sure updates are executed in a right order.
+* **is_deleted_column** (23.2+ see https://github.com/ClickHouse/ClickHouse/pull/41005) -- the column used to delete rows.
+
+### DML operations
+
+* CREATE -- ```insert into t values(..)```
+* READ -- ```select from t final```
+* UPDATE -- ```insert into t(..., _version) values (...)```, insert with incremented version
+* DELETE -- ```insert into t(..., _version, is_deleted) values(..., 1)```
+
+### FINAL
+
+Clickhouse merge parts only in scope of single partition, so if two rows with the same replacing key would land in different partitions, they would **never** be merged in single row. FINAL keyword works in other way, it merge all rows across all partitions. But that behavior can be changed via`do_not_merge_across_partitions_select_final` setting.
+
+See [FINAL clause speed](../../../altinity-kb-queries-and-syntax/altinity-kb-final-clause-speed/)
+
+```sql
+CREATE TABLE repl_tbl_part
+(
+    `key` UInt32,
+    `value` UInt32,
+    `part_key` UInt32
+)
+ENGINE = ReplacingMergeTree
+PARTITION BY part_key
+ORDER BY key;
+
+INSERT INTO repl_tbl_part SELECT
+    1 AS key,
+    number AS value,
+    number % 2 AS part_key
+FROM numbers(4)
+SETTINGS optimize_on_insert = 0;
+
+SELECT * FROM repl_tbl_part;
+
+┌─key─┬─value─┬─part_key─┐
+│   1 │     1 │        1 │
+│   1 │     3 │        1 │
+└─────┴───────┴──────────┘
+┌─key─┬─value─┬─part_key─┐
+│   1 │     0 │        0 │
+│   1 │     2 │        0 │
+└─────┴───────┴──────────┘
+
+SELECT * FROM repl_tbl_part FINAL;
+
+┌─key─┬─value─┬─part_key─┐
+│   1 │     3 │        1 │
+└─────┴───────┴──────────┘
+
+SELECT * FROM repl_tbl_part FINAL SETTINGS do_not_merge_across_partitions_select_final=1;
+
+┌─key─┬─value─┬─part_key─┐
+│   1 │     3 │        1 │
+└─────┴───────┴──────────┘
+┌─key─┬─value─┬─part_key─┐
+│   1 │     2 │        0 │
+└─────┴───────┴──────────┘
+
+OPTIMIZE TABLE repl_tbl_part FINAL;
+
+SELECT * FROM repl_tbl_part;
+
+┌─key─┬─value─┬─part_key─┐
+│   1 │     3 │        1 │
+└─────┴───────┴──────────┘
+┌─key─┬─value─┬─part_key─┐
+│   1 │     2 │        0 │
+└─────┴───────┴──────────┘
+```
+
+**Since 23.2, profile level ```final=1``` can force final automatically**
+
+### Deleting the data
+
+* Before 23.2, use ROW POLICY: ``` CREATE ROW POLICY delete_masking on t using is_deleted != 1 for ALL;```
+* 23.2, use ```ReplacingMergeTree(version, is_deleted) ORDER BY .. SETTINGS clean_deleted_rows='Always'``` (see  https://github.com/ClickHouse/ClickHouse/pull/41005)
+
+Other options:
+* Partition operations: ```ALTER TABLE t DROP PARTITION 'partition'``` -- locks the table, drops full partition only
+* Delete in partition: ```ALTER TABLE t DELETE where .... in PARTITION 'partition'``` -- slow and asynchronous, rebuilds the partition
+* Lightwieght delete: ```DELETE FROM t where ...``` -- experimental
+
+## Use cases
+
 ### Last state
 
 ```sql
@@ -118,66 +216,3 @@ Peak memory usage (for query): 838.75 MiB.
 0 rows in set. Elapsed: 6.681 sec. Processed 50.00 million rows, 6.40 GB (7.48 million rows/s., 958.18 MB/s.)
 ```
 
-### FINAL
-
-Clickhouse merge parts only in scope of single partition, so if two rows with the same replacing key would land in different partitions, they would **never** be merged in single row. FINAL keyword works in other way, it merge all rows across all partitions. But that behavior can be changed via`do_not_merge_across_partitions_select_final` setting.
-
-https://kb.altinity.com
-
-[FINAL clause speed](../../../altinity-kb-queries-and-syntax/altinity-kb-final-clause-speed/)
-
-```sql
-CREATE TABLE repl_tbl_part
-(
-    `key` UInt32,
-    `value` UInt32,
-    `part_key` UInt32
-)
-ENGINE = ReplacingMergeTree
-PARTITION BY part_key
-ORDER BY key;
-
-INSERT INTO repl_tbl_part SELECT
-    1 AS key,
-    number AS value,
-    number % 2 AS part_key
-FROM numbers(4)
-SETTINGS optimize_on_insert = 0;
-
-SELECT * FROM repl_tbl_part;
-
-┌─key─┬─value─┬─part_key─┐
-│   1 │     1 │        1 │
-│   1 │     3 │        1 │
-└─────┴───────┴──────────┘
-┌─key─┬─value─┬─part_key─┐
-│   1 │     0 │        0 │
-│   1 │     2 │        0 │
-└─────┴───────┴──────────┘
-
-SELECT * FROM repl_tbl_part FINAL;
-
-┌─key─┬─value─┬─part_key─┐
-│   1 │     3 │        1 │
-└─────┴───────┴──────────┘
-
-SELECT * FROM repl_tbl_part FINAL SETTINGS do_not_merge_across_partitions_select_final=1;
-
-┌─key─┬─value─┬─part_key─┐
-│   1 │     3 │        1 │
-└─────┴───────┴──────────┘
-┌─key─┬─value─┬─part_key─┐
-│   1 │     2 │        0 │
-└─────┴───────┴──────────┘
-
-OPTIMIZE TABLE repl_tbl_part FINAL;
-
-SELECT * FROM repl_tbl_part;
-
-┌─key─┬─value─┬─part_key─┐
-│   1 │     3 │        1 │
-└─────┴───────┴──────────┘
-┌─key─┬─value─┬─part_key─┐
-│   1 │     2 │        0 │
-└─────┴───────┴──────────┘
-```
