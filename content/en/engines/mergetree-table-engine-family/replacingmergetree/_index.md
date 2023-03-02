@@ -88,17 +88,18 @@ SELECT * FROM repl_tbl_part;
 └─────┴───────┴──────────┘
 ```
 
-**Since 23.2, profile level ```final=1``` can force final automatically**
+**Since 23.2, profile level ```final=1``` can force final automatically, see https://github.com/ClickHouse/ClickHouse/pull/40945**
 
 ### Deleting the data
 
-* Before 23.2, use ROW POLICY: ``` CREATE ROW POLICY delete_masking on t using is_deleted != 1 for ALL;```
-* 23.2, use ```ReplacingMergeTree(version, is_deleted) ORDER BY .. SETTINGS clean_deleted_rows='Always'``` (see  https://github.com/ClickHouse/ClickHouse/pull/41005)
+* Delete in partition: ```ALTER TABLE t DELETE WHERE ... in PARTITION 'partition'``` -- slow and asynchronous, rebuilds the partition
+* Filter is_deleted in queries: ```SELECT ... WHERE is_deleted = 0```
+* Before 23.2, use ROW POLICY to apply a filter automatically: ``` CREATE ROW POLICY delete_masking on t using is_deleted = 0 for ALL;```
+* 23.2+ ```ReplacingMergeTree(version, is_deleted) ORDER BY .. SETTINGS clean_deleted_rows='Always'``` (see  https://github.com/ClickHouse/ClickHouse/pull/41005)
 
 Other options:
 * Partition operations: ```ALTER TABLE t DROP PARTITION 'partition'``` -- locks the table, drops full partition only
-* Delete in partition: ```ALTER TABLE t DELETE where .... in PARTITION 'partition'``` -- slow and asynchronous, rebuilds the partition
-* Lightwieght delete: ```DELETE FROM t where ...``` -- experimental
+* Lightwieght delete: ```DELETE FROM t WHERE ...``` -- experimental
 
 ## Use cases
 
