@@ -21,20 +21,20 @@ ORDER BY <list_of_columns>
 
 ### DML operations
 
-* CREATE -- ```insert into t values(..)```
-* READ -- ```select from t final```
-* UPDATE -- ```insert into t(..., _version) values (...)```, insert with incremented version
-* DELETE -- ```insert into t(..., _version, is_deleted) values(..., 1)```
+* CREATE -- ```INSERT INTO t values(..)```
+* READ -- ```SELECT FROM t final```
+* UPDATE -- ```INSERT INTO t(..., _version) values (...)```, insert with incremented version
+* DELETE -- ```INSERT INTO t(..., _version, is_deleted) values(..., 1)```
 
 ### FINAL
 
-```FINAL``` keyword applies merge in a query time. It works reaonable fast when PK filter is used, but maybe slow for ```SELECT *``` type of queries:
+ClickHouse does not guarantee that merge will fire and replace rows using ReplacingMergeTree logic. ```FINAL``` keyword should be used in order to apply merge in a query time. It works reasonably fast when PK filter is used, but maybe slow for ```SELECT *``` type of queries:
 
 See those links for reference:
 * [FINAL clause speed](../../../altinity-kb-queries-and-syntax/altinity-kb-final-clause-speed/)
 * [Handling Real-Time Updates in ClickHouse](https://altinity.com/blog/2020/4/14/handling-real-time-updates-in-clickhouse)
 
-**Since 23.2, profile level ```final=1``` can force final automatically, see https://github.com/ClickHouse/ClickHouse/pull/40945**
+Since 23.2, profile level ```final=1``` can force final automatically, see https://github.com/ClickHouse/ClickHouse/pull/40945
 
 Clickhouse merge parts only in scope of single partition, so if two rows with the same replacing key would land in different partitions, they would **never** be merged in single row. FINAL keyword works in other way, it merge all rows across all partitions. But that behavior can be changed via`do_not_merge_across_partitions_select_final` setting.
 
