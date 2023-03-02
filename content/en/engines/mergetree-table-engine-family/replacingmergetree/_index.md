@@ -28,9 +28,15 @@ ORDER BY <list_of_columns>
 
 ### FINAL
 
-Clickhouse merge parts only in scope of single partition, so if two rows with the same replacing key would land in different partitions, they would **never** be merged in single row. FINAL keyword works in other way, it merge all rows across all partitions. But that behavior can be changed via`do_not_merge_across_partitions_select_final` setting.
+```FINAL``` keyword applies merge in a query time. It works reaonable fast when PK filter is used, but maybe slow for ```SELECT *``` type of queries:
 
-See [FINAL clause speed](../../../altinity-kb-queries-and-syntax/altinity-kb-final-clause-speed/)
+See those links for reference:
+* [FINAL clause speed](../../../altinity-kb-queries-and-syntax/altinity-kb-final-clause-speed/)
+* [Handling Real-Time Updates in ClickHouse](https://altinity.com/blog/2020/4/14/handling-real-time-updates-in-clickhouse)
+
+**Since 23.2, profile level ```final=1``` can force final automatically, see https://github.com/ClickHouse/ClickHouse/pull/40945**
+
+Clickhouse merge parts only in scope of single partition, so if two rows with the same replacing key would land in different partitions, they would **never** be merged in single row. FINAL keyword works in other way, it merge all rows across all partitions. But that behavior can be changed via`do_not_merge_across_partitions_select_final` setting.
 
 ```sql
 CREATE TABLE repl_tbl_part
@@ -87,8 +93,6 @@ SELECT * FROM repl_tbl_part;
 │   1 │     2 │        0 │
 └─────┴───────┴──────────┘
 ```
-
-**Since 23.2, profile level ```final=1``` can force final automatically, see https://github.com/ClickHouse/ClickHouse/pull/40945**
 
 ### Deleting the data
 
