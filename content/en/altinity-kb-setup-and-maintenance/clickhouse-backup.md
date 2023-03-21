@@ -14,14 +14,15 @@ Backblaze has s3 compatible API but requires empty acl parameter `acl: ""`.
 
 [https://www.backblaze.com/](https://www.backblaze.com/) has 15 days and free 10Gb S3 trial.
 
-```yaml
+```bash
 $ mkdir clickhouse-backup
 $ cd clickhouse-backup
-$ wget https://github.com/AlexAkulov/clickhouse-backup/releases/download/1.0.0-beta2/clickhouse-backup.tar.gz
+$ wget https://github.com/AlexAkulov/clickhouse-backup/releases/download/2.2.0/clickhouse-backup.tar.gz
 $ tar zxf clickhouse-backup.tar.gz
 $ rm clickhouse-backup.tar.gz
-
 $ cat config.yml
+```
+```yaml
 general:
   remote_storage: s3
   max_file_size: 1099511627776
@@ -48,7 +49,7 @@ s3:
   access_key: 0****1
   secret_key: K****1
   bucket: "mybucket"
-  endpoint: s3.us-west-000.backblazeb2.com
+  endpoint: https://s3.us-west-000.backblazeb2.com
   region: us-west-000
   acl: ""
   force_path_style: false
