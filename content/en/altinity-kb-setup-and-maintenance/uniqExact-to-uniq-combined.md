@@ -34,7 +34,7 @@ LEB128 sipHash128                       sipHash128
 So, our task is to find how we can generate such values by ourself.
 In case of `String` data type, it just the simple `sipHash128` function,
 
-```sql
+```text
 ┌─hex(sipHash128(toString(2)))─────┬─hex(sipHash128(toString(1)))─────┐
 │ 4809CB4528E00621CF626BE9FA14E2BF │ E2756D8F7A583CA23016E03447724DE7 │
 └──────────────────────────────────┴──────────────────────────────────┘
@@ -63,7 +63,7 @@ cat /etc/clickhouse-server/pipe_function.xml
 </clickhouse>
 ```
 
-```sql
+```text
 ┌─arrayMap(x -> hex(x), pipe(uniqExactState(toString(arrayJoin([1, 2])))))──────────────┐
 │ ['4809CB4528E00621CF626BE9FA14E2BF','E2756D8F7A583CA23016E03447724DE7']               │
 └───────────────────────────────────────────────────────────────────────────────────────┘
@@ -79,27 +79,31 @@ CREATE TABLE aggregates
     `uniqExact` AggregateFunction(uniqExact, String)
 )
 ENGINE = AggregatingMergeTree
-ORDER BY id
-
-
-INSERT INTO aggregates SELECT
+ORDER BY id as
+SELECT
     number % 10000 AS id,
     uniqExactState(toString(number))
 FROM numbers(10000000)
-GROUP BY id
-
-Ok.
+GROUP BY id;
 
 0 rows in set. Elapsed: 2.042 sec. Processed 10.01 million rows, 80.06 MB (4.90 million rows/s., 39.21 MB/s.)
 
 -- Let's add a new columns to store optimized, approximate uniq & uniqCombined
 ALTER TABLE aggregates
-    ADD COLUMN `uniq` AggregateFunction(uniq, FixedString(16)),
-    ADD COLUMN `uniqCombined` AggregateFunction(uniqCombined, FixedString(16))
+    ADD COLUMN `uniq` AggregateFunction(uniq, FixedString(16)) 
+             default arrayReduce('uniqState', pipe(uniqExact)),
+    ADD COLUMN `uniqCombined` AggregateFunction(uniqCombined, FixedString(16)) 
+             default arrayReduce('uniqCombinedState', pipe(uniqExact));
 
 -- Populate the new columns using the old data
-ALTER TABLE aggregates
-    UPDATE uniqCombined = arrayReduce('uniqCombinedState', pipe(uniqExact)), uniq = arrayReduce('uniqState', pipe(uniqExact)) WHERE 1
+ALTER TABLE aggregates UPDATE uniqCombined = uniqCombined, uniq = uniq where 1
+settings mutations_sync=2;
+
+-- Alternatvly you can populate data in the new columns directly without using DEFAULT columns
+-- ALTER TABLE aggregates UPDATE 
+--     uniqCombined = arrayReduce('uniqCombinedState', pipe(uniqExact)), 
+--     uniq = arrayReduce('uniqState', pipe(uniqExact)) 
+-- WHERE 1 settings mutations_sync=2;
 
 -- Check results, results are slighty different, because uniq & uniqCombined are approximate functions
 SELECT
@@ -147,9 +151,7 @@ INSERT INTO aggregates SELECT
     uniqState(sipHash128(toString(number))),
     uniqCombinedState(sipHash128(toString(number)))
 FROM numbers(10000000)
-GROUP BY id
-
-Ok.
+GROUP BY id;
 
 0 rows in set. Elapsed: 5.386 sec. Processed 10.01 million rows, 80.06 MB (1.86 million rows/s., 14.86 MB/s.)
 
@@ -186,4 +188,25 @@ GROUP BY key
 └─────┴───────────────────────────┴─────────────────────────────────┴─────────────────┘
 
 20 rows in set. Elapsed: 3.318 sec. Processed 20.00 thousand rows, 11.02 MB (6.03 thousand rows/s., 3.32 MB/s.)
+```
+
+Let's compare the data size, `uniq` won in this case, but check this article [Functions to count uniqs](../altinity-kb-schema-design/uniq-functions/), milage can vary.
+
+```sql
+optimize table aggregates final;
+
+SELECT
+    column,
+    formatReadableSize(sum(column_data_compressed_bytes) AS size) AS compressed,
+    formatReadableSize(sum(column_data_uncompressed_bytes) AS usize) AS uncompressed
+FROM system.parts_columns
+WHERE (active = 1)  AND (table LIKE 'aggregates') and column like '%uniq%'
+GROUP BY column
+ORDER BY size DESC;
+
+┌─column───────┬─compressed─┬─uncompressed─┐
+│ uniqExact    │ 153.21 MiB │ 152.61 MiB   │
+│ uniqCombined │ 76.62 MiB  │ 76.32 MiB    │
+│ uniq         │ 38.33 MiB  │ 38.18 MiB    │
+└──────────────┴────────────┴──────────────┘
 ```
