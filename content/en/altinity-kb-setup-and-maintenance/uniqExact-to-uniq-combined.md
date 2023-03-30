@@ -95,11 +95,11 @@ ALTER TABLE aggregates
     ADD COLUMN `uniqCombined` AggregateFunction(uniqCombined, FixedString(16)) 
              default arrayReduce('uniqCombinedState', pipe(uniqExact));
 
--- Populate the new columns using the old data
-ALTER TABLE aggregates UPDATE uniqCombined = uniqCombined, uniq = uniq where 1
-settings mutations_sync=2;
+-- Materialize defaults in the new columns
+ALTER TABLE aggregates UPDATE uniqCombined = uniqCombined, uniq = uniq 
+WHERE 1 settings mutations_sync=2;
 
--- Let's change defaults to remove the dependancy from UDF
+-- Let's reset defaults to remove the dependancy of the UDF from our table
 ALTER TABLE aggregates
      modify COLUMN `uniq` remove default,
      modify COLUMN `uniqCombined` remove default;
