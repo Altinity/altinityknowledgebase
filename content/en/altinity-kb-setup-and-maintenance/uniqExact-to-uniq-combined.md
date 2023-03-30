@@ -16,23 +16,21 @@ In our case, the value is `sipHash128` of strings passed to uniqExact function.
 ┌─hex(uniqExactState(toString(arrayJoin([1]))))─┐
 │ 01E2756D8F7A583CA23016E03447724DE7            │
 └───────────────────────────────────────────────┘
+  01         E2756D8F7A583CA23016E03447724DE7
+  ^          ^
+  LEB128     sipHash128
 
-  01                                  E2756D8F7A583CA23016E03447724DE7
-  ^                                         ^
-LEB128                                  sipHash128
 
 ┌─hex(uniqExactState(toString(arrayJoin([1, 2]))))───────────────────┐
 │ 024809CB4528E00621CF626BE9FA14E2BFE2756D8F7A583CA23016E03447724DE7 │
 └────────────────────────────────────────────────────────────────────┘
-
-
   02 4809CB4528E00621CF626BE9FA14E2BF E2756D8F7A583CA23016E03447724DE7
   ^        ^                                ^
 LEB128 sipHash128                       sipHash128
 ```
 
 So, our task is to find how we can generate such values by ourself.
-In case of `String` data type, it just the simple `sipHash128` function,
+In case of `String` data type, it just the simple `sipHash128` function.
 
 ```text
 ┌─hex(sipHash128(toString(2)))─────┬─hex(sipHash128(toString(1)))─────┐
@@ -41,7 +39,7 @@ In case of `String` data type, it just the simple `sipHash128` function,
 ```
 
 The second task: it needs to read a state and split it into an array of values.
-Luckly for us, ClickHouse use the exact same serialization (`LEB128` + list of values) for Arrays (in this case when `uniqExactState` and `Array` are serialized into `RowBinary` format).
+Luckly for us, ClickHouse use the exact same serialization (`LEB128` + list of values) for Arrays (in this case if `uniqExactState` and `Array` are serialized into `RowBinary` format).
 
 We need one a helper -- `UDF` function to do that conversion:
 
@@ -62,6 +60,7 @@ cat /etc/clickhouse-server/pipe_function.xml
   </function>
 </clickhouse>
 ```
+This UDF -- `pipe` converts `uniqExactState` to the `Array(FixedString(16))`.
 
 ```text
 ┌─arrayMap(x -> hex(x), pipe(uniqExactState(toString(arrayJoin([1, 2])))))──────────────┐
@@ -69,10 +68,10 @@ cat /etc/clickhouse-server/pipe_function.xml
 └───────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
-And here is the full example, how you can convert `uniqExactState(string)` to `uniqState(string)` or `uniqCombinedState(string)`
+And here is the full example, how you can convert `uniqExactState(string)` to `uniqState(string)` or `uniqCombinedState(string)` using `pipe` UDF and `arrayReduce('func', [..])`.
 
 ```sql
--- initial data, uniqs are stored as heavy uniqExact
+-- Generate demo with random data, uniqs are stored as heavy uniqExact
 CREATE TABLE aggregates
 (
     `id` UInt32,
