@@ -46,21 +46,19 @@ Luckly for us, ClickHouse use exact the same serialization (LEB128 + list of val
 
 We need one helper UDF function to do that conversion:
 
-```sh
-nano /etc/clickhouse-server/config.d/pipe_function.xml
-```
 ```xml
+cat /etc/clickhouse-server/pipe_function.xml
 <clickhouse>
   <function>
     <type>executable</type>
-    <execute_direct>1</execute_direct>
+    <execute_direct>0</execute_direct>
     <name>pipe</name>
     <return_type>Array(FixedString(16))</return_type>
     <argument>
       <type>String</type>
     </argument>
     <format>RowBinary</format>
-    <command>pipe</command>
+    <command>cat</command>
     <send_chunk_header>0</send_chunk_header>
   </function>
 </clickhouse>
