@@ -8,11 +8,11 @@ description: >-
 
 ## uniqExactState 
 
-Can be split in 2 parts: LEB128 count of values + list of values without delimeter
+`uniqExactState` is stored in two parts: a count of values in `LEB128` format + list values without a delimeter.
 
-In our case, value is sipHash128 of strings passed to uniqExact function
+In our case, the value is `sipHash128` of strings passed to uniqExact function.
 
-```sql
+```text
 ┌─hex(uniqExactState(toString(arrayJoin([1]))))─┐
 │ 01E2756D8F7A583CA23016E03447724DE7            │
 └───────────────────────────────────────────────┘
@@ -31,8 +31,8 @@ LEB128                                  sipHash128
 LEB128 sipHash128                       sipHash128
 ```
 
-So, our task is find how we can generate such values by ourself.
-In case of String data type, it just simple sipHash128 function
+So, our task is to find how we can generate such values by ourself.
+In case of `String` data type, it just the simple `sipHash128` function,
 
 ```sql
 ┌─hex(sipHash128(toString(2)))─────┬─hex(sipHash128(toString(1)))─────┐
@@ -40,11 +40,10 @@ In case of String data type, it just simple sipHash128 function
 └──────────────────────────────────┴──────────────────────────────────┘
 ```
 
+The second task: it needs to read a state and split it into an array of values.
+Luckly for us, ClickHouse use the exact same serialization (`LEB128` + list of values) for Arrays (in this case when `uniqExactState` and `Array` are serialized into `RowBinary` format).
 
-Second task, we need read state and split it into array of values.
-Luckly for us, ClickHouse use exact the same serialization (LEB128 + list of values) for Arrays.
-
-We need one helper UDF function to do that conversion:
+We need one a helper -- `UDF` function to do that conversion:
 
 ```xml
 cat /etc/clickhouse-server/pipe_function.xml
@@ -70,9 +69,10 @@ cat /etc/clickhouse-server/pipe_function.xml
 └───────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
-And here is full example, how you can convert uniqExactState(string) to uniqState(string) or uniqCombinedState(string)
+And here is the full example, how you can convert `uniqExactState(string)` to `uniqState(string)` or `uniqCombinedState(string)`
 
 ```sql
+-- initial data, uniqs are stored as heavy uniqExact
 CREATE TABLE aggregates
 (
     `id` UInt32,
@@ -92,13 +92,16 @@ Ok.
 
 0 rows in set. Elapsed: 2.042 sec. Processed 10.01 million rows, 80.06 MB (4.90 million rows/s., 39.21 MB/s.)
 
+-- Let's add a new columns to store optimized, approximate uniq & uniqCombined
 ALTER TABLE aggregates
     ADD COLUMN `uniq` AggregateFunction(uniq, FixedString(16)),
     ADD COLUMN `uniqCombined` AggregateFunction(uniqCombined, FixedString(16))
 
+-- Populate the new columns using the old data
 ALTER TABLE aggregates
     UPDATE uniqCombined = arrayReduce('uniqCombinedState', pipe(uniqExact)), uniq = arrayReduce('uniqState', pipe(uniqExact)) WHERE 1
 
+-- Check results, results are slighty different, because uniq & uniqCombined are approximate functions
 SELECT
     id % 20 AS key,
     uniqExactMerge(uniqExact),
@@ -134,8 +137,8 @@ GROUP BY key
 ```
 
 
-Now, lets repeat the same insert, but in that case we will also populate uniq & uniqCombined with values converted via sipHash128 function.
-If we did everything right, uniq counts will not change, because we inserted the exact same values.
+Now, lets repeat the same insert, but in that case we will also populate `uniq` & `uniqCombined` with values converted via `sipHash128` function.
+If we did everything right, `uniq` counts will not change, because we inserted the exact same values.
 
 ```sql
 INSERT INTO aggregates SELECT
