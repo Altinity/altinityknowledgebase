@@ -3,7 +3,7 @@ title: "How to convert uniqExact states to approximate uniq functions states"
 linkTitle: "Convert uniqExact to uniq(Combined)"
 weight: 100
 description: >-
-     Page description for heading and indexes.
+     A way to convert to uniqExactState to other uniqStates (like uniqCombinedState) in Clickhouse. 
 ---
 
 ## uniqExactState 
