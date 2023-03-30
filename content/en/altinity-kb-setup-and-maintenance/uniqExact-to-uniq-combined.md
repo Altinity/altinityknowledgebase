@@ -99,7 +99,12 @@ ALTER TABLE aggregates
 ALTER TABLE aggregates UPDATE uniqCombined = uniqCombined, uniq = uniq where 1
 settings mutations_sync=2;
 
--- Alternatvly you can populate data in the new columns directly without using DEFAULT columns
+-- Let's change defaults to remove the dependancy from UDF
+ALTER TABLE aggregates
+     modify COLUMN `uniq` remove default,
+     modify COLUMN `uniqCombined` remove default;
+
+-- Alternatively you can populate data in the new columns directly without using DEFAULT columns
 -- ALTER TABLE aggregates UPDATE 
 --     uniqCombined = arrayReduce('uniqCombinedState', pipe(uniqExact)), 
 --     uniq = arrayReduce('uniqState', pipe(uniqExact)) 
@@ -190,7 +195,7 @@ GROUP BY key
 20 rows in set. Elapsed: 3.318 sec. Processed 20.00 thousand rows, 11.02 MB (6.03 thousand rows/s., 3.32 MB/s.)
 ```
 
-Let's compare the data size, `uniq` won in this case, but check this article [Functions to count uniqs](../altinity-kb-schema-design/uniq-functions/), milage can vary.
+Let's compare the data size, `uniq` won in this case, but check this article [Functions to count uniqs](../../altinity-kb-schema-design/uniq-functions/), milage may vary.
 
 ```sql
 optimize table aggregates final;
