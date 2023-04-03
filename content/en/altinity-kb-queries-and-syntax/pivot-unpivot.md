@@ -124,30 +124,3 @@ ORDER BY suppkey ASC
 └─────────┴─────────┴──────────┴──────────┘
 ```
 
-### Using tupleToNameValuePairs (starting from ClickHouse 21.9)
-
-```sql
-SELECT
-    suppkey,
-    brand,
-    tpl.1 AS category,
-    tpl.2 AS quantity
-FROM sales_w
-ARRAY JOIN tupleToNameValuePairs((AA, AB, AC, AD)) AS tpl
-ORDER BY suppkey ASC
-
-┌─suppkey─┬─brand───┬─category─┬─quantity─┐
-│       1 │ BRAND_A │ AA       │     1500 │
-│       1 │ BRAND_A │ AB       │     4200 │
-│       1 │ BRAND_A │ AC       │     1600 │
-│       1 │ BRAND_A │ AD       │     9800 │
-│       2 │ BRAND_B │ AA       │     6200 │
-│       2 │ BRAND_B │ AB       │     1300 │
-│       2 │ BRAND_B │ AC       │     5800 │
-│       2 │ BRAND_B │ AD       │     3100 │
-│       3 │ BRAND_C │ AA       │     5000 │
-│       3 │ BRAND_C │ AB       │     8900 │
-│       3 │ BRAND_C │ AC       │     6900 │
-│       3 │ BRAND_C │ AD       │     3400 │
-└─────────┴─────────┴──────────┴──────────┘
-```
