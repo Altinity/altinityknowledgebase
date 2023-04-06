@@ -24,6 +24,10 @@ While those numbers can vary a lot depending on your hardware & settings there i
 
 Fewer than number of tables (above). Dozens / hundreds is usually still acceptable.
 
+### Number of inserts per seconds
+
+For usual (non async) inserts - dozen is enough. Every insert creates a part, if you will create parts too often, clickhouse will not be able to merge them and you will be getting 'too many parts'.
+
 ### Number of columns in the table
 
 Up to a few hundreds. With thousands of columns the inserts / background merges may become slower / require more of RAM.
