@@ -93,10 +93,12 @@ In 99.99% cases doesn't give any benefit for ClickHouse compared to GP3 option a
 # S3
 
 Best option for cold data, it can give considerably good throughput and really good price, but latencies and IOPS much worse than EBS option.
-Another intresting point is, for EC2 instance throughput limit for EBS and S3 calculated separately, so if you access your data both from EBS and S3, you can get double  throughput.
+Another intresting point is, for EC2 instance throughput limit for EBS and S3 calculated separately, so if you access your data both from EBS and S3, you can get double throughput.
 
 It's stated in AWS documentation, that S3 can fully utilize network capacity of EC2 instance. (up to 100 Gb/s)
-Latencies or (first-byte-out) estimated to be 100-200 milliseconds withing single region. 
+Latencies or (first-byte-out) estimated to be 100-200 milliseconds withing single region.
+
+It also recommended to enable [gateway endpoint for s3](https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints-s3.html#create-gateway-endpoint-s3), it can push throughput even futher (up to 800 Gb/s) 
 
 [S3 best practices](https://docs.aws.amazon.com/AmazonS3/latest/userguide/optimizing-performance.html)
 
