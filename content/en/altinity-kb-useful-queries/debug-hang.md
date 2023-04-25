@@ -1,12 +1,12 @@
 ---
-title: "Debug hunging thing"
-linkTitle: "Debug hunging thing"
+title: "Debug hanging thing"
+linkTitle: "Debug hanging thing"
 weight: 100
 description: >-
-     Debug hunging / freezing things
+     Debug hanging / freezing things
 ---
 
-## Debug hunging / freezing things 
+## Debug hanging / freezing things 
 
 If ClickHouse is busy with something and you don't know what's happeing, you can easily check the stacktraces of all the thread which are working
 
