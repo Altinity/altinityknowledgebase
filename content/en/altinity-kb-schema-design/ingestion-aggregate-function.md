@@ -3,7 +3,7 @@ title: "Ingestion of AggregateFunction"
 linkTitle: "Ingestion of AggregateFunction"
 weight: 100
 description: >-
-     How to insert AggregateFunction data.
+     ClickHouse. How to insert AggregateFunction data.
 ---
 
 ## How to insert AggregateFunction data
