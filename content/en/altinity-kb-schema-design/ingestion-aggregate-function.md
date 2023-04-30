@@ -34,7 +34,7 @@ GROUP BY uid
 └──────┴─────────────────────┴───────────────────┘
 ```
 
-## Input function
+### Input function
 
 ```sql
 CREATE TABLE users (
@@ -62,7 +62,7 @@ GROUP BY uid;
 └──────┴─────────────────────┴───────────────────┘
 ```
 
-## Materialized View And Null Engine
+### Materialized View And Null Engine
 
 ```sql
 CREATE TABLE users (
