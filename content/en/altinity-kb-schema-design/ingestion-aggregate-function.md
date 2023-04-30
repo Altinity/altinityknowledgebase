@@ -17,7 +17,7 @@ CREATE TABLE users (
   name_stub String Ephemeral,
   name AggregateFunction(argMax, String, DateTime) 
        default arrayReduce('argMaxState', [name_stub], [updated])
-) ENGINE=MergeTree order by uid;
+) ENGINE=AggregatingMergeTree order by uid;
 
 INSERT INTO users(uid, updated, name_stub) VALUES (1231, '2020-01-02 00:00:00', 'Jane');
 
@@ -41,7 +41,7 @@ CREATE TABLE users (
   uid Int16, 
   updated SimpleAggregateFunction(max, DateTime),
   name AggregateFunction(argMax, String, DateTime)
-) ENGINE=MergeTree order by uid;
+) ENGINE=AggregatingMergeTree order by uid;
 
 INSERT INTO users
 SELECT uid, updated, arrayReduce('argMaxState', [name], [updated])
@@ -69,7 +69,7 @@ CREATE TABLE users (
   uid Int16, 
   updated SimpleAggregateFunction(max, DateTime),
   name AggregateFunction(argMax, String, DateTime)
-) ENGINE=MergeTree order by uid;
+) ENGINE=AggregatingMergeTree order by uid;
 
 CREATE TABLE users_null (
   uid Int16, 
