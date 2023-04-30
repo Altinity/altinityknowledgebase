@@ -10,7 +10,7 @@ description: >-
 
 ### Ephemeral column
 
-```
+```sql
 CREATE TABLE users (
   uid Int16, 
   updated SimpleAggregateFunction(max, DateTime),
