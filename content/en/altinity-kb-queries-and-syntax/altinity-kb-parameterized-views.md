@@ -7,7 +7,8 @@ description: >
 
 ## ClickHouse version 23.1+
 
-Have inbuild support for parametrized views:
+(23.1.6.42, 23.2.5.46, 23.3.1.2823)
+Have inbuild support for [parametrized views](https://clickhouse.com/docs/en/sql-reference/statements/create/view#parameterized-view):
 
 ```sql
 CREATE VIEW my_new_view AS
@@ -21,7 +22,16 @@ WHERE category_id IN (
 
 SELECT * FROM my_new_view(category = 'hot deals');
 ```
+### One more example 
 
+```sql
+CREATE OR REPLACE VIEW v AS SELECT 1::UInt32 x WHERE x IN ({xx:Array(UInt32)});
+
+select * from v(xx=[1,2,3]);
+┌─x─┐
+│ 1 │
+└───┘
+```
 
 
 ## ClickHouse versions per 23.1
