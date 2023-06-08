@@ -115,7 +115,9 @@ Let's move data to S3
 alter table test_s3 move partition '2023-01-01' to volume 'main';
 0 rows in set. Elapsed: 81.068 sec.
 
-select disk_name, partition, sum(rows), formatReadableSize(sum(bytes_on_disk)) size, count() part_count from system.parts where table= 'test_s3' and active group by disk_name, partition;
+select disk_name, partition, sum(rows), formatReadableSize(sum(bytes_on_disk)) size, count() part_count 
+from system.parts where table= 'test_s3' and active 
+group by disk_name, partition;
 ┌─disk_name─┬─partition──┬──sum(rows)─┬─size─────┬─part_count─┐
 │ s3disk    │ 2023-01-01 │ 1000000000 │ 7.65 GiB │          8 │
 └───────────┴────────────┴────────────┴──────────┴────────────┘
