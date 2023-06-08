@@ -79,15 +79,17 @@ insert into test_s3 select number, number, '2023-01-01' from numbers(1e9);
 0 rows in set. Elapsed: 270.285 sec. Processed 1.00 billion rows, 8.00 GB (3.70 million rows/s., 29.60 MB/s.)
 ```
 
-Table size 7.65 GiB and it at default disk (EBS).
+Table size is 7.65 GiB and it at the default disk (EBS):
 ```sql
-select disk_name, partition, sum(rows), formatReadableSize(sum(bytes_on_disk)) size, count() part_count from system.parts where table= 'test_s3' and active group by disk_name, partition;
+select disk_name, partition, sum(rows), formatReadableSize(sum(bytes_on_disk)) size, count() part_count 
+from system.parts where table= 'test_s3' and active 
+group by disk_name, partition;
 ┌─disk_name─┬─partition──┬──sum(rows)─┬─size─────┬─part_count─┐
 │ default   │ 2023-01-01 │ 1000000000 │ 7.65 GiB │          8 │
 └───────────┴────────────┴────────────┴──────────┴────────────┘
 ```
 
-It seems my EBS write speed is slower than S3  write speed.
+It seems my EBS write speed is slower than S3 write speed:
 ```sql
 alter table test_s3 move partition '2023-01-01' to volume 'main';
 0 rows in set. Elapsed: 98.979 sec.
@@ -96,7 +98,7 @@ alter table test_s3 move partition '2023-01-01' to volume 'hot';
 0 rows in set. Elapsed: 127.741 sec.
 ```
 
-Tests against EBS
+Queries performance against EBS:
 ```sql
 select * from test_s3 where A = 443;
 1 row in set. Elapsed: 0.002 sec. Processed 8.19 thousand rows, 71.64 KB (3.36 million rows/s., 29.40 MB/s.)
@@ -108,7 +110,7 @@ select count() from test_s3 where S like '%4422%'
 1 row in set. Elapsed: 17.484 sec. Processed 1.00 billion rows, 17.89 GB (57.20 million rows/s., 1.02 GB/s.)
 ```
 
-Move data to S3
+Let's move data to S3
 ```sql
 alter table test_s3 move partition '2023-01-01' to volume 'main';
 0 rows in set. Elapsed: 81.068 sec.
@@ -119,7 +121,7 @@ select disk_name, partition, sum(rows), formatReadableSize(sum(bytes_on_disk)) s
 └───────────┴────────────┴────────────┴──────────┴────────────┘
 ```
 
-The first query execution against S3, the second against the cache (local EBS)
+The first query execution against S3, the second against the cache (local EBS):
 ```sql
 select * from test_s3 where A = 443;
 1 row in set. Elapsed: 0.458 sec. Processed 8.19 thousand rows, 71.64 KB (17.88 thousand rows/s., 156.35 KB/s.)
@@ -145,7 +147,6 @@ system drop FILESYSTEM cache;
 
 select cache_base_path, formatReadableSize(sum(size)) from system.filesystem_cache group by 1;
 0 rows in set. Elapsed: 0.005 sec.
-
 
 select * from test_s3 where A = 443;
 1 row in set. Elapsed: 0.221 sec. Processed 8.19 thousand rows, 71.64 KB (37.10 thousand rows/s., 324.47 KB/s.)
