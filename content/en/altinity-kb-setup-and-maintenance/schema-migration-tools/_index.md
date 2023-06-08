@@ -31,3 +31,5 @@ description: >
   * [https://github.com/amacneil/dbmate#clickhouse](https://github.com/amacneil/dbmate#clickhouse)
 
 know more?
+
+https://clickhouse.com/docs/knowledgebase/schema_migration_tools
