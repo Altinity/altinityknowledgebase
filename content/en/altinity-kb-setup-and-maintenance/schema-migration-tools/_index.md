@@ -33,3 +33,6 @@ description: >
 know more?
 
 https://clickhouse.com/docs/knowledgebase/schema_migration_tools
+
+Article on migrations in ClickHouse
+https://posthog.com/blog/async-migrations
