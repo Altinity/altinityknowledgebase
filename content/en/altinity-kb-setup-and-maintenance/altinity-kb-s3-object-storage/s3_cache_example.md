@@ -7,7 +7,6 @@ description: >-
 ---
 
 ## Storage configuration
-
 ```xml
 cat /etc/clickhouse-server/config.d/s3.xml
 <clickhouse>
@@ -30,13 +29,13 @@ cat /etc/clickhouse-server/config.d/s3.xml
         <policies>
           <s3tiered>
               <volumes>
-                  <hot>
+                  <default>
                       <disk>default</disk>
                       <max_data_part_size_bytes>50000000000</max_data_part_size_bytes>   <!-- only for parts less than 50GB after they moved to s3 -->         
-                  </hot>
-                  <main>
-                      <disk>cache</disk>  <!-- sandwitch cache plus s3disk -->
-                  </main>
+                  </default>
+                  <s3cashed>
+                      <disk>cache</disk>  <!-- sandwich cache plus s3disk -->
+                  </s3cashed>
               </volumes>
           </s3tiered>
         </policies>
@@ -53,14 +52,13 @@ select * from system.disks
 └─────────┴───────────────────────────────────┴──────────────────────┴──────────────────────┴
 
 select * from system.storage_policies;
-┌─policy_name─┬─volume_name─┬─volume_priority─┬─disks───────┬
-│ default     │ default     │               1 │ ['default'] │
-│ s3tiered    │ hot         │               1 │ ['default'] │
-│ s3tiered    │ main        │               2 │ ['s3disk']  │
-└─────────────┴─────────────┴─────────────────┴─────────────┴
+┌─policy_name─┬─volume_name─┬─volume_priority─┬─disks───────┬─volume_type─┬─max_data_part_size─┬
+│ default     │ default     │               1 │ ['default'] │ JBOD        │                  0 │
+│ s3tiered    │ default     │               1 │ ['default'] │ JBOD        │        50000000000 │
+└─────────────┴─────────────┴─────────────────┴─────────────┴─────────────┴────────────────────┴
 ```
 
-## fun with a table
+## example with a new table
 
 ```sql
 CREATE TABLE test_s3
@@ -91,10 +89,10 @@ group by disk_name, partition;
 
 It seems my EBS write speed is slower than S3 write speed:
 ```sql
-alter table test_s3 move partition '2023-01-01' to volume 'main';
+alter table test_s3 move partition '2023-01-01' to volume 's3cashed';
 0 rows in set. Elapsed: 98.979 sec.
 
-alter table test_s3 move partition '2023-01-01' to volume 'hot';
+alter table test_s3 move partition '2023-01-01' to volume 'default';
 0 rows in set. Elapsed: 127.741 sec.
 ```
 
@@ -112,7 +110,7 @@ select count() from test_s3 where S like '%4422%'
 
 Let's move data to S3
 ```sql
-alter table test_s3 move partition '2023-01-01' to volume 'main';
+alter table test_s3 move partition '2023-01-01' to volume 's3cashed';
 0 rows in set. Elapsed: 81.068 sec.
 
 select disk_name, partition, sum(rows), formatReadableSize(sum(bytes_on_disk)) size, count() part_count 
@@ -167,4 +165,30 @@ select name, formatReadableSize(free_space) free_space, formatReadableSize(total
 │ default │ 48.97 GiB  │ 49.09 GiB   │
 │ s3disk  │ 16.00 EiB  │ 16.00 EiB   │
 └─────────┴────────────┴─────────────┘
+```
+
+## example with an existing table
+
+```sql
+select disk_name, partition, sum(rows), formatReadableSize(sum(bytes_on_disk)) size, count() part_count 
+from system.parts where table= 'mydata' and active 
+group by disk_name, partition
+order by partition;
+┌─disk_name─┬─partition─┬─sum(rows)─┬─size───────┬─part_count─┐
+│ default   │ 202201    │ 310000000 │ 2.37 GiB   │          9 │
+│ default   │ 202202    │ 280000000 │ 2.14 GiB   │         10 │
+│ default   │ 202203    │ 310000000 │ 2.37 GiB   │          9 │
+│ default   │ 202204    │ 100000000 │ 782.58 MiB │          9 │
+│ default   │ 202301    │ 310000000 │ 2.37 GiB   │          9 │
+│ default   │ 202302    │ 280000000 │ 2.14 GiB   │          9 │
+│ default   │ 202303    │ 310000000 │ 2.37 GiB   │          9 │
+│ default   │ 202304    │ 100000000 │ 782.58 MiB │          9 │
+└───────────┴───────────┴───────────┴────────────┴────────────┘
+
+alter table mydata modify setting storage_policy = 's3tiered';
+0 rows in set. Elapsed: 0.057 sec.
+
+alter table mydata modify TTL D + interval 1 year to volume 'default'; 
+
+0 rows in set. Elapsed: 37.397 sec.
 ```
