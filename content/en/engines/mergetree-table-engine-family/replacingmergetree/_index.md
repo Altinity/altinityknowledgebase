@@ -109,6 +109,9 @@ Other options:
 
 ### Last state
 
+Tested on ClickHouse 23.6 version
+FINAL is good in all cases
+
 ```sql
 CREATE TABLE repl_tbl
 (
@@ -133,7 +136,7 @@ INSERT INTO repl_tbl SELECT number as key, rand() as val_1, randomStringUTF8(10)
 SELECT count() FROM repl_tbl
 
 ┌──count()─┐
-│ 50000000 │
+│ 40000000 │
 └──────────┘
 ```
 
@@ -142,19 +145,19 @@ SELECT count() FROM repl_tbl
 ```sql
 -- GROUP BY
 SELECT key, argMax(val_1, ts) as val_1, argMax(val_2, ts) as val_2, argMax(val_3, ts) as val_3, argMax(val_4, ts) as val_4, argMax(val_5, ts) as val_5, max(ts) FROM repl_tbl WHERE key = 10 GROUP BY key;
-1 rows in set. Elapsed: 0.017 sec. Processed 40.96 thousand rows, 5.24 MB (2.44 million rows/s., 312.31 MB/s.)
+1 row in set. Elapsed: 0.008 sec.
 
 -- ORDER BY LIMIT BY
 SELECT * FROM repl_tbl WHERE key = 10 ORDER BY ts DESC LIMIT 1 BY key ;
-1 rows in set. Elapsed: 0.017 sec. Processed 40.96 thousand rows, 5.24 MB (2.39 million rows/s., 305.41 MB/s.)
+1 row in set. Elapsed: 0.006 sec.
 
 -- Subquery
 SELECT * FROM repl_tbl WHERE key = 10 AND ts = (SELECT max(ts) FROM repl_tbl WHERE key = 10);
-1 rows in set. Elapsed: 0.019 sec. Processed 40.96 thousand rows, 1.18 MB (2.20 million rows/s., 63.47 MB/s.)
+1 row in set. Elapsed: 0.009 sec.
 
 -- FINAL
 SELECT * FROM repl_tbl FINAL WHERE key = 10;
-1 rows in set. Elapsed: 0.021 sec. Processed 40.96 thousand rows, 5.24 MB (1.93 million rows/s., 247.63 MB/s.)
+1 row in set. Elapsed: 0.008 sec.
 ```
 
 #### Multiple keys
@@ -162,31 +165,31 @@ SELECT * FROM repl_tbl FINAL WHERE key = 10;
 ```sql
 -- GROUP BY
 SELECT key, argMax(val_1, ts) as val_1, argMax(val_2, ts) as val_2, argMax(val_3, ts) as val_3, argMax(val_4, ts) as val_4, argMax(val_5, ts) as val_5, max(ts) FROM repl_tbl WHERE key IN (SELECT toUInt32(number) FROM numbers(1000000) WHERE number % 100) GROUP BY key FORMAT Null;
-Peak memory usage (for query): 2.31 GiB.
-0 rows in set. Elapsed: 3.264 sec. Processed 5.04 million rows, 645.01 MB (1.54 million rows/s., 197.60 MB/s.)
+Peak memory usage (for query): 2.19 GiB.
+0 rows in set. Elapsed: 1.043 sec. Processed 5.08 million rows, 524.38 MB (4.87 million rows/s., 502.64 MB/s.)
 
--- set optimize_aggregation_in_order=1;
-Peak memory usage (for query): 1.11 GiB.
-0 rows in set. Elapsed: 1.772 sec. Processed 2.74 million rows, 350.30 MB (1.54 million rows/s., 197.73 MB/s.)
+-- SET optimize_aggregation_in_order=1;
+Peak memory usage (for query): 349.94 MiB.
+0 rows in set. Elapsed: 0.901 sec. Processed 4.94 million rows, 506.55 MB (5.48 million rows/s., 562.17 MB/s.)
 
 -- ORDER BY LIMIT BY
 SELECT * FROM repl_tbl WHERE key IN (SELECT toUInt32(number)　FROM numbers(1000000) WHERE number % 100) ORDER BY ts DESC LIMIT 1 BY key FORMAT Null;
-Peak memory usage (for query): 1.08 GiB.
-0 rows in set. Elapsed: 2.429 sec. Processed 5.04 million rows, 645.01 MB (2.07 million rows/s., 265.58 MB/s.)
+Peak memory usage (for query): 1.12 GiB.
+0 rows in set. Elapsed: 1.171 sec. Processed 5.08 million rows, 524.38 MB (4.34 million rows/s., 447.95 MB/s.)
 
 -- Subquery
 SELECT * FROM repl_tbl WHERE (key, ts) IN (SELECT key, max(ts) FROM repl_tbl WHERE key IN (SELECT toUInt32(number) FROM numbers(1000000) WHERE number % 100) GROUP BY key) FORMAT Null;
-Peak memory usage (for query): 432.57 MiB.
-0 rows in set. Elapsed: 0.939 sec. Processed 5.04 million rows, 160.33 MB (5.36 million rows/s., 170.69 MB/s.)
+Peak memory usage (for query): 197.30 MiB.
+0 rows in set. Elapsed: 0.484 sec. Processed 8.72 million rows, 507.33 MB (18.04 million rows/s., 1.05 GB/s.)
 
--- set optimize_aggregation_in_order=1;
-Peak memory usage (for query): 202.88 MiB.
-0 rows in set. Elapsed: 0.824 sec. Processed 5.04 million rows, 160.33 MB (6.11 million rows/s., 194.58 MB/s.)
+-- SET optimize_aggregation_in_order=1;
+Peak memory usage (for query): 171.93 MiB.
+0 rows in set. Elapsed: 0.465 sec. Processed 8.59 million rows, 490.55 MB (18.46 million rows/s., 1.05 GB/s.)
 
 -- FINAL
 SELECT * FROM repl_tbl FINAL WHERE key IN (SELECT toUInt32(number) FROM numbers(1000000) WHERE number % 100) FORMAT Null;
-Peak memory usage (for query): 198.32 MiB.
-0 rows in set. Elapsed: 1.211 sec. Processed 5.04 million rows, 645.01 MB (4.16 million rows/s., 532.57 MB/s.)
+Peak memory usage (for query): 537.13 MiB.
+0 rows in set. Elapsed: 0.357 sec. Processed 4.39 million rows, 436.28 MB (12.28 million rows/s., 1.22 GB/s.)
 ```
 
 #### Full table
@@ -194,30 +197,30 @@ Peak memory usage (for query): 198.32 MiB.
 ```sql
 -- GROUP BY
 SELECT key, argMax(val_1, ts) as val_1, argMax(val_2, ts) as val_2, argMax(val_3, ts) as val_3, argMax(val_4, ts) as val_4, argMax(val_5, ts) as val_5, max(ts) FROM repl_tbl GROUP BY key FORMAT Null;
-Peak memory usage (for query): 15.02 GiB.
-0 rows in set. Elapsed: 19.164 sec. Processed 50.00 million rows, 6.40 GB (2.61 million rows/s., 334.02 MB/s.)
+Peak memory usage (for query): 16.08 GiB.
+0 rows in set. Elapsed: 11.600 sec. Processed 40.00 million rows, 5.12 GB (3.45 million rows/s., 441.49 MB/s.)
 
--- set optimize_aggregation_in_order=1;
-Peak memory usage (for query): 4.44 GiB.
-0 rows in set. Elapsed: 9.700 sec. Processed 21.03 million rows, 2.69 GB (2.17 million rows/s., 277.50 MB/s.)
+-- SET optimize_aggregation_in_order=1;
+Peak memory usage (for query): 865.76 MiB.
+0 rows in set. Elapsed: 9.677 sec. Processed 39.82 million rows, 5.10 GB (4.12 million rows/s., 526.89 MB/s.)
 
 -- ORDER BY LIMIT BY
 SELECT * FROM repl_tbl ORDER BY ts DESC LIMIT 1 BY key FORMAT Null;
-Peak memory usage (for query): 10.46 GiB.
-0 rows in set. Elapsed: 21.264 sec. Processed 50.00 million rows, 6.40 GB (2.35 million rows/s., 301.03 MB/s.)
+Peak memory usage (for query): 8.39 GiB.
+0 rows in set. Elapsed: 14.489 sec. Processed 40.00 million rows, 5.12 GB (2.76 million rows/s., 353.45 MB/s.)
 
 -- Subquery
 SELECT * FROM repl_tbl WHERE (key, ts) IN (SELECT key, max(ts) FROM repl_tbl GROUP BY key) FORMAT Null;
-Peak memory usage (for query): 2.52 GiB.
-0 rows in set. Elapsed: 6.891 sec. Processed 50.00 million rows, 1.60 GB (7.26 million rows/s., 232.22 MB/s.)
+Peak memory usage (for query): 2.40 GiB.
+0 rows in set. Elapsed: 5.225 sec. Processed 79.65 million rows, 5.40 GB (15.24 million rows/s., 1.03 GB/s.)
 
--- set optimize_aggregation_in_order=1;
-Peak memory usage (for query): 1.05 GiB.
-0 rows in set. Elapsed: 4.427 sec. Processed 50.00 million rows, 1.60 GB (11.29 million rows/s., 361.49 MB/s.)
+-- SET optimize_aggregation_in_order=1;
+Peak memory usage (for query): 924.39 MiB.
+0 rows in set. Elapsed: 4.126 sec. Processed 79.67 million rows, 5.40 GB (19.31 million rows/s., 1.31 GB/s.)
 
 -- FINAL
 SELECT * FROM repl_tbl FINAL FORMAT Null;
-Peak memory usage (for query): 838.75 MiB.
-0 rows in set. Elapsed: 6.681 sec. Processed 50.00 million rows, 6.40 GB (7.48 million rows/s., 958.18 MB/s.)
+Peak memory usage (for query): 834.09 MiB.
+0 rows in set. Elapsed: 2.314 sec. Processed 38.80 million rows, 4.97 GB (16.77 million rows/s., 2.15 GB/s.)
 ```
 
