@@ -35,6 +35,8 @@ cat /etc/clickhouse-server/config.d/s3.xml
                   </default>
                   <s3cached>
                       <disk>cache</disk>  <!-- sandwich cache plus s3disk -->
+                      <!-- prefer_not_to_merge>true</prefer_not_to_merge>
+                      <perform_ttl_move_on_insert>false</perform_ttl_move_on_insert-->
                   </s3cached>
               </volumes>
           </s3tiered>
@@ -239,7 +241,7 @@ alter table mydata move partition id '202301' to volume 's3cached';
 │ s3disk    │ 202201    │ 516666677 │ 4.01 GiB   │         13 │
 │ s3disk    │ 202202    │ 466666657 │ 3.64 GiB   │         13 │
 │ s3disk    │ 202203    │  16666666 │ 138.36 MiB │         10 │
-│ s3disk    │ 202301    │ 516666677 │ 4.01 GiB   │          1 │ -- optimized part
+│ s3disk    │ 202301    │ 516666677 │ 4.01 GiB   │          1 │ -- optimized partition
 │ default   │ 202302    │ 466666657 │ 3.64 GiB   │         13 │
 │ default   │ 202303    │  16666666 │ 138.36 MiB │         10 │
 └───────────┴───────────┴───────────┴────────────┴────────────┘
