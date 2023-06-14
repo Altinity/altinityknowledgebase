@@ -9,7 +9,9 @@ description: >
 * Before 20.5 - always executed in a single thread and slow.
 * Since 20.5  - final can be parallel, see [https://github.com/ClickHouse/ClickHouse/pull/10463](https://github.com/ClickHouse/ClickHouse/pull/10463)
 * Since 20.10 - you can use `do_not_merge_across_partitions_select_final` setting.
-* Sinse 22.6  - final even more parallel, see [https://github.com/ClickHouse/ClickHouse/pull/36396](https://github.com/ClickHouse/ClickHouse/pull/36396)
+* Since 22.6  - final even more parallel, see [https://github.com/ClickHouse/ClickHouse/pull/36396](https://github.com/ClickHouse/ClickHouse/pull/36396)
+* Since 22.8  - final doesn't read excessive data, see [https://github.com/ClickHouse/ClickHouse/pull/47801](https://github.com/ClickHouse/ClickHouse/pull/47801)
+* Since 23.5  - final use less memory, see [https://github.com/ClickHouse/ClickHouse/pull/50429](https://github.com/ClickHouse/ClickHouse/pull/50429)
 
 See [https://github.com/ClickHouse/ClickHouse/pull/15938](https://github.com/ClickHouse/ClickHouse/pull/15938) and [https://github.com/ClickHouse/ClickHouse/issues/11722](https://github.com/ClickHouse/ClickHouse/issues/11722)
 
