@@ -218,7 +218,7 @@ alter table mydata modify TTL D + interval 1 year to volume 's3cached';
 -- alter modify TTL changes only metadata of the table and only newly insterted data.
 
 set materialize_ttl_after_modify=0;
-alter table mydata modify TTL D + interval 1 month to volume 's3cached';
+alter table mydata modify TTL D + interval 1 year to volume 's3cached';
 0 rows in set. Elapsed: 0.049 sec.
 
 -- move data slowly partition by partition
