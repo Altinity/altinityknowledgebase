@@ -31,11 +31,11 @@ cat /etc/clickhouse-server/config.d/s3.xml
               <volumes>
                   <default>
                       <disk>default</disk>
-                      <max_data_part_size_bytes>50000000000</max_data_part_size_bytes>   <!-- only for parts less than 50GB after they moved to s3 -->         
+                      <max_data_part_size_bytes>50000000000</max_data_part_size_bytes>   <!-- only for parts less than 50GB after they moved to s3 during merges -->         
                   </default>
-                  <s3cashed>
+                  <s3cached>
                       <disk>cache</disk>  <!-- sandwich cache plus s3disk -->
-                  </s3cashed>
+                  </s3cached>
               </volumes>
           </s3tiered>
         </policies>
@@ -52,10 +52,11 @@ select * from system.disks
 └─────────┴───────────────────────────────────┴──────────────────────┴──────────────────────┴
 
 select * from system.storage_policies;
-┌─policy_name─┬─volume_name─┬─volume_priority─┬─disks───────┬─volume_type─┬─max_data_part_size─┬
-│ default     │ default     │               1 │ ['default'] │ JBOD        │                  0 │
-│ s3tiered    │ default     │               1 │ ['default'] │ JBOD        │        50000000000 │
-└─────────────┴─────────────┴─────────────────┴─────────────┴─────────────┴────────────────────┴
+┌─policy_name─┬─volume_name─┬─volume_priority─┬─disks───────┬─volume_type─┬─max_data_part_size─┬─move_factor─┬─prefer_not_to_merge─┐
+│ default     │ default     │               1 │ ['default'] │ JBOD        │                  0 │           0 │                   0 │
+│ s3tiered    │ default     │               1 │ ['default'] │ JBOD        │        50000000000 │         0.1 │                   0 │
+│ s3tiered    │ s3cached    │               2 │ ['s3disk']  │ JBOD        │                  0 │         0.1 │                   0 │
+└─────────────┴─────────────┴─────────────────┴─────────────┴─────────────┴────────────────────┴─────────────┴─────────────────────┘
 ```
 
 ## example with a new table
@@ -89,7 +90,7 @@ group by disk_name, partition;
 
 It seems my EBS write speed is slower than S3 write speed:
 ```sql
-alter table test_s3 move partition '2023-01-01' to volume 's3cashed';
+alter table test_s3 move partition '2023-01-01' to volume 's3cached';
 0 rows in set. Elapsed: 98.979 sec.
 
 alter table test_s3 move partition '2023-01-01' to volume 'default';
@@ -110,7 +111,7 @@ select count() from test_s3 where S like '%4422%'
 
 Let's move data to S3
 ```sql
-alter table test_s3 move partition '2023-01-01' to volume 's3cashed';
+alter table test_s3 move partition '2023-01-01' to volume 's3cached';
 0 rows in set. Elapsed: 81.068 sec.
 
 select disk_name, partition, sum(rows), formatReadableSize(sum(bytes_on_disk)) size, count() part_count 
@@ -169,26 +170,77 @@ select name, formatReadableSize(free_space) free_space, formatReadableSize(total
 
 ## example with an existing table
 
+The `mydata` table without defined `storage_policy`, it means that `storage_policy=default`, `volume=default`, `disk=default`.
+
 ```sql
 select disk_name, partition, sum(rows), formatReadableSize(sum(bytes_on_disk)) size, count() part_count 
-from system.parts where table= 'mydata' and active 
+from system.parts where table='mydata' and active 
 group by disk_name, partition
 order by partition;
 ┌─disk_name─┬─partition─┬─sum(rows)─┬─size───────┬─part_count─┐
-│ default   │ 202201    │ 310000000 │ 2.37 GiB   │          9 │
-│ default   │ 202202    │ 280000000 │ 2.14 GiB   │         10 │
-│ default   │ 202203    │ 310000000 │ 2.37 GiB   │          9 │
-│ default   │ 202204    │ 100000000 │ 782.58 MiB │          9 │
-│ default   │ 202301    │ 310000000 │ 2.37 GiB   │          9 │
-│ default   │ 202302    │ 280000000 │ 2.14 GiB   │          9 │
-│ default   │ 202303    │ 310000000 │ 2.37 GiB   │          9 │
-│ default   │ 202304    │ 100000000 │ 782.58 MiB │          9 │
+│ default   │ 202201    │ 516666677 │ 4.01 GiB   │         13 │
+│ default   │ 202202    │ 466666657 │ 3.64 GiB   │         13 │
+│ default   │ 202203    │  16666666 │ 138.36 MiB │         10 │
+│ default   │ 202301    │ 516666677 │ 4.01 GiB   │         10 │
+│ default   │ 202302    │ 466666657 │ 3.64 GiB   │         10 │
+│ default   │ 202303    │  16666666 │ 138.36 MiB │         10 │
 └───────────┴───────────┴───────────┴────────────┴────────────┘
 
+-- Let's change the storage policy, this command instant and changes only metadata of the table, and possible because the new storage policy and the old has the volume `default`.
 alter table mydata modify setting storage_policy = 's3tiered';
+
 0 rows in set. Elapsed: 0.057 sec.
+```
 
-alter table mydata modify TTL D + interval 1 year to volume 'default'; 
+### straightforward (heavy) approach
 
-0 rows in set. Elapsed: 37.397 sec.
+```sql
+-- Let's add TTL, it's heavy command and take a lot time and creates the performance impact, because it reads `D` column and moves parts to s3.
+alter table mydata modify TTL D + interval 1 year to volume 's3cached';
+
+0 rows in set. Elapsed: 140.661 sec.
+
+┌─disk_name─┬─partition─┬─sum(rows)─┬─size───────┬─part_count─┐
+│ s3disk    │ 202201    │ 516666677 │ 4.01 GiB   │         13 │
+│ s3disk    │ 202202    │ 466666657 │ 3.64 GiB   │         13 │
+│ s3disk    │ 202203    │  16666666 │ 138.36 MiB │         10 │
+│ default   │ 202301    │ 516666677 │ 4.01 GiB   │         10 │
+│ default   │ 202302    │ 466666657 │ 3.64 GiB   │         10 │
+│ default   │ 202303    │  16666666 │ 138.36 MiB │         10 │
+└───────────┴───────────┴───────────┴────────────┴────────────┘
+```
+
+### gentle (manual) approach
+
+```sql
+-- alter modify TTL changes only metadata of the table and only newly insterted data.
+
+set materialize_ttl_after_modify=0;
+alter table mydata modify TTL D + interval 1 month to volume 's3cached';
+0 rows in set. Elapsed: 0.049 sec.
+
+-- move data slowly partition by partition
+alter table mydata move partition id '202201' to volume 's3cached';
+0 rows in set. Elapsed: 49.410 sec.
+
+alter table mydata move partition id '202202' to volume 's3cached';
+0 rows in set. Elapsed: 36.952 sec.
+
+alter table mydata move partition id '202203' to volume 's3cached';
+0 rows in set. Elapsed: 4.808 sec.
+
+-- data can be optimized to reduce number of parts before moving it to s3
+optimize table mydata partition id '202301' final;
+0 rows in set. Elapsed: 66.551 sec.
+
+alter table mydata move partition id '202301' to volume 's3cached';
+
+┌─disk_name─┬─partition─┬─sum(rows)─┬─size───────┬─part_count─┐
+│ s3disk    │ 202201    │ 516666677 │ 4.01 GiB   │         13 │
+│ s3disk    │ 202202    │ 466666657 │ 3.64 GiB   │         13 │
+│ s3disk    │ 202203    │  16666666 │ 138.36 MiB │         10 │
+│ s3disk    │ 202301    │ 516666677 │ 4.01 GiB   │          1 │ -- optimized part
+│ default   │ 202302    │ 466666657 │ 3.64 GiB   │         13 │
+│ default   │ 202303    │  16666666 │ 138.36 MiB │         10 │
+└───────────┴───────────┴───────────┴────────────┴────────────┘
 ```
