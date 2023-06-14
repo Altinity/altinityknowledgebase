@@ -172,7 +172,7 @@ select name, formatReadableSize(free_space) free_space, formatReadableSize(total
 
 ## example with an existing table
 
-The `mydata` table without defined `storage_policy`, it means that `storage_policy=default`, `volume=default`, `disk=default`.
+The `mydata` table is created without the explicitly defined `storage_policy`, it means that implicitly `storage_policy=default` / `volume=default` / `disk=default`.
 
 ```sql
 select disk_name, partition, sum(rows), formatReadableSize(sum(bytes_on_disk)) size, count() part_count 
@@ -189,6 +189,7 @@ order by partition;
 └───────────┴───────────┴───────────┴────────────┴────────────┘
 
 -- Let's change the storage policy, this command instant and changes only metadata of the table, and possible because the new storage policy and the old has the volume `default`.
+
 alter table mydata modify setting storage_policy = 's3tiered';
 
 0 rows in set. Elapsed: 0.057 sec.
@@ -197,7 +198,7 @@ alter table mydata modify setting storage_policy = 's3tiered';
 ### straightforward (heavy) approach
 
 ```sql
--- Let's add TTL, it's heavy command and take a lot time and creates the performance impact, because it reads `D` column and moves parts to s3.
+-- Let's add TTL, it's a heavy command and takes a lot time and creates the performance impact, because it reads `D` column and moves parts to s3.
 alter table mydata modify TTL D + interval 1 year to volume 's3cached';
 
 0 rows in set. Elapsed: 140.661 sec.
@@ -215,13 +216,13 @@ alter table mydata modify TTL D + interval 1 year to volume 's3cached';
 ### gentle (manual) approach
 
 ```sql
--- alter modify TTL changes only metadata of the table and only newly insterted data.
-
+-- alter modify TTL changes only metadata of the table and applied to only newly insterted data.
 set materialize_ttl_after_modify=0;
 alter table mydata modify TTL D + interval 1 year to volume 's3cached';
 0 rows in set. Elapsed: 0.049 sec.
 
 -- move data slowly partition by partition
+
 alter table mydata move partition id '202201' to volume 's3cached';
 0 rows in set. Elapsed: 49.410 sec.
 
@@ -236,6 +237,7 @@ optimize table mydata partition id '202301' final;
 0 rows in set. Elapsed: 66.551 sec.
 
 alter table mydata move partition id '202301' to volume 's3cached';
+0 rows in set. Elapsed: 33.332 sec.
 
 ┌─disk_name─┬─partition─┬─sum(rows)─┬─size───────┬─part_count─┐
 │ s3disk    │ 202201    │ 516666677 │ 4.01 GiB   │         13 │
