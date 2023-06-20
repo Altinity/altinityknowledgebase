@@ -64,3 +64,39 @@ INSERT INTO table_s3 SELECT * FROM system.numbers LIMIT 100000000;
 SELECT * FROM table_s3;
 DROP TABLE table_s3;
 ```
+
+## How to use AWS IRSA and IAM in Altinity Kubernetes clickhouse-operator to allow S3 backup without Explicit credentials 
+Install clickhouse-operator https://github.com/Altinity/clickhouse-operator/tree/master/docs/operator_installation_details.md
+
+Create Role <ROLE NAME> and IAM Policy, look details in https://docs.aws.amazon.com/emr/latest/EMR-on-EKS-DevelopmentGuide/setting-up-enable-IAM.html
+
+Create service account with annotations
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: <SERVICE ACOUNT NAME>
+  namespace: <NAMESPACE>
+  annotations:
+     eks.amazonaws.com/role-arn: arn:aws:iam::<ACCOUNT_ID>:role/<ROLE_NAME>
+```
+
+Link service account to podTemplate it will create `AWS_ROLE_ARN` and `AWS_WEB_IDENTITY_TOKEN_FILE` environment variables. 
+```yaml
+apiVersion: "clickhouse.altinity.com/v1"
+kind: "ClickHouseInstallation"
+metadata:
+  name: <NAME>
+  namespace: <NAMESPACE>
+spec:
+  defaults:
+     templates:
+       podTemplate: <POD_TEMPLATE_NAME>
+  templates:
+    podTemplates:
+      - name: <POD_TEMPLATE_NAME>
+        spec:
+          serviceAccountName: <SERVICE ACCOUNT NAME>
+          containers:
+            - name: clickhouse-backup
+```
