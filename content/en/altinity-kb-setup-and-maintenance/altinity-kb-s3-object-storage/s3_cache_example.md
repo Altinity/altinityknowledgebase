@@ -248,3 +248,66 @@ alter table mydata move partition id '202301' to volume 's3cached';
 │ default   │ 202303    │  16666666 │ 138.36 MiB │         10 │
 └───────────┴───────────┴───────────┴────────────┴────────────┘
 ```
+
+## S3 and Clickhouse start time
+
+Let's create a table with 1000 parts and move the to s3.
+```sql
+CREATE TABLE test_s3( A Int64, S String, D Date)
+ENGINE = MergeTree PARTITION BY D ORDER BY A
+SETTINGS storage_policy = 's3tiered';
+
+insert into test_s3 select number, number, toDate('2000-01-01') + intDiv(number,1e6) from numbers(1e9);
+optimize table test_s3 final settings optimize_skip_merged_partitions = 1;
+
+select disk_name, sum(rows), formatReadableSize(sum(bytes_on_disk)) size, count() part_count 
+from system.parts where table= 'test_s3' and active group by disk_name;
+┌─disk_name─┬──sum(rows)─┬─size─────┬─part_count─┐
+│ default   │ 1000000000 │ 7.64 GiB │       1000 │
+└───────────┴────────────┴──────────┴────────────┘
+
+alter table test_s3 modify ttl D + interval 1 year to disk 's3disk';
+
+select disk_name, sum(rows), formatReadableSize(sum(bytes_on_disk)) size, count() part_count 
+from system.parts where table= 'test_s3' and active 
+group by disk_name;
+┌─disk_name─┬─sum(rows)─┬─size─────┬─part_count─┐
+│ default   │ 755000000 │ 5.77 GiB │        755 │
+│ s3disk    │ 245000000 │ 1.87 GiB │        245 │
+└───────────┴───────────┴──────────┴────────────┘
+
+----  several minutes later ----
+
+┌─disk_name─┬──sum(rows)─┬─size─────┬─part_count─┐
+│ s3disk    │ 1000000000 │ 7.64 GiB │       1000 │
+└───────────┴────────────┴──────────┴────────────┘
+```
+
+### start time
+
+```bash
+systemctl stop clickhouse-server
+time systemctl start clickhouse-server  / real	4m26.766s
+systemctl stop clickhouse-server
+time systemctl start clickhouse-server  / real	4m24.263s
+
+cat /etc/clickhouse-server/config.d/max_part_loading_threads.xml
+<?xml version="1.0"?>
+<clickhouse>
+    <merge_tree>
+       <max_part_loading_threads>128</max_part_loading_threads>
+    </merge_tree>
+</clickhouse>
+
+systemctl stop clickhouse-server
+time systemctl start clickhouse-server / real	0m11.225s
+systemctl stop clickhouse-server
+time systemctl start clickhouse-server / real	0m10.797s
+
+       <max_part_loading_threads>256</max_part_loading_threads>
+
+systemctl stop clickhouse-server
+time systemctl start clickhouse-server / real	0m8.474s
+systemctl stop clickhouse-server
+time systemctl start clickhouse-server / real	0m8.130s
+```
