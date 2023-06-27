@@ -251,7 +251,7 @@ alter table mydata move partition id '202301' to volume 's3cached';
 
 ## S3 and Clickhouse start time
 
-Let's create a table with 1000 parts and move the to s3.
+Let's create a table with 1000 parts and move them to s3.
 ```sql
 CREATE TABLE test_s3( A Int64, S String, D Date)
 ENGINE = MergeTree PARTITION BY D ORDER BY A
