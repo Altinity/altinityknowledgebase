@@ -286,17 +286,17 @@ group by disk_name;
 ### start time
 
 ```text
-select name, value from system.merge_tree_settings where name = 'max_part_loading_threads';
+:) select name, value from system.merge_tree_settings where name = 'max_part_loading_threads';
 ┌─name─────────────────────┬─value─────┐
 │ max_part_loading_threads │ 'auto(4)' │
 └──────────────────────────┴───────────┘
 
-systemctl stop clickhouse-server
-time systemctl start clickhouse-server  / real	4m26.766s
-systemctl stop clickhouse-server
-time systemctl start clickhouse-server  / real	4m24.263s
+# systemctl stop clickhouse-server
+# time systemctl start clickhouse-server  / real	4m26.766s
+# systemctl stop clickhouse-server
+# time systemctl start clickhouse-server  / real	4m24.263s
 
-cat /etc/clickhouse-server/config.d/max_part_loading_threads.xml
+# cat /etc/clickhouse-server/config.d/max_part_loading_threads.xml
 <?xml version="1.0"?>
 <clickhouse>
     <merge_tree>
@@ -304,15 +304,15 @@ cat /etc/clickhouse-server/config.d/max_part_loading_threads.xml
     </merge_tree>
 </clickhouse>
 
-systemctl stop clickhouse-server
-time systemctl start clickhouse-server / real	0m11.225s
-systemctl stop clickhouse-server
-time systemctl start clickhouse-server / real	0m10.797s
+# systemctl stop clickhouse-server
+# time systemctl start clickhouse-server / real	0m11.225s
+# systemctl stop clickhouse-server
+# time systemctl start clickhouse-server / real	0m10.797s
 
        <max_part_loading_threads>256</max_part_loading_threads>
 
-systemctl stop clickhouse-server
-time systemctl start clickhouse-server / real	0m8.474s
-systemctl stop clickhouse-server
-time systemctl start clickhouse-server / real	0m8.130s
+# systemctl stop clickhouse-server
+# time systemctl start clickhouse-server / real	0m8.474s
+# systemctl stop clickhouse-server
+# time systemctl start clickhouse-server / real	0m8.130s
 ```
