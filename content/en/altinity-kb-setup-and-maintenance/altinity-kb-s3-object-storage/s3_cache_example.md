@@ -285,7 +285,12 @@ group by disk_name;
 
 ### start time
 
-```bash
+```text
+select name, value from system.merge_tree_settings where name = 'max_part_loading_threads';
+┌─name─────────────────────┬─value─────┐
+│ max_part_loading_threads │ 'auto(4)' │
+└──────────────────────────┴───────────┘
+
 systemctl stop clickhouse-server
 time systemctl start clickhouse-server  / real	4m26.766s
 systemctl stop clickhouse-server
