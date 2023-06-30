@@ -1,5 +1,5 @@
 ---
-title: "Example of the table at s3 with remote cache"
+title: "Example of the table at s3 with cache"
 linkTitle: "s3 cached table"
 weight: 100
 description: >-
