@@ -40,17 +40,17 @@ INSERT ... SELECT operating over the very large partition will create data parts
 ```sql
 CREATE TABLE mv_import (
   id UInt64,
-  ts SimpleAggregatingFunction(max,DateTime),  -- most fresh
-  v1 SimpleAggregatingFunction(sum,UInt64),    -- just sum
-  v2 SimpleAggregatingFunction(max,String),    -- some not empty string
-  v3 AggregatingFunction(argMax,String,ts)     -- last value
+  ts SimpleAggregatingFunction('maxState',DateTime),  -- most fresh
+  v1 SimpleAggregatingFunction('sumState',UInt64),    -- just sum
+  v2 SimpleAggregatingFunction('maxState',String),    -- some not empty string
+  v3 AggregatingFunction('argMaxState',String,ts)     -- last value
 ) ENGINE = AggregatingMergeTree()
 ORDER BY id;
 
 INSERT INTO mv_import
 SELECT id,                              -- ORDER BY column
    ts,v1,v2,                            -- state for SimpleAggregatingFunction the same as value
-   initializeAggregation(argMax,v3,ts)  -- we need to convert from values to States for columns with AggregatingFunction type
+   initializeAggregation('argMaxState',v3,ts)  -- we need to convert from values to States for columns with AggregatingFunction type
 FROM huge_table
 WHERE toYYYYMM(ts) = 202105;
 ```
