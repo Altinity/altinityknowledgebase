@@ -57,6 +57,7 @@ WHERE toYYYYMM(ts) = 202105;
 ATTACH  ...
 ```
 
+Actually, the first GROUP BY run will happen just before 1M rows will be stored on disk as a data part. You may disable that behavior by switching off [optimize_on_insert](https://clickhouse.com/docs/en/operations/settings/settings#optimize-on-insert) setting if you have heavy calculations during aggregation.
 
 
 
