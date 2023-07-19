@@ -40,10 +40,10 @@ INSERT ... SELECT operating over the very large partition will create data parts
 ```sql
 CREATE TABLE mv_import (
   id UInt64,
-  ts SimpleAggregatingFunction('maxState',DateTime),  -- most fresh
-  v1 SimpleAggregatingFunction('sumState',UInt64),    -- just sum
-  v2 SimpleAggregatingFunction('maxState',String),    -- some not empty string
-  v3 AggregatingFunction('argMaxState',String,ts)     -- last value
+  ts SimpleAggregatingFunction(max,DateTime),         -- most fresh
+  v1 SimpleAggregatingFunction(sum,UInt64),           -- just sum
+  v2 SimpleAggregatingFunction(max,String),           -- some not empty string
+  v3 AggregatingFunction(argMax,String,ts)            -- last value
 ) ENGINE = AggregatingMergeTree()
 ORDER BY id;
 
