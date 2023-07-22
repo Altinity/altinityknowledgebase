@@ -56,6 +56,11 @@ Latests version is recommended (even testing / master builds). We will be thankf
 See 
 https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/clickhouse-keeper-service/
 
+## init.d script
+
+See 
+https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/clickhouse-keeper-initd/
+
 ## Example of a simple cluster with 2 nodes of Clickhouse using built-in keeper
 
 For example you can start two Clikhouse nodes (hostname1, hostname2)
