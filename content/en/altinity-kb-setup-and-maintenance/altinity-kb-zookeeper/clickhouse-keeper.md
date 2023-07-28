@@ -11,21 +11,15 @@ Since 2021 the developement of built-in alternative for Zookeeper is happening, 
 
 See slides:  https://presentations.clickhouse.com/meetup54/keeper.pdf and video  https://youtu.be/IfgtdU1Mrm0?t=2682
 
-## Current status (last updated: September 2022)
+## Current status (last updated: July 2023)
 
-In the release 22.3 presentations, clickhouse-keeper was called 'production ready' by the ClickHouse team, but unfortunately, that was a bit too optimistic/premature.
+Since version 23.3 we recommend using clickhouse-keeper for new installations. 
 
-Indeed the essential functionality is implemented and tested in 22.3, but there are still major performance issues preventing using clickhouse-keeper on loaded systems:
+Even better if you will use the latest version of clickhouse-keeper (currently it's 23.7), and it's not necessary to use the same version of clickhouse-keeper as clickhouse itself.
 
-* https://github.com/ClickHouse/ClickHouse/issues/41045
-* https://github.com/ClickHouse/ClickHouse/issues/35712#issuecomment-1206070436
+For existing systems that currently use Apache Zookeeper, you can consider upgrading to clickhouse-keeper especially if you will upgrade clickhouse also.
 
-There is also a number of usability / operational issues:
-* https://github.com/ClickHouse/ClickHouse/issues?q=is%3Aopen+is%3Aissue+label%3Acomp-keeper 
-
-Because of the above:
-1) Altinity does not recommend using clickhouse-keeper on highly-loaded systems (as of September 2022, at least until the performance issues listed above are fixed)
-2) at the same time clickhouse-keeper should work ok for on non-loaded (or development) clusters
+But please remember that on very loaded systems the change can give no performance benefits or can sometimes lead to a worse perfomance.
 
 The development pace of keeper code is [still high](https://github.com/ClickHouse/ClickHouse/pulls?q=is%3Apr+keeper)
 so every new version should bring improvements / cover the issues, and stability/maturity grows from version to version, so 
