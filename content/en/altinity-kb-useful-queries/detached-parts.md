@@ -39,10 +39,10 @@ unexpected
 ignored
 noquorum
 merge-not-byte-identical
-mutate-not-byte-identical
+mutate-not-byte-identical - 
 broken-on-start
 clone
-covered-by-broken
+covered-by-broken  - that means that clickhouse during initialization of replicated table detected that some part is not ok, and decided to refetch it from healthy replicas. So the part itself will be detached as 'broken' and if that part was a result of merge / mutation all the previuos generations of that will be marked as covered-by-broken. If clickhouse was able to download the final part you don't need those covered-by-broken.
 ```
 
 ## See also 
