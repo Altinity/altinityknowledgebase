@@ -24,21 +24,28 @@ Async INSERTs is a ClickHouse feature tha enables batching data automatically an
 * Fixed bug which could lead to deadlock while using asynchronous inserts. See [#43233](https://github.com/ClickHouse/ClickHouse/pull/43233).
 * Async insert dedup: Support block deduplication for asynchronous inserts. Before this change, async inserts did not support deduplication, because multiple small inserts coexisted in one inserted batch. See [#38075](https://github.com/ClickHouse/ClickHouse/issues/38075) and [#43304](https://github.com/ClickHouse/ClickHouse/pull/43304).
 * Added system table `asynchronous_insert_log`. It contains information about asynchronous inserts (including results of queries in fire-and-forget mode. (with wait_for_async_insert=0)) for better introspection. See [#42040](https://github.com/ClickHouse/ClickHouse/pull/42040).
-* Support async inserts in clickhouse-client for queries with inlined data. See [#34267](https://github.com/ClickHouse/ClickHouse/pull/34267).
+* Support async inserts in clickhouse-client for queries with inlined data (Native protocol). See [#34267](https://github.com/ClickHouse/ClickHouse/pull/34267).
 * Async insert backpressure:
     - **[#47623 Back pressure for asynchronous inserts](https://github.com/ClickHouse/ClickHouse/issues/47623)**
-- for `async_insert_deduplicate`, we write lots of keys to keeper, and it's easy to exceed the txn limitation. So we add settings `async_insert_max_query_number`
- to limit the number of async inserts in a block. But it will impact on the thoughput of async inserts, so we should not consider it when duplication is disabled.
+- In order to limit the deduplication overhead when using `async_insert_deduplicate`, clickhouse writes lots of keys to keeper, and it's easy to exceed the txn limitation. So the setting `async_insert_max_query_number` is added to limit the number of async inserts in a block. This will impact on the throughput of async inserts, so this setting should not considered when duplication is disabled: `async_insert_deduplicate = 0`
     - **[#46549 enable async-insert-max-query-number only if async_insert_deduplicate](https://github.com/ClickHouse/ClickHouse/pull/46549)**
-  
+- SYSTEM FLUSH ASYNC INSERTS
+    - **[#49160 Allow to flush asynchronous insert queue](https://github.com/ClickHouse/ClickHouse/pull/49160)**
+- Fix crash when async inserts with deduplication are used for ReplicatedMergeTree tables using a nondefault merging algorithm
+    - **[Fix async insert with deduplication for ReplicatedMergeTree using merging algorithms #51676](https://github.com/ClickHouse/ClickHouse/pull/51676)**
+- Fix misbehaviour with async inserts
+    - **[Correctly disable async insert with deduplication when it's not needed #50663](https://github.com/ClickHouse/ClickHouse/pull/50663)**
 
 ## To improve observability / introspection
 
-It is not possible to relate `part_log/query_id` column with `asynchronous_insert_log/query_id` column. We need to use `query_log/query_id`:
+In 22.x versions, it is not possible to relate `part_log/query_id` column with `asynchronous_insert_log/query_id` column. We need to use `query_log/query_id`:
 
 `asynchronous_insert_log` shows up the `query_id` and `flush_query_id` of each async insert. The `query_id` from `asynchronous_insert_log` shows up in the `system.query_log` as `type = 'QueryStart'` but the same `query_id` does not show up in the `query_id` column of the `system.part_log`. Because the `query_id` column in the `part_log` is the identifier of the INSERT query that created a data part, and it seems it is for sync INSERTS but not for async inserts.
 
-So in `asynchronous_inserts` table you can check the current batch that still has not been flushed. In the `asynchronous_insert_log` you can find a log of all the async inserts executed
+So in `asynchronous_inserts` table you can check the current batch that still has not been flushed. In the `asynchronous_insert_log` you can find a log of all the async inserts executed.
+
+But in **ClickHouse 23.7.3** Flush queries for async inserts (the queries that do the final push of data) are now logged in the `system.query_log` where they appear as `query_kind = 'AsyncInsertFlush'`.
+- **[Log async insert flush queries into to system.query_log and system.processes #51160](https://github.com/ClickHouse/ClickHouse/pull/51160)**
 
 ## Metrics
 
