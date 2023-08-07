@@ -44,7 +44,7 @@ In 22.x versions, it is not possible to relate `part_log/query_id` column with `
 
 So in `asynchronous_inserts` table you can check the current batch that still has not been flushed. In the `asynchronous_insert_log` you can find a log of all the async inserts executed.
 
-But in **ClickHouse 23.7.3** Flush queries for async inserts (the queries that do the final push of data) are now logged in the `system.query_log` where they appear as `query_kind = 'AsyncInsertFlush'`.
+But in **ClickHouse 23.7** Flush queries for async inserts (the queries that do the final push of data) are now logged in the `system.query_log` where they appear as `query_kind = 'AsyncInsertFlush'`.
 - **[Log async insert flush queries into to system.query_log and system.processes #51160](https://github.com/ClickHouse/ClickHouse/pull/51160)**
 
 ## Metrics
