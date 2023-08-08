@@ -33,8 +33,8 @@ Async INSERTs is a ClickHouse feature tha enables batching data automatically an
     - **[#49160 Allow to flush asynchronous insert queue](https://github.com/ClickHouse/ClickHouse/pull/49160)**
 - Fix crash when async inserts with deduplication are used for ReplicatedMergeTree tables using a nondefault merging algorithm
     - **[Fix async insert with deduplication for ReplicatedMergeTree using merging algorithms #51676](https://github.com/ClickHouse/ClickHouse/pull/51676)**
-- Async inserts dedup not working with log_comment setting:
-    -  **[Async inserts don't work if people are using log_comment setting with different values](https://github.com/ClickHouse/ClickHouse/issues/48430)**
+- Async inserts not working with log_comment setting:
+    -  **[Async inserts dont work if people is using log_comment setting with different values](https://github.com/ClickHouse/ClickHouse/issues/48430)**
 - Fix misbehaviour with async inserts
     - **[Correctly disable async insert with deduplication when its not needed #50663](https://github.com/ClickHouse/ClickHouse/pull/50663)**
 
