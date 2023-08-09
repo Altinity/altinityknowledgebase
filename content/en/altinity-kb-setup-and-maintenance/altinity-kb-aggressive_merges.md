@@ -5,28 +5,25 @@ description: >
     Aggressive merges
 ---
 
-### Aggressive merges
 
-> Hi, our production cluster is made of pretty beefy machines (36 cores, 1TB of RAM, large NVMe disks). I would like to find out what settings I can to make merging parts more efficient. right now my biggest table ends up being 3,000 parts big after I finish my 80 min ingestion, and it takes something like 4 hours for it to come down to its final state of ~20 parts.
-> 
-> 
-> Is there any way I can dedicate more resources to merging parts?
-> 
+ 
+Q: Is there any way I can dedicate more resources to the merging process when running Clickhouse on pretty beefy machines (like 36 cores, 1TB of RAM, and large NVMe disks)?
+ 
 
-Mostly you do that by changing the level of parallelism:
+Mostly such things doing by changing the level of parallelism:
 
  1.  `background_pool_size` - how many threads will be actually doing the merge (if you can push all the server resources to do the merges, i.e. no selects will be running - you can give all the cores to that, so try increasing to 36). If you use replicated table - use the same value for `max_replicated_merges_in_queue`.
 
  2.  `background_merges_mutations_concurrency_ratio` - how many merges will be assigned (multiplier of background_pool_size), sometimes the default (2) may work against you since it will assign smaller merges, which is nice if you need to deal with real-time inserts, but is not important it you do bulk inserts and later start a lot of merges. So I would try 1.
  
- 3. `number_of_free_entries_in_pool_to_lower_max_size_of_merge` (merge_tree setting) should be changed together with background_pool_size (50-90% of that). "When there is less than a specified number of free entries in the pool (or replicated queue), start to lower the maximum size of the merge to process (or to put in the queue). This is to allow small merges to process - not filling the pool with long-running merges." . To make it really aggressive try 90-95% of background_pool_size, for ex. 34 (so you will have 34 huge merges, and 2 small ones).
+ 3. `number_of_free_entries_in_pool_to_lower_max_size_of_merge` (merge_tree setting) should be changed together with background_pool_size (50-90% of that). "When there is less than a specified number of free entries in the pool (or replicated queue), start to lower the maximum size of the merge to process (or to put in the queue). This is to allow small merges to process - not filling the pool with long-running merges."  To make it really aggressive try 90-95% of background_pool_size, for ex. 34 (so you will have 34 huge merges and 2 small ones).
 
 Additionally, you can:
 
  - control how big target parts will be created by the merges (max_bytes_to_merge_at_max_space_in_pool)
  - disable direct io for big merges (min_merge_bytes_to_use_direct_io) - direct io is often slower (it bypasses the page cache, and it is used there to prevent pushing out the often used data from the cache by the running merge).
  - on a replicated system with slow merges and a fast network you can use execute_merges_on_single_replica_time_threshold
- - analyze if vertical or horizontal merge is better / faster for your case/schema. (Vertical first merges the columns from the table ORDER BY and then other columns one by another - that normally requires less ram, and keep fewer files opened, but is more complex compared to horizontal when all columns are merged simultaneously).
+ - analyze if the Vertical or Horizontal merge is better / faster for your case/schema. (Vertical first merges the columns from the table ORDER BY and then other columns one by another - that normally requires less ram, and keep fewer files opened, but requires more complex computations compared to horizontal when all columns are merged simultaneously).
  - if you have a lot of tables - you can give also give more resources to the scheduler (the component which assigns the merges, and do some housekeeping) - background_schedule_pool_size & background_common_pool_size
  - review the schema, especially codes/compression used (they allow to reduce the size, but often can impact the merge speed significantly).
  - try to form bigger parts when doing inserts (min_insert_block_size_bytes / min_insert_block_size_rows / max_insert_block_size)
@@ -43,7 +40,7 @@ Those recommendations are NOT generic. For systems with real-time insert & selec
 TL/DR version:
 
 ```
-/etc/clickhouse-server/config.d/aggresive_merges.xml
+cat /etc/clickhouse-server/config.d/aggresive_merges.xml
 <clickhouse>
  <background_pool_size>36</background_pool_size>
  <background_schedule_pool_size>128</background_schedule_pool_size>
@@ -57,7 +54,7 @@ TL/DR version:
  </merge_tree>
 </clickhouse>
 
-/etc/clickhouse-server/users.d/aggresive_merges.xml
+cat /etc/clickhouse-server/users.d/aggresive_merges.xml
 <clickhouse> <!-- on 22.8 that should be adjusted in both places - default profile and main config -->
 <profiles>
 <default>
