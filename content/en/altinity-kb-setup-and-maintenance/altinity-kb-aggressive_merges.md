@@ -1,3 +1,10 @@
+---
+title: "Aggressive merges"
+linkTitle: "Aggressive merges"
+description: >
+    Aggressive merges
+---
+
 ### Aggressive merges
 
 > Hi, our production cluster is made of pretty beefy machines (36 cores, 1TB of RAM, large NVMe disks). I would like to find out what settings I can to make merging parts more efficient. right now my biggest table ends up being 3,000 parts big after I finish my 80 min ingestion, and it takes something like 4 hours for it to come down to its final state of ~20 parts.
@@ -12,7 +19,7 @@ Mostly you do that by changing the level of parallelism:
 
  2.  `background_merges_mutations_concurrency_ratio` - how many merges will be assigned (multiplier of background_pool_size), sometimes the default (2) may work against you since it will assign smaller merges, which is nice if you need to deal with real-time inserts, but is not important it you do bulk inserts and later start a lot of merges. So I would try 1.
  
-3. `number_of_free_entries_in_pool_to_lower_max_size_of_merge` (merge_tree setting) should be changed together with background_pool_size (50-90% of that). "When there is less than a specified number of free entries in the pool (or replicated queue), start to lower the maximum size of the merge to process (or to put in the queue). This is to allow small merges to process - not filling the pool with long-running merges." . To make it really aggressive try 90-95% of background_pool_size, for ex. 34 (so you will have 34 huge merges, and 2 small ones).
+ 3. `number_of_free_entries_in_pool_to_lower_max_size_of_merge` (merge_tree setting) should be changed together with background_pool_size (50-90% of that). "When there is less than a specified number of free entries in the pool (or replicated queue), start to lower the maximum size of the merge to process (or to put in the queue). This is to allow small merges to process - not filling the pool with long-running merges." . To make it really aggressive try 90-95% of background_pool_size, for ex. 34 (so you will have 34 huge merges, and 2 small ones).
 
 Additionally, you can:
 
