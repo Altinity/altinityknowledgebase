@@ -33,7 +33,7 @@ SELECT distinct concat('rm ', zk.block_numbers_path, zk.partition_id) FROM
         FROM clusterAllReplicas('{cluster}',system.parts)
     )
     as p ON (p.partition_id = zk.partition_id AND p.database = r.database AND p.table = r.table)
-    WHERE p.partition_id = '' 
+    WHERE p.partition_id = ''  AND zk.partition_id <> 'all'
     ORDER BY r.database, r.table, zk.block_numbers_path, zk.partition_id, p.partition_id
 ) t
 FORMAT TSVRaw;
