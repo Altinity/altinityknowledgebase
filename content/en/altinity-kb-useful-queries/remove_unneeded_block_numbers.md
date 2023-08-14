@@ -9,7 +9,7 @@ description: >-
 ## Remove block numbers from zookeeper for removed partitions
 
 ```sql
-SELECT distinct concat('rm ', zk.block_numbers_path, zk.partition_id) FROM
+SELECT distinct concat('delete ', zk.block_numbers_path, zk.partition_id) FROM
 (
     SELECT r.database, r.table, zk.block_numbers_path, zk.partition_id, p.partition_id
     FROM 
