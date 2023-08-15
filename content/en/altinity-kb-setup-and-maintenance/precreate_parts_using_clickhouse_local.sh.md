@@ -57,10 +57,10 @@ clickhouse-local --path=. --query "OPTIMIZE TABLE local.test FINAL"
 ls -la data/local/test/
 
 # we can use a bit hacky way to force it to remove inactive parts them
-clickhouse-local --path=. --query "ALTER TABLE local.test MODIFY SETTINGS old_parts_lifetime=0, cleanup_delay_period=0, cleanup_delay_period_random_add=0";
+clickhouse-local --path=. --query "ALTER TABLE local.test MODIFY SETTING old_parts_lifetime=0, cleanup_delay_period=0, cleanup_delay_period_random_add=0"
 
-## needed to give background threads time to clean inactive parts
-clickhouse-local --path=. --query "SELECT sleepEachRow(1) FROM numbers(10)"
+## needed to give background threads time to clean inactive parts (max_block_size allows to stop that quickly if needed)
+clickhouse-local --path=. --query "SELECT count() FROM numbers(100) WHERE sleepEachRow(0.1) SETTINGS max_block_size=1"
 
 ls -la data/local/test/
 clickhouse-local --path=. --query "SELECT _part,* FROM local.test ORDER BY id"
