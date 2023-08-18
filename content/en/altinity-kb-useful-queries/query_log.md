@@ -43,11 +43,11 @@ FORMAT Vertical
 -- modern Clickhouse
 SELECT
     normalized_query_hash,
-    firstLine(any(query)) query,
+    replace(substr(argMax(query, utime),1,40),'\n', ' ') query,
     count() cnt,
     sum(query_duration_ms) / 1000 AS QueriesDuration,
     sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'RealTimeMicroseconds')]) / 1000000 AS RealTime,
-    sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'UserTimeMicroseconds')]) / 1000000 AS UserTime,
+    sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'UserTimeMicroseconds')] as utime) / 1000000 AS UserTime,
     sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'SystemTimeMicroseconds')]) / 1000000 AS SystemTime,
     sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'DiskReadElapsedMicroseconds')]) / 1000000 AS DiskReadTime,
     sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'DiskWriteElapsedMicroseconds')]) / 1000000 AS DiskWriteTime,
@@ -69,7 +69,6 @@ GROUP BY GROUPING SETS ( (normalized_query_hash), () )
 ORDER BY UserTime DESC
 LIMIT 30
 settings group_by_use_nulls=1
-
 ```
 
 ## Find queries which were started but not finished at some moment in time
