@@ -38,6 +38,38 @@ GROUP BY normalized_query_hash
 ORDER BY UserTime DESC
 LIMIT 30
 FORMAT Vertical
+
+
+-- modern Clickhouse
+SELECT
+    normalized_query_hash,
+    firstLine(any(query)) query,
+    count() cnt,
+    sum(query_duration_ms) / 1000 AS QueriesDuration,
+    sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'RealTimeMicroseconds')]) / 1000000 AS RealTime,
+    sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'UserTimeMicroseconds')]) / 1000000 AS UserTime,
+    sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'SystemTimeMicroseconds')]) / 1000000 AS SystemTime,
+    sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'DiskReadElapsedMicroseconds')]) / 1000000 AS DiskReadTime,
+    sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'DiskWriteElapsedMicroseconds')]) / 1000000 AS DiskWriteTime,
+    sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'NetworkSendElapsedMicroseconds')]) / 1000000 AS NetworkSendTime,
+    sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'NetworkReceiveElapsedMicroseconds')]) / 1000000 AS NetworkReceiveTime,
+    sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'ZooKeeperWaitMicroseconds')]) / 1000000 AS ZooKeeperWaitTime,
+    sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'OSIOWaitMicroseconds')]) / 1000000 AS OSIOWaitTime,
+    sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'OSCPUWaitMicroseconds')]) / 1000000 AS OSCPUWaitTime,
+    sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'OSCPUVirtualTimeMicroseconds')]) / 1000000 AS OSCPUVirtualTime,
+    sum(read_rows) AS ReadRows,
+    formatReadableSize(sum(read_bytes)) AS ReadBytes,
+    sum(written_rows) AS WrittenTows,
+    formatReadableSize(sum(written_bytes)) AS WrittenBytes,
+    sum(result_rows) AS ResultRows,
+    formatReadableSize(sum(result_bytes)) AS ResultBytes
+FROM system.query_log
+WHERE (event_time > (now() - 3600)) AND type in (2,4) -- QueryFinish, ExceptionWhileProcessing
+GROUP BY GROUPING SETS ( (normalized_query_hash), () )
+ORDER BY UserTime DESC
+LIMIT 30
+settings group_by_use_nulls=1
+
 ```
 
 ## Find queries which were started but not finished at some moment in time
