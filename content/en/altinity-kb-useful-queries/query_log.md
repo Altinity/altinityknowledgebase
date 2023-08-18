@@ -32,7 +32,7 @@ SELECT
     sum(result_rows) AS ResultRows,
     formatReadableSize(sum(result_bytes)) AS ResultBytes
 FROM system.query_log
-WHERE (event_time > (now() - 3600)) AND type in (2,4) -- QueryFinish, ExceptionWhileProcessing
+WHERE (event_date >= today()) AND (event_time > (now() - 3600)) AND type in (2,4) -- QueryFinish, ExceptionWhileProcessing
 GROUP BY normalized_query_hash
     WITH TOTALS
 ORDER BY UserTime DESC
@@ -43,11 +43,11 @@ FORMAT Vertical
 -- modern Clickhouse
 SELECT
     normalized_query_hash,
-    replace(substr(argMax(query, utime),1,40),'\n', ' ') query,
-    count() cnt,
+    replace(substr(argMax(query, utime), 1, 40), '\n', ' ') AS query,
+    count() AS cnt,
     sum(query_duration_ms) / 1000 AS QueriesDuration,
     sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'RealTimeMicroseconds')]) / 1000000 AS RealTime,
-    sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'UserTimeMicroseconds')] as utime) / 1000000 AS UserTime,
+    sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'UserTimeMicroseconds')] AS utime) / 1000000 AS UserTime,
     sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'SystemTimeMicroseconds')]) / 1000000 AS SystemTime,
     sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'DiskReadElapsedMicroseconds')]) / 1000000 AS DiskReadTime,
     sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'DiskWriteElapsedMicroseconds')]) / 1000000 AS DiskWriteTime,
@@ -64,11 +64,14 @@ SELECT
     sum(result_rows) AS ResultRows,
     formatReadableSize(sum(result_bytes)) AS ResultBytes
 FROM system.query_log
-WHERE (event_time > (now() - 3600)) AND type in (2,4) -- QueryFinish, ExceptionWhileProcessing
-GROUP BY GROUPING SETS ( (normalized_query_hash), () )
+WHERE (event_date >= today()) AND (event_time > (now() - 3600)) AND (type IN (2, 4))
+GROUP BY
+    GROUPING SETS (
+        (normalized_query_hash),
+        ())
 ORDER BY UserTime DESC
 LIMIT 30
-settings group_by_use_nulls=1
+SETTINGS group_by_use_nulls = 1
 ```
 
 ## Find queries which were started but not finished at some moment in time
