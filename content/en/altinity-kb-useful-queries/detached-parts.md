@@ -17,15 +17,17 @@ If there is another way you could confirm that there is no data loss in the affe
 Here is a query that can help with investigations. It looks for active parts containing the same data blocks that the detached parts:
 
 ```sql
-select *, 
+SELECT *,
        concat('alter table ',database,'.',table,' drop detached part ''',a.name,''' settings allow_drop_detached=1;') as drop
-from system.detached_parts a
-left asof join 
+FROM system.detached_parts a
+ALL LEFT JOIN
 (SELECT database, table, partition_id, name, active, min_block_number, max_block_number
    FROM system.parts WHERE active
-) b on a.database=b.database and a.table=b.table and a.partition_id=b.partition_id
-   and a.max_block_number <= b.max_block_number
-order by table, min_block_number, max_block_number
+) b
+USING (database, table, partition_id)
+WHERE a.min_block_number >= b.min_block_number
+  AND a.max_block_number <= b.max_block_number
+ORDER BY table, min_block_number, max_block_number
 ```
 
 ### Other reasons
