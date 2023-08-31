@@ -53,7 +53,7 @@ SETTINGS skip_unavailable_shards = 1
 
 `skip_unavailable_shards` is necessary to query a system with some nodes are down.
 
-## Script to create DB ojects
+## Script to create DB objects
 
 ```bash
 clickhouse-client -q 'show tables from system'> list
