@@ -98,7 +98,7 @@ Q5) SELECT uniq(value_a) FROM test_delete where tenant = 1;
 DROP ROW POLICY pol1 ON test_delete;
 ```
 
-## row policy using tables subquery
+## row policy using table subquery
 
 ```sql
 create table deleted_tenants(tenant Int64) ENGINE=MergeTree order by tenant;
@@ -147,4 +147,53 @@ Q5) SELECT uniq(value_a) FROM test_delete where tenant = 1;
 │             0 │
 └───────────────┘
 1 row in set. Elapsed: 0.067 sec. Processed 20.25 million rows, 162.01 MB (301.32 million rows/s., 2.41 GB/s.)
+
+DROP ROW POLICY pol1 ON test_delete;
+DROP TABLE deleted_tenants;
+```
+
+## row policy using external dictionary
+
+```sql
+create table deleted_tenants(tenant Int64, deleted UInt8 default 1) ENGINE=MergeTree order by tenant;
+
+insert into deleted_tenants(tenant) values(1),(2),(3);
+
+CREATE DICTIONARY deleted_tenants_dict (tenant UInt64, deleted UInt8) 
+PRIMARY KEY tenant SOURCE(CLICKHOUSE(TABLE deleted_tenants)) 
+LIFETIME(600) LAYOUT(FLAT());
+
+CREATE ROW POLICY pol1 ON test_delete USING NOT dictHas('deleted_tenants_dict', tenant) TO all;
+-- btw, results are the same with inversed expression USING dictHas
+
+Q1) SELECT tenant, count() FROM test_delete GROUP BY tenant ORDER BY tenant;
+┌─tenant─┬──count()─┐
+│      0 │ 20000000 │
+│      4 │ 20000000 │
+└────────┴──────────┘
+2 rows in set. Elapsed: 0.221 sec. Processed 100.00 million rows, 800.00 MB (451.83 million rows/s., 3.61 GB/s.)
+
+Q2) SELECT uniq(value_a) FROM test_delete where tenant = 4;
+┌─uniq(value_a)─┐
+│      20016427 │
+└───────────────┘
+1 row in set. Elapsed: 0.304 sec. Processed 20.09 million rows, 861.52 MB (66.09 million rows/s., 2.83 GB/s.)
+
+Q3) SELECT max(ts) FROM test_delete where tenant = 4;
+┌─────────────max(ts)─┐
+│ 2020-04-25 17:46:39 │
+└─────────────────────┘
+1 row in set. Elapsed: 0.087 sec. Processed 20.09 million rows, 241.04 MB (230.84 million rows/s., 2.77 GB/s.)
+
+Q4) SELECT max(ts) FROM test_delete where tenant = 4 and key = 444;
+┌─────────────max(ts)─┐
+│ 2020-01-01 00:00:44 │
+└─────────────────────┘
+1 row in set. Elapsed: 0.010 sec. Processed 196.61 thousand rows, 3.93 MB (19.34 million rows/s., 386.80 MB/s.)
+
+Q5) SELECT uniq(value_a) FROM test_delete where tenant = 1;
+┌─uniq(value_a)─┐
+│             0 │
+└───────────────┘
+1 row in set. Elapsed: 0.034 sec. Processed 20.25 million rows, 162.00 MB (588.12 million rows/s., 4.70 GB/s.)
 ```
