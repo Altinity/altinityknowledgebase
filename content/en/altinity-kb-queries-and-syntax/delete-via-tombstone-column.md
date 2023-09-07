@@ -86,3 +86,81 @@ WHERE key = 400000
 │ 400000 │  2 │ totally different string │ another totally different string │ last string │         1 │
 └────────┴────┴──────────────────────────┴──────────────────────────────────┴─────────────┴───────────┘
 ```
+
+## DELETE & S3
+
+```sql
+CREATE TABLE test_delete
+(
+    `key` UInt32,
+    `value_a` String,
+    `value_b` String,
+    `value_c` String,
+    `is_deleted` UInt8 DEFAULT 0
+)
+ENGINE = MergeTree
+ORDER BY key
+SETTINGS storage_policy = 's3tiered';
+
+INSERT INTO test_delete (key, value_a, value_b, value_c) SELECT
+    number,
+    concat('some_looong_string', toString(number)),
+    concat('another_long_str', toString(number)),
+    concat('really long string', toString(arrayMap(i -> cityHash64(i*number), range(50))))
+FROM numbers(10000000);
+
+OPTIMIZE TABLE test_delete FINAL;
+
+ALTER TABLE test_delete MOVE PARTITION tuple() TO DISK 's3disk';
+
+SELECT count() FROM test_delete;
+┌──count()─┐
+│ 10000000 │
+└──────────┘
+1 row in set. Elapsed: 0.002 sec.
+```
+
+### DELETE USING `ALTER UPDATE` & `ROW POLICY`
+
+```sql
+CREATE ROW POLICY pol1 ON test_delete USING is_deleted=0 TO all;
+
+SELECT count() FROM test_delete;  -- select count() became much slower, it reads data now, not metadata
+┌──count()─┐
+│ 10000000 │
+└──────────┘
+1 row in set. Elapsed: 0.314 sec. Processed 10.00 million rows, 10.00 MB (31.84 million rows/s., 31.84 MB/s.)
+
+ALTER TABLE test_delete UPDATE is_deleted = 1 WHERE (key = 400000) settings mutations_sync = 2;
+0 rows in set. Elapsed: 1.256 sec.
+
+
+SELECT count() FROM test_delete;
+┌─count()─┐
+│ 9999999 │
+└─────────┘
+```
+
+### DELETE USING `ALTER DELETE`
+
+```sql
+ALTER TABLE test_delete DELETE WHERE (key = 400001) settings mutations_sync = 2;
+0 rows in set. Elapsed: 955.672 sec.
+
+SELECT count() FROM test_delete;
+┌─count()─┐
+│ 9999998 │
+└─────────┘
+```
+
+### DELETE USING `DELETE`
+
+```sql
+DELETE FROM test_delete WHERE (key = 400002);
+0 rows in set. Elapsed: 1.281 sec.
+
+SELECT count() FROM test_delete;
+┌─count()─┐
+│ 9999997 │
+└─────────┘
+```
