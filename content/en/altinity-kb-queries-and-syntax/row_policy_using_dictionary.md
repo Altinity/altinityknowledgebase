@@ -201,7 +201,9 @@ Q5) SELECT uniq(value_a) FROM test_delete where tenant = 1;
 ## results
 
 expression: `CREATE ROW POLICY pol1 ON test_delete USING tenant not in (1,2,3) TO all;`
+
 table subq: `CREATE ROW POLICY pol1 ON test_delete USING tenant not in deleted_tenants TO all;`
+
 ext. dict.: `CREATE ROW POLICY pol1 ON test_delete USING NOT dictHas('deleted_tenants_dict', tenant) TO all;`
 
 | Q  |  no policy | expression | table subq | ext. dict. |
