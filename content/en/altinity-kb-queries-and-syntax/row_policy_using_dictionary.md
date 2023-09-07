@@ -214,4 +214,4 @@ ext. dict.: `CREATE ROW POLICY pol1 ON test_delete USING NOT dictHas('deleted_te
 | Q4 |   0.013    | 0.011      |  0.012     |  0.010     | 
 | Q5 |            | 0.004      |  0.067     |  0.034     | 
 
-Expression in row policy seems to be fastest way.
+Expression in row policy seems to be fastest way (Q1, Q5).
