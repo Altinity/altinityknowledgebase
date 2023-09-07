@@ -171,7 +171,7 @@ Q1) SELECT tenant, count() FROM test_delete GROUP BY tenant ORDER BY tenant;
 │      0 │ 20000000 │
 │      4 │ 20000000 │
 └────────┴──────────┘
-2 rows in set. Elapsed: 0.221 sec. Processed 100.00 million rows, 800.00 MB (451.83 million rows/s., 3.61 GB/s.)
+2 rows in set. Elapsed: 0.172 sec. Processed 100.00 million rows, 800.00 MB (451.83 million rows/s., 3.61 GB/s.)
 
 Q2) SELECT uniq(value_a) FROM test_delete where tenant = 4;
 ┌─uniq(value_a)─┐
@@ -197,3 +197,19 @@ Q5) SELECT uniq(value_a) FROM test_delete where tenant = 1;
 └───────────────┘
 1 row in set. Elapsed: 0.034 sec. Processed 20.25 million rows, 162.00 MB (588.12 million rows/s., 4.70 GB/s.)
 ```
+
+## results
+
+expression: `CREATE ROW POLICY pol1 ON test_delete USING tenant not in (1,2,3) TO all;`
+table subq: `CREATE ROW POLICY pol1 ON test_delete USING tenant not in deleted_tenants TO all;`
+ext. dict.: `CREATE ROW POLICY pol1 ON test_delete USING NOT dictHas('deleted_tenants_dict', tenant) TO all;`
+
+| Q  |  no policy | expression | table subq | ext. dict. |
+|----|------------|------------|------------|------------|
+| Q1 |   0.152    | 0.103      |  0.154     |  0.172     | 
+| Q2 |   0.288    | 0.316      |  0.296     |  0.304     | 
+| Q3 |   0.068    | 0.087      |  0.085     |  0.087     | 
+| Q4 |   0.013    | 0.011      |  0.012     |  0.010     | 
+| Q5 |            | 0.004      |  0.067     |  0.034     | 
+
+Expression in row policy seems to be fastest way.
