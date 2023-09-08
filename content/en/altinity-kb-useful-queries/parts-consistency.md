@@ -73,7 +73,7 @@ left join
   select concat(replica_path,'/parts/',name) as p_path
   from system.parts inner join system.replicas using (database, table)
 ) disk on zoo.p_path = disk.p_path
-where part_disk='' and zoo.mtime <= now() - interval 6 hour
+where part_disk='' and zoo.mtime <= now() - interval 1 hour
 order by part_zoo;
 ```
 
