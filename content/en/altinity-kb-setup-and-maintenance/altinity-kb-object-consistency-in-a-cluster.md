@@ -68,12 +68,14 @@ WITH (
 SELECT database,
        dictionary,
        arrayFilter( i-> NOT has(groupArray(host),i), hosts) miss_dict,
-       arrayReduce('median', (groupArray((element_count, host)) AS ec).1 )
+       arrayReduce('min', (groupArray((element_count, host)) AS ec).1) min,
+       arrayReduce('max', (groupArray((element_count, host)) AS ec).1) max
 FROM (
         SELECT FQDN() host, database, name dictionary, element_count
         FROM clusterAllReplicas('{cluster}',system,dictionaries)
      )
 GROUP BY database, dictionary
-HAVING miss_dict <> []
+HAVING miss_dict <> [] or min <> max
 SETTINGS skip_unavailable_shards=1;
+;
 ```
