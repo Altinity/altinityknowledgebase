@@ -86,7 +86,7 @@ $ cat /etc/clickhouse-server/config.d/query_log_ttl.xml
 </clickhouse>
 ```
 
-After that you need to restart ClickHouse and drop or rename the existing system.query_log table, then CH creates a new table with these settings.
+After that you need to restart ClickHouse and *if using old clickhouse versions like 20 or less*, drop or rename the existing system.query_log table and then CH creates a new table with these settings. This is automatically done in newer versions 21+.
 
 ```sql
 RENAME TABLE system.query_log TO system.query_log_1;
@@ -119,8 +119,10 @@ $ cat /etc/clickhouse-server/config.d/query_log_ttl.xml
     </query_log>
 </clickhouse>
 ```
+💡 For the clickhouse-operator, the above method of using only the `<engine>` tag without `<ttl>` or `<partition>` is recommended, because of possible configuration clashes.
 
-After that you need to restart ClickHouse and drop or rename the existing system.query_log table, then CH creates a new table with this TTL setting.
+After that you need to restart ClickHouse and *if using old clickhouse versions like 20 or less*, drop or rename the existing system.query_log table and then CH creates a new table with these settings. This is automatically done in newer versions 21+.
+
 
 ## You can disable logging on a session level or in user’s profile (for all or specific users)
 
