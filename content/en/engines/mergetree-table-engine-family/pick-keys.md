@@ -21,7 +21,7 @@ Practical approach to create an good ORDER BY for a table:
 special variants of MergeTree may require special ORDER BY to make the record unique etc.
 7. For timeseries it usually make sense to put timestamp as latest column in ORDER BY, it helps with putting the same data near by for better locality. There is only 2 major patterns  for timestamps in ORDER BY: (..., toStartOf(Day|Hour|...)(timestamp), ..., timestamp) and (..., timestamp). First one is useful when your often query small part of table partition. (table partitioned by months and your read only 1-4 days 90% of times)
 
-Some examples or good order by
+Some examples of good order by
 ```
 ORDER BY (tenantid, site_id, utm_source, clientid, timestamp)
 ```
