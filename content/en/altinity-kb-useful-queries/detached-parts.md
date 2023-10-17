@@ -47,7 +47,10 @@ clone
 covered-by-broken  - that means that clickhouse during initialization of replicated table detected that some part is not ok, and decided to refetch it from healthy replicas. So the part itself will be detached as 'broken' and if that part was a result of merge / mutation all the previuos generations of that will be marked as covered-by-broken. If clickhouse was able to download the final part you don't need those covered-by-broken.
 ```
 
-## See also 
+## Cleaning up detached parts automatically
 
-Since 22.6 clickhouse can clean old detached files automtically
-See https://github.com/ClickHouse/ClickHouse/pull/37975/
+Since 22.6 ClickHouse can clean old detached files automtically (see https://github.com/ClickHouse/ClickHouse/pull/37975/)
+
+It is controlled by two merge_tree settings:
+* merge_tree_clear_old_broken_detached_parts_ttl_timeout_seconds -- default is 30 days (3600*24*30)
+* merge_tree_enable_clear_old_broken_detached -- default is 0 (disabled). Set it to 1 to enable automatic cleanup.
