@@ -52,5 +52,5 @@ covered-by-broken  - that means that clickhouse during initialization of replica
 Since 22.6 ClickHouse can clean old detached files automtically (see https://github.com/ClickHouse/ClickHouse/pull/37975/)
 
 It is controlled by two merge_tree settings:
-* merge_tree_clear_old_broken_detached_parts_ttl_timeout_seconds -- default is 30 days (3600*24*30)
+* merge_tree_clear_old_broken_detached_parts_ttl_timeout_seconds -- default is 30 days (3600 x 24 x 30)
 * merge_tree_enable_clear_old_broken_detached -- default is 0 (disabled). Set it to 1 to enable automatic cleanup.
