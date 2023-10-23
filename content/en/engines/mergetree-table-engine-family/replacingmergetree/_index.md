@@ -3,6 +3,8 @@ title: "ReplacingMergeTree"
 linkTitle: "ReplacingMergeTree"
 description: >
     ReplacingMergeTree
+aliases:
+  /engines/replacingmergetree
 ---
 ReplacingMergeTree is a powerful ClickHouse MergeTree engine. It is one of the techniques that can be used to guarantee unicity or exactly once delivery in ClickHouse.
 

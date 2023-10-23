@@ -3,6 +3,8 @@ title: "clickhouse-copier 20.4 - 21.6"
 linkTitle: "clickhouse-copier 20.4 - 21.6"
 description: >
     clickhouse-copier 20.4 - 21.6
+aliases:
+   /altinity-kb-setup-and-maintenance/altinity-kb-data-migration/altinity-kb-clickhouse-copier/altinity-kb-clickhouse-copier-20.4+/
 ---
 Clickhouse-copier was created to move data between clusters.
 It runs simple `INSERT…SELECT` queries and can copy data between tables with different engine parameters and between clusters with different number of shards.

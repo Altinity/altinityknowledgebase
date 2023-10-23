@@ -3,6 +3,8 @@ title: "Atomic Database Engine"
 linkTitle: "Atomic Database Engine"
 description: >
     Atomic Database Engine
+aliases:
+  /engines/altinity-kb-atomic-database-engine/altinity-kb-implementation-details
 ---
 In version 20.5 ClickHouse first introduced database engine=Atomic.
 

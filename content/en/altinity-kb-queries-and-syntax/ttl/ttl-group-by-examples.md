@@ -3,6 +3,8 @@ title: "TTL GROUP BY Examples"
 linkTitle: "TTL GROUP BY Examples"
 description: >
     TTL GROUP BY Examples
+aliases:
+  /altinity-kb-queries-and-syntax/ttl-group-by-examples
 ---
 ### Example with MergeTree table
 
