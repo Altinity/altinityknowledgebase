@@ -34,6 +34,8 @@ SELECT formatReadableSize(sum(memory_usage)) FROM system.merges;
 
 SELECT formatReadableSize(sum(memory_usage)) FROM system.processes;
 
+select formatReadableSize(sum(result_size)) FROM system.query_cache;
+
 SELECT
     initial_query_id,
     elapsed,
