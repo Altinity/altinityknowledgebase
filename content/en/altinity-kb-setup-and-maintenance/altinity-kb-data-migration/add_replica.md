@@ -45,17 +45,36 @@ To add some replicas to an existing cluster if -30TB then better to use replicat
 - Create tables `manually` and be sure macros in all replicas are aligned with the ZK path. If zk path uses `{cluster}` then this method won’t work. ZK path should use `{shard}` and `{replica}` or `{uuid}` (if databases are Atomic) only.
 
 ```sql
-SELECT concat('CREATE DATABASE "', name, '" ENGINE = ', engine, ';') FROM system.databases WHERE engine = 'Atomic' INTO OUTFILE 'databases.sql' FORMAT TSVRaw;
+-- DDL for Databases
+SELECT concat('CREATE DATABASE "', name, '" ENGINE = ', engine_full, ';') 
+FROM system.databases
+INTO OUTFILE 'databases.sql' 
+FORMAT TSVRaw;
+-- DDL for tables and views
 SELECT
-    replaceRegexpOne(replaceOne(concat(create_table_query, ';'), '(', 'ON CLUSTER \'{cluster}\' ('), 'CREATE (TABLE|VIEW|MATERIALIZED VIEW|DICTIONARY|LIVE VIEW|WINDOW VIEW)', 'CREATE \\1 IF NOT EXISTS')
+    replaceRegexpOne(replaceOne(concat(create_table_query, ';'), '(', 'ON CLUSTER \'{cluster}\' ('), 'CREATE (TABLE|DICTIONARY|VIEW|LIVE VIEW|WINDOW VIEW))', 'CREATE \\1 IF NOT EXISTS')
 FROM
     system.tables
 WHERE
     database NOT IN ('system', 'information_schema', 'INFORMATION_SCHEMA') AND
     create_table_query != '' AND
     name NOT LIKE '.inner.%%' AND
-    name NOT LIKE '.inner_id.%%'
-INTO OUTFILE '/tmp/schema.sql'
+    name NOT LIKE '.inner_id.%%' AND
+INTO OUTFILE '/tmp/schema.sql' AND STDOUT
+FORMAT TSVRaw
+SETTINGS show_table_uuid_in_table_create_query_if_not_nil=1;
+--- DDL only for materialized views
+SELECT
+    replaceRegexpOne(replaceOne(concat(create_table_query, ';'), 'TO', 'ON CLUSTER \'{cluster}\' TO'), 'CREATE MATERIALIZED VIEW', 'CREATE \\1 IF NOT EXISTS')
+FROM
+    system.tables
+WHERE
+    database NOT IN ('system', 'information_schema', 'INFORMATION_SCHEMA') AND
+    create_table_query != '' AND
+    name NOT LIKE '.inner.%%' AND
+    name NOT LIKE '.inner_id.%%' AND
+		as_select! = ''
+INTO OUTFILE '/tmp/schema.sql' AND STDOUT APPEND
 FORMAT TSVRaw
 SETTINGS show_table_uuid_in_table_create_query_if_not_nil=1;
 ```
