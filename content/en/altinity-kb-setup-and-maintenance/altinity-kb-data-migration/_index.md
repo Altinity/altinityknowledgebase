@@ -126,7 +126,7 @@ Cons:
 
 Check the details in:
 
-[Add a replica to a Cluster]({{<ref "add_replica.md" >}})
+[Add a replica to a Cluster]({{<ref "add_remove_replica.md" >}})
 
 ## See also
 

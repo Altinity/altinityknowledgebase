@@ -1,11 +1,11 @@
 ---
-title: "Add a new replica to a ClickHouse cluster"
-linkTitle: "add_replica"
+title: "Add/Remove a new replica to a ClickHouse cluster"
+linkTitle: "add_remove_replica"
 description: >
-    How to add a new replica manually and using clickhouse-backup
+    How to add/remove a new replica manually and using clickhouse-backup
 ---
 
-## ADD nodes/Replicas to existing Cluster
+## ADD nodes/Replicas to a Cluster
 
 To add some replicas to an existing cluster if -30TB then better to use replication:
 
@@ -212,3 +212,52 @@ Query id: 992cae2a-fb58-4150-a088-83273805d0c4
 
 - There are new tables in v23 `system.replicated_fetches` and `system.moves` check it out for more info.
 - if needed just stop replication using `SYSTEM STOP FETCHES` from the replicating nodes
+
+
+## REMOVE nodes/Replicas from a Cluster
+
+- It is important to know which replica/node you want to remove to avoid problems. To check it you need to connect to the replica/node you want to remove and:
+
+```sql
+SELECT DISTINCT replica_name
+FROM system.replicas
+
+┌─replica_name─┐
+│ arg_t01      │
+└──────────────┘
+```
+
+- After that we need connect to a replica different from the one that we want to remove and execute:
+
+```sql
+SYSTEM DROP REPLICA 'arg_t01'
+```
+
+- This cannot be executed on the replica we want to remove (drop local replica), please use **`DROP TABLE/DATABASE`** for that. **`DROP REPLICA`** does not drop any tables and does not remove any data or metadata from disk:
+
+```sql
+-- What happens if executing system drop replica in the local replica to remove.
+SYSTEM DROP REPLICA 'arg_t01'
+
+Elapsed: 0.017 sec. 
+
+Received exception from server (version 23.8.6):
+Code: 305. DB::Exception: Received from dnieto-zenbook.lan:9440. DB::Exception: We can't drop local replica, please use `DROP TABLE` if you want to clean the data and drop this replica. (TABLE_WAS_NOT_DROPPED)
+```
+
+- After DROP REPLCA, we need to check that the replica is gone from the list or replicas. Connect to a node and execute:
+
+```sql
+SELECT DISTINCT replica_name
+FROM system.replicas
+
+┌─replica_name─┐
+│ arg_t02      │
+│ arg_t03      │
+│ arg_t04      │
+└──────────────┘
+
+-- We should see there is no replica arg_t01
+```
+
+- Delete the replica in the cluster configuration: `remote_servers.xml` and shutdown the node/replica removed.
