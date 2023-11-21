@@ -46,6 +46,9 @@ Renaming temporary part tmp_insert_20220901-0_11_11_0 to 20220901-0_11_11_0
 Renaming temporary part tmp_insert_20221001-0_12_12_0 to 20221001-0_12_12_0
 
 
+ALTER TABLE tbl
+    MODIFY COLUMN `partition_key` Date MATERIALIZED toDate(toStartOfInterval(ts, toIntervalDay(1)));
+
 INSERT INTO tbl SELECT toDateTime(toDate('2023-01-01') + number) as ts, number as key FROM numbers(5);
 
 Renaming temporary part tmp_insert_20230101-0_13_13_0 to 20230101-0_13_13_0
