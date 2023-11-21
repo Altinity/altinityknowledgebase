@@ -224,10 +224,13 @@ FROM system.replicas
 
 ┌─replica_name─┐
 │ arg_t01      │
+│ arg_t02      │
+│ arg_t03      │
+│ arg_t04      │
 └──────────────┘
 ```
 
-- After that we need connect to a replica different from the one that we want to remove and execute:
+- After that we need connect to a replica different from the one that we want to remove (arg_tg01) and execute:
 
 ```sql
 SYSTEM DROP REPLICA 'arg_t01'
