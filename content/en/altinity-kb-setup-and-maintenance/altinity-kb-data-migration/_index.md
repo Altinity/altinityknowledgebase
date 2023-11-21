@@ -110,21 +110,23 @@ ALTER TABLE table_name FETCH PARTITION partition_expr FROM 'path-in-zookeeper'
 ```
 [alter table fetch detail]({{<ref "fetch_alter_table" >}})
 
-## Replication protocol
+## Using the replication protocol by adding a new replica
 
 Just make one more replica in another place.
 
 Pros:
 * Simple to setup
 * Data is consistent all the time automatically.
-* Low CPU and network usage.
+* Low CPU and network usage should be tuned.
 
 Cons:
 * Needs to reach both zookeeper client (2181) and ClickHouse replication ports: (`interserver_http_port` or `interserver_https_port`)
 * In case of cluster migration, zookeeper need’s to be migrated too.
-* Replication works both ways.
+* Replication works both ways so new replica should be outside the main cluster.
 
-[../altinity-kb-zookeeper/altinity-kb-zookeeper-cluster-migration.md](../altinity-kb-zookeeper/altinity-kb-zookeeper-cluster-migration.md)
+Check the details in:
+
+[Add a replica to a Cluster]({{<ref "add_remove_replica.md" >}})
 
 ## See also
 
