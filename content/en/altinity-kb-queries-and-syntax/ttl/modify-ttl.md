@@ -24,7 +24,8 @@ You can disable this step completely by using `materialize_ttl_after_modify` use
 
 
 ```sql
-ALTER TABLE tbl MODIFY TTL .... SETTINGS materialize_ttl_after_modify=0;
+SET materialize_ttl_after_modify=0;
+ALTER TABLE tbl MODIFY TTL
 ```
 
 If you will disable materialization of TTL, it does mean that all old parts will be transformed according OLD TTL rules. 
