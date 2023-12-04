@@ -62,7 +62,7 @@ https://github.com/ClickHouse/ClickHouse/blob/1b49463bd297ade7472abffbc931c4bb9b
 
 Properties of this behaviour:
 
-* Linearization of INSERTS: So both streams will get the same data after the `kafka_flush_interval_ms` and every MV will do it's logic with the same data, forming a block and inserting it into the destination table. This is the behaviour for 2 or more consumers with `kafka_thread_per_consumer = 0`.
+* Linearization of INSERTS: consumers will share 1 thread to read data from the partition to kafka buffer and each MV attached to Kafka table will have a stream (different from a thread).  So streams (MVs) will get the same data after the `kafka_flush_interval_ms` or `kafka_max_block_size` because kafka engine behaves like multiplexer, flushing the data from the buffer into every stream so every MV will do it's logic with the same data, forming a block and inserting it into the destination table.
 * If you detach a MV and populate the topic/queue, i.e. we detach the `destination_mv` the TO table `destination` won't get any message but `errors_mv` will do and process it depending on its logic. This is because they share the same consumer that is multiplexed (joined streams) by the Kafka engine, and if any of the MVs attached still is alive will read and update the offset of the topic/partition for the consumer group.
 
 
