@@ -31,9 +31,10 @@ And it will use 1 thread `[ 2385 ]`
 These streams are not threads so this is how it works:
 
 * ClickHouse will create a INSERT AST for streaming the data.
-* Create two streams and join them, so this means that there is only one thread, because 
+* Create two streams and join them in a union stream. Only insert into dependent views and expect that input blocks contain virtual columns
+* So this means that there is only one consumer and multiple streams, because 
   `kafka_thread_per_consumer = 0` and `kafka_num_consumers = 1`
-* For 1 consumer, CH will create a thread like explained in this code:
+* For 1 consumer, CH will create 1 thread like explained here:
   ```c++
     auto stream_count = thread_per_consumer ? 1 : num_created_consumers;
         sources.reserve(stream_count);
@@ -55,7 +56,13 @@ These streams are not threads so this is how it works:
         }
   ```
 
-* Linearization of INSERTS: So both streams will get the same data after the kafka_flush and every MV will do it's logic with the same data, forming a block and inserting it into the destination table. 
-* NEED TO CHECK (If you detach a MV and populate the topic/queue the `destination_mv` won't get any message and the same for errors_mv. This is because they share the same consumer that is multiplexed (joined streams) by the Kafka engine, and if any of the MVs attached still is alive will read and update the offset of the topic/partition for the consumer group)
+Details:
 
-https://github.com/ClickHouse/ClickHouse/blob/1b49463bd297ade7472abffbc931c4bb9bf213d0/src/Storages/Kafka/StorageKafka.cpp#L838
+https://github.com/ClickHouse/ClickHouse/blob/1b49463bd297ade7472abffbc931c4bb9bf213d0/src/Storages/Kafka/StorageKafka.cpp#L834
+
+Properties of this behaviour:
+
+* Linearization of INSERTS: So both streams will get the same data after the `kafka_flush_interval_ms` and every MV will do it's logic with the same data, forming a block and inserting it into the destination table. This is the behaviour for 2 or more consumers with `kafka_thread_per_consumer = 0`.
+* If you detach a MV and populate the topic/queue, i.e. we detach the `destination_mv` the TO table `destination` won't get any message but `errors_mv` will do and process it depending on its logic. This is because they share the same consumer that is multiplexed (joined streams) by the Kafka engine, and if any of the MVs attached still is alive will read and update the offset of the topic/partition for the consumer group.
+
+
