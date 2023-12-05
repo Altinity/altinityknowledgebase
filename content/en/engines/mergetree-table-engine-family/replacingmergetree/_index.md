@@ -32,7 +32,7 @@ ORDER BY <list_of_columns>
 
 ClickHouse does not guarantee that merge will fire and replace rows using ReplacingMergeTree logic. ```FINAL``` keyword should be used in order to apply merge in a query time. It works reasonably fast when PK filter is used, but maybe slow for ```SELECT *``` type of queries:
 
-See those links for reference:
+See these links for reference:
 * [FINAL clause speed](../../../altinity-kb-queries-and-syntax/altinity-kb-final-clause-speed/)
 * [Handling Real-Time Updates in ClickHouse](https://altinity.com/blog/2020/4/14/handling-real-time-updates-in-clickhouse)
 

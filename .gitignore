@@ -3,3 +3,9 @@ node_modules/
 .vscode/*
 yarn.lock
 .hugo_build.lock
+/.idea/.gitignore
+/.idea/altinityknowledgebase.iml
+/resources/_gen/assets/scss/scss/main.scss_3f90599f3717b4a4920df16fdcadce3d.content
+/resources/_gen/assets/scss/scss/main.scss_3f90599f3717b4a4920df16fdcadce3d.json
+/.idea/modules.xml
+/.idea/vcs.xml
