@@ -3,12 +3,12 @@
 {{ $linkedinurl := printf "https://www.linkedin.com/shareArticle?mini=true&url=%s&title=%s" (htmlEscape .Permalink) (htmlEscape .Title ) }}
 <div style="color: #888; line-height: 0.5;">
     <!-- 20220608 John Hummel Updated Contact Links-->
-    <p><a href="https://join.slack.com/t/altinitydbworkspace/shared_invite/zt-192cbjbrn-jMAk4aVGZSsvhv_DGUrtFw" target="_blank"><img src="/images/general/banners/altinity-docs-banner-slack.png" width="200" alt="Join the Altinity community on Slack"></a></p>
+    <p><a href="https://join.slack.com/t/altinitydbworkspace/shared_invite/zt-192cbjbrn-jMAk4aVGZSsvhv_DGUrtFw" target="_blank"><img src="/images/general/banners/slack-banner-new.png" width="200" alt="Join the Altinity community on Slack"></a></p>
 
   <p>Share on Social Media:</p>
   <span style="display:flex; flex-direction: row; justify-content: space-between; align-items: flex-start; padding-left: 10px; padding-right: 75px;">
     <a href="{{$twitterurl}}" target="_blank" class="fab fa-twitter"></a>
-    <a target="_blank" href="{{$facebookurl}}" class="fab fa-facebook"></a>
+    <a href="{{$facebookurl}}" target="_blank" class="fab fa-facebook"></a>
     <a href="{{$linkedinurl}}" target="_blank" class="fab fa-linkedin"></a>
   </span>
 </div>
