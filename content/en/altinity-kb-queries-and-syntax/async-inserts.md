@@ -28,7 +28,7 @@ Async INSERTs is a ClickHouse feature tha enables batching data automatically an
   - Check:
     - [#34267](https://github.com/ClickHouse/ClickHouse/pull/34267)
     - [#54098](https://github.com/ClickHouse/ClickHouse/issues/54098).
-  - Also new feature opened by @alexey-milovidod to use async inserts with prepared blocks like a normal insert [#54381](https://github.com/ClickHouse/ClickHouse/issues/54381) 
+  - Also new feature opened by @alexey-milovidov to use async inserts with prepared blocks like a normal insert [#54381](https://github.com/ClickHouse/ClickHouse/issues/54381) 
 * Async insert backpressure:
     - **[#47623 Back pressure for asynchronous inserts](https://github.com/ClickHouse/ClickHouse/issues/47623)**
 - In order to limit the deduplication overhead when using `async_insert_deduplicate`, clickhouse writes lots of keys to keeper, and it's easy to exceed the txn limitation. So the setting `async_insert_max_query_number` is added to limit the number of async inserts in a block. This will impact on the throughput of async inserts, so this setting should not considered when duplication is disabled: `async_insert_deduplicate = 0`
