@@ -5,54 +5,35 @@ description: >
     How Multiple MVs attached to Kafka table consume and how they are affected by kafka_num_consumers/kafka_thread_per_consumer
 ---
 
-So the basic pipeline is depicted in the schema. 
 
-![basic pipeline](https://camo.githubusercontent.com/2c746ce7620b882e8ce7b186d3fc7fdddb853f85c53d7ef1eeac06dd382ace6c/687474703a2f2f64726976652e676f6f676c652e636f6d2f75633f6578706f72743d766965772669643d317a4c57496a4964636b6c6a3838476d716e424d464f4a70726d74336a58336f57)
 
-As you created the Kafka Engine table there is only 1 partition so the kafka engine will act as a single consumer. Also we have:
+So the basic pipeline depicted is a Kafka table with 2 MVs attached. The Kafka broker has 2 topics and 4 partitions. 
+
+### kafka_thread_per_consumer = 0
+
+Kafka engine table will act as 2 consumers but only 1 thread for both consumers. For this scenario we use these settings:
 
 ```
-kafka_num_consumers = 1 (default)
-kafka_thread_per_consumer = 0 (default)
+kafka_num_consumers = 2
+kafka_thread_per_consumer = 0
 ```
 
-The same Kafka engine will create 2 streams, 1 for each MV attached:
-
+The same Kafka engine will create 2 streams, 1 for each consumer and will join them in a union stream. And it will use 1 thread `[ 2385 ]`
+This is how we can see it in the logs:
 
 ```log
-2022.11.09 17:49:34.282077 [ 2385 ] {} <Debug> StorageKafka (kafka_destination): Started streaming to 2 attached views
-2022.11.09 17:49:34.282778 [ 73593 ] {} <Debug> StorageKafka (kafka_destination): [rdk:CGRPOP] [thrd:main]: Group "test-group-2022-11-08" received op GET_SUBSCRIPTION in state wait-broker-transport (join-state init)
-2022.11.09 17:49:34.333031 [ 2385 ] {} <Warning> StorageKafka (kafka_destination): Can't get assignment. Will keep trying.
-2022.11.09 17:49:34.333598 [ 73593 ] {} <Debug> StorageKafka (kafka_destination): [rdk:CGRPOP] [thrd:main]: Group "test-group-2022-11-08" received op GET_ASSIGNMENT in state wait-broker-transport (join-state init)
+2022.11.09 17:49:34.282077 [ 2385 ] {} <Debug> StorageKafka (kafka_table): Started streaming to 2 attached views
 ```
 
-And it will use 1 thread `[ 2385 ]`
+* How ClickHouse calculates the number of threads depending on the `thread_per_consumer` setting:
 
-These streams are not threads so this is how it works:
-
-* ClickHouse will create a INSERT AST for streaming the data.
-* Create two streams and join them in a union stream. Only insert into dependent views and expect that input blocks contain virtual columns
-* So this means that there is only one consumer and multiple streams, because 
-  `kafka_thread_per_consumer = 0` and `kafka_num_consumers = 1`
-* For 1 consumer, CH will create 1 thread like explained here:
   ```c++
     auto stream_count = thread_per_consumer ? 1 : num_created_consumers;
         sources.reserve(stream_count);
         pipes.reserve(stream_count);
         for (size_t i = 0; i < stream_count; ++i)
         {
-            auto source = std::make_shared<KafkaSource>(*this, storage_snapshot, kafka_context, block_io.pipeline.getHeader().getNames(), log, block_size, false);
-            sources.emplace_back(source);
-            pipes.emplace_back(source);
-
-            // Limit read batch to maximum block size to allow DDL
-            StreamLocalLimits limits;
-
-            Poco::Timespan max_execution_time = kafka_settings->kafka_flush_interval_ms.changed
-                                          ? kafka_settings->kafka_flush_interval_ms
-                                          : getContext()->getSettingsRef().stream_flush_interval_ms;
-
-            source->setTimeLimit(max_execution_time);
+           ......
         }
   ```
 
@@ -60,9 +41,21 @@ Details:
 
 https://github.com/ClickHouse/ClickHouse/blob/1b49463bd297ade7472abffbc931c4bb9bf213d0/src/Storages/Kafka/StorageKafka.cpp#L834
 
-Properties of this behaviour:
 
-* Linearization of INSERTS: consumers will share 1 thread to read data from the partition to kafka buffer and each MV attached to Kafka table will have a stream (different from a thread).  So streams (MVs) will get the same data after the `kafka_flush_interval_ms` or `kafka_max_block_size` because kafka engine behaves like multiplexer, flushing the data from the buffer into every stream so every MV will do it's logic with the same data, forming a block and inserting it into the destination table.
-* If you detach a MV and populate the topic/queue, i.e. we detach the `destination_mv` the TO table `destination` won't get any message but `errors_mv` will do and process it depending on its logic. This is because they share the same consumer that is multiplexed (joined streams) by the Kafka engine, and if any of the MVs attached still is alive will read and update the offset of the topic/partition for the consumer group.
+Also a detailed graph of the pipeline:
+
+![thread_per_consumer0](/assets/thread_per_consumer0.png)
 
 
+### kafka_thread_per_consumer = 1
+
+Kafka engine table will act as 2 consumers and 1 thread per consumers For this scenario we use these settings:
+
+```
+kafka_num_consumers = 2
+kafka_thread_per_consumer = 1
+```
+
+Here the pipeline works like this:
+
+![thread_per_consumer1](/assets/thread_per_consumer1.png)
