@@ -46,6 +46,8 @@ Also a detailed graph of the pipeline:
 
 ![thread_per_consumer0](/assets/thread_per_consumer0.png)
 
+With this approach if the number of consumers are increased, still Kafka engine will use only 1 thread to flush. The consuming/processing rate will probably be increased but not linearly, for example 5 consumers will not consume 5 times faster. Also a good property of this approach is the `linearization` of INSERTS, which means that the order of the inserts is preserved and it is sequential. This option is good for small/medium kafka topics.
+
 
 ### kafka_thread_per_consumer = 1
 
@@ -59,3 +61,6 @@ kafka_thread_per_consumer = 1
 Here the pipeline works like this:
 
 ![thread_per_consumer1](/assets/thread_per_consumer1.png)
+
+
+With this approach the number of consumers are increased and each consumer will use a thread and so the consuming/processing rate. In this scenario it is important to remark that topic needs to have as many partitions as consumers (threads) to achieve the maximum performance. Also if the number of consumers(threads) needs to be raised to more than 16 you need to change the background pool of threads setting `background_message_broker_schedule_pool_size` to a higher value than 16 (which is the default). This option is good for large kafka topics with millions of messages per second.
