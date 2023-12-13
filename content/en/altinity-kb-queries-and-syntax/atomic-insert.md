@@ -12,7 +12,7 @@ An insert will create one part if:
 * Data is inserted into a single partition.
 * For INSERT FORMAT:
     * Number of rows is less than `max_insert_block_size` (default is `1048545`) 
-    * Parallel formatting is disabled (For TSV, TKSV, CSV, and JSONEachRow formats setting `input_format_parallel_parsing=0` is set).
+    * Parallel formatting is disabled (For TSV, TSKV, CSV, and JSONEachRow formats setting `input_format_parallel_parsing=0` is set).
 * For INSERT SELECT:
     * Number of rows is less than `max_block_size`
 * Smaller blocks are properly squashed up to the configured block size (`min_insert_block_size_rows` and `min_insert_block_size_bytes`)
