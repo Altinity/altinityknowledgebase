@@ -74,7 +74,7 @@ Example for `query_log`. It drops partitions with data older than 14 days:
 $ cat /etc/clickhouse-server/config.d/query_log_ttl.xml
 <?xml version="1.0"?>
 <clickhouse>
-    <query_log>
+    <query_log replace="1">
         <database>system</database>
         <table>query_log</table>
         <engine>ENGINE = MergeTree PARTITION BY (event_date)
