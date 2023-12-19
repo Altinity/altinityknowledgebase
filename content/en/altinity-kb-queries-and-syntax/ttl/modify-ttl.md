@@ -37,7 +37,7 @@ MATERIALIZE TTL:
 You also can disable apply TTL substep via `materialize_ttl_recalculate_only` merge_tree setting (by default it's 0, so clickhouse will apply TTL expression)
 
 ```sql
-ALTER TABLE tbl MODIFY SETTINGS materialize_ttl_recalculate_only=1;
+ALTER TABLE tbl MODIFY SETTING materialize_ttl_recalculate_only=1;
 ```
 
 It does mean, that TTL rule will not be applied during `ALTER TABLE tbl MODIFY (ADD) TTL ...` query.
