@@ -13,7 +13,10 @@ description: >
 * Since 22.8  - final doesn't read excessive data, see [https://github.com/ClickHouse/ClickHouse/pull/47801](https://github.com/ClickHouse/ClickHouse/pull/47801)
 * Since 23.5  - final use less memory, see [https://github.com/ClickHouse/ClickHouse/pull/50429](https://github.com/ClickHouse/ClickHouse/pull/50429)
 * Since 23.9  - final doesn't read PK columns if unneeded ie only one part in partition, see [https://github.com/ClickHouse/ClickHouse/pull/53919](https://github.com/ClickHouse/ClickHouse/pull/53919)
-
+* Since 23.12 - final applied only for interesecting ranges of parts, see [https://github.com/ClickHouse/ClickHouse/pull/58120](https://github.com/ClickHouse/ClickHouse/pull/58120)
+* Since 24.1  - final doesn't compare rows from the same part with level > 0, see [https://github.com/ClickHouse/ClickHouse/pull/58142](https://github.com/ClickHouse/ClickHouse/pull/58142)
+* Since 24.*  - final use vertical algorithm, (more cache friendly), see [https://github.com/ClickHouse/ClickHouse/pull/54366](https://github.com/ClickHouse/ClickHouse/pull/54366)
+  
 See [https://github.com/ClickHouse/ClickHouse/pull/15938](https://github.com/ClickHouse/ClickHouse/pull/15938) and [https://github.com/ClickHouse/ClickHouse/issues/11722](https://github.com/ClickHouse/ClickHouse/issues/11722)
 
 So it can work in the following way:
