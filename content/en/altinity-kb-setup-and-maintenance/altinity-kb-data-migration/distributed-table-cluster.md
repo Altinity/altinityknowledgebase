@@ -99,6 +99,18 @@ All the hostnames/FQDN from each replica/node must be accessible from both clust
                 </replica>
             </shard>
         </destination>
+        <!-- If using a LB to shift inserts you need to use user and password and create MT destination table in an all-replicated cluster config -->
+        <destination_with_lb>   
+            <shard>
+                <replica>
+                    <host>load_balancer.xxxx.com</host>
+                    <port>9440</port>
+                    <secure>1</secure>
+                    <username>user</username>
+                    <password>pass</password>
+                </replica>
+            </shard>
+        </destination_with_lb>
    </remote_servers>
 </clickhouse>
 ```
