@@ -157,7 +157,7 @@ FORMAT PrettyCompactMonoBlock;
 ```sql
 WITH 
     now() - INTERVAL 24 HOUR AS min_time,  -- you can adjust that
-    now() AS max_time,   -- you can adjust that
+    now() AS max_time   -- you can adjust that
 SELECT
     trace_type,
     count(),
