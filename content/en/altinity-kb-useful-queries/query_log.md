@@ -1,6 +1,6 @@
 ---
-title: "Handy queries for a system.query_log"
-linkTitle: "Handy queries for a system.query_log"
+title: "Handy queries for system.query_log"
+linkTitle: "Handy queries for system.query_log"
 weight: 100
 description: >-
      Handy queries for a system.query_log.
