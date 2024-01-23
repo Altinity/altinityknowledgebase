@@ -11,7 +11,7 @@ How to create ORDER BY suitable for filtering over two different columns in two 
 {{% /alert %}}
 
 
-### How to create ORDER BY suitable for filtering over two different columns in two different queries
+## How to create ORDER BY suitable for filtering over two different columns in two different queries
 
 Suppose we have telecom CDR data in which A party calls B party. Each data row consists of A party details : event_timestamp, A msisdn , A imei, A Imsi , A start location, A end location , B msisdn, B imei, B imsi , B start location, B end location and some other meta data.
  
@@ -31,9 +31,10 @@ and both A & B are high-cardinality values
 
 Clickhouse primary skip index (ORDER BY/PRIMARY KEY)  work great when you always include leading ORDER BY columns in WHERE filter.  There is an exceptions for low-cardinality columns and high-correlated values, but here is another case.  A & B both high cardinality and seems that their correlation is at medium level (you may check that).
 
-Solutions:
+Various solutions exist, and their effectiveness largely depends on the interdependence of column data. It is necessary to test all solutions on actual data.
 
-1. ORDER BY + additional Skip Index
+
+### ORDER BY + additional Skip Index
 
 ```sql
 create table X (
@@ -49,7 +50,7 @@ order by (toStartOfDay(ts),A,B);
 
 bloom_filter index type instead of min_max could work fine in some situations.
 
-2. reverse index as a table or projection
+### Reverse index as a projection
 
 ```sql
 create table X (
@@ -69,9 +70,12 @@ where A in (select A from X where B='....' and ts between ...)
   and B='...' and ts between ... ;
 ```
 
-3. mortonEncode (available from 23.10) 
+Separate table with Materialized View also can be used the same way.
 
-Not give the priority neither A nor B, but create table’s ordering suitable for both.
+
+### mortonEncode (available from 23.10) 
+
+Not give the priority neither A nor B, but distribute indexing efficiancy between all of them.
 
  * https://github.com/ClickHouse/ClickHouse/issues/41195
  * https://www.youtube.com/watch?v=5GR1J4T4_d8
@@ -90,5 +94,27 @@ select * from X where A = '0123456789' and ts between ...;
 select * from X where B = '0123456789' and ts between ...;
 ```
 
-It need to be checked all 3 solution on a real data.
+###  mortonEncode with non UInt columns
+   
+mortonEncode function requires UInt columns, but sometimes diffent column types are needed (like String or ipv6).  In such a case cityHash64 function can be used both for inserting and quering:
+
+```
+create table X (
+    A IPv6,
+    B IPv6,
+    AA alias cityHash64(A),
+    BB alias cityHash64(B),
+    ts DateTime materialized now()
+) engine = MergeTree
+partition by toYYYYMM(ts)
+order by 
+(toStartOfDay(ts),mortonEncode(cityHash64(A),cityHash64(B)))
+;
+
+insert into X values ('fd7a:115c:a1e0:ab12:4843:cd96:624c:9a17','fd7a:115c:a1e0:ab12:4843:cd96:624c:9a17')
+
+select * from X where cityHash64(toIPv6('fd7a:115c:a1e0:ab12:4843:cd96:624c:9a17')) =  AA;
+```
+   
+
 
