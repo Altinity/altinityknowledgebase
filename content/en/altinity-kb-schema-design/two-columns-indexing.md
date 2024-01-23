@@ -6,13 +6,6 @@ description: >-
      How to create ORDER BY suitable for filtering over two different columns in two different queries
 ---
 
-{{% alert title="Info" color="info" %}}
-How to create ORDER BY suitable for filtering over two different columns in two different queries
-{{% /alert %}}
-
-
-## How to create ORDER BY suitable for filtering over two different columns in two different queries
-
 Suppose we have telecom CDR data in which A party calls B party. Each data row consists of A party details : event_timestamp, A msisdn , A imei, A Imsi , A start location, A end location , B msisdn, B imei, B imsi , B start location, B end location and some other meta data.
  
 Searches will be using one of A or B fields , for example A imsi within start and end time window.
@@ -29,9 +22,9 @@ select * from X where B = '0123456789' and ts between ...;
 
 and both A & B are high-cardinality values
 
-Clickhouse primary skip index (ORDER BY/PRIMARY KEY)  work great when you always include leading ORDER BY columns in WHERE filter.  There is an exceptions for low-cardinality columns and high-correlated values, but here is another case.  A & B both high cardinality and seems that their correlation is at medium level (you may check that).
+Clickhouse primary skip index (ORDER BY/PRIMARY KEY)  work great when you always include leading ORDER BY columns in WHERE filter.  There is an exceptions for low-cardinality columns and high-correlated values, but here is another case.  A & B both high cardinality and seems that their correlation is at medium level.
 
-Various solutions exist, and their effectiveness largely depends on the interdependence of column data. It is necessary to test all solutions on actual data.
+Various solutions exist, and their effectiveness largely depends on the correlation of different column data. It is necessary to test all solutions on actual data to select the best one.
 
 
 ### ORDER BY + additional Skip Index
