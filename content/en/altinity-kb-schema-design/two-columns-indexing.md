@@ -11,7 +11,7 @@ How to create ORDER BY suitable for filtering over two different columns in two 
 {{% /alert %}}
 
 
-# How to create ORDER BY suitable for filtering over two different columns in two different queries
+### How to create ORDER BY suitable for filtering over two different columns in two different queries
 
 Suppose we have telecom CDR data in which A party calls B party. Each data row consists of A party details : event_timestamp, A msisdn , A imei, A Imsi , A start location, A end location , B msisdn, B imei, B imsi , B start location, B end location and some other meta data.
  
@@ -47,7 +47,7 @@ partition by toYYYYMM(ts)
 order by (toStartOfDay(ts),A,B);
 ```
 
-(you may test bloom_filter index type too)
+bloom_filter index type instead of min_max could work fine in some situations.
 
 2. reverse index as a table or projection
 
@@ -73,7 +73,6 @@ where A in (select A from X where B='....' and ts between ...)
 
 Not give the priority neither A nor B, but create table’s ordering suitable for both.
 
-
  * https://github.com/ClickHouse/ClickHouse/issues/41195
  * https://www.youtube.com/watch?v=5GR1J4T4_d8
  * https://clickhouse.com/docs/en/operations/settings/settings#analyze_index_with_space_filling_curves
@@ -91,5 +90,5 @@ select * from X where A = '0123456789' and ts between ...;
 select * from X where B = '0123456789' and ts between ...;
 ```
 
-You have to check all 3 solution with a real data.
+It need to be checked all 3 solution on a real data.
 
