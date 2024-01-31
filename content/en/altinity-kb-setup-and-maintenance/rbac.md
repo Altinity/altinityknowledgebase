@@ -70,13 +70,7 @@ As `default` is used for many internal and background operations, so it is not c
 
 ## replication user
 
-The replication user is usually `default`. **There is no need to create this user unless you know what you're doing** because you need an specific user for replication. Ports 9009 and 9010(tls) provide low-level data access between servers.This ports should not be accessible from untrusted networks. You can specify credentials for authenthication between replicas. This is required when `interserver_https_port` is accessible from untrusted networks. You can do so creating a user with the `default` profile:
-
-```sql
-CREATE USER replication IDENTIFIED WITH sha256_password BY 'password' SETTINGS PROFILE 'default'
-```
-
-After this assign this user to the interserver credentials:
+The replication user is defined by `interserver_http_credential` tag. **If this tag is ommited then authentication is not used during replication.** Ports 9009 and 9010(tls) provide low-level data access between servers. This ports should not be accessible from untrusted networks. You can specify credentials for authenthication between replicas. This is required when `interserver_https_port` is accessible from untrusted networks. You can do so by defining user and password to the interserver credentials. Then replication protocol will use basic access authentication when connecting by HTTP/HTTPS to other replicas:
 
 ```xml
   <interserver_http_credentials>
@@ -84,14 +78,6 @@ After this assign this user to the interserver credentials:
       <password>password</password>
   </interserver_http_credentials>
 ```
-
-We also can use sha256 passwords like this:
-
-```xml
-<password_sha256_hex>65e84be33532fb784c48129675f9eff3a682b27168c0ea744b2cf58ee02337c5</password_sha256_hex>
-```
-
-When the `CREATE USER` query is executed in the `clickhouse-client` it will echo the `sha256` digest to copy it wherever you need
 
 ## Create users and roles
 
