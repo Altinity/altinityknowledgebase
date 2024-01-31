@@ -70,7 +70,7 @@ As `default` is used for many internal and background operations, so it is not c
 
 ## replication user
 
-The replication user is defined by `interserver_http_credential` tag. **If this tag is ommited then authentication is not used during replication.** Ports 9009 and 9010(tls) provide low-level data access between servers. This ports should not be accessible from untrusted networks. You can specify credentials for authenthication between replicas. This is required when `interserver_https_port` is accessible from untrusted networks. You can do so by defining user and password to the interserver credentials. Then replication protocol will use basic access authentication when connecting by HTTP/HTTPS to other replicas:
+The replication user is defined by `interserver_http_credential` tag. It does not relate to a ClickHouse client credentials configuration. **If this tag is ommited then authentication is not used during replication.** Ports 9009 and 9010(tls) provide low-level data access between servers. This ports should not be accessible from untrusted networks. You can specify credentials for authenthication between replicas. This is required when `interserver_https_port` is accessible from untrusted networks. You can do so by defining user and password to the interserver credentials. Then replication protocol will use basic access authentication when connecting by HTTP/HTTPS to other replicas:
 
 ```xml
   <interserver_http_credentials>
