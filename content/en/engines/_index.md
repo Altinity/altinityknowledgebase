@@ -8,13 +8,15 @@ description: >
     Learn about ClickHouse engines, from MergeTree, Atomic Database to RocksDB.
 weight: 1
 ---
-Generally: the **main** engine in Clickhouse is called [MergeTree](https://clickhouse.yandex/docs/en/table_engines/mergetree/). It allows to store and process data on one server and feel all the advantages of Clickhouse. Basic usage of MergeTree does not require any special configuration, and you can start using it 'out of the box'.
+Generally: the **main** engine in Clickhouse is called [MergeTree](/engines/mergetree-table-engine-family/). It allows to store and process data on one server and feel all the advantages of Clickhouse. Basic usage of MergeTree does not require any special configuration, and you can start using it 'out of the box'.
 
 But one server and one copy of data are not fault-tolerant - something can happen with the server itself, with datacenter availability, etc. So you need to have the replica(s) - i.e. server(s) with the same data and which can 'substitute' the original server at any moment.
 
-To have an extra copy (replica) of your data you need to use [ReplicatedMergeTree](https://clickhouse.yandex/docs/en/table_engines/replication/) engine. It can be used _instead_ of MergeTree engine, and you can always upgrade from MergeTree to ReplicatedMergeTree (and downgrade back) if you need. To use that you need to have ZooKeeper installed and running. For tests, you can use one standalone Zookeeper instance, but for production usage, you should have zookeeper ensemble at least of 3 servers.
+To have an extra copy (replica) of your data you need to use [ReplicatedMergeTree](/altinity-kb-setup-and-maintenance/altinity-kb-converting-mergetree-to-replicated/) engine. It can be used _instead_ of MergeTree engine, and you can always upgrade from MergeTree to ReplicatedMergeTree (and downgrade back) if you need. To use that you need to have 
+[ZooKeeper installed](https://docs.altinity.com/operationsguide/clickhouse-zookeeper/zookeeper-installation/)
+and running. For tests, you can use one standalone Zookeeper instance, but for production usage, you should have zookeeper ensemble at least of 3 servers.
 
-When you use ReplicatedMergeTree then the inserted data is copied automatically to all the replicas, but all the SELECTs are executed on the single server you have connected to. So you can have 5 replicas of your data, but if you will always connect to one replica - it will not 'share' / 'balance' that traffic automatically between all the replicas, one server will be loaded and the rest will generally do nothing. If you need that balancing of load between multiple replicas - you can use the internal 'loadbalancer' mechanism which is provided by [Distributed](https://clickhouse.yandex/docs/en/table_engines/distributed/) engine of Clickhouse. As an alternative in that scenario you can work without Distributed table, but with some external load balancer that will balance the requests between several replicas according to your specific rules or preferences, or just cluster-aware client which will pick one of the servers for the query time.
+When you use ReplicatedMergeTree then the inserted data is copied automatically to all the replicas, but all the SELECTs are executed on the single server you have connected to. So you can have 5 replicas of your data, but if you will always connect to one replica - it will not 'share' / 'balance' that traffic automatically between all the replicas, one server will be loaded and the rest will generally do nothing. If you need that balancing of load between multiple replicas - you can use the internal 'loadbalancer' mechanism which is provided by Distributed engine of Clickhouse. As an alternative in that scenario you can work without [Distributed table](/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/distributed-table-cluster/), but with some external load balancer that will balance the requests between several replicas according to your specific rules or preferences, or just cluster-aware client which will pick one of the servers for the query time.
 
 The Distributed engine does not store any data, but it can 'point' to the same ReplicatedMergeTree/MergeTree table on multiple servers. To use Distributed engine you need to configure `<cluser>` settings in your ClickHouse server config file.
 
@@ -33,23 +35,15 @@ You can use Distributed table for inserts, in that case, it will pass the data t
 1. start with MergeTree
 2. to have several copies of data use ReplicatedMergeTree
 3. if your data is too big to fit/ to process on one server - use sharding
-4. to balance the load between replicas and to combine the result of selects from different shards - use Distributed table.
+4. to balance the load between replicas and to combine the result of selects from different shards - use [Distributed table](/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/distributed-table-cluster/).
 
 #### More
 
-Official tutorial clarify that a bit: [https://clickhouse.yandex/tutorial.html](https://clickhouse.yandex/tutorial.html)
-
-Please check also [@alex-zaitsev](https://github.com/alex-zaitsev) presentation, which also covers that subject: [https://www.youtube.com/watch?v=zbjub8BQPyE](https://www.youtube.com/watch?v=zbjub8BQPyE)
+Please check [@alex-zaitsev](https://github.com/alex-zaitsev) presentation, which covers that subject: [https://www.youtube.com/watch?v=zbjub8BQPyE](https://www.youtube.com/watch?v=zbjub8BQPyE)
  ( Slides are here: [https://yadi.sk/i/iLA5ssAv3NdYGy](https://yadi.sk/i/iLA5ssAv3NdYGy) )
 
 P.S. Actually you can create replication without Zookeeper and ReplicatedMergeTree, just by using the Distributed table above MergeTree and internal_replication=false cluster setting, but in that case, there will no guarantee that all the replicas will have 100% the same data, so I rather would not recommend that scenario.
 
-[altinity-kb-atomic-database-engine/" ]({{<ref "altinity-kb-atomic-database-engine/" >}})
-
-[altinity-kb-embeddedrocksdb-and-dictionary.md" ]({{<ref "altinity-kb-embeddedrocksdb-and-dictionary.md" >}})
-
-[mergetree-table-engine-family/altinity-kb-nulls-in-order-by.md" ]({{<ref "mergetree-table-engine-family/altinity-kb-nulls-in-order-by.md" >}})
-
-[mergetree-table-engine-family/replacingmergetree/altinity-kb-replacingmergetree-does-not-collapse-duplicates.md" ]({{<ref "mergetree-table-engine-family/replacingmergetree/altinity-kb-replacingmergetree-does-not-collapse-duplicates.md" >}})
+See also: [ReplacingMergeTree does not collapse duplicates]({{<ref "mergetree-table-engine-family/replacingmergetree/altinity-kb-replacingmergetree-does-not-collapse-duplicates.md" >}})
 
 Based on my original answer on github: [https://github.com/ClickHouse/ClickHouse/issues/2161](https://github.com/ClickHouse/ClickHouse/issues/2161)

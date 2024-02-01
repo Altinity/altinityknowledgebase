@@ -4,7 +4,9 @@ linkTitle: "EmbeddedRocksDB & dictionary"
 description: >
     EmbeddedRocksDB & dictionary
 ---
-RocksDB is faster than MergeTree on Key/Value queries because MergeTree primary key index is sparse. Probably it's possible to speedup MergeTree by reducing `index_granularity`.
+RocksDB is faster than 
+[MergeTree](/engines/mergetree-table-engine-family/)
+on Key/Value queries because MergeTree primary key index is sparse. Probably it's possible to speedup MergeTree by reducing `index_granularity`.
 
 NVMe disk is used for the tests.
 

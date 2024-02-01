@@ -6,7 +6,8 @@ description: >
 aliases:
   /engines/replacingmergetree
 ---
-ReplacingMergeTree is a powerful ClickHouse MergeTree engine. It is one of the techniques that can be used to guarantee unicity or exactly once delivery in ClickHouse.
+[ReplacingMergeTree](https://altinity.com/blog/clickhouse-replacingmergetree-explained-the-good-the-bad-and-the-ugly)
+is a powerful ClickHouse MergeTree engine. It is one of the techniques that can be used to guarantee unicity or exactly once delivery in ClickHouse.
 
 ## General Operations
 

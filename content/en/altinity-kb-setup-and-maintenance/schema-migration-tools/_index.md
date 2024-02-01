@@ -4,7 +4,7 @@ linkTitle: "Schema migration tools for ClickHouse"
 description: >
     Schema migration tools for ClickHouse
 ---
-* golang-migrate tool - see [golang-migrate](golang-migrate)
+* golang-migrate tool - see [golang-migrate](./golang-migrate)
 * liquibase
   * [https://github.com/mediarithmics/liquibase-clickhouse](https://github.com/mediarithmics/liquibase-clickhouse)
   * [https://johntipper.org/how-to-execute-liquibase-changesets-against-clickhouse/](https://johntipper.org/how-to-execute-liquibase-changesets-against-clickhouse/)

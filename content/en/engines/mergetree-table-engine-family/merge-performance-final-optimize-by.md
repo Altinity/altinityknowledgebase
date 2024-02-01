@@ -37,7 +37,9 @@ ALTER TABLE test MODIFY SETTING enable_vertical_merge_algorithm = 0
 
 ## OPTIMIZE TABLE example FINAL DEDUPLICATE BY expr
 
-When using deduplicate feature in `OPTIMIZE FINAL`, the question is which row will remain and won't be deduped?
+When using
+[deduplicate](/altinity-kb-schema-design/row-level-deduplication/)
+feature in `OPTIMIZE FINAL`, the question is which row will remain and won't be deduped?
 
 For SELECT operations Clickhouse does not guarantee the order of the resultset unless you specify ORDER BY. This random ordering is affected by different parameters, like for example `max_threads`. 
 

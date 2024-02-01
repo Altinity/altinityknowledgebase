@@ -337,11 +337,6 @@ See https://clickhouse.com/docs/en/operations/opentelemetry/
 
 * [https://tech.marksblogg.com/clickhouse-prometheus-grafana.html](https://tech.marksblogg.com/clickhouse-prometheus-grafana.html)
 * [Key Metrics for Monitoring ClickHouse](https://sematext.com/blog/clickhouse-monitoring-key-metrics/)
-* [ClickHouse Monitoring Key Metrics to Monitor](https://dzone.com/articles/clickhouse-monitoring-key-metrics-to-monitor-semat)
-* [ClickHouse Monitoring Tools: Five Tools to Consider](https://dzone.com/articles/clickhouse-monitoring-tools-five-tools-to-consider)
-* [Monitoring ClickHouse](https://docs.instana.io/ecosystem/clickhouse/)
 * [Monitor ClickHouse with Datadog](https://www.datadoghq.com/blog/monitor-clickhouse/)
 * [Unsorted notes on monitor and Alerts](https://docs.google.com/spreadsheets/d/1K92yZr5slVQEvDglfZ88k_7bfsAKqahY9RPp_2tSdVU/edit#gid=521173956)
 * https://intl.cloud.tencent.com/document/product/1026/36887
-* https://chowdera.com/2021/03/20210301161806704Y.html
-* https://chowdera.com/2021/03/20210301160252465m.html#

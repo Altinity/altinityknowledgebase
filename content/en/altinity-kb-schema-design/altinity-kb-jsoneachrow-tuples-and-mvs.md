@@ -147,5 +147,5 @@ FROM tests.nest_map_destination
 
 See also:
 
-- [JSONExtract to parse many attributes at a time](../altinity-kb-queries-and-syntax/jsonextract-to-parse-many-attributes-at-a-time/)
-- [JSONAsString and Mat. View as JSON parser](../altinity-kb-schema-design/altinity-kb-jsonasstring-and-mat.-view-as-json-parser/)
+- [JSONExtract to parse many attributes at a time](/altinity-kb-queries-and-syntax/jsonextract-to-parse-many-attributes-at-a-time/)
+- [JSONAsString and Mat. View as JSON parser](/altinity-kb-schema-design/altinity-kb-jsonasstring-and-mat.-view-as-json-parser/)

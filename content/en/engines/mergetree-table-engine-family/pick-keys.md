@@ -6,8 +6,6 @@ description: >-
      How to pick an ORDER BY / PRIMARY KEY / PARTITION BY for the MergeTree table.
 ---
 
-## How to pick an ORDER BY / PRIMARY KEY
-
 Good `order by` usually have 3 to 5 columns, from lowest cardinal on the left (and the most important for filtering) to highest cardinal (and less important for filtering).
  
 Practical approach to create an good ORDER BY for a table:
@@ -19,7 +17,7 @@ Practical approach to create an good ORDER BY for a table:
 5. if you added already all columns important for filtering and you still not addressing a single row with you pk - you can add more columns which can help to put similar records close to each other (to improve the compression)
 6. if you have something like hierarchy / tree-like relations between the columns - put there the records from 'root' to 'leaves' for example (continent, country, cityname). This way clickhouse can do lookup by country / city even if continent is not specified (it will just 'check all continents')
 special variants of MergeTree may require special ORDER BY to make the record unique etc.
-7. For timeseries it usually make sense to put timestamp as latest column in ORDER BY, it helps with putting the same data near by for better locality. There is only 2 major patterns  for timestamps in ORDER BY: (..., toStartOf(Day|Hour|...)(timestamp), ..., timestamp) and (..., timestamp). First one is useful when your often query small part of table partition. (table partitioned by months and your read only 1-4 days 90% of times)
+7. For [timeseries](https://altinity.com/blog/2019-5-23-handling-variable-time-series-efficiently-in-clickhouse) it usually make sense to put timestamp as latest column in ORDER BY, it helps with putting the same data near by for better locality. There is only 2 major patterns  for timestamps in ORDER BY: (..., toStartOf(Day|Hour|...)(timestamp), ..., timestamp) and (..., timestamp). First one is useful when your often query small part of table partition. (table partitioned by months and your read only 1-4 days 90% of times)
 
 Some examples of good order by
 ```
@@ -225,6 +223,10 @@ PARTITION BY userid % 16
 ```
 
 For the small tables (smaller than few gigabytes) partitioning is usually not needed at all (just skip `PARTITION BY` expresssion when you create the table).
+
+### See also
+
+[How to change ORDER BY](/altinity-kb-schema-design/change-order-by/)
 
 ### ClickHouse Anti-Patterns. Learning from Users' Mistakes
 

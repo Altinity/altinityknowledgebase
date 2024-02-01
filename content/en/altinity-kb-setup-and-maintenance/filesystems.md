@@ -6,8 +6,6 @@ description: >-
      ClickHouse and different filesystems.
 ---
 
-## ClickHouse and different filesystems
-
 In general ClickHouse should work with any POSIX-compatible filesystem.
 
 * hard links and soft links support is mandatory.
@@ -48,10 +46,8 @@ Memory usage control - ZFS adaptive replacement cache (ARC) can take a lot of RA
 Tuning:
 * another potentially interesting setting is primarycache=metadata, see benchmark example: https://www.ikus-soft.com/en/blog/2018-05-23-proxmox-primarycache-all-metadata/
 * examples of tuning ZFS for MySQL https://wiki.freebsd.org/ZFSTuningGuide - perhaps some of this can also be useful (atime, recordsize) but everything needs to be carefully checked with benchmarks (I have no way).
-* best practices
-  * https://efim360.ru/zfs-best-practices-guide/
-  * https://pthree.org/2012/12/13/zfs-administration-part-viii-zpool-best-practices-and-caveats/
-
+* best practices: https://efim360.ru/zfs-best-practices-guide/
+  
 **important note**: ZFS does not support the `renameat2` command, which is used by the Atomic database engine, and
 therefore some of the Atomic functionality will not be available. 
 

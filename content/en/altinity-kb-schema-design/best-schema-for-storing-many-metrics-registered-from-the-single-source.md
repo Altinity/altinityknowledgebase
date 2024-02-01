@@ -123,10 +123,7 @@ WIP currently, ETA of first beta = autumn 2021
 
 Related links:
 
-[There is one article on our blog on this subject with some benchmarks.](https://www.altinity.com/blog/2019/5/23/handling-variable-time-series-efficiently-in-clickhouse")
+[There is one article on our blog on this subject with some benchmarks.](https://www.altinity.com/blog/2019/5/23/handling-variable-time-series-efficiently-in-clickhouse)
 
 [Slides from Percona Live](https://www.percona.com/sites/default/files/ple19-slides/day1-pm/clickhouse-for-timeseries.pdf")
 
-[Uber article about how they adapted combined approach](https://eng.uber.com/logging/")
-
-[Slides for Uber log storage approach](https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup40/uber.pdf")

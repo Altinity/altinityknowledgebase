@@ -61,11 +61,9 @@ zk_sum_follower_sync_time    0
 
 [https://github.com/apache/zookeeper/blob/master/zookeeper-docs/src/main/resources/markdown/zookeeperTools.md](https://github.com/apache/zookeeper/blob/master/zookeeper-docs/src/main/resources/markdown/zookeeperTools.md)
 
-## Alternatives for zkCli
+## Alternative for zkCli
 
 * [https://github.com/go-zkcli/zkcli](https://github.com/go-zkcli/zkcli)
-* [https://github.com/outbrain/zookeepercli](https://github.com/outbrain/zookeepercli)
-* [https://idata.co.il/2018/07/a-day-at-the-zoo-graphic-uis-for-apache-zookeeper/](https://idata.co.il/2018/07/a-day-at-the-zoo-graphic-uis-for-apache-zookeeper/)
 
 ## Web UI
 

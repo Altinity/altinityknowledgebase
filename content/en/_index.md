@@ -22,7 +22,7 @@ For more detailed information about Altinity services support, see the following
 
 * [Altinity](https://altinity.com/): Providers of Altinity.Cloud, providing SOC-2 certified support for ClickHouse.
 * [Altinity ClickHouse Documentation](https://docs.altinity.com): Detailed guides on installing and connecting ClickHouse to other services.
-* [Altinity Resources](https://altinity.com/resources/): News, blog posts, and webinars about ClickHouse and Altinity services.
+* [ClickHouse Blog](https://altinity.com/blog/): Blog posts about ClickHouse and Altinity services.
 
 The following sites are also useful references regarding ClickHouse:
 
