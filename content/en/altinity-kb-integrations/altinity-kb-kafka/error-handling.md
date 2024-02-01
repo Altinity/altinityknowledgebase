@@ -54,7 +54,7 @@ WHERE length(_error) > 0
 
 ![Table connections](/assets/Untitled-2021-08-05-1027.png)
 
-[https://github.com/ClickHouse/ClickHouse/pull/20249\#issuecomment-779054737](https://github.com/ClickHouse/ClickHouse/pull/20249\#issuecomment-779054737)
+[https://github.com/ClickHouse/ClickHouse/pull/20249](https://github.com/ClickHouse/ClickHouse/pull/20249)
 
 [https://github.com/ClickHouse/ClickHouse/pull/21850](https://github.com/ClickHouse/ClickHouse/pull/21850)
 

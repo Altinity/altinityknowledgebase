@@ -6,11 +6,9 @@ description: >-
       ODBC Driver for ClickHouse
 ---
 
-# ODBC Driver for ClickHouse.  
+[ODBC](https://docs.microsoft.com/en-us/sql/odbc/reference/odbc-overview) interface for ClickHouse RDBMS.
 
-[ODBC](https://docs.microsoft.com/en-us/sql/odbc/reference/odbc-overview) interface for [ClickHouse](https://clickhouse.yandex) RDBMS.
-
-Licensed under the [Apache 2.0](LICENSE).
+Licensed under the [Apache 2.0](https://github.com/ClickHouse/clickhouse-odbc?tab=Apache-2.0-1-ov-file#readme).
 
 ## Installation and usage
 

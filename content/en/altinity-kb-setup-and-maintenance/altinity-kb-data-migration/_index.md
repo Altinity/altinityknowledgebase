@@ -93,7 +93,7 @@ Just create the backup on server 1, upload it to server 2, and restore the backu
 
 See [https://github.com/AlexAkulov/clickhouse-backup](https://github.com/AlexAkulov/clickhouse-backup)
 
-[https://altinity.com/blog/introduction-to-clickhouse-backups-and-clickhouse-backup]("https://altinity.com/blog/introduction-to-clickhouse-backups-and-clickhouse-backup")
+[https://altinity.com/blog/introduction-to-clickhouse-backups-and-clickhouse-backup](https://altinity.com/blog/introduction-to-clickhouse-backups-and-clickhouse-backup)
 
 ## Fetch from zookeeper path
 

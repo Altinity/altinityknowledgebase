@@ -5,8 +5,6 @@ description: >
     ZooKeeper Monitoring
 ---
 
-# ZooKeeper Monitoring
-
 ## ZooKeeper
 
 ### scrape metrics
@@ -31,7 +29,6 @@ See also [https://grafana.com/grafana/dashboards?search=ZooKeeper&dataSource=pro
 
 * [https://www.datadoghq.com/blog/monitoring-kafka-performance-metrics/\#zookeeper-metrics](https://www.datadoghq.com/blog/monitoring-kafka-performance-metrics/#zookeeper-metrics)
 * [https://dzone.com/articles/monitoring-apache-zookeeper-servers](https://dzone.com/articles/monitoring-apache-zookeeper-servers) - note exhibitor is no longer maintained
-* [https://docs.signalfx.com/en/latest/integrations/integrations-reference/integrations.zookeeper.html](https://docs.signalfx.com/en/latest/integrations/integrations-reference/integrations.zookeeper.html)
 * [https://github.com/samber/awesome-prometheus-alerts/blob/c3ba0cf1997c7e952369a090aeb10343cdca4878/\_data/rules.yml\#L1146-L1170](https://github.com/samber/awesome-prometheus-alerts/blob/c3ba0cf1997c7e952369a090aeb10343cdca4878/_data/rules.yml#L1146-L1170) \(or [https://awesome-prometheus-alerts.grep.to/rules.html\#zookeeper](https://awesome-prometheus-alerts.grep.to/rules.html#zookeeper) \)
 * [https://alex.dzyoba.com/blog/prometheus-alerts/](https://alex.dzyoba.com/blog/prometheus-alerts/)
 * [https://docs.datadoghq.com/integrations/zk/?tab=host](https://docs.datadoghq.com/integrations/zk/?tab=host)

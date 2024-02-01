@@ -35,4 +35,4 @@ SELECT * FROM datastore;
 └──────┴────┴─────┘
 ```
 
-See also: [JSONExtract to parse many attributes at a time](../altinity-kb-queries-and-syntax/jsonextract-to-parse-many-attributes-at-a-time/)
+See also: [JSONExtract to parse many attributes at a time](/altinity-kb-queries-and-syntax/jsonextract-to-parse-many-attributes-at-a-time/)

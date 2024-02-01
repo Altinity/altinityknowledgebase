@@ -41,4 +41,4 @@ WHERE h IN (0, 1)
 └──────┴───────┘
 ```
 
-See also [https://cdmana.com/2021/01/20210109005922716t.html](https://cdmana.com/2021/01/20210109005922716t.html)
+See also [A primer on roaring bitmaps](https://vikramoberoi.com/a-primer-on-roaring-bitmaps-what-they-are-and-how-they-work/)

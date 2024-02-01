@@ -39,7 +39,7 @@ SELECT
 FROM tests.nest_tuple_source
 ```
 
-Also we need a destination table with an adapted structure as the source table:
+Also, we need a destination table with an adapted structure as the source table:
 
 ```sql
 CREATE TABLE tests.nest_tuple_destination
@@ -121,7 +121,7 @@ ENGINE = MergeTree
 ORDER BY tuple()
 ```
 
-By default ClickHouse will ignore unknown keys in the Map() but if you want to fail the insert if there are unknown keys then use the setting:
+By default, ClickHouse will ignore unknown keys in the Map() but if you want to fail the insert if there are unknown keys then use the setting:
 
 `input_format_skip_unknown_fields = 0`
 
@@ -147,5 +147,5 @@ FROM tests.nest_map_destination
 
 See also:
 
-- [JSONExtract to parse many attributes at a time](../altinity-kb-queries-and-syntax/jsonextract-to-parse-many-attributes-at-a-time/)
-- [JSONAsString and Mat. View as JSON parser](../altinity-kb-schema-design/altinity-kb-jsonasstring-and-mat.-view-as-json-parser/)
+- [JSONExtract to parse many attributes at a time](/altinity-kb-queries-and-syntax/jsonextract-to-parse-many-attributes-at-a-time/)
+- [JSONAsString and Mat. View as JSON parser](/altinity-kb-schema-design/altinity-kb-jsonasstring-and-mat.-view-as-json-parser/)
