@@ -20,13 +20,13 @@ When you use ReplicatedMergeTree then the inserted data is copied automatically 
 
 The Distributed engine does not store any data, but it can 'point' to the same ReplicatedMergeTree/MergeTree table on multiple servers. To use Distributed engine you need to configure `<cluser>` settings in your ClickHouse server config file.
 
-So let's say you have 3 replicas of table `my_replicated_data` with ReplicatedMergeTree engine. You can create a table with Distrtibuted engine called `my_distributed_replicated_data` which will 'point' to all of that 3 servers, and when you will select from that `my_distributed_replicated_data table` the select will be forwarded and executed on one of the replicas. So in that scenario, each replica will get 1/3 of requests (but each request still will be fully executed on one chosen replica).
+So let's say you have 3 replicas of table `my_replicated_data` with ReplicatedMergeTree engine. You can create a table with Distributed engine called `my_distributed_replicated_data` which will 'point' to all of that 3 servers, and when you will select from that `my_distributed_replicated_data table` the select will be forwarded and executed on one of the replicas. So in that scenario, each replica will get 1/3 of requests (but each request still will be fully executed on one chosen replica).
 
 All that is great, and will work well while one copy of your data is fitting on a single physical server, and can be processed by the resources of one server. When you have too much data to be stored/processed on one server - you need to use sharding (it's just a way to split the data into smaller parts). Sharding is the mechanism also provided by Distributed engine.
 
 With sharding data is divided into parts (shards) according to some sharding key. You can just use random distribution, so let's say - throw a coin to decide on each of the servers the data should be stored, or you can use some 'smarter' sharding scheme, to make the data connected to the same subject (let's say to the same customer) stored on one server, and to another subject on another. So in that case all the shards should be requested at the same time and later the 'common' result should be calculated.
 
-In ClickHouse each shard works independently and process its' part of data, inside each shard replication can work. And later to query all the shards at the same time and combine the final result - Distributed engine is used. So Distributed work as load balancer inside each shard, and can combine the data coming from different shards together to make the 'common' result.
+In ClickHouse each shard works independently and process its part of data, inside each shard replication can work. And later to query all the shards at the same time and combine the final result - Distributed engine is used. So Distributed work as load balancer inside each shard, and can combine the data coming from different shards together to make the 'common' result.
 
 You can use Distributed table for inserts, in that case, it will pass the data to one of the shards according to the sharding key. Or you can insert to the underlying table on one of the shards bypassing the Distributed table.
 
@@ -42,7 +42,7 @@ You can use Distributed table for inserts, in that case, it will pass the data t
 Please check [@alex-zaitsev](https://github.com/alex-zaitsev) presentation, which covers that subject: [https://www.youtube.com/watch?v=zbjub8BQPyE](https://www.youtube.com/watch?v=zbjub8BQPyE)
  ( Slides are here: [https://yadi.sk/i/iLA5ssAv3NdYGy](https://yadi.sk/i/iLA5ssAv3NdYGy) )
 
-P.S. Actually you can create replication without Zookeeper and ReplicatedMergeTree, just by using the Distributed table above MergeTree and internal_replication=false cluster setting, but in that case, there will no guarantee that all the replicas will have 100% the same data, so I rather would not recommend that scenario.
+P.S. Actually you can create replication without Zookeeper and ReplicatedMergeTree, just by using the Distributed table above MergeTree and internal_replication=false cluster setting, but in that case, there will be no guarantee that all the replicas will have 100% the same data, so I rather would not recommend that scenario.
 
 See also: [ReplacingMergeTree does not collapse duplicates]({{<ref "mergetree-table-engine-family/replacingmergetree/altinity-kb-replacingmergetree-does-not-collapse-duplicates.md" >}})
 
