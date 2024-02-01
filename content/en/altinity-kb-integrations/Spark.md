@@ -57,7 +57,7 @@ Arrays, Higher-order functions, machine learning, integration with lot of differ
 * Spark + ClickHouse: not a fight, but a symbiosis (Russian) https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup28/spark_and_clickhouse.pdf (russian)
 * Using a bunch of ClickHouse and Spark in MFI Soft (Russian) https://www.youtube.com/watch?v=ID8eTnmag0s (russian)
 * Spark read and write ClickHouse (Chinese: Spark读写ClickHouse) https://yerias.github.io/2020/12/08/clickhouse/9/#Jdbc%E6%93%8D%E4%BD%9Cclickhouse
-* Spark JDBC write clickhouse operation summary (Chinese: Spark JDBC 写 clickhouse 操作总结) https://www.jianshu.com/p/43f78c8a025b?hmsr=toutiao.io&utm_campaign=toutiao.io&utm_medium=toutiao.io&utm_source=toutiao.io  https://toutiao.io/posts/m63yw89/preview
+* Spark JDBC write clickhouse operation summary (Chinese: Spark JDBC 写 clickhouse 操作总结) https://www.jianshu.com/p/43f78c8a025b?hmsr=toutiao.io&utm_campaign=toutiao.io&utm_medium=toutiao.io&utm_source=toutiao.io  
 * Spark-sql is based on Clickhouse's DataSourceV2 data source extension (Chinese: spark-sql基于Clickhouse的DataSourceV2数据源扩展)
 https://www.cnblogs.com/mengyao/p/4689866.html  
 * Alibaba integration instructions (English) https://www.alibabacloud.com/help/doc-detail/191192.htm 
