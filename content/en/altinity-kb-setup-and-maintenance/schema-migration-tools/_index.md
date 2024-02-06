@@ -4,6 +4,8 @@ linkTitle: "Schema migration tools for ClickHouse"
 description: >
     Schema migration tools for ClickHouse
 ---
+* [atlas](https://atlasgo.io)
+  * [https://atlasgo.io/guides/clickhouse](https://atlasgo.io/guides/clickhouse)
 * golang-migrate tool - see [golang-migrate](./golang-migrate)
 * liquibase
   * [https://github.com/mediarithmics/liquibase-clickhouse](https://github.com/mediarithmics/liquibase-clickhouse)
@@ -17,7 +19,7 @@ description: >
   * [https://github.com/flyway/flyway/pull/2166](https://github.com/flyway/flyway/pull/2166) Clickhouse support (\#1772)
   * [https://github.com/flyway/flyway/pull/1773](https://github.com/flyway/flyway/pull/1773) Fixed \#1772: Add support for ClickHouse ([https://clickhouse.yandex/](https://clickhouse.yandex/))
 * [alembic](https://alembic.sqlalchemy.org/en/latest/)
-  * see https://clickhouse-sqlalchemy.readthedocs.io/en/latest/migrations.html 
+  * see https://clickhouse-sqlalchemy.readthedocs.io/en/latest/migrations.html
 * bytebase
   * [https://bytebase.com](https://bytebase.com)
 * custom tool for ClickHouse for python
@@ -27,7 +29,7 @@ description: >
 * phpMigrations
   * [https://github.com/smi2/phpMigrationsClickhouse](https://github.com/smi2/phpMigrationsClickhouse)
   * [https://habrahabr.ru/company/smi2/blog/317682/](https://habrahabr.ru/company/smi2/blog/317682/)
-* dbmate 
+* dbmate
   * [https://github.com/amacneil/dbmate#clickhouse](https://github.com/amacneil/dbmate#clickhouse)
 
 know more?
