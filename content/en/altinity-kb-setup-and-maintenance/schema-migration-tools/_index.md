@@ -10,14 +10,16 @@ description: >
 * liquibase
   * [https://github.com/mediarithmics/liquibase-clickhouse](https://github.com/mediarithmics/liquibase-clickhouse)
   * [https://johntipper.org/how-to-execute-liquibase-changesets-against-clickhouse/](https://johntipper.org/how-to-execute-liquibase-changesets-against-clickhouse/)
-* Flyway - there are a lot of PRs introducing ClickHouse support, maintainer doesn't merge them (maybe he will change his mind soon), but's it's not hard to build flyway from one of those PRs (latest at the top)
-  * [https://github.com/flyway/flyway/pull/3333](https://github.com/flyway/flyway/pull/3333) Сlickhouse support
-  * [https://github.com/flyway/flyway/pull/3134](https://github.com/flyway/flyway/pull/3134) Сlickhouse support
-  * [https://github.com/flyway/flyway/pull/3133](https://github.com/flyway/flyway/pull/3133) Add support clickhouse
-  * [https://github.com/flyway/flyway/pull/2981](https://github.com/flyway/flyway/pull/2981) Clickhouse replicated
-  * [https://github.com/flyway/flyway/pull/2640](https://github.com/flyway/flyway/pull/2640) Yet another ClickHouse support
-  * [https://github.com/flyway/flyway/pull/2166](https://github.com/flyway/flyway/pull/2166) Clickhouse support (\#1772)
-  * [https://github.com/flyway/flyway/pull/1773](https://github.com/flyway/flyway/pull/1773) Fixed \#1772: Add support for ClickHouse ([https://clickhouse.yandex/](https://clickhouse.yandex/))
+* Flyway
+  * [Official community supported plugin](https://documentation.red-gate.com/flyway/flyway-cli-and-api/supported-databases/clickhouse-database) [git](https://github.com/flyway/flyway-community-db-support/tree/main/flyway-database-clickhouse)
+  * Old pull requests (latest at the top):
+    * [https://github.com/flyway/flyway/pull/3333](https://github.com/flyway/flyway/pull/3333) Сlickhouse support
+    * [https://github.com/flyway/flyway/pull/3134](https://github.com/flyway/flyway/pull/3134) Сlickhouse support
+    * [https://github.com/flyway/flyway/pull/3133](https://github.com/flyway/flyway/pull/3133) Add support clickhouse
+    * [https://github.com/flyway/flyway/pull/2981](https://github.com/flyway/flyway/pull/2981) Clickhouse replicated
+    * [https://github.com/flyway/flyway/pull/2640](https://github.com/flyway/flyway/pull/2640) Yet another ClickHouse support
+    * [https://github.com/flyway/flyway/pull/2166](https://github.com/flyway/flyway/pull/2166) Clickhouse support (\#1772)
+    * [https://github.com/flyway/flyway/pull/1773](https://github.com/flyway/flyway/pull/1773) Fixed \#1772: Add support for ClickHouse ([https://clickhouse.yandex/](https://clickhouse.yandex/))
 * [alembic](https://alembic.sqlalchemy.org/en/latest/)
   * see https://clickhouse-sqlalchemy.readthedocs.io/en/latest/migrations.html
 * bytebase
