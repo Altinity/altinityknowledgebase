@@ -31,3 +31,8 @@ You may want to adjust those depending on your scenario:
 ## See also
 
 [https://github.com/ClickHouse/ClickHouse/pull/11388](https://github.com/ClickHouse/ClickHouse/pull/11388)
+
+## Disable at-least-once delivery 
+
+`kafka_commit_every_batch` = 1 will change the loop logic mentioned above.  Consumed batch commited to the Kafka and the block of rows send to Materialized Views only after that.  It could be resembled as at-most-once delivery mode as prevent duplicate creation but allow loss of data in case of failures.
+
