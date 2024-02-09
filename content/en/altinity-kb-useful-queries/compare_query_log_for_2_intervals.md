@@ -70,7 +70,7 @@ FORMAT Vertical
 
 ```
 WITH 
-    '2024-02-09 00:00:00' as timestamp_of_issue,
+    toDateTime('2024-02-09 00:00:00') as timestamp_of_issue,
     event_time < timestamp_of_issue as before,
     event_time >= timestamp_of_issue as after
 select
@@ -90,4 +90,6 @@ from system.query_log
 where event_time between timestamp_of_issue - INTERVAL 3 DAY and timestamp_of_issue + INTERVAL 3 DAY
 group by h
 HAVING cnt_after > 1.1 * cnt_before OR sum_read_bytes_after > 1.2 * sum_read_bytes_before OR usertime_sum_after > 1.2 * usertime_sum_before
+ORDER BY sum_read_bytes_after - sum_read_bytes_before 
+FORMAT Vertical
 ```
