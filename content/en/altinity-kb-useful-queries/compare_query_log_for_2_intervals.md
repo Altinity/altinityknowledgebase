@@ -66,3 +66,28 @@ ORDER BY SelectedRangesAfter- SelectedRangesBefore DESC
 LIMIT 10
 FORMAT Vertical
 ```
+
+
+```
+WITH 
+    '2024-02-09 00:00:00' as timestamp_of_issue,
+    event_time < timestamp_of_issue as before,
+    event_time >= timestamp_of_issue as after
+select
+    normalized_query_hash as h,
+    any(query) as query_sample,
+    round(quantileIf(0.9)(query_duration_ms, before)) as duration_q90_before,
+    round(quantileIf(0.9)(query_duration_ms, after))  as duration_q90_after,
+    countIf(before) as cnt_before,
+    countIf(after) as cnt_after,
+    sumIf(query_duration_ms,before) as duration_sum_before,
+    sumIf(query_duration_ms,after) as duration_sum_after,
+    sumIf(ProfileEvents['UserTimeMicroseconds'], before) as usertime_sum_before,
+    sumIf(ProfileEvents['UserTimeMicroseconds'], after) as usertime_sum_after,
+    sumIf(read_bytes,before) as sum_read_bytes_before,
+    sumIf(read_bytes,after) as sum_read_bytes_after
+from system.query_log
+where event_time between timestamp_of_issue - INTERVAL 3 DAY and timestamp_of_issue + INTERVAL 3 DAY
+group by h
+HAVING cnt_after > 1.1 * cnt_before OR sum_read_bytes_after > 1.2 * sum_read_bytes_before OR usertime_sum_after > 1.2 * usertime_sum_before
+```
