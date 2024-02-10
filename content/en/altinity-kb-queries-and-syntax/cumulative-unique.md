@@ -20,6 +20,46 @@ INSERT INTO events SELECT
 FROM numbers(15);
 ```
 
+## Using window functions (starting from Clickhouse 21.3)
+
+```sql
+SELECT
+    toStartOfDay(ts) AS ts,
+    uniqExactMerge(uniqExactState(user_id)) OVER (ORDER BY ts ASC ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS uniq
+FROM events
+GROUP BY ts
+ORDER BY ts ASC
+
+┌──────────────────ts─┬─uniq─┐
+│ 2021-04-29 00:00:00 │    2 │
+│ 2021-04-30 00:00:00 │    3 │
+│ 2021-05-01 00:00:00 │    4 │
+│ 2021-05-02 00:00:00 │    5 │
+│ 2021-05-03 00:00:00 │    7 │
+└─────────────────────┴──────┘
+
+SELECT
+    ts,
+    uniqExactMerge(state) OVER (ORDER BY ts ASC ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS uniq
+FROM
+(
+    SELECT
+        toStartOfDay(ts) AS ts,
+        uniqExactState(user_id) AS state
+    FROM events
+    GROUP BY ts
+)
+ORDER BY ts ASC
+
+┌──────────────────ts─┬─uniq─┐
+│ 2021-04-29 00:00:00 │    2 │
+│ 2021-04-30 00:00:00 │    3 │
+│ 2021-05-01 00:00:00 │    4 │
+│ 2021-05-02 00:00:00 │    5 │
+│ 2021-05-03 00:00:00 │    7 │
+└─────────────────────┴──────┘
+```
+
 ## Using arrays
 
 ```sql
@@ -60,46 +100,6 @@ FROM
     GROUP BY _ts
 )
 GROUP BY ts
-ORDER BY ts ASC
-
-┌──────────────────ts─┬─uniq─┐
-│ 2021-04-29 00:00:00 │    2 │
-│ 2021-04-30 00:00:00 │    3 │
-│ 2021-05-01 00:00:00 │    4 │
-│ 2021-05-02 00:00:00 │    5 │
-│ 2021-05-03 00:00:00 │    7 │
-└─────────────────────┴──────┘
-```
-
-## Using window functions (starting from Clickhouse 21.3)
-
-```sql
-SELECT
-    toStartOfDay(ts) AS ts,
-    uniqExactMerge(uniqExactState(user_id)) OVER (ORDER BY ts ASC ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS uniq
-FROM events
-GROUP BY ts
-ORDER BY ts ASC
-
-┌──────────────────ts─┬─uniq─┐
-│ 2021-04-29 00:00:00 │    2 │
-│ 2021-04-30 00:00:00 │    3 │
-│ 2021-05-01 00:00:00 │    4 │
-│ 2021-05-02 00:00:00 │    5 │
-│ 2021-05-03 00:00:00 │    7 │
-└─────────────────────┴──────┘
-
-SELECT
-    ts,
-    uniqExactMerge(state) OVER (ORDER BY ts ASC ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS uniq
-FROM
-(
-    SELECT
-        toStartOfDay(ts) AS ts,
-        uniqExactState(user_id) AS state
-    FROM events
-    GROUP BY ts
-)
 ORDER BY ts ASC
 
 ┌──────────────────ts─┬─uniq─┐
