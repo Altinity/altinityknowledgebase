@@ -52,20 +52,20 @@ INTO OUTFILE 'databases.sql'
 FORMAT TSVRaw;
 -- DDL for tables and views
 SELECT
-    replaceRegexpOne(replaceOne(concat(create_table_query, ';'), '(', 'ON CLUSTER \'{cluster}\' ('), 'CREATE (TABLE|DICTIONARY|VIEW|LIVE VIEW|WINDOW VIEW))', 'CREATE \\1 IF NOT EXISTS')
+    replaceRegexpOne(replaceOne(concat(create_table_query, ';'), '(', 'ON CLUSTER \'{cluster}\' ('), 'CREATE (TABLE|DICTIONARY|VIEW|LIVE VIEW|WINDOW VIEW)', 'CREATE \\1 IF NOT EXISTS')
 FROM
     system.tables
 WHERE
     database NOT IN ('system', 'information_schema', 'INFORMATION_SCHEMA') AND
     create_table_query != '' AND
     name NOT LIKE '.inner.%%' AND
-    name NOT LIKE '.inner_id.%%' AND
+    name NOT LIKE '.inner_id.%%'
 INTO OUTFILE '/tmp/schema.sql' AND STDOUT
 FORMAT TSVRaw
 SETTINGS show_table_uuid_in_table_create_query_if_not_nil=1;
 --- DDL only for materialized views
 SELECT
-    replaceRegexpOne(replaceOne(concat(create_table_query, ';'), 'TO', 'ON CLUSTER \'{cluster}\' TO'), 'CREATE MATERIALIZED VIEW', 'CREATE \\1 IF NOT EXISTS')
+    replaceRegexpOne(replaceOne(concat(create_table_query, ';'), 'TO', 'ON CLUSTER \'{cluster}\' TO'), '(CREATE MATERIALIZED VIEW)', '\\1 IF NOT EXISTS')
 FROM
     system.tables
 WHERE
@@ -73,8 +73,8 @@ WHERE
     create_table_query != '' AND
     name NOT LIKE '.inner.%%' AND
     name NOT LIKE '.inner_id.%%' AND
-		as_select! = ''
-INTO OUTFILE '/tmp/schema.sql' AND STDOUT APPEND
+		as_select != ''
+INTO OUTFILE '/tmp/schema.sql' APPEND AND STDOUT
 FORMAT TSVRaw
 SETTINGS show_table_uuid_in_table_create_query_if_not_nil=1;
 ```
@@ -82,7 +82,7 @@ SETTINGS show_table_uuid_in_table_create_query_if_not_nil=1;
 This will generate the UUIDs in the CREATE TABLE definition, something like this:
 
 ```sql
-CREATE TABLE default.insert_test UUID '51b41170-5192-4947-b13b-d4094c511f06' (`id_order` UInt16, `id_plat` UInt32, `id_warehouse` UInt64, `id_product` UInt16, `order_type` UInt16, `order_status` String, `datetime_order` DateTime, `units` Int16, `total` Float32) ENGINE = ReplicatedMergeTree('/clickhouse/tables/{uuid}/{shard}', '{replica}') PARTITION BY tuple() ORDER BY (id_order, id_plat, id_warehouse) SETTINGS index_granularity = 8192;
+CREATE TABLE IF NOT EXISTS default.insert_test UUID '51b41170-5192-4947-b13b-d4094c511f06' ON CLUSTER '{cluster}' (`id_order` UInt16, `id_plat` UInt32, `id_warehouse` UInt64, `id_product` UInt16, `order_type` UInt16, `order_status` String, `datetime_order` DateTime, `units` Int16, `total` Float32) ENGINE = ReplicatedMergeTree('/clickhouse/tables/{uuid}/{shard}', '{replica}') PARTITION BY tuple() ORDER BY (id_order, id_plat, id_warehouse) SETTINGS index_granularity = 8192;
 ```
 
 - Copy both SQL to destination replica and execute
