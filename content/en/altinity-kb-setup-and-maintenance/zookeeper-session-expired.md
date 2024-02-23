@@ -62,8 +62,26 @@ Parts name length can be different for different tables. In average with default
 Solutions:
 1) rethink partitioning, high number of parts in table is usually [not recommended](https://kb.altinity.com/altinity-kb-schema-design/how-much-is-too-much/#number-of-parts--partitions-system-wide-across-all-databases)
 2) increase `jute.maxbuffer` on zookeeper side [to values about 8M](https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/jvm-sizes-and-garbage-collector-settings/)
-3) use IN PARITION clause for mutations (where applicable) - since [20.12](https://github.com/ClickHouse/ClickHouse/pull/13403)
+3) use IN PARTITION clause for mutations (where applicable) - since [20.12](https://github.com/ClickHouse/ClickHouse/pull/13403)
 4) switch to clickhouse-keeper
+
+> **Q. "ZooKeeper session has expired and also Operation timeout" happens when reading blocks from Zookeeper**:
+
+```
+2024.02.22 07:20:39.222171 [ 1047 ] {} <Error> ZooKeeperClient: Code: 999. Coordination::Exception: Operation timeout (no response) for request List for path: 
+/clickhouse/tables/github_events/block_numbers/20240205105000 (Operation timeout). (KEEPER_EXCEPTION), 
+2024.02.22 07:20:39.223293 [ 246 ] {} <Error> default.github_events : void DB::StorageReplicatedMergeTree::mergeSelectingTask(): 
+Code: 999. Coordination::Exception: /clickhouse/tables/github_events/block_numbers/20240205105000 (Connection loss). 
+```
+
+Sometimes these `Session expired` and `operation timeout` are common, because of merges that read all the blocks in ZK for a table and if there are many blocks (and partitions) read time can be longer than the 10 secs default [`operation timeout`](https://clickhouse.com/docs/en/operations/server-configuration-parameters/settings#server-settings_zookeeper). 
+When dropping a partition, ClickHouse never drops old block numbers from ZooKeeper, so the list grows indefinitely. It is done as a precaution against race between DROP PARTITION and INSERT. It is safe to clean those old blocks manually
+
+This is being addressed in **[#59507 Add `FORGET PARTITION` query to remove old partition nodes from](https://github.com/ClickHouse/ClickHouse/pull/59507)**
+
+Solutions:
+Manually remove old/forgotten blocks https://kb.altinity.com/altinity-kb-useful-queries/remove_unneeded_block_numbers/
+
 
 Related issues:
 - https://github.com/ClickHouse/ClickHouse/issues/16307
