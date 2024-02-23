@@ -67,14 +67,14 @@ Solutions:
 
 > **Q. "ZooKeeper session has expired and also Operation timeout" happens when reading blocks from Zookeeper**:
 
-```
+```bash
 2024.02.22 07:20:39.222171 [ 1047 ] {} <Error> ZooKeeperClient: Code: 999. Coordination::Exception: Operation timeout (no response) for request List for path: 
 /clickhouse/tables/github_events/block_numbers/20240205105000 (Operation timeout). (KEEPER_EXCEPTION), 
 2024.02.22 07:20:39.223293 [ 246 ] {} <Error> default.github_events : void DB::StorageReplicatedMergeTree::mergeSelectingTask(): 
 Code: 999. Coordination::Exception: /clickhouse/tables/github_events/block_numbers/20240205105000 (Connection loss). 
 ```
 
-Sometimes these `Session expired` and `operation timeout` are common, because of merges that read all the blocks in ZK for a table and if there are many blocks (and partitions) read time can be longer than the 10 secs default [`operation timeout`](https://clickhouse.com/docs/en/operations/server-configuration-parameters/settings#server-settings_zookeeper). 
+Sometimes these `Session expired` and `operation timeout` are common, because of merges that read all the blocks in ZooKeeper for a table and if there are many blocks (and partitions) read time can be longer than the 10 secs default [operation timeout](https://clickhouse.com/docs/en/operations/server-configuration-parameters/settings#server-settings_zookeeper). 
 When dropping a partition, ClickHouse never drops old block numbers from ZooKeeper, so the list grows indefinitely. It is done as a precaution against race between DROP PARTITION and INSERT. It is safe to clean those old blocks manually
 
 This is being addressed in **[#59507 Add `FORGET PARTITION` query to remove old partition nodes from](https://github.com/ClickHouse/ClickHouse/pull/59507)**
