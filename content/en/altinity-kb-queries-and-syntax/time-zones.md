@@ -79,6 +79,16 @@ Query id: 855453d7-eccd-44cb-9631-f63bb02a273c
 
 ```
 
+Clickhouse uses system timezone info from tzdata package if it exists, and uses own builtin tzdata if it is missing in the system.
+
+```
+cd /usr/share/zoneinfo/Canada
+ln -s ../America/Halifax A
+
+TZ=Canada/A clickhouse-local -q 'select timezone()'
+Canada/A
+```
+
 ### When the conversion using different rules happen
 
 ```sql
