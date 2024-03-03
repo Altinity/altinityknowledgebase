@@ -4,8 +4,6 @@ linkTitle: "VersionedCollapsingMergeTree"
 description: VersionedCollapsingMergeTree
 ---
 
-# VersionedCollapsingMergeTree
-
 When you have an incoming event stream with duplicates and updates you have a big challenge  building a consistent row state inside the Clickhouse table.
 
 ReplacingMergeTree is a great engine for that and there are a lot of blog posts on how to apply it for that particular purpose. But there is a serious problem - you can’t use another very important feature - aggregating rows by Materialized Views or Projections on top of the ReplacingMT table, because duplicates and updates will not be deduplicated and calculated aggregates (like sum or count) will be incorrect.  For big amounts of data, it’s become critical because aggregating raw data during report queries will take too much time.
@@ -253,9 +251,9 @@ insert into Stage(id,metric2) values (1,11), (2,12);
 select 'step2',* from Example5 final ;
 ```
 
-### Composed Primary Key
+### Complex Primary Key
 
-In the examples above I use for PK a very simple a compact column with In64 type.   When it’s possible better to go such a way.  [SnowFlakeId](https://www.notion.so/SnowFlakeID-4a5c621b1e224c96b44210da5ce9c601?pvs=21) is the best variant and can be easily created during INSERT from DateTime and hash of one or several important columns.  But sometimes it needs to have a more complicated PK as when storing data for multiple Tenant (Customer, Partners, etc) in the same table.  It’s not a problem for suggested technique  - just use all the needed columns in all filter and JOIN operations.
+In the examples above I use for PK a very simple a compact column with In64 type.   When it’s possible better to go such a way.  SnowFlakeId is the best variant and can be easily created during INSERT from DateTime and hash of one or several important columns.  But sometimes it needs to have a more complicated PK as when storing data for multiple Tenant (Customer, Partners, etc) in the same table.  It’s not a problem for suggested technique  - just use all the needed columns in all filter and JOIN operations.
 
 ```sql
 create table Example1 
