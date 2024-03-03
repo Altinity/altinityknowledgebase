@@ -177,7 +177,7 @@ with __new as ( SELECT * FROM Stage order by sign desc, updated_at desc limit 1 
                  )
     )
 select id,
-    if(__old._sign = -1 or __new.metric1 = 0, __old.metric1, __new.metric1)   AS metric1,
+    if(__old._sign = -1, __old.metric1, __new.metric1)   AS metric1,
     if(__old._sign = -1, __old.metric2, __new.metric2) AS metric2,
     if(__old._sign = -1, __old.dim1, __new.dim1) AS dim1,
     if(__old._sign = -1, __old.updated_at, __new.updated_at) AS updated_at,
