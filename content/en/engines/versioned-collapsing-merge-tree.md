@@ -1,8 +1,7 @@
 ---
 title: "VersionedCollapsingMergeTree"
-linkTitle: "VersionedCollapsingMergeTree
-description: >
-    VersionedCollapsingMergeTree
+linkTitle: "VersionedCollapsingMergeTree"
+description: VersionedCollapsingMergeTree
 ---
 
 # VersionedCollapsingMergeTree
