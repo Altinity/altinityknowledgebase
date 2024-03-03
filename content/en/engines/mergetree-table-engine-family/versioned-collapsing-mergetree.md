@@ -133,6 +133,15 @@ select 'step3',* from Example3 final;
 insert into Stage values (1,1,1,0,-1),(1,3,3,2,1);
 select 'step4',* from Example3 final;
 ```
+Output:
+```
+step1	1	1	1	1	1
+step1	2	2	2	1	1
+step2	1	1	1	1	1
+step2	2	2	2	1	1
+step3	1	1	1	1	1
+step4	1	3	3	2	1
+```
 
 Important additions:
 
@@ -201,6 +210,17 @@ insert into Stage(id,metric1,metric2,dim1,sign) values (1,1,1,'',-1),(1,3,3,'d',
 select 'step3',* from Example4 final;
 select 'proj3',dim1, sum(Smetric1) from Example4 group by dim1;
 ```
+Output:
+```
+step1	1	1	1	d	2024-03-03 15:58:23.232	1
+step1	2	2	2	d	2024-03-03 15:58:23.232	1
+proj1	d	3
+step2	1	1	1	d	2024-03-03 15:58:23.232	1
+proj2	d	1
+step3	1	3	3	d	2024-03-03 15:58:23.292	1
+proj3	d	3
+```
+
 
 ### Combine old and new
 
@@ -249,6 +269,15 @@ select 'step1',* from Example5 final;
 
 insert into Stage(id,metric2) values (1,11), (2,12);
 select 'step2',* from Example5 final ;
+```
+Output:
+```
+step0	1	0	\N	2024-03-03 15:48:21.588	1
+step0	2	0	\N	2024-03-03 15:48:21.588	1
+step1	1	1	\N	2024-03-03 15:48:21.599	1
+step1	2	2	\N	2024-03-03 15:48:21.599	1
+step2	1	1	11	2024-03-03 15:48:21.612	1
+step2	2	2	12	2024-03-03 15:48:21.612	1
 ```
 
 ### Complex Primary Key
