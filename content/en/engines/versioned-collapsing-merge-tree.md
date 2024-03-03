@@ -1,3 +1,10 @@
+---
+title: "VersionedCollapsingMergeTree"
+linkTitle: "VersionedCollapsingMergeTree
+description: >
+    VersionedCollapsingMergeTree
+---
+
 # VersionedCollapsingMergeTree
 
 When you have an incoming event stream with duplicates and updates you have a big challenge  building a consistent row state inside the Clickhouse table.
