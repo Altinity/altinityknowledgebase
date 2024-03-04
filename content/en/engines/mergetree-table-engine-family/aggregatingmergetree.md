@@ -96,5 +96,25 @@ FINAL
 │    1 │ 2020-01-16 20:57:46 │ 2020-01-16 20:57:51 │
 └──────┴─────────────────────┴─────────────────────┘
 
-1 rows in set. Elapsed: 0.003 sec. 
+1 rows in set. Elapsed: 0.003 sec.
+```
+
+## Merge two data streams
+
+Q.  I have 2 kafka topics from which I am getting the events into 2 different tables (A and B) in ClickHouse through a kafka Engine. I want to create a single table that combines the data in tables A and B into one table C the tables A and B have the same unique ID. So when both tables have the corresponding data it is straight forward, the problem is that data delivery over kafka is asynchronous and not all the data is available when a row arrives in Table A or vics versa.
+A. You can use AggregatingMergeTree with Nullable columns and any aggregation function or Non-Nullable column and max aggregation function if it aceptable for your data. 
+
+```
+CREATE TABLE table_C (
+    id      Int64,
+    colA    SimpleAggregatingFunction(any,Nullable(UInt32)),
+    colB    SimpleAggregatingFunction(max, String)
+) ENGINE = AggregatingMergeTree()
+ORDER BY id;
+
+CREATE MATERIALIZED VIEW mv_A TO table_C AS
+SELECT id,colA FROM Kafka_A;
+
+CREATE MATERIALIZED VIEW mv_B TO table_C AS
+SELECT id,colB FROM Kafka_B;
 ```
