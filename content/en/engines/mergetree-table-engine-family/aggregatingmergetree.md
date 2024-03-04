@@ -101,7 +101,7 @@ FINAL
 
 ## Merge two data streams
 
-Q.  I have 2 kafka topics from which I am getting the events into 2 different tables (A and B) in ClickHouse through a kafka Engine. I want to create a single table that combines the data in tables A and B into one table C the tables A and B have the same unique ID. So when both tables have the corresponding data it is straight forward, the problem is that data delivery over kafka is asynchronous and not all the data is available when a row arrives in Table A or vics versa.
+Q.  I have 2 Kafka topics from which I am storing events into 2 different tables (A and B) having the same unique ID. I want to create a single table that combines the data in tables A and B into one table C. The problem is that data received asynchronously and not all the data is available when a row arrives in Table A or vice-versa.
 A. You can use AggregatingMergeTree with Nullable columns and any aggregation function or Non-Nullable column and max aggregation function if it aceptable for your data. 
 
 ```
