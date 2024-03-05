@@ -1,0 +1,62 @@
+{{ $cover := and (.HasShortcode "blocks/cover") (not .Site.Params.ui.navbar_translucent_over_cover_disable) }}
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark {{ if $cover}} td-navbar-cover {{ end }}flex-column flex-md-row td-navbar">
+  <a class="navbar-brand" href="{{ .Site.Home.RelPermalink }}">
+    <span class="navbar-logo">{{ if .Site.Params.ui.navbar_logo }}{{ with resources.Get "icons/logo.svg" }}{{ ( . | minify).Content | safeHTML }}{{ end }}{{ end }}</span><span class="font-weight-bold">{{ .Site.Title }}</span>
+  </a>
+  <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+    <ul class="navbar-nav mt-2 mt-lg-0">
+      <div class="header-social-wrap">
+        <div style="padding-right: 20px;" class="header-social-inner-wrap element-social-inner-wrap social-show-label-false social-style-filled">
+          <a class="mega-menu-link" href="https://bit.ly/3T5iGiv">
+            <span style="border-radius: 15px; padding: 4px; padding-left: 10px; padding-right: 10px; background-color: #1e9dcf; color: white; font-size: small;">TRY THE KUBERNETES OPERATOR</span>
+          </a>
+          &nbsp;&nbsp;&nbsp;
+          <a class="mega-menu-link" href="https://hubs.la/Q02m_yzx0">
+            <span style="border-radius: 15px; padding: 4px; padding-left: 10px; padding-right: 10px; background-color: #1e9dcf; color: white; font-size: small;">LEARN THE BASICS</span>
+          </a>
+          &nbsp;&nbsp;&nbsp;
+          <a href="https://altinitydbworkspace.slack.com/join/shared_invite/zt-1togw9b4g-N0ZOXQyEyPCBh_7IEHUjdw#/shared-invite/email" aria-label="Slack" target="_blank" rel="noopener noreferrer" class="social-button header-social-item social-link-custom1" data-positional-element-id="75">
+						<span class="social-icon-custom-svg" style="max-width:34px">
+							<svg viewBox="0 0 36 36" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
+								<path fill="#fff" d="M7.563,22.747a3.782,3.782,0,1,1-3.78-3.78h3.78v3.78Zm1.906,0a3.782,3.782,0,0,1,7.563,0v9.469a3.782,3.782,0,1,1-7.563,0V22.747ZM13.251,7.563a3.782,3.782,0,1,1,3.782-3.78v3.78H13.251Zm0,1.906a3.781,3.781,0,1,1,0,7.563H3.783a3.782,3.782,0,1,1,0-7.563h9.468Zm15.183,3.782a3.783,3.783,0,1,1,3.783,3.782H28.434V13.251Zm-1.9,0a3.782,3.782,0,0,1-7.565,0V3.783a3.782,3.782,0,1,1,7.564,0ZM22.747,28.434a3.783,3.783,0,1,1-3.78,3.783V28.434h3.78Zm0-1.9a3.782,3.782,0,0,1,0-7.565h9.469a3.782,3.782,0,1,1,0,7.564Z" data-name="Icon simple-slack" id="Icon_simple-slack"></path>
+							</svg>
+						</span>
+          </a>
+          &nbsp;&nbsp;&nbsp;
+          <a href="https://github.com/Altinity/" aria-label="GitHub" target="_blank" rel="noopener noreferrer" class="social-button header-social-item social-link-github has-custom-image" data-positional-element-id="76">
+            <img width="500" height="245" src="https://altinity.com/wp-content/uploads/2023/11/github-mark-white.png" class="social-icon-image lazyloaded" alt="" decoding="async" loading="lazy" style="max-width:24px" data-ll-status="loaded">
+            <noscript>
+              <img width="250" height="245" src="https://altinity.com/wp-content/uploads/2023/11/github-mark-white.png" class="social-icon-image" alt="" decoding="async" loading="lazy" style="max-width:24px" />
+            </noscript>
+          </a>
+        </div>
+      </div>
+      {{ $currentPage := . }}
+      {{ range .Site.Menus.main }}
+      <li class='menu-item-{{ .Name | lower }}{{ if $currentPage.IsMenuCurrent "main" . }} active{{ end }}'>
+        <a href="{{.URL}}">
+          {{ .Pre }}
+          <span>{{ .Name }}</span>
+        </a>
+      </li>
+      {{end}}
+      {{ if  .Site.Params.versions }}
+      <li class="nav-item dropdown mr-4 d-none d-lg-block">
+        {{ partial "navbar-version-selector.html" . }}
+      </li>
+      {{ end }}
+      {{/*John Hummel 20220207*/}}
+      {{/*Removed the translations dropdown for now.*/}}
+      {{/* if  (gt (len .Site.Home.Translations) 0) */}}
+      <!--
+      <li class="nav-item dropdown mr-4 d-none d-lg-block">
+      -->
+      {{/* partial "navbar-lang-selector.html" . */}}
+      <!--
+      </li>
+      -->
+      {{/* end */}}
+    </ul>
+  </div>
+  <div class="navbar-nav d-none d-lg-block">{{ partial "search-input.html" . }}</div>
+</nav>
