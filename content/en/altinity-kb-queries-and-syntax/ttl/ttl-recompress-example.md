@@ -5,6 +5,7 @@ description: >
     TTL Recompress example
 ---
 
+*See also [the Altinity Knowledge Base article on testing different compression codecs](../../../altinity-kb-schema-design/codecs/altinity-kb-how-to-test-different-compression-codecs).*
 
 ## Example how to create a table and define recompression rules
 

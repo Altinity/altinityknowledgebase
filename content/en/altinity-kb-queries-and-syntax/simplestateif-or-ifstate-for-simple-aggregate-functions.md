@@ -77,9 +77,11 @@ SimpleAggregateFunction can be used for those aggregations when the function sta
   </tbody>
 </table>
 
-See also
-[https://github.com/ClickHouse/ClickHouse/pull/4629](https://github.com/ClickHouse/ClickHouse/pull/4629)
-[https://github.com/ClickHouse/ClickHouse/issues/3852](https://github.com/ClickHouse/ClickHouse/issues/3852)
+See also:
+
+* [Altinity Knowledge Base article on AggregatingMergeTree](../../engines/mergetree-table-engine-family/aggregatingmergetree/)
+* [https://github.com/ClickHouse/ClickHouse/pull/4629](https://github.com/ClickHouse/ClickHouse/pull/4629)
+* [https://github.com/ClickHouse/ClickHouse/issues/3852](https://github.com/ClickHouse/ClickHouse/issues/3852)
 
 ### Q. How maxSimpleState combinator result differs from plain max?
 

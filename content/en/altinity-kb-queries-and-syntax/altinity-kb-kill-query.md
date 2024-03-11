@@ -9,10 +9,10 @@ Unfortunately not all queries can be killed.
 A query pipeline is checking this flag before a switching to next block. If the pipeline has stuck somewhere in the middle it cannot be killed.
 If a query does not stop, the only way to get rid of it is to restart ClickHouse.
 
-See also
+See also:
 
-[https://github.com/ClickHouse/ClickHouse/issues/3964](https://github.com/ClickHouse/ClickHouse/issues/3964)
-[https://github.com/ClickHouse/ClickHouse/issues/1576](https://github.com/ClickHouse/ClickHouse/issues/1576)
+* [https://github.com/ClickHouse/ClickHouse/issues/3964](https://github.com/ClickHouse/ClickHouse/issues/3964)
+* [https://github.com/ClickHouse/ClickHouse/issues/1576](https://github.com/ClickHouse/ClickHouse/issues/1576)
 
 ## How to replace a running query
 
