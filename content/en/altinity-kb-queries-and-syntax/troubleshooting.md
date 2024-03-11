@@ -8,7 +8,7 @@ description: >
 
 Controlled by session level setting `send_logs_level`
 Possible values: `'trace', 'debug', 'information', 'warning', 'error', 'fatal', 'none'`
-Can be used with clickhouse-client in both interactive and non-interactive mode.
+Can be used with [clickhouse-client](https://docs.altinity.com/altinitycloud/altinity-cloud-connections/clickhouseclient/) in both interactive and non-interactive mode.
 
 ```bash
 $ clickhouse-client -mn --send_logs_level='trace' --query "SELECT sum(number) FROM numbers(1000)"

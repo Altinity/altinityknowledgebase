@@ -2,9 +2,11 @@
 title: "Sampling Example"
 linkTitle: "Sampling Example"
 description: >
-    Clickhouse table sampling example
+    ClickHouse table sampling example
 ---
-The most important idea about sampling that the primary index must have **low cardinality**. The following example demonstrates how sampling can be setup correctly, and an example if it being set up incorrectly as a comparison.
+The most important idea about sampling that the primary index must have **LowCardinality**. (For more information, see [the Altinity Knowledge Base article on LowCardinality](../../altinity-kb-schema-design/lowcardinality) or [a ClickHouse user\'s lessons learned from LowCardinality](https://altinity.com/blog/2020-5-20-reducing-clickhouse-storage-cost-with-the-low-cardinality-type-lessons-from-an-instana-engineer)). 
+
+The following example demonstrates how sampling can be setup correctly, and an example if it being set up incorrectly as a comparison.
 
 Sampling requires `sample by expression` .  This ensures a range of sampled column types fit within a specified range, which ensures the requirement of low cardinality. In this example, I cannot use `transaction_id` because I can not ensure that the min value of `transaction_id = 0` and `max value = MAX_UINT64`. Instead, I used `cityHash64(transaction_id)`to expand the range within the minimum and maximum values.
 

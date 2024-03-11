@@ -101,7 +101,7 @@ FROM test_update
 ```
 
 {{% alert title="Info" color="info" %}}
-In case of Replicated installation, Dictionary should be created on all nodes and source tables should have ReplicatedMergeTree engine and be replicated across all nodes.
+In case of Replicated installation, Dictionary should be created on all nodes and source tables should use the [ReplicatedMergeTree](../../altinity-kb-setup-and-maintenance/altinity-kb-converting-mergetree-to-replicated/) engine and be replicated across all nodes.
 {{% /alert %}}
 
 {{% alert title="Info" color="info" %}}

@@ -4,17 +4,12 @@ linkTitle: "Window functions"
 description: >
     Window functions
 ---
-| Link | [blog.tinybird.co/2021/03/16/c…](https://blog.tinybird.co/2021/03/16/coming-soon-on-clickhouse-window-functions/) |
-| :--- | :--- |
-| Date | Mar 26, 2021 |
 
-![Windows Function Slides](https://api.microlink.io/?adblock=false&meta=false&screenshot&element=%23screenshot&embed=screenshot.url&url=https%3A%2F%2Fcards.microlink.io%2F%3Fpreset%3Dtinybird%26subtitle%3Dtips%26text%3DWindow%2Bfunctions%252C%2Bnested%2Bdata%252C%2BA%2BPostgreSQL%2Bengine%2Band%2Bmore)
+#### Resources: 
 
-[blog.tinybird.co/2021/03/16/c…](https://blog.tinybird.co/2021/03/16/coming-soon-on-clickhouse-window-functions/)
-
-> An exploration on what's possible to do with the most recent experimental feature on ClickHouse - window functions, and an overview of other interesting feat...
-
-[Windows Functions Blog Link](https://blog.tinybird.co/2021/03/16/coming-soon-on-clickhouse-window-functions/)
+* [Tutorial: ClickHouse Window Functions](https://altinity.com/blog/clickhouse-window-functions-current-state-of-the-art)
+* [Video: Fun with ClickHouse Window Functions](https://www.youtube.com/watch?v=sm_vUdMQz4s)
+* [Blog: Battle of the Views: ClickHouse Window View vs. Live View](https://altinity.com/blog/battle-of-the-views-clickhouse-window-view-vs-live-view)
 
 #### How Do I Simulate Window Functions Using Arrays on older versions of clickhouse?
 

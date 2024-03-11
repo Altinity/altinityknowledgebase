@@ -3,6 +3,7 @@ title: "JOIN table engine"
 linkTitle: "JOIN table engine"
 description: >
     JOIN table engine
+draft: true
 ---
 The main purpose of JOIN table engine is to avoid building the right table for joining on each query execution. So it's usually used when you have a high amount of fast queries which share the same right table for joining.
 
@@ -60,4 +61,4 @@ ANY LEFT JOIN id_val_join USING (id)
 └────┴─────┘
 ```
 
-[https://clickhouse.tech/docs/en/engines/table-engines/special/join/](https://clickhouse.tech/docs/en/engines/table-engines/special/join/)
+[Join table engine documentation](https://clickhouse.com/docs/en/engines/table-engines/special/join/)

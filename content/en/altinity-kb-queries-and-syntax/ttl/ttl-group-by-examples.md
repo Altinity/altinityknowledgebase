@@ -457,3 +457,5 @@ OPTIMIZE TABLE test_ttl_group_by FINAL;
 └────────┴─────────┴────────────┴────────────────┴────────────────┘
 
 ```
+
+Also see the [Altinity Knowledge Base pages on the MergeTree table engine family](../../../engines/mergetree-table-engine-family).
