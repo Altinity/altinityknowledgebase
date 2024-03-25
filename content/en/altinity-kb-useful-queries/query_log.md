@@ -46,11 +46,12 @@ SELECT
     normalized_query_hash,
     min(event_time),
     max(event_time),
-    replace(substr(argMax(query, utime), 1, 40), '\n', ' ') AS query,
+    replace(substr(argMax(query, utime), 1, 80), '\n', ' ') AS query,
+    argMax(query_id, utime) AS sample_query_id,
     count(),
     sum(query_duration_ms) / 1000 AS QueriesDuration, /* wall clock */
     sum(ProfileEvents['RealTimeMicroseconds']) / 1000000 AS RealTime,  /* same as above but x number of thread */
-    sum(ProfileEvents['UserTimeMicroseconds']) / 1000000 AS UserTime,  /* time when our query was doin some cpu-insense work, creating cpu load */
+    sum(ProfileEvents['UserTimeMicroseconds'] as utime) / 1000000 AS UserTime,  /* time when our query was doin some cpu-insense work, creating cpu load */
     sum(ProfileEvents['SystemTimeMicroseconds']) / 1000000 AS SystemTime, /* time spend on waiting for some system operations */
     sum(ProfileEvents['DiskReadElapsedMicroseconds']) / 1000000 AS DiskReadTime,
     sum(ProfileEvents['DiskWriteElapsedMicroseconds']) / 1000000 AS DiskWriteTime,
@@ -81,7 +82,7 @@ SELECT
     sum(result_rows) AS ResultRows,
     formatReadableSize(sum(result_bytes) as result_bytes_sum) AS ResultBytes
 FROM clusterAllReplicas('{cluster}', system.query_log)
-WHERE event_date >= today() type in (2,4)-- QueryFinish, ExceptionWhileProcessing
+WHERE event_date >= today() AND type in (2,4)-- QueryFinish, ExceptionWhileProcessing
 GROUP BY
     GROUPING SETS (
         (normalized_query_hash, host),
