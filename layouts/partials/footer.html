@@ -1,28 +1,67 @@
 {{ $links := .Site.Params.links }}
 <footer class="bg-dark py-5 row d-print-none">
   <div class="container-fluid mx-sm-5">
-    <div class="row">
-      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
-        {{ with $links }}
-        {{ with index . "user"}}
-        {{ template "footer-links-block"  . }}
-        {{ end }}
-        {{ end }}
+    <div class="row footer-inner pb-3">
+      <div class="col-12">
+        <a href="https://altinity.com" target="_blank"><img src="/images/general/altinity-logo_horizontal_blue_white.svg" width="154" alt="Altinity.com"></a>
       </div>
-      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+    </div>
+    <div class="row footer-inner py-3">
+      <div class="col-12 col-sm-6 col-md-3">
+        <ul class="nav flex-column mb-3">
+          <li class="nav-item"><b>PRODUCT</b></li>
+          <li class="nav-item"><a href="https://altinity.com/managed-clickhouse/" target="_blank">Altinity.Cloud</a></li>
+          <li class="nav-item"><a href="https://altinity.com/clickhouse-support/" target="_blank">Support for ClickHouse</a></li>
+          <li class="nav-item"><a href="https://altinity.com/clickhouse-training" target="_blank">Training for ClickHouse</a></li>
+          <li class="nav-item"><a href="https://altinity.com/clickhouse-pricing/" target="_blank">Altinity.Cloud Pricing</a></li>
+          <li class="nav-item"><a href="https://altinity.com/plans-and-features-clickhouse/" target="_blank">Altinity Plans and Features</a></li>
+        </ul>
+        <div class="d-none d-md-block mb-3"><img decoding="async" style="width: 60px;display:inline-block;margin: 0 10px 0 0;" src="/images/general/soc.webp" alt="SOC Certified" /><img decoding="async" style="width: 60px;display:inline-block;margin: 0;" src="/images/general/soc2.webp" alt="SOC2 TYPE II Certified"/></div>
+      </div>
+      <div class="col-12 col-sm-6 col-md-3">
+        <ul class="nav flex-column mb-3">
+          <li class="nav-item"><b>RESOURCES</b></li>
+          <li class="nav-item"><a href="https://altinity.com/blog" target="_blank" >Blog</a></li>
+          <li class="nav-item"><a href="https://docs.altinity.com/" target="_blank" >Documentation</a></li>
+          <li class="nav-item"><a href="https://kb.altinity.com/" target="_blank" >Knowledge Base</a></li>
+          <li class="nav-item"><a href="https://altinity.com/releases" target="_blank" >Altinity Stable Builds</a></li>
+          <li class="nav-item"><a href="https://hubs.la/Q02pLTV20" target="_blank" >Kubernetes Operator</a></li>
+          <li class="nav-item"><a href="https://altinity.com/ecosystem/" target="_blank" >Altinity Open Source Projects</a></li>
+          <li class="nav-item"><a href="https://altinity.com/events/" target="_blank" >Events</a></li>
+        </ul>
+      </div>      <div class="col-12 col-sm-6 col-md-3">
+        <ul class="nav flex-column mb-3">
+          <li class="nav-item"><b>COMPANY</b></li>
+          <li class="nav-item"><a href="https://altinity.com/about-us/" target="_blank">About Altinity</a></li>
+          <li class="nav-item"><a href="https://altinity.com/about-us/press-releases" target="_blank">Press Releases</a></li>
+          <li class="nav-item"><a href="https://altinity.com/partners/" target="_blank">Partners</a></li>
+          <li class="nav-item"><a href="https://altinity.com/customer-stories/" target="_blank">Customer Stories</a></li>
+          <li class="nav-item"><a href="https://altinity.com/careers/" target="_blank">Careers</a></li>
+          <li class="nav-item"><a href="https://altinity.com/contact/" target="_blank">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="col-12 col-sm-6 col-md-3">
+        Get the latest ClickHouse news straight to your inbox every month.<br />
+        <a href="https://altinity.com/newsletter/" target="_blank" class="btn btn-primary my-3" style="border-radius: 1.5rem;">Sign Up</a>
+      </div>
+
+    </div>
+    <div class="row footer-inner pb-3">
+      <div class="col-12 col-sm-6 text-left text-xs-center py-2">
+        {{ with .Site.Params.copyright }}<small class="text-white">&copy; {{ now.Year}} {{ .}} {{ T "footer_all_rights_reserved" }}</small>{{ end }}
+        {{ with .Site.Params.privacy_policy }}<small class="ml-1"><a href="{{ . }}" target="_blank">{{ T "footer_privacy_policy" }}</a></small>{{ end }}
+  {{ if not .Site.Params.ui.footer_about_disable }}
+    {{ with .Site.GetPage "about" }}<p class="mt-2"><a href="{{ .RelPermalink }}">{{ .Title }}</a></p>{{ end }}
+  {{ end }}
+      </div>
+      <div class="col-12 col-sm-6 text-right text-xs-center">
         {{ with $links }}
         {{ with index . "developer"}}
         {{ template "footer-links-block"  . }}
         {{ end }}
         {{ end }}
       </div>
-      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
-        {{ with .Site.Params.copyright }}<small class="text-white">&copy; {{ now.Year}} {{ .}} {{ T "footer_all_rights_reserved" }}</small>{{ end }}
-        {{ with .Site.Params.privacy_policy }}<small class="ml-1"><a href="{{ . }}" target="_blank">{{ T "footer_privacy_policy" }}</a></small>{{ end }}
-	{{ if not .Site.Params.ui.footer_about_disable }}
-		{{ with .Site.GetPage "about" }}<p class="mt-2"><a href="{{ .RelPermalink }}">{{ .Title }}</a></p>{{ end }}
-	{{ end }}
-      </div>
+
     </div>
   </div>
   <!-- Global site tag (gtag.js) - Google Analytics 

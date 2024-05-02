@@ -5,16 +5,44 @@
   </a>
   <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
     <ul class="navbar-nav mt-2 mt-lg-0">
-      <div class="header-social-wrap">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Products</a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="https://altinity.com/managed-clickhouse/" target="_blank">Altinity.Cloud</a>
+          <a class="dropdown-item" href="https://altinity.com/clikhouse-support/" target="_blank">Support for ClickHouse</a>
+          <a class="dropdown-item" href="https://altinity.com/clickhouse-training/" target="_blank">Training for ClickHouse</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Resources</a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="https://docs.altinity.com/" target="_blank">Documentation</a>
+          <a class="dropdown-item" href="https://kb.altinity.com/" target="_blank">Knowledge Base</a>
+          <a class="dropdown-item" href="https://hubs.la/Q02pLTV20" target="_blank">Guides and eBooks</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="https://altinity.com/blog" target="_blank">Blog</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Company</a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="https://altinity.com/about-us/" target="_blank">About the Company</a>
+          <a class="dropdown-item" href="https://altinity.com/about-us/#leadership" target="_blank">Leadership</a>
+          <a class="dropdown-item" href="https://altinity.com/careers/" target="_blank">Careers</a>
+          <a class="dropdown-item" href="https://altinity.com/contact" target="_blank">Contact</a>
+        </div>
+      </li>
+      <li class="header-social-wrap ml-md-auto">
         <div style="padding-right: 20px;" class="header-social-inner-wrap element-social-inner-wrap social-show-label-false social-style-filled">
           <a class="mega-menu-link" href="https://bit.ly/3uPqwVr">
             <span style="border-radius: 15px; padding: 4px; padding-left: 10px; padding-right: 10px; background-color: #1e9dcf; color: white; font-size: small; font-weight: bold;">Try the Kubernetes Operator</span>
           </a>
-          &nbsp;&nbsp;&nbsp;
-          <a class="mega-menu-link" href="https://hubs.la/Q02pLTV20">
-            <span style="border-radius: 15px; padding: 4px; padding-left: 10px; padding-right: 10px; background-color: #1e9dcf; color: white; font-size: small; font-weight: bold;">Developer Resources</span>
+          &nbsp;
+          <!-- <a class="mega-menu-link" href="https://hubs.la/Q02pLTV20">
+            <span style="border-radius: 15px; padding: 4px; padding-left: 10px; padding-right: 10px; background-color: #1e9dcf; color: white; font-size: small; font-weight: bold;">Developer Resources</span>
           </a>
-          &nbsp;&nbsp;&nbsp;
+          &nbsp; -->
           <a href="https://altinitydbworkspace.slack.com/join/shared_invite/zt-1togw9b4g-N0ZOXQyEyPCBh_7IEHUjdw#/shared-invite/email" aria-label="Slack" target="_blank" rel="noopener noreferrer" class="social-button header-social-item social-link-custom1" data-positional-element-id="75">
 						<span class="social-icon-custom-svg" style="max-width:34px">
 							<svg viewBox="0 0 36 36" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
@@ -30,7 +58,7 @@
             </noscript>
           </a>
         </div>
-      </div>
+      </li>
       {{ $currentPage := . }}
       {{ range .Site.Menus.main }}
       <li class='menu-item-{{ .Name | lower }}{{ if $currentPage.IsMenuCurrent "main" . }} active{{ end }}'>
@@ -58,5 +86,5 @@
       {{/* end */}}
     </ul>
   </div>
-  <div class="navbar-nav d-none d-lg-block">{{ partial "search-input.html" . }}</div>
+  <div class="navbar-nav d-none d-lg-block"></div>
 </nav>

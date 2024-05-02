@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.123.4">
+<link rel="canonical" type="text/html" href="http://localhost:1313/altinity-kb-setup-and-maintenance/altinity-kb-ddlworker/">
+<meta name="robots" content="noindex, nofollow">
+<link rel="shortcut icon" href="/favicons/favicon.ico" >
+<link rel="icon" href="/favicons/favicon.ico" >
+<title>DDLWorker | Altinity Knowledge Base</title>
+<meta name="description" content="DDLWorker
+">
+<meta property="og:title" content="DDLWorker" />
+<meta property="og:description" content="DDLWorker
+" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="http://localhost:1313/altinity-kb-setup-and-maintenance/altinity-kb-ddlworker/" />
+
+<meta itemprop="name" content="DDLWorker">
+<meta itemprop="description" content="DDLWorker
+"><meta name="twitter:card" content="summary"/><meta name="twitter:title" content="DDLWorker"/>
+<meta name="twitter:description" content="DDLWorker
+"/>
+
+
+
+
+
+<link href="/scss/main.css" rel="stylesheet">
+
+<script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK"
+  crossorigin="anonymous"></script>
+<script
+  src="https://unpkg.com/lunr@2.3.9/lunr.min.js"
+  integrity="sha384-203J0SNzyqHby3iU6hzvzltrWi/M41wOP5Gu+BiJMz5nwKykbkUx8Kp7iti0Lpli"
+  crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/css/prism.css"/>
+<meta name="keywords" content="">
+  </head>
+  <body class="td-section">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+  <a class="navbar-brand" href="/">
+    <span class="navbar-logo"><svg id="a" viewBox="0 0 91.660006 105.99" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg"><defs id="defs1"><style id="style1">.b{fill:#fff}.c{fill:#199dcf}</style></defs><g id="g7"><polygon class="c" points="45.88,0 45.88,0.04 22.94,13.3 22.93,13.3 22.93,13.3 0.09,26.49 0.09,26.49 0.09,26.49 0,26.54 0.09,26.59 0.09,50.96 66.86,12.12" id="polygon1"/><polygon class="c" points="22.94,42.29 4.21,53.19 22.94,64.08" id="polygon2"/><polygon class="c" points="0.09,55.59 0.09,79.43 0,79.48 0.09,79.54 0.09,105.99 22.8,92.88 22.8,92.88 43.75,80.79 0.23,55.51" id="polygon3"/><polygon class="c" points="89.61,25.17 70.92,14.38 48.03,27.7 64.18,37.02 64.22,36.96 66.79,38.45" id="polygon4"/><g id="g6"><polygon class="c" points="91.66,52.82 91.63,52.83 76.33,44 91.66,52.92" id="polygon5"/><polygon class="c" points="91.66,105.76 91.66,57.55 68.71,44.2 68.71,92.51" id="polygon6"/></g><polygon class="c" points="91.66,52.85 91.66,28.61 70.77,40.76 76.28,43.97" id="polygon7"/></g></svg></span><span class="font-weight-bold">Altinity Knowledge Base</span>
+  </a>
+  <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+    <ul class="navbar-nav mt-2 mt-lg-0">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Products</a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="https://altinity.com/managed-clickhouse/" target="_blank">Altinity.Cloud</a>
+          <a class="dropdown-item" href="https://altinity.com/clikhouse-support/" target="_blank">Support for ClickHouse</a>
+          <a class="dropdown-item" href="https://altinity.com/clickhouse-training/" target="_blank">Training for ClickHouse</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Resources</a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="https://docs.altinity.com/" target="_blank">Documentation</a>
+          <a class="dropdown-item" href="https://kb.altinity.com/" target="_blank">Knowledge Base</a>
+          <a class="dropdown-item" href="https://hubs.la/Q02pLTV20" target="_blank">Guides and eBooks</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="https://altinity.com/blog" target="_blank">Blog</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Company</a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="https://altinity.com/about-us/" target="_blank">About the Company</a>
+          <a class="dropdown-item" href="https://altinity.com/about-us/#leadership" target="_blank">Leadership</a>
+          <a class="dropdown-item" href="https://altinity.com/careers/" target="_blank">Careers</a>
+          <a class="dropdown-item" href="https://altinity.com/contact" target="_blank">Contact</a>
+        </div>
+      </li>
+      <li class="header-social-wrap ml-md-auto">
+        <div style="padding-right: 20px;" class="header-social-inner-wrap element-social-inner-wrap social-show-label-false social-style-filled">
+          <a class="mega-menu-link" href="https://bit.ly/3uPqwVr">
+            <span style="border-radius: 15px; padding: 4px; padding-left: 10px; padding-right: 10px; background-color: #1e9dcf; color: white; font-size: small; font-weight: bold;">Try the Kubernetes Operator</span>
+          </a>
+          &nbsp;
+          
+          <a href="https://altinitydbworkspace.slack.com/join/shared_invite/zt-1togw9b4g-N0ZOXQyEyPCBh_7IEHUjdw#/shared-invite/email" aria-label="Slack" target="_blank" rel="noopener noreferrer" class="social-button header-social-item social-link-custom1" data-positional-element-id="75">
+						<span class="social-icon-custom-svg" style="max-width:34px">
+							<svg viewBox="0 0 36 36" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
+								<path fill="#fff" d="M7.563,22.747a3.782,3.782,0,1,1-3.78-3.78h3.78v3.78Zm1.906,0a3.782,3.782,0,0,1,7.563,0v9.469a3.782,3.782,0,1,1-7.563,0V22.747ZM13.251,7.563a3.782,3.782,0,1,1,3.782-3.78v3.78H13.251Zm0,1.906a3.781,3.781,0,1,1,0,7.563H3.783a3.782,3.782,0,1,1,0-7.563h9.468Zm15.183,3.782a3.783,3.783,0,1,1,3.783,3.782H28.434V13.251Zm-1.9,0a3.782,3.782,0,0,1-7.565,0V3.783a3.782,3.782,0,1,1,7.564,0ZM22.747,28.434a3.783,3.783,0,1,1-3.78,3.783V28.434h3.78Zm0-1.9a3.782,3.782,0,0,1,0-7.565h9.469a3.782,3.782,0,1,1,0,7.564Z" data-name="Icon simple-slack" id="Icon_simple-slack"></path>
+							</svg>
+						</span>
+          </a>
+          &nbsp;&nbsp;&nbsp;
+          <a href="https://github.com/Altinity/" aria-label="GitHub" target="_blank" rel="noopener noreferrer" class="social-button header-social-item social-link-github has-custom-image" data-positional-element-id="76">
+            <img width="500" height="245" src="https://altinity.com/wp-content/uploads/2023/11/github-mark-white.png" class="social-icon-image lazyloaded" alt="" decoding="async" loading="lazy" style="max-width:24px" data-ll-status="loaded">
+            <noscript>
+              <img width="250" height="245" src="https://altinity.com/wp-content/uploads/2023/11/github-mark-white.png" class="social-icon-image" alt="" decoding="async" loading="lazy" style="max-width:24px" />
+            </noscript>
+          </a>
+        </div>
+      </li>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </ul>
+  </div>
+  <div class="navbar-nav d-none d-lg-block"></div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+
+
+
+
+<div class="td-content">
+<div class="pageinfo pageinfo-primary d-print-none">
+<p>
+This is the multi-page printable view of this section.
+<a href="#" onclick="print();return false;">Click here to print</a>.
+</p><p>
+<a href="/altinity-kb-setup-and-maintenance/altinity-kb-ddlworker/">Return to the regular view of this page</a>.
+</p>
+</div>
+
+
+
+<h1 class="title">DDLWorker</h1>
+<div class="lead">DDLWorker</div>
+
+
+
+
+    <ul>
+    
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>1: <a href="#pg-7f5f8971a74cdc0af853041c9dd18c8f">There are N unfinished hosts (0 of them are currently active).</a></li>
+
+
+    
+  
+
+    </ul>
+
+
+<div class="content">
+      <p>DDLWorker is a subprocess (thread) of clickhouse-server that executes <code>ON CLUSTER</code> tasks at the node.</p>
+<p>When you execute a DDL query with <code>ON CLUSTER mycluster</code> section the query executor at the current node reads the cluster <code>mycluster</code> definition (remote_servers / system.clusters) and places tasks into Zookeeper znode <code>task_queue/ddl/...</code> for members of the cluster <code>mycluster</code>.</p>
+<p>DDLWorker at all ClickHouse nodes constantly check this <code>task_queue</code> for their tasks and executes them locally and reports about a result back into <code>task_queue</code>.</p>
+<p>The common issue is the different hostnames/IPAddresses in the cluster definition and locally.</p>
+<p>So a node initiator puts tasks for a host named Host1. But the Host1 thinks about own name as localhost or <strong>xdgt634678d</strong> (internal docker hostname) and never sees tasks for the Host1 because is looking tasks for <strong>xdgt634678d.</strong> The same with internal VS external IP addresses.</p>
+<p>Another issue that sometimes DDLWorker thread can crash then ClickHouse node stops to execute <code>ON CLUSTER</code> tasks.</p>
+<p>Check that DDLWorker is alive:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ps -eL<span style="color:#000;font-weight:bold">|</span>grep DDL
+</span></span><span style="display:flex;"><span><span style="color:#0000cf;font-weight:bold">18829</span> <span style="color:#0000cf;font-weight:bold">18876</span> ?        00:00:00 DDLWorkerClnr
+</span></span><span style="display:flex;"><span><span style="color:#0000cf;font-weight:bold">18829</span> <span style="color:#0000cf;font-weight:bold">18879</span> ?        00:00:00 DDLWorker
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ps -ef<span style="color:#000;font-weight:bold">|</span>grep 18829<span style="color:#000;font-weight:bold">|</span>grep -v grep
+</span></span><span style="display:flex;"><span>clickho+ <span style="color:#0000cf;font-weight:bold">18829</span> <span style="color:#0000cf;font-weight:bold">18828</span>  <span style="color:#0000cf;font-weight:bold">1</span> Feb09 ?        00:55:00 /usr/bin/clickhouse-server --con...
+</span></span></code></pre></div><p>As you can see there are two threads: <code>DDLWorker</code> and <code>DDLWorkerClnr</code>.</p>
+<p>The second thread – <code>DDLWorkerCleaner</code> cleans old tasks from <code>task_queue</code>. You can configure how many recent tasks to store:</p>
+<pre tabindex="0"><code class="language-markup" data-lang="markup">config.xml
+&lt;yandex&gt;
+    &lt;distributed_ddl&gt;
+        &lt;path&gt;/clickhouse/task_queue/ddl&lt;/path&gt;
+        &lt;max_tasks_in_queue&gt;1000&lt;/max_tasks_in_queue&gt;
+        &lt;task_max_lifetime&gt;604800&lt;/task_max_lifetime&gt;
+        &lt;cleanup_delay_period&gt;60&lt;/cleanup_delay_period&gt;
+    &lt;/distributed_ddl&gt;
+&lt;/yandex&gt;
+</code></pre><p>Default values:</p>
+<p><strong>cleanup_delay_period</strong> = 60 seconds – Sets how often to start cleanup to remove outdated data.</p>
+<p><strong>task_max_lifetime</strong> = 7 * 24 * 60 * 60 (in seconds = week) – Delete task if its age is greater than that.</p>
+<p><strong>max_tasks_in_queue</strong> = 1000 – How many tasks could be in the queue.</p>
+
+</div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-7f5f8971a74cdc0af853041c9dd18c8f">1 - There are N unfinished hosts (0 of them are currently active).</h1>
+    <div class="lead">&ldquo;There are N unfinished hosts (0 of them are currently active).&rdquo;</div>
+	<p>Sometimes your Distributed DDL queries are being stuck, and not executing on all or subset of nodes, there are a lot of possible reasons for that kind of behavior, so it would take some time and effort to investigate.</p>
+<h2 id="possible-reasons">Possible reasons</h2>
+<h3 id="clickhouse-node-cant-recognize-itself">Clickhouse node can&rsquo;t recognize itself</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">SELECT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">FROM</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">system</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">clusters</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#8f5902;font-style:italic">-- check is_local column, it should have 1 for itself
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>getent hosts clickhouse.local.net <span style="color:#8f5902;font-style:italic"># or other name which should be local</span>
+</span></span><span style="display:flex;"><span>hostname --fqdn
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cat /etc/hosts
+</span></span><span style="display:flex;"><span>cat /etc/hostname
+</span></span></code></pre></div><h3 id="debian--ubuntu">Debian / Ubuntu</h3>
+<p>There is an issue in Debian based images, when hostname being mapped to 127.0.1.1 address which doesn&rsquo;t literally match network interface and clickhouse fails to detect this address as local.</p>
+<p><a href="https://github.com/ClickHouse/ClickHouse/issues/23504" target="_blank">https://github.com/ClickHouse/ClickHouse/issues/23504</a></p>
+<h4 id="previous-task-is-being-executed-and-taking-some-time">Previous task is being executed and taking some time</h4>
+<p>It&rsquo;s usually some heavy operations like merges, mutations, alter columns, so it make sense to check those tables:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">SHOW</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">PROCESSLIST</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">SELECT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">FROM</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">system</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">merges</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">SELECT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">FROM</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">system</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">mutations</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span></code></pre></div><p>In that case, you can just wait completion of previous task.</p>
+<h3 id="previous-task-is-stuck-because-of-some-error">Previous task is stuck because of some error</h3>
+<p>In that case, the first step is to understand which exact task is stuck and why. There are some queries which can help with that.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">-- list of all distributed ddl queries, path can be different in your installation
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">SELECT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">FROM</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">system</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">zookeeper</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">WHERE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">path</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;/clickhouse/task_queue/ddl/&#39;</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#8f5902;font-style:italic">-- information about specific task.
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">SELECT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">FROM</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">system</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">zookeeper</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">WHERE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">path</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;/clickhouse/task_queue/ddl/query-0000001000/&#39;</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">SELECT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">FROM</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">system</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">zookeeper</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">WHERE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">path</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;/clickhouse/task_queue/ddl/&#39;</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">AND</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">name</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;query-0000001000&#39;</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#8f5902;font-style:italic">-- 22.3
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">SELECT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">FROM</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">system</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">zookeeper</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">WHERE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">path</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">like</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;/clickhouse/task_queue/ddl/query-0000001000/%&#39;</span><span style="color:#f8f8f8;text-decoration:underline"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">ORDER</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">BY</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">ctime</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">path</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">SETTINGS</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">allow_unrestricted_reads_from_keeper</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#39;true&#39;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#8f5902;font-style:italic">-- 22.6
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">SELECT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">path</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">name</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">value</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">ctime</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">mtime</span><span style="color:#f8f8f8;text-decoration:underline"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">FROM</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">system</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">zookeeper</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">WHERE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">path</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">like</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;/clickhouse/task_queue/ddl/query-0000001000/%&#39;</span><span style="color:#f8f8f8;text-decoration:underline"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">ORDER</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">BY</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">ctime</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">path</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">SETTINGS</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">allow_unrestricted_reads_from_keeper</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#39;true&#39;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#8f5902;font-style:italic">-- How many nodes executed this task
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">SELECT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">name</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">numChildren</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">as</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">finished_nodes</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">FROM</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">system</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">zookeeper</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">WHERE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">path</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;/clickhouse/task_queue/ddl/query-0000001000/&#39;</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">AND</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">name</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;finished&#39;</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">┌─</span><span style="color:#000">name</span><span style="color:#a40000">─────┬─</span><span style="color:#000">finished_nodes</span><span style="color:#a40000">─┐</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">finished</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">              </span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">└──────────┴────────────────┘</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#8f5902;font-style:italic">-- The nodes that are running the task
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">SELECT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">name</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">value</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">ctime</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">mtime</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">FROM</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">system</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">zookeeper</span><span style="color:#f8f8f8;text-decoration:underline"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">WHERE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">path</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;/clickhouse/task_queue/ddl/query-0000001000/active/&#39;</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#8f5902;font-style:italic">-- What was the result for the finished nodes 
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">SELECT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">name</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">value</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">ctime</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">mtime</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">FROM</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">system</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">zookeeper</span><span style="color:#f8f8f8;text-decoration:underline"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">WHERE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">path</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;/clickhouse/task_queue/ddl/query-0000001000/finished/&#39;</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#8f5902;font-style:italic">-- Latest successfull executed tasks from query_log.
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">SELECT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">query</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">FROM</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">system</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">query_log</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">WHERE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">query</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">LIKE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;%ddl_entry%&#39;</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">AND</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">type</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">2</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">ORDER</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">BY</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">event_time</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">DESC</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">LIMIT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">5</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">SELECT</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#000">FQDN</span><span style="color:#000;font-weight:bold">(),</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">FROM</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">clusterAllReplicas</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#39;cluster&#39;</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">system</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">metrics</span><span style="color:#000;font-weight:bold">)</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">WHERE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">metric</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">LIKE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;%MaxDDLEntryID%&#39;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">┌─</span><span style="color:#000">FQDN</span><span style="color:#000;font-weight:bold">()</span><span style="color:#a40000">───────────────────┬─</span><span style="color:#000">metric</span><span style="color:#a40000">────────┬─</span><span style="color:#000">value</span><span style="color:#a40000">─┬─</span><span style="color:#000">description</span><span style="color:#a40000">───────────────────────────┐</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">chi</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#000">ab</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">svc</span><span style="color:#000;font-weight:bold">.</span><span style="color:#204a87;font-weight:bold">cluster</span><span style="color:#000;font-weight:bold">.</span><span style="color:#204a87;font-weight:bold">local</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">MaxDDLEntryID</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">  </span><span style="color:#0000cf;font-weight:bold">1468</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">Max</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">processed</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">DDL</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">entry</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">of</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">DDLWorker</span><span style="color:#000;font-weight:bold">.</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">└──────────────────────────┴───────────────┴───────┴───────────────────────────────────────┘</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">┌─</span><span style="color:#000">FQDN</span><span style="color:#000;font-weight:bold">()</span><span style="color:#a40000">───────────────────┬─</span><span style="color:#000">metric</span><span style="color:#a40000">────────┬─</span><span style="color:#000">value</span><span style="color:#a40000">─┬─</span><span style="color:#000">description</span><span style="color:#a40000">───────────────────────────┐</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">chi</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#000">ab</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">svc</span><span style="color:#000;font-weight:bold">.</span><span style="color:#204a87;font-weight:bold">cluster</span><span style="color:#000;font-weight:bold">.</span><span style="color:#204a87;font-weight:bold">local</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">MaxDDLEntryID</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">  </span><span style="color:#0000cf;font-weight:bold">1468</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">Max</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">processed</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">DDL</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">entry</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">of</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">DDLWorker</span><span style="color:#000;font-weight:bold">.</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">└──────────────────────────┴───────────────┴───────┴───────────────────────────────────────┘</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">┌─</span><span style="color:#000">FQDN</span><span style="color:#000;font-weight:bold">()</span><span style="color:#a40000">───────────────────┬─</span><span style="color:#000">metric</span><span style="color:#a40000">────────┬─</span><span style="color:#000">value</span><span style="color:#a40000">─┬─</span><span style="color:#000">description</span><span style="color:#a40000">───────────────────────────┐</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">chi</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#000">ab</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">svc</span><span style="color:#000;font-weight:bold">.</span><span style="color:#204a87;font-weight:bold">cluster</span><span style="color:#000;font-weight:bold">.</span><span style="color:#204a87;font-weight:bold">local</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">MaxDDLEntryID</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">  </span><span style="color:#0000cf;font-weight:bold">1468</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">Max</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">processed</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">DDL</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">entry</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">of</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">DDLWorker</span><span style="color:#000;font-weight:bold">.</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">└──────────────────────────┴───────────────┴───────┴───────────────────────────────────────┘</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#8f5902;font-style:italic">-- Information about task execution from logs.
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000">grep</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#204a87;font-weight:bold">C</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">40</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#34;ddl_entry&#34;</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">/</span><span style="color:#000">var</span><span style="color:#ce5c00;font-weight:bold">/</span><span style="color:#000">log</span><span style="color:#ce5c00;font-weight:bold">/</span><span style="color:#000">clickhouse</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#000">server</span><span style="color:#ce5c00;font-weight:bold">/</span><span style="color:#000">clickhouse</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#000">server</span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">log</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span></code></pre></div><h3 id="issues-that-can-prevent-task-execution">Issues that can prevent task execution</h3>
+<h4 id="obsolete-replicas">Obsolete Replicas</h4>
+<p>Obsolete replicas left in zookeeper.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">SELECT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">database</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">table</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">zookeeper_path</span><span style="color:#000;font-weight:bold">,</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">replica_path</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">zookeeper</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">FROM</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">system</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">replicas</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">WHERE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">total_replicas</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">!=</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">active_replicas</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">SELECT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">FROM</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">system</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">zookeeper</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">WHERE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">path</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;/clickhouse/cluster/tables/01/database/table/replicas&#39;</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">SYSTEM</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">DROP</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">REPLICA</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;replica_name&#39;</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">SYSTEM</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">STOP</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">REPLICATION</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">QUEUES</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">SYSTEM</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">START</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">REPLICATION</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">QUEUES</span><span style="color:#000;font-weight:bold">;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span></code></pre></div><p><a href="https://clickhouse.tech/docs/en/sql-reference/statements/system/%5c#query_language-system-drop-replica" target="_blank">https://clickhouse.tech/docs/en/sql-reference/statements/system/#query_language-system-drop-replica</a></p>
+<h4 id="tasks-manually-removed-from-ddl-queue">Tasks manually removed from DDL queue</h4>
+<p>Task were removed from DDL queue, but left in Replicated*MergeTree table queue.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>grep -C <span style="color:#0000cf;font-weight:bold">40</span> <span style="color:#4e9a06">&#34;ddl_entry&#34;</span> /var/log/clickhouse-server/clickhouse-server*.log
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>/var/log/clickhouse-server/clickhouse-server.log:2021.05.04 12:41:28.956888 <span style="color:#ce5c00;font-weight:bold">[</span> <span style="color:#0000cf;font-weight:bold">599</span> <span style="color:#ce5c00;font-weight:bold">]</span> <span style="color:#ce5c00;font-weight:bold">{}</span> &lt;Debug&gt; DDLWorker: Processing task query-0000211211 <span style="color:#ce5c00;font-weight:bold">(</span>ALTER TABLE db.table_local ON CLUSTER <span style="color:#4e9a06">`</span>all-replicated<span style="color:#4e9a06">`</span> DELETE WHERE <span style="color:#000">id</span> <span style="color:#ce5c00;font-weight:bold">=</span> 1<span style="color:#ce5c00;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span>/var/log/clickhouse-server/clickhouse-server.log:2021.05.04 12:41:29.053555 <span style="color:#ce5c00;font-weight:bold">[</span> <span style="color:#0000cf;font-weight:bold">599</span> <span style="color:#ce5c00;font-weight:bold">]</span> <span style="color:#ce5c00;font-weight:bold">{}</span> &lt;Error&gt; DDLWorker: ZooKeeper error: Code: 999, e.displayText<span style="color:#ce5c00;font-weight:bold">()</span> <span style="color:#ce5c00;font-weight:bold">=</span> Coordination::Exception: No node, Stack trace <span style="color:#ce5c00;font-weight:bold">(</span>when copying this message, always include the lines below<span style="color:#ce5c00;font-weight:bold">)</span>:
+</span></span><span style="display:flex;"><span>/var/log/clickhouse-server/clickhouse-server.log-
+</span></span><span style="display:flex;"><span>/var/log/clickhouse-server/clickhouse-server.log-0. Coordination::Exception::Exception<span style="color:#ce5c00;font-weight:bold">(</span>std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt; const<span style="color:#000;font-weight:bold">&amp;</span>, Coordination::Error, int<span style="color:#ce5c00;font-weight:bold">)</span> @ 0xfb2f6b3 in /usr/bin/clickhouse
+</span></span><span style="display:flex;"><span>/var/log/clickhouse-server/clickhouse-server.log-1. Coordination::Exception::Exception<span style="color:#ce5c00;font-weight:bold">(</span>Coordination::Error<span style="color:#ce5c00;font-weight:bold">)</span> @ 0xfb2fb56 in /usr/bin/clickhouse
+</span></span><span style="display:flex;"><span>/var/log/clickhouse-server/clickhouse-server.log:2. DB::DDLWorker::createStatusDirs<span style="color:#ce5c00;font-weight:bold">(</span>std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt; const<span style="color:#000;font-weight:bold">&amp;</span>, std::__1::shared_ptr&lt;zkutil::ZooKeeper&gt; const<span style="color:#000;font-weight:bold">&amp;</span><span style="color:#ce5c00;font-weight:bold">)</span> @ 0xeb3127a in /usr/bin/clickhouse
+</span></span><span style="display:flex;"><span>/var/log/clickhouse-server/clickhouse-server.log:3. DB::DDLWorker::processTask<span style="color:#ce5c00;font-weight:bold">(</span>DB::DDLTask<span style="color:#000;font-weight:bold">&amp;</span><span style="color:#ce5c00;font-weight:bold">)</span> @ 0xeb36c96 in /usr/bin/clickhouse
+</span></span><span style="display:flex;"><span>/var/log/clickhouse-server/clickhouse-server.log:4. DB::DDLWorker::enqueueTask<span style="color:#ce5c00;font-weight:bold">(</span>std::__1::unique_ptr&lt;DB::DDLTask, std::__1::default_delete&lt;DB::DDLTask&gt; &gt;<span style="color:#ce5c00;font-weight:bold">)</span> @ 0xeb35f22 in /usr/bin/clickhouse
+</span></span><span style="display:flex;"><span>/var/log/clickhouse-server/clickhouse-server.log-5. ? @ 0xeb47aed in /usr/bin/clickhouse
+</span></span><span style="display:flex;"><span>/var/log/clickhouse-server/clickhouse-server.log-6. ThreadPoolImpl&lt;ThreadFromGlobalPool&gt;::worker<span style="color:#ce5c00;font-weight:bold">(</span>std::__1::__list_iterator&lt;ThreadFromGlobalPool, void*&gt;<span style="color:#ce5c00;font-weight:bold">)</span> @ 0x8633bcd in /usr/bin/clickhouse
+</span></span><span style="display:flex;"><span>/var/log/clickhouse-server/clickhouse-server.log-7. ThreadFromGlobalPool::ThreadFromGlobalPool&lt;void ThreadPoolImpl&lt;ThreadFromGlobalPool&gt;::scheduleImpl&lt;void&gt;<span style="color:#ce5c00;font-weight:bold">(</span>std::__1::function&lt;void <span style="color:#ce5c00;font-weight:bold">()</span>&gt;, int, std::__1::optional&lt;unsigned long&gt;<span style="color:#ce5c00;font-weight:bold">)</span>::<span style="color:#4e9a06">&#39;lambda1&#39;</span><span style="color:#ce5c00;font-weight:bold">()</span>&gt;<span style="color:#ce5c00;font-weight:bold">(</span>void<span style="color:#ce5c00;font-weight:bold">&amp;&amp;</span>, void ThreadPoolImpl&lt;ThreadFromGlobalPool&gt;::scheduleImpl&lt;void&gt;<span style="color:#ce5c00;font-weight:bold">(</span>std::__1::function&lt;void <span style="color:#ce5c00;font-weight:bold">()</span>&gt;, int, std::__1::optional&lt;unsigned long&gt;<span style="color:#ce5c00;font-weight:bold">)</span>::<span style="color:#4e9a06">&#39;lambda1&#39;</span><span style="color:#ce5c00;font-weight:bold">()&amp;&amp;</span>...<span style="color:#ce5c00;font-weight:bold">)</span>::<span style="color:#4e9a06">&#39;lambda&#39;</span><span style="color:#ce5c00;font-weight:bold">()</span>::operator<span style="color:#ce5c00;font-weight:bold">()()</span> @ 0x863612f in /usr/bin/clickhouse
+</span></span><span style="display:flex;"><span>/var/log/clickhouse-server/clickhouse-server.log-8. ThreadPoolImpl&lt;std::__1::thread&gt;::worker<span style="color:#ce5c00;font-weight:bold">(</span>std::__1::__list_iterator&lt;std::__1::thread, void*&gt;<span style="color:#ce5c00;font-weight:bold">)</span> @ 0x8630ffd in /usr/bin/clickhouse
+</span></span><span style="display:flex;"><span>/var/log/clickhouse-server/clickhouse-server.log-9. ? @ 0x8634bb3 in /usr/bin/clickhouse
+</span></span><span style="display:flex;"><span>/var/log/clickhouse-server/clickhouse-server.log-10. start_thread @ 0x9609 in /usr/lib/x86_64-linux-gnu/libpthread-2.31.so
+</span></span><span style="display:flex;"><span>/var/log/clickhouse-server/clickhouse-server.log-11. __clone @ 0x122293 in /usr/lib/x86_64-linux-gnu/libc-2.31.so
+</span></span><span style="display:flex;"><span>/var/log/clickhouse-server/clickhouse-server.log- <span style="color:#ce5c00;font-weight:bold">(</span>version 21.1.8.30 <span style="color:#ce5c00;font-weight:bold">(</span>official build<span style="color:#ce5c00;font-weight:bold">))</span>
+</span></span><span style="display:flex;"><span>/var/log/clickhouse-server/clickhouse-server.log:2021.05.04 12:41:29.053951 <span style="color:#ce5c00;font-weight:bold">[</span> <span style="color:#0000cf;font-weight:bold">599</span> <span style="color:#ce5c00;font-weight:bold">]</span> <span style="color:#ce5c00;font-weight:bold">{}</span> &lt;Debug&gt; DDLWorker: Processing task query-0000211211 <span style="color:#ce5c00;font-weight:bold">(</span>ALTER TABLE db.table_local ON CLUSTER <span style="color:#4e9a06">`</span>all-replicated<span style="color:#4e9a06">`</span> DELETE WHERE <span style="color:#000">id</span> <span style="color:#ce5c00;font-weight:bold">=</span> 1<span style="color:#ce5c00;font-weight:bold">)</span>
+</span></span></code></pre></div><p>Context of this problem is:</p>
+<ul>
+<li>Constant pressure of cheap ON CLUSTER DELETE queries.</li>
+<li>One replica was down for a long amount of time (multiple days).</li>
+<li>Because of pressure on the DDL queue, it purged old records due to the <code>task_max_lifetime</code> setting.</li>
+<li>When a lagging replica comes up, it&rsquo;s fail&rsquo;s execute old queries from DDL queue, because at this point they were purged from it.</li>
+</ul>
+<p>Solution:</p>
+<ul>
+<li>Reload/Restore this replica from scratch.</li>
+</ul>
+<h4 id="ddl-path-was-changed-in-zookeeper-without-restarting-clickhouse">DDL path was changed in Zookeeper without restarting ClickHouse</h4>
+<p>Changing the DDL queue path in Zookeeper without restarting ClickHouse will make ClickHouse confused. If you need to do this ensure that you restart ClickHouse before submitting additional distributed DDL commands. Here&rsquo;s an example.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">-- Path before change:
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">SELECT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">FROM</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">system</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">zookeeper</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">WHERE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">path</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;/clickhouse/clickhouse101/task_queue&#39;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">┌─</span><span style="color:#000">name</span><span style="color:#a40000">─┬─</span><span style="color:#000">value</span><span style="color:#a40000">─┬─</span><span style="color:#000">path</span><span style="color:#a40000">─────────────────────────────────┐</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">ddl</span><span style="color:#f8f8f8;text-decoration:underline">  </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">       </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">/</span><span style="color:#000">clickhouse</span><span style="color:#ce5c00;font-weight:bold">/</span><span style="color:#000">clickhouse101</span><span style="color:#ce5c00;font-weight:bold">/</span><span style="color:#000">task_queue</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">└──────┴───────┴──────────────────────────────────────┘</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#8f5902;font-style:italic">-- Path after change
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">SELECT</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">FROM</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">system</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">zookeeper</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">WHERE</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">path</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#39;/clickhouse/clickhouse101/task_queue&#39;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">┌─</span><span style="color:#000">name</span><span style="color:#a40000">─┬─</span><span style="color:#000">value</span><span style="color:#a40000">─┬─</span><span style="color:#000">path</span><span style="color:#a40000">─────────────────────────────────┐</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">ddl2</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">       </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#ce5c00;font-weight:bold">/</span><span style="color:#000">clickhouse</span><span style="color:#ce5c00;font-weight:bold">/</span><span style="color:#000">clickhouse101</span><span style="color:#ce5c00;font-weight:bold">/</span><span style="color:#000">task_queue</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#a40000">│</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#a40000">└──────┴───────┴──────────────────────────────────────┘</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span></code></pre></div><p>The reason is that ClickHouse will not &ldquo;see&rdquo; this change and will continue to look for tasks in the old path. Altering paths in Zookeeper should be avoided if at all possible. If necessary it must be done <em>very carefuly</em>.</p>
+
+</div>
+
+
+
+    
+	
+  
+
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row footer-inner">
+      <div class="col-12">
+        <a href="https://altinity.com" target="_blank"><img src="/images/general/altinity-logo_horizontal_blue_white.svg" width="154" alt="Altinity.com"></a>
+      </div>
+    </div>
+    <div class="row footer-inner pb-3">
+      <div class="col-12 col-sm-6 text-left text-xs-center py-2">
+        <small class="text-white">&copy; 2024  Altinity Inc. Altinity® and Altinity.Cloud® are registered trademarks of Altinity, Inc. ClickHouse® is a registered trademark of ClickHouse, Inc. All Rights Reserved</small>
+        <small class="ml-1"><a href="https://altinity.com/privacy-policy/" target="_blank">Privacy Policy</a></small>
+  
+    
+  
+      </div>
+      <div class="col-12 col-sm-6 text-right text-xs-center">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Slack" aria-label="Slack">
+    <a class="text-white" target="_blank" rel="noopener noreferrer" href="https://altinitydbworkspace.slack.com/join/shared_invite/zt-1togw9b4g-N0ZOXQyEyPCBh_7IEHUjdw#/shared-invite/email">
+      <i class="fab fa-slack"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Twitter" aria-label="Twitter">
+    <a class="text-white" target="_blank" rel="noopener noreferrer" href="https://twitter.com/AltinityDB">
+      <i class="fab fa-twitter"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="LinkedIn" aria-label="LinkedIn">
+    <a class="text-white" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/company/altinity/">
+      <i class="fab fa-linkedin"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Youtube" aria-label="Youtube">
+    <a class="text-white" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/channel/UCE3Y2lDKl_ZfjaCrh62onYA">
+      <i class="fab fa-youtube"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" rel="noopener noreferrer" href="https://github.com/orgs/Altinity/">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Reddit" aria-label="Reddit">
+    <a class="text-white" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/r/Clickhouse/">
+      <i class="fab fa-reddit"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+
+    </div>
+  </div>
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-101676615-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-101676615-2');
+</script>
+</footer>
+
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
+    integrity="sha512-UR25UO94eTnCVwjbXozyeVd6ZqpaAE9naiEUBK/A+QDbfSTQFhPGj5lOR6d8tsgbBk84Ggb5A3EkjsOgPRPcKA=="
+    crossorigin="anonymous"></script>
+
+
+
+
+
+<script src='/js/tabpane-persist.js'></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.js"></script>
+
+
+
+<script src='/js/prism.js'></script>
+
+
+
+  </body>
+</html>

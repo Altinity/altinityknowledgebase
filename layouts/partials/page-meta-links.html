@@ -1,3 +1,4 @@
+{{ partial "search-input.html" . }}
 {{ if .File }}
   {{ $pathFormatted := replace .File.Path "\\" "/" }}
   {{ $gh_repo := ($.Param "github_repo") }}
@@ -15,8 +16,8 @@
       {{ $gh_repo_path = printf "%s/%s/content/%s" $gh_branch $gh_subdir $pathFormatted }}
     {{ end }}
     <!-- 20220608 John Hummel Updated Contact Links-->
-    <a href="https://hubs.la/Q02b-S740" target="_blank"><img src="/images/general/banners/manage-your-ch-smartly.png" width="200" alt="I want faster queries"></a>
-    <br />
+    <!-- <a href="https://hubs.la/Q02b-S740" target="_blank"><img src="/images/general/banners/manage-your-ch-smartly.png" width="200" alt="I want faster queries"></a>
+    <br /> -->
     {{ $editURL := printf "%s/edit/%s" $gh_repo $gh_repo_path }}
     {{ $createURL := printf "%s/edit/%s" $gh_repo $gh_repo_path }}
     {{/* $issuesURL := printf "%s/issues/new?title=%s" $gh_repo (htmlEscape $.Title ) */}}
