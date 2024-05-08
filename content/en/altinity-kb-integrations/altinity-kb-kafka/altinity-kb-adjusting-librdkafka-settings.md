@@ -32,6 +32,8 @@ Some random example:
 
 ## Authentication / connectivity
 
+Sometimes the consumer group needs to be explicitly allowed in the broker UI config.
+
 ### Amazon MSK | SASL/SCRAM
 
 ```xml
