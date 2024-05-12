@@ -21,9 +21,9 @@ CREATE TABLE RMT
     `someCol` String,
     `eventTime` DateTime
 )
-ENGINE = ReplacingMergeTree()
-PARTITION BY toYYYYMM(eventTime)
-ORDER BY key;
+    ENGINE = ReplacingMergeTree()
+        PARTITION BY toYYYYMM(eventTime)
+        ORDER BY key;
 
 INSERT INTO RMT Values (1, 'first', '2024-04-25T10:16:21');
 INSERT INTO RMT Values (1, 'second', '2024-05-02T08:36:59');
@@ -32,6 +32,8 @@ with merged as (select * from RMT FINAL)
 select * from merged
 where eventTime < '2024-05-01'
 ```
+
+You will get a row with ‘first’, not an empty set, as one might expect with the FINAL processing of a whole table.
 
 ### Collapsing
 
@@ -82,13 +84,13 @@ select * from merged
 where eventTime < '2024-05-01';
 ```
 
-https://fiddle.clickhouse.com/f88a71cf-cc75-4f9c-8dd9-569346c686f6
+With VersionedCollapsingMergeTree we can use more partition strategies, even by columns not tied to the row’s Primary Key. This could facilitate the creation of faster queries, more convenient TTLs (Time-To-Live), and backups.
 
 ### Row deduplication
 
-There are a lot of ways to remove duplicates from the event stream.  The most effective feature is the block deduplication when Clickhouse drops incoming blocks with the same checksum (or tag).  But it requires building a smart ingestor with the ability to save position in a transactional way.
+There are several ways to remove duplicates from the event stream. The most effective feature is the block deduplication when Clickhouse drops incoming blocks with the same checksum (or tag). However, this requires building a smart ingestor capable of saving positions in a transactional manner.
 
-But it’s possible to use another method - checking that particular row already exists in the destination table and not inserting it again.   To get reliable results, such a process should be executed in 1 thread on 1 cluster node.  That can be possible only for not-too-active event streams (like 100k/sec). To increase performance, incoming streams should be split by several partitions (or we can call them shards) by table/event Primary Key, and process inserts in 1 thread per 1 partition/shard.
+But another method is possible — verifying whether a particular row already exists in the destination table to avoid redundant insertions. However, ensuring accuracy and consistency in results requires executing this process on a single thread within one cluster node. This method is particularly suitable for less active event streams, such as those with up to 100,000 events per second. To boost performance, incoming streams should be segmented into several partitions (or 'shards'), based on the table/event's Primary Key, with each partition processed on a single thread.
 
 An example of row deduplication:
 
@@ -222,14 +224,14 @@ select 'step4',* from Example3 final;
 
 Important additions:
 
-- filtering insert block to get only 1 (latest) row, if there are inserted many rows with same id
-- using FINAL and PREWHERE (to speed up FINAL) while reading main (dest) table
-- filter to skip out-of-order events by checking version
+- filtering insert block to get only 1 (latest) row, if there are inserted many rows with the same id
+- using FINAL and PREWHERE (to speed up FINAL) while reading the main (dest) table
+- filter to skip out-of-order events by checking the version
 - DELETE event processing (inside last WHERE)
 
 ### Adding projections
 
-Let’s finally add aggregating projection together with a more useful `updated_at` timestamp instead of an abstract _version.
+Let's add an aggregating projection with a more useful `updated_at` timestamp instead of an abstract `_version`.
 
 https://fiddle.clickhouse.com/3140d341-ccc5-4f57-8fbf-55dbf4883a21
 
@@ -309,36 +311,36 @@ The presented technique can be used to reimplement the AggregatingMergeTree algo
 https://fiddle.clickhouse.com/e1d7e04c-f1d6-4a25-9aac-1fe2b543c693
 
 ```sql
-create table Example5 
+create table Example5
 (
-    id              Int32,   
+    id              Int32,
     metric1         UInt32,
     metric2         Nullable(UInt32),
     updated_at      DateTime64(3) default now64(3),
     sign            Int8 default 1
 ) engine = VersionedCollapsingMergeTree(sign, updated_at)
-ORDER BY id
+      ORDER BY id
 ;
 create table Stage engine=Null as Example5 ;
-  
+
 create materialized view Example5Transform to Example5 as
 with __new as ( SELECT * FROM Stage order by sign desc, updated_at desc limit 1 by id ),
      __old AS ( SELECT *, arrayJoin([-1,1]) AS _sign from
-                 ( select * FROM Example5 final
-                   PREWHERE id IN (SELECT id FROM __new)
-                   where sign = 1
-                 )
-    )
+         ( select * FROM Example5 final
+             PREWHERE id IN (SELECT id FROM __new)
+           where sign = 1
+             )
+                                                                                      )
 select id,
-    if(__old._sign = -1, __old.metric1, greatest(__new.metric1, __old.metric1)) AS metric1,    
-    if(__old._sign = -1, __old.metric2, ifNull(__new.metric2, __old.metric2)) AS metric2,
-    if(__old._sign = -1, __old.updated_at, __new.updated_at) AS updated_at,
-    if(__old._sign = -1, -1, 1)                          AS sign
+       if(__old._sign = -1, __old.metric1, greatest(__new.metric1, __old.metric1)) AS metric1,
+       if(__old._sign = -1, __old.metric2, ifNull(__new.metric2, __old.metric2)) AS metric2,
+       if(__old._sign = -1, __old.updated_at, __new.updated_at) AS updated_at,
+       if(__old._sign = -1, -1, 1)                          AS sign
 from __new left join __old using id
 where if(__new.sign=-1,
-  __old._sign = -1,                -- insert only delete row if it's found in old data
-  __new.updated_at > __old.updated_at  -- skip duplicates for updates
-);
+         __old._sign = -1,                -- insert only delete row if it's found in old data
+         __new.updated_at > __old.updated_at  -- skip duplicates for updates
+      );
 
 -- original
 insert into Stage(id) values (1), (2);
@@ -356,34 +358,34 @@ select 'step2',* from Example5 final ;
 In the examples above I use for PK a very simple compact column with In64 type.   When it’s possible better to go such a way.  [SnowFlakeId](https://www.notion.so/4a5c621b1e224c96b44210da5ce9c601?pvs=21) is the best variant and can be easily created during INSERT from DateTime and the hash of one or several important columns.  But sometimes it needs to have a more complicated PK f.e. when storing data for multiple Tenants (Customers, Partners, etc) in the same table.  It’s not a problem for the suggested technique  - just use all the needed columns in all filters and JOIN operations.
 
 ```sql
-create table Example1 
+create table Example1
 (
-    id              Int64,  
-    tenant_id       Int32, 
+    id              Int64,
+    tenant_id       Int32,
     metric1         UInt32,
     _version        UInt64,
     sign            Int8 default 1
 ) engine = VersionedCollapsingMergeTree(sign, _version)
-ORDER BY (tenant_id,id)
+      ORDER BY (tenant_id,id)
 ;
 create table Stage engine=Null as Example1 ;
 
 create materialized view Example1Transform to Example1 as
 with __new as ( SELECT * FROM Stage order by sign desc, _version desc limit 1 by tenant_id,id ),
      __old AS ( SELECT *, arrayJoin([-1,1]) AS _sign from
-                 ( select * FROM Example1 final
-                   PREWHERE (tenant_id,id) IN (SELECT tenant_id,id FROM __new)
-                   where sign = 1
-                 )
-    )
+         ( select * FROM Example1 final
+             PREWHERE (tenant_id,id) IN (SELECT tenant_id,id FROM __new)
+           where sign = 1
+             )
+                                                                                              )
 select id,tenant_id,
-    if(__old._sign = -1, __old.metric1, __new.metric1)   AS metric1,
-    if(__old._sign = -1, __old._version, __new._version) AS _version,
-    if(__old._sign = -1, -1, 1)                          AS sign
+       if(__old._sign = -1, __old.metric1, __new.metric1)   AS metric1,
+       if(__old._sign = -1, __old._version, __new._version) AS _version,
+       if(__old._sign = -1, -1, 1)                          AS sign
 from __new left join __old
-using (tenant_id,id)
+                     using (tenant_id,id)
 where if(__new.sign=-1,
-  __old._sign = -1,                -- insert only delete row if it's found in old data
-  __new._version > __old._version  -- skip duplicates for updates
-);
+         __old._sign = -1,                -- insert only delete row if it's found in old data
+         __new._version > __old._version  -- skip duplicates for updates
+      );
 ```
