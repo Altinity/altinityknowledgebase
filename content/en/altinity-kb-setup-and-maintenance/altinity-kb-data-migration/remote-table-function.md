@@ -72,3 +72,44 @@ Default values:
 │ connect_timeout_with_failover_secure_ms │ 100   │
 └─────────────────────────────────────────┴───────┘
 ```
+
+### Example
+
+```
+#!/bin/bash
+
+table='...'
+database='bvt'
+local='...'
+remote='...'
+CH="clickhouse-client"   # you may add auth here 
+settings="  max_insert_threads=20, 
+            max_threads=20, 
+            min_insert_block_size_bytes = 536870912, 
+            min_insert_block_size_rows = 16777216, 
+            max_insert_block_size = 16777216,
+            optimize_on_insert=0";
+
+# need it to create temp table with same structure (suitable for attach)
+params=$($CH -h $remote -q "select partition_key,sorting_key,primary_key from system.tables where table='$table' and database = '$database' " -f TSV)
+IFS=$'\t' read -r partition_key sorting_key primary_key <<< $params
+
+$CH -h $local \  # get list of source partitions
+-q "select distinct partition from system.parts where table='$table' and database = '$database' "
+
+while read -r partition; do
+# check that the partition is already copied
+  if [ `$CH -h $remote -q " select count() from system.parts table='$table' and database = '$database' and partition='$partition'"` -eq 0 ] ; then
+      $CH -n -h $remote -q "
+        create temporary table temp as $database.$table engine=MergeTree -- 23.3 required for temporary table
+           partition by ($partition_key) primary key ($primary_key)  order by ($sorting_key);
+        -- SYSTEM STOP MERGES temp; -- maybe....
+        set $settings;
+        insert into temp select * from remote($local,$database.$table) where _partition='$partition'
+        -- order by ($sorting_key) -- maybe....
+        ;
+        alter table $database.$table attach partition $partition from temp
+  "
+  fi
+done
+```

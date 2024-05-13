@@ -32,19 +32,26 @@ Some random example:
 
 ## Authentication / connectivity
 
-### Amazon MSK
+Sometimes the consumer group needs to be explicitly allowed in the broker UI config.
+
+### Amazon MSK | SASL/SCRAM
 
 ```xml
 <yandex>
   <kafka>
     <security_protocol>sasl_ssl</security_protocol>
+    <!-- Depending on your broker config you may need to uncomment below sasl_mechanism -->
+    <!-- <sasl_mechanism>SCRAM-SHA-512</sasl_mechanism> -->
     <sasl_username>root</sasl_username>
     <sasl_password>toor</sasl_password>
   </kafka>
 </yandex>
 ```
 
-### SASL/SCRAM
+[https://leftjoin.ru/all/clickhouse-as-a-consumer-to-amazon-msk/](https://leftjoin.ru/all/clickhouse-as-a-consumer-to-amazon-msk/)
+
+
+### on-prem / self-hosted Kafka broker
 
 ```xml
 <yandex>
@@ -53,11 +60,12 @@ Some random example:
     <sasl_mechanism>SCRAM-SHA-512</sasl_mechanism>
     <sasl_username>root</sasl_username>
     <sasl_password>toor</sasl_password>
+    <!-- fullchain cert here -->
+    <ssl_ca_location>/path/to/cert/fullchain.pem</ssl_ca_location>   
   </kafka>
 </yandex>
 ```
 
-[https://leftjoin.ru/all/clickhouse-as-a-consumer-to-amazon-msk/](https://leftjoin.ru/all/clickhouse-as-a-consumer-to-amazon-msk/)
 
 ### Inline Kafka certs
 
@@ -107,21 +115,20 @@ See [https://github.com/ClickHouse/ClickHouse/issues/12609](https://github.com/C
   </kafka>
 ```
 
-### confluent cloud
+### Confluent Cloud
 
 ```xml
 <yandex>
   <kafka>
     <auto_offset_reset>smallest</auto_offset_reset>
     <security_protocol>SASL_SSL</security_protocol>
-    <ssl_endpoint_identification_algorithm>https</ssl_endpoint_identification_algorithm>
+    <!-- older broker versions may need this below, for newer versions ignore -->
+    <!-- <ssl_endpoint_identification_algorithm>https</ssl_endpoint_identification_algorithm> -->
     <sasl_mechanism>PLAIN</sasl_mechanism>
     <sasl_username>username</sasl_username>
     <sasl_password>password</sasl_password>
-    <ssl_ca_location>probe</ssl_ca_location>
-    <!--
-    <ssl_ca_location>/path/to/cert.pem</ssl_ca_location>      
-    -->
+    <!-- Same as above here ignore if newer broker version -->
+    <!-- <ssl_ca_location>probe</ssl_ca_location> -->
   </kafka>
 </yandex>
 ```
