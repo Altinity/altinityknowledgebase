@@ -4,13 +4,15 @@ linkTitle: "VersionedCollapsingMergeTree"
 description: VersionedCollapsingMergeTree
 ---
 
-### Update Challenges
+### Challenges with mutated data
 
-When you have an incoming event stream with duplicates and updates you have a big challenge building a consistent row state inside the Clickhouse table.
+When you have an incoming event stream with duplicates, updates, and deletes you have a big challenge building a consistent row state inside the Clickhouse table.
 
-ReplacingMergeTree is a great engine for that and there are a lot of blog posts on how to apply it for that particular purpose. But there are several problems:
+The UPDATE/DELETE approach in the OLTP world won’t help with OLAP databases tuned to handle big batches. UPDATE/DELETE operations in Clickhouse are executed as “mutations” rewriting a lot of data and are quite slow.  You can’t run such operations very often as for OLTP databases.  But UPSERT operation (insert and replace) runs quite fast in streaming more with ReplacingMergeTree Engine. It’s even set as the default mode for INSERT without any special keyword. We can emulate UPDATE (or even DELETE) with UPSERT operation.
 
-- you can’t use another important Clickhouse feature - make aggregations by Materialized Views or Projections on top of the ReplacingMT table, because duplicates and updates will not be deduplicated by the engine during inserts, and calculated aggregates (like sum or count) will be incorrect.  For big amounts of data, it’s become critical because aggregating raw data during report queries will take too much time.
+There are a lot of [blog posts](https://altinity.com/blog/clickhouse-replacingmergetree-explained-the-good-the-bad-and-the-ugly) on how to use  ReplacingMergeTree for handling mutated data streams. But there are several problems:
+
+- you can’t use another important Clickhouse feature - online aggregation of incoming data by Materialized Views or Projections on top of the ReplacingMT table, because duplicates and updates will not be deduplicated by the engine during inserts, and calculated aggregates (like sum or count) will be incorrect.  For big amounts of data, it’s become critical because aggregating raw data during report queries will take too much time.
 - unfinished support for DELETEs. While in the newest versions of Clickhouse, it’s possible to add the is_deleted to ReplacingMergeTree parameters, the necessity of manually filtering out deleted rows after FINAL processing makes that feature less useful.
 - mutated data should be localized to the same partition.  If the “replacing” row is saved to another partition than the previous one, the report query will be much slower or produce unexpected results.
 
@@ -21,9 +23,9 @@ CREATE TABLE RMT
     `someCol` String,
     `eventTime` DateTime
 )
-    ENGINE = ReplacingMergeTree()
-        PARTITION BY toYYYYMM(eventTime)
-        ORDER BY key;
+ENGINE = ReplacingMergeTree()
+PARTITION BY toYYYYMM(eventTime)
+ORDER BY key;
 
 INSERT INTO RMT Values (1, 'first', '2024-04-25T10:16:21');
 INSERT INTO RMT Values (1, 'second', '2024-05-02T08:36:59');
@@ -37,9 +39,9 @@ You will get a row with ‘first’, not an empty set, as one might expect with 
 
 ### Collapsing
 
-Clickhouse has other table engines that can be used quite well for dealing with UPDATEs and DELETEs - CollapsingMergeTree and VersionedCollapsingMergeTree.
+Clickhouse has other table engines that can be used even better for UPSERT operation - CollapsingMergeTree and VersionedCollapsingMergeTree.
 
-Both work by inserting a “rollback row” to compensate for the previous insert.  The difference between CollapsingMergeTree and VersionedCollapsingMergeTree is in the algorithm of collapsing.  For Cluster configurations, it’s important to understand what row came first and who should replace whom.  That is why using ReplicatedVersionedCollapsingMergeTree is mandatory for Replicated Clusters.
+Both work by inserting a “rollback row” to compensate for the previous insert.  The difference between CollapsingMergeTree and VersionedCollapsingMergeTree is in the algorithm of collapsing.  For Cluster configurations, it’s important to understand which row came first and who should replace whom.  That is why using ReplicatedVersionedCollapsingMergeTree is mandatory for Replicated Clusters.
 
 When dealing with such complicated data streams, it needs to be solved 3 tasks simultaneously:
 
@@ -117,7 +119,7 @@ Here is the trick:
 
 Insert block in most cases does not have too many rows (like 1000-100k), so checking the destination table for their existence by scanning Primary Key (residing in memory) won’t take much time, but due to the high table’s index granularity can be still noticeable on high load. To enhance performance, consider reducing index granularity to 4096 (from the default 8192) or even fewer values.
 
-### Last row state
+### Getting old row
 
 To process updates in CollapsingMergeTree, it needs to know the 'last row state' to insert the 'compensation row.' Sometimes this is possible - CDC events coming from MySQL’s binlog or Postgres’s WAL contain not only 'new' data but also 'old' values. If one of the columns includes a sequence-generated version or timestamp of the row’s update time, it can be used as the row’s 'version' for VersionedCollapsingMergeTree. When the incoming event stream lacks old metric values and suitable version information, we can retrieve that data by examining the ClickHouse table in the same method used for row deduplication in the previous example.
 
@@ -140,37 +142,13 @@ join _old using id;
 
 Here I read more data from the Example2 table compared to Example1.  Instead of simply checking the row existence by the IN operator, a JOIN with existing rows is used for building a “compensate row”.
 
-The trick with arrayJoin is needed to insert two rows as required for the CollapsingMergeTree table.
+For UPSERT the collapsing algorithm requires inserting two rows. So I need to create two rows from any row that is found in the local table. It´s an essential part of the suggested approach, which allows me to produce proper rows for inserting with a human-readable code with clear if() statements.  That is why I execute arrayJoin while reading old data.
 
 Don’t try to run the code above.  It’s just a short explanation of the idea, lucking many needed elements.
 
-### Replace by collapsing
+### UPSERT by Collapsing
 
-The previous example is very simplified.  Let´s add more checks.
-
-> The _new mean that we can insert -1 sign to just delete the data, we can receive more than one version by block, if the update is done by push a -1 and 1 one the -1 is ignored?
->
-
-For that question better look at Example3 as more completed.  Ex2 shows the idea only.
-
-- If we receive several events only the last one will be applied.
-- If we got both -1 and 1 in the very same batch with the same version, we use only the sign=1
-
-```
-__new as ( SELECT * FROM Stage order by  _version,sign desc desc limit 1 by id )
-```
-
-> Can you explain the usage of the PREWHERE ? since the table is already ordered by id I would have supposed it's would already only pick thoses granules. Or maybe it's an optimisation when the code will have a more complexe order by ?
->
-
-PREWHERE is the optimization trick to run FINAL queries faster. In such cases, filters are applied before FINAL processing doing something like GROUP BY execution.
-
-> I would have done the array join after the join so clickhouse would not have to join so many lines, but maybe copying the data is less efficient than joining ?
->
-
-The collapsing algorithm requires inserting two rows in most cases. So I need to create two rows from any single row that is found in the table. It´s an essential part of the suggested approach, that allows me to create proper rows for inserting with an understandable if() statements.  That is why I do arrayJoin while reading old data.
-
-Here is a more realistic [example](https://fiddle.clickhouse.com/babb6069-f629-4f6b-be2c-be51c9f0aa9b), that can be played with:
+Here is a more realistic [example](https://fiddle.clickhouse.com/babb6069-f629-4f6b-be2c-be51c9f0aa9b) with more checks, that can be played with:
 
 ```sql
 create table Example3 
@@ -224,8 +202,9 @@ select 'step4',* from Example3 final;
 
 Important additions:
 
-- filtering insert block to get only 1 (latest) row, if there are inserted many rows with the same id
-- using FINAL and PREWHERE (to speed up FINAL) while reading the main (dest) table
+- When multiple events with the same ID and different versions are received in the one insert batch, the most recent event is applied.
+- “delete rows” with sign=-1 and the wrong version are not used for processing. For the Collapsing algorithm, the delete row version should match the version from the row stored in the local table, not the same version from the replacing row.  That’s why I decided to skip such a “delete row” received from the incoming stream and build it from the table’s data.
+- using FINAL and PREWHERE (to speed up FINAL) while reading the main (destination) table. PREWHERE filters are applied before FINAL processing, reducing the number of grouped rows.
 - filter to skip out-of-order events by checking the version
 - DELETE event processing (inside last WHERE)
 
@@ -311,36 +290,36 @@ The presented technique can be used to reimplement the AggregatingMergeTree algo
 https://fiddle.clickhouse.com/e1d7e04c-f1d6-4a25-9aac-1fe2b543c693
 
 ```sql
-create table Example5
+create table Example5 
 (
-    id              Int32,
+    id              Int32,   
     metric1         UInt32,
     metric2         Nullable(UInt32),
     updated_at      DateTime64(3) default now64(3),
     sign            Int8 default 1
 ) engine = VersionedCollapsingMergeTree(sign, updated_at)
-      ORDER BY id
+ORDER BY id
 ;
 create table Stage engine=Null as Example5 ;
-
+  
 create materialized view Example5Transform to Example5 as
 with __new as ( SELECT * FROM Stage order by sign desc, updated_at desc limit 1 by id ),
      __old AS ( SELECT *, arrayJoin([-1,1]) AS _sign from
-         ( select * FROM Example5 final
-             PREWHERE id IN (SELECT id FROM __new)
-           where sign = 1
-             )
-                                                                                      )
+                 ( select * FROM Example5 final
+                   PREWHERE id IN (SELECT id FROM __new)
+                   where sign = 1
+                 )
+    )
 select id,
-       if(__old._sign = -1, __old.metric1, greatest(__new.metric1, __old.metric1)) AS metric1,
-       if(__old._sign = -1, __old.metric2, ifNull(__new.metric2, __old.metric2)) AS metric2,
-       if(__old._sign = -1, __old.updated_at, __new.updated_at) AS updated_at,
-       if(__old._sign = -1, -1, 1)                          AS sign
+    if(__old._sign = -1, __old.metric1, greatest(__new.metric1, __old.metric1)) AS metric1,    
+    if(__old._sign = -1, __old.metric2, ifNull(__new.metric2, __old.metric2)) AS metric2,
+    if(__old._sign = -1, __old.updated_at, __new.updated_at) AS updated_at,
+    if(__old._sign = -1, -1, 1)                          AS sign
 from __new left join __old using id
 where if(__new.sign=-1,
-         __old._sign = -1,                -- insert only delete row if it's found in old data
-         __new.updated_at > __old.updated_at  -- skip duplicates for updates
-      );
+  __old._sign = -1,                -- insert only delete row if it's found in old data
+  __new.updated_at > __old.updated_at  -- skip duplicates for updates
+);
 
 -- original
 insert into Stage(id) values (1), (2);
@@ -358,34 +337,34 @@ select 'step2',* from Example5 final ;
 In the examples above I use for PK a very simple compact column with In64 type.   When it’s possible better to go such a way.  [SnowFlakeId](https://www.notion.so/4a5c621b1e224c96b44210da5ce9c601?pvs=21) is the best variant and can be easily created during INSERT from DateTime and the hash of one or several important columns.  But sometimes it needs to have a more complicated PK f.e. when storing data for multiple Tenants (Customers, Partners, etc) in the same table.  It’s not a problem for the suggested technique  - just use all the needed columns in all filters and JOIN operations.
 
 ```sql
-create table Example1
+create table Example1 
 (
-    id              Int64,
-    tenant_id       Int32,
+    id              Int64,  
+    tenant_id       Int32, 
     metric1         UInt32,
     _version        UInt64,
     sign            Int8 default 1
 ) engine = VersionedCollapsingMergeTree(sign, _version)
-      ORDER BY (tenant_id,id)
+ORDER BY (tenant_id,id)
 ;
 create table Stage engine=Null as Example1 ;
 
 create materialized view Example1Transform to Example1 as
 with __new as ( SELECT * FROM Stage order by sign desc, _version desc limit 1 by tenant_id,id ),
      __old AS ( SELECT *, arrayJoin([-1,1]) AS _sign from
-         ( select * FROM Example1 final
-             PREWHERE (tenant_id,id) IN (SELECT tenant_id,id FROM __new)
-           where sign = 1
-             )
-                                                                                              )
+                 ( select * FROM Example1 final
+                   PREWHERE (tenant_id,id) IN (SELECT tenant_id,id FROM __new)
+                   where sign = 1
+                 )
+    )
 select id,tenant_id,
-       if(__old._sign = -1, __old.metric1, __new.metric1)   AS metric1,
-       if(__old._sign = -1, __old._version, __new._version) AS _version,
-       if(__old._sign = -1, -1, 1)                          AS sign
+    if(__old._sign = -1, __old.metric1, __new.metric1)   AS metric1,
+    if(__old._sign = -1, __old._version, __new._version) AS _version,
+    if(__old._sign = -1, -1, 1)                          AS sign
 from __new left join __old
-                     using (tenant_id,id)
+using (tenant_id,id)
 where if(__new.sign=-1,
-         __old._sign = -1,                -- insert only delete row if it's found in old data
-         __new._version > __old._version  -- skip duplicates for updates
-      );
+  __old._sign = -1,                -- insert only delete row if it's found in old data
+  __new._version > __old._version  -- skip duplicates for updates
+);
 ```
