@@ -1,7 +1,7 @@
 ---
 title: "UPSERT by VersionedCollapsingMergeTree"
-linkTitle: "VersionedCollapsingMergeTree"
-description: VersionedCollapsingMergeTree
+linkTitle: "VersionedCollapsingMT"
+description: How to aggregate mutating event stream with duplicates 
 ---
 
 ### Challenges with mutated data
