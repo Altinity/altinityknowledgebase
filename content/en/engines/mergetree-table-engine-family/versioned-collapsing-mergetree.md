@@ -1,5 +1,5 @@
 ---
-title: "VersionedCollapsingMergeTree"
+title: "UPSERT by VersionedCollapsingMergeTree"
 linkTitle: "VersionedCollapsingMergeTree"
 description: VersionedCollapsingMergeTree
 ---
