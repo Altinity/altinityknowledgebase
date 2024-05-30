@@ -8,16 +8,31 @@ description: >
 weight: 10
 ---
 
+# ClickHouse Upgrade Procedure
+
+## Step-by-Step Guide:
+
 Normally the upgrade procedure looks like that:
-1) pick the release to upgrade
-2) check the release notes/changelog between the release you use currently and the target release
-3) sometimes you may need to change some configuration settings to change the defaults (for better compatibility, etc)
-4) upgrade itself is simple:
-   * upgrade package (it doesn't trigger the restart of clickhouse-server automatically)
-   * restart clickhouse-server
-   * check healthchecks / logs
-   * repeat on other nodes
-6) Mixing several versions working together in the same cluster may often lead to different degradations. Usually, it's not recommended to have a big delay between upgrading different nodes on the same cluster. Usually, you do upgrade on the odd replicas first, and after they were back online - restart the even replicas.
-7) upgrade the dev / staging first
-8) ensure your schema/queries work properly on the staging env
-9) do the production upgrade.
+
+1) **Pick the release to upgrade**
+   - Check if the version you want to upgrade to is stable. We highly recommend the Altinity ClickHouse Stable Releases.
+2) **Review Release Notes/Changelog**
+   - Compare the release notes/changelog between your current release and the target release.
+   - Ensure that no configuration changes are needed. Sometimes, you may need to adjust configuration settings for better compatibility.
+6) **Perform the Upgrade:**
+   - Upgrade the package (note that this does not trigger an automatic restart of the clickhouse-server).
+   - Restart the clickhouse-server service.
+   - Check health checks and logs.
+   - Repeat the process on other nodes.
+7) **Start with a “Canary” Update**
+   - Mixing several versions in the same cluster can lead to different degradations. It is usually not recommended to have a significant delay between upgrading different nodes in the same cluster.
+   - Perform the upgrade on the odd replicas first. Once they are back online, restart the even replicas.
+   - Test and verify that everything works properly. Check for any errors in the log files.
+9) **Upgrade Dev/Staging Environment**
+   - Upgrade the Dev/Staging environment first to ensure your schema/queries work properly in the staging environment.
+11) **Upgrade Production**
+    - Once the Dev/Staging environment is verified, proceed with the production upgrade.
+
+> **Note:**  Prepare and test downgrade procedures so the server can be returned to the previous version if necessary.
+
+To know more you can Download our free upgrade guide here : https://altinity.com/clickhouse-upgrade-overview/
