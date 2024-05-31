@@ -8,7 +8,7 @@ description: >-
 
 ## New, official way
 
-* Implemented automatic conversion of database engine from `Ordinary` to `Atomic`. Create empty `convert_ordinary_to_atomic` file in `flags` directory and all `Ordinary` databases will be converted automatically on next server start. Resolves [#39546](https://github.com/ClickHouse/ClickHouse/issues/39546). [#39933](https://github.com/ClickHouse/ClickHouse/pull/39933) ([Alexander Tokmakov](https://github.com/tavplubix))
+* Implemented automatic conversion of database engine from `Ordinary` to `Atomic` (ClickHouse Server 22.8+). Create empty `convert_ordinary_to_atomic` file in `flags` directory and all `Ordinary` databases will be converted automatically on next server start. Resolves [#39546](https://github.com/ClickHouse/ClickHouse/issues/39546). [#39933](https://github.com/ClickHouse/ClickHouse/pull/39933) ([Alexander Tokmakov](https://github.com/tavplubix))
 
 ## Example How to Convert Ordinary to Atomic
 
