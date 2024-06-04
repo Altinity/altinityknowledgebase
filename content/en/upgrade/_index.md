@@ -15,7 +15,7 @@ weight: 10
 Normally the upgrade procedure looks like that:
 
 1) **Pick the release to upgrade**
-   - Check if the version you want to upgrade to is stable. We highly recommend the Altinity ClickHouse Stable Releases.
+   - If you upgrade the existing installation with a lot of legacy queries, please pick mature versions with extended lifetime for upgrade (use [Altinity Stable Builds](https://docs.altinity.com/altinitystablebuilds/) or LTS releases from the upstream).
 2) **Review Release Notes/Changelog**
    - Compare the release notes/changelog between your current release and the target release.
    - Ensure that no configuration changes are needed. Sometimes, you may need to adjust configuration settings for better compatibility.
