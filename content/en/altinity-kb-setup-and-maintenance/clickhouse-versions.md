@@ -44,22 +44,7 @@ See also: [https://clickhouse.tech/docs/en/faq/operations/production/](https://c
 
 ## How do I upgrade?
 
-{{% alert title="Warning" color="warning" %}}
-Check upgrade / downgrade scenario on staging first.
-{{% /alert %}}
-
-1. check if you need to adjust some settings / to opt-out some new features you don't need (maybe needed to to make the downgrade path possible, or to make it possible for 2 versions to work together).
-2. [upgrade packages](https://docs.altinity.com/altinitystablerelease/stablequickstartguide/) on odd replicas
-3. (if needed / depends on use case) stop ingestion into odd replicas / remove them for load-balancer etc.
-4. restart clickhouse-server service on odd replicas.
-5. once odd replicas will go back online - repeat the same procedure on the even replicas.
-
-In some upgrade scenarios (depending from which version to which you do upgrate) when differerent replicas use different clickhouse versions you may see following issues:
-
-1. the replication don't work at all and delays grow.
-2. errors about 'checksum mismatch'  and traffic between replicase increase (they need to resync merge results).
-
-Both problems will go away once all replicas will be upgraded.
+Follow this KB article for [clickhouse version upgrade](https://kb.altinity.com/upgrade/)
 
 ## Bugs?
 
