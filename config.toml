@@ -164,10 +164,10 @@ enable = false
   icon = "fab fa-slack"
   desc = "Join our Slack Community"
 [[params.links.developer]]
-	name ="Twitter"
+	name ="X"
 	url = "https://twitter.com/AltinityDB"
 	icon = "fab fa-twitter"
-  desc = "Follow us on Twitter to get the latest news!"
+  desc = "Follow us on X to get the latest news!"
 [[params.links.developer]]
   name = "LinkedIn"
   url = "https://www.linkedin.com/company/altinity/"
