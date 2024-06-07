@@ -100,8 +100,6 @@ ATTACH TABLE db.table
 -- 
 ```
 
-After this we can check that the tables are out of readonly mode.
-
 If we get an error like this AFTER trying to attach table:
 
 ```bash
@@ -109,13 +107,54 @@ Received exception from server (version 22.8.15):
 Code: 231. DB::Exception: Received from localhost:9000. DB::Exception: The local set of parts of table insights.deleted_sessions (30780cbb-c626-4a6c-acf7-a8d1c104476b) doesn't look like the set of parts in ZooKeeper: 2.97 million rows of 2.97 million total rows in filesystem are suspicious. There are 57 uncovered unexpected parts with 2972851 rows (27 of them is not just-written with 2971882 rows), 2 missing parts (with 25439 blocks), 0 covered unexpected parts (with 0 rows).. (TOO_MANY_UNEXPECTED_DATA_PARTS)
 ```
 
-Check next problem
+Check next problem:
 
 ### Replica is not starting because local set of files differs too much
 
   - First try increase the thresholds or set flag `force_restore_data` flag and restarting clickhouse/pod https://clickhouse.com/docs/en/engines/table-engines/mergetree-family/replication#recovery-after-complete-data-loss  
 
 
+### Remove impossible/bad replicated merge tasks in the replication queue
+
+This methods needs manual intervention in Zookeeper/Keeper so you need to be careful
+
+This problem is normally caused by some merges stuck in the queue, which were not possible to execute because some of the parts were missing.
+- all those merges get stuck in the same scenario related to clickhouse restarts.
+- to make that issue happen few different things should be in place:
+  - node assigned the merge on the part(s) which were not yet fully replicated, and immediate after that it went to restart
+  - replica was offline for a longer time or there was a very intensive (=high QPS) inserts on the other node (offline node should miss at least `max_replicated_logs_to_keep` events and become 'lost')
+
+The root cause of that problem was fixed in https://github.com/ClickHouse/ClickHouse/pull/42134
+
+See also: https://github.com/ClickHouse/ClickHouse/issues/43867
+
+Here is the procedure to remove those tasks:
+
+```sql
+SELECT 'delete ' || replica_path || '/queue/' || node_name 
+FROM 
+(select hostName() as host, *
+FROM clusterAllReplicas('{cluster}', system.replication_queue)
+WHERE create_time < now() - INTERVAL 1 DAY AND type = 'MERGE_PARTS'
+) rq
+JOIN
+(SELECT hostName() as host, *
+FROM clusterAllReplicas('{cluster}', system.replicas)
+) r
+USING (host, database, table)
+ORDER BY create_time
+FORMAT TSVRaw;
+
+
+SELECT DISTINCT concat('SYSTEM RESTART REPLICA ', database, '.', table, '; -- ', hostName())
+FROM clusterAllReplicas('{cluster}', system.replication_queue)
+WHERE (create_time < (now() - toIntervalDay(1))) AND (type = 'MERGE_PARTS')
+ORDER BY
+    hostname() ASC,
+    database ASC,
+    table ASC
+FORMAT TSVRaw
+```
 
 ### Replica is in Read Only MODE
 
@@ -199,3 +238,24 @@ restore_replica() {
 
 restore_replica "$@"
 ```
+
+### Stuck DDL tasks in the distributed_ddl_queue
+
+Sometimes DDL tasks (the ones that use ON CLUSTER) can get stuck in the `distributed_ddl_queue` because the replicas can overload if multiple DDLs (thousands of CREATE/DROP/ALTER) are executed at the same time. This is very normal in heavy ETL jobs.This can be detected by checking the `distributed_ddl_queue` table and see if there are tasks that are not moving or are stuck for a long time.
+
+If these DDLs completed in some replicas but failed in others, the simplest way to solve this is to execute the failed command in the missed replicas. If most of the DDLs failed the check the number of unfinished records in `distributed_ddl_queue` on the other nodes, because most probably it will be as high as thousands.
+
+First backup the `distributed_ddl_queue` into a table:
+
+```sql
+CREATE TABLE default.system_distributed_ddl_queue AS SELECT * FROM system.distributed_ddl_queue;
+```
+
+Generate the delete statements for zookeeper client
+
+```sql
+SELECT concat('deleteall /clickhouse/task_queue/ddl/', entry) FROM system.distributed_ddl_queue FORMAT TSVRaw;
+```
+
+After this we need to check from the backup table which tasks are not finished and execute them manually in the missed replicas, and review the pipeline which do `ON CLUSTER` command and not abuse of them. There is a new `CREATE TEMPORARY TABLE` command that can be used to avoid the `ON CLUSTER` command in some cases, where you need an intermediate table to do some operations and after that you can `INSERT INTO` the final table and this temp table will be dropped automatically after the session is closed.
+
