@@ -13,56 +13,55 @@ description: >
    - Is there the connection to zookeeper active?
    - Is there the exception during table init? (`Code: 999. Coordination::Exception: Transaction failed (No node): Op #1`)
   
-2. Check `system.replication_queue`. How many tasks there / are they moving / is there some very old tasks there?:
+2. Check `system.replication_queue`. 
+   - How many tasks there / are they moving / are there some very old tasks there? (check `created_time` column, if tasks are 24h old, it is a sign of a problem):
    - You can use this qkb article query: https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-replication-queue/
    - Check if there are tasks with a high number of `num_tries` or `num_postponed` and `postponed_reason` this is a sign of stuck tasks.
    - Check the problematic parts affecting the stuck tasks. You can use columns `new_part_name` or `parts_to_merge`
    - Check which type is the task. If it is `MUTATE_PART` then it is a mutation task. If it is `MERGE_PARTS` then it is a merge task. These tasks can be deleted from the replication queue but `GET_PARTS` should not be deleted.
 
-3. Check system.errors
+3. Check `system.errors`
 
-4. Check system.mutations
+4. Check `system.mutations`:
    - You can check that in the replication queue are stuck tasks of type `MUTATE_PART`, and that those mutations are still executing `system.mutations` using column `is_done`
 
 5. Find the moment when problem started and collect / analyze / preserve logs from that moment. It is usually during the first steps of a restart/crash
 
-6. Use `part_log` and `system.parts` to gather information of the parts related with the stuck tasks in the replication queue.
-   - Check if those parts exist and are active from `system.parts`.
+6. Use `part_log` and `system.parts` to gather information of the parts related with the stuck tasks in the replication queue:
+   - Check if those parts exist and are active from `system.parts` (use partition_id, name as part and active columns to filter)
    - Extract the part history from `system.part_log`
-
-7. Example query from `part_log`
+   - Example query from `part_log`:
 
 ```sql
 SELECT hostName(), * FROM 
 cluster('all-sharded',system.part_log)
 WHERE
     hostName() IN ('chi-live-live-2-0-0','chi-live-live-2-2-0','chi-live-live-2-1-0')
-    AND table = 'session_events_local'
-    AND database = 'insights'
+    AND table = 'sessions_local'
+    AND database = 'analytics'
     AND part_name in ('20230411_33631_33654_3')
 ```
 
-9. If there are no errors, just everything get slower - check the load (usual system metrics)
+1. If there are no errors, just everything get slower - check the load (usual system metrics)
 
 
 ## Common problems & solutions
 
 
-- If the replication queue does not have any Exceptions only postponed reasons without exceptions just leave ClickHouse do Merges/Mutations and it will eventually catch up and reduce the number of tasks in `replication_queue`. If Delay in queue is going up actions may be needed.
+- If the replication queue does not have any Exceptions only postponed reasons without exceptions just leave ClickHouse do Merges/Mutations and it will eventually catch up and reduce the number of tasks in `replication_queue`. Number of concurrent merges and fetches can be tuned but if it is done without an analysis of your workload then you may end up in a worse situation. If Delay in queue is going up actions may be needed:
+
+- First simplest approach:    
+  - try to SYSTEM RESTART REPLICA (This will DETACH/ATTACH table internally)
 
 
-- Unknown stuff
-  - try to SYSTEM RESTART REPLICA
-  - try to restart ClickHouse
+### Some stuck replication task for a partition which was already removed or has no data
 
-## don't run things below blindly!!! they are dangerous! you can make it worse! Only if you clearly understand the problem and what that solution will do.
-
-
-### Some stuck replication task for the partition which was already removed by the replication.
+- This can be easily detected because some exceptions will be in the replication queue that reference a part from a partition that do not exist. Here the most probably scenario is that the partition was dropped and some tasks were left in the queue.
 
 - drop the partition manually once again (it should remove the task)
 
-- detach/attach partition with problem:
+- If the partition exists but the part is missing (maybe because it is superseeded by a newer merged part) then you can try to DETACH/ATTACH the partition.
+- Below DML generates the ALTER commands to do this:
 
 ```sql
 WITH 
@@ -80,12 +79,14 @@ ORDER BY count() DESC, sum(num_tries) DESC
 FORMAT TSVRaw;
 ```
 
-### Problem with mutation
+### Problem with mutation stuck in the queue:
 
-- kill the mutation
+- This can happen if the mutation is finished and by some reason the task is not removed from the queue. This can be detected by checking `system.mutations` table and see if the mutation is done but the task is still in the queue.
+
+- kill the mutation (again)
 
 ### Problem with 'impossible' merge in the queue (on all the replicas)
-  - ensure that detached_parts are empty, detach partition, then attach it back (on sinlge replica!), then remove leftovers from detached_parts
+  - ensure that detached_parts are empty, detach partition, then attach it back (on single replica!), then remove leftovers from detached_parts
   - detach the tables, remove the merge from the queue, attach tables back
   
   Check: https://github.com/Altinity/support-team/blob/main/common_issues/ImpossibleMergeInQueue.md
