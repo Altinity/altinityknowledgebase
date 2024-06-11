@@ -58,6 +58,9 @@ To add the `access_management` setting to an Altinity.Cloud ClickHouse Cluster:
            <replicated>
              <zookeeper_path>/clickhouse/access/</zookeeper_path>
            </replicated>
+           <local_directory>
+              <path>/var/lib/clickhouse/access/</path>
+           </local_directory>
          </user_directories>
        </yandex>
        ```
