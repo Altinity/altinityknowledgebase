@@ -38,9 +38,10 @@ Normally the upgrade procedure looks like that:
    - Perform the upgrade on the odd replicas first. Once they are back online, repeat same on the even replicas.
    - Test and verify that everything works properly. Check for any errors in the log files.
 5) **Upgrade Dev/Staging Environment**
-   - Follow 6th and 7th checklist and perform Upgrade the Dev/Staging environment. 
+   - Follow 3rd and 4th checklist and perform Upgrade the Dev/Staging environment. 
    - Ensure your schema/queries work properly in the Dev/staging environment.
-   - Perform testing before plan for production upgrade
+   - Perform testing before plan for production upgrade.
+   - Also worth to test the downgrade (to have plan B on upgrade failure)
 6) **Upgrade Production**
     - Once the Dev/Staging environment is verified, proceed with the production upgrade.
 
