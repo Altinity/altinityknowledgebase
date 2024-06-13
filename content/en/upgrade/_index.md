@@ -1,7 +1,6 @@
 ---
 aliases:
 - /https://kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/version-upgrades/
-- /https://kb.altinity.com/altinity-kb-setup-and-maintenance/clickhouse-versions/
 title: "Upgrade"
 linkTitle: "Upgrade"
 keywords:
