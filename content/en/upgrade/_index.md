@@ -21,7 +21,7 @@ Normally the upgrade procedure looks like that:
 2) **Review Release Notes/Changelog**
    - Compare the release notes/changelog between your current release and the target release.
    - For Altinity Stable Builds: check the release notes of the release you do upgrade to (if you going from some older release - you may need to read several of them for every release in between: [23.8](https://docs.altinity.com/releasenotes/altinity-stable-release-notes/23.8/), ... older versions ... )
-   - For upsream releases check the [changelog](https://github.com/Altinity/altinityknowledgebase/compare/81/...?expand=1)
+   - For upstream releases check the [changelog](https://github.com/ClickHouse/ClickHouse/blob/master/CHANGELOG.md)
    - Also ensure that no configuration changes are needed.
        - Sometimes, you may need to adjust configuration settings for better compatibility.
        - or to opt-out some new features you don’t need (maybe needed to to make the downgrade path possible, or to make it possible for 2 versions to work together)
