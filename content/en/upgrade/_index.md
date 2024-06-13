@@ -20,7 +20,9 @@ Normally the upgrade procedure looks like that:
    - If you upgrade the existing installation with a lot of legacy queries, please pick mature versions with extended lifetime for upgrade (use [Altinity Stable Builds](https://docs.altinity.com/altinitystablebuilds/) or LTS releases from the upstream).
 2) **Review Release Notes/Changelog**
    - Compare the release notes/changelog between your current release and the target release.
-   - For Altinity Stable Builds: check the release notes of the release you do upgrade to (if you going from some older release - you may need to read several of them for every release in between: [23.8](https://docs.altinity.com/releasenotes/altinity-stable-release-notes/23.8/), ... older versions ... )
+   - For Altinity Stable Builds: check the release notes of the release you do upgrade to (if you going from some older release - you may need to read several of them for every release in between (for example to upgrade from 22.3 to 23.8  you will need to check [22.8](https://docs.altinity.com/releasenotes/altinity-stable-release-notes/22.8/),
+   [23.3](https://docs.altinity.com/releasenotes/altinity-stable-release-notes/23.3/), 
+   [23.8](https://docs.altinity.com/releasenotes/altinity-stable-release-notes/23.8/)  etc.)
    - For upstream releases check the [changelog](https://github.com/ClickHouse/ClickHouse/blob/master/CHANGELOG.md)
    - Also ensure that no configuration changes are needed.
        - Sometimes, you may need to adjust configuration settings for better compatibility.
