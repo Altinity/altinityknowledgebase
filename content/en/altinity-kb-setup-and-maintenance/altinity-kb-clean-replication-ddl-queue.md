@@ -50,7 +50,7 @@ WHERE
 
 - If the replication queue does not have any Exceptions only postponed reasons without exceptions just leave ClickHouse do Merges/Mutations and it will eventually catch up and reduce the number of tasks in `replication_queue`. Number of concurrent merges and fetches can be tuned but if it is done without an analysis of your workload then you may end up in a worse situation. If Delay in queue is going up actions may be needed:
 
-- First simplest approach:    
+- First simplest approach:
   - try to SYSTEM RESTART REPLICA (This will DETACH/ATTACH table internally)
 
 
@@ -85,76 +85,9 @@ FORMAT TSVRaw;
 
 - kill the mutation (again)
 
-### Problem of some complex nature (races etc) which exists only on single replica, which can not be resolved by simple ways (`is_lost` flag method)
-
-Not even SYSTEM RESTART REPLICA db.table works and sometimes it can generate a server crash. So we can activate a flag to mark a replica as lost (long time not connected to the cluster) and DETACH/ATTACH table to initiate a special reconciliation procedure that will synchronize from a healthy replica full (replica won’t use its queue, but will check the queue of other replicas, so no need to delete the local queue) , without downloading any parts:
-
-```sql
-DETACH TABLE db.table
--- zkCli
-[zk: localhost:9181(CONNECTED) 10] ls /clickhouse/tables/code_map_sc/replicas/localhost
-[columns, metadata_version, is_lost, host, metadata, log_pointer, parts, mutation_pointer, max_processed_insert_time, is_active, flags, queue, min_unprocessed_insert_time]
-[zk: localhost:9181(CONNECTED) 10] set /clickhouse/tables/code_map_sc/replicas/localhost/is_lost 1
--- zkCli
-ATTACH TABLE db.table
--- 
-```
-
-If we get an error like this AFTER trying to attach table:
-
-```bash
-Received exception from server (version 22.8.15):
-Code: 231. DB::Exception: Received from localhost:9000. DB::Exception: The local set of parts of table insights.deleted_sessions (30780cbb-c626-4a6c-acf7-a8d1c104476b) doesn't look like the set of parts in ZooKeeper: 2.97 million rows of 2.97 million total rows in filesystem are suspicious. There are 57 uncovered unexpected parts with 2972851 rows (27 of them is not just-written with 2971882 rows), 2 missing parts (with 25439 blocks), 0 covered unexpected parts (with 0 rows).. (TOO_MANY_UNEXPECTED_DATA_PARTS)
-```
-
-Check next problem:
-
 ### Replica is not starting because local set of files differs too much
 
-  - First try increase the thresholds or set flag `force_restore_data` flag and restarting clickhouse/pod https://clickhouse.com/docs/en/engines/table-engines/mergetree-family/replication#recovery-after-complete-data-loss  
-
-
-### Remove impossible/bad replicated merge tasks in the replication queue
-
-**This methods needs manual intervention in Zookeeper/Keeper so you need to be careful**
-
-This problem is normally caused by some merges stuck in the queue, which were not possible to execute because some of the parts were missing.
-- all those merges get stuck in the same scenario related to clickhouse restarts.
-- to make that issue happen few different things should be in place:
-  - node assigned the merge on the part(s) which were not yet fully replicated, and immediate after that it went to restart
-  - replica was offline for a longer time or there was a very intensive (=high QPS) inserts on the other node (offline node should miss at least `max_replicated_logs_to_keep` events and become 'lost')
-
-The root cause of that problem was fixed in https://github.com/ClickHouse/ClickHouse/pull/42134
-
-See also: https://github.com/ClickHouse/ClickHouse/issues/43867
-
-Here is the procedure to remove those tasks:
-
-```sql
-SELECT 'delete ' || replica_path || '/queue/' || node_name 
-FROM 
-(select hostName() as host, *
-FROM clusterAllReplicas('{cluster}', system.replication_queue)
-WHERE create_time < now() - INTERVAL 1 DAY AND type = 'MERGE_PARTS'
-) rq
-JOIN
-(SELECT hostName() as host, *
-FROM clusterAllReplicas('{cluster}', system.replicas)
-) r
-USING (host, database, table)
-ORDER BY create_time
-FORMAT TSVRaw;
-
-
-SELECT DISTINCT concat('SYSTEM RESTART REPLICA ', database, '.', table, '; -- ', hostName())
-FROM clusterAllReplicas('{cluster}', system.replication_queue)
-WHERE (create_time < (now() - toIntervalDay(1))) AND (type = 'MERGE_PARTS')
-ORDER BY
-    hostname() ASC,
-    database ASC,
-    table ASC
-FORMAT TSVRaw
-```
+- First try increase the thresholds or set flag `force_restore_data` flag and restarting clickhouse/pod https://clickhouse.com/docs/en/engines/table-engines/mergetree-family/replication#recovery-after-complete-data-loss  
 
 ### Replica is in Read Only MODE
 
