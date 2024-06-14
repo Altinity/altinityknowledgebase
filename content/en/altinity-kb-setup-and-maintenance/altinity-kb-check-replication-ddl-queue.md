@@ -44,15 +44,12 @@ WHERE
 
 1. If there are no errors, just everything get slower - check the load (usual system metrics)
 
-
 ## Common problems & solutions
-
 
 - If the replication queue does not have any Exceptions only postponed reasons without exceptions just leave ClickHouse do Merges/Mutations and it will eventually catch up and reduce the number of tasks in `replication_queue`. Number of concurrent merges and fetches can be tuned but if it is done without an analysis of your workload then you may end up in a worse situation. If Delay in queue is going up actions may be needed:
 
 - First simplest approach:
-  - try to SYSTEM RESTART REPLICA (This will DETACH/ATTACH table internally)
-
+  - try to `SYSTEM RESTART REPLICA db.table` (This will DETACH/ATTACH table internally)
 
 ### Some stuck replication task for a partition which was already removed or has no data
 
@@ -60,7 +57,7 @@ WHERE
 
 - drop the partition manually once again (it should remove the task)
 
-- If the partition exists but the part is missing (maybe because it is superseeded by a newer merged part) then you can try to DETACH/ATTACH the partition.
+- If the partition exists but the part is missing (maybe because it is superseded by a newer merged part) then you can try to DETACH/ATTACH the partition.
 - Below DML generates the ALTER commands to do this:
 
 ```sql
@@ -91,7 +88,7 @@ FORMAT TSVRaw;
 
 ### Replica is in Read Only MODE
 
-Sometimes due to crashes, zookeeper split brain problem or other reasons some of the tables can be in Read-Only mode. This allows SELECTS but not INSERTS. So we need to do DROP / RESTORE replica procedure. 
+Sometimes due to crashes, zookeeper split brain problem or other reasons some of the tables can be in Read-Only mode. This allows SELECTS but not INSERTS. So we need to do DROP / RESTORE replica procedure.
 
 Just to be clear, this procedure **will not delete any data**, it will just re-create the metadata in zookeeper with the current state of the ClickHouse replica.
   
@@ -104,7 +101,7 @@ SYSTEM RESTORE REPLICA table_name;  -- It will detach all partitions, re-create 
 SYSTEM SYNC REPLICA table_name; -- Wait for replicas to synchronize parts. Also it's recommended to check `system.detached_parts` on all replicas after recovery is finished.
 ```
 
-There are some variants in new 23 versions of this procedure using (`SYSTEM DROP REPLICA 'replica_name' FROM TABLE db.table`)[https://clickhouse.com/docs/en/sql-reference/statements/system#drop-replica] instead of the ZKPATH variant, but you need to execute the above command from a different replica that the one you want to drop which is not convenient sometimes. We recommend to use the above method because it works for different versions from 21 to 24 and it is more reliable.
+There are some variants in new 23 versions of this procedure using (`SYSTEM DROP REPLICA 'replica_name' FROM TABLE db.table`)[https://clickhouse.com/docs/en/sql-reference/statements/system#drop-replica] instead of the `ZKPATH` variant, but you need to execute the above command from a different replica that the one you want to drop which is not convenient sometimes. We recommend to use the above method because it works for different versions from 21 to 24 and it is more reliable.
 
 - Procedure for many replicas generating DDL:
 
