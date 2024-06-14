@@ -95,7 +95,7 @@ Just to be clear, this procedure **will not delete any data**, it will just re-c
 ```sql
 DETACH TABLE table_name;  -- Required for DROP REPLICA
 -- Use the zookeeper_path and replica_name from the above query. 
-SYSTEM DROP REPLICA 'replica_name' FROM ZKPATH '/table_path_in_zk/'; -- It will remove everything from the /table_path_in_zk/replicas/replica_name
+SYSTEM DROP REPLICA 'replica_name' FROM ZKPATH '/table_path_in_zk'; -- It will remove everything from the /table_path_in_zk/replicas/replica_name
 ATTACH TABLE table_name;  -- Table will be in readonly mode, because there is no metadata in ZK and after that execute
 SYSTEM RESTORE REPLICA table_name;  -- It will detach all partitions, re-create metadata in ZK (like it's new empty table), and then attach all partitions back
 SYSTEM SYNC REPLICA table_name; -- Wait for replicas to synchronize parts. Also it's recommended to check `system.detached_parts` on all replicas after recovery is finished.
