@@ -116,7 +116,7 @@ Check next problem:
 
 ### Remove impossible/bad replicated merge tasks in the replication queue
 
-This methods needs manual intervention in Zookeeper/Keeper so you need to be careful
+**This methods needs manual intervention in Zookeeper/Keeper so you need to be careful**
 
 This problem is normally caused by some merges stuck in the queue, which were not possible to execute because some of the parts were missing.
 - all those merges get stuck in the same scenario related to clickhouse restarts.
@@ -257,5 +257,4 @@ Generate the delete statements for zookeeper client
 SELECT concat('deleteall /clickhouse/task_queue/ddl/', entry) FROM system.distributed_ddl_queue FORMAT TSVRaw;
 ```
 
-After this we need to check from the backup table which tasks are not finished and execute them manually in the missed replicas, and review the pipeline which do `ON CLUSTER` command and not abuse of them. There is a new `CREATE TEMPORARY TABLE` command that can be used to avoid the `ON CLUSTER` command in some cases, where you need an intermediate table to do some operations and after that you can `INSERT INTO` the final table and this temp table will be dropped automatically after the session is closed.
-
+After this we need to check from the backup table which tasks are not finished and execute them manually in the missed replicas, and review the pipeline which do `ON CLUSTER` command and not abuse of them. There is a new `CREATE TEMPORARY TABLE` command that can be used to avoid the `ON CLUSTER` command in some cases, where you need an intermediate table to do some operations and after that you can `INSERT INTO` the final table or do `ALTER TABLE final ATTACH PARTITION FROM TABLE temp` and this temp table will be dropped automatically after the session is closed.
