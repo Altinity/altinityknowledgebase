@@ -5,7 +5,7 @@ description: >
     This article describes how to detect possible problems in the `replication_queue` and `distributed_ddl_queue` and how to troubleshoot.
 ---
 
-# How to check the replication problems:
+# How to check replication problems:
 
 1. check `system.replicas` first, cluster-wide. It allows to check if the problem is local to some replica or global, and allows to see the exception.
    allows to answer the following questions:
