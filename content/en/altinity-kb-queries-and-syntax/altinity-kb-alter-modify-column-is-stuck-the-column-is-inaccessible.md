@@ -93,6 +93,25 @@ Check if column is accessible now:
 SELECT column_n, count() FROM modify_column GROUP BY column_n;
 ```
 
+Run optimize table before (test in 23.8), run fixed ALTER MODIFY COLUMN query will error:
+
+```sql
+ALTER TABLE modify_column
+    MODIFY COLUMN `column_n` Enum8('kye_a' = 1, 'key_b' = 2, 'key_c' = 3)
+
+Query id: a7f9d228-41cc-407b-b03e-eac2d2c5ddbd
+
+
+0 rows in set. Elapsed: 0.123 sec. 
+
+Received exception from server (version 23.8.9):
+Code: 341. DB::Exception: Received from localhost:9000. DB::Exception: Exception happened during execution of mutation 'mutation_6.txt' with part 'all_1_1_0_5' reason: 'Code: 691. DB::Exception: Unknown element 'key_a' for enum, maybe you meant: ['key_b']: while executing 'FUNCTION _CAST(column_n :: 0, 'Enum8(\'kye_a\' = 1, \'key_b\' = 2, \'key_c\' = 3)' :: 1) -> _CAST(column_n, 'Enum8(\'kye_a\' = 1, \'key_b\' = 2, \'key_c\' = 3)') Enum8('kye_a' = 1, 'key_b' = 2, 'key_c' = 3) : 2': (while reading from part /clickhouse/store/e2a/e2adbf6d-7e36-40c6-b899-c0012dceb172/all_1_1_0_5/ located on disk default of type local): While executing MergeTreeSequentialSource. (UNKNOWN_ELEMENT_OF_ENUM) (version 23.8.9.1)'. This error maybe retryable or not. In case of unretryable error, mutation can be killed with KILL MUTATION query. (UNFINISHED)
+```
+
+```sql
+OPTIMIZE TABLE modify_column FINAL;
+```
+
 Run fixed ALTER MODIFY COLUMN query.
 
 ```sql
