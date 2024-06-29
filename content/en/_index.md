@@ -1,7 +1,7 @@
 ---
 title: "Altinity Knowledge Base"
 linkTitle: "Altinity Knowledge Base"
-description: "Up-to-date ClickHouse knowledge base for every ClickHouse user."
+description: "Up-to-date ClickHouse® knowledge base for every ClickHouse user."
 keywords:
 - ClickHouse Knowledge Base
 - Altinity Knowledge Base
@@ -12,7 +12,7 @@ cascade:
   _target:
     path: "/**"
 ---
-## Welcome to the Altinity ClickHouse Knowledge Base (KB)
+## Welcome to the Altinity Knowledge Base (KB) for ClickHouse®
 
 This knowledge base is supported by [Altinity](http://altinity.com/) engineers to provide quick answers to common questions and issues involving ClickHouse.
 
@@ -21,8 +21,8 @@ The [Altinity Knowledge Base is licensed under Apache 2.0](https://github.com/Al
 For more detailed information about Altinity services support, see the following:
 
 * [Altinity](https://altinity.com/): Providers of Altinity.Cloud, providing SOC-2 certified support for ClickHouse.
-* [Altinity ClickHouse Documentation](https://docs.altinity.com): Detailed guides on installing and connecting ClickHouse to other services.
-* [ClickHouse Blog](https://altinity.com/blog/): Blog posts about ClickHouse and Altinity services.
+* [Altinity ClickHouse Documentation](https://docs.altinity.com): Detailed guides on installing and connecting ClickHouse software to other services.
+* [Altinity Blog](https://altinity.com/blog/): Blog posts about ClickHouse the database and Altinity services.
 
 The following sites are also useful references regarding ClickHouse:
 
