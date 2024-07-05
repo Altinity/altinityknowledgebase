@@ -1,12 +1,12 @@
 ---
-title: "background_message_broker_schedule_pool_size"
-linkTitle: "background_message_broker_schedule_pool_size"
+title: "Setting the background message broker schedule pool size"
+linkTitle: "Setting the background message broker schedule pool size"
 weight: 100
 description: >-
     Guide to managing the `background_message_broker_schedule_pool_size` setting for Kafka, RabbitMQ, and NATS table engines in your database.
 ---
 
-## background_message_broker_schedule_pool_size
+## Setting the background message broker schedule pool size
 
 When using Kafka, RabbitMQ, or NATS table engines, you might encounter issues caused by the oversaturation of the thread pool responsible for background jobs. Monitoring and adjusting the `background_message_broker_schedule_pool_size` setting can help alleviate these problems.
 
