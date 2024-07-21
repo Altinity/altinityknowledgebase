@@ -160,7 +160,7 @@ enable = false
 # End user relevant links. These will show up on left side of footer and in the community page if you have one.
 [[params.links.developer]]
   name ="Slack"
-  url = "https://altinitydbworkspace.slack.com/join/shared_invite/zt-1togw9b4g-N0ZOXQyEyPCBh_7IEHUjdw#/shared-invite/email"
+  url = "https://altinity.com/slack"
   icon = "fab fa-slack"
   desc = "Join our Slack Community"
 [[params.links.developer]]
