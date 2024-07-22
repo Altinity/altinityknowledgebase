@@ -1,6 +1,6 @@
 ---
-title: "Altinity Knowledge Base"
-linkTitle: "Altinity Knowledge Base"
+title: "Altinity Knowledge Base for ClickHouse®"
+linkTitle: "Altinity Knowledge Base for ClickHouse®"
 description: "Up-to-date ClickHouse® knowledge base for every ClickHouse user."
 keywords:
 - ClickHouse Knowledge Base
