@@ -34,7 +34,7 @@ To add some replicas to an existing cluster if -30TB then better to use replicat
 <clickhouse>
 	<profiles>
 		<default>
-			<max_replicated_fetches_network_bandwidth_for_server>50000</max_replicated_sends_network_bandwidth_for_server>
+			<max_replicated_fetches_network_bandwidth_for_server>50000</max_replicated_fetches_network_bandwidth_for_server>
 		</default>
 	</profiles>
 </clickhouse>
