@@ -10,7 +10,7 @@ description: >
 weight: 10
 ---
 
-# ClickHouse Version Upgrade Procedure
+# ClickHouse® Version Upgrade Procedure
 
 ## Step-by-Step Guide:
 
