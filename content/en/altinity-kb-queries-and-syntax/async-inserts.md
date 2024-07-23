@@ -19,7 +19,7 @@ Some insights about Async inserts you should now:
 * If `wait_for_async_insert = 0`:
   * Async inserts can loose your data in case of sudden restart (no fsyncs by default).
   * Async inserted data becomes available for selects not immediately after acknowledgment.
-  * Async insert is fast sending ACK to clients unblocking them, because they have to wait until ACK is received.
+  * Async insert is fast sending ACK to clients unblocking them, because they have to wait until ACK is received. If your use case can handle data loss, you can use `wait_for_async_insert = 0` it will increase the throughput.
 * Async inserts generally have more `moving parts` there are some background threads monitoring new data to be sent and pushing it out.
 * Async inserts require extra monitoring from different system.tables (see `system.part_log`, `system.query_log`, `system.asynchronous_inserts` and `system_asynchronous_insert_log`).
 
