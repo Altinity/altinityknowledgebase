@@ -17,4 +17,4 @@ ClickHouse is currently at the design stage of creating some universal backup so
 5. For a second replica, it’s enough to copy metadata and configuration.
 6. Data in clickhouse is already compressed with lz4, backup can be compressed bit better, but avoid using cpu-heavy compression algorythms like gzip, use something like zstd instead.
 
-The tool automating that process  [clickhouse-backup](https://github.com/AlexAkulov/clickhouse-backup).
+The tool automating that process  [clickhouse-backup](https://github.com/Altinity/clickhouse-backup).

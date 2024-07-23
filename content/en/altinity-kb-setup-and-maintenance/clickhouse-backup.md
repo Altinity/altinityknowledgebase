@@ -6,7 +6,7 @@ description: >
 ---
 ### Installation and configuration
 
-Download the latest `clickhouse-backup.tar.gz` from assets from [https://github.com/AlexAkulov/clickhouse-backup/releases](https://github.com/AlexAkulov/clickhouse-backup/releases)
+Download the latest `clickhouse-backup.tar.gz` from assets from [https://github.com/Altinity/clickhouse-backup/releases](https://github.com/Altinity/clickhouse-backup/releases)
 
 This tar.gz contains a single binary of `clickhouse-backup` and an example of config file.
 
@@ -17,7 +17,7 @@ Backblaze has s3 compatible API but requires empty acl parameter `acl: ""`.
 ```bash
 $ mkdir clickhouse-backup
 $ cd clickhouse-backup
-$ wget https://github.com/AlexAkulov/clickhouse-backup/releases/download/2.2.0/clickhouse-backup.tar.gz
+$ wget https://github.com/Altinity/clickhouse-backup/releases/download/v2.5.20/clickhouse-backup.tar.gz
 $ tar zxf clickhouse-backup.tar.gz
 $ rm clickhouse-backup.tar.gz
 $ cat config.yml
@@ -25,7 +25,6 @@ $ cat config.yml
 ```yaml
 general:
   remote_storage: s3
-  max_file_size: 1099511627776
   disable_progress_bar: false
   backups_to_keep_local: 0
   backups_to_keep_remote: 0
