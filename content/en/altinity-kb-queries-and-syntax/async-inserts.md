@@ -35,7 +35,7 @@ Some insights about Async inserts you should now:
   - [#54381](https://github.com/ClickHouse/ClickHouse/issues/54381) 
 * Async insert backpressure [#4762](https://github.com/ClickHouse/ClickHouse/issues/47623)
 * Limit the deduplication overhead when using `async_insert_deduplicate` [#46549](https://github.com/ClickHouse/ClickHouse/pull/46549)
-* SYSTEM FLUSH ASYNC INSERTS [#49160](https://github.com/ClickHouse/ClickHouse/pull/49160)
+* `SYSTEM FLUSH ASYNC INSERTS` [#49160](https://github.com/ClickHouse/ClickHouse/pull/49160)
 * Adjustable asynchronous insert timeouts [#58486](https://github.com/ClickHouse/ClickHouse/pull/58486)
 
 
@@ -46,7 +46,7 @@ Some insights about Async inserts you should now:
 - Async inserts not working with log_comment setting [48430](https://github.com/ClickHouse/ClickHouse/issues/48430)
 - Fix misbehaviour with async inserts with deduplication [#50663](https://github.com/ClickHouse/ClickHouse/pull/50663)
 - Reject Insert if `async_insert=1` and `deduplicate_blocks_in_dependent_materialized_views=1`[#60888](https://github.com/ClickHouse/ClickHouse/pull/60888)
-- Disable async_insert_use_adaptive_busy_timeout correctly with compatibility settings [#61486](https://github.com/ClickHouse/ClickHouse/pull/61468)
+- Disable `async_insert_use_adaptive_busy_timeout` correctly with compatibility settings [#61486](https://github.com/ClickHouse/ClickHouse/pull/61468)
 
 
 ## observability / introspection
@@ -63,7 +63,7 @@ This has been improved in **ClickHouse 23.7** Flush queries for async inserts (t
 ## Versions
 
 - **23.8** is a good version to start using async inserts because of the improvements and bugfixes. 
-- **24.3** the new adaptative timeout mechanism has been added so clickhouse will throttle the inserts based on the server load.
+- **24.3** the new adaptative timeout mechanism has been added so clickhouse will throttle the inserts based on the server load.[#58486](https://github.com/ClickHouse/ClickHouse/pull/58486)
 
 ## Metrics
 
