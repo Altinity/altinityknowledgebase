@@ -8,7 +8,7 @@ description: >
 
 Check
 
-* [https://hub.docker.com/r/yandex/clickhouse-server/](https://hub.docker.com/r/yandex/clickhouse-server/)
+* [https://hub.docker.com/r/clickhouse/clickhouse-server](https://hub.docker.com/r/clickhouse/clickhouse-server)
 * [https://docs.altinity.com/clickhouseonkubernetes/](https://docs.altinity.com/clickhouseonkubernetes/)
 * sources of entry point - [https://github.com/ClickHouse/ClickHouse/blob/master/docker/server/entrypoint.sh](https://github.com/ClickHouse/ClickHouse/blob/master/docker/server/entrypoint.sh)
 
@@ -40,7 +40,7 @@ docker run -d \
    --cap-add=IPC_LOCK \
    --cap-add=SYS_PTRACE \
    --network=host \
-   yandex/clickhouse-server:21.1.7
+   clickhouse/clickhouse-server:latest
 
 docker exec -it some-clickhouse-server clickhouse-client
 docker exec -it some-clickhouse-server bash
