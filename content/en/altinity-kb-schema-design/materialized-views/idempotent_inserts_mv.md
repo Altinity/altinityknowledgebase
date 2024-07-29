@@ -10,7 +10,7 @@ description: >-
 
 ClickHouse still does not have transactions. They will be implemented around 2022Q2.
 
-Because of Clickhouse materialized view is a trigger. And an insert into a table and an insert into a subordinate materialized view it's two different inserts so they are not atomic alltogether. 
+Because of ClickHouse materialized view is a trigger. And an insert into a table and an insert into a subordinate materialized view it's two different inserts so they are not atomic alltogether. 
 
 And insert into a materialized view may fail after the succesful insert into the table. In case of any failure a client gets the error about failed insertion.
 You may enable insert_deduplication (it's enabled by default for Replciated engines) and repeate the insert with an idea to achive idempotate insertion,
@@ -148,7 +148,7 @@ select sum(CNT) from test_mv;
 └──────────┘
 ```
 
-Idea how to fix it in Clickhouse source code https://github.com/ClickHouse/ClickHouse/issues/30240
+Idea how to fix it in ClickHouse source code https://github.com/ClickHouse/ClickHouse/issues/30240
 
 
 ### Fake (unused) metric to add uniqueness.

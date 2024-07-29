@@ -34,7 +34,7 @@ kubectl logs chi-chcluster-2-1-0 -c clickhouse-pod -n chcluster --previous
 kubectl describe pod chi-chcluster-2-1-0 -n chcluster
 ```
 
-Q. Clickhouse is caching the Kafka pod's IP and trying to connect to the same ip even when there is a new Kafka pod running and the old one is deprecated. Is there some setting where we could refresh the connection
+Q. ClickHouse is caching the Kafka pod's IP and trying to connect to the same ip even when there is a new Kafka pod running and the old one is deprecated. Is there some setting where we could refresh the connection
 
 `<disable_internal_dns_cache>1</disable_internal_dns_cache>` in config.xml
 

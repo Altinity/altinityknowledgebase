@@ -2,9 +2,9 @@
 title: "Sampling Example"
 linkTitle: "Sampling Example"
 description: >
-    ClickHouse table sampling example
+    ClickHouse® table sampling example
 ---
-The most important idea about sampling that the primary index must have **LowCardinality**. (For more information, see [the Altinity Knowledge Base article on LowCardinality](../../altinity-kb-schema-design/lowcardinality) or [a ClickHouse user\'s lessons learned from LowCardinality](https://altinity.com/blog/2020-5-20-reducing-clickhouse-storage-cost-with-the-low-cardinality-type-lessons-from-an-instana-engineer)). 
+The most important idea about sampling that the primary index must have **LowCardinality**. (For more information, see [the Altinity Knowledge Base article on LowCardinality](../../altinity-kb-schema-design/lowcardinality) or [a ClickHouse® user\'s lessons learned from LowCardinality](https://altinity.com/blog/2020-5-20-reducing-clickhouse-storage-cost-with-the-low-cardinality-type-lessons-from-an-instana-engineer)). 
 
 The following example demonstrates how sampling can be setup correctly, and an example if it being set up incorrectly as a comparison.
 

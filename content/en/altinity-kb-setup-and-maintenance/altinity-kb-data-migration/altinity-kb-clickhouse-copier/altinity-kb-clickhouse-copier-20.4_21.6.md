@@ -6,16 +6,16 @@ description: >
 aliases:
    /altinity-kb-setup-and-maintenance/altinity-kb-data-migration/altinity-kb-clickhouse-copier/altinity-kb-clickhouse-copier-20.4+/
 ---
-Clickhouse-copier was created to move data between clusters.
+`clickhouse-copier` was created to move data between clusters.
 It runs simple `INSERT…SELECT` queries and can copy data between tables with different engine parameters and between clusters with different number of shards.
 In the task configuration file you need to describe the layout of the source and the target cluster, and list the tables that you need to copy. You can copy whole tables or specific partitions.
-Clickhouse-copier uses temporary distributed tables to select from the source cluster and insert into the target cluster.
+`clickhouse-copier` uses temporary distributed tables to select from the source cluster and insert into the target cluster.
 
-The behavior of clickhouse-copier was changed in 20.4:
+The behavior of `clickhouse-copier` was changed in 20.4:
 
-* Now clickhouse-copier inserts data into intermediate tables, and after the insert finishes successfully clickhouse-copier attaches the completed partition into the target table. This allows for incremental data copying, because the data in the target table is intact during the process. **Important note:** ATTACH PARTITION respects the `max_partition_size_to_drop` limit. Make sure the `max_partition_size_to_drop` limit is big enough (or set to zero) in the destination cluster. If clickhouse-copier is unable to attach a partition because of the limit, it will proceed to the next partition, and it will drop the intermediate table when the task is finished (if the intermediate table is less than the `max_table_size_to_drop` limit). **Another important note:** ATTACH PARTITION is replicated. The attached partition will need to be downloaded by the other replicas. This can create significant network traffic between ClickHouse nodes. If an attach takes a long time, clickhouse-copier will log a timeout and will proceed to the next step.
-* Now clickhouse-copier splits the source data into chunks and copies them one by one. This is useful for big source tables, when inserting one partition of data can take hours. If there is an error during the insert clickhouse-copier has to drop the whole partition and start again. The `number_of_splits` parameter lets you split your data into chunks so that in case of an exception clickhouse-copier has to re-insert only one chunk of the data.
-* Now clickhouse-copier runs `OPTIMIZE target_table PARTITION ... DEDUPLICATE` for non-Replicated MergeTree tables. **Important note:** This is a very strange feature that can do more harm than good. We recommend to disable it by configuring the engine of the target table as Replicated in the task configuration file, and create the target tables manually if they are not supposed to be replicated. Intermediate tables are always created as plain MergeTree.
+* Now `clickhouse-copier` inserts data into intermediate tables, and after the insert finishes successfully `clickhouse-copier` attaches the completed partition into the target table. This allows for incremental data copying, because the data in the target table is intact during the process. **Important note:** ATTACH PARTITION respects the `max_partition_size_to_drop` limit. Make sure the `max_partition_size_to_drop` limit is big enough (or set to zero) in the destination cluster. If `clickhouse-copier` is unable to attach a partition because of the limit, it will proceed to the next partition, and it will drop the intermediate table when the task is finished (if the intermediate table is less than the `max_table_size_to_drop` limit). **Another important note:** ATTACH PARTITION is replicated. The attached partition will need to be downloaded by the other replicas. This can create significant network traffic between ClickHouse nodes. If an attach takes a long time, `clickhouse-copier` will log a timeout and will proceed to the next step.
+* Now `clickhouse-copier` splits the source data into chunks and copies them one by one. This is useful for big source tables, when inserting one partition of data can take hours. If there is an error during the insert `clickhouse-copier` has to drop the whole partition and start again. The `number_of_splits` parameter lets you split your data into chunks so that in case of an exception `clickhouse-copier` has to re-insert only one chunk of the data.
+* Now `clickhouse-copier` runs `OPTIMIZE target_table PARTITION ... DEDUPLICATE` for non-Replicated MergeTree tables. **Important note:** This is a very strange feature that can do more harm than good. We recommend to disable it by configuring the engine of the target table as Replicated in the task configuration file, and create the target tables manually if they are not supposed to be replicated. Intermediate tables are always created as plain MergeTree.
 
 ## The process is as follows
 
@@ -39,23 +39,23 @@ If a worker was interrupted, another worker can be started to continue the task.
 
 ## Configuring the engine of the target table
 
-Clickhouse-copier uses the engine from the task configuration file for these purposes:
+`clickhouse-copier` uses the engine from the task configuration file for these purposes:
 
 * to create target and intermediate tables if they don’t exist.
 * PARTITION BY: to SELECT a partition of data from the source table, to ATTACH partitions into target tables, to DROP incomplete partitions from intermediate tables, to OPTIMIZE partitions after they are attached to the target.
 * ORDER BY: to SELECT a chunk of data from the source table.
 
-Here is an example of SELECT that clickhouse-copier runs to get the sixth of ten chunks of data:
+Here is an example of SELECT that `clickhouse-copier` runs to get the sixth of ten chunks of data:
 
 ```sql
 WHERE (<the PARTITION BY clause> = (<a value of the PARTITION BY expression> AS partition_key))
   AND (cityHash64(<the ORDER BY clause>) % 10 = 6 )
 ```
 
-Clickhouse-copier does not support the old MergeTree format.
-However, you can create the intermediate tables manually with the same engine as the target tables (otherwise ATTACH will not work), and specify the engine in the task configuration file in the new format so that clickhouse-copier can parse it for SELECT, ATTACH PARTITION and DROP PARTITION queries.
+`clickhouse-copier` does not support the old MergeTree format.
+However, you can create the intermediate tables manually with the same engine as the target tables (otherwise ATTACH will not work), and specify the engine in the task configuration file in the new format so that `clickhouse-copier` can parse it for SELECT, ATTACH PARTITION and DROP PARTITION queries.
 
-**Important note**: always configure engine as Replicated to disable OPTIMIZE … DEDUPLICATE (unless you know why you need clickhouse-copier to run OPTIMIZE … DEDUPLICATE).
+**Important note**: always configure engine as Replicated to disable OPTIMIZE … DEDUPLICATE (unless you know why you need `clickhouse-copier` to run OPTIMIZE … DEDUPLICATE).
 
 ## How to configure the number of chunks
 
@@ -72,7 +72,7 @@ You can change this parameter in the `table` section of the task configuration f
 
 ## How to monitor the status of running tasks
 
-Clickhouse-copier uses ZooKeeper to keep track of the progress and to communicate between workers.
+`clickhouse-copier` uses ZooKeeper to keep track of the progress and to communicate between workers.
 Here is a list of queries that you can use to see what’s happening.
 
 ```sql

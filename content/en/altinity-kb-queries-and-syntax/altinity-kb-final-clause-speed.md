@@ -6,7 +6,7 @@ description: >
 ---
 `SELECT * FROM table FINAL`
 
-* Before 20.5 - always executed in a single thread and slow.
+* Before ClickHouse® 20.5 - always executed in a single thread and slow.
 * Since 20.5  - final can be parallel, see [https://github.com/ClickHouse/ClickHouse/pull/10463](https://github.com/ClickHouse/ClickHouse/pull/10463)
 * Since 20.10 - you can use `do_not_merge_across_partitions_select_final` setting.
 * Since 22.6  - final even more parallel, see [https://github.com/ClickHouse/ClickHouse/pull/36396](https://github.com/ClickHouse/ClickHouse/pull/36396)

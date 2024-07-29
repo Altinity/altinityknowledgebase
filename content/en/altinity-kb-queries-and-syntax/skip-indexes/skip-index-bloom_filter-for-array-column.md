@@ -6,7 +6,7 @@ description: >
 aliases:
   /altinity-kb-queries-and-syntax/skip-indexes/example-skip-index-bloom_filter-and-array-column
 ---
-tested with 20.8.17.25
+tested with ClickHouse® 20.8.17.25
 
 [https://clickhouse.com/docs/en/engines/table-engines/mergetree-family/mergetree/\#table_engine-mergetree-data_skipping-indexes](https://clickhouse.com/docs/en/engines/table-engines/mergetree-family/mergetree/#table_engine-mergetree-data_skipping-indexes)
 
@@ -40,7 +40,7 @@ select count() from bftest where has(x, -42);
     Processed 110.00 million rows, 9.68 GB (217.69 million rows/s., 19.16 GB/s.)
 ```
 
-As you can see Clickhouse read **110.00 million rows** and the query elapsed **Elapsed: 0.505 sec**.
+As you can see ClickHouse read **110.00 million rows** and the query elapsed **Elapsed: 0.505 sec**.
 
 ### Let's add an index
 
@@ -157,4 +157,3 @@ Also no improvement :(
 
 Outcome: I would use TYPE bloom_filter GRANULARITY 3.
 
- 2021 Altinity Inc. All rights reserved.

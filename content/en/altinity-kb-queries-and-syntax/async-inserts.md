@@ -5,14 +5,14 @@ description: >
     Async INSERTs
 ---
 
-Async INSERTs is a ClickHouse feature tha enables batching data automatically and transparently on the server-side. Although async inserts work, they still have issues, but have been improved in latest versions. We recommend to batch at app/ingestor level because you will have more control and you decouple this responsibility from ClickHouse. Being said that here some insights about Async inserts you should now:
+Async INSERTs is a ClickHouse® feature tha enables batching data automatically and transparently on the server-side. Although async inserts work, they still have issues, but have been improved in latest versions. We recommend to batch at app/ingestor level because you will have more control and you decouple this responsibility from ClickHouse. That being said, there are some insights about Async inserts you should now:
 
 * Async inserts give acknowledgment immediately after the data got inserted into the buffer (wait_for_async_insert = 0) or by default, after the data got written to a part after flushing from buffer (wait_for_async_insert = 1).
 * INSERT .. SELECT is NOT async insert. (You can use matView + Null table OR ephemeral columns instead of INPUT function, then ASYNC insert work)
 * Async inserts will do (idempotent) retries.
 * Async inserts can collect data for some offline remote clusters: Yandex self-driving cars were collecting the metrics data during the ride into ClickHouse installed on the car computer to a distributed table with Async inserts enabled, which were flushed to the cluster once the car was plugged to the network.
 * Async inserts can do batching, so multiple inserts can be squashed as a single insert (but in that case, retries are not idempotent anymore).
-* Async inserts can loose your data in case of sudden restart (no fsyncs by default).
+* Async inserts can lose your data in case of sudden restart (no fsyncs by default).
 * Async inserted data becomes available for selects not immediately after acknowledgment.
 * Async inserts generally have more `moving parts` there are some background threads monitoring new data to be sent and pushing it out.
 * Async inserts require extra monitoring from different system.tables (see `system.part_log`, `system.query_log` and `system.asynchronous_inserts` for 22.8). Previously such queries didn't appear in the query log. Check: [#33239](https://github.com/ClickHouse/ClickHouse/pull/33239).

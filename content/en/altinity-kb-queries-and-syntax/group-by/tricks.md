@@ -193,7 +193,7 @@ Elapsed: 6.247 sec. Processed 1.00 billion rows, 27.00 GB (160.09 million rows/s
 
 ```
 
-It can be especially useful when you tries to do GROUP BY lc_column_1, lc_column_2 and ClickHouse falls back to serialized algorithm.
+It can be especially useful when you tries to do GROUP BY lc_column_1, lc_column_2 and ClickHouse® falls back to serialized algorithm.
 
 
 ### Two LowCardinality Columns in GROUP BY 

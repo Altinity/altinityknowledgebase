@@ -4,7 +4,7 @@ linkTitle: "Number of active parts in a partition"
 description: >
     Number of active parts in a partition
 ---
-## Q: Why do I have several active parts in a partition? Why Clickhouse does not merge them immediately?
+## Q: Why do I have several active parts in a partition? Why ClickHouse does not merge them immediately?
 
 ### A: CH does not merge parts by time
 

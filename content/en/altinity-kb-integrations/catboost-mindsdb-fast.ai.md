@@ -11,7 +11,7 @@ Article is based on feedback provided by one of Altinity clients.
 CatBoost:
 
 * It uses gradient boosting - a hard to use technique which can outperform neural networks. Gradient boosting is powerful but it's easy to shoot yourself in the foot using it.
-* The documentation on how to use it is quite lacking. The only good source of information on how to properly configure a model to yield good results is this video: [https://www.youtube.com/watch?v=usdEWSDisS0](https://www.youtube.com/watch?v=usdEWSDisS0) . We had to dig around GitHub issues to find out how to make it work with ClickHouse.
+* The documentation on how to use it is quite lacking. The only good source of information on how to properly configure a model to yield good results is this video: [https://www.youtube.com/watch?v=usdEWSDisS0](https://www.youtube.com/watch?v=usdEWSDisS0) . We had to dig around GitHub issues to find out how to make it work with ClickHouse®.
 * CatBoost is fast. Other libraries will take ~5X to ~10X as long to do what CatBoost does.
 * CatBoost will do preprocessing out of the box (fills nulls, apply standard scaling, encodes strings as numbers).
 * CatBoost has all functions you'd need (metrics, plotters, feature importance)

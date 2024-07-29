@@ -8,11 +8,11 @@ description: >
 >
 > Virtual tables do not persist on disk. They reflect ClickHouse memory (c++ structures). They cannot be changed or removed.
 >
-> Log tables are named with postfix \***_log** and have the MergeTree engine. Clickhouse does not use information stored in these tables, this data is for you only.
+> Log tables are named with postfix \***_log** and have the MergeTree engine. ClickHouse does not use information stored in these tables, this data is for you only.
 >
 > You can drop / rename / truncate \***_log** tables at any time. ClickHouse will recreate them in about 7 seconds (flush period).
 
-> **Note 2:** Log tables with numeric postfixes (_1 / 2 / 3 ...) `query_log_1 query_thread_log_3` are results of Clickhouse upgrades. When a new version of Clickhouse starts and discovers that a system log table's schema is incompatible with a new schema, then Clickhouse renames the old *_log table to the name with the prefix and creates a table with the new schema. You can drop such tables if you don't need such historic data.
+> **Note 2:** Log tables with numeric postfixes (_1 / 2 / 3 ...) `query_log_1 query_thread_log_3` are results of ClickHouse upgrades. When a new version of ClickHouse starts and discovers that a system log table's schema is incompatible with a new schema, then ClickHouse renames the old *_log table to the name with the prefix and creates a table with the new schema. You can drop such tables if you don't need such historic data.
 
 ## You can disable all / any of them
 

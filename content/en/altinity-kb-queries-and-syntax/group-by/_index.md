@@ -6,7 +6,7 @@ keywords:
 - clickhouse group by
 - clickhouse memory
 description: >
-    Learn about GROUP BY clause in ClickHouse.
+    Learn about GROUP BY clause in ClickHouse®.
 weight: 1
 ---
 
@@ -14,7 +14,7 @@ weight: 1
 
 [Code](https://github.com/ClickHouse/ClickHouse/blob/8ab5270ded39c8b044f60f73c1de00c8117ab8f2/src/Interpreters/Aggregator.cpp#L382)
 
-ClickHouse uses non-blocking? hash tables, so each thread has at least one hash table.
+ClickHouse® uses non-blocking? hash tables, so each thread has at least one hash table.
 
 It makes easier to not care about sync between multiple threads, but has such disadvantages as: 
 1. Bigger memory usage.
@@ -52,7 +52,7 @@ https://clickhouse.com/docs/en/sql-reference/statements/select/group-by/#select-
 
 ## optimize_aggregation_in_order GROUP BY
 
-Usually it works slower than regular GROUP BY, because ClickHouse need's to read and process data in specific ORDER, which makes it much more complicated to parallelize reading and aggregating.
+Usually it works slower than regular GROUP BY, because ClickHouse needs to read and process data in specific ORDER, which makes it much more complicated to parallelize reading and aggregating.
 
 But it use much less memory, because ClickHouse can stream resultset and there is no need to keep it in memory.
 
@@ -143,7 +143,7 @@ Size of keys participated in GROUP BY
 
 2. States of aggregation functions:
 
-Be careful with function, which state can use unrestricted amount of memory and grow indefenetely:
+Be careful with function, which state can use unrestricted amount of memory and grow indefinitely:
 
 - groupArray (groupArray(1000)())
 - uniqExact  (uniq,uniqCombined)

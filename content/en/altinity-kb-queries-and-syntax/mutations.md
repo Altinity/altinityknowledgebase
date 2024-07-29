@@ -15,7 +15,7 @@ SELECT hostname(), * FROM clusterAllReplicas('your_cluster_name', system.mutatio
 
 Look on `is_done` and `latest_fail_reason` columns
 
-## Are mutations being run in parallel or they are sequential in ClickHouse (in scope of one table)
+## Are mutations being run in parallel or they are sequential in ClickHouse® (in scope of one table)
 
 ![Mutations](/assets/mutations4.png)
 

@@ -105,7 +105,7 @@ In case of Replicated installation, Dictionary should be created on all nodes an
 {{% /alert %}}
 
 {{% alert title="Info" color="info" %}}
-[Starting](https://github.com/ClickHouse/ClickHouse/pull/10186) from 20.4, ClickHouse forbid by default any potential non-deterministic mutations.
+[Starting](https://github.com/ClickHouse/ClickHouse/pull/10186) from 20.4, ClickHouse® forbid by default any potential non-deterministic mutations.
 This behavior controlled by setting `allow_nondeterministic_mutations`. You can append it to query like this `ALTER TABLE xxx UPDATE ... WHERE ... SETTINGS allow_nondeterministic_mutations = 1;`
 For `ON CLUSTER` queries, you would need to put this setting in default profile and restart ClickHouse servers.
 {{% /alert %}}

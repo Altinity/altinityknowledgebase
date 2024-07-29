@@ -41,7 +41,7 @@ Limitations exist, extra tuning may be needed, and having more RAM is recommende
 
 Memory usage control - ZFS adaptive replacement cache (ARC) can take a lot of RAM.  It can be the reason of out-of-memory issues when memory is also requested by the ClickHouse.
 
-* It seems that the most important thing is zfs_arc_max - you just need to limit the maximum size of the ARC so that the sum of the maximum size of the arc + the CH itself does not exceed the size of the available RAM. For example, we set a limit of 80% RAM for Clickhouse and 10% for ARC. 10% will remain for the system and other applications
+* It seems that the most important thing is zfs_arc_max - you just need to limit the maximum size of the ARC so that the sum of the maximum size of the arc + the CH itself does not exceed the size of the available RAM. For example, we set a limit of 80% RAM for ClickHouse and 10% for ARC. 10% will remain for the system and other applications
 
 Tuning:
 * another potentially interesting setting is primarycache=metadata, see benchmark example: https://www.ikus-soft.com/en/blog/2018-05-23-proxmox-primarycache-all-metadata/

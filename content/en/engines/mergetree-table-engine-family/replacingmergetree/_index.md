@@ -7,7 +7,7 @@ aliases:
   /engines/replacingmergetree
 ---
 [ReplacingMergeTree](https://altinity.com/blog/clickhouse-replacingmergetree-explained-the-good-the-bad-and-the-ugly)
-is a powerful ClickHouse MergeTree engine. It is one of the techniques that can be used to guarantee unicity or exactly once delivery in ClickHouse.
+is a powerful ClickHouse® MergeTree engine. It is one of the techniques that can be used to guarantee unicity or exactly once delivery in ClickHouse.
 
 ## General Operations
 
@@ -39,7 +39,7 @@ See these links for reference:
 
 Since 23.2, profile level ```final=1``` can force final automatically, see https://github.com/ClickHouse/ClickHouse/pull/40945
 
-Clickhouse merge parts only in scope of single partition, so if two rows with the same replacing key would land in different partitions, they would **never** be merged in single row. FINAL keyword works in other way, it merge all rows across all partitions. But that behavior can be changed via`do_not_merge_across_partitions_select_final` setting.
+ClickHouse merge parts only in scope of single partition, so if two rows with the same replacing key would land in different partitions, they would **never** be merged in single row. FINAL keyword works in other way, it merge all rows across all partitions. But that behavior can be changed via`do_not_merge_across_partitions_select_final` setting.
 
 ```sql
 CREATE TABLE repl_tbl_part

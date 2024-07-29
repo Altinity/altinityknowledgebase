@@ -7,7 +7,7 @@ description: >
 
 
  
-Q: Is there any way I can dedicate more resources to the merging process when running Clickhouse on pretty beefy machines (like 36 cores, 1TB of RAM, and large NVMe disks)?
+Q: Is there any way I can dedicate more resources to the merging process when running ClickHouse on pretty beefy machines (like 36 cores, 1TB of RAM, and large NVMe disks)?
  
 
 Mostly such things doing by changing the level of parallelism:

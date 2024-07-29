@@ -6,7 +6,7 @@ description: >
 ---
 Important things to know:
 
-1. DateTime inside clickhouse is actually UNIX timestamp always, i.e. number of seconds since 1970-01-01 00:00:00 GMT.
+1. DateTime inside ClickHouse® is actually UNIX timestamp always, i.e. number of seconds since 1970-01-01 00:00:00 GMT.
 2. Conversion from that UNIX timestamp to a human-readable form and reverse can happen on the client (for native clients) and on the server (for HTTP clients, and for some type of queries, like `toString(ts)`)
 3. Depending on the place where that conversion happened rules of different timezones may be applied.
 4. You can check server timezone using `SELECT timezone()`
@@ -34,7 +34,7 @@ toUnixTimestamp(toDateTime(now())):        1626432628
 toUnixTimestamp(toDateTime(now(), 'UTC')): 1626432628
 ```
 
-Since version 20.4 clickhouse uses embedded tzdata (see [https://github.com/ClickHouse/ClickHouse/pull/10425](https://github.com/ClickHouse/ClickHouse/pull/10425) )
+Since version 20.4 ClickHouse uses embedded tzdata (see [https://github.com/ClickHouse/ClickHouse/pull/10425](https://github.com/ClickHouse/ClickHouse/pull/10425) )
 
 You get used tzdata version
 
@@ -79,7 +79,7 @@ Query id: 855453d7-eccd-44cb-9631-f63bb02a273c
 
 ```
 
-Clickhouse uses system timezone info from tzdata package if it exists, and uses own builtin tzdata if it is missing in the system.
+ClickHouse uses system timezone info from tzdata package if it exists, and uses own builtin tzdata if it is missing in the system.
 
 ```
 cd /usr/share/zoneinfo/Canada
@@ -119,4 +119,4 @@ SELECT * FROM t_with_dt_utc
 └─────────────────────────┘
 ```
 
-Best practice here: use UTC timezone everywhere, OR use the same default timezone for clickhouse server as used by your data
+Best practice here: use UTC timezone everywhere, OR use the same default timezone for ClickHouse server as used by your data
