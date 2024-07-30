@@ -6,7 +6,7 @@ description: >-
      Approach, which allow you to redefine partitioning without table creation.
 ---
 
-In that example, partitioning is being calculated via `MATERIALIZED` column expression `toDate(toStartOfInterval(ts, toIntervalT(...)))`, but partition id also can be generated on application side and inserted to ClickHouse as is.
+In that example, partitioning is being calculated via `MATERIALIZED` column expression `toDate(toStartOfInterval(ts, toIntervalT(...)))`, but partition id also can be generated on application side and inserted to ClickHouse® as is.
 
 ```sql
 CREATE TABLE tbl

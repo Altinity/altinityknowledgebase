@@ -8,7 +8,7 @@ description: >-
 
 ## Collecting query execution flamegraph using system.trace_log
 
-ClickHouse has embedded functionality to analyze the details of query performance.
+ClickHouse® has embedded functionality to analyze the details of query performance.
 
 It's `system.trace_log` table.
 

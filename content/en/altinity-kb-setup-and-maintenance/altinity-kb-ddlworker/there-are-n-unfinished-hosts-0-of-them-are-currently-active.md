@@ -8,7 +8,7 @@ Sometimes your Distributed DDL queries are being stuck, and not executing on all
 
 ## Possible reasons
 
-### Clickhouse node can't recognize itself
+### ClickHouse node can't recognize itself
 
 ```sql
 SELECT * FROM system.clusters; -- check is_local column, it should have 1 for itself

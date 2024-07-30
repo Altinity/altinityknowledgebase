@@ -40,7 +40,7 @@ LIMIT 30
 FORMAT Vertical
 
 
--- modern Clickhouse
+-- modern ClickHouse
 SELECT 
     hostName() as host,
     normalized_query_hash,

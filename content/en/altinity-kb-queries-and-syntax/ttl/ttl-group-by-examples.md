@@ -28,7 +28,7 @@ TTL ts + interval 30 day
     ts = min(toStartOfDay(ts));
 ```
 
-During TTL merges Clickhouse re-calculates values of columns in the SET section.
+During TTL merges ClickHouse® re-calculates values of columns in the SET section.
 
 GROUP BY section should be a prefix of a table's PRIMARY KEY (the same as ORDER BY, if no separate PRIMARY KEY defined).
 
@@ -180,7 +180,7 @@ GROUP BY m;
 └────────┴─────────┴────────────┴────────────────┴────────────────┘
 ```
 
-During merges Clickhouse re-calculates **ts** columns as **min(toStartOfDay(ts))**. It's possible **only for the last column** of `SummingMergeTree` `ORDER BY` section `ORDER BY (key1, key2, toStartOfDay(ts), ts)` otherwise it will **break** the order of rows in the table.
+During merges ClickHouse re-calculates **ts** columns as **min(toStartOfDay(ts))**. It's possible **only for the last column** of `SummingMergeTree` `ORDER BY` section `ORDER BY (key1, key2, toStartOfDay(ts), ts)` otherwise it will **break** the order of rows in the table.
 
 ### Example with AggregatingMergeTree table
 

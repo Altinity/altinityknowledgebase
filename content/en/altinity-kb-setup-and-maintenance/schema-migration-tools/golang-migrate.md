@@ -65,7 +65,7 @@ migrate -database 'clickhouse://localhost:9000' -path ./migrations down
 
 #### Replicated / Distributed / Cluster environments
 
-`golang-migrate` supports a clustered Clickhouse environment since v4.15.0.
+`golang-migrate` supports a clustered ClickHouse environment since v4.15.0.
 
 If you provide `x-cluster-name` query param, it will create the table to store migration data on the passed cluster.
 

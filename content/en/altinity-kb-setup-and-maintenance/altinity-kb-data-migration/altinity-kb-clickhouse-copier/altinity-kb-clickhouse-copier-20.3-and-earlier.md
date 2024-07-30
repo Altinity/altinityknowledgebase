@@ -4,10 +4,10 @@ linkTitle: "clickhouse-copier 20.3 and earlier"
 description: >
     clickhouse-copier 20.3 and earlier
 ---
-Clickhouse-copier was created to move data between clusters.
+`clickhouse-copier` was created to move data between clusters.
 It runs simple INSERT…SELECT queries and can copy data between tables with different engine parameters and between clusters with different number of shards.
 In the task configuration file you need to describe the layout of the source and the target cluster, and list the tables that you need to copy. You can copy whole tables or specific partitions.
-Clickhouse-copier uses temporary distributed tables to select from the source cluster and insert into the target cluster.
+`clickhouse-copier` uses temporary distributed tables to select from the source cluster and insert into the target cluster.
 
 ## The process is as follows
 
@@ -27,17 +27,17 @@ If a worker was interrupted, another worker can be started to continue the task.
 
 ## Configuring the engine of the target table
 
-Clickhouse-copier uses the engine from the task configuration file for these purposes:
+`clickhouse-copier` uses the engine from the task configuration file for these purposes:
 
 * to create target tables if they don’t exist.
 * PARTITION BY: to SELECT a partition of data from the source table, to DROP existing partitions from target tables.
 
-Clickhouse-copier does not support the old MergeTree format.
-However, you can create the target tables manually and specify the engine in the task configuration file in the new format so that clickhouse-copier can parse it for its SELECT queries.
+`clickhouse-copier` does not support the old MergeTree format.
+However, you can create the target tables manually and specify the engine in the task configuration file in the new format so that `clickhouse-copier` can parse it for its SELECT queries.
 
 ## How to monitor the status of running tasks
 
-Clickhouse-copier uses ZooKeeper to keep track of the progress and to communicate between workers.
+`clickhouse-copier` uses ZooKeeper to keep track of the progress and to communicate between workers.
 Here is a list of queries that you can use to see what’s happening.
 
 ```sql

@@ -7,7 +7,7 @@ description: >
 {{% alert title="Warning" color="warning" %}}
 When you are creating
 [skip indexes](https://altinity.com/blog/clickhouse-black-magic-skipping-indices)
-in non-regular (Replicated)MergeTree tables over non ORDER BY columns. ClickHouse applies index condition on the first step of query execution, so it's possible to get outdated rows.
+in non-regular (Replicated)MergeTree tables over non ORDER BY columns. ClickHouse® applies index condition on the first step of query execution, so it's possible to get outdated rows.
 {{% /alert %}}
 
 ```sql

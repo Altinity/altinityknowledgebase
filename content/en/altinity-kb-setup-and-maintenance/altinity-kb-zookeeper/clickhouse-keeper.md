@@ -30,7 +30,7 @@ if you want to play with clickhouse-keeper in some environment - please use the 
 Official docs: https://clickhouse.com/docs/en/guides/sre/keeper/clickhouse-keeper/
 
 
-Clickhouse-keeper still need to be started additionally on few nodes (similar to 'normal' zookeeper) and speaks normal zookeeper protocol - needed to simplify A/B tests with real zookeeper.
+ClickHouse-keeper still need to be started additionally on few nodes (similar to 'normal' zookeeper) and speaks normal zookeeper protocol - needed to simplify A/B tests with real zookeeper.
 
 To test that you need to run 3 instances of clickhouse-server (which will mimic zookeeper) with an extra config like that:
 
@@ -55,9 +55,9 @@ https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/
 See 
 https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/clickhouse-keeper-initd/
 
-## Example of a simple cluster with 2 nodes of Clickhouse using built-in keeper
+## Example of a simple cluster with 2 nodes of ClickHouse using built-in keeper
 
-For example you can start two Clikhouse nodes (hostname1, hostname2)
+For example you can start two ClickHouse nodes (hostname1, hostname2)
 
 ### hostname1
 

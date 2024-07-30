@@ -94,7 +94,7 @@ MemoryTracker: Peak memory usage (for query): 4.05 GiB.
 
 0 rows in set. Elapsed: 4.852 sec. Processed 100.00 million rows, 800.00 MB (20.61 million rows/s., 164.88 MB/s.)
 
-This query faster than first, because ClickHouse doesn't need to merge states for all keys, only for first 1000 (based on LIMIT)
+This query faster than first, because ClickHouse® doesn't need to merge states for all keys, only for first 1000 (based on LIMIT)
 
 
 SELECT number % 1000 AS key

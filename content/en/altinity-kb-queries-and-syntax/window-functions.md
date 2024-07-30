@@ -7,11 +7,11 @@ description: >
 
 #### Resources: 
 
-* [Tutorial: ClickHouse Window Functions](https://altinity.com/blog/clickhouse-window-functions-current-state-of-the-art)
+* [Tutorial: ClickHouse® Window Functions](https://altinity.com/blog/clickhouse-window-functions-current-state-of-the-art)
 * [Video: Fun with ClickHouse Window Functions](https://www.youtube.com/watch?v=sm_vUdMQz4s)
 * [Blog: Battle of the Views: ClickHouse Window View vs. Live View](https://altinity.com/blog/battle-of-the-views-clickhouse-window-view-vs-live-view)
 
-#### How Do I Simulate Window Functions Using Arrays on older versions of clickhouse?
+#### How Do I Simulate Window Functions Using Arrays on older versions of ClickHouse?
 
 1. Group with groupArray.
 2. Calculate the needed metrics.

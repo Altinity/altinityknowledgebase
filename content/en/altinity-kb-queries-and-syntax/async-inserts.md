@@ -5,7 +5,7 @@ description: >
     Async INSERTs
 ---
 
-Async INSERTs is a ClickHouse feature tha enables batching data automatically and transparently on the server-side. We recommend to batch at app/ingestor level because you will have more control and you decouple this responsibility from ClickHouse, but there are use cases where this is not possible and Async inserts come in handy if you have hundreds or thousands of clients doing small inserts.
+Async INSERTs is a ClickHouse® feature tha enables batching data automatically and transparently on the server-side. We recommend to batch at app/ingestor level because you will have more control and you decouple this responsibility from ClickHouse, but there are use cases where this is not possible and Async inserts come in handy if you have hundreds or thousands of clients doing small inserts.
 
 You can check how they work here: [Async inserts](https://clickhouse.com/docs/en/optimize/asynchronous-inserts)
 

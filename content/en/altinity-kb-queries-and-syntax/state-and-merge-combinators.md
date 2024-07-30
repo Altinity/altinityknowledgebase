@@ -4,7 +4,7 @@ linkTitle: "-State & -Merge combinators"
 description: >
     -State & -Merge combinators
 ---
--State combinator doesn't actually store information about -If combinator, so aggregate functions with -If and without have the same serialized data.
+The ClickHouse® -State combinator doesn't actually store information about -If combinator, so aggregate functions with -If and without have the same serialized data.
 
 ```sql
 $ clickhouse-local --query "SELECT maxIfState(number,number % 2) as x, maxState(number) as y FROM numbers(10) FORMAT RowBinary" | clickhouse-local --input-format RowBinary --structure="x AggregateFunction(max,UInt64), y AggregateFunction(max,UInt64)" --query "SELECT maxMerge(x), maxMerge(y) FROM table"

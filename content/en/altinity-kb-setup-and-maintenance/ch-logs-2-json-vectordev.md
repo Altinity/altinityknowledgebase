@@ -1,9 +1,9 @@
 ---
-title: "Transformation Clickhouse logs to ndjson using Vector.dev"
-linkTitle: "Clickhouse logs and Vector.dev"
+title: "Transforming ClickHouse logs to ndjson using Vector.dev"
+linkTitle: "ClickHouse logs and Vector.dev"
 weight: 100
 description: >-
-     Transformation Clickhouse logs to ndjson using Vector.dev
+     Transforming ClickHouse logs to ndjson using Vector.dev
 ---
 
 ### ClickHouse 22.8
@@ -27,7 +27,7 @@ Starting from 22.8 version, ClickHouse support writing logs in JSON format:
 ```
 
 
-## Transformation Clickhouse logs to ndjson using Vector.dev"
+## Transforming ClickHouse logs to ndjson using Vector.dev"
 
 ### Installation of vector.dev
 

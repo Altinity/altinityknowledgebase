@@ -24,7 +24,7 @@ TTL event_time + toIntervalMonth(1) RECOMPRESS CODEC(ZSTD(1)),
     event_time + toIntervalMonth(6) RECOMPRESS CODEC(ZSTD(6);
 ```
 
-Default comression is LZ4 [https://clickhouse.tech/docs/en/operations/server-configuration-parameters/settings/\#server-settings-compression](https://clickhouse.tech/docs/en/operations/server-configuration-parameters/settings/#server-settings-compression)
+Default comression is LZ4. See [the ClickHouse® documentation](https://clickhouse.com/docs/en/operations/server-configuration-parameters/settings#server-settings-compression) for more information. 
 
 These TTL rules recompress data after 1 and 6 months.
 

@@ -4,7 +4,7 @@ linkTitle: "Dictionaries & arrays"
 description: >
     Dictionaries & arrays
 ---
-## Dictionary with Clickhouse table as a source
+## Dictionary with ClickHouse table as a source
 
 ### Test data
 

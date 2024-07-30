@@ -20,7 +20,7 @@ INSERT INTO events SELECT
 FROM numbers(15);
 ```
 
-## Using window functions (starting from Clickhouse 21.3)
+## Using window functions (starting from ClickHouse® 21.3)
 
 ```sql
 SELECT

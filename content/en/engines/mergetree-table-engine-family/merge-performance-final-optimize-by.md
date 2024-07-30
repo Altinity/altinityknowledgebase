@@ -41,7 +41,7 @@ When using
 [deduplicate](/altinity-kb-schema-design/row-level-deduplication/)
 feature in `OPTIMIZE FINAL`, the question is which row will remain and won't be deduped?
 
-For SELECT operations Clickhouse does not guarantee the order of the resultset unless you specify ORDER BY. This random ordering is affected by different parameters, like for example `max_threads`. 
+For SELECT operations ClickHouse® does not guarantee the order of the resultset unless you specify ORDER BY. This random ordering is affected by different parameters, like for example `max_threads`. 
 
 In a merge operation ClickHouse reads rows sequentially in storage order, which is determined by ORDER BY specified in CREATE TABLE statement, and only the first unique row in that order survives deduplication. So it is a bit different from how SELECT actually works. As FINAL clause is used then ClickHouse will merge all rows across all partitions (If it is not specified then the merge operation will be done per partition), and so the first unique row of the first partition will survive deduplication. Merges are single-threaded because it is too complicated to apply merge ops in-parallel, and it generally makes no sense.
 
