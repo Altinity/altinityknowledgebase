@@ -56,7 +56,7 @@ description: >-
      - https://kb.altinity.com/altinity-kb-setup-and-maintenance/schema-migration-tools/
 6.  Design backup / failover strategies:
 	- https://clickhouse.com/docs/en/operations/backup/
-	- https://github.com/AlexAkulov/clickhouse-backup
+	- https://github.com/Altinity/clickhouse-backup
 7.  Develop pipelines / queries, create test suite, CI/CD
 8.  Do benchmark / stress tests 
 9.  Test configuration changes / server restarts / failovers / version upgrades

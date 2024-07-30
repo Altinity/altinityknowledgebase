@@ -6,20 +6,20 @@ description: >
 ---
 ### differential backups using clickhouse-backup
 
-1. Download the latest clickhouse-backup for your platform https://github.com/AlexAkulov/clickhouse-backup/releases
+1. Download the latest clickhouse-backup for your platform https://github.com/Altinity/clickhouse-backup/releases
 
 ```bash
 # ubuntu / debian
 
-wget https://github.com/AlexAkulov/clickhouse-backup/releases/download/v1.0.0/clickhouse-backup_1.0.0_amd64.deb 
-sudo dpkg -i clickhouse-backup_1.0.0_amd64.deb 
+wget https://github.com/Altinity/clickhouse-backup/releases/download/v2.5.20/clickhouse-backup_2.5.20_amd64.deb 
+sudo dpkg -i clickhouse-backup_2.5.20_amd64.deb 
 
 # centos / redhat / fedora 
 
-sudo yum install https://github.com/AlexAkulov/clickhouse-backup/releases/download/v1.0.0/clickhouse-backup-1.0.0-1.x86_64.rpm
+sudo yum install https://github.com/Altinity/clickhouse-backup/releases/download/v2.5.20/clickhouse-backup-2.5.20-1.x86_64.rpm
 
 # other platforms
-wget https://github.com/AlexAkulov/clickhouse-backup/releases/download/v1.0.0/clickhouse-backup.tar.gz
+wget https://github.com/Altinity/clickhouse-backup/releases/download/v2.5.20/clickhouse-backup.tar.gz
 sudo mkdir /etc/clickhouse-backup/
 sudo mv clickhouse-backup/config.yml /etc/clickhouse-backup/config.yml.example
 sudo mv clickhouse-backup/clickhouse-backup /usr/bin/

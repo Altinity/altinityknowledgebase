@@ -91,7 +91,7 @@ Cons:
 
 Just create the backup on server 1, upload it to server 2, and restore the backup.
 
-See [https://github.com/AlexAkulov/clickhouse-backup](https://github.com/AlexAkulov/clickhouse-backup)
+See [https://github.com/Altinity/clickhouse-backup](https://github.com/Altinity/clickhouse-backup)
 
 [https://altinity.com/blog/introduction-to-clickhouse-backups-and-clickhouse-backup](https://altinity.com/blog/introduction-to-clickhouse-backups-and-clickhouse-backup)
 
