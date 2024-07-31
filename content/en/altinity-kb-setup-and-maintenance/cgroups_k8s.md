@@ -6,9 +6,7 @@ description: >-
      cgroups and kubernetes cloud providers.
 ---
 
-## cgroups and kubernetes cloud providers
-
-Why my ClickHouse is slow after upgrade to version 22.2 and higher?
+Why my ClickHouse® is slow after upgrade to version 22.2 and higher?
 
 The probable reason is that ClickHouse 22.2 started to respect cgroups (Respect cgroups limits in max_threads autodetection. [#33342](https://github.com/ClickHouse/ClickHouse/pull/33342) ([JaySon](https://github.com/JaySon-Huang)).
 

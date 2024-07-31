@@ -1,13 +1,12 @@
 ---
-title: "Compatibility layer for clickhouse-operator metric exporter"
-linkTitle: "clickhouse-operator metrics names from clickhouse-server"
+title: "Compatibility layer for the Altinity Kubernetes Operator for ClickHouse®"
+linkTitle: "Compatibility layer for the Altinity Kubernetes Operator for ClickHouse®"
 weight: 100
 description: >-
      Page description for heading and indexes.
 ---
 
-It's possible to expose clickhouse-server metrics in clickhouse-operator style.
-It's for clickhouse-operator grafana dashboard.
+It's possible to expose `clickhouse-server` metrics in the style used by the Altinity Kubernetes Operator for ClickHouse®. It's for the `clickhouse-operator` grafana dashboard.
 
 ```sql
 CREATE VIEW system.operator_compatible_metrics

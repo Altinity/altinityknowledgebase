@@ -3,12 +3,12 @@ title: "How much is too much?"
 linkTitle: "How much is too much?"
 weight: 100
 description: >-
-      ClickHouse Limitations.
+      ClickHouse® Limitations
 ---
 
 ## How much is too much?
 
-In most of the cases clickhouse don't have any hard limits. But obsiously there there are some practical limitation / barriers for different things - often they are caused by some system / network / filesystem limitation.
+In most of the cases ClickHouse® don't have any hard limits. But obsiously there there are some practical limitation / barriers for different things - often they are caused by some system / network / filesystem limitation.
 
 So after reaching some limits you can get different kind of problems, usually it never a failures / errors, but different kinds of degradations (slower queries / high cpu/memory usage, extra load on the network / zookeeper etc).
 
@@ -26,7 +26,7 @@ Fewer than number of tables (above). Dozens / hundreds is usually still acceptab
 
 ### Number of inserts per seconds
 
-For usual (non async) inserts - dozen is enough. Every insert creates a part, if you will create parts too often, clickhouse will not be able to merge them and you will be getting 'too many parts'.
+For usual (non async) inserts - dozen is enough. Every insert creates a part, if you will create parts too often, ClickHouse will not be able to merge them and you will be getting 'too many parts'.
 
 ### Number of columns in the table
 

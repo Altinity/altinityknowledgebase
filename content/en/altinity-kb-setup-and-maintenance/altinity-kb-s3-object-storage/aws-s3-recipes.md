@@ -31,7 +31,7 @@ Role shall contain a policy with permissions like:
 }
 ```
 
-Corresponding configuration of ClickHouse:
+Corresponding configuration of ClickHouse®:
 
 ```xml
 <clickhouse>
@@ -65,8 +65,9 @@ SELECT * FROM table_s3;
 DROP TABLE table_s3;
 ```
 
-## How to use AWS IRSA and IAM in Altinity Kubernetes clickhouse-operator to allow S3 backup without Explicit credentials 
-Install clickhouse-operator https://github.com/Altinity/clickhouse-operator/tree/master/docs/operator_installation_details.md
+## How to use AWS IRSA and IAM in the Altinity Kubernetes Operator for ClickHouse to allow S3 backup without Explicit credentials 
+
+Install `clickhouse-operator` https://github.com/Altinity/clickhouse-operator/tree/master/docs/operator_installation_details.md
 
 Create Role <ROLE NAME> and IAM Policy, look details in https://docs.aws.amazon.com/emr/latest/EMR-on-EKS-DevelopmentGuide/setting-up-enable-IAM.html
 

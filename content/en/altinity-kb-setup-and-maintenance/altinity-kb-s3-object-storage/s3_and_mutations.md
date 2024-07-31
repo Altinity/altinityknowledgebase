@@ -3,7 +3,7 @@ title: "How much data are written to S3 during mutations"
 linkTitle: "s3 and mutations"
 weight: 100
 description: >-
-     Example of how much data ClickHouse reads and writes to s3 during mutations.
+     Example of how much data ClickHouse® reads and writes to s3 during mutations.
 ---
 
 ## Configuration

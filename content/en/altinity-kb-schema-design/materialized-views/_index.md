@@ -5,7 +5,7 @@ description: >
     MATERIALIZED VIEWS
 ---
 {{% alert title="Info" color="info" %}}
-MATERIALIZED VIEWs in ClickHouse behave like AFTER INSERT TRIGGER to the left-most table listed in its SELECT statement.
+MATERIALIZED VIEWs in ClickHouse® behave like AFTER INSERT TRIGGER to the left-most table listed in its SELECT statement.
 {{% /alert %}}
 
 

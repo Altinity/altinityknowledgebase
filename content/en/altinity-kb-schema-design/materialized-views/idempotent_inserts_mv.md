@@ -8,7 +8,7 @@ description: >-
 
 ## Why inserts into materialized views are not idempotent?
 
-ClickHouse still does not have transactions. They will be implemented around 2022Q2.
+ClickHouse® still does not have transactions. They will be implemented around 2022Q2.
 
 Because of ClickHouse materialized view is a trigger. And an insert into a table and an insert into a subordinate materialized view it's two different inserts so they are not atomic alltogether. 
 

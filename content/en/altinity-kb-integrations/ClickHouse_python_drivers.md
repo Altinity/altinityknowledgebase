@@ -1,16 +1,14 @@
 ---
-title: "ClickHouse python drivers"
-linkTitle: "ClickHouse python drivers"
+title: "ClickHouse® python drivers"
+linkTitle: "ClickHouse® python drivers"
 weight: 100
 description: >-
-     Python main drivers/clients for ClickHouse
+     Python main drivers/clients for ClickHouse®
 ---
 
-## ClickHouse python drivers
+There are two main python drivers that can be used with ClickHouse®. They all have their different set of features and use cases:
 
-There are two main python drivers that can be used with ClickHouse. They all have their different set of features and use cases:
-
-### ClickHouse driver AKA [clickhouse-driver](https://clickhouse-driver.readthedocs.io/en/latest/)
+## ClickHouse driver AKA [clickhouse-driver](https://clickhouse-driver.readthedocs.io/en/latest/)
 
 The **`clickhouse-driver`** is a Python library used for interacting with ClickHouse. Here's a summary of its features:
 
@@ -30,15 +28,15 @@ The **`clickhouse-driver`** is a Python library used for interacting with ClickH
 - Good Pandas/Numpy support: [https://clickhouse-driver.readthedocs.io/en/latest/features.html#numpy-pandas-support](https://clickhouse-driver.readthedocs.io/en/latest/features.html#numpy-pandas-support)
 - Good SQLALchemy support: [https://pypi.org/project/clickhouse-sqlalchemy/](https://pypi.org/project/clickhouse-sqlalchemy/)
 
-This was the first python driver for clickhouse. It has a mature codebase. By default clickhouse drivers uses [synchronous code](https://clickhouse-driver.readthedocs.io/en/latest/quickstart.html#async-and-multithreading). There is a wrapper to convert code to asynchronous, [https://github.com/long2ice/asynch](https://github.com/long2ice/asynch)
+This was the first python driver for ClickHouse. It has a mature codebase. By default ClickHouse drivers uses [synchronous code](https://clickhouse-driver.readthedocs.io/en/latest/quickstart.html#async-and-multithreading). There is a wrapper to convert code to asynchronous, [https://github.com/long2ice/asynch](https://github.com/long2ice/asynch)
 
 Here you can get a basic working example from Altinity repo for ingestion/selection using clickhouse-driver:
 
 [https://github.com/lesandie/clickhouse-tests/blob/main/scripts/test_ch_driver.py](https://github.com/lesandie/clickhouse-tests/blob/main/scripts/test_ch_driver.py)
 
-### ClickHouse-connect AKA [clickhouse-connect](https://clickhouse.com/docs/en/integrations/python)
+## ClickHouse-connect AKA [clickhouse-connect](https://clickhouse.com/docs/en/integrations/python)
 
-The ClickHouse Connect Python driver is the ClickHouse, Inc supported-official Python library. Here's a summary of its key features:
+The ClickHouse Connect Python driver is the ClickHouse, Inc. supported-official Python library. Here's a summary of its key features:
 
 1. **Connectivity**: allows Python applications to connect to ClickHouse servers over HTTP Interface (8123/8443 ports).
 2. **Compatibility**: The driver is compatible with Python 3.x versions, ensuring that it can be used with modern Python applications without compatibility issues.
@@ -68,19 +66,19 @@ Also some Altinity examples from repo:
 
 You can clone the repo and use the helper files like `DDL.sql`  to setup some tests.
 
-Clickhouse-connect can use a connection pooler (based on urllib3) [https://clickhouse.com/docs/en/integrations/python#customizing-the-http-connection-pool](https://clickhouse.com/docs/en/integrations/python#customizing-the-http-connection-pool)
+`clickhouse-connect` can use a connection pooler (based on urllib3) [https://clickhouse.com/docs/en/integrations/python#customizing-the-http-connection-pool](https://clickhouse.com/docs/en/integrations/python#customizing-the-http-connection-pool)
 
 ### Most common use cases:
 
 #### Managing ClickHouse `session_id`:
 
-- clickhouse-driver
+- `clickhouse-driver`
     - Because it is using the Native Interface `session_id` is managed internally by clickhouse, so it is very rare (unless using asyncio) to get:
     
     `Code: 373. DB::Exception: Session is locked by a concurrent client. (SESSION_IS_LOCKED)` . 
     
 
-- clickhouse-connect: How to use clickhouse-connect in a pythonic way and avoid getting `SESSION_IS_LOCKED`  exceptions:
+- `clickhouse-connect`: How to use `clickhouse-connect` in a pythonic way and avoid getting `SESSION_IS_LOCKED`  exceptions:
     - [https://clickhouse.com/docs/en/integrations/python#managing-clickhouse-session-ids](https://clickhouse.com/docs/en/integrations/python#managing-clickhouse-session-ids)
     - If you want to specify a session_id per query you should be able to use the setting dictionary to pass a `session_id` for each query (note that ClickHouse will automatically generate a `session_id` if none is provided).
     
@@ -90,19 +88,19 @@ Clickhouse-connect can use a connection pooler (based on urllib3) [https://click
     ```
     
 
-Also in clickhouse documentation some explanation how to set `session_id` with another approach: [https://clickhouse.com/docs/en/integrations/python#managing-clickhouse-session-ids](https://clickhouse.com/docs/en/integrations/python#managing-clickhouse-session-ids)
+Also in ClickHouse documentation some explanation how to set `session_id` with another approach: [https://clickhouse.com/docs/en/integrations/python#managing-clickhouse-session-ids](https://clickhouse.com/docs/en/integrations/python#managing-clickhouse-session-ids)
 
 [ClickHouse Connect Driver API | ClickHouse Docs](https://clickhouse.com/docs/en/integrations/language-clients/python/driver-api#common-method-arguments)
 
 [Best practices with flask · Issue #73 · ClickHouse/clickhouse-connect](https://github.com/ClickHouse/clickhouse-connect/issues/73#issuecomment-1325280242)
 
-#### clickhouse-connect & clickhouse-driver with Asyncio
+#### `clickhouse-connect` & `clickhouse-driver` with Asyncio
 
 `clickhouse-connect` code is synchronous and running synchronous functions in an async application is a workaround and might not be as efficient as using a library designed for asynchronous operations from the ground up. Problem is there are few libs/modules in Python. So you can use `concurrent.futures` and `ThreadpoolExecutor` or `ProcessPoolExecutor`. Python GIL has a mutex over Threads but not to Processes so if you need performance at the cost of using processes instead of threads (not much different for medium workloads) you can use `ProcesspoolExecutor` instead.
 
 Some info about this from the tinybird guys [https://www.tinybird.co/blog-posts/killing-the-processpoolexecutor](https://www.tinybird.co/blog-posts/killing-the-processpoolexecutor)
 
-For clickhouse-connect
+For `clickhouse-connect`
 
 ```python
 import asyncio
@@ -133,7 +131,7 @@ if __name__ == '__main__':
     asyncio.run(main())
 ```
 
-Clickhouse-driver code is also synchronous and suffers the same problem as clickhouse-connect
+`clickhouse-driver code is also synchronous and suffers the same problem as `clickhouse-connect`
 
 [https://clickhouse-driver.readthedocs.io/en/latest/quickstart.html#async-and-multithreading](https://clickhouse-driver.readthedocs.io/en/latest/quickstart.html#async-and-multithreading)
 

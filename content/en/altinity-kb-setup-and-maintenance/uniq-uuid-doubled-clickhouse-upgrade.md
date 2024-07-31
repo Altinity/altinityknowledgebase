@@ -1,14 +1,12 @@
 ---
-title: "AggregateFunction(uniq, UUID) doubled after ClickHouse upgrade"
-linkTitle: "AggregateFunction(uniq, UUID) doubled after ClickHouse upgrade"
+title: "AggregateFunction(uniq, UUID) doubled after ClickHouse® upgrade"
+linkTitle: "AggregateFunction(uniq, UUID) doubled after ClickHouse® upgrade"
 weight: 100
-description: >-
-     Page description for heading and indexes.
 ---
 
 ## What happened
 
-After ClickHouse upgrade from version pre 21.6 to version after 21.6, count of unique UUID in AggregatingMergeTree tables nearly doubled in case of merging of data which was generated in different ClickHouse versions. 
+After ClickHouse® upgrade from version pre 21.6 to version after 21.6, count of unique UUID in AggregatingMergeTree tables nearly doubled in case of merging of data which was generated in different ClickHouse versions. 
 
 ## Why happened
 

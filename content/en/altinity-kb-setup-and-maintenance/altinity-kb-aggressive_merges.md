@@ -7,7 +7,7 @@ description: >
 
 
  
-Q: Is there any way I can dedicate more resources to the merging process when running ClickHouse on pretty beefy machines (like 36 cores, 1TB of RAM, and large NVMe disks)?
+Q: Is there any way I can dedicate more resources to the merging process when running ClickHouse® on pretty beefy machines (like 36 cores, 1TB of RAM, and large NVMe disks)?
  
 
 Mostly such things doing by changing the level of parallelism:
@@ -28,7 +28,7 @@ Additionally, you can:
  - review the schema, especially codes/compression used (they allow to reduce the size, but often can impact the merge speed significantly).
  - try to form bigger parts when doing inserts (min_insert_block_size_bytes / min_insert_block_size_rows / max_insert_block_size)
  - check if wide (every column in a separate file) or compact (columns are mixed in one file) parts are used (system.parts). By default min_bytes_for_wide_part=10 mln rows (so if the part is bigger that that the wide format will be used, compact otherwise). Sometimes it can be beneficial to use a compact format even for bigger parts (a lot of relatively small columns) or oppositely - use a wide format even for small parts (few fat columns in the table).
- - consider using recent clickhouse releases - they use compressed marks by default, which can be beneficial for reducing the i/o
+ - consider using recent ClickHouse releases - they use compressed marks by default, which can be beneficial for reducing the i/o
 
 All the adjustments/performance optimizations should be controlled by some reproducible 'benchmark' so you can control/prove that the change gives the expected result (sometimes it's quite hard to predict the impact of some change on the real system). Please also monitors how system resources (especially CPU, IO + for replicated tables: network & zookeeper) are used/saturated during the test. Also monitor/plot the usage of the pools:
 ```

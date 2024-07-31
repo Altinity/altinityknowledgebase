@@ -1,8 +1,8 @@
 ---
-title: "Schema migration tools for ClickHouse"
-linkTitle: "Schema migration tools for ClickHouse"
+title: "Schema migration tools for ClickHouse®"
+linkTitle: "Schema migration tools for ClickHouse®"
 description: >
-    Schema migration tools for ClickHouse
+    Schema migration tools for ClickHouse®
 ---
 * [atlas](https://atlasgo.io)
   * [https://atlasgo.io/guides/clickhouse](https://atlasgo.io/guides/clickhouse)

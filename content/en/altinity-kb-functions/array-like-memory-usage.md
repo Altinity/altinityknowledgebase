@@ -7,7 +7,7 @@ description: >
 
 ## arrayMap-like functions memory usage calculation.
 
-In order to calculate arrayMap or similar array* functions ClickHouse temporarily does arrayJoin-like operation, which in certain conditions can lead to huge memory usage for big arrays.
+In order to calculate arrayMap or similar array* functions ClickHouse® temporarily does arrayJoin-like operation, which in certain conditions can lead to huge memory usage for big arrays.
 
 So for example, you have 2 columns:
 

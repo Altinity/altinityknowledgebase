@@ -16,4 +16,4 @@ From the other hand: if data can be changed in future, and that change should im
 
 For example if you need to change the used currency rare every day- it would be quite stupid to update all historical records to apply the newest exchange rate. And putting it to dict will allow to do calculations with latest exchange rate at select time.
 
-For dictionary it's possible to mark some of the attributes as injective. An attribute is called injective if different attribute values correspond to different keys. It would allow ClickHouse to replace dictGet call in GROUP BY with cheap dict key.
+For dictionary it's possible to mark some of the attributes as injective. An attribute is called injective if different attribute values correspond to different keys. It would allow ClickHouse® to replace dictGet call in GROUP BY with cheap dict key.

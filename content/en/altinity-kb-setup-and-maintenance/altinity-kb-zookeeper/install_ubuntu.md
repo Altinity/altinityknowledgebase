@@ -1,9 +1,9 @@
 ---
-title: "Install standalone Zookeeper for ClickHouse on Ubuntu / Debian"
+title: "Install standalone Zookeeper for ClickHouse® on Ubuntu / Debian"
 linkTitle: "Zookeeper install on Ubuntu"
 weight: 100
 description: >-
-     Install standalone Zookeeper for ClickHouse on Ubuntu / Debian.
+     Install standalone Zookeeper for ClickHouse® on Ubuntu / Debian.
 ---
 
 ## Reference script to install standalone Zookeeper for Ubuntu / Debian

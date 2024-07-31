@@ -1,18 +1,18 @@
 ---
-title: "ClickHouse and different filesystems"
-linkTitle: "ClickHouse and different filesystems"
+title: "ClickHouse® and different filesystems"
+linkTitle: "ClickHouse® and different filesystems"
 weight: 100
 description: >-
-     ClickHouse and different filesystems.
+     ClickHouse® and different filesystems.
 ---
 
-In general ClickHouse should work with any POSIX-compatible filesystem.
+In general ClickHouse® should work with any POSIX-compatible filesystem.
 
 * hard links and soft links support is mandatory.
-* clickhouse can use O_DIRECT mode to bypass the cache (and async io)
-* clickhouse can use renameat2 command for some atomic operations (not all the filesystems support that).
+* ClickHouse can use O_DIRECT mode to bypass the cache (and async io)
+* ClickHouse can use renameat2 command for some atomic operations (not all the filesystems support that).
 * depending on the schema and details of the usage the filesystem load can vary between the setup. The most natural load - is high throughput, with low or moderate IOPS. 
-* data is compressed in clickhouse (LZ4 by default), while indexes / marks / metadata files  - no. Enabling disk-level compression can sometimes improve the compression, but can affect read / write speed.
+* data is compressed in ClickHouse (LZ4 by default), while indexes / marks / metadata files  - no. Enabling disk-level compression can sometimes improve the compression, but can affect read / write speed.
 
 ### ext4 
 
@@ -31,7 +31,7 @@ We don't have real proofs/benchmarks though, example reports:
 others and they found that they accidentally set up those servers with XFS instead of Ext4.
 * in the system journal you can sometimes see reports like 'task XYZ blocked for more than 120 seconds' and stack trace pointing to XFS code (example: https://gist.github.com/filimonov/85b894268f978c2ccc18ea69bae5adbd )
 * system goes to 99% io kernel under load sometimes.
-* we have XFS, sometimes clickhouse goes to "sleep" because XFS daemon is doing smth unknown
+* we have XFS, sometimes ClickHouse goes to "sleep" because XFS daemon is doing smth unknown
 
 Maybe the above problem can be workaround by some tuning/settings, but so far we do not have a working and confirmed way to do this.
 
@@ -51,7 +51,7 @@ Tuning:
 **important note**: ZFS does not support the `renameat2` command, which is used by the Atomic database engine, and
 therefore some of the Atomic functionality will not be available. 
 
-In old versions of clickhouse, you can face issues with the O_DIRECT mode.
+In old versions of ClickHouse, you can face issues with the O_DIRECT mode.
 
 Also there is a well-known (and controversional) Linus Torvalds opinion: "Don't Use ZFS on Linux" [[1]](https://www.realworldtech.com/forum/?threadid=189711&curpostid=189841), [[2]](https://arstechnica.com/gadgets/2020/01/linus-torvalds-zfs-statements-arent-right-heres-the-straight-dope/), [[3]](https://arstechnica.com/gadgets/2020/01/linus-torvalds-zfs-statements-arent-right-heres-the-straight-dope/).
 
@@ -68,7 +68,7 @@ Not enough information.
 There are reports that some people successfully use it in their setups. 
 A fast network is required.
 
-There were some reports about data damage on the disks on older clickhouse versions, which could be caused by the issues with O_DIRECT or [async io support](https://lustre-discuss.lustre.narkive.com/zwcvyEEY/asynchronous-posix-i-o-with-lustre) on Lustre.
+There were some reports about data damage on the disks on older ClickHouse versions, which could be caused by the issues with O_DIRECT or [async io support](https://lustre-discuss.lustre.narkive.com/zwcvyEEY/asynchronous-posix-i-o-with-lustre) on Lustre.
 
 ### NFS (and EFS)
 

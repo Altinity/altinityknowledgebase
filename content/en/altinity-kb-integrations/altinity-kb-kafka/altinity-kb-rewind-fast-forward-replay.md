@@ -4,7 +4,7 @@ linkTitle: "Rewind / fast-forward / replay"
 description: >
     Rewind / fast-forward / replay
 ---
-* Step 1: Detach Kafka tables in ClickHouse
+* Step 1: Detach Kafka tables in ClickHouse®
   ```
   DETACH TABLE db.kafka_table_name ON CLUSTER '{cluster}';
   ```

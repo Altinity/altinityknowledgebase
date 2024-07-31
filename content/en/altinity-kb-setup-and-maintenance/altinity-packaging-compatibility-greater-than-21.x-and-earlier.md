@@ -6,11 +6,11 @@ description: >
 ---
 ## Working with Altinity & Yandex packaging together
 
-Since version 21.1 Altinity switches to the same packaging as used by Yandex. That is needed for syncing things and introduces several improvements (like adding systemd service file).
+Since ClickHouse® version 21.1 Altinity switches to the same packaging as used by Yandex. That is needed for syncing things and introduces several improvements (like adding systemd service file).
 
 Unfortunately, that change leads to compatibility issues - automatic dependencies resolution gets confused by the conflicting package names: both when you update ClickHouse to the new version (the one which uses older packaging) and when you want to install older altinity packages (20.8 and older).
 
-### Installing old clickhouse version (with old packaging schema)
+### Installing old ClickHouse version (with old packaging schema)
 
 When you try to install versions 20.8 or older from Altinity repo -
 

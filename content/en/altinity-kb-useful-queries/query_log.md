@@ -38,9 +38,11 @@ GROUP BY normalized_query_hash
 ORDER BY UserTime DESC
 LIMIT 30
 FORMAT Vertical
+```
 
+-- modern ClickHouse®
 
--- modern ClickHouse
+```sql
 SELECT 
     hostName() as host,
     normalized_query_hash,

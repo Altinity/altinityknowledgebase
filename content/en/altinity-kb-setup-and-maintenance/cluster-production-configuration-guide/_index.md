@@ -6,7 +6,7 @@ description: >
 ---
 
 
-Moving from a single ClickHouse server to a clustered format provides several benefits:
+Moving from a single ClickHouse® server to a clustered format provides several benefits:
 
 * Replication guarantees data integrity.
 * Provides redundancy.

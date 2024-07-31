@@ -9,7 +9,7 @@ description: >
 
 The explanation is here https://github.com/ClickHouse/ClickHouse/pull/26716
 
-The problem is introduced in 20.1.
+The problem is introduced in ClickHouse® 20.1.
 
 The problem is fixed in 21.8 and backported to 21.3.16, 21.6.9, 21.7.6.
 

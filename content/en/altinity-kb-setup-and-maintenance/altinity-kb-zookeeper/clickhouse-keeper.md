@@ -15,7 +15,7 @@ See slides:  https://presentations.clickhouse.com/meetup54/keeper.pdf and video 
 
 Since version 23.3 we recommend using clickhouse-keeper for new installations. 
 
-Even better if you will use the latest version of clickhouse-keeper (currently it's 23.7), and it's not necessary to use the same version of clickhouse-keeper as clickhouse itself.
+Even better if you will use the latest version of clickhouse-keeper (currently it's 23.7), and it's not necessary to use the same version of clickhouse-keeper as ClickHouse® itself.
 
 For existing systems that currently use Apache Zookeeper, you can consider upgrading to clickhouse-keeper especially if you will upgrade clickhouse also.
 
@@ -41,7 +41,7 @@ To test that you need to run 3 instances of clickhouse-server (which will mimic 
 or event single instance with config like that: [https://github.com/ClickHouse/ClickHouse/blob/master/tests/config/config.d/keeper_port.xml](https://github.com/ClickHouse/ClickHouse/blob/master/tests/config/config.d/keeper_port.xml)
 [https://github.com/ClickHouse/ClickHouse/blob/master/tests/config/config.d/zookeeper.xml](https://github.com/ClickHouse/ClickHouse/blob/master/tests/config/config.d/zookeeper.xml)
 
-And point all the clickhouses (zookeeper config secton) to those nodes / ports.
+And point all the ClickHouses (zookeeper config secton) to those nodes / ports.
 
 Latests version is recommended (even testing / master builds). We will be thankful for any feedback.
 

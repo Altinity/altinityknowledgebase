@@ -36,7 +36,7 @@ Set the Java heap size smaller than available RAM size on the node. This is very
 
 1. `MaxGCPauseMillis=50` (by default 200) - the 'target' acceptable pause for garbage collection (milliseconds)
 
-1. `jute.maxbuffer` limits the maximum size of znode content. By default it's 1Mb. In some usecases (lot of partitions in table) ClickHouse may need to create bigger znodes.
+1. `jute.maxbuffer` limits the maximum size of znode content. By default it's 1Mb. In some usecases (lot of partitions in table) ClickHouse® may need to create bigger znodes.
 
 1. (optional) enable GC logs: `-Xloggc:/path_to/gc.log`
 
@@ -44,7 +44,7 @@ Set the Java heap size smaller than available RAM size on the node. This is very
 
 ## Zookeeper configurarion used by Yandex Metrika (from 2017)
 
-The configuration used by Yandex ( [https://clickhouse.tech/docs/en/operations/tips/\#zookeeper](https://clickhouse.tech/docs/en/operations/tips/#zookeeper) ) - they use older JVM version (with `UseParNewGC` garbage collector), and tune GC logs heavily:
+The configuration used by Yandex ( [https://clickhouse.com/docs/en/operations/tips#zookeeper](https://clickhouse.com/docs/en/operations/tips#zookeeper) ) - they use older JVM version (with `UseParNewGC` garbage collector), and tune GC logs heavily:
 
 ```bash
 JAVA_OPTS="-Xms{{ cluster.get('xms','128M') }} \

@@ -21,7 +21,7 @@ SELECT * FROM system.merges
 ```
 
 That logic is needed to prevent picking a log of huge merges simultaneously
-(otherwise they will take all available slots and clickhouse will not be
+(otherwise they will take all available slots and ClickHouse® will not be
 able to do smaller merges, which usally are important for keeping the
 number of parts stable).
 
@@ -39,4 +39,4 @@ it could be caused by:
 3) high CPU load (not enough CPU power to catch up with merges)
 4) issue with table schemas leading to high merges pressure (high / increased number of tables / partitions / etc.)
 
-Start from checking dmesg / system journals / clickhouse monitoring to find the anomalies. 
+Start from checking dmesg / system journals / ClickHouse monitoring to find the anomalies. 

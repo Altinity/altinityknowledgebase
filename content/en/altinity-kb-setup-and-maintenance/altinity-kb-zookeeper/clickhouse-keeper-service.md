@@ -11,7 +11,7 @@ description: >-
 ### installation
 
 Need to install `clickhouse-common-static` + `clickhouse-keeper` OR `clickhouse-common-static` + `clickhouse-server`. 
-Both OK, use the first if you don't need clickhouse server locally.
+Both OK, use the first if you don't need ClickHouse® server locally.
 
 ```bash
 dpkg -i clickhouse-common-static_{%version}.deb clickhouse-keeper_{%version}.deb

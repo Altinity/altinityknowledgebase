@@ -7,6 +7,6 @@ keywords:
 - monitor clickhouse
 - data migration
 description: >
-    Learn how to set up, deploy, monitor, and backup ClickHouse with step-by-step guides.
+    Learn how to set up, deploy, monitor, and backup ClickHouse® with step-by-step guides.
 weight: 5
 ---

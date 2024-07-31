@@ -6,7 +6,7 @@ description: >
 ---
 ## Problem
 
-Every ClickHouse user experienced a loss of ZooKeeper one day. While the data is available and replicas respond to queries, inserts are no longer possible. ClickHouse uses ZooKeeper in order to store the reference version of the table structure and part of data, and when it is not available can not guarantee data consistency anymore. Replicated tables turn to the read-only mode. In this article we describe step-by-step instructions of how to restore ZooKeeper metadata and bring ClickHouse cluster back to normal operation.
+Every ClickHouse® user experienced a loss of ZooKeeper one day. While the data is available and replicas respond to queries, inserts are no longer possible. ClickHouse uses ZooKeeper in order to store the reference version of the table structure and part of data, and when it is not available can not guarantee data consistency anymore. Replicated tables turn to the read-only mode. In this article we describe step-by-step instructions of how to restore ZooKeeper metadata and bring ClickHouse cluster back to normal operation.
 
 In order to restore ZooKeeper we have to solve two tasks. First, we need to restore table metadata in ZooKeeper. Currently, the only way to do it is to recreate the table with the `CREATE TABLE DDL` statement.
 
@@ -14,7 +14,7 @@ In order to restore ZooKeeper we have to solve two tasks. First, we need to rest
 CREATE TABLE table_name ... ENGINE=ReplicatedMergeTree('zookeeper_path','replica_name');
 ```
 
-The second and more difficult task is to populate zookeeper with information of clickhouse data parts. As mentioned above, ClickHouse stores the reference data about all parts of replicated tables in ZooKeeper, so we have to traverse all partitions and re-attach them to the recovered replicated table in order to fix that.
+The second and more difficult task is to populate zookeeper with information of ClickHouse data parts. As mentioned above, ClickHouse stores the reference data about all parts of replicated tables in ZooKeeper, so we have to traverse all partitions and re-attach them to the recovered replicated table in order to fix that.
 
 {{% alert title="Info" color="info" %}}
 Starting from ClickHouse version 21.7 there is SYSTEM RESTORE REPLICA command
@@ -52,7 +52,7 @@ Now let’s remove metadata in zookeeper using `ZkCli.sh` at ZooKeeper host:
 deleteall  /clickhouse/cluster_1/tables/01/table_repl
 ```
 
-And try to resync clickhouse replica state with zookeeper:
+And try to resync ClickHouse replica state with zookeeper:
 
 ```sql
 SYSTEM RESTART REPLICA table_repl;

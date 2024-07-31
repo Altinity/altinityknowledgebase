@@ -1,13 +1,13 @@
 ---
-title: "Replication: Can not resolve host of another clickhouse server"
-linkTitle: "Replication: Can not resolve host of another clickhouse server"
+title: "Replication: Can not resolve host of another ClickHouse® server"
+linkTitle: "Replication: Can not resolve host of another ClickHouse® server"
 weight: 100
 description: >-
 ---
 
 ### Symptom
 
-When configuring Replication the ClickHouse cluster nodes are experiencing communication issues, and an error message appears in the log that states that the ClickHouse host cannot be resolved.
+When configuring Replication the ClickHouse® cluster nodes are experiencing communication issues, and an error message appears in the log that states that the ClickHouse host cannot be resolved.
 
 ```
 <Error> DNSResolver: Cannot resolve host (xxxxx), error 0: DNS error.

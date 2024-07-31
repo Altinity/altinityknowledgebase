@@ -4,9 +4,9 @@ linkTitle: "Cluster Configuration FAQ"
 description: >
     Cluster Configuration FAQ
 ---
-## ClickHouse does not start, some other unexpected behavior happening
+## ClickHouse® does not start, some other unexpected behavior happening
 
-Check clickhouse logs, they are your friends:
+Check ClickHouse logs, they are your friends:
 
 tail -n 1000 /var/log/clickhouse-server/clickhouse-server.err.log \| less
 tail -n 10000 /var/log/clickhouse-server/clickhouse-server.log \| less
@@ -17,9 +17,9 @@ See [our knowledge base article]({{<ref "altinity-kb-memory-configuration-settin
 
 ## ClickHouse died during big query execution
 
-Misconfigured clickhouse can try to allocate more RAM than is available on the system.
+Misconfigured ClickHouse can try to allocate more RAM than is available on the system.
 
-In that case an OS component called oomkiller can kill the clickhouse process.
+In that case an OS component called oomkiller can kill the ClickHouse process.
 
 That event leaves traces inside system logs (can be checked by running dmesg command).
 

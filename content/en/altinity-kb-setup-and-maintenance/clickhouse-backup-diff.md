@@ -1,12 +1,12 @@
 ---
-title: "differential backups using clickhouse-backup"
-linkTitle: "differential backups using clickhouse-backup"
+title: "Differential backups using Altinity Backup for ClickHouse®"
+linkTitle: "Differential backups using Altinity Backup for ClickHouse®"
 description: >
-    differential backups using clickhouse-backup
+    Differential backups using Altinity Backup for ClickHouse®
 ---
-### differential backups using clickhouse-backup
+### Differential backups using Altinity Backup for ClickHouse®
 
-1. Download the latest clickhouse-backup for your platform https://github.com/AlexAkulov/clickhouse-backup/releases
+1. Download [the latest release](https://github.com/Altinity/clickhouse-backup/releases) for your platform
 
 ```bash
 # ubuntu / debian

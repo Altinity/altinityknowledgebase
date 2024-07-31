@@ -1,12 +1,12 @@
 ---
-title: "clickhouse-backup"
-linkTitle: "clickhouse-backup"
+title: "Altinity Backup for ClickHouse®"
+linkTitle: "Altinity Backup for ClickHouse®"
 description: >
-    clickhouse-backup + backblaze
+    Altinity Backup for ClickHouse® + backblaze
 ---
 ### Installation and configuration
 
-Download the latest `clickhouse-backup.tar.gz` from assets from [https://github.com/AlexAkulov/clickhouse-backup/releases](https://github.com/AlexAkulov/clickhouse-backup/releases)
+Download the latest `clickhouse-backup.tar.gz` from assets from [https://github.com/Altinity/clickhouse-backup/releases](https://github.com/Altinity/clickhouse-backup/releases)
 
 This tar.gz contains a single binary of `clickhouse-backup` and an example of config file.
 
@@ -73,7 +73,7 @@ select count() from test.test;
 └─────────┘
 ```
 
-clickhouse-backup list should work without errors (it scans local and remote (s3) folders):
+`clickhouse-backup list` should work without errors (it scans local and remote (s3) folders):
 
 ```bash
 $ sudo ./clickhouse-backup list -c config.yml

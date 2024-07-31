@@ -1,17 +1,17 @@
 ---
-title: "Can not connect to my ClickHouse server"
-linkTitle: "Can not connect to my ClickHouse server"
+title: "Can not connect to my ClickHouse® server"
+linkTitle: "Can not connect to my ClickHouse® server"
 weight: 100
 description: >-
-     Can not connect to my ClickHouse server.
+     Can not connect to my ClickHouse® server.
 ---
 
-## Can not connect to my ClickHouse server
+## Can not connect to my ClickHouse® server
 
 Errors like 
 "Connection reset by peer, while reading from socket"
 
-1. Ensure that the clickhouse-server is running
+1. Ensure that the `clickhouse-server` is running
 
    ```sh
    systemctl status clickhouse-server
@@ -28,15 +28,15 @@ Errors like
 
    Ensure you're not trying to connect to secure port without tls / https or vice versa.
 
-   For clickhouse-client - pay attention on host / port / secure flags.
+   For `clickhouse-client` - pay attention on host / port / secure flags.
 
-   Ensure the interface you're connecting to is the one which clickhouse listens (by default clickhouse listens only localhost).
+   Ensure the interface you're connecting to is the one which ClickHouse listens (by default ClickHouse listens only localhost).
 
-   Note: If you uncomment line `<listen_host>0.0.0.0</listen_host>` only - clickhouse will listen only ipv4 interfaces,
-   while the localhost (used by clickhouse-client) may be resolved to ipv6 address. And clickhouse-client may be failing to connect.
+   Note: If you uncomment line `<listen_host>0.0.0.0</listen_host>` only - ClickHouse will listen only ipv4 interfaces,
+   while the localhost (used by `clickhouse-client`) may be resolved to ipv6 address. And `clickhouse-client` may be failing to connect.
 
 
-   How to check which interfaces / ports do clickhouse listen?
+   How to check which interfaces / ports do ClickHouse listen?
 
    ```sh
    sudo lsof -i -P -n | grep LISTEN
@@ -59,14 +59,14 @@ Errors like
 
 4. Check for errors in /var/log/clickhouse-server/clickhouse-server.err.log ?
 
-5. Is clickhouse able to serve some trivial tcp / http requests from localhost?
+5. Is ClickHouse able to serve some trivial tcp / http requests from localhost?
 
    ```sh
    curl 127.0.0.1:9200
    curl 127.0.0.1:8123
    ```
 
-6. Check number of sockets opened by clickhouse
+6. Check number of sockets opened by ClickHouse
 
    ```sh
    sudo lsof -i -a -p $(pidof clickhouse-server)

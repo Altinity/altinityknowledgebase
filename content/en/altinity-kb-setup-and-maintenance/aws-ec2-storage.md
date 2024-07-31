@@ -9,7 +9,7 @@ aliases:
 
 # EBS
 
-Most native choose for ClickHouse as fast storage, because it usually guarantees best throughput, IOPS, latency for reasonable price.
+Most native choose for ClickHouse® as fast storage, because it usually guarantees best throughput, IOPS, latency for reasonable price.
 
 [https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-optimized.html](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-optimized.html)
 
@@ -18,7 +18,7 @@ Most native choose for ClickHouse as fast storage, because it usually guarantees
 
 ## General Purpose SSD volumes
 
-In usual conditions ClickHouse being limited by throughput of volumes and amount of provided IOPS doesn't make any big difference for performance starting from a certain number. So the most native choice for clickhouse is gp3 and gp2 volumes.
+In usual conditions ClickHouse being limited by throughput of volumes and amount of provided IOPS doesn't make any big difference for performance starting from a certain number. So the most native choice for ClickHouse is gp3 and gp2 volumes.
 
 ‌EC2 instances also have an EBS throughput limit, it depends on the size of the EC2 instance. That means if you would attach multiple volumes which would have high potential throughput, you would be limited by your EC2 instance, so usually there is no reason to have more than 1-3 GP3 volume or 4-5 GP2 volume per node.
 

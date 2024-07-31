@@ -38,7 +38,7 @@ description: >
     </clickhouse>
    ```
 
-2. If you have a good monitoring outside ClickHouse you don't need to store the history of metrics in ClickHouse
+2. If you have a good monitoring outside ClickHouse® you don't need to store the history of metrics in ClickHouse
 
    ```markup
    cat /etc/clickhouse-server/config.d/disable_metric_logs.xml

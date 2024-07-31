@@ -3,7 +3,7 @@ title: "Pre-Aggregation approaches"
 linkTitle: "Pre-Aggregation approaches"
 weight: 100
 description: >-
-      ETL vs Materialized Views vs Projections in ClickHouse.
+      ETL vs Materialized Views vs Projections in ClickHouse®
 ---
 
 ## Pre-Aggregation approaches: ETL vs Materialized Views vs Projections

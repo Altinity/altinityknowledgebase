@@ -4,7 +4,7 @@ linkTitle: "clickhouse-client"
 keywords:
 - clickhouse client
 description: >
-    ClickHouse client
+    ClickHouse® client
 ---
 Q. How can I input multi-line SQL code? can you guys give me an example?
 
@@ -50,4 +50,4 @@ Also, it’s possible to have several client config files and pass one of them t
 
 References:
 
-* [https://clickhouse.tech/docs/en/interfaces/cli/](https://clickhouse.tech/docs/en/interfaces/cli/)
+* [https://clickhouse.com/docs/en/interfaces/cli](https://clickhouse.com/docs/en/interfaces/cli)

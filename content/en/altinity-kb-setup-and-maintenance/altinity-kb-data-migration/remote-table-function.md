@@ -33,7 +33,7 @@ While of course it should be checked, every case is different.
 
 Yes, by the cost of extra memory usage (on the receiver side).
 
-ClickHouse tries to form blocks of data in memory and while one of limit: `min_insert_block_size_rows` or `min_insert_block_size_bytes` being hit, ClickHouse dump this block on disk. If ClickHouse tries to execute insert in parallel (`max_insert_threads > 1`), it would form multiple blocks at one time.  
+ClickHouse® tries to form blocks of data in memory and while one of limit: `min_insert_block_size_rows` or `min_insert_block_size_bytes` being hit, ClickHouse dump this block on disk. If ClickHouse tries to execute insert in parallel (`max_insert_threads > 1`), it would form multiple blocks at one time.  
 So maximum memory usage can be calculated like this: `max_insert_threads * first(min_insert_block_size_rows OR min_insert_block_size_bytes)`
 
 Default values:
