@@ -6,7 +6,7 @@ description: >
 ---
 #### Authorization
 
-MySQL8 used default authorization plugin `caching_sha2_password`. Unfortunately, `libmysql` which currently used (21.4-) in clickhouse is not.
+MySQL8 used default authorization plugin `caching_sha2_password`. Unfortunately, `libmysql` which currently used (21.4-) in ClickHouse® is not.
 
 You can fix it during create custom user with `mysql_native_password` authentication plugin.
 

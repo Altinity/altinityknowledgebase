@@ -1,12 +1,12 @@
 ---
-title: "Moving a table to another device."
-linkTitle: "Moving a table to another device."
+title: "Moving a table to another device"
+linkTitle: "Moving a table to another device"
 description: >
     Moving a table to another device.
 ---
 Suppose we mount a new device at path `/mnt/disk_1` and want to move `table_4` to it.
 
-1. Create directory on new device for ClickHouse data. /in shell `mkdir /mnt/disk_1/clickhouse`
+1. Create directory on new device for ClickHouse® data. /in shell `mkdir /mnt/disk_1/clickhouse`
 2. Change ownership of created directory to ClickHouse user. /in shell `chown -R clickhouse:clickhouse /mnt/disk_1/clickhouse`
 3. Create a special storage policy which should include both disks: old and new. /in shell
 

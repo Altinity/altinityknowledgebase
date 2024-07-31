@@ -1,10 +1,10 @@
 ---
-title: "ClickHouse versions"
-linkTitle: "ClickHouse versions"
+title: "ClickHouse® versions"
+linkTitle: "ClickHouse® versions"
 description: >
-    ClickHouse versions
+    ClickHouse® versions
 ---
-## ClickHouse versioning schema
+## ClickHouse® versioning schema
 
 ![ClickHouse Version Breakdown](/assets/illyustraciya_bez_nazvaniya.png)
 
@@ -44,7 +44,7 @@ See also: [https://clickhouse.tech/docs/en/faq/operations/production/](https://c
 
 ## How do I upgrade?
 
-Follow this KB article for [clickhouse version upgrade](https://kb.altinity.com/upgrade/)
+Follow this KB article for [ClickHouse version upgrade](https://kb.altinity.com/upgrade/)
 
 ## Bugs?
 
@@ -52,11 +52,11 @@ ClickHouse development process goes in a very high pace and has already thousand
 
 All core features are well-tested, and very stable, and code is high-quality. But as with any other software bad things may happen. Usually the most of bugs happens in the new, freshly added functionality, and in some complex combination of several features (of course all possible combinations of features just physically can’t be tested). Usually new features are adopted by the community and stabilize quickly.
 
-### What should I do if I found a bug in clickhouse?
+### What should I do if I found a bug in ClickHouse?
 
 1. First of all: try to upgrade to the latest bugfix release  Example: if you use v21.3.5.42-lts but you know that v21.3.10.1-lts already exists - start with upgrade to that. Upgrades to latest maintenance releases are smooth and safe.
 2. Look for similar issues in github. Maybe the fix is on the way.
 3. If you can reproduce the bug: try to isolate it - remove some pieces of query one-by-one / simplify the scenario until the issue still reproduces. This way you can figure out which part is responsible for that bug, and you can try to create [minimal reproducible example](https://stackoverflow.com/help/minimal-reproducible-example)
 4. Once you have minimal reproducible example:
    1. report it to github (or to Altinity Support)
-   2. check if it reproduces on newer clickhouse versions
+   2. check if it reproduces on newer ClickHouse versions

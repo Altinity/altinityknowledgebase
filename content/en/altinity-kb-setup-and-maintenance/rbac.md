@@ -1,6 +1,6 @@
 ---
-title: "Access Control and Account Management (RBAC)"
-linkTitle: "RBAC example"
+title: "ClickHouse® Access Control and Account Management (RBAC)"
+linkTitle: "ClickHouse® RBAC example"
 weight: 100
 description: >-
      Access Control and Account Management (RBAC).
@@ -8,7 +8,7 @@ description: >-
 
 Documentation https://clickhouse.com/docs/en/operations/access-rights/
 
-## Enable RBAC and create admin user
+## Enable ClickHouse® RBAC and create admin user
 
 Create an ```admin``` user like (root in MySQL or postgres in PostgreSQL) to do the DBA/admin ops in the `user.xml` file and [set the access management property for the admin user](https://clickhouse.com/docs/en/operations/access-rights/#enabling-access-control)
 

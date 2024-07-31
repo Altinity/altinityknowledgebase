@@ -4,7 +4,7 @@ linkTitle: "High CPU usage"
 description: >
     High CPU usage
 ---
-In general, it is a NORMAL situation for clickhouse that while processing a huge dataset it can use a lot of (or all of) the server resources. It is 'by design' - just to make the answers faster.
+In general, it is a NORMAL situation for ClickHouse® that while processing a huge dataset it can use a lot of (or all of) the server resources. It is 'by design' - just to make the answers faster.
 
 The main directions to reduce the CPU usage **is to review the schema / queries** to limit the amount of the data which need to be processed, and to plan the resources in a way when single running query will not impact the others.
 

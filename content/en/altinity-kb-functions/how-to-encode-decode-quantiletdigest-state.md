@@ -3,7 +3,7 @@ title: "How to encode/decode quantileTDigest states from/to list of centroids"
 linkTitle: "Encoding and Decoding of quantileTDigest states"
 weight: 100
 description: >-
-     A way to export or import quantileTDigest states from/into ClickHouse.
+     A way to export or import quantileTDigest states from/into ClickHouse®
 ---
 
 ## quantileTDigestState

@@ -5,7 +5,7 @@ description: >
   Distributed table to cluster
 ---
 
-In order to shift INSERTS to a standby cluster (for example increase zone availability or disaster recovery) some ClickHouse features can be used.
+In order to shift INSERTS to a standby cluster (for example increase zone availability or disaster recovery) some ClickHouse® features can be used.
 
 Basically we need to create a distributed table, a MV, rewrite the `remote_servers.xml` config file and tune some parameters.
 

@@ -1,12 +1,12 @@
 ---
-title: "How ALTER's works in ClickHouse"
-linkTitle: "How ALTER's works in ClickHouse"
+title: "How ALTERs work in ClickHouse®"
+linkTitle: "How ALTERs work in ClickHouse®"
 weight: 100
 description: >-
      
 ---
 
-### How ALTER's works in ClickHouse:
+### How ALTERs work in ClickHouse®:
 
 #### ADD (COLUMN/INDEX/PROJECTION)
 

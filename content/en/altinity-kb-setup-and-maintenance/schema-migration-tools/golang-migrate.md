@@ -8,7 +8,7 @@ description: >
 
 `migrate` is a simple schema migration tool written in golang. No external dependencies are required (like interpreter, jre), only one platform-specific executable. [golang-migrate/migrate](https://github.com/golang-migrate/migrate)
 
-`migrate` supports several databases, including ClickHouse (support was introduced by [@kshvakov](https://github.com/kshvakov)).
+`migrate` supports several databases, including ClickHouse® (support was introduced by [@kshvakov](https://github.com/kshvakov)).
 
 To store information about migrations state `migrate` creates one additional table in target database, by default that table is called `schema_migrations`.
 

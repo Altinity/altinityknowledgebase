@@ -2,12 +2,12 @@
 title: "Server config files"
 linkTitle: "Server config files"
 description: >
-    How to manage server config files in ClickHouse
+    How to manage server config files in ClickHouse®
 ---
 
 ## Сonfig management (recommended structure)
 
-ClickHouse server config consists of two parts server settings (config.xml) and users settings (users.xml).
+ClickHouse® server config consists of two parts server settings (config.xml) and users settings (users.xml).
 
 By default they are stored in the folder **/etc/clickhouse-server/** in two files config.xml & users.xml.
 
@@ -324,4 +324,4 @@ You can verify that your changes are valid by checking **/var/lib/clickhouse/pre
 
 If something wrong with with your settings e.g. unclosed XML element or typo you can see alerts about this mistakes in **/var/log/clickhouse-server/clickhouse-server.log**
 
-If you see your changes in **preprocessed_configs** it does not mean that changes are applied on running server, check [Settings & restart](altinity-kb-server-config-files.md#Settings-%26--restart)
+If you see your changes in **preprocessed_configs** it does not mean that changes are applied on running server, check Settings and restart.

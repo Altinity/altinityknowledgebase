@@ -4,7 +4,7 @@ linkTitle: "Partial updates"
 description: >
     Partial updates
 ---
-ClickHouse is able to fetch from a source only updated rows. You need to define `update_field` section.
+ClickHouse® is able to fetch from a source only updated rows. You need to define `update_field` section.
 
 As an example, We have a table in an external source MySQL, PG, HTTP, ... defined with the following code sample:
 

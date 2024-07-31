@@ -4,7 +4,7 @@ linkTitle: "Kafka main parsing loop"
 description: >
     Kafka main parsing loop
 ---
-One of the threads from scheduled_pool (pre 20.9) / `background_message_broker_schedule_pool` (after 20.9) do that in infinite loop:
+One of the threads from scheduled_pool (pre ClickHouse® 20.9) / `background_message_broker_schedule_pool` (after 20.9) do that in infinite loop:
 
 1. Batch poll (time limit: `kafka_poll_timeout_ms` 500ms, messages limit: `kafka_poll_max_batch_size` 65536)
 2. Parse messages.

@@ -27,7 +27,7 @@ description: >-
 
 * skip_access_check — if true, it's possible to use read only credentials with regular MergeTree table. But you would need to disable merges (`prefer_not_to_merge` setting) on s3 volume as well.
 
-* send_metadata — if true, ClickHouse will populate s3 object with initial part & file path, which allow you to recover metadata from s3 and make debug easier.
+* send_metadata — if true, ClickHouse® will populate s3 object with initial part & file path, which allow you to recover metadata from s3 and make debug easier.
 
 
 ## Restore metadata from S3

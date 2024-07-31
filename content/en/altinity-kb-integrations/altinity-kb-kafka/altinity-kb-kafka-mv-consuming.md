@@ -25,7 +25,7 @@ This is how we can see it in the logs:
 2022.11.09 17:49:34.282077 [ 2385 ] {} <Debug> StorageKafka (kafka_table): Started streaming to 2 attached views
 ```
 
-* How ClickHouse calculates the number of threads depending on the `thread_per_consumer` setting:
+* How ClickHouse® calculates the number of threads depending on the `thread_per_consumer` setting:
 
   ```c++
     auto stream_count = thread_per_consumer ? 1 : num_created_consumers;

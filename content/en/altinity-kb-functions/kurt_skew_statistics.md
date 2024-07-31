@@ -1,5 +1,6 @@
 ---
-title: "kurt & skew statistical functions in ClickHouse"
+title: "kurt & skew statistical functions in ClickHouse®
+"
 linkTitle: "kurt & skew"
 weight: 100
 description: >-

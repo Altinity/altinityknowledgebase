@@ -24,7 +24,7 @@ INSERT INTO mv_import SELECT * FROM huge_table WHERE toYYYYMM(ts) = 202105;
 ALTER TABLE mv ATTACH PARTITION ID '202105' FROM  mv_import;
 ```
 
-See also [https://clickhouse.tech/docs/en/sql-reference/statements/alter/partition/\#alter_attach-partition-from](https://clickhouse.tech/docs/en/sql-reference/statements/alter/partition/\#alter_attach-partition-from).
+See also [the ClickHouse® documentation on Manipulating Partitions and Parts](https://clickhouse.com/docs/en/sql-reference/statements/alter/partition).
 
 Q. I still do not have enough RAM to GROUP BY the whole partition.
 

@@ -14,7 +14,7 @@ It's also possible to skip up to N malformed messages for each block, with used 
 
 ## After 21.6
 
-It's possible to stream messages which could not be parsed, this behavior could be enabled via setting: `kafka_handle_error_mode='stream'` and clickhouse wil write error and message from Kafka itself to two new virtual columns: `_error, _raw_message`.
+It's possible to stream messages which could not be parsed, this behavior could be enabled via setting: `kafka_handle_error_mode='stream'` and ClickHouse® wil write error and message from Kafka itself to two new virtual columns: `_error, _raw_message`.
 
 So you can create another Materialized View which would collect to a separate table all errors happening while parsing with all important information like offset and content of message.
 

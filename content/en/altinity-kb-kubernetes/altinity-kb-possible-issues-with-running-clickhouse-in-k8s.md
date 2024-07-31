@@ -1,10 +1,10 @@
 ---
-title: "Possible issues with running ClickHouse in k8s"
-linkTitle: "Possible issues with running ClickHouse in k8s"
+title: "Possible issues with running ClickHouse® in K8s"
+linkTitle: "Possible issues with running ClickHouse® in K8s"
 description: >
-    Possible issues with running ClickHouse in k8s
+    Possible issues with running ClickHouse® in K8s
 ---
-The biggest problem with running ClickHouse in k8s, happens when clickhouse-server can't start for some reason and pod is falling in CrashloopBackOff, so you can't easily get in the pod and check/fix/restart ClickHouse.
+The biggest problem with running ClickHouse® in K8s, happens when clickhouse-server can't start for some reason and pod is falling in CrashloopBackOff, so you can't easily get in the pod and check/fix/restart ClickHouse.
 
 There is multiple possible reasons for this, some of them can be fixed without manual intervention in pod:
 
@@ -25,7 +25,7 @@ Caveats:
 
 1. Not all configuration/state folders are being covered by persistent volumes. ([geobases](https://clickhouse.tech/docs/en/sql-reference/functions/ym-dict-functions/#multiple-geobases))
 2. Page cache belongs to k8s node and pv are being mounted to pod, in case of fast shutdown there is possibility to loss some data(needs to be clarified)
-3. Some cloud providers (GKE) can have slow unlink command, which is important for clickhouse because it's needed for parts management. (`max_part_removal_threads` setting)
+3. Some cloud providers (GKE) can have slow unlink command, which is important for ClickHouse because it's needed for parts management. (`max_part_removal_threads` setting)
 
 Useful commands:
 

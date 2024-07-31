@@ -46,7 +46,7 @@ WHERE
 
 ## Common problems & solutions
 
-- If the replication queue does not have any Exceptions only postponed reasons without exceptions just leave ClickHouse do Merges/Mutations and it will eventually catch up and reduce the number of tasks in `replication_queue`. Number of concurrent merges and fetches can be tuned but if it is done without an analysis of your workload then you may end up in a worse situation. If Delay in queue is going up actions may be needed:
+- If the replication queue does not have any Exceptions only postponed reasons without exceptions just leave ClickHouse® do Merges/Mutations and it will eventually catch up and reduce the number of tasks in `replication_queue`. Number of concurrent merges and fetches can be tuned but if it is done without an analysis of your workload then you may end up in a worse situation. If Delay in queue is going up actions may be needed:
 
 - First simplest approach:
   - try to `SYSTEM RESTART REPLICA db.table` (This will DETACH/ATTACH table internally)

@@ -8,7 +8,7 @@ description: >
 git log -- contrib/librdkafka | git name-rev --stdin
 ```
 
-| **ClickHouse version** | **librdkafka version** |
+| **ClickHouse® version** | **librdkafka version** |
 | :--- | :--- |
 | 21.10+ ([\#27883](https://github.com/ClickHouse/ClickHouse/pull/27883)) | [1.6.1](https://github.com/edenhill/librdkafka/blob/v1.6.1/CHANGELOG.md) + snappy fixes + boring ssl + illumos_build fixes + edenhill#3279 fix|
 | 21.6+ ([\#23874](https://github.com/ClickHouse/ClickHouse/pull/23874)) | [1.6.1](https://github.com/edenhill/librdkafka/blob/v1.6.1/CHANGELOG.md) + snappy fixes + boring ssl + illumos_build fixes|

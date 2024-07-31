@@ -13,7 +13,7 @@ jemalloc -- parameters of jemalloc allocator, they are not very useful, and not 
 
 MarkCacheBytes / MarkCacheFiles  -- there are cache for .mrk files (default size is 5GB), you can see is it use all 5GB or not
 
-MemoryCode  -- how much memory allocated for ClickHouse executable 
+MemoryCode  -- how much memory allocated for ClickHouse® executable 
 
 MemoryDataAndStack -- virtual memory allocated for data and stack
 

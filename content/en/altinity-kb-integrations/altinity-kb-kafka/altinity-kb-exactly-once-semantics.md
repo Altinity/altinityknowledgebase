@@ -4,7 +4,7 @@ linkTitle: "Exactly once semantics"
 description: >
     Exactly once semantics
 ---
-EOS consumer (isolation.level=read_committed) is enabled by default since librdkafka 1.2.0, so for ClickHouse - since 20.2
+EOS consumer (isolation.level=read_committed) is enabled by default since librdkafka 1.2.0, so for ClickHouse® - since 20.2
 
 See:
 

@@ -4,11 +4,11 @@ linkTitle: "DDLWorker"
 description: >
     DDLWorker
 ---
-DDLWorker is a subprocess (thread) of clickhouse-server that executes `ON CLUSTER` tasks at the node.
+DDLWorker is a subprocess (thread) of `clickhouse-server` that executes `ON CLUSTER` tasks at the node.
 
 When you execute a DDL query with `ON CLUSTER mycluster` section the query executor at the current node reads the cluster `mycluster` definition (remote_servers / system.clusters) and places tasks into Zookeeper znode `task_queue/ddl/...` for members of the cluster `mycluster`.
 
-DDLWorker at all ClickHouse nodes constantly check this `task_queue` for their tasks and executes them locally and reports about a result back into `task_queue`.
+DDLWorker at all ClickHouse® nodes constantly check this `task_queue` for their tasks and executes them locally and reports about a result back into `task_queue`.
 
 The common issue is the different hostnames/IPAddresses in the cluster definition and locally.
 

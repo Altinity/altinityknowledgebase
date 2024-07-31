@@ -10,7 +10,7 @@ description: >-
 
 The idea is that you have a macros `cluster` with cluster name.
 
-For example you have a cluster named `production` and this cluster includes all ClickHouse nodes.
+For example you have a cluster named `production` and this cluster includes all ClickHouse® nodes.
 
 ```xml
 $ cat /etc/clickhouse-server/config.d/clusters.xml

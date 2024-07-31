@@ -249,7 +249,7 @@ alter table mydata move partition id '202301' to volume 's3cached';
 └───────────┴───────────┴───────────┴────────────┴────────────┘
 ```
 
-## S3 and ClickHouse start time
+## S3 and ClickHouse® start time
 
 Let's create a table with 1000 parts and move them to s3.
 ```sql

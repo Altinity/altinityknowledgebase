@@ -8,7 +8,7 @@ description: >-
 
 ## Debug hanging / freezing things 
 
-If ClickHouse is busy with something and you don't know what's happeing, you can easily check the stacktraces of all the thread which are working
+If ClickHouse® is busy with something and you don't know what's happening, you can easily check the stacktraces of all the thread which are working
 
 ```sql
 SELECT

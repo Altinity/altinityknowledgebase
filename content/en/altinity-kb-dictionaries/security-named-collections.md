@@ -6,7 +6,7 @@ description: >
 ---
 
 
-## Dictionary with ClickHouse table as a source with named collections
+## Dictionary with ClickHouse® table as a source with named collections
 
 ### Data for connecting to external sources can be stored in named collections
 

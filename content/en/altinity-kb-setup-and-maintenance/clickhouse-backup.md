@@ -1,8 +1,8 @@
 ---
-title: "clickhouse-backup"
-linkTitle: "clickhouse-backup"
+title: "Altinity Backup for ClickHouse®"
+linkTitle: "Altinity Backup for ClickHouse®"
 description: >
-    clickhouse-backup + backblaze
+    Altinity Backup for ClickHouse® + backblaze
 ---
 ### Installation and configuration
 
@@ -72,7 +72,7 @@ select count() from test.test;
 └─────────┘
 ```
 
-clickhouse-backup list should work without errors (it scans local and remote (s3) folders):
+`clickhouse-backup list` should work without errors (it scans local and remote (s3) folders):
 
 ```bash
 $ sudo ./clickhouse-backup list -c config.yml

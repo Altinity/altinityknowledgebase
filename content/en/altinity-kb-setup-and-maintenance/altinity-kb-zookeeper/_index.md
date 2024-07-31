@@ -17,7 +17,7 @@ TLDR version:
 6) [monitor zookeeper](https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/zookeeper-monitoring/).
 
 Side note:
-in many cases, the slowness of the zookeeper is actually a symptom of some issue with clickhouse schema/usage pattern (the most typical issues: an enormous number of partitions/tables/databases with real-time inserts, tiny & frequent inserts).
+in many cases, the slowness of the zookeeper is actually a symptom of some issue with ClickHouse® schema/usage pattern (the most typical issues: an enormous number of partitions/tables/databases with real-time inserts, tiny & frequent inserts).
 
 ### How to install
 

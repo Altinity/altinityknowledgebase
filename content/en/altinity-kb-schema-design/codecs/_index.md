@@ -15,7 +15,7 @@ description: >
 | Gorilla          | Floating Point Types                 | Calculates XOR between current and previous value; suitable for slowly changing numbers |
 | T64              | Integer, Time Series Data, Timestamps        | Preprocessor (should be followed by some compression codec). Crops unused high bits; puts them into a 64x64 bit matrix; optimized for 64-bit data types |
 | GCD              | Integer Numbers                      | Preprocessor (should be followed by some compression codec). Greatest common divisor compression; divides values by a common divisor; effective for divisible integer sequences |
-| FPC              | Floating Point Numbers               | Designed for Float64; Algorithm detailed in [FPC paper](https://userweb.cs.txstate.edu/~burtscher/papers/dcc07a.pdf), [ClickHouse PR #37553](https://github.com/ClickHouse/ClickHouse/pull/37553) |
+| FPC              | Floating Point Numbers               | Designed for Float64; Algorithm detailed in [FPC paper](https://userweb.cs.txstate.edu/~burtscher/papers/dcc07a.pdf), [ClickHouse® PR #37553](https://github.com/ClickHouse/ClickHouse/pull/37553) |
 | ZSTD_QAT         | Any                                  | Requires hardware support for QuickAssist Technology (QAT) hardware; provides accelerated compression tasks |
 | DEFLATE_QPL      | Any                                  | Requires hardware support for Intel’s QuickAssist Technology for DEFLATE compression; enhanced performance for specific hardware |
 | LowCardinality   | String                               | It's not a codec, but a datatype modifier. Reduces representation size; effective for columns with low cardinality |
