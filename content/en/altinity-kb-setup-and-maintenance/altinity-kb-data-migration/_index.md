@@ -11,7 +11,7 @@ Pros:
 
 Cons:
 * Decoding & encoding of common data formats may be slower / require more CPU
-* The data size is usually bigger than ClickHouse formats.
+* The data size is usually bigger than ClickHouse® formats.
 * Some of the common data formats have limitations.
 
 {{% alert title="Info" color="info" %}}
@@ -56,7 +56,7 @@ Internally it works like smart `INSERT INTO cluster(…) SELECT * FROM ...` with
 {{% /alert %}}
 
 {{% alert title="Info" color="info" %}}
-Run clickhouse copier on the same nodes as receiver clickhouse, to avoid doubling the network load.
+Run `clickhouse-copier` on the same nodes as receiver ClickHouse, to avoid doubling the network load.
 {{% /alert %}}
 
 See details in:
@@ -102,7 +102,7 @@ Pros:
 
 Cons:
 * Table schema should be the same.
-* Works only when the source and the destination clickhouse servers share the same zookeeper (without chroot)
+* Works only when the source and the destination ClickHouse servers share the same zookeeper (without chroot)
 * Needs to access zookeeper and ClickHouse replication ports: (`interserver_http_port` or `interserver_https_port`)
 
 ```sql

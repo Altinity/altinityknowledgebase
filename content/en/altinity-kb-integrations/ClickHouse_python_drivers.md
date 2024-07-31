@@ -1,12 +1,12 @@
 ---
-title: "ClickHouse python drivers"
-linkTitle: "ClickHouse python drivers"
+title: "ClickHouse® python drivers"
+linkTitle: "ClickHouse® python drivers"
 weight: 100
 description: >-
-     Python main drivers/clients for ClickHouse
+     Python main drivers/clients for ClickHouse®
 ---
 
-## ClickHouse python drivers
+## ClickHouse® python drivers
 
 There are two main python drivers that can be used with ClickHouse. They all have their different set of features and use cases:
 
@@ -32,7 +32,7 @@ The **`clickhouse-driver`** is a Python library used for interacting with ClickH
 - Good Pandas/Numpy support: [https://clickhouse-driver.readthedocs.io/en/latest/features.html#numpy-pandas-support](https://clickhouse-driver.readthedocs.io/en/latest/features.html#numpy-pandas-support)
 - Good SQLALchemy support: [https://pypi.org/project/clickhouse-sqlalchemy/](https://pypi.org/project/clickhouse-sqlalchemy/)
 
-This was the first python driver for clickhouse. It has a mature codebase. By default clickhouse drivers uses [synchronous code](https://clickhouse-driver.readthedocs.io/en/latest/quickstart.html#async-and-multithreading). There is a wrapper to convert code to asynchronous, [https://github.com/long2ice/asynch](https://github.com/long2ice/asynch)
+This was the first python driver for ClickHouse. It has a mature codebase. By default ClickHouse drivers uses [synchronous code](https://clickhouse-driver.readthedocs.io/en/latest/quickstart.html#async-and-multithreading). There is a wrapper to convert code to asynchronous, [https://github.com/long2ice/asynch](https://github.com/long2ice/asynch)
 
 Here you can get a basic working example from Altinity repo for ingestion/selection using clickhouse-driver:
 

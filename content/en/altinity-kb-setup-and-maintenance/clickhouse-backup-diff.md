@@ -6,7 +6,7 @@ description: >
 ---
 ### differential backups using clickhouse-backup
 
-1. Download the latest clickhouse-backup for your platform https://github.com/Altinity/clickhouse-backup/releases
+1. Download the latest version of Altinity Backup for ClickHouse®: https://github.com/Altinity/clickhouse-backup/releases
 
 ```bash
 # ubuntu / debian
