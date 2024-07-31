@@ -11,11 +11,11 @@ Pros:
 
 Cons:
 * Decoding & encoding of common data formats may be slower / require more CPU
-* The data size is usually bigger than ClickHouse® formats.
+* The data size is usually bigger than ClickHouse formats.
 * Some of the common data formats have limitations.
 
 {{% alert title="Info" color="info" %}}
-The best approach to do that is using `clickhouse-client`, in that case, encoding/decoding of format happens client-side, while client and server speak ClickHouse Native format (columnar & compressed).
+The best approach to do that is using clickhouse-client, in that case, encoding/decoding of format happens client-side, while client and server speak clickhouse Native format (columnar & compressed).
 
 In contrast: when you use HTTP protocol, the server do encoding/decoding and more data is passed between client and server.
 {{% /alert %}}
@@ -56,7 +56,7 @@ Internally it works like smart `INSERT INTO cluster(…) SELECT * FROM ...` with
 {{% /alert %}}
 
 {{% alert title="Info" color="info" %}}
-Run `clickhouse copier` on the same nodes as receiver ClickHouse, to avoid doubling the network load.
+Run clickhouse copier on the same nodes as receiver clickhouse, to avoid doubling the network load.
 {{% /alert %}}
 
 See details in:
@@ -91,7 +91,7 @@ Cons:
 
 Just create the backup on server 1, upload it to server 2, and restore the backup.
 
-See [the Altinity Backup for ClickHouse repo](https://github.com/Altinity/clickhouse-backup) for the code and the details. 
+See [https://github.com/Altinity/clickhouse-backup](https://github.com/Altinity/clickhouse-backup)
 
 [https://altinity.com/blog/introduction-to-clickhouse-backups-and-clickhouse-backup](https://altinity.com/blog/introduction-to-clickhouse-backups-and-clickhouse-backup)
 
@@ -102,7 +102,7 @@ Pros:
 
 Cons:
 * Table schema should be the same.
-* Works only when the source and the destination ClickHouse servers share the same zookeeper (without chroot)
+* Works only when the source and the destination clickhouse servers share the same zookeeper (without chroot)
 * Needs to access zookeeper and ClickHouse replication ports: (`interserver_http_port` or `interserver_https_port`)
 
 ```sql

@@ -1,11 +1,11 @@
 ---
-title: "The Altinity Kubernetes Operator for ClickHouse®"
-linkTitle: "The Altinity Kubernetes Operator for ClickHouse®"
+title: "Altinity Kubernetes Operator For ClickHouse"
+linkTitle: "ClickHouse operator"
 weight: 100
 description: >-
-     The Altinity Kubernetes Operator for ClickHouse®
+     Altinity Kubernetes Operator For ClickHouse
 ---
 
-## The Altinity Kubernetes Operator for ClickHouse®
+## Altinity Operator Documentation
 
 https://github.com/Altinity/clickhouse-operator/blob/master/docs/README.md

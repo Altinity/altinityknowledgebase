@@ -2,7 +2,7 @@
 title: "Async INSERTs"
 linkTitle: "Async INSERTs"
 description: >
-  Async INSERTs
+    Async INSERTs
 ---
 
 Async INSERTs is a ClickHouse® feature tha enables batching data automatically and transparently on the server-side. We recommend to batch at app/ingestor level because you will have more control and you decouple this responsibility from ClickHouse, but there are use cases where this is not possible and Async inserts come in handy if you have hundreds or thousands of clients doing small inserts.
@@ -32,7 +32,7 @@ Some insights about Async inserts you should now:
 * Support async inserts in **clickhouse-client** for queries with inlined data **(Native protocol)**:
   - [#34267](https://github.com/ClickHouse/ClickHouse/pull/34267)
   - [#54098](https://github.com/ClickHouse/ClickHouse/issues/54098)
-  - [#54381](https://github.com/ClickHouse/ClickHouse/issues/54381)
+  - [#54381](https://github.com/ClickHouse/ClickHouse/issues/54381) 
 * Async insert backpressure [#4762](https://github.com/ClickHouse/ClickHouse/issues/47623)
 * Limit the deduplication overhead when using `async_insert_deduplicate` [#46549](https://github.com/ClickHouse/ClickHouse/pull/46549)
 * `SYSTEM FLUSH ASYNC INSERTS` [#49160](https://github.com/ClickHouse/ClickHouse/pull/49160)
@@ -55,14 +55,14 @@ In 22.x versions, it is not possible to relate `part_log/query_id` column with `
 
 `asynchronous_insert_log` shows up the `query_id` and `flush_query_id` of each async insert. The `query_id` from `asynchronous_insert_log` shows up in the `system.query_log` as `type = 'QueryStart'` but the same `query_id` does not show up in the `query_id` column of the `system.part_log`. Because the `query_id` column in the `part_log` is the identifier of the INSERT query that created a data part, and it seems it is for sync INSERTS but not for async inserts.
 
-So in `asynchronous_inserts` table you can check the current batch that still has not been flushed. In the `asynchronous_insert_log` you can find a log of all the flushed async inserts.
+So in `asynchronous_inserts` table you can check the current batch that still has not been flushed. In the `asynchronous_insert_log` you can find a log of all the flushed async inserts. 
 
-This has been improved in **ClickHouse 23.7** Flush queries for async inserts (the queries that do the final push of data) are now logged in the `system.query_log` where they appear as `query_kind = 'AsyncInsertFlush'` [#51160](https://github.com/ClickHouse/ClickHouse/pull/51160)
+This has been improved in **ClickHouse 23.7** Flush queries for async inserts (the queries that do the final push of data) are now logged in the `system.query_log` where they appear as `query_kind = 'AsyncInsertFlush'` [#51160](https://github.com/ClickHouse/ClickHouse/pull/51160)
 
 
 ## Versions
 
-- **23.8** is a good version to start using async inserts because of the improvements and bugfixes.
+- **23.8** is a good version to start using async inserts because of the improvements and bugfixes. 
 - **24.3** the new adaptative timeout mechanism has been added so clickhouse will throttle the inserts based on the server load.[#58486](https://github.com/ClickHouse/ClickHouse/pull/58486)
 
 ## Metrics
