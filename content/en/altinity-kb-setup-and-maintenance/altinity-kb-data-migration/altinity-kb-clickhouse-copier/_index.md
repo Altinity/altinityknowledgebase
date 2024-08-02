@@ -4,18 +4,12 @@ linkTitle: "clickhouse-copier"
 description: >
     clickhouse-copier
 ---
-The description of the utility and its parameters, as well as examples of the config files that you need to create for the copier are in the official doc [ClickHouse® copier utility](https://clickhouse.com/docs/en/operations/utilities/clickhouse-copier/)
+The description of the utility and its parameters, as well as examples of the config files that you need to create for the copier are in the official repo for the [ClickHouse® copier utility](https://github.com/clickhouse/copier/)
 
 The steps to run a task:
 
 1. Create a config file for `clickhouse-copier` (zookeeper.xml)
-
-   [ZooKeeper config format](https://clickhouse.com/docs/en/operations/utilities/clickhouse-copier/#format-of-zookeeper-xml)
-
 2. Create a config file for the task (task1.xml)
-
-   [Copy task configuration](https://clickhouse.com/docs/en/operations/utilities/clickhouse-copier/#configuration-of-copying-tasks)
-
 3. Create the task in ZooKeeper and start an instance of `clickhouse-copier`
 
     `clickhouse-copier --daemon --base-dir=/opt/clickhouse-copier --config=/opt/clickhouse-copier/zookeeper.xml --task-path=/clickhouse/copier/task1 --task-file=/opt/clickhouse-copier/task1.xml`
@@ -34,7 +28,7 @@ The number of simultaneously running instances is controlled be the `max_workers
 
 ### See also
 
-* https://clickhouse.com/docs/en/operations/utilities/clickhouse-copier/
+* https://github.com/clickhouse/copier/
 * Никита Михайлов. Кластер ClickHouse ctrl-с ctrl-v. HighLoad++ Весна 2021 [slides]( https://raw.githubusercontent.com/ClickHouse/clickhouse-presentations/master/highload2021/copier.pdf)
 * 21.7 have a huge bulk of fixes / improvements. https://github.com/ClickHouse/ClickHouse/pull/23518
 * https://altinity.com/blog/2018/8/22/clickhouse-copier-in-practice 

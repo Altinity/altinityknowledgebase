@@ -10,7 +10,7 @@ description: >
 
 Some documentation to read:
 * https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/altinity-kb-clickhouse-copier/
-* https://clickhouse.com/docs/en/operations/utilities/clickhouse-copier/
+* https://github.com/clickhouse/copier/
 
 ## Deployment
 
@@ -166,7 +166,7 @@ and deploy:
 kubectl -n clickhouse-copier create -f ./kubernetes/copier-configmap.yaml
 ```
 
-The ```task01.xml``` file has many parameters to take into account explained in the [clickhouse-copier documentation](https://clickhouse.com/docs/en/operations/utilities/clickhouse-copier/). Important to note that it is needed a FQDN for the Zookeeper nodes and ClickHouse® server that are valid for the cluster. As the deployment creates a new namespace, it is recommended to use a FQDN linked to a service. For example ```zookeeper01.svc.cluster.local```. This file should be adapted to both clusters topologies and to the needs of the user.
+The ```task01.xml``` file has many parameters to take into account explained in the repo for [clickhouse-copier](https://github.com/clickhouse/copier/). Important to note that it is needed a FQDN for the Zookeeper nodes and ClickHouse® server that are valid for the cluster. As the deployment creates a new namespace, it is recommended to use a FQDN linked to a service. For example ```zookeeper01.svc.cluster.local```. This file should be adapted to both clusters topologies and to the needs of the user.
 
 The ```zookeeper.xml``` file is pretty straightforward with a simple 3 node ensemble configuration.
 
