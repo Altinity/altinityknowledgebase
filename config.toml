@@ -54,8 +54,8 @@ anchor = "smart"
 
 [languages]
 [languages.en]
-title = "Altinity Knowledge Base"
-description = "Altinity Knowledge Base"
+title = "Altinity® Knowledge Base"
+description = "Altinity® Knowledge Base for ClickHouse®"
 languageName = "English"
 # Weight used for sorting.
 weight = 1

@@ -1,6 +1,6 @@
 ---
-title: "Altinity Knowledge Base"
-linkTitle: "Altinity Knowledge Base"
+title: "Altinity® Knowledge Base"
+linkTitle: "Altinity® Knowledge Base"
 description: "Up-to-date ClickHouse® knowledge base for every ClickHouse user."
 keywords:
 - ClickHouse Knowledge Base
@@ -12,7 +12,7 @@ cascade:
   _target:
     path: "/**"
 ---
-## Welcome to the Altinity Knowledge Base (KB) for ClickHouse®
+## Welcome to the Altinity® Knowledge Base (KB) for ClickHouse®
 
 This knowledge base is supported by [Altinity](http://altinity.com/) engineers to provide quick answers to common questions and issues involving ClickHouse.
 
