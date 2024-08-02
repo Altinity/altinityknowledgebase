@@ -12,7 +12,7 @@ cascade:
   _target:
     path: "/**"
 ---
-## Welcome to the Altinity Knowledge Base (KB) for ClickHouse®
+## Welcome to the Altinity® Knowledge Base (KB) for ClickHouse®
 
 This knowledge base is supported by [Altinity](http://altinity.com/) engineers to provide quick answers to common questions and issues involving ClickHouse.
 
