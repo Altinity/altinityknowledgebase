@@ -1,14 +1,14 @@
 ---
-title: "ClickHouse in Docker"
-linkTitle: "ClickHouse in Docker"
+title: "ClickHouse® in Docker"
+linkTitle: "ClickHouse® in Docker"
 description: >
-    ClickHouse in Docker
+    ClickHouse® in Docker
 ---
 ## Do you have documentation on Docker deployments?
 
 Check
 
-* [https://hub.docker.com/r/yandex/clickhouse-server/](https://hub.docker.com/r/yandex/clickhouse-server/)
+* [https://hub.docker.com/r/clickhouse/clickhouse-server](https://hub.docker.com/r/clickhouse/clickhouse-server)
 * [https://docs.altinity.com/clickhouseonkubernetes/](https://docs.altinity.com/clickhouseonkubernetes/)
 * sources of entry point - [https://github.com/ClickHouse/ClickHouse/blob/master/docker/server/entrypoint.sh](https://github.com/ClickHouse/ClickHouse/blob/master/docker/server/entrypoint.sh)
 
@@ -21,7 +21,7 @@ Important things:
 * Also, you may mount in some files or folders in the configuration folder:
   * `/etc/clickhouse-server/config.d/listen_ports.xml`
 * `--ulimit nofile=262144:262144`
-* You can also set on some linux capabilities to enable some of extra features of ClickHouse (not obligatory): `SYS_PTRACE NET_ADMIN IPC_LOCK SYS_NICE`
+* You can also set on some linux capabilities to enable some of extra features of ClickHouse® (not obligatory): `SYS_PTRACE NET_ADMIN IPC_LOCK SYS_NICE`
 * you may also mount in the folder `/docker-entrypoint-initdb.d/` - all SQL or bash scripts there will be executed during container startup.
 * if you use cgroup limits - it may misbehave https://github.com/ClickHouse/ClickHouse/issues/2261 (set up `<max_server_memory_usage>` manually) 
 * there are several ENV switches, see: [https://github.com/ClickHouse/ClickHouse/blob/master/docker/server/entrypoint.sh](https://github.com/ClickHouse/ClickHouse/blob/master/docker/server/entrypoint.sh)
@@ -40,7 +40,7 @@ docker run -d \
    --cap-add=IPC_LOCK \
    --cap-add=SYS_PTRACE \
    --network=host \
-   yandex/clickhouse-server:21.1.7
+   clickhouse/clickhouse-server:latest
 
 docker exec -it some-clickhouse-server clickhouse-client
 docker exec -it some-clickhouse-server bash

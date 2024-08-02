@@ -71,7 +71,7 @@ Sometimes the consumer group needs to be explicitly allowed in the broker UI con
 
 To connect to some Kafka cloud services you may need to use certificates.
 
-If needed they can be converted to pem format and inlined into ClickHouse config.xml
+If needed they can be converted to pem format and inlined into ClickHouse® config.xml
 Example:
 
 ```xml
@@ -137,7 +137,7 @@ See [https://github.com/ClickHouse/ClickHouse/issues/12609](https://github.com/C
 
 ## How to test connection settings
 
-Use kafkacat utility - it internally uses same library to access Kafla as clickhouse itself and allows easily to test different settings.
+Use kafkacat utility - it internally uses same library to access Kafla as ClickHouse itself and allows easily to test different settings.
 
 ```bash
 kafkacat -b my_broker:9092 -C -o -10 -t my_topic \

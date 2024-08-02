@@ -30,6 +30,6 @@ df -Th
 df -Thi
 ```
 
-Q. How to configure logging in clickhouse?
+Q. How to configure logging in ClickHouse®?
 
 A. See [https://github.com/ClickHouse/ClickHouse/blob/ceaf6d57b7f00e1925b85754298cf958a278289a/programs/server/config.xml\#L9-L62](https://github.com/ClickHouse/ClickHouse/blob/ceaf6d57b7f00e1925b85754298cf958a278289a/programs/server/config.xml#L9-L62)

@@ -1,12 +1,12 @@
 ---
-title: "ClickHouse row-level deduplication"
-linkTitle: "ClickHouse row-level deduplication"
+title: "ClickHouse® row-level deduplication"
+linkTitle: "ClickHouse® row-level deduplication"
 weight: 100
 description: >-
-     ClickHouse row-level deduplication.
+     ClickHouse® row-level deduplication.
 ---
 
-## ClickHouse row-level deduplication.
+## ClickHouse® row-level deduplication.
 
 (Block level deduplication exists in Replicated tables, and is not the subject of that article).
 
@@ -26,7 +26,7 @@ Approach 0. Make deduplication before ingesting data to ClickHouse
 + you have full control
 - extra coding and 'moving parts', storing some ids somewhere
 + clean and simple schema and selects in ClickHouse
-! check if row exists in clickhouse before insert can give non-satisfing results if you use ClickHouse cluster (i.e. Replicated / Distributed tables) - due to eventual consistency.
+! check if row exists in ClickHouse before insert can give non-satisfing results if you use ClickHouse cluster (i.e. Replicated / Distributed tables) - due to eventual consistency.
 
 Approach 1. Allow duplicates during ingestion. Remove them on SELECT level (by things like GROUP BY)
 + simple inserts
@@ -44,7 +44,7 @@ Approach 2. Eventual deduplication using Replacing
 Approach 3. Eventual deduplication using Collapsing 
  - complicated
  - can force you to use suboptimal primary key (which will guarantee record uniqueness)
- - you need to store previous state of the record somewhere, or extract it before ingestion from clickhouse
+ - you need to store previous state of the record somewhere, or extract it before ingestion from ClickHouse
  - deduplication is eventual (same as with Replacing)
     + you can make the proper aggregations of last state w/o FINAL (bookkeeping-alike sums, counts etc)
 

@@ -72,7 +72,7 @@ Pros and cons:
   * easy to extend, you can have very dynamic / huge number of metrics.
   * the only option to store hierarchical / complicated data structures, also with arrays etc. inside.
   * good for sparse recording (each time point can have only 1% of all the possible metrics)
-  * ClickHouse has efficient API to work with JSON
+  * ClickHouse® has efficient API to work with JSON
   * nice if your data originally came in JSON (don't need to reformat)
 * Cons
   * uses storage non efficiently
@@ -88,7 +88,7 @@ Same pros/cons as raw JSON, but usually bit more compact than JSON
 Pros and cons:
 
 * Pros
-  * clickhouse has efficient API to work with URLs (extractURLParameter etc)
+  * ClickHouse has efficient API to work with URLs (extractURLParameter etc)
   * can have sense if you data came in such format (i.e. you can store GET / POST request data directly w/o reprocessing)
 * Cons
   * slower than arrays

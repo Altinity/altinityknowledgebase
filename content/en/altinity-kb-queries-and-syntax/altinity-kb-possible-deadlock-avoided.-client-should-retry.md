@@ -4,7 +4,7 @@ linkTitle: "Possible deadlock avoided. Client should retry"
 description: >
     Possible deadlock avoided. Client should retry
 ---
-In version 19.14 a serious issue was found: a race condition that can lead to server deadlock. The reason for that was quite fundamental, and a temporary workaround for that was added ("possible deadlock avoided").
+In ClickHouse® version 19.14 a serious issue was found: a race condition that can lead to server deadlock. The reason for that was quite fundamental, and a temporary workaround for that was added ("possible deadlock avoided").
 
 Those locks are one of the fundamental things that the core team was actively working on in 2020.
 

@@ -21,7 +21,7 @@ It's usually cheap and fast command. And any new INSERT after schema change will
 2. `ALTER TABLE tbl MATERIALIZE TTL`
 
 Recalculate TTL for already exist parts.
-It can be heavy operation, because ClickHouse will read column data & recalculate TTL & apply TTL expression.
+It can be heavy operation, because ClickHouse® will read column data & recalculate TTL & apply TTL expression.
 You can disable this step completely by using `materialize_ttl_after_modify` user session setting (by default it's 1, so materialization is enabled).
 
 

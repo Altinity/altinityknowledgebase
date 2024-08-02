@@ -6,14 +6,14 @@ description: How to aggregate mutating event stream with duplicates
 
 ### Challenges with mutated data
 
-When you have an incoming event stream with duplicates, updates, and deletes, building a consistent row state inside the Clickhouse table is a big challenge.
+When you have an incoming event stream with duplicates, updates, and deletes, building a consistent row state inside the ClickHouse® table is a big challenge.
 
-The UPDATE/DELETE approach in the OLTP world won’t help with OLAP databases tuned to handle big batches. UPDATE/DELETE operations in Clickhouse are executed as “mutations,” rewriting a lot of data and being relatively slow. You can’t run such operations very often, as for OLTP databases. But the UPSERT operation (insert and replace) runs fast with the ReplacingMergeTree Engine. It’s even set as the default mode for INSERT without any special keyword. We can emulate UPDATE (or even DELETE) with the UPSERT operation.
+The UPDATE/DELETE approach in the OLTP world won’t help with OLAP databases tuned to handle big batches. UPDATE/DELETE operations in ClickHouse are executed as “mutations,” rewriting a lot of data and being relatively slow. You can’t run such operations very often, as for OLTP databases. But the UPSERT operation (insert and replace) runs fast with the ReplacingMergeTree Engine. It’s even set as the default mode for INSERT without any special keyword. We can emulate UPDATE (or even DELETE) with the UPSERT operation.
 
 There are a lot of [blog posts](https://altinity.com/blog/clickhouse-replacingmergetree-explained-the-good-the-bad-and-the-ugly) on how to use  ReplacingMergeTree Engine to handle mutated data streams.  A properly designed table schema with ReplacingMergeTree Engine is a good instrument for building the DWH Dimensions table.  But when maintaining metrics in Fact tables, there are several problems:
 
-- it’s not possible to use a valuable Clickhouse feature - online aggregation of incoming data by Materialized Views or Projections on top of the ReplacingMT table, because duplicates and updates will not be deduplicated by the engine during inserts, and calculated aggregates (like sum or count) will be incorrect.  For significant amounts of data, it’s become critical because aggregating raw data during report queries will take too much time.
-- unfinished support for DELETEs. While in the newest versions of Clickhouse, it’s possible to add the is_deleted to ReplacingMergeTree parameters, the necessity of manually filtering out deleted rows after FINAL processing makes that feature less useful.
+- it’s not possible to use a valuable ClickHouse feature - online aggregation of incoming data by Materialized Views or Projections on top of the ReplacingMT table, because duplicates and updates will not be deduplicated by the engine during inserts, and calculated aggregates (like sum or count) will be incorrect.  For significant amounts of data, it’s become critical because aggregating raw data during report queries will take too much time.
+- unfinished support for DELETEs. While in the newest versions of ClickHouse, it’s possible to add the is_deleted to ReplacingMergeTree parameters, the necessity of manually filtering out deleted rows after FINAL processing makes that feature less useful.
 - Mutated data should be localized to the same partition. If the “replacing” row is saved to a partition different from the previous one, the report query will be much slower or produce unexpected results.
 
 ```sql
@@ -40,7 +40,7 @@ You will get a row with ‘first’, not an empty set, as one might expect with 
 
 ### Collapsing
 
-Clickhouse has other table engines, such as CollapsingMergeTree and VersionedCollapsingMergeTree, that can be used even better for UPSERT operation.
+ClickHouse has other table engines, such as CollapsingMergeTree and VersionedCollapsingMergeTree, that can be used even better for UPSERT operation.
 
 Both work by inserting a “rollback row” to compensate for the previous insert.  The difference between CollapsingMergeTree and VersionedCollapsingMergeTree is in the algorithm of collapsing.  For Cluster configurations, it’s essential to understand which row came first and who should replace whom.  That is why using ReplicatedVersionedCollapsingMergeTree is mandatory for Replicated Clusters.
 
@@ -89,7 +89,7 @@ With VersionedCollapsingMergeTree, we can use more partition strategies, even wi
 
 ### Row deduplication
 
-There are several ways to remove duplicates from the event stream. The most effective feature is block deduplication, which occurs when Clickhouse drops incoming blocks with the same checksum (or tag). However, this requires building a smart ingestor capable of saving positions in a transactional manner.
+There are several ways to remove duplicates from the event stream. The most effective feature is block deduplication, which occurs when ClickHouse drops incoming blocks with the same checksum (or tag). However, this requires building a smart ingestor capable of saving positions in a transactional manner.
 
 However, another method is possible: verifying whether a particular row already exists in the destination table to avoid redundant insertions. Together with block deduplication, that method also avoids using ReplacingMergeTree and FINAL during query time.
 
@@ -145,7 +145,7 @@ I read more data from the Example2 table than from Example1. Instead of simply c
 
 For UPSERT, the collapsing algorithm requires inserting two rows. So, I need to create two rows from any row that is found in the local table. It´s an essential part of the suggested approach, which allows me to produce proper rows for inserting with a human-readable code with clear if() statements.  That is why I execute arrayJoin while reading old data.
 
-Don’t try to run the code above.  It’s just a short explanation of the idea, lucking many needed elements.
+Don’t try to run the code above.  It’s just a short explanation of the idea, lacking many needed elements.
 
 ### UPSERT by Collapsing
 
@@ -334,7 +334,7 @@ format Null
 select '---',timeSpent(),'GROUP BY OPTIMIZED';
 ```
 
-You can use fiddle or clickhouse-local to run such a test:
+You can use fiddle or `clickhouse-local` to run such a test:
 
 ```bash
 cat test.sql | clickhouse-local -nm
@@ -551,7 +551,7 @@ However, it can lead to incorrect duplicate processing in some rare situations. 
 - two events  happen in the source database (insert and delete) for the very same ID
 - only insert event create a duplicate (delete event does not duplicate)
 - all 3 events (delete and two inserts) were processed in separate batches
-- Clickhouse executes the merge operation very quickly after the first INSER and DELETE events are received, effectively removing the row with that ID from the table
+- ClickHouse executes the merge operation very quickly after the first INSERT and DELETE events are received, effectively removing the row with that ID from the table
 - the second (duplicated) insert is saved to the table because we lost the information about the first insertion
 
 The probability of such a sequence is relatively low, especially in normal operations when the amount of DELETEs is not too significant.   Processing events in big batches will reduce the probability even more.

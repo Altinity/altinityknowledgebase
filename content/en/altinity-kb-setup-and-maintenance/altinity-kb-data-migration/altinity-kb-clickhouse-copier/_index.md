@@ -4,11 +4,11 @@ linkTitle: "clickhouse-copier"
 description: >
     clickhouse-copier
 ---
-The description of the utility and its parameters, as well as examples of the config files that you need to create for the copier are in the official doc [ClickHouse copier utility](https://clickhouse.com/docs/en/operations/utilities/clickhouse-copier/)
+The description of the utility and its parameters, as well as examples of the config files that you need to create for the copier are in the official doc [ClickHouse® copier utility](https://clickhouse.com/docs/en/operations/utilities/clickhouse-copier/)
 
 The steps to run a task:
 
-1. Create a config file for clickhouse-copier (zookeeper.xml)
+1. Create a config file for `clickhouse-copier` (zookeeper.xml)
 
    [ZooKeeper config format](https://clickhouse.com/docs/en/operations/utilities/clickhouse-copier/#format-of-zookeeper-xml)
 
@@ -16,7 +16,7 @@ The steps to run a task:
 
    [Copy task configuration](https://clickhouse.com/docs/en/operations/utilities/clickhouse-copier/#configuration-of-copying-tasks)
 
-3. Create the task in ZooKeeper and start an instance of clickhouse-copier
+3. Create the task in ZooKeeper and start an instance of `clickhouse-copier`
 
     `clickhouse-copier --daemon --base-dir=/opt/clickhouse-copier --config=/opt/clickhouse-copier/zookeeper.xml --task-path=/clickhouse/copier/task1 --task-file=/opt/clickhouse-copier/task1.xml`
 
@@ -24,7 +24,7 @@ The steps to run a task:
 
     `clickhouse-copier --daemon --base-dir=/opt/clickhouse-copier --config=/opt/clickhouse-copier/zookeeper.xml --task-path=/clickhouse/copier/task1 --task-file=/opt/clickhouse-copier/task1.xml --task-upload-force=1`
 
-    If you want to run another instance of clickhouse-copier for the same task, you need to copy the config file (zookeeper.xml) to another server, and run this command:
+    If you want to run another instance of `clickhouse-copier` for the same task, you need to copy the config file (zookeeper.xml) to another server, and run this command:
 
     `clickhouse-copier --daemon --base-dir=/opt/clickhouse-copier --config=/opt/clickhouse-copier/zookeeper.xml --task-path=/clickhouse/copier/task1`
 

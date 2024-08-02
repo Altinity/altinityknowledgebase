@@ -43,7 +43,7 @@ If the number of free threads is zero or very close to zero, you might experienc
 
 ### Adjusting the Thread Pool Size
 
-To fix the problem, increase the `background_message_broker_schedule_pool_size` setting in your `config.xml`. For older ClickHouse versions, you may need to adjust this setting in both the default profile in `users.xml` and `config.xml`.
+To fix the problem, increase the `background_message_broker_schedule_pool_size` setting in your `config.xml`. For older ClickHouse® versions, you may need to adjust this setting in both the default profile in `users.xml` and `config.xml`.
 
 ### Estimating the Required Pool Size
 

@@ -1,11 +1,11 @@
 ---
-title: "ClickHouse Monitoring"
-linkTitle: "ClickHouse Monitoring"
+title: "ClickHouse® Monitoring"
+linkTitle: "ClickHouse® Monitoring"
 description: >
-    ClickHouse Monitoring
+    ClickHouse® Monitoring
 ---
 
-## ClickHouse Monitoring
+## ClickHouse® Monitoring
 
 Monitoring helps to track potential issues in your cluster before they cause a critical error.
 
@@ -45,32 +45,32 @@ The following metrics should be collected / monitored
 * Enable [embedded exporter](https://clickhouse.com/docs/en/operations/server-configuration-parameters/settings/#server_configuration_parameters-prometheus)
 * Grafana dashboards [https://grafana.com/grafana/dashboards/14192](https://grafana.com/grafana/dashboards/14192) or [https://grafana.com/grafana/dashboards/13500](https://grafana.com/grafana/dashboards/13500)
 
-### Prometheus (embedded http handler with clickhouse-operator style metrics) + Grafana
+### Prometheus (embedded http handler with Altinity Kubernetes Operator for ClickHouse style metrics) + Grafana
 
 * Enable [http handler](../monitoring-operator-exporter-compatibility/)
-* Useful, if you want to use clickhouse-operator dashboard, but do not run ClickHouse in k8s.
+* Useful, if you want to use the dashboard from the Altinity Kubernetes Operator for ClickHouse, but do not run ClickHouse in k8s.
 
-### Prometheus (clickhouse-operator embedded exporter) + Grafana
+### Prometheus (embedded exporter in the Altinity Kubernetes Operator for ClickHouse) + Grafana
 
-* exporter is included in clickhouse-operator, and enabled automatically
+* exporter is included in the Altinity Kubernetes Operator for ClickHouse, and enabled automatically
 * see instructions of [Prometheus](https://github.com/Altinity/clickhouse-operator/blob/eb3fc4e28514d0d6ea25a40698205b02949bcf9d/docs/prometheus_setup.md) and [Grafana](https://github.com/Altinity/clickhouse-operator/blob/eb3fc4e28514d0d6ea25a40698205b02949bcf9d/docs/grafana_setup.md) installation (if you don't have one)
 * Grafana dashboard [https://github.com/Altinity/clickhouse-operator/tree/master/grafana-dashboard](https://github.com/Altinity/clickhouse-operator/tree/master/grafana-dashboard)
 * Prometheus alerts [https://github.com/Altinity/clickhouse-operator/blob/master/deploy/prometheus/prometheus-alert-rules-clickhouse.yaml](https://github.com/Altinity/clickhouse-operator/blob/master/deploy/prometheus/prometheus-alert-rules-clickhouse.yaml)
 
-### Prometheus (clickhouse external exporter) + Grafana
+### Prometheus (ClickHouse external exporter) + Grafana
 
 * [clickhouse-exporter](https://github.com/ClickHouse/clickhouse_exporter)
 * Dashboard: https://grafana.com/grafana/dashboards/882 
 
 (unmaintained)
 
-### Dashboards quering clickhouse directly via vertamedia / Altinity plugin
+### Dashboards querying ClickHouse directly via vertamedia / Altinity plugin
 
 * Overview: [https://grafana.com/grafana/dashboards/13606](https://grafana.com/grafana/dashboards/13606)
 * Queries dashboard (analyzing system.query_log) https://grafana.com/grafana/dashboards/2515
 
 
-## Dashboard quering clickhouse directly via Grafana plugin 
+## Dashboard querying ClickHouse directly via Grafana plugin 
 
 * https://grafana.com/blog/2022/05/05/introducing-the-official-clickhouse-plugin-for-grafana/
 

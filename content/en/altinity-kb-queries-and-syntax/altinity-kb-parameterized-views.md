@@ -5,7 +5,7 @@ description: >
     Parameterized views
 ---
 
-## ClickHouse version 23.1+
+## ClickHouse® version 23.1+
 
 (23.1.6.42, 23.2.5.46, 23.3.1.2823)
 Have inbuild support for [parametrized views](https://clickhouse.com/docs/en/sql-reference/statements/create/view#parameterized-view):
@@ -34,7 +34,7 @@ select * from v(xx=[1,2,3]);
 ```
 
 
-## ClickHouse versions per 23.1
+## ClickHouse versions pre 23.1
 
 Custom settings allows to emulate parameterized views.
 

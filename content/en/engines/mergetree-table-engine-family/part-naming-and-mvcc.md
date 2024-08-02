@@ -50,7 +50,7 @@ As you can see every insert creates a new incremental block_number which is writ
 
 Those block numbering works in the scope of partition (for Replicated table) or globally across all partition (for plain MergeTree table).
 
-ClickHouse always merge only continuous blocks . And new part names always refer to the minimum and maximum block numbers.
+ClickHouse® always merge only continuous blocks . And new part names always refer to the minimum and maximum block numbers.
 
 ```
 OPTIMIZE TABLE part_names;
@@ -63,7 +63,7 @@ OPTIMIZE TABLE part_names;
 As you can see here - three parts (with block number 1,2,3) were merged and they formed the new part with name 1_3 as min/max block size.
 Level get incremented.
 
-Now even while previous (merged) parts still exists in filesystem for a while (as inactive) clickhouse is smart enough to understand
+Now even while previous (merged) parts still exists in filesystem for a while (as inactive) ClickHouse is smart enough to understand
 that new part 'covers' same range of blocks as 3 parts of the prev 'generation'
 
 There might be a fifth section in the part name, data version.

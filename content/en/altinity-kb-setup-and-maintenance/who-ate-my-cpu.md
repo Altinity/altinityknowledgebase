@@ -3,7 +3,7 @@ title: "Who ate my CPU"
 linkTitle: "Who ate my CPU"
 weight: 100
 description: >-
-     Queries to find which subsytem of Clickhouse is using the most of CPU.
+     Queries to find which subsytem of ClickHouse® is using the most of CPU.
 ---
 
 ## Merges

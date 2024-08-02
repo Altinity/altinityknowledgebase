@@ -4,7 +4,7 @@ linkTitle: "Removing empty parts"
 description: >
     Removing empty parts
 ---
-Removing of empty parts is a new feature introduced in 20.12.
+Removing of empty parts is a new feature introduced in ClickHouse® 20.12.
 Earlier versions leave empty parts (with 0 rows) if TTL removes all rows from a part ([https://github.com/ClickHouse/ClickHouse/issues/5491](https://github.com/ClickHouse/ClickHouse/issues/5491)).
 If you set up TTL for your data it is likely that there are quite many empty parts in your system.
 

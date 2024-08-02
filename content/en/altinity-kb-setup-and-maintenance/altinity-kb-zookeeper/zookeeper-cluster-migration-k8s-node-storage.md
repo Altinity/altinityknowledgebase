@@ -34,7 +34,7 @@ performed gracefully so that quorum is maintained during the whole operation.
 1. Ensure new member joined and synced
     1. (run on leader) `echo mntr | nc 127.0.0.1 2181 | grep zk_synced_followers` should be N-1 for N member cluster
 1. Repeat for all other non-leader pods
-1. (ClickHouse Keeper only), for Zookeeper you will need to force an election by stopping the leader
+1. (ClickHouse® Keeper only), for Zookeeper you will need to force an election by stopping the leader
     1. Ask the current leader to yield leadership
     2. `echo ydld | nc 127.0.0.1 2181` -> should print something like `Sent yield leadership request to ...`
     3. * Make sure a different leader was elected by finding your new leader

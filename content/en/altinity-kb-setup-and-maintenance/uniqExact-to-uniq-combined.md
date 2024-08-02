@@ -3,7 +3,7 @@ title: "How to convert uniqExact states to approximate uniq functions states"
 linkTitle: "Convert uniqExact to uniq(Combined)"
 weight: 100
 description: >-
-     A way to convert to uniqExactState to other uniqStates (like uniqCombinedState) in Clickhouse. 
+     A way to convert to uniqExactState to other uniqStates (like uniqCombinedState) in ClickHouse® 
 ---
 
 ## uniqExactState 
@@ -39,7 +39,7 @@ In case of `String` data type, it just the simple `sipHash128` function.
 ```
 
 The second task: it needs to read a state and split it into an array of values.
-Luckly for us, ClickHouse use the exact same serialization (`LEB128` + list of values) for Arrays (in this case if `uniqExactState` and `Array` are serialized into `RowBinary` format).
+Luckly for us, ClickHouse® use the exact same serialization (`LEB128` + list of values) for Arrays (in this case if `uniqExactState` and `Array` are serialized into `RowBinary` format).
 
 We need one a helper -- `UDF` function to do that conversion:
 

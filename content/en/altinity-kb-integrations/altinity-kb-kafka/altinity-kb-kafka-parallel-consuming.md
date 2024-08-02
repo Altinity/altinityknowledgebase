@@ -4,7 +4,7 @@ linkTitle: "Kafka parallel consuming"
 description: >
     Kafka parallel consuming
 ---
-For very large topics when you need more parallelism (especially on the insert side) you may use several tables with the same pipeline (pre 20.9) or enable `kafka_thread_per_consumer` (after 20.9).
+For very large topics when you need more parallelism (especially on the insert side) you may use several tables with the same pipeline (pre ClickHouse® 20.9) or enable `kafka_thread_per_consumer` (after 20.9).
 
 ```ini
 kafka_num_consumers = N,

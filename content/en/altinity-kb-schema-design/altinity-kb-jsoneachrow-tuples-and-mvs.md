@@ -64,7 +64,7 @@ FROM nest_tuple_destination
 
 Some hints:
 
-- 💡 Beware of column names in ClickHouse they are Case sensitive.  If a JSON message has the key names in Capitals, the Kafka/Source table should have the same column names in Capitals.
+- 💡 Beware of column names in ClickHouse® they are Case sensitive.  If a JSON message has the key names in Capitals, the Kafka/Source table should have the same column names in Capitals.
 
 - 💡 Also this `Tuple()` approach is not for Dynamic json schemas as explained above. In the case of having a dynamic schema, use the classic approach using `JSONExtract` set of functions. If the schema is fixed, you can use `Tuple()` for `JSONEachRow` format but you need to use classic tuple notation (using index reference) inside the MV, because using named tuples inside the MV won't work:
 

@@ -1,11 +1,11 @@
 ---
-title: "Add/Remove a new replica to a ClickHouse cluster"
+title: "Add/Remove a new replica to a ClickHouse® cluster"
 linkTitle: "add_remove_replica"
 description: >
     How to add/remove a new replica manually and using clickhouse-backup
 ---
 
-## ADD nodes/Replicas to a Cluster
+## ADD nodes/replicas to a ClickHouse® cluster
 
 To add some replicas to an existing cluster if -30TB then better to use replication:
 
@@ -92,9 +92,9 @@ clickhouse-client --host localhost --port 9000 -mn < databases.sql
 clickhouse-client --host localhost --port 9000 -mn < schema.sql
 ```
 
-### Using clickhouse-backup
+### Using `clickhouse-backup`
 
-- Using clickhouse-backup to copy the schema of a replica to another is also convenient and moreover if using Atomic database with `{uuid}` macros in ReplicatedMergeTree engines:
+- Using `clickhouse-backup` to copy the schema of a replica to another is also convenient and moreover if using Atomic database with `{uuid}` macros in ReplicatedMergeTree engines:
 
 ```bash
 sudo -u clickhouse clickhouse-backup --schema --rbac create_remote full-replica

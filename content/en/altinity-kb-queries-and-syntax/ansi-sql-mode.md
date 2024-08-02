@@ -4,7 +4,7 @@ linkTitle: "ANSI SQL mode"
 description: >
     ANSI SQL mode
 ---
-It's possible to tune some settings which would make ClickHouse more ANSI SQL compatible(and slower):
+It's possible to tune some settings which would make ClickHouse® more ANSI SQL compatible(and slower):
 
 ```sql
 SET join_use_nulls=1; -- introduced long ago

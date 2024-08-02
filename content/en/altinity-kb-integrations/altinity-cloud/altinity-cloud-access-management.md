@@ -5,7 +5,7 @@ description: >
     Enabling access_management for Altinity.Cloud databases.
 weight: 5
 ---
-Organizations that want to enable administrative users in their Altinity.Cloud ClickHouse servers can do so by enabling `access_management` manually.  This allows for administrative users to be created on the specific ClickHouse Cluster.
+Organizations that want to enable administrative users in their Altinity.Cloud ClickHouse® servers can do so by enabling `access_management` manually.  This allows for administrative users to be created on the specific ClickHouse Cluster.
 
 {{% alert title="WARNING" color="warning" %}}
 Modifying the ClickHouse cluster settings manually can lead to the cluster not loading or other issues.  Change settings only with full consultation with an Altinity.Cloud support team member, and be ready to remove settings if they cause any disruption of service.
@@ -28,7 +28,7 @@ To add the `access_management` setting to an Altinity.Cloud ClickHouse Cluster:
     1. **Contents**:  Enter the following to allow the `clickhouse_operator` that controls the cluster through the `clickhouse-operator` the ability to set administrative options:
 
         ```xml
-        <yandex>
+        <clickhouse>
             <users>
                 <admin>
                     <access_management>1</access_management>
@@ -37,7 +37,7 @@ To add the `access_management` setting to an Altinity.Cloud ClickHouse Cluster:
                     <access_management>1</access_management>
                 </clickhouse_operator>
             </users>
-        </yandex>
+        </clickhouse>
         ```
 
     access_management=1 means that users `admin`, `clickhouse_operator` are able to create users and grant them privileges using SQL.
@@ -50,7 +50,7 @@ To add the `access_management` setting to an Altinity.Cloud ClickHouse Cluster:
     3. **Contents**:
     
        ```xml
-       <yandex>
+       <clickhouse>
          <user_directories replace="replace">
            <users_xml>
              <path>/etc/clickhouse-server/users.xml</path>
@@ -62,5 +62,5 @@ To add the `access_management` setting to an Altinity.Cloud ClickHouse Cluster:
               <path>/var/lib/clickhouse/access/</path>
            </local_directory>
          </user_directories>
-       </yandex>
+       </clickhouse>
        ```

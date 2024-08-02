@@ -1,5 +1,5 @@
 ---
-title: "How to pick an ORDER BY / PRIMARY KEY / PARTITION BY for the MergeTree-family table"
+title: "How to pick an ORDER BY / PRIMARY KEY / PARTITION BY for the MergeTree family table"
 linkTitle: "Proper ordering and partitioning the MergeTree tables"
 weight: 100
 description: >-
@@ -15,7 +15,7 @@ Practical approach to create an good ORDER BY for a table:
 3. Next column is more cardinal, less important. It can be rounded time sometimes, or `site_id`, or `source_id`, or `group_id` or something similar.
 4. repeat p.3 once again (or few times)
 5. if you added already all columns important for filtering and you still not addressing a single row with you pk - you can add more columns which can help to put similar records close to each other (to improve the compression)
-6. if you have something like hierarchy / tree-like relations between the columns - put there the records from 'root' to 'leaves' for example (continent, country, cityname). This way clickhouse can do lookup by country / city even if continent is not specified (it will just 'check all continents')
+6. if you have something like hierarchy / tree-like relations between the columns - put there the records from 'root' to 'leaves' for example (continent, country, cityname). This way ClickHouse® can do lookup by country / city even if continent is not specified (it will just 'check all continents')
 special variants of MergeTree may require special ORDER BY to make the record unique etc.
 7. For [timeseries](https://altinity.com/blog/2019-5-23-handling-variable-time-series-efficiently-in-clickhouse) it usually make sense to put timestamp as latest column in ORDER BY, it helps with putting the same data near by for better locality. There is only 2 major patterns  for timestamps in ORDER BY: (..., toStartOf(Day|Hour|...)(timestamp), ..., timestamp) and (..., timestamp). First one is useful when your often query small part of table partition. (table partitioned by months and your read only 1-4 days 90% of times)
 
@@ -137,7 +137,7 @@ Ok.
 0 rows in set. Elapsed: 0.649 sec. Processed 125.97 million rows, 629.86 MB (194.17 million rows/s., 970.84 MB/s.)
 ```
 
-If we change the `ORDER BY` expression in the query, Clickhouse will need to retrieve the rows and reorder them:
+If we change the `ORDER BY` expression in the query, ClickHouse will need to retrieve the rows and reorder them:
 
 ```sql
 SELECT * FROM order_test

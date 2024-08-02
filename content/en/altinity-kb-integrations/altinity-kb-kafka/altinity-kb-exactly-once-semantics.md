@@ -4,7 +4,7 @@ linkTitle: "Exactly once semantics"
 description: >
     Exactly once semantics
 ---
-EOS consumer (isolation.level=read_committed) is enabled by default since librdkafka 1.2.0, so for ClickHouse - since 20.2
+EOS consumer (isolation.level=read_committed) is enabled by default since librdkafka 1.2.0, so for ClickHouse® - since 20.2
 
 See:
 
@@ -18,6 +18,6 @@ We need to have something like transactions on ClickHouse side to be able to avo
 
 ## block-aggregator by eBay
 
-Block Aggregator is a data loader that subscribes to Kafka topics, aggregates the Kafka messages into blocks that follow the Clickhouse’s table schemas, and then inserts the blocks into ClickHouse. Block Aggregator provides exactly-once delivery guarantee to load data from Kafka to ClickHouse. Block Aggregator utilizes Kafka’s metadata to keep track of blocks that are intended to send to ClickHouse, and later uses this metadata information to deterministically re-produce ClickHouse blocks for re-tries in case of failures. The identical blocks are guaranteed to be deduplicated by ClickHouse.
+Block Aggregator is a data loader that subscribes to Kafka topics, aggregates the Kafka messages into blocks that follow the ClickHouse’s table schemas, and then inserts the blocks into ClickHouse. Block Aggregator provides exactly-once delivery guarantee to load data from Kafka to ClickHouse. Block Aggregator utilizes Kafka’s metadata to keep track of blocks that are intended to send to ClickHouse, and later uses this metadata information to deterministically re-produce ClickHouse blocks for re-tries in case of failures. The identical blocks are guaranteed to be deduplicated by ClickHouse.
 
 [eBay/block-aggregator](https://github.com/eBay/block-aggregator)

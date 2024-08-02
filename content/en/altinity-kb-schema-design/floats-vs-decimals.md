@@ -43,7 +43,7 @@ SELECT (toDecimal64(100000000000000000., 1) - toDecimal64(100000000000000000., 1
 ```
 
 {{% alert title="Warning" color="warning" %}}
-Because clickhouse uses MPP order of execution of a single query can vary on each run, and you can get slightly different results from the float column every time you run the query.
+Because ClickHouse® uses MPP order of execution of a single query can vary on each run, and you can get slightly different results from the float column every time you run the query.
 
 Usually, this deviation is small, but it can be significant when some kind of arithmetic operation is performed on very large and very small numbers at the same time.
 {{% /alert %}}

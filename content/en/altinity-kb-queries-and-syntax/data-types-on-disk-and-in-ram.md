@@ -39,4 +39,4 @@ description: >
   </tbody>
 </table>
 
-See also [https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup41/data_processing.pdf](https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup41/data_processing.pdf) (slide 17-22)
+See also the presentation [Data processing into ClickHouse®](https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup41/data_processing.pdf), especially slides 17-22.

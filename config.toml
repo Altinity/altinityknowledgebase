@@ -54,8 +54,8 @@ anchor = "smart"
 
 [languages]
 [languages.en]
-title = "Altinity® Knowledge Base"
-description = "Altinity® Knowledge Base for ClickHouse®"
+title = "Altinity Knowledge Base for ClickHouse®"
+description = "Altinity Knowledge Base for ClickHouse®"
 languageName = "English"
 # Weight used for sorting.
 weight = 1
@@ -76,7 +76,7 @@ time_format_blog = "2006.01.02"
 
 [params]
 # copyright = " Altinity Inc."
-copyright = " Altinity Inc. Altinity®, Altinity.Cloud®, and Altinity Stable® are registered trademarks of Altinity, Inc. ClickHouse® is a registered trademark of ClickHouse, Inc.; Altinity is not affiliated with or associated with ClickHouse, Inc."
+copyright = " Altinity Inc. Altinity®, Altinity.Cloud®, and Altinity Stable® are registered trademarks of Altinity, Inc. ClickHouse® is a registered trademark of ClickHouse, Inc.; Altinity is not affiliated with or associated with ClickHouse, Inc. Kafka, Kubernetes, MySQL, and PostgreSQL are trademarks and property of their respective owners."
 privacy_policy = "https://altinity.com/privacy-policy/"
 favicon = "/favicon.ico"
 

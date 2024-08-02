@@ -4,7 +4,7 @@ linkTitle: "Cluster Configuration Process"
 description: >
     Cluster Configuration Process
 ---
-So you set up 3 nodes with zookeeper (zookeeper1, zookeeper2, zookeeper3 - [How to install zookeer?](https://docs.altinity.com/operationsguide/clickhouse-zookeeper/)),  and  and 4 nodes with ClickHouse (clickhouse-sh1r1,clickhouse-sh1r2,clickhouse-sh2r1,clickhouse-sh2r2 - [how to install ClickHouse?](https://docs.altinity.com/altinitystablerelease/stablequickstartguide/)). Now we need to make them work together.
+So you set up 3 nodes with zookeeper (zookeeper1, zookeeper2, zookeeper3 - [How to install zookeer?](https://docs.altinity.com/operationsguide/clickhouse-zookeeper/)),  and  and 4 nodes with ClickHouse® (clickhouse-sh1r1,clickhouse-sh1r2,clickhouse-sh2r1,clickhouse-sh2r2 - [how to install ClickHouse?](https://docs.altinity.com/altinitystablerelease/stablequickstartguide/)). Now we need to make them work together.
 
 Use ansible/puppet/salt or other systems to control the servers’ configurations.
 
@@ -106,7 +106,7 @@ Engine=Distributed('{cluster}', 'default', '
 
 #### **Hardening ClickHouse Security**
 
-**See** [https://docs.altinity.com/operationsguide/security/clickhouse-hardening-guide/](https://docs.altinity.com/operationsguide/security/clickhouse-hardening-guide/)
+**See** [https://docs.altinity.com/operationsguide/security/](https://docs.altinity.com/operationsguide/security/)
 
 ### Additional Settings
 

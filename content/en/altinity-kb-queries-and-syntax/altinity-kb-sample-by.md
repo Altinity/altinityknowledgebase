@@ -8,7 +8,7 @@ The execution pipeline is embedded in the partition reading code.
 
 So that works this way:
 
-1. ClickHouse does partition pruning based on `WHERE` conditions.
+1. ClickHouse® does partition pruning based on `WHERE` conditions.
 2. For every partition, it picks a columns ranges (aka 'marks' / 'granulas') based on primary key conditions.
 3. Here the sampling logic is applied: a) in case of `SAMPLE k` (`k` in `0..1` range) it adds conditions `WHERE sample_key < k * max_int_of_sample_key_type` b) in case of `SAMPLE k OFFSET m` it adds conditions `WHERE sample_key BETWEEN m * max_int_of_sample_key_type AND (m + k) * max_int_of_sample_key_type`c) in case of `SAMPLE N` (N>1) if first estimates how many rows are inside the range we need to read and based on that convert it to 3a case (calculate k based on number of rows in ranges and desired number of rows)
 4. on the data returned by those other conditions are applied (so here the number of rows can be decreased here)
@@ -56,4 +56,4 @@ SELECT count() FROM table WHERE ... AND cityHash64(some_high_card_key) % 10 = 0;
 SELECT count() FROM table WHERE ... AND rand() % 10 = 0; -- Non-deterministic
 ```
 
-ClickHouse will read more data from disk compared to an example with a good SAMPLE key, but it's more universal and can be used if you can't change table ORDER BY key. (To learn more about ClickHouse internals, [ClickHouse Administrator Training](https://altinity.com/clickhouse-training/) is available.)
+ClickHouse will read more data from disk compared to an example with a good SAMPLE key, but it's more universal and can be used if you can't change table ORDER BY key. (To learn more about ClickHouse internals, [Administrator Training for ClickHouse](https://altinity.com/clickhouse-training/) is available.)

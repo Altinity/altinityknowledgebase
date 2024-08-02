@@ -89,7 +89,7 @@ Code: 36, e.displayText() = DB::Exception: Unexpected value 0 in enum, Stack tra
 ```
 
 {{% alert title="Info" color="info" %}}
-Null values in ClickHouse are stored in a separate dictionary: is this value Null. And for faster dispatch of functions there is no check on Null value while function execution, so functions like plus can modify internal column value (which has default value). In normal conditions it’s not a problem because on read attempt, ClickHouse first would check the Null dictionary and return value from column itself for non-Nulls only. And `assumeNotNull` function just ignores this Null dictionary. So it would return only column values, and in certain cases it’s possible to have unexpected results.
+Null values in ClickHouse® are stored in a separate dictionary: is this value Null. And for faster dispatch of functions there is no check on Null value while function execution, so functions like plus can modify internal column value (which has default value). In normal conditions it’s not a problem because on read attempt, ClickHouse first would check the Null dictionary and return value from column itself for non-Nulls only. And `assumeNotNull` function just ignores this Null dictionary. So it would return only column values, and in certain cases it’s possible to have unexpected results.
 {{% /alert %}}
 
 If it's possible to have Null values, it's better to use `ifNull` function instead.

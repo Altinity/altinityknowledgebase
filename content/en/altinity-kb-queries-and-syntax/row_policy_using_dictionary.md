@@ -3,7 +3,7 @@ title: "Row policies overhead (hiding 'removed' tenants)"
 linkTitle: "Row policies overhead"
 weight: 100
 description: >
-      one more approach how to hide (delete) rows in Clickhouse.
+      one more approach how to hide (delete) rows in ClickHouse®.
 ---
 
 ## No row policy

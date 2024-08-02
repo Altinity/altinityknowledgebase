@@ -2,13 +2,13 @@
 title: "There are N unfinished hosts (0 of them are currently active)."
 linkTitle: "There are N unfinished hosts (0 of them are currently active)."
 description: >
-    "There are N unfinished hosts (0 of them are currently active)."
+    There are N unfinished hosts (0 of them are currently active).
 ---
 Sometimes your Distributed DDL queries are being stuck, and not executing on all or subset of nodes, there are a lot of possible reasons for that kind of behavior, so it would take some time and effort to investigate.
 
 ## Possible reasons
 
-### Clickhouse node can't recognize itself
+### ClickHouse® node can't recognize itself
 
 ```sql
 SELECT * FROM system.clusters; -- check is_local column, it should have 1 for itself
@@ -24,7 +24,7 @@ cat /etc/hostname
 
 ### Debian / Ubuntu
 
-There is an issue in Debian based images, when hostname being mapped to 127.0.1.1 address which doesn't literally match network interface and clickhouse fails to detect this address as local.
+There is an issue in Debian based images, when hostname being mapped to 127.0.1.1 address which doesn't literally match network interface and ClickHouse fails to detect this address as local.
 
 [https://github.com/ClickHouse/ClickHouse/issues/23504](https://github.com/ClickHouse/ClickHouse/issues/23504)
 

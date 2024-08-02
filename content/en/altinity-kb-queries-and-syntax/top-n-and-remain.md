@@ -98,7 +98,7 @@ ORDER BY res ASC
 └──────┴──────────┘
 ```
 
-## Using window functions (starting from 21.1)
+## Using window functions (starting from ClickHouse® 21.1)
 
 ```sql
 SET allow_experimental_window_functions = 1;

@@ -1,14 +1,12 @@
 ---
-title: "Inferring Schema from AvroConfluent Messages in Kafka for ClickHouse"
+title: "Inferring Schema from AvroConfluent Messages in Kafka for ClickHouse®"
 linkTitle: "Schema Inference for Kafka"
 weight: 100
 description: >-
-     Learn how to define Kafka table structures in ClickHouse by using Avro's schema registry & sample message.
+     Learn how to define Kafka table structures in ClickHouse® by using Avro's schema registry & sample message.
 ---
 
-## Inferring Schema from AvroConfluent Messages in Kafka for ClickHouse
-
-To consume messages from Kafka within ClickHouse, you need to define the `ENGINE=Kafka` table structure with all the column names and types.
+To consume messages from Kafka within ClickHouse®, you need to define the `ENGINE=Kafka` table structure with all the column names and types.
 This task can be particularly challenging when dealing with complex Avro messages, as manually determining the exact schema for
 ClickHouse is both tricky and time-consuming. This complexity is particularly frustrating in the case of Avro formats,
 where the column names and their types are already clearly defined in the schema registry.
@@ -17,7 +15,7 @@ Although ClickHouse supports schema inference for files, it does not natively su
 
 Here’s a workaround to infer the schema using AvroConfluent messages:
 
-### Step 1: Capture and Store a Raw Kafka Message
+## Step 1: Capture and Store a Raw Kafka Message
 
 First, create a table in ClickHouse to consume a raw message from Kafka and store it as a file:
 
@@ -35,7 +33,7 @@ SETTINGS max_block_size=1, stream_like_engine_allow_direct_select=1;
 DROP TABLE test_kafka;
 ```
 
-### Step 2: Infer Schema Using the Stored File
+## Step 2: Infer Schema Using the Stored File
 Using the stored raw message, let ClickHouse infer the schema based on the AvroConfluent format and a specified schema registry URL:
 
 ```sql
@@ -59,7 +57,7 @@ statement: CREATE TEMPORARY TABLE test
 ENGINE = Memory
 ```
 
-### Step 3: Create the Kafka Table with the Inferred Schema
+## Step 3: Create the Kafka Table with the Inferred Schema
 Now, use the inferred schema to create the Kafka table:
 
 ```sql
@@ -79,7 +77,7 @@ SETTINGS kafka_broker_list = 'localhost:29092',
 
 This approach reduces manual schema definition efforts and enhances data integration workflows by utilizing the schema inference capabilities of ClickHouse for AvroConfluent messages.
 
-### Appendix
+## Appendix
 
 **Avro** is a binary serialization format used within Apache Kafka for efficiently serializing data with a compact binary format. It relies on schemas, which define the structure of the serialized data, to ensure robust data compatibility and type safety.
 
