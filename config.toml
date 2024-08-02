@@ -1,6 +1,6 @@
 baseURL = "http://kb.altinity.com/"
 languageCode = "en-us"
-title = "Altinity Knowledge Base"
+title = "Altinity® Knowledge Base for ClickHouse®"
 # theme = ["docsy"]
 publishDir = "docs"
 enableRobotsTXT = true
@@ -54,8 +54,8 @@ anchor = "smart"
 
 [languages]
 [languages.en]
-title = "Altinity Knowledge Base for ClickHouse®"
-description = "Altinity Knowledge Base for ClickHouse®"
+title = "Altinity® Knowledge Base for ClickHouse®"
+description = "Altinity® Knowledge Base for ClickHouse®"
 languageName = "English"
 # Weight used for sorting.
 weight = 1
