@@ -8,7 +8,14 @@ description: >-
 
 ## New, official way
 
-* Implemented automatic conversion of database engine from `Ordinary` to `Atomic` (ClickHouse® Server 22.8+). Create empty `convert_ordinary_to_atomic` file in `flags` directory and all `Ordinary` databases will be converted automatically on next server start. Resolves [#39546](https://github.com/ClickHouse/ClickHouse/issues/39546). [#39933](https://github.com/ClickHouse/ClickHouse/pull/39933) ([Alexander Tokmakov](https://github.com/tavplubix))
+* Implemented automatic conversion of database engine from `Ordinary` to `Atomic` (ClickHouse® Server 22.8+). Create empty `convert_ordinary_to_atomic` file in `flags` directory and all `Ordinary` databases will be converted automatically on next server start.
+* The conversion is not automatic between upgrades, you need to set the flag as explained below:
+```
+Warnings:
+ * Server has databases (for example `test`) with Ordinary engine, which was deprecated. To convert this database to the new Atomic engine, create a flag /var/lib/clickhouse/flags/convert_ordinary_to_atomic and make sure that ClickHouse has write permission for it.
+Example: sudo touch '/var/lib/clickhouse/flags/convert_ordinary_to_atomic' && sudo chmod 666 '/var/lib/clickhouse/flags/convert_ordinary_to_atomic'
+```  
+* Resolves [#39546](https://github.com/ClickHouse/ClickHouse/issues/39546). [#39933](https://github.com/ClickHouse/ClickHouse/pull/39933) ([Alexander Tokmakov](https://github.com/tavplubix))
 
 * There can be some problems if the `default` database is Ordinary and fails for some reason. You can add:
 
