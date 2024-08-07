@@ -85,10 +85,18 @@ Styles to override the theme.
       background: transparent;
     }
 
+.dropdown-menu[data-bs-popper]{
+  margin-top: 0;
+}
+
 @media (max-width: 992px) {
   .navbar-nav .nav-item{
     display:none;
   }
+}
+
+.header-social-wrap a {
+  text-decoration: none;
 }
 
 @media (min-width: 992px) {

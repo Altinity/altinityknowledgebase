@@ -55,7 +55,7 @@
     {{ with .Site.GetPage "about" }}<p class="mt-2"><a href="{{ .RelPermalink }}">{{ .Title }}</a></p>{{ end }}
   {{ end }}
       </div>
-      <div class="col-12 col-sm-6 text-right text-xs-center">
+      <div class="col-12 col-sm-6 text-end text-xs-center">
         {{ with $links }}
         {{ with index . "developer"}}
         {{ template "footer-links-block"  . }}
