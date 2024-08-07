@@ -14,7 +14,16 @@ Here is what different statuses mean:
 'Ignored' parts are safe to delete. 'Unexpected' and 'broken' should be investigated, but it might not be an easy thing to do, especially for older parts. If the `system.part_log table` is enabled you can find some information there. Otherwise you will need to look in `clickhouse-server.log` for what happened when the parts were detached.
 If there is another way you could confirm that there is no data loss in the affected tables, you could simply delete all detached parts.
 
-Here is a query that can help with investigations. It looks for active parts containing the same data blocks that the detached parts:
+Here is a quick way to find out if you have detached parts along with the reason why. 
+```sql
+SELECT database, table, reason, count()
+FROM system.detached_parts
+GROUP BY database, table, reason
+ORDER BY database ASC, table ASC, reason ASC
+```
+
+Here is a query that can help with investigations. It looks for active parts containing the same data blocks as the detached parts. It 
+generates commands to drop the detached parts. 
 
 ```sql
 SELECT *,
