@@ -33,7 +33,7 @@ Possible values:
 
 * [aggregate_functions_null_for_empty](https://clickhouse.com/docs/en/operations/settings/settings/#aggregate_functions_null_for_empty)
 
-Default behaviour is not compatible with ANSI SQL (ClickHouse avoids Nullable types by perfomance reasons)
+Default behaviour is not compatible with ANSI SQL (ClickHouse avoids Nullable types by performance reasons)
 
 ```sql
 select sum(x), avg(x) from (select 1 x where 0);

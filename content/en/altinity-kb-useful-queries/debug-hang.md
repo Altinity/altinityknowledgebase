@@ -22,7 +22,7 @@ SETTINGS allow_introspection_functions=1
 FORMAT Vertical;
 ```
 
-If you can't start any queries, but you have access to the node, you can sent a singal
+If you can't start any queries, but you have access to the node, you can sent a signal
 
 ```
 # older versions

@@ -178,4 +178,4 @@ WHERE path = '/clickhouse/clickhouse101/task_queue'
 └──────┴───────┴──────────────────────────────────────┘
 ```
 
-The reason is that ClickHouse will not "see" this change and will continue to look for tasks in the old path. Altering paths in Zookeeper should be avoided if at all possible. If necessary it must be done *very carefuly*. 
+The reason is that ClickHouse will not "see" this change and will continue to look for tasks in the old path. Altering paths in Zookeeper should be avoided if at all possible. If necessary it must be done *very carefully*. 

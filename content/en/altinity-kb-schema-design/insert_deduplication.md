@@ -62,7 +62,7 @@ WHERE path = '/clickhouse/cluster_test/tables/test_insert/blocks'
 
 ## insert_deduplicate setting
 
-Insert deduplication is controled by the [insert_deduplicate](https://clickhouse.com/docs/en/operations/settings/settings/#settings-insert-deduplicate) setting
+Insert deduplication is controlled by the [insert_deduplicate](https://clickhouse.com/docs/en/operations/settings/settings/#settings-insert-deduplicate) setting
 
 Let's disable it:
 ```sql
@@ -244,7 +244,7 @@ select * from test_insert format PrettyCompactMonoBlock;
 
 ## insert_deduplication_token
 
-Since ClickHouse® 22.2 there is a new setting [insert_dedupplication_token](https://clickhouse.com/docs/en/operations/settings/settings/#insert_deduplication_token).
+Since ClickHouse® 22.2 there is a new setting [insert_deduplication_token](https://clickhouse.com/docs/en/operations/settings/settings/#insert_deduplication_token).
 This setting allows you to define an explicit token that will be used for deduplication instead of calculating a checksum from the inserted data.
 
 ```sql

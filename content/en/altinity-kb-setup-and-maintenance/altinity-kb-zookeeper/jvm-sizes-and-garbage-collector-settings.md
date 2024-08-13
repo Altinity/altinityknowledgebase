@@ -42,7 +42,7 @@ Set the Java heap size smaller than available RAM size on the node. This is very
 
 
 
-## Zookeeper configurarion used by Yandex Metrika (from 2017)
+## Zookeeper configuration used by Yandex Metrika (from 2017)
 
 The configuration used by Yandex ( [https://clickhouse.com/docs/en/operations/tips#zookeeper](https://clickhouse.com/docs/en/operations/tips#zookeeper) ) - they use older JVM version (with `UseParNewGC` garbage collector), and tune GC logs heavily:
 

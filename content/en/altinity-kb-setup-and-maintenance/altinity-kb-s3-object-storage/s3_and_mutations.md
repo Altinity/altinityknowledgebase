@@ -74,7 +74,7 @@ order by partition;
 70 rows in set. Elapsed: 0.023 sec.
 ```
 
-## Perfomance of mutations for a local EBS (throughput: 500 MB/s)
+## Performance of mutations for a local EBS (throughput: 500 MB/s)
 
 ```sql
 select * from test_s3 where A=490000000;

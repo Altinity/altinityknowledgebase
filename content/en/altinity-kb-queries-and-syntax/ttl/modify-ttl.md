@@ -68,7 +68,7 @@ Daily partitioning by toYYYYMMDD(timestamp) -> 20220602
 TTL timestamp + INTERVAL 30 DAY MOVE TO DISK s3 -> TTL timestamp + INTERVAL 60 DAY MOVE TO DISK s3
 
 * Idea: ClickHouse need to move data from s3 to local disk BACK
-* Actual: There is no rule that data eariler than 60 DAY **should be** on local disk
+* Actual: There is no rule that data earlier than 60 DAY **should be** on local disk
 
 Table parts:
 

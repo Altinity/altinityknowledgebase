@@ -22,7 +22,7 @@ SELECT * FROM system.merges
 
 That logic is needed to prevent picking a log of huge merges simultaneously
 (otherwise they will take all available slots and ClickHouse® will not be
-able to do smaller merges, which usally are important for keeping the
+able to do smaller merges, which usually are important for keeping the
 number of parts stable).
 
 
@@ -35,7 +35,7 @@ system.replication_queue tables, it should be resolved by it's own.
 If it happens often or don't resolves by it's own during some longer period of time,
 it could be caused by: 
 1) increased insert pressure
-2) disk issues / high load (it works slow, not enought space etc.) 
+2) disk issues / high load (it works slow, not enough space etc.) 
 3) high CPU load (not enough CPU power to catch up with merges)
 4) issue with table schemas leading to high merges pressure (high / increased number of tables / partitions / etc.)
 

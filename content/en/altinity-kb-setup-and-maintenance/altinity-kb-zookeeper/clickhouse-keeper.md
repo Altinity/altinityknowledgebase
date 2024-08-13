@@ -7,7 +7,7 @@ description: >
 
 ## clickhouse-keeper
 
-Since 2021 the developement of built-in alternative for Zookeeper is happening, which goal is to address several design pitfalls, and get rid of extra dependency. 
+Since 2021 the development of built-in alternative for Zookeeper is happening, which goal is to address several design pitfalls, and get rid of extra dependency. 
 
 See slides:  https://presentations.clickhouse.com/meetup54/keeper.pdf and video  https://youtu.be/IfgtdU1Mrm0?t=2682
 
@@ -19,7 +19,7 @@ Even better if you will use the latest version of clickhouse-keeper (currently i
 
 For existing systems that currently use Apache Zookeeper, you can consider upgrading to clickhouse-keeper especially if you will upgrade clickhouse also.
 
-But please remember that on very loaded systems the change can give no performance benefits or can sometimes lead to a worse perfomance.
+But please remember that on very loaded systems the change can give no performance benefits or can sometimes lead to a worse performance.
 
 The development pace of keeper code is [still high](https://github.com/ClickHouse/ClickHouse/pulls?q=is%3Apr+keeper)
 so every new version should bring improvements / cover the issues, and stability/maturity grows from version to version, so 
@@ -41,9 +41,9 @@ To test that you need to run 3 instances of clickhouse-server (which will mimic 
 or event single instance with config like that: [https://github.com/ClickHouse/ClickHouse/blob/master/tests/config/config.d/keeper_port.xml](https://github.com/ClickHouse/ClickHouse/blob/master/tests/config/config.d/keeper_port.xml)
 [https://github.com/ClickHouse/ClickHouse/blob/master/tests/config/config.d/zookeeper.xml](https://github.com/ClickHouse/ClickHouse/blob/master/tests/config/config.d/zookeeper.xml)
 
-And point all the ClickHouses (zookeeper config secton) to those nodes / ports.
+And point all the ClickHouses (zookeeper config section) to those nodes / ports.
 
-Latests version is recommended (even testing / master builds). We will be thankful for any feedback.
+Latest version is recommended (even testing / master builds). We will be thankful for any feedback.
 
 ## systemd service file
 

@@ -8,7 +8,7 @@ description: >
 ## ClickHouse® version 23.1+
 
 (23.1.6.42, 23.2.5.46, 23.3.1.2823)
-Have inbuild support for [parametrized views](https://clickhouse.com/docs/en/sql-reference/statements/create/view#parameterized-view):
+Have inbuilt support for [parametrized views](https://clickhouse.com/docs/en/sql-reference/statements/create/view#parameterized-view):
 
 ```sql
 CREATE VIEW my_new_view AS

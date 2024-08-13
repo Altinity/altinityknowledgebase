@@ -88,24 +88,24 @@ Looks like a good candidate for cheap cold storage for old data with decent maxi
 
 ### IO2 Block Express, IO2, IO1
 
-In 99.99% cases doesn't give any benefit for ClickHouse compared to GP3 option and perform worse because maximum throughput is limited to 500 MiB/s per volume if you buy less than 32 000 IOPS, which is really expensive (compared to other options) and unneded for ClickHouse. And if you have spare money, it's better to spend them on better EC2 instance.
+In 99.99% cases doesn't give any benefit for ClickHouse compared to GP3 option and perform worse because maximum throughput is limited to 500 MiB/s per volume if you buy less than 32 000 IOPS, which is really expensive (compared to other options) and unneeded for ClickHouse. And if you have spare money, it's better to spend them on better EC2 instance.
 
 # S3
 
 Best option for cold data, it can give considerably good throughput and really good price, but latencies and IOPS much worse than EBS option.
-Another intresting point is, for EC2 instance throughput limit for EBS and S3 calculated separately, so if you access your data both from EBS and S3, you can get double throughput.
+Another interesting point is, for EC2 instance throughput limit for EBS and S3 calculated separately, so if you access your data both from EBS and S3, you can get double throughput.
 
 It's stated in AWS documentation, that S3 can fully utilize network capacity of EC2 instance. (up to 100 Gb/s)
 Latencies or (first-byte-out) estimated to be 100-200 milliseconds withing single region.
 
-It also recommended to enable [gateway endpoint for s3](https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints-s3.html#create-gateway-endpoint-s3), it can push throughput even futher (up to 800 Gb/s) 
+It also recommended to enable [gateway endpoint for s3](https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints-s3.html#create-gateway-endpoint-s3), it can push throughput even further (up to 800 Gb/s) 
 
 [S3 best practices](https://docs.aws.amazon.com/AmazonS3/latest/userguide/optimizing-performance.html)
 
 # EFS
 
 Works over NFSv4.1 version.
-We have clients, which run their ClickHouse installations over NFS. It works considerabely well as cold storage, so it's recommended to have EBS disks for hot data. A fast network is required.
+We have clients, which run their ClickHouse installations over NFS. It works considerably well as cold storage, so it's recommended to have EBS disks for hot data. A fast network is required.
 
 ClickHouse doesn't have any native option to reuse the same data on durable network disk via several replicas. You either need to store the same data twice or build custom tooling around ClickHouse and use it without Replicated*MergeTree tables. 
 
@@ -113,7 +113,7 @@ ClickHouse doesn't have any native option to reuse the same data on durable netw
 
 ## Lustre
 
-We have several clients, who use Lustre (some of them use AWS FSx Lustre, another is self managed Lustre) without any big issue. Fast network is requered.
+We have several clients, who use Lustre (some of them use AWS FSx Lustre, another is self managed Lustre) without any big issue. Fast network is required.
 There were known problems with data damage on older versions caused by issues with O_DIRECT or [async IO](https://lustre-discuss.lustre.narkive.com/zwcvyEEY/asynchronous-posix-i-o-with-lustre) support on Lustre.
 
 ClickHouse doesn't have any native option to reuse the same data on durable network disk via several replicas. You either need to store the same data twice or build custom tooling around ClickHouse and use it without Replicated*MergeTree tables. 

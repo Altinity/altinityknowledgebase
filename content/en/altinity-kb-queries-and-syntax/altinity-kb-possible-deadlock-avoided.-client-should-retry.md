@@ -24,4 +24,4 @@ If that exception happens often in your use-case:
 - use recent clickhouse versions
 - ensure you use Atomic engine for the database (not Ordinary) (can be checked in system.databases)
 
-Sometime you can try to workaround issue by finding the queries which uses that table concurenly (especially to system.tables / system.parts and other system tables) and  try killing them (or avoiding them).
+Sometime you can try to workaround issue by finding the queries which uses that table concurently (especially to system.tables / system.parts and other system tables) and  try killing them (or avoiding them).

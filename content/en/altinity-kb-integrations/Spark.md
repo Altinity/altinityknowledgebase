@@ -16,7 +16,7 @@ The trivial & natural way to talk to ClickHouse from Spark is using jdbc. There 
 
 ClickHouse-Native-JDBC has some hints about integration with Spark even in the main README file. 
 
-'Official' driver does support some conversion of complex data types (Roarring bitmaps) for Spark-ClickHouse integration: https://github.com/ClickHouse/clickhouse-jdbc/pull/596
+'Official' driver does support some conversion of complex data types (Roaring bitmaps) for Spark-ClickHouse integration: https://github.com/ClickHouse/clickhouse-jdbc/pull/596
 
 But proper partitioning of the data (to spark partitions) may be tricky with jdbc.
 

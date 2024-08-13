@@ -6,7 +6,7 @@ description: >-
      Using array functions to mimic window-functions alike behavior.
 ---
 
-There are some usecases when you may want to mimic window functions using Arrays - as an optimization step, or to contol the memory better / use on-disk spiling, or just if you have old ClickHouse® version.
+There are some usecases when you may want to mimic window functions using Arrays - as an optimization step, or to control the memory better / use on-disk spiling, or just if you have old ClickHouse® version.
 
 ## Running difference sample
 
@@ -251,7 +251,7 @@ select id, val, runningDifference(val) from (select * from test_running_differen
 ### 1. Group & Collect the data into array 
 
 
-you can collect several column by builing array of tuples:
+you can collect several column by building array of tuples:
 ```
 SELECT 
     id, 

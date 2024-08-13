@@ -50,7 +50,7 @@ done
 
 ## groupBitmap
 
-Use [Roaring Bitmaps](https://roaringbitmap.org/) underneat. 
+Use [Roaring Bitmaps](https://roaringbitmap.org/) underneath. 
 Return amount of uniq values.
 
 Can be used with Int* types

@@ -68,7 +68,7 @@ Separate table with Materialized View also can be used the same way.
 
 ### mortonEncode (available from 23.10) 
 
-Not give the priority neither A nor B, but distribute indexing efficiancy between all of them.
+Not give the priority neither A nor B, but distribute indexing efficiency between all of them.
 
  * https://github.com/ClickHouse/ClickHouse/issues/41195
  * https://www.youtube.com/watch?v=5GR1J4T4_d8
@@ -89,7 +89,7 @@ select * from X where B = '0123456789' and ts between ...;
 
 ###  mortonEncode with non UInt columns
    
-mortonEncode function requires UInt columns, but sometimes diffent column types are needed (like String or ipv6).  In such a case cityHash64 function can be used both for inserting and quering:
+mortonEncode function requires UInt columns, but sometimes different column types are needed (like String or ipv6).  In such a case cityHash64 function can be used both for inserting and querying:
 
 ```
 create table X (

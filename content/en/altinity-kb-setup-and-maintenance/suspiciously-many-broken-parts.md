@@ -79,7 +79,7 @@ attach table t111;
 Received exception from server (version 21.12.3):
 Code: 231. DB::Exception: Received from localhost:9000. DB::Exception: Suspiciously many (2) broken parts to remove.. (TOO_MANY_UNEXPEC
 ```
-4. setup force_restrore_data flag
+4. setup force_restore_data flag
 ```
 sudo -u clickhouse touch /var/lib/clickhouse/flags/force_restore_data
 sudo service clickhouse-server restart

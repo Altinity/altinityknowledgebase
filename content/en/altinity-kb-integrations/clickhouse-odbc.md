@@ -19,7 +19,7 @@ Licensed under the [Apache 2.0](https://github.com/ClickHouse/clickhouse-odbc?ta
 3. Configure ClickHouse DSN. 
 
 Note: that install driver linked against MDAC (which is default for Windows), some non-windows native 
-applications (cygwin / msys64 based) may require driver linked agains unixodbc. Build section below.
+applications (cygwin / msys64 based) may require driver linked against unixodbc. Build section below.
 
 ### MacOS
 
@@ -69,7 +69,7 @@ The list of DSN parameters recognized by the driver is as follows:
 
 ## Troubleshooting & bug reporting
 
-If some software doesn't work properly with that driver, but works good with other drivers - we will be appritiate if you will be able to collect debug info.
+If some software doesn't work properly with that driver, but works good with other drivers - we will be appropriate if you will be able to collect debug info.
 
 To debug issues with the driver, first things that need to be done are:
 - enabling driver manager tracing. Links may contain some irrelevant vendor-specific details.
@@ -140,7 +140,7 @@ brew install git cmake make poco openssl libiodbc # You may use unixodbc INSTEAD
 
 **Note:** usually on Linux you use unixODBC driver manager, and on Mac - iODBC.
 In some (rare) cases you may need use other driver manager, please do it only
-if you clearly understand the differencies. Driver should be used with the driver
+if you clearly understand the differences. Driver should be used with the driver
 manager it was linked to.
 
 Clone the repo with submodules:

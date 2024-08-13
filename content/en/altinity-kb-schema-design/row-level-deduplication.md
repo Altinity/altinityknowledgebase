@@ -26,7 +26,7 @@ Approach 0. Make deduplication before ingesting data to ClickHouse
 + you have full control
 - extra coding and 'moving parts', storing some ids somewhere
 + clean and simple schema and selects in ClickHouse
-! check if row exists in ClickHouse before insert can give non-satisfing results if you use ClickHouse cluster (i.e. Replicated / Distributed tables) - due to eventual consistency.
+! check if row exists in ClickHouse before insert can give non-satisfying results if you use ClickHouse cluster (i.e. Replicated / Distributed tables) - due to eventual consistency.
 
 Approach 1. Allow duplicates during ingestion. Remove them on SELECT level (by things like GROUP BY)
 + simple inserts

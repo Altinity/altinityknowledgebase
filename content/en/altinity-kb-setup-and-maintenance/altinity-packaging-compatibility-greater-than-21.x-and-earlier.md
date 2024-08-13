@@ -19,7 +19,7 @@ version=20.8.12.2-1.el7
 yum install clickhouse-client-${version} clickhouse-server-${version}
 ```
 
-yum outputs smth like
+yum outputs something like
 
 ```bash
 yum install clickhouse-client-${version} clickhouse-server-${version}

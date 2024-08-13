@@ -8,7 +8,7 @@ description: >-
 
 ## How much is too much?
 
-In most of the cases ClickHouse® don't have any hard limits. But obsiously there there are some practical limitation / barriers for different things - often they are caused by some system / network / filesystem limitation.
+In most of the cases ClickHouse® don't have any hard limits. But obviously there there are some practical limitation / barriers for different things - often they are caused by some system / network / filesystem limitation.
 
 So after reaching some limits you can get different kind of problems, usually it never a failures / errors, but different kinds of degradations (slower queries / high cpu/memory usage, extra load on the network / zookeeper etc).
 
@@ -17,7 +17,7 @@ While those numbers can vary a lot depending on your hardware & settings there i
 ### Number of tables (system-wide, across all databases)
 
 - non-replicated MergeTree-family tables = few thousands is still acceptable, if you don't do realtime inserts in more that few dozens of them. See [#32259](https://github.com/ClickHouse/ClickHouse/issues/32259)
-- ReplicatedXXXMergeTree = few hundreds is still acceptable, if you don't do realtime inserts in more that few dozens of them. Every Replicated table comes with it's own cost (need to do housekeepeing operations, monitoing replication queues etc). See [#31919](https://github.com/ClickHouse/ClickHouse/issues/31919)
+- ReplicatedXXXMergeTree = few hundreds is still acceptable, if you don't do realtime inserts in more that few dozens of them. Every Replicated table comes with it's own cost (need to do housekeeping operations, monitoring replication queues etc). See [#31919](https://github.com/ClickHouse/ClickHouse/issues/31919)
 - Log family table = even dozens of thousands is still ok, especially if database engine = Lazy is used.
 
 ### Number of databases 
@@ -69,9 +69,9 @@ Dozens is still ok. More may require having more complex (non-flat) routing.
 
 ### Number of materialized view attached to a single table.
 
-Up to few. The less the better if the table is getting realtime inserts. (no matter if MV are chained or all are feeded from the same source table). 
+Up to few. The less the better if the table is getting realtime inserts. (no matter if MV are chained or all are fed from the same source table). 
 
-The more you have the more costy your inserts are, and the bigger risks to get some inconsitencies between some MV (inserts to MV and main table are not atomic).
+The more you have the more costly your inserts are, and the bigger risks to get some inconsistencies between some MV (inserts to MV and main table are not atomic).
 
 If the table don't have realtime inserts you can have more MV. 
 
@@ -88,7 +88,7 @@ You can combine many columns into a single index and this index will work for an
 ### Number of Kafka tables / consumers inside 
 
 High number of Kafka tables maybe quite expensive (every consumer = very expensive librdkafka object with several threads inside).
-Usually alternative approaches are preferrable (mixing several datastreams in one topic, denormalizing, consuming several topics of identical structure with a single Kafka table, etc).
+Usually alternative approaches are preferable (mixing several datastreams in one topic, denormalizing, consuming several topics of identical structure with a single Kafka table, etc).
 
 If you really need a lot of Kafka tables you may need more ram / CPU on the node and
 increase `background_message_broker_schedule_pool_size` (default is 16) to the number of Kafka tables.
