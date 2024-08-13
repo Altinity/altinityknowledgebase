@@ -3,6 +3,7 @@ title: "Possible issues with running ClickHouse® in K8s"
 linkTitle: "Possible issues with running ClickHouse® in K8s"
 description: >
     Possible issues with running ClickHouse® in K8s
+draft: true
 ---
 The biggest problem with running ClickHouse® in K8s, happens when clickhouse-server can't start for some reason and pod is falling in CrashloopBackOff, so you can't easily get in the pod and check/fix/restart ClickHouse.
 
