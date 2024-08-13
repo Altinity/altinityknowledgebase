@@ -119,7 +119,7 @@ MemoryTracker: Peak memory usage (for query): 3.77 MiB.
 ```
 
 * Multi threaded
-* Will return result only after competion of aggregation
+* Will return result only after completion of aggregation
 
 ## LIMIT BY
 

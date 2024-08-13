@@ -6,7 +6,7 @@ description: >-
      Vulnerabilities
 ---
 
-## 2022-03-15: 7 vulnerabulities in ClickHouse® were published.
+## 2022-03-15: 7 vulnerabilities in ClickHouse® were published.
 
 See the details https://jfrog.com/blog/7-rce-and-dos-vulnerabilities-found-in-clickhouse-dbms/
 

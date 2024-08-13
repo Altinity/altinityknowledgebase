@@ -2,7 +2,7 @@
 
 Welcome to the Altinity Knowledgebase Repository!  This Knowledgebase was established for Altinity Engineers and ClickHouse community members to work together to find common solutions.
 
-Submissions and merges to this repository are distrubuted at https://kb.altinity.com .
+Submissions and merges to this repository are distributed at https://kb.altinity.com .
 
 This knowledgebase is licensed under Apache 2.0.  Contributors who submit to the Altinity Knowledgebase agree to the Altinity Contribution License Agreement.
 

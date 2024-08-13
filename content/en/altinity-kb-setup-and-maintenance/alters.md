@@ -118,7 +118,7 @@ For Compact parts it will trigger merge, which can be heavy. [issue](https://git
 
 ### Mutations
 
-Affected parts - parts with rows mathing condition. 
+Affected parts - parts with rows matching condition. 
 
 #### ALTER TABLE xxxxx DELETE WHERE column_1 = 1;
 
@@ -142,5 +142,5 @@ Will do the same but only for specific partition.
 2. For all part(ition)s will create new directories on disk and write new data to them or create hardlinks if they untouched.
 3. Register new parts names in ZooKeeper.
 
-Despite that LWD mutations will not rewrite all columns, steps 2 & 3 in case of big tables can take significiant time. 
+Despite that LWD mutations will not rewrite all columns, steps 2 & 3 in case of big tables can take significant time. 
 

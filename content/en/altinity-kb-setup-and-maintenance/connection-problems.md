@@ -22,7 +22,7 @@ Errors like
    In case if you have a very high number of folders there (usually caused by a wrong partitioning, or a very high number of tables / databases)
    that startup time can take a lot of time (same can happen if disk is very slow, for example NFS).
    
-   You can check that by looking for 'Ready for connections' line in `/var/log/clickhouse-server/clickhouse-server.log` (`Information` log level neede)
+   You can check that by looking for 'Ready for connections' line in `/var/log/clickhouse-server/clickhouse-server.log` (`Information` log level needed)
    
 2. Ensure you use the proper port ip / interface?
 

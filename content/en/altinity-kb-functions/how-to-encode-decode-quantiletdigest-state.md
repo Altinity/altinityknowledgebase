@@ -8,7 +8,7 @@ description: >-
 
 ## quantileTDigestState
 
-quantileTDigestState is stored in two parts: a count of centroids in LEB128 format + list of centroids without a delimeter. Each centroid is represented as two Float32 values: Mean & Count.
+quantileTDigestState is stored in two parts: a count of centroids in LEB128 format + list of centroids without a delimiter. Each centroid is represented as two Float32 values: Mean & Count.
 
 ```sql
 SELECT

@@ -25,7 +25,7 @@ https://github.com/ClickHouse/ClickHouse/issues/5148#issuecomment-487757235
 
 ### Generate test data in Native and TSV format ( 100 millions rows )
 
-Text formats and Native format require different set of settings, here I want to find / demonstrate mandatory minumum of settings for any case.
+Text formats and Native format require different set of settings, here I want to find / demonstrate mandatory minimum of settings for any case.
 
 ```bash
 clickhouse-client -q \

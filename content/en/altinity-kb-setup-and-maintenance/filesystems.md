@@ -53,7 +53,7 @@ therefore some of the Atomic functionality will not be available.
 
 In old versions of ClickHouse, you can face issues with the O_DIRECT mode.
 
-Also there is a well-known (and controversional) Linus Torvalds opinion: "Don't Use ZFS on Linux" [[1]](https://www.realworldtech.com/forum/?threadid=189711&curpostid=189841), [[2]](https://arstechnica.com/gadgets/2020/01/linus-torvalds-zfs-statements-arent-right-heres-the-straight-dope/), [[3]](https://arstechnica.com/gadgets/2020/01/linus-torvalds-zfs-statements-arent-right-heres-the-straight-dope/).
+Also there is a well-known (and controversial) Linus Torvalds opinion: "Don't Use ZFS on Linux" [[1]](https://www.realworldtech.com/forum/?threadid=189711&curpostid=189841), [[2]](https://arstechnica.com/gadgets/2020/01/linus-torvalds-zfs-statements-arent-right-heres-the-straight-dope/), [[3]](https://arstechnica.com/gadgets/2020/01/linus-torvalds-zfs-statements-arent-right-heres-the-straight-dope/).
 
 ### BTRFS
 
@@ -72,7 +72,7 @@ There were some reports about data damage on the disks on older ClickHouse versi
 
 ### NFS (and EFS)
 
-Accouding to the reports - it works, throughput depends a lot on the network speed. IOPS / number of file operations per seconds can be super low (due to the locking mechanism).
+According to the reports - it works, throughput depends a lot on the network speed. IOPS / number of file operations per seconds can be super low (due to the locking mechanism).
 
 https://github.com/ClickHouse/ClickHouse/issues/31113
 

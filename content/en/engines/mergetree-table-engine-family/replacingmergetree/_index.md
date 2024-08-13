@@ -106,7 +106,7 @@ SELECT * FROM repl_tbl_part;
 
 Other options:
 * Partition operations: ```ALTER TABLE t DROP PARTITION 'partition'``` -- locks the table, drops full partition only
-* Lightwieght delete: ```DELETE FROM t WHERE ...``` -- experimental
+* Lightweight delete: ```DELETE FROM t WHERE ...``` -- experimental
 
 ## Use cases
 

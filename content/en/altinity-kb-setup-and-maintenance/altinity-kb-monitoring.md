@@ -106,7 +106,7 @@ ClickHouse allow to access lot of internals using system tables. The main tables
 * system.asynchronous_metrics
 * system.events
 
-Minimum neccessary set of checks
+Minimum necessary set of checks
 
 <table>
   <tr>

@@ -29,7 +29,7 @@ MATERIALIZED VIEWs in ClickHouse® behave like AFTER INSERT TRIGGER to the left-
 
     That way it's bit simpler to do schema migrations or build more complicated pipelines when one table is filled by several MV.
 
-    With engine=Atomic it hard to map undelying table with the MV.
+    With engine=Atomic it hard to map underlying table with the MV.
 
 2. Avoid using POPULATE when creating MATERIALIZED VIEW on big tables.
 

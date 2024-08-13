@@ -93,7 +93,7 @@ tail /var/log/clickhouse-server-json/clickhouse-server.2022-04-21.ndjson
 
 ### sink logs into ClickHouse table
 
-Be carefull with logging ClickHouse messages into the same ClickHouse instance, it will cause endless recursive self-logging.
+Be careful with logging ClickHouse messages into the same ClickHouse instance, it will cause endless recursive self-logging.
 
 ```sql
 create table default.clickhouse_logs(

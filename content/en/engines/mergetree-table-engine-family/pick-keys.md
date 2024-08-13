@@ -200,7 +200,7 @@ Ok.
 * For Summing/Replacing a bit smaller (400Mb-40Gb)
 * Better to avoid touching more that few dozens of partitions with typical SELECT query.
 * Single insert should bring data to one or few partitions.
-* The number of partitons in table - dozen or hundreds, not thousands.
+* The number of partitions in table - dozen or hundreds, not thousands.
 
 The size of partitions you can check in system.parts table.
 
@@ -222,7 +222,7 @@ PARTITION BY intDiv(transaction_id, 1000000)
 PARTITION BY userid % 16
 ```
 
-For the small tables (smaller than few gigabytes) partitioning is usually not needed at all (just skip `PARTITION BY` expresssion when you create the table).
+For the small tables (smaller than few gigabytes) partitioning is usually not needed at all (just skip `PARTITION BY` expression when you create the table).
 
 ### See also
 

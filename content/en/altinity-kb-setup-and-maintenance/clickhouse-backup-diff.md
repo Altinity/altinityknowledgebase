@@ -55,7 +55,7 @@ END
 chmod +x /opt/clickhouse-backup-diff/clickhouse-backup-cron.sh
 ```
 
-3. Create confuguration for clickhouse-backup 
+3. Create configuration for clickhouse-backup 
 
 ```
 # Check the example: /etc/clickhouse-backup/config.yml.example 

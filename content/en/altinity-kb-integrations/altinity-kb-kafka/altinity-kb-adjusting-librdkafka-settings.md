@@ -157,7 +157,7 @@ https://github.com/ClickHouse/ClickHouse/blob/da4856a2be035260708fe2ba3ffb9e437d
  
 So it load the main config first, after that it load (with overwrites) the configs for all topics,  **listed in `kafka_topic_list` of the table**.  
  
-Also since v21.12 it's possible to use more straght-forward way using named_collections:
+Also since v21.12 it's possible to use more straightforward way using named_collections:
 https://github.com/ClickHouse/ClickHouse/pull/31691
  
 So you can say something like

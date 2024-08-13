@@ -47,7 +47,7 @@ The ClickHouse® SimpleAggregateFunction can be used for those aggregations when
     <tr>
       <td style="text-align:left">reading raw value per row</td>
       <td style="text-align:left">you can access it directly</td>
-      <td style="text-align:left">you need to use <code>finalizeAgggregation</code> function</td>
+      <td style="text-align:left">you need to use <code>finalizeAggregation</code> function</td>
     </tr>
     <tr>
       <td style="text-align:left">using aggregated value</td>

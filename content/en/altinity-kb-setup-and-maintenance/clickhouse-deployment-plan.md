@@ -15,7 +15,7 @@ description: >-
     - https://clickhouse.com/docs/en/getting-started/install/
     - https://docs.altinity.com/altinitystablebuilds/stablequickstartguide/
 2.  Start with creating a single table (the biggest one), use MergeTree engine. Create 'some' schema (most probably it will be far from optimal). Prefer denormalized approach for all immutable dimensions, for mutable dimensions - consider dictionaries.
-3.  Load some amount of data (at least 5 Gb, and 10 mln rows) - preferable the real one, or as close to real as possible. Usully the simplest options are either through CSV / TSV files (or `insert into clickhouse_table select * FROM mysql(...) where ...`)
+3.  Load some amount of data (at least 5 Gb, and 10 mln rows) - preferable the real one, or as close to real as possible. Usually the simplest options are either through CSV / TSV files (or `insert into clickhouse_table select * FROM mysql(...) where ...`)
 4.  Create several representative queries.
 5.  Check the columns cardinality, and appropriate types, use minimal needed type
 6.  Review the partition by and order by. https://kb.altinity.com/engines/mergetree-table-engine-family/pick-keys/
@@ -38,7 +38,7 @@ description: >-
      - https://kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/network-configuration/
 9.  If you need sharding - consider different sharding approaches.
 
-### Stage 2. Preprod setup & developement
+### Stage 2. Preprod setup & development
 
 1.  Install ClickHouse in cluster - several nodes / VMs + zookeeper
     - https://kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/cluster-configuration-process/

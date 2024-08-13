@@ -95,7 +95,7 @@ Pros and cons:
 
 ### 2e Several 'baskets' of arrays
 
-i.e.: timestamp, sourceid, metric_names_basket1, metric_values_basker1, ..., metric_names_basketN, metric_values_basketN
+i.e.: timestamp, sourceid, metric_names_basket1, metric_values_basket1, ..., metric_names_basketN, metric_values_basketN
 The same as 2b, but there are several key-value arrays ('basket'), and metric go to one particular basket depending on metric name (and optionally by metric type)
 
 Pros and cons:

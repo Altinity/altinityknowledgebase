@@ -10,7 +10,7 @@ description: >
 
 The network used for your ClickHouse® cluster should be a fast network, ideally 10 Gbit or more.
 ClickHouse nodes generate a lot of traffic to exchange the data between nodes (port 9009 for replication, and 9000 for distributed queries).
-Zookeeper traffic in normal circumstanses is moderate, but in some special cases can also be very significant.
+Zookeeper traffic in normal circumstances is moderate, but in some special cases can also be very significant.
 
 For the zookeeper low latency is more important than bandwidth.
 

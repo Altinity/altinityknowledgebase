@@ -17,7 +17,7 @@ By default it collects information only about queries when runs longer than 1 se
 You can adjust that per query using settings `query_profiler_real_time_period_ns` & `query_profiler_cpu_time_period_ns`.
 
 Both works very similar (with desired interval dump the stacktraces of all the threads which execute the query).
-real timer - allows to 'see' the situtions when cpu was not working much, but time was spend for example on IO.
+real timer - allows to 'see' the situations when cpu was not working much, but time was spend for example on IO.
 cpu timer - allows to see the 'hot' points in calculations more accurately (skip the io time).
 
 Trying to collect stacktraces with a frequency higher than few KHz is usually not possible. 

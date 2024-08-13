@@ -10,7 +10,7 @@ description: >-
 
 Timeout may occur
 1) due to the fact that the client reach timeout interval.
-    - in case of TCP / native clients - you can change send_timeout / recieve_timeout + tcp_keep_alive_timeout + driver timeout settings
+    - in case of TCP / native clients - you can change send_timeout / receive_timeout + tcp_keep_alive_timeout + driver timeout settings
     - in case of HTTP clients - you can change http_send_timeout / http_receive_timeout + tcp_keep_alive_timeout + driver timeout settings
 
 2) (in the case of ON CLUSTER queries) due to the fact that the timeout for query execution by shards ends

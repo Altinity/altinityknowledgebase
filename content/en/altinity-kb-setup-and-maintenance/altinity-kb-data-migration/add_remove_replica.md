@@ -120,7 +120,7 @@ SELECT DISTINCT database,table,replica_is_active FROM system.replicas FORMAT Ver
     
     then it is ok, the maximum replication slots are being used. Exceptions are not OK and should be investigated
 
-- If migration was sucessful and replication is working then wait until the replication is finished. It may take some days depending on how much data is being replicated. After this edit the cluster configuration xml file for all replicas (`remote_servers.xml`) and add the new replica to the cluster.
+- If migration was successful and replication is working then wait until the replication is finished. It may take some days depending on how much data is being replicated. After this edit the cluster configuration xml file for all replicas (`remote_servers.xml`) and add the new replica to the cluster.
   
 
 ### Possible problems
@@ -248,7 +248,7 @@ Received exception from server (version 23.8.6):
 Code: 305. DB::Exception: Received from dnieto-zenbook.lan:9440. DB::Exception: We can't drop local replica, please use `DROP TABLE` if you want to clean the data and drop this replica. (TABLE_WAS_NOT_DROPPED)
 ```
 
-- After DROP REPLCA, we need to check that the replica is gone from the list or replicas. Connect to a node and execute:
+- After DROP REPLICA, we need to check that the replica is gone from the list or replicas. Connect to a node and execute:
 
 ```sql
 SELECT DISTINCT replica_name

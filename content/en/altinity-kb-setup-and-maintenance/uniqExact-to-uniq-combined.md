@@ -8,7 +8,7 @@ description: >-
 
 ## uniqExactState 
 
-`uniqExactState` is stored in two parts: a count of values in `LEB128` format + list values without a delimeter.
+`uniqExactState` is stored in two parts: a count of values in `LEB128` format + list values without a delimiter.
 
 In our case, the value is `sipHash128` of strings passed to uniqExact function.
 
@@ -39,7 +39,7 @@ In case of `String` data type, it just the simple `sipHash128` function.
 ```
 
 The second task: it needs to read a state and split it into an array of values.
-Luckly for us, ClickHouse® use the exact same serialization (`LEB128` + list of values) for Arrays (in this case if `uniqExactState` and `Array` are serialized into `RowBinary` format).
+Luckily for us, ClickHouse® use the exact same serialization (`LEB128` + list of values) for Arrays (in this case if `uniqExactState` and `Array` are serialized into `RowBinary` format).
 
 We need one a helper -- `UDF` function to do that conversion:
 
@@ -194,7 +194,7 @@ GROUP BY key
 20 rows in set. Elapsed: 3.318 sec. Processed 20.00 thousand rows, 11.02 MB (6.03 thousand rows/s., 3.32 MB/s.)
 ```
 
-Let's compare the data size, `uniq` won in this case, but check this article [Functions to count uniqs](../../altinity-kb-schema-design/uniq-functions/), milage may vary.
+Let's compare the data size, `uniq` won in this case, but check this article [Functions to count uniqs](../../altinity-kb-schema-design/uniq-functions/), mileage may vary.
 
 ```sql
 optimize table aggregates final;
