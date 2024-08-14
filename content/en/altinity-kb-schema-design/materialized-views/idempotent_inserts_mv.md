@@ -18,7 +18,7 @@ and insertion will be skipped into the source table because of deduplication but
 by default materialized view inherits deduplication from the source table. 
 It's controlled by a parameter `deduplicate_blocks_in_dependent_materialized_views` https://clickhouse.com/docs/en/operations/settings/settings/#settings-deduplicate-blocks-in-dependent-materialized-views
 
-If your materialized view is wide enough and always have enought data for consistent deduplication then you can enable `deduplicate_blocks_in_dependent_materialized_views`.
+If your materialized view is wide enough and always has enough data for consistent deduplication then you can enable `deduplicate_blocks_in_dependent_materialized_views`.
 Or you may add information for deduplication (some unique information / insert identifier).
 
 ### Example 1. Inconsistency with deduplicate_blocks_in_dependent_materialized_views 0
