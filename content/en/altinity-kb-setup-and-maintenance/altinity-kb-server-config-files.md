@@ -134,7 +134,7 @@ But there are **exceptions** from those rules (see below).
 * `<max_server_memory_usage_to_ram_ratio>`
 * `<max_table_size_to_drop>` (since 19.12)
 * `<max_partition_size_to_drop>` (since 19.12)
-* `<max_concurrent_queries>` (since 21.11)
+* `<max_concurrent_queries>` (since 21.11, also for versions older than v24 system tables are not updated with the new config values) 
 * `<macros>`
 * `<remote_servers>`
 * `<dictionaries_config>`
