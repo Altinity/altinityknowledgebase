@@ -66,7 +66,8 @@ where A in (select A from X where B='....' and ts between ...)
 A separate table with a Materialized View can also be used similarly.
 
 
-### mortonEncode (available from 23.10) 
+### mortonEncode 
+(available from 23.10) 
 
 Do not prioritize either A or B, but distribute indexing efficiency between them.
 
@@ -109,9 +110,10 @@ insert into X values ('fd7a:115c:a1e0:ab12:4843:cd96:624c:9a17','fd7a:115c:a1e0:
 select * from X where cityHash64(toIPv6('fd7a:115c:a1e0:ab12:4843:cd96:624c:9a17')) =  AA;
 ```
 
-###  hilbertEncode as alternative
+###  hilbertEncode as alternative 
+(available from 24.6)
 
-[hilbertEncode](https://clickhouse.com/docs/en/sql-reference/functions/encoding-functions#hilbertencode) can be used instead of mortonEncode. Need to test query speed of both on different data.
+[hilbertEncode](https://clickhouse.com/docs/en/sql-reference/functions/encoding-functions#hilbertencode) can be used instead of mortonEncode. On some data it allows better results than mortonEncode.
 
 
 
