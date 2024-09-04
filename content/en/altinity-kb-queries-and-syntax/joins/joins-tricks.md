@@ -1,6 +1,6 @@
 ---
-title: "JOINs optimization tricks"
-linkTitle: "JOINs optimization tricks"
+title: "JOIN optimization tricks"
+linkTitle: "JOIN optimization tricks"
 description: >
     JOINs
 ---
@@ -214,7 +214,7 @@ Probably, but it does mean that we need to get rid of JOIN.
 
 Despite that all DBMS support ~ similar feature set, feature performance on different database are different:
 
-Small example, for PostgreSQL, is recommended to replace big IN clauses with JOINs, because IN clauses have bad performance in it.
+Small example, for PostgreSQL, is recommended to replace big IN clauses with JOINs, because IN clauses have bad performance.
 But for ClickHouse it's the opposite!, IN works faster than JOIN, because it only checks key existence in HashSet and doesn't need to extract any data from the right table in IN.
 
 Let's test that:
