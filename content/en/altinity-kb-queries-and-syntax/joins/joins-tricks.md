@@ -5,7 +5,7 @@ description: >
     JOINs
 ---
 
-This article was made before addition of new JOIN algorithms, so all tests were done with default `hash` join.
+All tests below were done with default `hash` join. ClickHouse joins are evolving rapidly and behavior varies with other join types. 
 
 # Data
 
