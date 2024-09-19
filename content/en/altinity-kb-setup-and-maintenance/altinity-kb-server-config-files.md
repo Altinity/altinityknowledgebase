@@ -13,11 +13,13 @@ By default they are stored in the folder **/etc/clickhouse-server/** in two file
 
 We suggest never change vendor config files and place your changes into separate .xml files in sub-folders. This way is easier to maintain and ease ClickHouse upgrades.
 
-**/etc/clickhouse-server/users.d** – sub-folder for user settings.
+**/etc/clickhouse-server/users.d** – sub-folder for user settings (derived from `users.xml` filename).
 
-**/etc/clickhouse-server/config.d** – sub-folder for server settings.
+**/etc/clickhouse-server/config.d** – sub-folder for server settings (derived from `config.xml` filename).
 
 **/etc/clickhouse-server/conf.d** – sub-folder for any (both) settings.
+
+If the root config (xml or yaml) has a different name, such as `keeper_config.xml` or `config_instance_66.xml`, then the `keeper_config.d` and `config_instance_66.d` folders will be used. But `conf.d` is always used and processed last.
 
 File names of your xml files can be arbitrary but they are applied in alphabetical order.
 
