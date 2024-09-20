@@ -2,7 +2,7 @@
 title: "Projections"
 linkTitle: "Projections"
 description: >
-    Projections examples
+    Projections 
 ---
 ## Links
 
@@ -14,6 +14,8 @@ description: >
 ## Why is a projection not used?
 
 - Projection is used only if it is cheaper to read from it than from the table.
+- Projection should be materialized.  Verify that all parts need projection by looking into the system.parts`
+- If there are many projections, some other projection can be used. Force by settings `preferred_optimize_projection_name` and `force_optimize_projection_name`
 - In the projection, all fields from the query must be included. Use aliases to make the query columns the very same as in the projection definition:
 
 ```sql
@@ -37,6 +39,24 @@ select week, sum(a) from test group by week
 settings force_optimize_projection=1;
 ```
 
+## Recalculate on Merge
+
+What happens in the case of non-trivial background merges in ReplacingMergeTree, AggregatingMergeTree and similar, and OPTIMIZE table DEDUPLICATE queries?
+
+Before version 24.8, projections became out of sync with the main data.
+
+Since version 24.8, it is controlled by a new table-level setting:
+
+[deduplicate_merge_projection_mode](https://clickhouse.com/docs/en/operations/settings/merge-tree-settings#deduplicate_merge_projection_mode) = 'throw'/'drop'/'rebuild'
+
+
+Since 24.7, we also have a setting to control the behavior w.r.t. lightweight deletes: lightweight_mutation_projection_mode.
+
+## System tables
+
+- system.projection_parts
+- system.projection_parts_columns
+  
 ## Aggregating projections
 
 ```sql
