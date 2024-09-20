@@ -14,9 +14,9 @@ description: >
 ## Why is a projection not used?
 
 - Projection is used only if it is cheaper to read from it than from the table.
-- Projection should be materialized.  Verify that all parts need projection by looking into the system.parts`
-- If there are many projections, some other projection can be used. Force by settings `preferred_optimize_projection_name` and `force_optimize_projection_name`
-- In the projection, all fields from the query must be included. Use aliases to make the query columns the very same as in the projection definition:
+- Projection should be materialized.  Verify that all parts have the needed projection by looking into the system.parts, projections column.
+- If there are many projections per table, the analyzer can select any of them. If you think that some is better use settings `preferred_optimize_projection_name` or `force_optimize_projection_name`
+- The query should use only the columns defined in the projection with the same functions and modifiers. Use column aliases to make the query the very same as in the projection definition:
 
 ```sql
 CREATE TABLE test
