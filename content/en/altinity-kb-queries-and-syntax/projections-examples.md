@@ -1,9 +1,42 @@
 ---
-title: "Projections examples"
-linkTitle: "Projections examples"
+title: "Projections"
+linkTitle: "Projections"
 description: >
     Projections examples
 ---
+## Links
+
+* Amos Bird - kuaishou.com - Projections in ClickHouse. [slides](https://github.com/ClickHouse/clickhouse-presentations/blob/master/percona2021/projections.pdf). [video](https://youtu.be/jJ5VuLr2k5k?list=PLWhC0zeznqkkNYzcvHEfZ8hly3Cu9ojKk)
+* [Documentation](https://clickhouse.tech/docs/en/engines/table-engines/mergetree-family/mergetree/#projections)
+* [tinybird blog article](https://blog.tinybird.co/2021/07/09/projections/) 
+* ClickHouse presentation on Projections https://www.youtube.com/watch?v=QDAJTKZT8y4
+
+## Why is a projection not used?
+
+- Projection is used only if it is cheaper to read from it than from the table.
+- In the projection, all fields from the query must be included. Use aliases to make the query columns the very same as in the projection definition:
+
+```sql
+CREATE TABLE test
+(
+    a Int64,
+    ts DateTime,
+    week alias toStartOfWeek(ts),
+    PROJECTION p
+    (
+        SELECT week, sum(a) group by week
+    )
+)
+ENGINE = MergeTree ORDER BY a;
+
+insert into test
+select number, now()-number*100
+from numbers(1e7);
+
+select week, sum(a) from test group by week
+settings force_optimize_projection=1;
+```
+
 ## Aggregating projections
 
 ```sql
@@ -112,9 +145,4 @@ VS
 **Elapsed: 0.013 sec. Processed 32.77 thousand rows** -- optimized
 
 
-## See also 
 
-* Amos Bird - kuaishou.com - Projections in ClickHouse. [slides](https://github.com/ClickHouse/clickhouse-presentations/blob/master/percona2021/projections.pdf). [video](https://youtu.be/jJ5VuLr2k5k?list=PLWhC0zeznqkkNYzcvHEfZ8hly3Cu9ojKk)
-* [Documentation](https://clickhouse.tech/docs/en/engines/table-engines/mergetree-family/mergetree/#projections)
-* [tinybird blog article](https://blog.tinybird.co/2021/07/09/projections/) 
-* ClickHouse presentation on Projections https://www.youtube.com/watch?v=QDAJTKZT8y4
