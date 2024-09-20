@@ -56,8 +56,10 @@ Since 24.7, we also have a setting to control the behavior w.r.t. lightweight de
 
 - system.projection_parts
 - system.projection_parts_columns
-  
-## Aggregating projections
+
+## Examples  
+
+### Aggregating projections
 
 ```sql
 create table z(Browser String, Country UInt8, F Float64)
@@ -114,7 +116,7 @@ group by Browser,Country format Null;
 Elapsed: 0.005 sec. Processed 22.43 thousand rows
 ```
 
-## Emulation of an inverted index using orderby projection
+### Emulation of an inverted index using orderby projection
 
 You can create an `orderby projection` and include all columns of a table, but if a table is very wide it will double of stored data. This example demonstrate a trick, we create an `orderby projection` and include primary key columns and the target column and sort by the target column. This allows using subquery to find [primary key values](../../engines/mergetree-table-engine-family/pick-keys/) and after that to query the table using the primary key. 
 
