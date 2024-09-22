@@ -63,7 +63,7 @@ This has been improved in **ClickHouse 23.7** Flush queries for async inserts (t
 ## Versions
 
 - **23.8** is a good version to start using async inserts because of the improvements and bugfixes. 
-- **24.3** the new adaptive timeout mechanism has been added so ClickHouse will throttle the inserts based on the server load.[#58486](https://github.com/ClickHouse/ClickHouse/pull/58486)
+- **24.3** the new adaptive timeout mechanism has been added so ClickHouse will throttle the inserts based on the server load.[#58486](https://github.com/ClickHouse/ClickHouse/pull/58486) This new feature is enabled by default and will OVERRRIDE current async insert settings, so better to disable it if your async insert settings are working.
 
 ## Metrics
 
