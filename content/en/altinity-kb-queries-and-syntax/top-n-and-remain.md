@@ -4,6 +4,12 @@ linkTitle: "Top N & Remain"
 description: >
     Top N & Remain
 ---
+
+When working with large datasets, you may often need to compute the sum of values for the top N groups and aggregate the remainder separately. This article demonstrates several methods to achieve that in ClickHouse.
+
+Dataset Setup
+We'll start by creating a table top_with_rest and inserting data for demonstration purposes:
+
 ```sql
 CREATE TABLE top_with_rest
 (
@@ -18,7 +24,10 @@ INSERT INTO top_with_rest SELECT
 FROM numbers_mt(10000);
 ```
 
-## Using UNION ALL
+This creates a table with 10,000 numbers, grouped by dividing the numbers into tens.
+
+## Method 1: Using UNION ALL
+This approach retrieves the top 10 groups by sum and aggregates the remaining groups as a separate row.
 
 ```sql
 SELECT *
@@ -63,7 +72,9 @@ ORDER BY res ASC
 └──────┴──────────┘
 ```
 
-## Using arrays
+
+## Method 2: Using Arrays
+In this method, we push the top 10 groups into an array and add a special row for the remainder
 
 ```sql
 WITH toUInt64(sumIf(sum, isNull(k)) - sumIf(sum, isNotNull(k))) AS total
@@ -98,7 +109,8 @@ ORDER BY res ASC
 └──────┴──────────┘
 ```
 
-## Using window functions (starting from ClickHouse® 21.1)
+##  Method 3: Using Window Functions
+Window functions, available from ClickHouse version 21.1, provide an efficient way to calculate the sum for the top N rows and the remainder.
 
 ```sql
 SET allow_experimental_window_functions = 1;
@@ -139,7 +151,10 @@ ORDER BY res ASC
 │ null │ 49000050 │
 └──────┴──────────┘
 ```
+Window functions allow efficient summation of the total and top groups in one query.
 
+## Method 4: Using Row Number and Grouping
+This approach calculates the row number (rn) for each group and replaces the remaining groups with NULL.
 ```sql
 SELECT
     k,
@@ -183,10 +198,10 @@ ORDER BY res
 │ null │ 49000050 │
 └──────┴──────────┘
 ```
+This method uses ROW_NUMBER() to segregate the top N from the rest.
 
-## Using WITH TOTALS
-
-The total number will include the top rows as well so the remainder must be calculated by the application
+## Method 5: Using WITH TOTALS
+This method includes totals for all groups, and you calculate the remainder on the application side.
 
 ```
 SELECT
@@ -216,3 +231,6 @@ Totals:
 │   │ 49995000 │
 └───┴──────────┘
 ```
+You would subtract the sum of the top rows from the totals in your application.
+
+These methods offer different approaches for handling the Top N rows and aggregating the remainder in ClickHouse. Depending on your requirements—whether you prefer using UNION ALL, arrays, window functions, or totals—each method provides flexibility for efficient querying.
