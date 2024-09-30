@@ -43,7 +43,7 @@ order by (toStartOfDay(ts),A,B);
 
 bloom_filter index type instead of min_max could work fine in some situations.
 
-### Reverse index as a projection
+### Inverted index as a projection
 
 ```sql
 create table X (
@@ -63,7 +63,9 @@ where A in (select A from X where B='....' and ts between ...)
   and B='...' and ts between ... ;
 ```
 
-A separate table with a Materialized View can also be used similarly.
+- The number of rows the subquery returns should not be very high. 1M rows seems to be a suitable limit.
+- A separate table with a Materialized View can also be used similarly.
+- accessing pattern for the main table will "point", so better to lower index_granularity to 256.  That will increase RAM usage by Primary Key
 
 
 ### mortonEncode 
