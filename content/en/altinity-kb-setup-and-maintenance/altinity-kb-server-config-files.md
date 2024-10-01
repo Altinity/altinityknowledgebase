@@ -144,7 +144,7 @@ But there are **exceptions** from those rules (see below).
 * `<models_config>`
 * `<keeper_server>`
 * `<zookeeper>` (but reconnect don't happen automatically)
-* `<storage_configuration>` -- only if you add a new entity (disk/volume/policy), to change an enitity a restart is mandatory.
+* `<storage_configuration>` -- only if you add a new entity (disk/volume/policy), to modify these enitities restart is mandatory.
 * `<user_directories>`
 * `<access_control_path>`
 * `<encryption_codecs>`
