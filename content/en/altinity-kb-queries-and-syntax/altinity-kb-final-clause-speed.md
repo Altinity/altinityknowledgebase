@@ -6,7 +6,7 @@ description: >
 ---
 `SELECT * FROM table FINAL`
 
-# History
+### History
 
 * Before ClickHouse® 20.5 - always executed in a single thread and slow.
 * Since 20.5  - final can be parallel, see [https://github.com/ClickHouse/ClickHouse/pull/10463](https://github.com/ClickHouse/ClickHouse/pull/10463)
@@ -21,7 +21,7 @@ description: >
   
 See [https://github.com/ClickHouse/ClickHouse/pull/15938](https://github.com/ClickHouse/ClickHouse/pull/15938) and [https://github.com/ClickHouse/ClickHouse/issues/11722](https://github.com/ClickHouse/ClickHouse/issues/11722)
 
-# Partitioning
+### Partitioning
 
 Right partition design could speed up FINAL processing.
 
@@ -93,7 +93,7 @@ SELECT count() FROM repl_tbl FINAL WHERE NOT ignore(*)
 
 ```
 
-# light ORDER BY 
+### Light ORDER BY 
 
 All columns specified in ORDER BY will be read during FINAL processing.  Use fewer columns and lighter column types.
 
