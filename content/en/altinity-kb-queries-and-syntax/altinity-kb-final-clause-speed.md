@@ -6,6 +6,8 @@ description: >
 ---
 `SELECT * FROM table FINAL`
 
+# History
+
 * Before ClickHouse® 20.5 - always executed in a single thread and slow.
 * Since 20.5  - final can be parallel, see [https://github.com/ClickHouse/ClickHouse/pull/10463](https://github.com/ClickHouse/ClickHouse/pull/10463)
 * Since 20.10 - you can use `do_not_merge_across_partitions_select_final` setting.
@@ -19,8 +21,11 @@ description: >
   
 See [https://github.com/ClickHouse/ClickHouse/pull/15938](https://github.com/ClickHouse/ClickHouse/pull/15938) and [https://github.com/ClickHouse/ClickHouse/issues/11722](https://github.com/ClickHouse/ClickHouse/issues/11722)
 
-So it can work in the following way:
+# Partitioning
 
+Right partition design could speed up FINAL processing.
+
+Example:
 1. Daily partitioning
 2. After day end + some time interval during which you can get some updates - for example at 3am / 6am you do `OPTIMIZE TABLE xxx PARTITION 'prev_day' FINAL`
 3. In that case using that FINAL with `do_not_merge_across_partitions_select_final` will be cheap.
@@ -87,3 +92,41 @@ SELECT count() FROM repl_tbl FINAL WHERE NOT ignore(*)
 /* only 0.35 sec slower, and while partitions have about the same size that extra cost will be about constant */
 
 ```
+
+# light ORDER BY 
+
+All columns specified in ORDER BY will be read during FINAL processing.  Use fewer columns and lighter column types.
+
+Example: UUID vs UInt64
+```
+CREATE TABLE uuid_table (id UUID, value UInt64) 
+ENGINE = ReplacingMergeTree() ORDER BY id;
+
+CREATE TABLE uint64_table (id UInt64,value UInt64)
+ENGINE = ReplacingMergeTree() ORDER BY id;
+
+INSERT INTO uuid_table SELECT generateUUIDv4(), number
+FROM numbers(5E7);
+
+INSERT INTO uint64_table SELECT number, number
+FROM numbers(5E7);
+
+SELECT sum(value) FROM uuid_table FINAL
+where reinterpret(id,'UInt128') % 3 = 0
+format JSON;
+
+SELECT sum(value) FROM uint64_table FINAL
+where id % 3 = 0
+format JSON;
+```
+[Results](https://fiddle.clickhouse.com/e2441e5d-ccb6-4f67-bee0-7cc2c4e3f43e):
+```
+		"elapsed": 0.635423513,
+		"rows_read": 50172032,
+		"bytes_read": 1204128768
+
+		"elapsed": 0.207733135,
+		"rows_read": 50057344,
+		"bytes_read": 800917504
+```
+
