@@ -77,7 +77,7 @@ FROM system.clusters
 LEFT JOIN
 (
     SELECT
-        hostName() AS host_name,
+        replaceRegexpOne(hostName(),'-(\d+)-0$','-\1') AS host_name,  -- remove trailing 0
         FQDN() AS fqdn,
         materialize(uptime()) AS uptime
     FROM clusterAllReplicas('{cluster}', system.one)
