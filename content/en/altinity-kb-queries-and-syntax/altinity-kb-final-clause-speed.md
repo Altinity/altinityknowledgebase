@@ -95,27 +95,18 @@ SELECT count() FROM repl_tbl FINAL WHERE NOT ignore(*)
 
 ### Light ORDER BY 
 
-All columns specified in ORDER BY will be read during FINAL processing.  Use fewer columns and lighter column types.
+All columns specified in ORDER BY will be read during FINAL processing.  Use fewer columns and lighter column types to create faster queries.
 
 Example: UUID vs UInt64
 ```
-CREATE TABLE uuid_table (id UUID, value UInt64) 
-ENGINE = ReplacingMergeTree() ORDER BY id;
+CREATE TABLE uuid_table (id UUID, value UInt64)    ENGINE = ReplacingMergeTree() ORDER BY id;
+CREATE TABLE uint64_table (id UInt64,value UInt64) ENGINE = ReplacingMergeTree() ORDER BY id;
 
-CREATE TABLE uint64_table (id UInt64,value UInt64)
-ENGINE = ReplacingMergeTree() ORDER BY id;
+INSERT INTO uuid_table SELECT generateUUIDv4(), number FROM numbers(5E7);
+INSERT INTO uint64_table SELECT number, number         FROM numbers(5E7);
 
-INSERT INTO uuid_table SELECT generateUUIDv4(), number
-FROM numbers(5E7);
-
-INSERT INTO uint64_table SELECT number, number
-FROM numbers(5E7);
-
-SELECT sum(value) FROM uuid_table FINAL
-format JSON;
-
-SELECT sum(value) FROM uint64_table FINAL
-format JSON;
+SELECT sum(value) FROM uuid_table   FINAL format JSON;
+SELECT sum(value) FROM uint64_table FINAL format JSON;
 ```
 [Results](https://fiddle.clickhouse.com/e2441e5d-ccb6-4f67-bee0-7cc2c4e3f43e):
 ```
