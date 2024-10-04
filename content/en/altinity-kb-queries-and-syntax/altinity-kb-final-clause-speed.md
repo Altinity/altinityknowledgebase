@@ -112,21 +112,19 @@ INSERT INTO uint64_table SELECT number, number
 FROM numbers(5E7);
 
 SELECT sum(value) FROM uuid_table FINAL
-where reinterpret(id,'UInt128') % 3 = 0
 format JSON;
 
 SELECT sum(value) FROM uint64_table FINAL
-where id % 3 = 0
 format JSON;
 ```
 [Results](https://fiddle.clickhouse.com/e2441e5d-ccb6-4f67-bee0-7cc2c4e3f43e):
 ```
-		"elapsed": 0.635423513,
+		"elapsed": 0.58738197,
 		"rows_read": 50172032,
 		"bytes_read": 1204128768
 
-		"elapsed": 0.207733135,
+		"elapsed": 0.189792142,
 		"rows_read": 50057344,
-		"bytes_read": 800917504
+		"bytes_read": 480675040
 ```
 
