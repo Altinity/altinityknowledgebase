@@ -607,7 +607,7 @@ select 'step2',* from Example5 final ;
 
 ### Complex Primary Key
 
-I used a simple, compact column with Int64 type for the primary key in previous examples. It's better to go this route with monotonically growing IDs like autoincrement ID or [SnowFlakeId](https://www.notion.so/4a5c621b1e224c96b44210da5ce9c601?pvs=21) (based on timestamp). However, in some cases, a more complex primary key is needed. For instance, when storing data for multiple tenants (Customers, partners, etc.) in the same table. This is not a problem for the suggested technique - use all the necessary columns in all filters and JOIN operations as Tuple.
+I used a simple, compact column with Int64 type for the primary key in previous examples. It's better to go this route with monotonically growing IDs like autoincrement ID or SnowFlakeId (based on timestamp). However, in some cases, a more complex primary key is needed. For instance, when storing data for multiple tenants (Customers, partners, etc.) in the same table. This is not a problem for the suggested technique - use all the necessary columns in all filters and JOIN operations as Tuple.
 
 ```sql
 create table Example6 
