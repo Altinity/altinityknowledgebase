@@ -14,6 +14,7 @@ description: >
 
 ## Why is a projection not used?
 
+- FINAL queries do not work with projections.
 - Projection is used only if it is cheaper to read from it than from the table.
 - Projection should be materialized.  Verify that all parts have the needed projection by looking into the system.parts, projections column.
 - If there are many projections per table, the analyzer can select any of them. If you think that some is better use settings `preferred_optimize_projection_name` or `force_optimize_projection_name`
