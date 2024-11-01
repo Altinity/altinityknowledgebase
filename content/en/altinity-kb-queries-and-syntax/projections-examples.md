@@ -40,8 +40,11 @@ from numbers(1e7);
 select week, sum(a) from test group by week
 settings force_optimize_projection=1;
 ```
+
 https://fiddle.clickhouse.com/7f331eb2-9408-4813-9c67-caef4cdd227d
+
 Explain result: ReadFromMergeTree (weekly_projection) 
+
 ```
 Expression ((Project names + Projection))
   Aggregating
