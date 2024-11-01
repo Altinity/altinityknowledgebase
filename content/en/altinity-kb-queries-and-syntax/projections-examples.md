@@ -4,6 +4,13 @@ linkTitle: "Projections"
 description: >
     Projections 
 ---
+
+Projections in ClickHouse act as inner tables within a main table, functioning as a mechanism to optimize queries by using these inner tables when only specific columns are needed. Essentially, a projection is similar to a Materialized View with an AggregatingMergeTree engine, designed to be automatically populated with relevant data.
+
+However, too many projections can lead to excess storage, much like overusing Materialized Views. Projections share the same lifecycle as the main table, meaning they are automatically backfilled and don’t require query rewrites, which is particularly advantageous when integrating with BI tools.
+
+Projection parts are stored within the main table parts, and their merges occur simultaneously as the main table merges, ensuring data consistency without additional maintenance.
+
 ## Links
 
 * Amos Bird - kuaishou.com - Projections in ClickHouse. [slides](https://github.com/ClickHouse/clickhouse-presentations/blob/master/percona2021/projections.pdf). [video](https://youtu.be/jJ5VuLr2k5k?list=PLWhC0zeznqkkNYzcvHEfZ8hly3Cu9ojKk)
@@ -11,6 +18,7 @@ description: >
 * [tinybird blog article](https://blog.tinybird.co/2021/07/09/projections/) 
 * ClickHouse presentation on Projections https://www.youtube.com/watch?v=QDAJTKZT8y4
 * Blog video https://clickhouse.com/videos/how-to-a-clickhouse-query-using-projections
+
 
 ## Why is a projection not used?
 
@@ -68,8 +76,11 @@ Since version 24.8, it is controlled by a new table-level setting:
 
 [deduplicate_merge_projection_mode](https://clickhouse.com/docs/en/operations/settings/merge-tree-settings#deduplicate_merge_projection_mode) = 'throw'/'drop'/'rebuild'
 
+However, projection usage is still disabled for FINAL queries.  
 
-Since 24.7, we also have a setting to control the behavior w.r.t. lightweight deletes: lightweight_mutation_projection_mode.
+## Lightweight DELETEs with projections
+
+By default, DELETE does not work for tables with projections. This is because rows in a projection may be affected by a DELETE operation. But there is a MergeTree setting lightweight_mutation_projection_mode to change the behavior (Since 24.7)
 
 ## System tables
 
