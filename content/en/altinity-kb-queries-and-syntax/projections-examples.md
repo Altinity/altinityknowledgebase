@@ -10,6 +10,7 @@ description: >
 * [Documentation](https://clickhouse.tech/docs/en/engines/table-engines/mergetree-family/mergetree/#projections)
 * [tinybird blog article](https://blog.tinybird.co/2021/07/09/projections/) 
 * ClickHouse presentation on Projections https://www.youtube.com/watch?v=QDAJTKZT8y4
+* Blog video https://clickhouse.com/videos/how-to-a-clickhouse-query-using-projections
 
 ## Why is a projection not used?
 
@@ -24,7 +25,7 @@ CREATE TABLE test
     a Int64,
     ts DateTime,
     week alias toStartOfWeek(ts),
-    PROJECTION p
+    PROJECTION weekly_projection
     (
         SELECT week, sum(a) group by week
     )
@@ -35,8 +36,22 @@ insert into test
 select number, now()-number*100
 from numbers(1e7);
 
+--explain indexes=1
 select week, sum(a) from test group by week
 settings force_optimize_projection=1;
+```
+https://fiddle.clickhouse.com/7f331eb2-9408-4813-9c67-caef4cdd227d
+Explain result: ReadFromMergeTree (weekly_projection) 
+```
+Expression ((Project names + Projection))
+  Aggregating
+    Expression
+      ReadFromMergeTree (weekly_projection)
+      Indexes:
+        PrimaryKey
+          Condition: true
+          Parts: 9/9
+          Granules: 9/1223
 ```
 
 ## Recalculate on Merge
@@ -56,6 +71,33 @@ Since 24.7, we also have a setting to control the behavior w.r.t. lightweight de
 
 - system.projection_parts
 - system.projection_parts_columns
+
+```
+SELECT
+    database,
+    table,
+    name,
+    formatReadableSize(sum(data_compressed_bytes) AS size) AS compressed,
+    formatReadableSize(sum(data_uncompressed_bytes) AS usize) AS uncompressed,
+    round(usize / size, 2) AS compr_rate,
+    sum(rows) AS rows,
+    count() AS part_count
+FROM system.projection_parts
+WHERE active
+GROUP BY
+    database,
+    table,
+    name
+ORDER BY size DESC;
+```
+
+## how to receive list of tables with projections?
+
+```
+select database, table from system.tables
+where create_table_query ilike '%projection%'
+  and database <> 'system'
+```
 
 ## Examples  
 
