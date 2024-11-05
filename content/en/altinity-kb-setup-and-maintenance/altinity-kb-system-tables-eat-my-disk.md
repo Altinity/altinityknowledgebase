@@ -24,6 +24,7 @@ $ cat /etc/clickhouse-server/config.d/z_log_disable.xml
 <clickhouse>
     <asynchronous_metric_log remove="1"/>
     <backup_log remove="1"/>
+    <error_log remove="1"/>
     <metric_log remove="1"/>
     <query_thread_log remove="1" />  
     <query_log remove="1" />
