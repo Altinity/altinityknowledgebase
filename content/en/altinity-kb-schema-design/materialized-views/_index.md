@@ -85,6 +85,12 @@ So it will most probably work not as you expect and will hit insert performance 
 The MV will be attached (as AFTER INSERT TRIGGER) to the left-most table in the MV SELECT statement, and it will 'see' only freshly inserted rows there. It will 'see' the whole set of rows of other tables, and the query will be executed EVERY TIME you do the insert to the left-most table. That will impact the performance speed there significantly.
 If you really need to update the MV with the left-most table, not impacting the performance so much you can consider using dictionary / engine=Join / engine=Set for right-hand table / subqueries (that way it will be always in memory, ready to use).
 
+### Q. How are MVs executed sequentially or in parallel?
+
+By default, the execution is sequential and alphabetical.  It can be switched by [parallel_view_processing](https://clickhouse.com/docs/en/operations/settings/settings#parallel_view_processing).
+
+Parallel processing could be helpful if you have a lot of spare CPU power (cores) and want to utilize it. Add the setting to the insert statement or to the user profile. New blocks created by MVs will also follow the squashing logic similar to the one used in the insert, but they will use the min_insert_block_size_rows_for_materialized_views and min_insert_block_size_bytes_for_materialized_views settings.
+
 ### Q. How to alter MV implicit storage (w/o TO syntax)
 
 1) take the existing MV definition
