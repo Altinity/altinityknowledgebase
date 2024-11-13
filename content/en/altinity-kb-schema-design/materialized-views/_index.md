@@ -4,15 +4,15 @@ linkTitle: "MATERIALIZED VIEWS"
 description: >
     MATERIALIZED VIEWS
 ---
-{{% alert title="Info" color="info" %}}
-MATERIALIZED VIEWs in ClickHouse® behave like AFTER INSERT TRIGGER to the left-most table listed in its SELECT statement.
-{{% /alert %}}
 
+MATERIALIZED VIEWs in ClickHouse® behave like AFTER INSERT TRIGGER to the left-most table listed in their SELECT statement and never read data from disk. Only rows that are placed to the RAM buffer by INSERT are read.
 
-# MATERIALIZED VIEWS
+## Useful links
 
 * ClickHouse and the magic of materialized views. Basics explained with examples: [webinar recording](https://altinity.com/webinarspage/2019/6/26/clickhouse-and-the-magic-of-materialized-views)
-* Everything you should know about materialized views. Very detailed information about internals: [video](https://youtu.be/ckChUkC3Pns?t=9353), [annotated presentation](https://den-crane.github.io/Everything_you_should_know_about_materialized_views_commented.pdf), [presentation](https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup47/materialized_views.pdf)
+* Everything you should know about materialized views - [annotated presentation](https://den-crane.github.io/Everything_you_should_know_about_materialized_views_commented.pdf)
+* Very detailed information about internals: [video](https://youtu.be/ckChUkC3Pns?t=9353)
+* One more [presentation](https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup47/materialized_views.pdf)
 
 ## Best practices
 
@@ -55,15 +55,15 @@ MATERIALIZED VIEWs in ClickHouse® behave like AFTER INSERT TRIGGER to the left-
 
 Since MATERIALIZED VIEWs are updated on every INSERT to the underlying table and you can not insert anything to the usual VIEW, the materialized view update will never be triggered.
 
-Normally you should build MATERIALIZED VIEWs on the top of the table with MergeTree engine family.
+Normally, you should build MATERIALIZED VIEWs on the top of the table with the MergeTree engine family.
 
-### Q. I've created materialized error with some error, and since it's it reading from Kafka I don't understand where the error is
+### Q. I've created a materialized error with some error, and since it's reading from Kafka, I don't understand where the error is
 
-Server logs will help you. Also, see the next question.
+Look into system.query_views_log table or server logs, or system.text_log table. Also, see the next question.
 
 ### Q. How to debug misbehaving MATERIALIZED VIEW?
 
-You can also attach the same MV to some dummy table with engine=Log (or even Null) and do some manual inserts there to debug the behavior. Similar way (as the Materialized view often can contain some pieces of the business logic of the application) you can create tests for your schema.
+You can also attach the same MV to a dummy table with engine=Null and do manual inserts to debug the behavior. In a similar way (as the Materialized view often contains some pieces of the application's business logic), you can create tests for your schema.
 
 {{% alert title="Warning" color="warning" %}}
 Always test MATERIALIZED VIEWs first on staging or testing environments
