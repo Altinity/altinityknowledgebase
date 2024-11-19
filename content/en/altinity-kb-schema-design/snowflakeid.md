@@ -25,7 +25,8 @@ There are two primary methods to construct the lower bits of a Snowflake ID:
 
 2.	**Row Number in insert batch**
 
-         Utilizing the row number within data blocks provides a straightforward approach to generating unique identifiers.
+	Utilizing the row number within data blocks provides a straightforward approach to generating unique identifiers.
+         
 
 ### **Implementation as UDF**
 
