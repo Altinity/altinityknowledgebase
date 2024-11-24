@@ -22,6 +22,7 @@ Some insights about Async inserts you should now:
   * Async insert is fast sending ACK to clients unblocking them, because they have to wait until ACK is received. If your use case can handle data loss, you can use `wait_for_async_insert = 0` it will increase the throughput.
 * Async inserts generally have more `moving parts` there are some background threads monitoring new data to be sent and pushing it out.
 * Async inserts require extra monitoring from different system.tables (see `system.part_log`, `system.query_log`, `system.asynchronous_inserts` and `system_asynchronous_insert_log`).
+* The new `async_insert_use_adaptive_busy_timeout` setting enables adaptive async inserts starting in 24.3. It is turned on by default, and ClickHouse ignores manual settings like `async_insert_busy_timeout_ms`, which can be confusing. Turn off adaptive async inserts if you want deterministing behavior. (`async_insert_use_adaptive_busy_timeout = 0`)
 
 # features / improvements
 
@@ -63,7 +64,8 @@ This has been improved in **ClickHouse 23.7** Flush queries for async inserts (t
 ## Versions
 
 - **23.8** is a good version to start using async inserts because of the improvements and bugfixes. 
-- **24.3** the new adaptive timeout mechanism has been added so ClickHouse will throttle the inserts based on the server load.[#58486](https://github.com/ClickHouse/ClickHouse/pull/58486) This new feature is enabled by default and will OVERRRIDE current async insert settings, so better to disable it if your async insert settings are working.
+- **24.3** the new adaptive timeout mechanism has been added so ClickHouse will throttle the inserts based on the server load.[#58486](https://github.com/ClickHouse/ClickHouse/pull/58486) This new feature is enabled by default and will OVERRRIDE current async insert settings, so better to disable it if your async insert settings are working. Here's how to do it in a clickhouse-client session: `SET async_insert_use_adaptive_busy_timeout = 0;` You can also add it as a setting on the INSERT or as a profile setting. 
+
 
 ## Metrics
 
