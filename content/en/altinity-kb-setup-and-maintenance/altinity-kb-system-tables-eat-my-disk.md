@@ -6,7 +6,7 @@ description: >
 ---
 > **Note 1:** System database stores virtual tables (**parts**, **tables,** **columns, etc.**) and \***_log** tables.
 >
-> Virtual tables do not persist on disk. They reflect ClickHouse memory (c++ structures). They cannot be changed or removed.
+> Virtual tables do not persist on disk. They reflect ClickHouse® memory (c++ structures). They cannot be changed or removed.
 >
 > Log tables are named with postfix \***_log** and have the MergeTree engine. ClickHouse does not use information stored in these tables, this data is for you only.
 >
