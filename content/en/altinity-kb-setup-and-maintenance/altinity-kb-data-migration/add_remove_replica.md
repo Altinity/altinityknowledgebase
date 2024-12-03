@@ -102,6 +102,10 @@ sudo -u clickhouse clickhouse-backup --schema --rbac create_remote full-replica
 sudo -u clickhouse clickhouse-backup --schema --rbac restore_remote full-replica
 ```
 
+### Using `altinity operator`
+
+If there is at least one alive replica in the shard, you can remove PVCs and STS for affected nodes and trigger reconciliation. The operator will try to copy the schema from other replicas.
+
 ### Check that schema migration was successful and node is replicating
 
 - To check that the schema migration has been **successful** query system.replicas:

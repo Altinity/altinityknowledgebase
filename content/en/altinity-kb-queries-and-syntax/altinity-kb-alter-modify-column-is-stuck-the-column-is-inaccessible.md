@@ -6,13 +6,13 @@ description: >
 ---
 ## Problem
 
-You have table:
+You’ve created a table in ClickHouse with the following structure:
 
 ```sql
 CREATE TABLE modify_column(column_n String) ENGINE=MergeTree() ORDER BY tuple();
 ```
 
-Populate it with data:
+You populated the table with some data:
 
 ```sql
 INSERT INTO modify_column VALUES ('key_a');
@@ -20,13 +20,13 @@ INSERT INTO modify_column VALUES ('key_b');
 INSERT INTO modify_column VALUES ('key_c');
 ```
 
-Tried to apply alter table query with changing column type:
+Next, you attempted to change the column type using this query:
 
 ```sql
 ALTER TABLE modify_column MODIFY COLUMN column_n Enum8('key_a'=1, 'key_b'=2);
 ```
 
-But it didn’t succeed and you see an error in system.mutations table:
+However, the operation failed, and you encountered an error when inspecting the system.mutations table:
 
 ```sql
 SELECT *
@@ -51,7 +51,12 @@ latest_fail_time:           2021-03-03 18:38:59
 latest_fail_reason:         Code: 36, e.displayText() = DB::Exception: Unknown element 'key_c' for type Enum8('key_a' = 1, 'key_b' = 2): while executing 'FUNCTION CAST(column_n :: 0, 'Enum8(\'key_a\' = 1, \'key_b\' = 2)' :: 1) -> cast(column_n, 'Enum8(\'key_a\' = 1, \'key_b\' = 2)') Enum8('key_a' = 1, 'key_b' = 2) : 2': (while reading from part /var/lib/clickhouse/data/default/modify_column/all_3_3_0/): While executing MergeTree (version 21.3.1.6041)
 ```
 
-And you can’t query that column anymore:
+The mutation result showed an error indicating that the value 'key_c' was not recognized in the Enum8 definition:
+```sql
+Unknown element 'key_c' for type Enum8('key_a' = 1, 'key_b' = 2)
+```
+
+Now, when trying to query the column, ClickHouse returns an exception and the column becomes inaccessible:
 
 ```sql
 SELECT column_n
@@ -70,36 +75,54 @@ Received exception from server (version 21.3.1):
 Code: 36. DB::Exception: Received from localhost:9000. DB::Exception: Unknown element 'key_c' for type Enum8('key_a' = 1, 'key_b' = 2): while executing 'FUNCTION CAST(column_n :: 0, 'Enum8(\'key_a\' = 1, \'key_b\' = 2)' :: 1) -> cast(column_n, 'Enum8(\'key_a\' = 1, \'key_b\' = 2)') Enum8('key_a' = 1, 'key_b' = 2) : 2': (while reading from part /var/lib/clickhouse/data/default/modify_column/all_3_3_0/): While executing MergeTreeThread.
 ```
 
+This query results in:
+```sql
+Code: 36. DB::Exception: Unknown element 'key_c' for type Enum8('key_a' = 1, 'key_b' = 2)
+```
+
+### Root Cause
+The failure occurred because the Enum8 type only allows for predefined values. Since 'key_c' wasn't included in the definition, the mutation failed and left the table in an inconsistent state.
+
 ### Solution
 
-You should do the following:
-
-Check which mutation is stuck and kill it:
+1. Identify and Terminate the Stuck Mutation
+First, you need to locate the mutation that’s stuck in an incomplete state.
 
 ```sql
 SELECT * FROM system.mutations WHERE table = 'modify_column' AND is_done=0 FORMAT Vertical;
-KILL MUTATION WHERE table = 'modify_column' AND mutation_id = 'id_of_stuck_mutation';
 ```
 
-Apply reverting modify column query to convert table to previous column type:
+Once you’ve identified the mutation, terminate it using:
+```sql
+KILL MUTATION WHERE table = 'modify_column' AND mutation_id = 'id_of_stuck_mutation';
+```
+This will stop the operation and allow you to revert the changes.
+
+2. Revert the Column Type
+Next, revert the column back to its original type, which was String, to restore the table’s accessibility:
 
 ```sql
 ALTER TABLE modify_column MODIFY COLUMN column_n String;
 ```
 
-Check if column is accessible now:
+3. Verify the Column is Accessible Again
+To ensure the column is functioning normally, run a simple query to verify its data:
 
 ```sql
 SELECT column_n, count() FROM modify_column GROUP BY column_n;
 ```
 
-Run fixed ALTER MODIFY COLUMN query.
+4. Apply the Correct Column Modification
+Now that the column is accessible, you can safely reapply the ALTER query, but this time include all the required enum values:
 
 ```sql
 ALTER TABLE modify_column MODIFY COLUMN column_n Enum8('key_a'=1, 'key_b'=2, 'key_c'=3);
 ```
 
-You can monitor progress of column type change with system.mutations or system.parts_columns tables:
+5. Monitor Progress
+You can monitor the progress of the column modification using the system.mutations or system.parts_columns tables to ensure everything proceeds as expected:
+
+To track mutation progress:
 
 ```sql
 SELECT
@@ -107,8 +130,12 @@ SELECT
     parts_to_do,
     is_done
 FROM system.mutations
-WHERE table = 'modify_column'
+WHERE table = 'modify_column';
+```
 
+To review the column's active parts:
+
+```sql
 SELECT
     column,
     type,
@@ -119,5 +146,5 @@ FROM system.parts_columns
 WHERE (table = 'modify_column') AND (column = 'column_n') AND active
 GROUP BY
     column,
-    type
+    type;
 ```

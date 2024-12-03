@@ -10,12 +10,18 @@ An insert will create one part if:
 
 * Data is inserted directly into a MergeTree table
 * Data is inserted into a single partition.
+* Smaller blocks are properly squashed up to the configured block size (`min_insert_block_size_rows` and `min_insert_block_size_bytes`)
 * For INSERT FORMAT:
     * Number of rows is less than `max_insert_block_size` (default is `1048545`) 
     * Parallel formatting is disabled (For TSV, TSKV, CSV, and JSONEachRow formats setting `input_format_parallel_parsing=0` is set).
-* For INSERT SELECT:
-    * Number of rows is less than `max_block_size`
-* Smaller blocks are properly squashed up to the configured block size (`min_insert_block_size_rows` and `min_insert_block_size_bytes`)
+* For INSERT SELECT (including all variants with table functions), data for insert should be created fully deterministically. 
+    * non-deterministic functions there like rand() not used in SELECT 
+    * Number of rows/bytes is less than `min_insert_block_size_rows` and `min_insert_block_size_bytes`
+    * And one of:
+        * setting max_threads to 1
+        * adding ORDER BY to the table's DDL (not ordering by tuple)
+        * There is some ORDER BY inside SELECT
+    * See [example](https://fiddle.clickhouse.com/48d38d3d-668d-4513-ba21-e595276b3136)
 * The MergeTree table doesn't have Materialized Views (there is no atomicity Table <> MV)
 
 https://github.com/ClickHouse/ClickHouse/issues/9195#issuecomment-587500824

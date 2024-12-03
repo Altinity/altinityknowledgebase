@@ -101,3 +101,11 @@ spec:
           containers:
             - name: clickhouse-backup
 ```
+
+For EC2 instances the same environment variables should be created:
+
+```
+AWS_ROLE_ARN=arn:aws:iam::<ACCOUNT_ID>:role/<ROLE_NAME>
+AWS_WEB_IDENTITY_TOKEN_FILE=/var/run/secrets/eks.amazonaws.com/serviceaccount/token
+```
+

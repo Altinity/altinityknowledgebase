@@ -6,13 +6,13 @@ description: >
 ---
 > **Note 1:** System database stores virtual tables (**parts**, **tables,** **columns, etc.**) and \***_log** tables.
 >
-> Virtual tables do not persist on disk. They reflect ClickHouse memory (c++ structures). They cannot be changed or removed.
+> Virtual tables do not persist on disk. They reflect ClickHouse® memory (c++ structures). They cannot be changed or removed.
 >
 > Log tables are named with postfix \***_log** and have the MergeTree engine. ClickHouse does not use information stored in these tables, this data is for you only.
 >
 > You can drop / rename / truncate \***_log** tables at any time. ClickHouse will recreate them in about 7 seconds (flush period).
 
-> **Note 2:** Log tables with numeric postfixes (_1 / 2 / 3 ...) `query_log_1 query_thread_log_3` are results of ClickHouse upgrades. When a new version of ClickHouse starts and discovers that a system log table's schema is incompatible with a new schema, then ClickHouse renames the old *_log table to the name with the prefix and creates a table with the new schema. You can drop such tables if you don't need such historic data.
+> **Note 2:** Log tables with numeric postfixes (_1 / 2 / 3 ...) `query_log_1 query_thread_log_3` are results of ClickHouse upgrades (or other changes of schemas of these tables). When a new version of ClickHouse starts and discovers that a system log table's schema is incompatible with a new schema, then ClickHouse renames the old *_log table to the name with the prefix and creates a table with the new schema. You can drop such tables if you don't need such historic data.
 
 ## You can disable all / any of them
 
@@ -24,6 +24,7 @@ $ cat /etc/clickhouse-server/config.d/z_log_disable.xml
 <clickhouse>
     <asynchronous_metric_log remove="1"/>
     <backup_log remove="1"/>
+    <error_log remove="1"/>
     <metric_log remove="1"/>
     <query_thread_log remove="1" />  
     <query_log remove="1" />

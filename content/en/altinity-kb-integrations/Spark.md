@@ -65,7 +65,6 @@ https://www.cnblogs.com/mengyao/p/4689866.html
 * Yandex DataProc demo: loading files from S3 to ClickHouse with Spark (Russian) https://www.youtube.com/watch?v=N3bZW0_rRzI
 * ClickHouse official documentation_Spark JDBC writes some pits of ClickHouse (Chinese: ClickHouse官方文档_Spark JDBC写ClickHouse的一些坑) https://blog.csdn.net/weixin_39615984/article/details/111206050
 * ClickHouse data import: Flink, Spark, Kafka, MySQL, Hive (Chinese: 篇五|ClickHouse数据导入 Flink、Spark、Kafka、MySQL、Hive) https://zhuanlan.zhihu.com/p/299094269 
-* Baifendian Big Data Technical Team: Practice of ClickHouse data synchronization solutionbased on multiple Spark tasks (Chinese: 百分点大数据技术团队：基于多 Spark 任务的 ClickHouse 数据同步方案实践) https://www.6aiq.com/article/1635461873075
 * SPARK-CLICKHOUSE-ES REAL-TIME PROJECT EIGHTH DAY-PRECISE ONE-TIME CONSUMPTION SAVE OFFSET. (Chinese: SPARK-CLICKHOUSE-ES实时项目第八天-精确一次性消费保存偏移量) https://www.freesion.com/article/71421322524/
 * HDFS+ClickHouse+Spark: A lightweight big data analysis system from 0 to 1. (Chinese: HDFS+ClickHouse+Spark：从0到1实现一款轻量级大数据分析系统) https://juejin.cn/post/6850418114962653198
 * ClickHouse Clustering for Spark Developer (English) http://blog.madhukaraphatak.com/clickouse-clustering-spark-developer/

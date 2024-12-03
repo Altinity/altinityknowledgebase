@@ -108,7 +108,7 @@ There are some variants in new 23 versions of this procedure using (`SYSTEM DROP
 ```sql
 SELECT DISTINCT 'DETACH TABLE  ' || database || '.' || table || ' ON CLUSTER \'data\';' FROM clusterAllReplicas('data',system.replicas) WHERE active_replicas < total_replicas FORMAT TSVRaw;
 
-SELECT DISTINCT 'SYSTEM DROP REPLICA \'' || replica_name || \' FROM ZKPATH \'' || zookeeper_path || '\';' FROM clusterAllReplicas('data',system.replicas) WHERE active_replicas < total_replicas FORMAT TSVRaw;
+SELECT DISTINCT 'SYSTEM DROP REPLICA \'' || replica_name || '\' FROM ZKPATH \'' || zookeeper_path || '\';' FROM clusterAllReplicas('data',system.replicas) WHERE active_replicas < total_replicas FORMAT TSVRaw;
 
 SELECT DISTINCT 'ATTACH TABLE  ' || database || '.' || table || ' ON CLUSTER \'data\';' FROM clusterAllReplicas('data',system.replicas) WHERE active_replicas < total_replicas FORMAT TSVRaw;
 

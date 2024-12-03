@@ -8,7 +8,7 @@ description: >-
 
 ## Why inserts into materialized views are not idempotent?
 
-ClickHouse® still does not have transactions. They will be implemented around 2022Q2.
+ClickHouse® still does not have transactions. They were to be implemented around 2022Q2 but still not in the roadmap.
 
 Because of ClickHouse materialized view is a trigger. And an insert into a table and an insert into a subordinate materialized view it's two different inserts so they are not atomic altogether. 
 
@@ -18,7 +18,7 @@ and insertion will be skipped into the source table because of deduplication but
 by default materialized view inherits deduplication from the source table. 
 It's controlled by a parameter `deduplicate_blocks_in_dependent_materialized_views` https://clickhouse.com/docs/en/operations/settings/settings/#settings-deduplicate-blocks-in-dependent-materialized-views
 
-If your materialized view is wide enough and always have enought data for consistent deduplication then you can enable `deduplicate_blocks_in_dependent_materialized_views`.
+If your materialized view is wide enough and always has enough data for consistent deduplication then you can enable `deduplicate_blocks_in_dependent_materialized_views`.
 Or you may add information for deduplication (some unique information / insert identifier).
 
 ### Example 1. Inconsistency with deduplicate_blocks_in_dependent_materialized_views 0

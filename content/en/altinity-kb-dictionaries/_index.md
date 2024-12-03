@@ -20,7 +20,3 @@ https://altinity.com/blog/2020/5/19/clickhouse-dictionaries-reloaded
 
 And some videos:
 https://www.youtube.com/watch?v=FsVrFbcyb84
-
-Also there are 3rd party articles on the same subj.
-https://prog.world/how-to-create-and-use-dictionaries-in-clickhouse/
-
