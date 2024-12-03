@@ -370,10 +370,6 @@ In order to setup prometheus as a backend for all the asynchronous_metric_log / 
 
 There is an admin user by default in the deployment that is used to admin stuff
 
-## Multi-Tier Storage
-
-https://altinity.zendesk.com/agent/tickets/2660
-
 ## KUBECTL chi basic comands:
 
 ```bash
