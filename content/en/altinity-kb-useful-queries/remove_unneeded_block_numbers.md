@@ -38,3 +38,39 @@ SELECT distinct concat('delete ', zk.block_numbers_path, zk.partition_id) FROM
 ) t
 FORMAT TSVRaw;
 ```
+
+## After 24.3
+
+```
+WITH 
+  now() - INTERVAL 120 DAY as retain_old_partitions,
+  replicas AS (SELECT DISTINCT database, table, zookeeper_path || '/block_numbers' AS block_numbers_path FROM system.replicas),
+  zk_data AS (SELECT DISTINCT name as partition_id, path as block_numbers_path FROM system.zookeeper WHERE path IN (SELECT block_numbers_path FROM replicas) AND mtime < retain_old_partitions AND partition_id <> 'all'),
+  zk_partitions AS (SELECT DISTINCT database, table, partition_id FROM replicas JOIN zk_data USING block_numbers_path),
+  partitions AS (SELECT DISTINCT database, table, partition_id FROM system.parts)
+SELECT 
+  format('ALTER TABLE `{}`.`{}` {};',database, table, arrayStringConcat( arraySort(groupArray('FORGET PARTITION ID \'' || partition_id || '\'')), ', ')) AS query
+FROM zk_partitions
+WHERE (database, table, partition_id) NOT IN (SELECT * FROM partitions) 
+GROUP BY database, table
+ORDER BY database, table
+FORMAT TSVRaw;
+```
+
+## After fixing https://github.com/ClickHouse/ClickHouse/issues/72807
+
+```
+WITH 
+  now() - INTERVAL 120 DAY as retain_old_partitions,
+  replicas AS (SELECT DISTINCT database, table, zookeeper_path || '/block_numbers' AS block_numbers_path FROM clusterAllReplicas('{cluster}',system.replicas)),
+  zk_data AS (SELECT DISTINCT name as partition_id, path as block_numbers_path FROM system.zookeeper WHERE path IN (SELECT block_numbers_path FROM replicas) AND mtime < retain_old_partitions AND partition_id <> 'all'),
+  zk_partitions AS (SELECT DISTINCT database, table, partition_id FROM replicas JOIN zk_data USING block_numbers_path),
+  partitions AS (SELECT DISTINCT database, table, partition_id FROM clusterAllReplicas('{cluster}',system.parts))
+SELECT 
+  format('ALTER TABLE `{}`.`{}` ON CLUSTER \'{{cluster}}\' {};',database, table, arrayStringConcat( arraySort(groupArray('FORGET PARTITION ID \'' || partition_id || '\'')), ', ')) AS query
+FROM zk_partitions
+WHERE (database, table, partition_id) NOT IN (SELECT * FROM partitions) 
+GROUP BY database, table
+ORDER BY database, table
+FORMAT TSVRaw;
+```
