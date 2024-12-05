@@ -1,9 +1,12 @@
 ---
 title: "How to pick an ORDER BY / PRIMARY KEY / PARTITION BY for the MergeTree family table"
-linkTitle: "Proper ordering and partitioning the MergeTree tables"
+linkTitle: "Proper ordering and partitioning MergeTree tables"
+keywords:
+- order by clickhouse
+- clickhouse partition by
 weight: 100
 description: >-
-     How to pick an ORDER BY / PRIMARY KEY / PARTITION BY for the MergeTree table.
+     How to pick an ORDER BY / PRIMARY KEY / PARTITION BY for MergeTree table.
 ---
 
 Good `order by` usually have 3 to 5 columns, from lowest cardinal on the left (and the most important for filtering) to highest cardinal (and less important for filtering).
