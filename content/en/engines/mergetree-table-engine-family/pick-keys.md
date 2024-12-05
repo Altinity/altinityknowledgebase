@@ -1,12 +1,12 @@
 ---
 title: "How to pick an ORDER BY / PRIMARY KEY / PARTITION BY for the MergeTree family table"
-linkTitle: "Proper ordering and partitioning MergeTree tables"
+linkTitle: "Properly ordering and partitioning MergeTree tables"
 keywords:
-- order by clickhouse
-- clickhouse partition by
+  - order by clickhouse
+  - clickhouse partition by
 weight: 100
 description: >-
-     How to pick an ORDER BY / PRIMARY KEY / PARTITION BY for MergeTree tables.
+  Optimizing ClickHouse® MergeTree tables
 ---
 
 Good `order by` usually have 3 to 5 columns, from lowest cardinal on the left (and the most important for filtering) to highest cardinal (and less important for filtering).
@@ -16,13 +16,13 @@ Practical approach to create an good ORDER BY for a table:
 1. Pick the columns you use in filtering always
 2. The most important for filtering and the lowest cardinal should be the left-most. Typically it's something like `tenant_id`
 3. Next column is more cardinal, less important. It can be rounded time sometimes, or `site_id`, or `source_id`, or `group_id` or something similar.
-4. repeat p.3 once again (or few times)
-5. if you added already all columns important for filtering and you still not addressing a single row with you pk - you can add more columns which can help to put similar records close to each other (to improve the compression)
-6. if you have something like hierarchy / tree-like relations between the columns - put there the records from 'root' to 'leaves' for example (continent, country, cityname). This way ClickHouse® can do lookup by country / city even if continent is not specified (it will just 'check all continents')
+4. Repeat step 3 once again (or a few times)
+5. If you already added all columns important for filtering and you're still not addressing a single row with your pk - you can add more columns which can help to put similar records close to each other (to improve the compression)
+6. If you have something like hierarchy / tree-like relations between the columns - put there the records from 'root' to 'leaves' for example (continent, country, cityname). This way ClickHouse® can do lookup by country / city even if continent is not specified (it will just 'check all continents')
 special variants of MergeTree may require special ORDER BY to make the record unique etc.
 7. For [timeseries](https://altinity.com/blog/2019-5-23-handling-variable-time-series-efficiently-in-clickhouse) it usually make sense to put timestamp as latest column in ORDER BY, it helps with putting the same data near by for better locality. There is only 2 major patterns  for timestamps in ORDER BY: (..., toStartOf(Day|Hour|...)(timestamp), ..., timestamp) and (..., timestamp). First one is useful when your often query small part of table partition. (table partitioned by months and your read only 1-4 days 90% of times)
 
-Some examples of good order by
+Some examples of good `ORDER BY`: 
 ```
 ORDER BY (tenantid, site_id, utm_source, clientid, timestamp)
 ```
@@ -32,7 +32,7 @@ ORDER BY (site_id, toStartOfHour(timestamp), sessionid, timestamp )
 PRIMARY KEY (site_id, toStartOfHour(timestamp), sessionid)
 ```
 
-
+(FWIW, the Altinity blog has [a great article on the LowCardinality datatype](https://altinity.com/blog/2019-3-27-low-cardinality).)
 
 ### For Summing / Aggregating
 
@@ -93,7 +93,7 @@ ORDER BY col1, col2
 FORMAT `Null`
 ```
 
-Here for the filtering it will use the skipping index to select the parts `WHERE col1 > xxx` and the result wont be need to be ordered because the `ORDER BY` in the query aligns with the `ORDER BY` in the table and the data is already ordered in disk. 
+Here for the filtering it will use the skipping index to select the parts `WHERE col1 > xxx` and the result won't be need to be ordered because the `ORDER BY` in the query aligns with the `ORDER BY` in the table and the data is already ordered in disk. (FWIW, Alexander Zaitsev and Mikhail Filimonov wrote [a great post on skipping indexes and how they work](https://altinity.com/blog/clickhouse-black-magic-skipping-indices) for the Altinity blog.)
 
 ```bash
 executeQuery: (from [::ffff:192.168.11.171]:39428, user: admin) SELECT * FROM order_test WHERE col1 > toDateTime('2020-10-01') ORDER BY col1,col2 FORMAT Null; (stage: Complete)
@@ -199,6 +199,8 @@ Ok.
 
 ## PARTITION BY 
 
+Things to consider: 
+
 * Good size for single partition is something like 1-300Gb.
 * For Summing/Replacing a bit smaller (400Mb-40Gb)
 * Better to avoid touching more that few dozens of partitions with typical SELECT query.
@@ -227,12 +229,7 @@ PARTITION BY userid % 16
 
 For the small tables (smaller than few gigabytes) partitioning is usually not needed at all (just skip `PARTITION BY` expression when you create the table).
 
-### See also
+## See also
 
-[How to change ORDER BY](/altinity-kb-schema-design/change-order-by/)
-
-### ClickHouse Anti-Patterns. Learning from Users' Mistakes
-
-A short talk by Mikhail Filimonov
-
-https://youtu.be/DP7l6Swkskw?t=3777
+* [How to change ORDER BY](/altinity-kb-schema-design/change-order-by/)
+* [ClickHouse Anti-Patterns: Learning from Users\' Mistakes](https://youtu.be/DP7l6Swkskw?t=3777), a short talk by Mikhail Filimonov

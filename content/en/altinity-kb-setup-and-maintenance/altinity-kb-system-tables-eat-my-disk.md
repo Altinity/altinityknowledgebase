@@ -1,18 +1,20 @@
 ---
 title: "System tables ate my disk"
-linkTitle: "System tables ate my disk"
+linkTitle: "Regulating the size of System tables"
 description: >
-    System tables ate my disk
+    When the ClickHouse® SYSTEM database gets out of hand
+keywords: 
+  - clickhouse system tables
 ---
 > **Note 1:** System database stores virtual tables (**parts**, **tables,** **columns, etc.**) and \***_log** tables.
 >
 > Virtual tables do not persist on disk. They reflect ClickHouse® memory (c++ structures). They cannot be changed or removed.
 >
-> Log tables are named with postfix \***_log** and have the MergeTree engine. ClickHouse does not use information stored in these tables, this data is for you only.
+> Log tables are named with postfix \***_log** and have the [MergeTree engine](/engines/mergetree-table-engine-family/). ClickHouse does not use information stored in these tables, this data is for you only.
 >
 > You can drop / rename / truncate \***_log** tables at any time. ClickHouse will recreate them in about 7 seconds (flush period).
 
-> **Note 2:** Log tables with numeric postfixes (_1 / 2 / 3 ...) `query_log_1 query_thread_log_3` are results of ClickHouse upgrades (or other changes of schemas of these tables). When a new version of ClickHouse starts and discovers that a system log table's schema is incompatible with a new schema, then ClickHouse renames the old *_log table to the name with the prefix and creates a table with the new schema. You can drop such tables if you don't need such historic data.
+> **Note 2:** Log tables with numeric postfixes (_1 / 2 / 3 ...) `query_log_1 query_thread_log_3` are results of [ClickHouse upgrades](https://altinity.com/clickhouse-upgrade-overview/) (or other changes of schemas of these tables). When a new version of ClickHouse starts and discovers that a system log table's schema is incompatible with a new schema, then ClickHouse renames the old *_log table to the name with the prefix and creates a table with the new schema. You can drop such tables if you don't need such historic data.
 
 ## You can disable all / any of them
 
@@ -99,7 +101,7 @@ Important part here is a daily partitioning `PARTITION BY (event_date)` in this 
 
 Usual TTL processing (when table partitioned by toYYYYMM and TTL by day) is heavy CPU / Disk I/O consuming operation which re-writes data parts without expired rows.
 
-You can add TTL without ClickHouse restart (and table dropping or renaming):
+You can [add TTL without ClickHouse restart](/altinity-kb-queries-and-syntax/ttl/modify-ttl/) (and table dropping or renaming):
 
 ```sql
 ALTER TABLE system.query_log MODIFY TTL event_date + INTERVAL 14 DAY;
@@ -122,7 +124,7 @@ $ cat /etc/clickhouse-server/config.d/query_log_ttl.xml
     </query_log>
 </clickhouse>
 ```
-💡 For the clickhouse-operator, the above method of using only the `<engine>` tag without `<ttl>` or `<partition>` is recommended, because of possible configuration clashes.
+💡 For the [clickhouse-operator](https://github.com/Altinity/clickhouse-operator/blob/master/README.md), the above method of using only the `<engine>` tag without `<ttl>` or `<partition>` is recommended, because of possible configuration clashes.
 
 After that you need to restart ClickHouse and *if using old clickhouse versions like 20 or less*, drop or rename the existing system.query_log table and then CH creates a new table with these settings. This is automatically done in newer versions 21+.
 

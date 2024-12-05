@@ -3,6 +3,9 @@ title: "PIVOT / UNPIVOT"
 linkTitle: "PIVOT / UNPIVOT"
 description: >
     PIVOT / UNPIVOT
+keywords: 
+  - clickhouse pivot
+  - clickhouse unpivot
 ---
 ## PIVOT
 
