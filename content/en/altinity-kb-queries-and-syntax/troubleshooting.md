@@ -7,14 +7,19 @@ description: >
 
 Tips for ClickHouse® troubleshooting 
 
-## Log of query execution
+### Query Execution Logging
 
-Controlled by session level setting `send_logs_level`
+When troubleshooting query execution in ClickHouse, one of the most useful tools is logging the query execution details. This can be controlled using the session-level setting `send_logs_level`. Here are the different log levels you can use:
 Possible values: `'trace', 'debug', 'information', 'warning', 'error', 'fatal', 'none'`
-Can be used with [clickhouse-client](https://docs.altinity.com/altinitycloud/altinity-cloud-connections/clickhouseclient/) in both interactive and non-interactive mode.
+
+This can be used with [clickhouse-client](https://docs.altinity.com/altinitycloud/altinity-cloud-connections/clickhouseclient/) in both interactive and non-interactive mode.
+
+The logs provide detailed information about query execution, making it easier to identify issues or bottlenecks. You can use the following command to run a query with logging enabled:
 
 ```bash
 $ clickhouse-client -mn --send_logs_level='trace' --query "SELECT sum(number) FROM numbers(1000)"
+
+-- output -- 
 [LAPTOP] 2021.04.29 00:05:31.425842 [ 25316 ] {14b0646d-8a6e-4b2f-9b13-52a218cf43ba} <Debug> executeQuery: (from 127.0.0.1:42590, using production parser) SELECT sum(number) FROM numbers(1000)
 [LAPTOP] 2021.04.29 00:05:31.426281 [ 25316 ] {14b0646d-8a6e-4b2f-9b13-52a218cf43ba} <Trace> ContextAccess (default): Access granted: CREATE TEMPORARY TABLE ON *.*
 [LAPTOP] 2021.04.29 00:05:31.426648 [ 25316 ] {14b0646d-8a6e-4b2f-9b13-52a218cf43ba} <Trace> InterpreterSelectQuery: FetchColumns -> Complete
@@ -25,9 +30,17 @@ $ clickhouse-client -mn --send_logs_level='trace' --query "SELECT sum(number) FR
 [LAPTOP] 2021.04.29 00:05:31.427875 [ 25316 ] {14b0646d-8a6e-4b2f-9b13-52a218cf43ba} <Information> executeQuery: Read 1000 rows, 7.81 KiB in 0.0019463 sec., 513795 rows/sec., 3.92 MiB/sec.
 [LAPTOP] 2021.04.29 00:05:31.427898 [ 25316 ] {14b0646d-8a6e-4b2f-9b13-52a218cf43ba} <Debug> MemoryTracker: Peak memory usage (for query): 0.00 B.
 499500
+```
 
+You can also redirect the logs to a file for further analysis:
+```bash
 $ clickhouse-client -mn --send_logs_level='trace' --query "SELECT sum(number) FROM numbers(1000)" 2> ./query.log
 ```
+
+### Analyzing Logs in System Tables
+If you need to analyze the logs after executing a query, you can query the system tables to retrieve the execution details.
+
+Query Log: You can fetch query logs from the `system.query_log` table:
 
 ```sql
 LAPTOP.localdomain :) SET send_logs_level='trace';
@@ -63,9 +76,12 @@ Query id: d3db767b-34e9-4252-9f90-348cf958f822
 1 rows in set. Elapsed: 0.007 sec. Processed 1.00 thousand rows, 8.00 KB (136.43 thousand rows/s., 1.09 MB/s.)
 ```
 
-## system tables
+## Analyzing Logs in System Tables
+
 
 ```sql
+# Query Log: You can fetch query logs from the system.query_log table:
+
 SELECT sum(number)
 FROM numbers(1000);
 
@@ -81,13 +97,15 @@ SELECT *
 FROM system.query_log
 WHERE (event_date = today()) AND (query_id = '34c61093-3303-47d0-860b-0d644fa7264b');
 
-If query_thread_log enabled (SET log_query_threads = 1)
+# Query Thread Log: If thread-level logging is enabled (log_query_threads = 1), retrieve logs using:
+# To capture detailed thread-level logs, enable log_query_threads: (SET log_query_threads = 1;)
 
 SELECT *
 FROM system.query_thread_log
 WHERE (event_date = today()) AND (query_id = '34c61093-3303-47d0-860b-0d644fa7264b');
 
-If opentelemetry_span_log enabled (SET opentelemetry_start_trace_probability = 1, opentelemetry_trace_processors = 1) 
+# OpenTelemetry Span Log: For detailed tracing with OpenTelemetry, if enabled (opentelemetry_start_trace_probability = 1), use:
+# To enable OpenTelemetry tracing for queries, set: (SET opentelemetry_start_trace_probability = 1, opentelemetry_trace_processors = 1) 
 
 SELECT *
 FROM system.opentelemetry_span_log
@@ -100,10 +118,9 @@ WHERE (trace_id, finish_date) IN (
 );
 ```
 
+### Visualizing Query Performance with Flamegraphs
 
-
-## Flamegraph
-
+ClickHouse supports exporting query performance data in a format compatible with speedscope.app. This can help you visualize performance bottlenecks within queries. Example query to generate a flamegraph:
 [https://www.speedscope.app/](https://www.speedscope.app/)
 
 ```sql
@@ -147,3 +164,4 @@ SETTINGS allow_introspection_functions = 1, output_format_json_named_tuples_as_o
 FORMAT JSONEachRow
 SETTINGS output_format_json_named_tuples_as_objects = 1
 ```
+By enabling detailed logging and tracing, you can effectively diagnose issues and optimize query performance in ClickHouse.
