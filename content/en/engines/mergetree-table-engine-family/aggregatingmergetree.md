@@ -119,3 +119,57 @@ SELECT id,colA FROM Kafka_A;
 CREATE MATERIALIZED VIEW mv_B TO table_C AS
 SELECT id,colB FROM Kafka_B;
 ```
+
+Here is a more complicated example ( from here https://gist.github.com/den-crane/d03524eadbbce0bafa528101afa8f794)
+```
+CREATE TABLE states_raw(
+    d date,
+    uid UInt64,
+    first_name String,
+    last_name String,
+    modification_timestamp_mcs DateTime64(3) default now64(3)
+) ENGINE = Null;
+
+CREATE TABLE final_states_by_month(
+    d date,
+    uid UInt64,
+    final_first_name      AggregateFunction(argMax, String, DateTime64(3)),
+    final_last_name      AggregateFunction(argMax, String, DateTime64(3)))
+ENGINE = AggregatingMergeTree
+PARTITION BY toYYYYMM(d)
+ORDER BY (uid, d);
+
+CREATE MATERIALIZED VIEW final_states_by_month_mv TO final_states_by_month AS
+SELECT
+    d, uid,
+    argMaxState(first_name, if(first_name<>'', modification_timestamp_mcs, toDateTime64(0,3))) AS final_first_name,
+    argMaxState(last_name, if(last_name<>'', modification_timestamp_mcs, toDateTime64(0,3)))   AS final_last_name
+FROM states_raw
+GROUP BY d, uid;
+
+
+insert into states_raw(d,uid,first_name) values (today(), 1, 'Tom');
+insert into states_raw(d,uid,last_name) values (today(),  1, 'Jones');
+insert into states_raw(d,uid,first_name,last_name) values (today(), 2, 'XXX', '');
+insert into states_raw(d,uid,first_name,last_name) values (today(), 2, 'YYY', 'YYY');
+
+
+select uid, argMaxMerge(final_first_name) first_name, argMaxMerge(final_last_name) last_name 
+from final_states_by_month group by uid
+
+┌─uid─┬─first_name─┬─last_name─┐
+│   2 │ YYY        │ YYY       │
+│   1 │ Tom        │ Jones     │
+└─────┴────────────┴───────────┘
+
+optimize table final_states_by_month final;
+
+select uid, finalizeAggregation(final_first_name) first_name, finalizeAggregation(final_last_name) last_name 
+from final_states_by_month 
+
+┌─uid─┬─first_name─┬─last_name─┐
+│   1 │ Tom        │ Jones     │
+│   2 │ YYY        │ YYY       │
+└─────┴────────────┴───────────┘
+```
+
