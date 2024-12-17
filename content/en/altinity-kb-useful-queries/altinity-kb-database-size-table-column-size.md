@@ -3,6 +3,9 @@ title: "Database Size - Table - Column size"
 linkTitle: "Database Size - Table - Column size"
 description: >
     Database Size - Table - Column size
+keywords:
+  - clickhouse database size
+  - clickhouse table size
 ---
 ## Tables
 
