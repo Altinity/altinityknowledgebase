@@ -3,6 +3,9 @@ title: "Server config files"
 linkTitle: "Server config files"
 description: >
     How to manage server config files in ClickHouse®
+keywords:
+  - clickhouse config.xml
+  - clickhouse configuration
 ---
 
 ## Сonfig management (recommended structure)
