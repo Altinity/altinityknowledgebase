@@ -48,7 +48,7 @@ Tuning:
 * examples of tuning ZFS for MySQL https://wiki.freebsd.org/ZFSTuningGuide - perhaps some of this can also be useful (atime, recordsize) but everything needs to be carefully checked with benchmarks (I have no way).
 * best practices: https://efim360.ru/zfs-best-practices-guide/
   
-**important note**: ZFS does not support the `renameat2` command, which is used by the Atomic database engine, and
+**important note**: In versions before 2.2 ZFS does not support the `renameat2` command, which is used by the Atomic database engine, and
 therefore some of the Atomic functionality will not be available. 
 
 In old versions of ClickHouse, you can face issues with the O_DIRECT mode.
