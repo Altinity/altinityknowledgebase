@@ -3,6 +3,9 @@ title: "Suspiciously many broken parts"
 linkTitle: "Suspiciously many broken parts"
 description: >
     Suspiciously many broken parts error during the server startup.
+keywords:
+  - clickhouse broken parts
+  - clickhouse too many parts
 ---
 
 ## Symptom:
