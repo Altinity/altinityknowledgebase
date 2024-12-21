@@ -78,6 +78,38 @@ Since version 24.8, it is controlled by a new table-level setting:
 
 However, projection usage is still disabled for FINAL queries.  
 
+```
+CREATE TABLE users (uid Int16, name String, age Int16,
+  projection xx (
+     select name,uid,age order by name
+  )
+) ENGINE=ReplacingMergeTree order by uid
+settings deduplicate_merge_projection_mode='rebuild'
+  ;
+
+INSERT INTO users
+SELECT 
+    number AS uid,
+    concat('User_', toString(uid)) AS name,
+    (number % 100) + 18 AS age  
+FROM numbers(100000);
+
+INSERT INTO users
+SELECT 
+    number AS uid,
+    concat('User_', toString(uid)) AS name,
+    (number % 100) + 180 AS age  
+FROM numbers(100000);
+
+optimize table users final ;
+
+SELECT name,uid,age FROM users 
+where name ='User_98304' 
+  settings force_optimize_projection=1;
+```
+https://fiddle.clickhouse.com/7b08cbb2-8e1f-4bf8-922e-19be0ff95f58
+
+
 ## Lightweight DELETEs with projections
 
 By default, DELETE does not work for tables with projections. This is because rows in a projection may be affected by a DELETE operation. But there is a MergeTree setting lightweight_mutation_projection_mode to change the behavior (Since 24.7)
