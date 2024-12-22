@@ -26,12 +26,11 @@ A query analyzer should have a reason for using projection.
 
 - the query should use ONLY the columns defined in the projection.
 - for ORDER BY projection WHERE statement referring to a column should be in the query
-- If expressions are used instead of plain column names, the query should use the exact expression as defined in the projection with the same functions and modifiers. Use column aliases to make the query the very same as in the projection definition:
 - FINAL queries do not work with projections.
 - Projection is used only if it is cheaper to read from it than from the table.
 - Projection should be materialized.  Verify that all parts have the needed projection by looking into the system.parts, projections column.
 - If there are many projections per table, the analyzer can select any of them. If you think that it is better, use settings `preferred_optimize_projection_name` or `force_optimize_projection_name`
-
+- If expressions are used instead of plain column names, the query should use the exact expression as defined in the projection with the same functions and modifiers. Use column aliases to make the query the very same as in the projection definition:
 
 ```sql
 CREATE TABLE test
