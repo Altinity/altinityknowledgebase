@@ -14,7 +14,7 @@ CH merge scheduler balances between a big number of parts and a wasting resource
 
 Merges are CPU/DISK IO expensive. If CH will merge every new part then all resources will be spend on merges and will no resources remain on queries (selects ).
 
-CH will not merge parts with a combined size greater than 100 GB.
+CH will not merge parts with a combined size greater than 150 GB [max_bytes_to_merge_at_max_space_in_pool](https://clickhouse.com/docs/en/operations/settings/merge-tree-settings#max-bytes-to-merge-at-max-space-in-pool).
 
 ```
 SELECT
