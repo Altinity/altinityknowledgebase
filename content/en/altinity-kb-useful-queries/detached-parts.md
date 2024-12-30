@@ -35,17 +35,19 @@ Here is a query that can help with investigations. It looks for active parts con
 generates commands to drop the detached parts. 
 
 ```sql
-SELECT *,
-       concat('alter table ',database,'.',table,' drop detached part ''',a.name,''' settings allow_drop_detached=1;') as drop
-FROM system.detached_parts a
-ALL LEFT JOIN
-(SELECT database, table, partition_id, name, active, min_block_number, max_block_number
-   FROM system.parts WHERE active
-) b
-USING (database, table, partition_id)
-WHERE a.min_block_number >= b.min_block_number
-  AND a.max_block_number <= b.max_block_number
-ORDER BY table, min_block_number, max_block_number
+with ['broken','unexpected','noquorum','ignored','broken-on-start','clone','attaching','deleting','tmp-fetch',
+      'covered-by-broken','merge-not-byte-identical','mutate-not-byte-identical','broken-from-backup'] as DETACH_REASONS
+select a.*,
+  concat('alter table ',database,'.',table,' drop detached part ''',a.name,''' settings allow_drop_detached=1;') as drop,
+  concat('sudo rm -r ',a.path) as rm
+from (select * replace(part[1] as partition_id, toInt64(part[2]) as min_block_number, toInt64(part[3]) as max_block_number),
+  arrayFilter(x -> x not in DETACH_REASONS, splitByChar('_',name)) as part
+from system.detached_parts) a
+left join (select database, table, partition_id, name, active, min_block_number, max_block_number from system.parts where active) b 
+on a.database=b.database and a.table=b.table and a.partition_id=b.partition_id
+where a.min_block_number >= b.min_block_number
+  and a.max_block_number <= b.max_block_number
+order by table, min_block_number, max_block_number
 ```
 
 ### Other reasons
@@ -64,3 +66,5 @@ broken-on-start
 clone
 covered-by-broken  - that means that ClickHouse during initialization of replicated table detected that some part is not ok, and decided to refetch it from healthy replicas. So the part itself will be detached as 'broken' and if that part was a result of merge / mutation all the previuos generations of that will be marked as covered-by-broken. If clickhouse was able to download the final part you don't need those covered-by-broken.
 ```
+
+The list of DETACH_REASONS: https://github.com/ClickHouse/ClickHouse/blob/master/src/Storages/MergeTree/MergeTreePartInfo.h#L163
