@@ -58,7 +58,9 @@ To implement a disaster recovery (DR) setup for ClickHouse across two physically
 In case of a failover:
 
 1. Shut down the ClickHouse cluster in DC A completely
-2. Manually switch Keeper in DC B from observer to active participant and add two additional nodes (they will replicate the state automatically).
+2. Manually switch Keeper in DC B from observer to active participant (restart needed).
+3. Create two additional Keeper nodes (they will replicate the state automatically). 
+4. Add two additional Keeper nodes to clickhouse configs
 
 ## ClickHouse Keeper vs. ZooKeeper
 
