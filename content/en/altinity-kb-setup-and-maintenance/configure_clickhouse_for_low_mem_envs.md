@@ -1,11 +1,11 @@
 ---
-title: "Configure ClickHouse for low memory environments"
-linkTitle: "Configure ClickHouse for low memory environments"
+title: "Configure ClickHouse® for low memory environments"
+linkTitle: "Configure ClickHouse® for low memory environments"
 description: >
-    Configure ClickHouse for low memory environments
+    Configure ClickHouse® for low memory environments
 ---
 
-While Clickhouse it's typically deployed on powerful servers with ample memory and CPU, it can be deployed in resource-constrained environments like a Raspberry Pi. Whether you're working on edge computing, IoT data collection, or simply experimenting with ClickHouse in a small-scale setup, running it efficiently on low-memory hardware can be a rewarding challenge.
+While Clickhouse® it's typically deployed on powerful servers with ample memory and CPU, it can be deployed in resource-constrained environments like a Raspberry Pi. Whether you're working on edge computing, IoT data collection, or simply experimenting with ClickHouse in a small-scale setup, running it efficiently on low-memory hardware can be a rewarding challenge.
 
 TLDR;
 
