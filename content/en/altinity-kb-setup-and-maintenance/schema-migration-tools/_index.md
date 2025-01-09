@@ -10,8 +10,12 @@ description: >
 * liquibase
   * [https://github.com/mediarithmics/liquibase-clickhouse](https://github.com/mediarithmics/liquibase-clickhouse)
   * [https://johntipper.org/how-to-execute-liquibase-changesets-against-clickhouse/](https://johntipper.org/how-to-execute-liquibase-changesets-against-clickhouse/)
+* HousePlant
+  * New CLI migration tool (Dec2024) for ClickHouse developed by [June](https://june.so)
+  * Documentation [https://houseplant.readthedocs.io/en/latest/index.html](https://houseplant.readthedocs.io/en/latest/index.html)
+  * Github [https://github.com/juneHQ/houseplant](https://github.com/juneHQ/houseplant)
 * Flyway
-  * [Official community supported plugin](https://documentation.red-gate.com/flyway/flyway-cli-and-api/supported-databases/clickhouse-database) [git](https://github.com/flyway/flyway-community-db-support/tree/main/flyway-database-clickhouse)
+  * [Official community supported plugin](https://documentation.red-gate.com/flyway/flyway-cli-and-api/supported-databases/clickhouse-database) [git](https://github.com/flyway/flyway-community-db-support/tree/main/flyway-database-clickhouse) https://github.com/flyway/flyway-community-db-support
   * Old pull requests (latest at the top):
     * [https://github.com/flyway/flyway/pull/3333](https://github.com/flyway/flyway/pull/3333) СlickHouse support
     * [https://github.com/flyway/flyway/pull/3134](https://github.com/flyway/flyway/pull/3134) СlickHouse support
@@ -34,7 +38,7 @@ description: >
 * dbmate
   * [https://github.com/amacneil/dbmate#clickhouse](https://github.com/amacneil/dbmate#clickhouse)
 
-know more?
+Know more?
 
 https://clickhouse.com/docs/knowledgebase/schema_migration_tools
 
