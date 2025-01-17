@@ -2,14 +2,12 @@
 title: "Troubleshooting"
 linkTitle: "Troubleshooting"
 description: >
-    Troubleshooting
+  Tips for ClickHouse® troubleshooting 
 ---
-
-Tips for ClickHouse® troubleshooting 
 
 ### Query Execution Logging
 
-When troubleshooting query execution in ClickHouse, one of the most useful tools is logging the query execution details. This can be controlled using the session-level setting `send_logs_level`. Here are the different log levels you can use:
+When troubleshooting query execution in ClickHouse®, one of the most useful tools is logging the query execution details. This can be controlled using the session-level setting `send_logs_level`. Here are the different log levels you can use:
 Possible values: `'trace', 'debug', 'information', 'warning', 'error', 'fatal', 'none'`
 
 This can be used with [clickhouse-client](https://docs.altinity.com/altinitycloud/altinity-cloud-connections/clickhouseclient/) in both interactive and non-interactive mode.

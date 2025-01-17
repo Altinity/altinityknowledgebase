@@ -5,8 +5,6 @@ weight: 100
 description: >-
 ---
 
-## Why is simple `SELECT count()` Slow in ClickHouse®?
-
 ClickHouse is a columnar database that provides excellent performance for analytical queries. However, in some cases, a simple count query can be slow. In this article, we'll explore the reasons why this can happen and how to optimize the query.
 
 ### Three Strategies for Counting Rows in ClickHouse

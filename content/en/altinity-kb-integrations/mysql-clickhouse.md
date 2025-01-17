@@ -2,8 +2,6 @@
 title: "MySQL"
 linkTitle: "Integrating ClickHouse® with MySQL"
 weight: 100
-description: >-
-     Integrating ClickHouse® with MySQL
 ---
 
 ### Replication using MaterializeMySQL.

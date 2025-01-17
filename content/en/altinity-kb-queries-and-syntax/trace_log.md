@@ -2,11 +2,7 @@
 title: "Collecting query execution flamegraphs using system.trace_log"
 linkTitle: "trace_log"
 weight: 100
-description: >-
-     Collecting query execution flamegraph using trace_log
 ---
-
-## Collecting query execution flamegraph using system.trace_log
 
 ClickHouse® has embedded functionality to analyze the details of query performance.
 

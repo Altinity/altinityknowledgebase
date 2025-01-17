@@ -2,8 +2,6 @@
 title: "CollapsingMergeTree vs ReplacingMergeTree"
 linkTitle: "CollapsingMergeTree vs ReplacingMergeTree"
 weight: 100
-description: >-
-     CollapsingMergeTree vs ReplacingMergeTree.
 ---
 
 ## CollapsingMergeTree vs ReplacingMergeTree

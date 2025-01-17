@@ -2,8 +2,6 @@
 title: "DISTINCT & GROUP BY & LIMIT 1 BY what the difference"
 linkTitle: "DISTINCT & GROUP BY & LIMIT 1 BY what the difference"
 weight: 100
-description: >-
-     Page description for heading and indexes.
 ---
 
 ## DISTINCT

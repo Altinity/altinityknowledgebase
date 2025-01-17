@@ -2,8 +2,6 @@
 title: "How to Convert Ordinary to Atomic"
 linkTitle: "How to Convert Ordinary to Atomic"
 weight: 100
-description: >-
-     ClickHouse® How to Convert Ordinary to Atomic
 ---
 
 ## New, official way

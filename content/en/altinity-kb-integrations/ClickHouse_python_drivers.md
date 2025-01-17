@@ -6,8 +6,6 @@ description: >-
      Python main drivers/clients for ClickHouse®
 ---
 
-## ClickHouse® python drivers
-
 There are two main python drivers that can be used with ClickHouse. They all have their different set of features and use cases:
 
 ### ClickHouse driver AKA [clickhouse-driver](https://clickhouse-driver.readthedocs.io/en/latest/)

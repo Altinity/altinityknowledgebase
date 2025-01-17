@@ -1,8 +1,6 @@
 ---
 title: "JOIN optimization tricks"
 linkTitle: "JOIN optimization tricks"
-description: >
-    JOINs
 ---
 
 All tests below were done with default `hash` join. ClickHouse joins are evolving rapidly and behavior varies with other join types. 
