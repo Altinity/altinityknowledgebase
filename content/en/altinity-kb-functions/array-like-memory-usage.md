@@ -2,7 +2,7 @@
 title: "arrayMap, arrayJoin or ARRAY JOIN memory usage"
 linkTitle: "arrayMap, arrayJoin or ARRAY JOIN memory usage"
 description: >
-    Why arrayMap, arrayFilter, arrayJoin use so much memory?
+    Why do arrayMap, arrayFilter, and arrayJoin use so much memory?
 ---
 
 ## arrayMap-like functions memory usage calculation.

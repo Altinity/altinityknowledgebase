@@ -1,11 +1,10 @@
 ---
 title: "Skip index bloom_filter Example"
 linkTitle: "Skip index bloom_filter Example"
-description: >
-    Example: skip index bloom_filter & array column
 aliases:
   /altinity-kb-queries-and-syntax/skip-indexes/example-skip-index-bloom_filter-and-array-column
 ---
+
 tested with ClickHouse® 20.8.17.25
 
 [https://clickhouse.com/docs/en/engines/table-engines/mergetree-family/mergetree/\#table_engine-mergetree-data_skipping-indexes](https://clickhouse.com/docs/en/engines/table-engines/mergetree-family/mergetree/#table_engine-mergetree-data_skipping-indexes)

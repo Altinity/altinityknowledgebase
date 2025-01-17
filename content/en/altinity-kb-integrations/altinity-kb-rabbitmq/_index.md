@@ -2,7 +2,7 @@
 title: "RabbitMQ"
 linkTitle: "RabbitMQ"
 description: >
-    RabbitMQ engine -> 24.3+
+    RabbitMQ engine in ClickHouse® 24.3+
 ---
 
 ### Settings

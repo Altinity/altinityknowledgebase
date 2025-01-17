@@ -2,8 +2,6 @@
 title: "DateTime64"
 linkTitle: "DateTime64"
 weight: 100
-description: >-
-     DateTime64 data type
 ---
 
 ## Subtract fractional seconds

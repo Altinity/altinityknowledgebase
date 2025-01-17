@@ -6,7 +6,7 @@ keywords:
 - clickhouse group by
 - clickhouse memory
 description: >
-    Learn about GROUP BY clause in ClickHouse®.
+    Learn about the GROUP BY clause in ClickHouse®
 weight: 1
 ---
 

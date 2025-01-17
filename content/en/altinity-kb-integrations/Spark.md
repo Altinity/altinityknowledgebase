@@ -2,11 +2,7 @@
 title: "ClickHouse® + Spark"
 linkTitle: "Spark"
 weight: 100
-description: >-
-     Spark
 ---
-
-## ClickHouse® + Spark 
 
 ### jdbc 
 

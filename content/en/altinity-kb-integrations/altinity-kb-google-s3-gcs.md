@@ -1,9 +1,8 @@
 ---
 title: "Google S3 (GCS)"
 linkTitle: "Google S3 (GCS)"
-description: >
-    "Google S3 GCS"
 ---
+
 GCS with the table function - seems to work correctly for simple scenarios.
 
 Essentially you can follow the steps from the [Migrating from Amazon S3 to Cloud Storage](https://cloud.google.com/storage/docs/aws-simple-migration).

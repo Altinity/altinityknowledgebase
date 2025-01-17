@@ -4,6 +4,8 @@ linkTitle: "Altinity Cloud Access Management"
 description: >
     Enabling access_management for Altinity.Cloud databases.
 weight: 5
+alias: /altinity-kb-integrations/altinity-cloud
+draft: true
 ---
 Organizations that want to enable administrative users in their Altinity.Cloud ClickHouse® servers can do so by enabling `access_management` manually.  This allows for administrative users to be created on the specific ClickHouse Cluster.
 

@@ -3,7 +3,7 @@ title: "Adjustable table partitioning"
 linkTitle: "Adjustable table partitioning"
 weight: 100
 description: >-
-     Approach, which allow you to redefine partitioning without table creation.
+     An approach that allows you to redefine partitioning without table creation
 ---
 
 In that example, partitioning is being calculated via `MATERIALIZED` column expression `toDate(toStartOfInterval(ts, toIntervalT(...)))`, but partition id also can be generated on application side and inserted to ClickHouse® as is.

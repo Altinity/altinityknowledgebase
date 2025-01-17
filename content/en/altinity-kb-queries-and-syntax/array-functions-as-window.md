@@ -2,8 +2,6 @@
 title: "Using array functions to mimic window-functions alike behavior"
 linkTitle: "Using array functions to mimic window-functions alike behavior"
 weight: 100
-description: >-
-     Using array functions to mimic window-functions alike behavior.
 ---
 
 There are some usecases when you may want to mimic window functions using Arrays - as an optimization step, or to control the memory better / use on-disk spiling, or just if you have old ClickHouse® version.
