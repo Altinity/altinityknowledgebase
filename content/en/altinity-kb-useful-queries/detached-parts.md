@@ -48,6 +48,7 @@ on a.database=b.database and a.table=b.table and a.partition_id=b.partition_id
 where a.min_block_number >= b.min_block_number
   and a.max_block_number <= b.max_block_number
 order by table, min_block_number, max_block_number
+settings join_use_nulls=1
 ```
 
 ### Other reasons
