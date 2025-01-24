@@ -48,7 +48,7 @@ Sometimes the consumer group needs to be explicitly allowed in the broker UI con
 </yandex>
 ```
 
-[https://leftjoin.ru/all/clickhouse-as-a-consumer-to-amazon-msk/](https://leftjoin.ru/all/clickhouse-as-a-consumer-to-amazon-msk/)
+[Read here more](https://leftjoin.ru/blog/data-engineering/clickhouse-as-a-consumer-to-amazon-msk/) (Russian language)
 
 
 ### on-prem / self-hosted Kafka broker
