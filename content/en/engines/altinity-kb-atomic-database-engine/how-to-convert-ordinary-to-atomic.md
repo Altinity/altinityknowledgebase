@@ -24,3 +24,9 @@ Example: sudo touch '/var/lib/clickhouse/flags/convert_ordinary_to_atomic' && su
 ```
 [More detailed info here](https://github.com/ClickHouse/ClickHouse/blob/f01a285f6091265cfae72bb7fbf3186269804891/src/Interpreters/loadMetadata.cpp#L150)
 
+Don't forget to remove detached parts from all Ordinary databases, or you can get the error:
+```
+│ 2025.01.28 11:34:57.510330 [ 7 ] {} <Error> Application: Code: 219. DB::Exception: Cannot drop: filesystem error: in remove: Directory not empty ["/var/lib/clickhouse/data/db/"]. Probably data │
+│ base contain some detached tables or metadata leftovers from Ordinary engine. If you want to remove all data anyway, try to attach database back and drop it again with enabled force_remove_data_recursively_ │
+```
+
