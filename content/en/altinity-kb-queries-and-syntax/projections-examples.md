@@ -80,12 +80,12 @@ Since version 24.8, it is controlled by a new table-level setting:
 
 [deduplicate_merge_projection_mode](https://clickhouse.com/docs/en/operations/settings/merge-tree-settings#deduplicate_merge_projection_mode) = 'throw'/'drop'/'rebuild'
 
-However, projection usage is still disabled for FINAL queries.  
+However, projection usage is still disabled for FINAL queries. So, you have to use OPTIMIZE FINAL or SELECT ...GROUP BY  instead of FINAL for fighting duplicates between parts 
 
 ```
-CREATE TABLE users (uid Int16, name String, age Int16,
+CREATE TABLE users (uid Int16, name String, version Int16,
   projection xx (
-     select name,uid,age order by name
+     select name,uid,version order by name
   )
 ) ENGINE=ReplacingMergeTree order by uid
 settings deduplicate_merge_projection_mode='rebuild'
@@ -95,23 +95,36 @@ INSERT INTO users
 SELECT 
     number AS uid,
     concat('User_', toString(uid)) AS name,
-    (number % 100) + 18 AS age  
+    1 AS version  
 FROM numbers(100000);
 
 INSERT INTO users
 SELECT 
     number AS uid,
     concat('User_', toString(uid)) AS name,
-    (number % 100) + 180 AS age  
+    2 AS version  
 FROM numbers(100000);
+
+SELECT 'duplicate',name,uid,version FROM users 
+where name ='User_98304' 
+settings force_optimize_projection=1 ;
+
+SELECT 'dedup by group by/limit 1 by',name,uid,version FROM users 
+where name ='User_98304' 
+order by version DESC
+limit 1 by uid
+settings force_optimize_projection=1
+;
 
 optimize table users final ;
 
-SELECT name,uid,age FROM users 
+SELECT 'dedup after optimize',name,uid,version FROM users 
 where name ='User_98304' 
-  settings force_optimize_projection=1;
+settings force_optimize_projection=1 ;
+
 ```
-https://fiddle.clickhouse.com/7b08cbb2-8e1f-4bf8-922e-19be0ff95f58
+https://fiddle.clickhouse.com/e1977a66-09ce-43c4-aabc-508c957d44d7
+
 
 
 ## Lightweight DELETEs with projections
