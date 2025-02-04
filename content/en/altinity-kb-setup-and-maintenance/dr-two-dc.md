@@ -3,7 +3,7 @@ title: "DR two DC"
 linkTitle: "DR two DC"
 weight: 100
 description: >-
-     Data Recovery by two DC.
+     Disaster Recovery configuration between two data centers
 ---
 
 Clickhouse uses Keeper (or ZooKeeper) to inform other cluster nodes about changes. Clickhouse nodes then fetch new parts directly from other nodes in the cluster. The Keeper cluster is a key for building a DR schema. You can consider Keeper a “true” cluster while clickhouse-server nodes as storage access instruments. 
