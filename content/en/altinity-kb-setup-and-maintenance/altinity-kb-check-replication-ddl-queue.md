@@ -1,13 +1,18 @@
 ---
-title: "Replication and DDL queue problems"
+title: "ClickHouse® Replication and DDL queue problems"
 linkTitle: "Replication and DDL queue problems"
 description: >
-    This article describes how to detect possible problems in the `replication_queue` and `distributed_ddl_queue` and how to troubleshoot.
+    Finding and troubleshooting  problems in the `replication_queue` and `distributed_ddl_queue`
+keywords: 
+   - clickhouse replication	
+   - clickhouse ddl
+   - clickhouse check replication status
+   - clickhouse replication queue
 ---
 
-# How to check replication problems:
+# How to check ClickHouse® replication problems:
 
-1. check `system.replicas` first, cluster-wide. It allows to check if the problem is local to some replica or global, and allows to see the exception.
+1. Check `system.replicas` first, cluster-wide. It allows to check if the problem is local to some replica or global, and allows to see the exception.
    allows to answer the following questions:
    - Are there any ReadOnly replicas?
    - Is there the connection to zookeeper active?
@@ -90,7 +95,7 @@ FORMAT TSVRaw;
 
 Sometimes due to crashes, zookeeper split brain problem or other reasons some of the tables can be in Read-Only mode. This allows SELECTS but not INSERTS. So we need to do DROP / RESTORE replica procedure.
 
-Just to be clear, this procedure **will not delete any data**, it will just re-create the metadata in zookeeper with the current state of the ClickHouse replica.
+Just to be clear, this procedure **will not delete any data**, it will just re-create the metadata in zookeeper with the current state of the [ClickHouse replica](/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/add_remove_replica/).
   
 ```sql
 DETACH TABLE table_name;  -- Required for DROP REPLICA
@@ -171,7 +176,7 @@ restore_replica "$@"
 
 ### Stuck DDL tasks in the distributed_ddl_queue
 
-Sometimes DDL tasks (the ones that use ON CLUSTER) can get stuck in the `distributed_ddl_queue` because the replicas can overload if multiple DDLs (thousands of CREATE/DROP/ALTER) are executed at the same time. This is very normal in heavy ETL jobs.This can be detected by checking the `distributed_ddl_queue` table and see if there are tasks that are not moving or are stuck for a long time.
+Sometimes [DDL tasks](/altinity-kb-setup-and-maintenance/altinity-kb-ddlworker/) (the ones that use ON CLUSTER) can get stuck in the `distributed_ddl_queue` because the replicas can overload if multiple DDLs (thousands of CREATE/DROP/ALTER) are executed at the same time. This is very normal in heavy ETL jobs.This can be detected by checking the `distributed_ddl_queue` table and see if there are tasks that are not moving or are stuck for a long time.
 
 If these DDLs completed in some replicas but failed in others, the simplest way to solve this is to execute the failed command in the missed replicas without ON CLUSTER. If most of the DDLs failed then check the number of unfinished records in `distributed_ddl_queue` on the other nodes, because most probably it will be as high as thousands.
 

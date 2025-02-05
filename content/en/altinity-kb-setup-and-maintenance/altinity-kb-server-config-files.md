@@ -1,11 +1,12 @@
 ---
-title: "Server config files"
+title: "Server configuration files"
 linkTitle: "Server config files"
 description: >
-    How to manage server config files in ClickHouse®
+    How to organize configuration files in ClickHouse® and how to manage changes
 keywords:
   - clickhouse config.xml
   - clickhouse configuration
+weight: 105
 ---
 
 ## Сonfig management (recommended structure)
@@ -16,7 +17,7 @@ By default they are stored in the folder **/etc/clickhouse-server/** in two file
 
 We suggest never change vendor config files and place your changes into separate .xml files in sub-folders. This way is easier to maintain and ease ClickHouse upgrades.
 
-**/etc/clickhouse-server/users.d** – sub-folder for user settings (derived from `users.xml` filename).
+**/etc/clickhouse-server/users.d** – sub-folder for [user settings](/altinity-kb-setup-and-maintenance/rbac/) (derived from `users.xml` filename).
 
 **/etc/clickhouse-server/config.d** – sub-folder for server settings (derived from `config.xml` filename).
 
@@ -84,7 +85,7 @@ cat /etc/clickhouse-server/users.d/memory_usage.xml
 </clickhouse>
 ```
 
-BTW, you can define any macro in your configuration and use them in Zookeeper paths
+BTW, you can define any macro in your configuration and use them in [Zookeeper](https://docs.altinity.com/operationsguide/clickhouse-zookeeper/zookeeper-installation/) paths
 
 ```xml
  ReplicatedMergeTree('/clickhouse/{cluster}/tables/my_table','{replica}')
@@ -182,7 +183,7 @@ The list of user setting which require server restart:
 
 See also `select * from system.settings where description ilike '%start%'`
 
-Also there are several 'long-running' user sessions which are almost never restarted and can keep the setting from the server start (it's DDLWorker, Kafka, and some other service things).
+Also there are several 'long-running' user sessions which are almost never restarted and can keep the setting from the server start (it's DDLWorker, [Kafka](https://altinity.com/blog/kafka-engine-the-story-continues), and some other service things).
 
 ## Dictionaries
 

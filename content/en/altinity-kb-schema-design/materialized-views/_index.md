@@ -1,15 +1,24 @@
 ---
-title: "MATERIALIZED VIEWS"
+title: "ClickHouse® MATERIALIZED VIEWS"
 linkTitle: "MATERIALIZED VIEWS"
 description: >
-    MATERIALIZED VIEWS
+    Making the most of this powerful ClickHouse® feature
+keywords: 
+   - clickhouse materialized view
+   - create materialized view clickhouse
 ---
 
-MATERIALIZED VIEWs in ClickHouse® behave like AFTER INSERT TRIGGER to the left-most table listed in their SELECT statement and never read data from disk. Only rows that are placed to the RAM buffer by INSERT are read.
+ClickHouse® MATERIALIZED VIEWs behave like AFTER INSERT TRIGGER to the left-most table listed in their SELECT statement and never read data from disk. Only rows that are placed to the RAM buffer by INSERT are read.
 
 ## Useful links
 
-* ClickHouse and the magic of materialized views. Basics explained with examples: [webinar recording](https://altinity.com/webinarspage/2019/6/26/clickhouse-and-the-magic-of-materialized-views)
+* ClickHouse Materialized Views Illuminated, Part 1:
+  * [Blog post](https://altinity.com/blog/clickhouse-materialized-views-illuminated-part-1)
+  * [Webinar recording](https://altinity.com/blog/clickhouse-materialized-views-illuminated-part-1)
+  * [Slides](https://altinity.com/blog/clickhouse-materialized-views-illuminated-part-1)
+* ClickHouse Materialized Views Illuminated, Part 2: 
+  * [Blog post](https://altinity.com/blog/clickhouse-materialized-views-illuminated-part-2)
+  * [Webinar recording](https://www.youtube.com/watch?v=THDk625DGsQ)
 * Everything you should know about materialized views - [annotated presentation](https://den-crane.github.io/Everything_you_should_know_about_materialized_views_commented.pdf)
 * Very detailed information about internals: [video](https://youtu.be/ckChUkC3Pns?t=9353)
 * One more [presentation](https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup47/materialized_views.pdf)
