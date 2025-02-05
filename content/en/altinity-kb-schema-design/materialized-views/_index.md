@@ -19,9 +19,9 @@ ClickHouse® MATERIALIZED VIEWs behave like AFTER INSERT TRIGGER to the left-mos
   * [Blog post](https://altinity.com/blog/clickhouse-materialized-views-illuminated-part-2)
   * [Webinar recording](https://www.youtube.com/watch?v=THDk625DGsQ)
   * [Slides](https://altinity.com/wp-content/uploads/2024/05/ClickHouse-Materialized-Views-The-Magic-Continues-1.pdf)
-* Everything you should know about materialized views - [annotated presentation](https://den-crane.github.io/Everything_you_should_know_about_materialized_views_commented.pdf)
-* Very detailed information about internals: [video](https://youtu.be/ckChUkC3Pns?t=9353)
-* One more [presentation](https://github.com/ClickHouse/clickhouse-presentations/blob/master/meetup47/materialized_views.pdf)
+* Everything you should know about Materialized Views: 
+  * [Video](https://www.youtube.com/watch?v=ckChUkC3Pns&t=9353s)
+  * [Annotated slides](https://den-crane.github.io/Everything_you_should_know_about_materialized_views_commented.pdf)
 
 ## Best practices
 
