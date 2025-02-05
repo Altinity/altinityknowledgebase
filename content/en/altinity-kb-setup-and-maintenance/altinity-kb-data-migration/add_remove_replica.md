@@ -2,12 +2,16 @@
 title: "Add/Remove a new replica to a ClickHouse® cluster"
 linkTitle: "add_remove_replica"
 description: >
-    How to add/remove a new replica manually and using clickhouse-backup
+    How to add/remove a new ClickHouse replica manually and using `clickhouse-backup`
+keywords:
+  - clickhouse replica
+  - clickhouse add replica
+  - clickhouse remove replica
 ---
 
 ## ADD nodes/replicas to a ClickHouse® cluster
 
-To add some replicas to an existing cluster if -30TB then better to use replication:
+To add some ClickHouse® replicas to an existing cluster if -30TB then better to use replication:
 
 - don’t add the `remote_servers.xml` until replication is done.
 - Add these files and restart to limit bandwidth and avoid saturation (70% total bandwidth):
@@ -94,7 +98,7 @@ clickhouse-client --host localhost --port 9000 -mn < schema.sql
 
 ### Using `clickhouse-backup`
 
-- Using `clickhouse-backup` to copy the schema of a replica to another is also convenient and moreover if using Atomic database with `{uuid}` macros in ReplicatedMergeTree engines:
+- Using `clickhouse-backup` to copy the schema of a replica to another is also convenient and moreover if [using Atomic database](/engines/altinity-kb-atomic-database-engine/) with `{uuid}` macros in [ReplicatedMergeTree engines](https://www.youtube.com/watch?v=oHwhXc0re6k):
 
 ```bash
 sudo -u clickhouse clickhouse-backup --schema --rbac create_remote full-replica
@@ -139,7 +143,7 @@ already exists. (REPLICA_ALREADY_EXISTS) (version 23.5.3.24 (official build)). (
 (query: CREATE TABLE IF NOT EXISTS xxxx.yyyy UUID '3c3503c3-ed3c-443b-9cb3-ef41b3aed0a8'
 ```
     
-The DDLs have been executed and some tables have been created and after that dropped but some left overs are left in ZK:
+[The DDLs](/altinity-kb-setup-and-maintenance/altinity-kb-check-replication-ddl-queue/) have been executed and some tables have been created and after that dropped but some left overs are left in ZK:
 - If databases can be dropped then use `DROP DATABASE xxxxx SYNC`
 - If databases cannot be dropped use `SYSTEM DROP REPLICA ‘replica_name’ FROM db.table`
   

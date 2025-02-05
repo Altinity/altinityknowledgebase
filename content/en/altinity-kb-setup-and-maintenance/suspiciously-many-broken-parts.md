@@ -2,10 +2,10 @@
 title: "Suspiciously many broken parts"
 linkTitle: "Suspiciously many broken parts"
 description: >
-    Suspiciously many broken parts error during the server startup.
+    Debugging a common error message
 keywords:
   - clickhouse broken parts
-  - clickhouse too many parts
+  - clickhouse too many broken parts
 ---
 
 ## Symptom:
@@ -28,7 +28,7 @@ Why data could be corrupted?
 
 ## Action:
 
-1. If you are ok to accept the data loss: set up `force_restore_data` flag and clickhouse will move the parts to detached. Data loss is possible if the issue is a result of misconfiguration (i.e. someone accidentally has fixed xml configs with incorrect shard/replica macros, data will be moved to detached folder and can be recovered).
+1. If you are ok to accept the [data loss](/altinity-kb-setup-and-maintenance/recovery-after-complete-data-loss/): set up `force_restore_data` flag and clickhouse will move the parts to detached. Data loss is possible if the issue is a result of misconfiguration (i.e. someone accidentally has fixed xml configs with incorrect [shard/replica macros](https://altinity.com/webinarspage/deep-dive-on-clickhouse-sharding-and-replication), data will be moved to detached folder and can be recovered).
 
     ```bash
     sudo -u clickhouse touch /var/lib/clickhouse/flags/force_restore_data
