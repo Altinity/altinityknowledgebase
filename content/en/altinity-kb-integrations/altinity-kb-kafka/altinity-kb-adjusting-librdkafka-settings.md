@@ -180,7 +180,7 @@ And after that in configuration:
 </clickhouse>
 
 
-<yandex>
+<clickhouse>
     <named_collections>
         <kafka_preset1>
             <kafka_broker_list>...</kafka_broker_list>
@@ -197,7 +197,7 @@ And after that in configuration:
             </kafka>
         </kafka_preset1>
     </named_collections>
-</yandex>
+</clickhouse>
 
 ```
  
