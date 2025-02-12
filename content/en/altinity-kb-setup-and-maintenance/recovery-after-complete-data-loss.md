@@ -1,12 +1,12 @@
 ---
-title: "recovery-after-complete-data-loss"
-linkTitle: "recovery-after-complete-data-loss"
+title: "Recovery after complete data loss"
+linkTitle: "Recovery after complete data loss"
 weight: 100
 description: >-
-     Recovery after complete data loss 
+     When disaster strikes 
 ---
 
-# Atomic & Ordinary databases.
+## Atomic & Ordinary databases.
 
 srv1 -- good replica
 
