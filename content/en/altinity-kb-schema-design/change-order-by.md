@@ -37,14 +37,24 @@ ORDER BY (column1, column2, column3)
 
 4. Copy data from `example_table_old` into `example_table_temp`
 
-     a. Use this query to generate a list of INSERT statements
+     a. Use this query to generate a list of INSERT statements   
      ```sql
+     -- old Clickhouse versions before a support of `where _partition_id`
      select concat('insert into example_table_temp select * from example_table_old where toYYYYMM(date)=',partition) as cmd, 
      database, table, partition, sum(rows), sum(bytes_on_disk), count()
      from system.parts
      where database='default' and table='example_table_old'
      group by database, table, partition
      order by partition
+
+     -- newer Clickhouse versions with a support of `where _partition_id`
+     select concat('insert into example_table_temp select * from ', table,' where _partition_id = \'',partition_id, '\';') as cmd, 
+     database, table, partition, sum(rows), sum(bytes_on_disk), count()
+     from system.parts
+     where database='default' and table='example_table_old'
+     group by database, table, partition_id, partition
+     order by partition_id
+
      ```
 
      b. Create an intermediate table
@@ -70,7 +80,7 @@ ORDER BY (column1, column2, column3)
      order by partition
      ```
 
-5. Attach data from the intermediate table to `example_table`
+6. Attach data from the intermediate table to `example_table`
 
      a. Use this query to generate a list of ATTACH statements
      ```sql
@@ -93,5 +103,5 @@ ORDER BY (column1, column2, column3)
      order by partition
      ```
 
-6. Drop `example_table_old` and `example_table_temp`
+7. Drop `example_table_old` and `example_table_temp`
 
