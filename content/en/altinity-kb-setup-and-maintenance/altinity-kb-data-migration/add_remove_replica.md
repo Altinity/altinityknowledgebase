@@ -59,7 +59,7 @@ SELECT
     replaceRegexpOne(replaceOne(concat(create_table_query, ';'), '(', 'ON CLUSTER \'{cluster}\' ('), 'CREATE (TABLE|DICTIONARY|VIEW|LIVE VIEW|WINDOW VIEW)', 'CREATE \\1 IF NOT EXISTS')
 FROM
     system.tables
-WHERE
+WHERE engine != 'MaterializedView' and
     database NOT IN ('system', 'information_schema', 'INFORMATION_SCHEMA') AND
     create_table_query != '' AND
     name NOT LIKE '.inner.%%' AND
@@ -72,7 +72,7 @@ SELECT
     replaceRegexpOne(replaceOne(concat(create_table_query, ';'), 'TO', 'ON CLUSTER \'{cluster}\' TO'), '(CREATE MATERIALIZED VIEW)', '\\1 IF NOT EXISTS')
 FROM
     system.tables
-WHERE
+WHERE engine = 'MaterializedView' and
     database NOT IN ('system', 'information_schema', 'INFORMATION_SCHEMA') AND
     create_table_query != '' AND
     name NOT LIKE '.inner.%%' AND
