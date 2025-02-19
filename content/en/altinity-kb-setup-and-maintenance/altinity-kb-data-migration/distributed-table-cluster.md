@@ -1,8 +1,11 @@
 ---
-title: "Distributed table to Cluster"
+title: "Distributed table to ClickHouse® Cluster"
 linkTitle: "Distributed table to cluster"
 description: >
-  Distributed table to cluster
+  Shifting INSERTs to a standby cluster
+keywords: 
+  - clickhouse distributed table
+  - clickhouse distributed
 ---
 
 In order to shift INSERTS to a standby cluster (for example increase zone availability or disaster recovery) some ClickHouse® features can be used.

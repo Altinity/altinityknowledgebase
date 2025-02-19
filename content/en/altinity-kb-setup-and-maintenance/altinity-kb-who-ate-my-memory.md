@@ -1,9 +1,13 @@
 ---
-title: "Who ate my memory"
-linkTitle: "Who ate my memory"
+title: "Who ate my ClickHouse® memory?"
+linkTitle: "Who ate my memory?"
 description: >
-    Who ate my memory
+    *"It was here a few minutes ago..."*
+keywords: 
+  - clickhouse memory
+  - clickhouse memory usage
 ---
+
 ```sql
 SELECT *, formatReadableSize(value) 
 FROM system.asynchronous_metrics 

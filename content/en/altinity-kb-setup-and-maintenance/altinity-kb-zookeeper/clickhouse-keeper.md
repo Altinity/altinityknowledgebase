@@ -1,13 +1,14 @@
 ---
-title: "clickhouse-keeper"
-linkTitle: "clickhouse-keeper"
+title: "Using clickhouse-keeper"
+linkTitle: "Using clickhouse-keeper"
 description: >
-    clickhouse-keeper
+    Moving to the ClickHouse® alternative to Zookeeper
+keywords: 
+  - clickhouse keeper
+  - clickhouse-keeper
 ---
 
-## clickhouse-keeper
-
-Since 2021 the development of built-in alternative for Zookeeper is happening, which goal is to address several design pitfalls, and get rid of extra dependency. 
+Since 2021 the development of built-in ClickHouse® alternative for Zookeeper is happening, whose goal is to address several design pitfalls, and get rid of extra dependency. 
 
 See slides:  https://presentations.clickhouse.com/meetup54/keeper.pdf and video  https://youtu.be/IfgtdU1Mrm0?t=2682
 
@@ -15,20 +16,19 @@ See slides:  https://presentations.clickhouse.com/meetup54/keeper.pdf and video 
 
 Since version 23.3 we recommend using clickhouse-keeper for new installations. 
 
-Even better if you will use the latest version of clickhouse-keeper (currently it's 23.7), and it's not necessary to use the same version of clickhouse-keeper as ClickHouse® itself.
+Even better if you will use the latest version of clickhouse-keeper (currently it's 23.7), and it's not necessary to use the same version of clickhouse-keeper as ClickHouse itself.
 
-For existing systems that currently use Apache Zookeeper, you can consider upgrading to clickhouse-keeper especially if you will upgrade clickhouse also.
+For existing systems that currently use Apache Zookeeper, you can consider upgrading to clickhouse-keeper especially if you will [upgrade ClickHouse](https://altinity.com/clickhouse-upgrade-overview/) also. 
 
 But please remember that on very loaded systems the change can give no performance benefits or can sometimes lead to a worse performance.
 
 The development pace of keeper code is [still high](https://github.com/ClickHouse/ClickHouse/pulls?q=is%3Apr+keeper)
 so every new version should bring improvements / cover the issues, and stability/maturity grows from version to version, so 
-if you want to play with clickhouse-keeper in some environment - please use the most recent ClickHouse releases! And of course: share your feedback :)
+if you want to play with clickhouse-keeper in some environment - please use [the most recent ClickHouse releases](https://altinity.com/altinity-stable/)! And of course: share your feedback :)
 
-# How does it work
+## How does clickhouse-keeper work?
 
 Official docs: https://clickhouse.com/docs/en/guides/sre/keeper/clickhouse-keeper/
-
 
 ClickHouse-keeper still need to be started additionally on few nodes (similar to 'normal' zookeeper) and speaks normal zookeeper protocol - needed to simplify A/B tests with real zookeeper.
 
