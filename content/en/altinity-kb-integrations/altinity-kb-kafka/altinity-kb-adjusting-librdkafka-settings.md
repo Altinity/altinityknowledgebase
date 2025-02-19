@@ -148,7 +148,7 @@ kafkacat -b my_broker:9092 -C -o -10 -t my_topic \
 
 ```
 
-# Different configurations for different tables?
+## Different configurations for different tables?
 
 > Is there some more documentation how to use this multiconfiguration for Kafka ?
 
@@ -180,7 +180,7 @@ And after that in configuration:
 </clickhouse>
 
 
-<yandex>
+<clickhouse>
     <named_collections>
         <kafka_preset1>
             <kafka_broker_list>...</kafka_broker_list>
@@ -197,7 +197,7 @@ And after that in configuration:
             </kafka>
         </kafka_preset1>
     </named_collections>
-</yandex>
+</clickhouse>
 
 ```
  

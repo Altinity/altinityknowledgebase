@@ -59,7 +59,7 @@ SELECT
     replaceRegexpOne(replaceOne(concat(create_table_query, ';'), '(', 'ON CLUSTER \'{cluster}\' ('), 'CREATE (TABLE|DICTIONARY|VIEW|LIVE VIEW|WINDOW VIEW)', 'CREATE \\1 IF NOT EXISTS')
 FROM
     system.tables
-WHERE
+WHERE engine != 'MaterializedView' and
     database NOT IN ('system', 'information_schema', 'INFORMATION_SCHEMA') AND
     create_table_query != '' AND
     name NOT LIKE '.inner.%%' AND
@@ -72,7 +72,7 @@ SELECT
     replaceRegexpOne(replaceOne(concat(create_table_query, ';'), 'TO', 'ON CLUSTER \'{cluster}\' TO'), '(CREATE MATERIALIZED VIEW)', '\\1 IF NOT EXISTS')
 FROM
     system.tables
-WHERE
+WHERE engine = 'MaterializedView' and
     database NOT IN ('system', 'information_schema', 'INFORMATION_SCHEMA') AND
     create_table_query != '' AND
     name NOT LIKE '.inner.%%' AND
@@ -101,9 +101,9 @@ clickhouse-client --host localhost --port 9000 -mn < schema.sql
 - Using `clickhouse-backup` to copy the schema of a replica to another is also convenient and moreover if [using Atomic database](/engines/altinity-kb-atomic-database-engine/) with `{uuid}` macros in [ReplicatedMergeTree engines](https://www.youtube.com/watch?v=oHwhXc0re6k):
 
 ```bash
-sudo -u clickhouse clickhouse-backup --schema --rbac create_remote full-replica
+sudo -u clickhouse clickhouse-backup create --schema --rbac rbac_and_schema
 # From the destination replica
-sudo -u clickhouse clickhouse-backup --schema --rbac restore_remote full-replica
+sudo -u clickhouse clickhouse-backup restore --schema --rbac rbac_and_schema
 ```
 
 ### Using `altinity operator`
