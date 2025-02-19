@@ -1,1 +1,1 @@
-<a href="{{ .Destination | safeURL }}"{{ with .Title}} title="{{ . }}"{{ end }}{{ if strings.HasPrefix .Destination "http" }} target="_blank"{{ end }}>{{ .Text }}</a>
+<a href="{{ .Destination | safeURL }}"{{ with .Title}} title="{{ . }}"{{ end }}{{ if strings.HasPrefix .Destination "http" }} target="_blank"{{ end }}{{ if strings.Contains .Destination "clickhouse.com" }} rel="nofollow" {{ end }}{{ if strings.Contains .Destination "clickhouse.tech" }} rel="nofollow" {{ end }}>{{ .Text }}</a>

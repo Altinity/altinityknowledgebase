@@ -8,7 +8,7 @@ keywords:
   - clickhouse distributed
 ---
 
-In order to shift INSERTS to a standby cluster (for example increase zone availability or disaster recovery) some ClickHouse® features can be used.
+In order to shift INSERTS to a standby cluster (for example increase zone availability or [disaster recovery](https://docs.altinity.com/operationsguide/availability-and-recovery/recovery-architecture/)) some ClickHouse® features can be used.
 
 Basically we need to create a distributed table, a MV, rewrite the `remote_servers.xml` config file and tune some parameters.
 
@@ -118,7 +118,7 @@ All the hostnames/FQDN from each replica/node must be accessible from both clust
 
 ### Configuration settings
 
-Depending on your use case you can set the the distributed INSERTs to sync or async mode. This example is for async mode:
+Depending on your use case you can set the the distributed INSERTs to sync or [async mode](/altinity-kb-queries-and-syntax/async-inserts/). This example is for async mode:
 Put this config settings on the default profile. Check for more info about the possible modes:
 
 https://clickhouse.com/docs/en/operations/settings/settings#insert_distributed_sync
