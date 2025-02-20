@@ -47,7 +47,7 @@ Sometimes the consumer group needs to be explicitly allowed in the broker UI con
   </kafka>
 </yandex>
 ```
-
+[broker port config](https://docs.aws.amazon.com/msk/latest/developerguide/port-info.html)
 [Read here more](https://leftjoin.ru/blog/data-engineering/clickhouse-as-a-consumer-to-amazon-msk/) (Russian language)
 
 
@@ -115,7 +115,7 @@ See [https://github.com/ClickHouse/ClickHouse/issues/12609](https://github.com/C
   </kafka>
 ```
 
-### Confluent Cloud
+### Confluent Cloud / Google Cloud 
 
 ```xml
 <yandex>
@@ -132,15 +132,15 @@ See [https://github.com/ClickHouse/ClickHouse/issues/12609](https://github.com/C
   </kafka>
 </yandex>
 ```
-
 [https://docs.confluent.io/cloud/current/client-apps/config-client.html](https://docs.confluent.io/cloud/current/client-apps/config-client.html)
+[https://cloud.google.com/managed-service-for-apache-kafka/docs/authentication-kafka](https://cloud.google.com/managed-service-for-apache-kafka/docs/authentication-kafka)
 
 ## How to test connection settings
 
 Use kafkacat utility - it internally uses same library to access Kafla as ClickHouse itself and allows easily to test different settings.
 
 ```bash
-kafkacat -b my_broker:9092 -C -o -10 -t my_topic \
+kafkacat -b my_broker:9092 -C -o -10 -t my_topic \ (Google cloud and on-prem use 9092 port)
    -X security.protocol=SASL_SSL  \
    -X sasl.mechanisms=PLAIN \
    -X sasl.username=uerName \
