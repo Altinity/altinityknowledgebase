@@ -47,8 +47,8 @@ Sometimes the consumer group needs to be explicitly allowed in the broker UI con
   </kafka>
 </yandex>
 ```
-[broker port config](https://docs.aws.amazon.com/msk/latest/developerguide/port-info.html)
-[Read here more](https://leftjoin.ru/blog/data-engineering/clickhouse-as-a-consumer-to-amazon-msk/) (Russian language)
+- [Broker ports detail](https://docs.aws.amazon.com/msk/latest/developerguide/port-info.html)
+- [Read here more](https://leftjoin.ru/blog/data-engineering/clickhouse-as-a-consumer-to-amazon-msk/) (Russian language)
 
 
 ### on-prem / self-hosted Kafka broker
@@ -91,11 +91,11 @@ Example:
 </kafka>
 ```
 
-See xml
+See
 
-[https://help.aiven.io/en/articles/489572-getting-started-with-aiven-kafka](https://help.aiven.io/en/articles/489572-getting-started-with-aiven-kafka)
+- [https://help.aiven.io/en/articles/489572-getting-started-with-aiven-kafka](https://help.aiven.io/en/articles/489572-getting-started-with-aiven-kafka)
 
-[https://stackoverflow.com/questions/991758/how-to-get-pem-file-from-key-and-crt-files](https://stackoverflow.com/questions/991758/how-to-get-pem-file-from-key-and-crt-files)
+- [https://stackoverflow.com/questions/991758/how-to-get-pem-file-from-key-and-crt-files](https://stackoverflow.com/questions/991758/how-to-get-pem-file-from-key-and-crt-files)
 
 ### Azure Event Hub
 
@@ -132,8 +132,8 @@ See [https://github.com/ClickHouse/ClickHouse/issues/12609](https://github.com/C
   </kafka>
 </yandex>
 ```
-[https://docs.confluent.io/cloud/current/client-apps/config-client.html](https://docs.confluent.io/cloud/current/client-apps/config-client.html)
-[https://cloud.google.com/managed-service-for-apache-kafka/docs/authentication-kafka](https://cloud.google.com/managed-service-for-apache-kafka/docs/authentication-kafka)
+- [https://docs.confluent.io/cloud/current/client-apps/config-client.html](https://docs.confluent.io/cloud/current/client-apps/config-client.html)
+- [https://cloud.google.com/managed-service-for-apache-kafka/docs/authentication-kafka](https://cloud.google.com/managed-service-for-apache-kafka/docs/authentication-kafka)
 
 ## How to test connection settings
 
@@ -202,4 +202,4 @@ And after that in configuration:
 ```
  
 The same fragment of code in newer versions:
-https://github.com/ClickHouse/ClickHouse/blob/d19e24f530c30f002488bc136da78f5fb55aedab/src/Storages/Kafka/StorageKafka.cpp#L474-L496
+- https://github.com/ClickHouse/ClickHouse/blob/d19e24f530c30f002488bc136da78f5fb55aedab/src/Storages/Kafka/StorageKafka.cpp#L474-L496
