@@ -164,7 +164,7 @@ FORMAT JSONEachRow
 
 And query to generate traces per thread
 
-```
+```sql
 WITH
     '8e7e0616-cfaf-43af-a139-d938ced7655a' AS query,
     min(min) AS start_value,
