@@ -160,6 +160,58 @@ FROM
 )
 SETTINGS allow_introspection_functions = 1, output_format_json_named_tuples_as_objects = 1
 FORMAT JSONEachRow
-SETTINGS output_format_json_named_tuples_as_objects = 1
 ```
+
+And query to generate traces per thread
+
+```
+WITH
+    '8e7e0616-cfaf-43af-a139-d938ced7655a' AS query,
+    min(min) AS start_value,
+    max(max) AS end_value,
+    groupUniqArrayArrayArray(trace_arr) AS uniq_frames,
+    arrayMap((x, a, b, c, d) -> ('sampled', concat(b, ' - thread ', c.1, ' - traces ', c.2), 'nanoseconds', d.1 - start_value, d.2 - start_value, arrayMap(s -> reverse(arrayMap(y -> toUInt32(indexOf(uniq_frames, y) - 1), s)), x), a), groupArray(trace_arr), groupArray(weights), groupArray(trace_type), groupArray((thread_id, total)), groupArray((min, max))) AS samples
+SELECT
+    concat('clickhouse-server@', version()) AS exporter,
+    'https://www.speedscope.app/file-format-schema.json' AS `$schema`,
+    concat('ClickHouse query id: ', query) AS name,
+    CAST(samples, 'Array(Tuple(type String, name String, unit String, startValue UInt64, endValue UInt64, samples Array(Array(UInt32)), weights Array(UInt32)))') AS profiles,
+    CAST(tuple(arrayMap(x -> (demangle(addressToSymbol(x)), addressToLine(x)), uniq_frames)), 'Tuple(frames Array(Tuple(name String, line String)))') AS shared
+FROM
+(
+    SELECT
+        min(min_ns) AS min,
+        trace_type,
+        thread_id,
+        max(max_ns) AS max,
+        groupArray(trace) AS trace_arr,
+        groupArray(cnt) AS weights,
+        sum(cnt) as total
+    FROM
+    (
+        SELECT
+            min(timestamp_ns) AS min_ns,
+            max(timestamp_ns) AS max_ns,
+            trace,
+            trace_type,
+            thread_id,
+            sum(if(trace_type IN ('Memory', 'MemoryPeak', 'MemorySample'), size, 1)) AS cnt
+        FROM system.trace_log
+        WHERE query_id = query
+        GROUP BY
+            trace_type,
+            trace,
+            thread_id
+    )
+    GROUP BY
+        trace_type,
+        thread_id
+    ORDER BY
+        trace_type ASC,
+        total DESC
+)
+SETTINGS allow_introspection_functions = 1, output_format_json_named_tuples_as_objects = 1, output_format_json_quote_64bit_integers=1
+FORMAT JSONEachRow
+```
+
 By enabling detailed logging and tracing, you can effectively diagnose issues and optimize query performance in ClickHouse.
