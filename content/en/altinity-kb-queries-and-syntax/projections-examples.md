@@ -1,11 +1,14 @@
 ---
-title: "Projections"
-linkTitle: "Projections"
+title: "ClickHouse® Projections"
+linkTitle: "ClickHouse Projections"
 description: >
-    Projections 
+    Using this ClickHouse feature to optimize queries
+keywords: 
+  - clickhouse projections
+  - clickhouse projection vs materialized view
 ---
 
-Projections in ClickHouse act as inner tables within a main table, functioning as a mechanism to optimize queries by using these inner tables when only specific columns are needed. Essentially, a projection is similar to a Materialized View with an AggregatingMergeTree engine, designed to be automatically populated with relevant data.
+Projections in ClickHouse act as inner tables within a main table, functioning as a mechanism to optimize queries by using these inner tables when only specific columns are needed. Essentially, a projection is similar to a [Materialized View](/altinity-kb-schema-design/materialized-views/) with an [AggregatingMergeTree engine](/engines/mergetree-table-engine-family/aggregatingmergetree/), designed to be automatically populated with relevant data.
 
 However, too many projections can lead to excess storage, much like overusing Materialized Views. Projections share the same lifecycle as the main table, meaning they are automatically backfilled and don’t require query rewrites, which is particularly advantageous when integrating with BI tools.
 
@@ -20,7 +23,7 @@ Projection parts are stored within the main table parts, and their merges occur 
 * Blog video https://clickhouse.com/videos/how-to-a-clickhouse-query-using-projections
 
 
-## Why is a projection not used?
+## Why is a ClickHouse projection not used?
 
 A query analyzer should have a reason for using projection.  
 
@@ -74,11 +77,8 @@ Expression ((Project names + Projection))
 
 What happens in the case of non-trivial background merges in ReplacingMergeTree, AggregatingMergeTree and similar, and OPTIMIZE table DEDUPLICATE queries?
 
-Before version 24.8, projections became out of sync with the main data.
-
-Since version 24.8, it is controlled by a new table-level setting:
-
-[deduplicate_merge_projection_mode](https://clickhouse.com/docs/en/operations/settings/merge-tree-settings#deduplicate_merge_projection_mode) = 'throw'/'drop'/'rebuild'
+* Before version 24.8, projections became out of sync with the main data. 
+* Since version 24.8, it is controlled by a new table-level setting:<br/>[deduplicate_merge_projection_mode](https://clickhouse.com/docs/en/operations/settings/merge-tree-settings#deduplicate_merge_projection_mode) = `throw`/`drop`/`rebuild`
 
 However, projection usage is still disabled for FINAL queries. So, you have to use OPTIMIZE FINAL or SELECT ...GROUP BY  instead of FINAL for fighting duplicates between parts 
 
@@ -165,7 +165,7 @@ where create_table_query ilike '%projection%'
 
 ## Examples  
 
-### Aggregating projections
+### Aggregating ClickHouse projections
 
 ```sql
 create table z(Browser String, Country UInt8, F Float64)
@@ -224,7 +224,7 @@ Elapsed: 0.005 sec. Processed 22.43 thousand rows
 
 ### Emulation of an inverted index using orderby projection
 
-You can create an `orderby projection` and include all columns of a table, but if a table is very wide it will double of stored data. This example demonstrate a trick, we create an `orderby projection` and include primary key columns and the target column and sort by the target column. This allows using subquery to find [primary key values](../../engines/mergetree-table-engine-family/pick-keys/) and after that to query the table using the primary key. 
+You can create an `orderby projection` and include all columns of a table, but if a table is very wide it will double the amount of stored data. This example demonstrate a trick, we create an `orderby projection` and include primary key columns and the target column and sort by the target column. This allows using subquery to find [primary key values](../../engines/mergetree-table-engine-family/pick-keys/) and after that to query the table using the primary key. 
 
 ```sql
 CREATE TABLE test_a

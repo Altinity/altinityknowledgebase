@@ -1,9 +1,12 @@
 ---
-title: "MODIFY (ADD) TTL"
+title: "MODIFY (ADD) TTL in ClickHouse®"
 linkTitle: "MODIFY (ADD) TTL"
 weight: 100
 description: >-
-     What happens during a MODIFY or ADD TTL query. 
+     What happens during a MODIFY or ADD TTL query 
+keywords: 
+  - clickhouse modify ttl
+  - clickhouse alter table ttl
 ---
 
 *For a general overview of TTL, see the article [Putting Things Where They Belong Using New TTL Moves](https://altinity.com/blog/2020-3-23-putting-things-where-they-belong-using-new-ttl-moves).*

@@ -2,16 +2,15 @@
 title: "ClickHouse® Monitoring"
 linkTitle: "ClickHouse® Monitoring"
 description: >
-    ClickHouse® Monitoring
+    Tracking potential issues in your cluster before they cause a critical error
+keywords: 
+  - clickhouse monitoring
+  - clickhouse metrics
 ---
 
-## ClickHouse® Monitoring
-
-Monitoring helps to track potential issues in your cluster before they cause a critical error.
-
-What to read / watch on subject:
-* Altinity webinar "ClickHouse Monitoring 101: What to monitor and how". [recording](https://www.youtube.com/watch?v=W9KlehhgwLw), [slides](https://www.slideshare.net/Altinity/clickhouse-monitoring-101-what-to-monitor-and-how)
-* docs https://clickhouse.com/docs/en/operations/monitoring/ 
+What to read / watch on the subject:
+* Altinity webinar "ClickHouse Monitoring 101: What to monitor and how". [Watch the video](https://www.youtube.com/watch?v=W9KlehhgwLw) or [download the slides](https://www.slideshare.net/Altinity/clickhouse-monitoring-101-what-to-monitor-and-how).
+* [The ClickHouse docs](https://clickhouse.com/docs/en/operations/monitoring/)
 
 ## What should be monitored
 
@@ -38,7 +37,7 @@ The following metrics should be collected / monitored
   * [See separate article](../altinity-kb-zookeeper/zookeeper-monitoring/)
 
 
-## Monitoring tools
+## ClickHouse monitoring tools
 
 ### Prometheus (embedded exporter) + Grafana
 
@@ -99,9 +98,9 @@ The following metrics should be collected / monitored
 * site24x7 https://www.site24x7.com/plugins/clickhouse-monitoring.html
 * Acceldata Pulse https://www.acceldata.io/blog/acceldata-pulse-for-clickhouse-monitoring
 
-### "Build your own" monitoring
+### "Build your own" ClickHouse monitoring
 
-ClickHouse allow to access lot of internals using system tables. The main tables to access monitoring data are:
+ClickHouse allows to access lots of internals using system tables. The main tables to access monitoring data are:
 * system.metrics
 * system.asynchronous_metrics
 * system.events
@@ -310,13 +309,13 @@ The following queries are recommended to be included in monitoring:
 * `SELECT * FROM system.mutations`
   * This is the source of information on the speed and progress of currently executed merges.
 
-## Logs monitoring
+## Monitoring ClickHouse logs 
 
-ClickHouse logs can be another important source of information. There are 2 logs enabled by default
+[ClickHouse logs](/altinity-kb-setup-and-maintenance/logging/) can be another important source of information. There are 2 logs enabled by default
 * /var/log/clickhouse-server/clickhouse-server.err.log (error & warning, you may want to keep an eye on that or send it to some monitoring system)
 * /var/log/clickhouse-server/clickhouse-server.log (trace logs,  very detailed, useful for debugging, usually too verbose to monitor).
 
-You can additionally enable system.text_log table to have an access to the logs from clickhouse sql queries (ensure that you will not expose some information to the users which should not see it).
+You can additionally enable system.text_log table to have an access to the logs from clickhouse sql queries (ensure that you will not expose some information to the users who should not see it).
 ```
 $ cat /etc/clickhouse-server/config.d/text_log.xml
 <yandex>
