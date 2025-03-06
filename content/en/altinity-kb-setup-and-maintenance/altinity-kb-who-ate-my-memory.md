@@ -170,6 +170,27 @@ FROM system.trace_log
 WHERE event_time BETWEEN min_time AND max_time
 GROUP BY trace_type;
 
+SELECT
+    t,
+    count() AS queries,
+    formatReadableSize(sum(peak_size)) AS sum_of_peaks,
+    formatReadableSize(max(peak_size)) AS biggest_query_peak,
+    argMax(query_id, peak_size) AS query
+FROM
+(
+    SELECT
+        toStartOfInterval(event_time, toIntervalMinute(5)) AS t,
+        query_id,
+        max(size) AS peak_size
+    FROM system.trace_log
+    WHERE (trace_type = 'MemoryPeak') AND (event_time > (now() - toIntervalHour(24)))
+    GROUP BY
+        t,
+        query_id
+)
+GROUP BY t
+ORDER BY t ASC;
+
 -- later on you can check particular query_ids in query_log
 ```
 
