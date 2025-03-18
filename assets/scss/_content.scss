@@ -257,6 +257,7 @@ tr:nth-child(even) {
 
 #m-upgrade_ebook,
 #m-join_slack,
+#m-maintenance_ebook,
 #m-clickhouse_training {
   font-weight: bold;
   color: #189DD0;
@@ -266,6 +267,7 @@ tr:nth-child(even) {
 
 #m-upgrade_ebook:hover span,
 #m-join_slack:hover span,
+#m-maintenance_ebook:hover span,
 #m-clickhouse_training:hover span {
   text-decoration: underline;
 }
@@ -285,12 +287,18 @@ tr:nth-child(even) {
   background-size: 17px;
 }
 
+#m-maintenance_ebook {
+  background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><path id="Subtraction_1" data-name="Subtraction 1" d="M20,40A20.005,20.005,0,0,1,12.215,1.572a20.005,20.005,0,0,1,15.57,36.856A19.875,19.875,0,0,1,20,40ZM8.438,11A1.416,1.416,0,0,0,7,12.388V27.639a1.406,1.406,0,0,0,1.355,1.383c2.364.125,6.79.566,9.876,2.12a.745.745,0,0,0,.336.081.7.7,0,0,0,.712-.688V14.1a.683.683,0,0,0-.329-.587C17.66,12.722,14.591,11.347,8.525,11Zm23.124,0-.087,0c-6.066.344-9.136,1.72-10.426,2.509a.691.691,0,0,0-.329.595V30.532a.7.7,0,0,0,.715.689.736.736,0,0,0,.337-.081c1.326-.667,4.372-1.829,9.872-2.118A1.408,1.408,0,0,0,33,27.638V12.388a1.355,1.355,0,0,0-.422-.984A1.456,1.456,0,0,0,31.562,11Z" fill="%23189dd0"/></svg>') left 3px no-repeat transparent;
+  background-size: 17px;
+}
+
 #m-upgrade_ebook {
   background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><path id="Subtraction_1" data-name="Subtraction 1" d="M20,40A20.005,20.005,0,0,1,12.215,1.572a20.005,20.005,0,0,1,15.57,36.856A19.875,19.875,0,0,1,20,40ZM8.438,11A1.416,1.416,0,0,0,7,12.388V27.639a1.406,1.406,0,0,0,1.355,1.383c2.364.125,6.79.566,9.876,2.12a.745.745,0,0,0,.336.081.7.7,0,0,0,.712-.688V14.1a.683.683,0,0,0-.329-.587C17.66,12.722,14.591,11.347,8.525,11Zm23.124,0-.087,0c-6.066.344-9.136,1.72-10.426,2.509a.691.691,0,0,0-.329.595V30.532a.7.7,0,0,0,.715.689.736.736,0,0,0,.337-.081c1.326-.667,4.372-1.829,9.872-2.118A1.408,1.408,0,0,0,33,27.638V12.388a1.355,1.355,0,0,0-.422-.984A1.456,1.456,0,0,0,31.562,11Z" fill="%23189dd0"/></svg>') left 3px no-repeat transparent;
   background-size: 17px;
 }
 
-#m-join_slack-li {
+#m-join_slack-li,
+#m-upgrade_ebook-li {
   padding-top:20px;
   border-top: 1px #189DD0 solid;
   margin-top:20px;
