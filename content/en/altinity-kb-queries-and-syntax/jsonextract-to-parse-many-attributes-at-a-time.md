@@ -40,3 +40,35 @@ select extractKeyValuePairs(p['data'])['action'] as data ,
 format Vertical
 ```
 
+For very subnested dynamic JSON files, if you don't need all the keys, you could parse sublevels specifically. Still this will require several JSONExtract calls but each call will have less data to parse so complexity will be reduced for each pass: O(log n)
+
+```sql
+CREATE TABLE better_parsing (json String) ENGINE = Memory;
+INSERT INTO better_parsing FORMAT JSONAsString {"timestamp":"2024-06-12T14:30:00.001Z","functionality":"DOCUMENT","flowId":"210abdee-6de5-474a-83da-748def0facc1","step":"BEGIN","env":"dev","successful":true,"data":{"action":"initiate_view","stats":{"total":1,"success":1,"failed":0},"client_ip":"192.168.1.100","client_port":"8080"}}
+
+WITH parsed_content AS
+    (
+      SELECT 
+        JSONExtractKeysAndValues(json, 'String') AS 1st_level_arr,
+        mapFromArrays(1st_level_arr.1, 1st_level_arr.2) AS 1st_level_map,
+        JSONExtractKeysAndValues(1st_level_map['data'], 'String') AS 2nd_level_arr,
+        mapFromArrays(2nd_level_arr.1, 2nd_level_arr.2) AS 2nd_level_map,
+        JSONExtractKeysAndValues(2nd_level_map['stats'], 'String') AS 3rd_level_arr,
+        mapFromArrays(3rd_level_arr.1, 3rd_level_arr.2) AS 3rd_level_map
+      FROM json_tests.better_parsing
+    ) 
+SELECT 
+  1st_level_map['timestamp'] AS timestamp,
+  2nd_level_map['action'] AS action,
+  3rd_level_map['total'] AS total
+  3rd_level_map['nokey'] AS no_key_empty
+FROM parsed_content
+
+/*
+   ┌─timestamp────────────────┬─action────────┬─total─┬─no_key_empty─┐
+1. │ 2024-06-12T14:30:00.001Z │ initiate_view │ 1     │              │
+   └──────────────────────────┴───────────────┴───────┴──────────────┘
+
+1 row in set. Elapsed: 0.003 sec.
+*/
+```
