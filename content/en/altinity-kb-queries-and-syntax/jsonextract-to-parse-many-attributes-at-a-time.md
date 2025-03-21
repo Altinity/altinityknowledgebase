@@ -30,7 +30,13 @@ with $${
    "successful": true,
    "data": {
        "action": "initiate_view",
-       "client_ip": "192.168.1.100"
+        stats": {
+            "total": 1,
+            "success": 1,
+            "failed": 0
+         },
+         "client_ip": "192.168.1.100",
+         "client_port": 8080
    }
 }$$ as json, 
   JSONExtractKeysAndValues(json,'String') as m,
