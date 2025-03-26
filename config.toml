@@ -181,7 +181,7 @@ enable = false
 # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
 [[params.links.developer]]
 	name = "GitHub"
-	url = "https://github.com/orgs/Altinity/"
+	url = "https://github.com/Altinity/altinityknowledgebase"
 	icon = "fab fa-github"
   desc = "Development takes place here!"
 [[params.links.developer]]
