@@ -71,6 +71,29 @@ WHERE
 ;
 ```
 
+
 This query helps you determine the necessary pool size based on the number of consumers and threads per consumer for Kafka, and a fixed number for RabbitMQ and NATS.
 
 By following these guidelines, you can ensure your background message broker thread pool is appropriately sized, preventing performance issues and maintaining the efficiency of your Kafka, RabbitMQ, or NATS engines.
+
+### Adjusting the Setting
+
+Create the file `/etc/clickhouse-server/config.d/background_message_broker_schedule_pool_size.xml` with the following content (adjust the value as needed):
+
+```xml
+<yandex>
+    <background_message_broker_schedule_pool_size>120</background_message_broker_schedule_pool_size>
+</yandex>
+```
+
+Additionally, for ClickHouse versions **23.8 and earlier**, create the file `/etc/clickhouse-server/users.d/background_message_broker_schedule_pool_size.xml` with the following content:
+
+```xml
+<yandex>
+    <profiles>
+        <default>
+            <background_message_broker_schedule_pool_size>120</background_message_broker_schedule_pool_size>
+        </default>
+    </profiles>
+</yandex>
+```
