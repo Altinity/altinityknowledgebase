@@ -6,13 +6,23 @@ description: >-
     Guide to managing the `background_message_broker_schedule_pool_size` setting for Kafka, RabbitMQ, and NATS table engines in your database.
 ---
 
-## Setting the background message broker schedule pool size
+## Overview
 
-When using Kafka, RabbitMQ, or NATS table engines, you might encounter issues caused by the oversaturation of the thread pool responsible for background jobs. Monitoring and adjusting the `background_message_broker_schedule_pool_size` setting can help alleviate these problems.
+When using Kafka, RabbitMQ, or NATS table engines in ClickHouse®, you may encounter issues related to a saturated background thread pool. One common symptom is a warning similar to the following:
 
-### Identifying Thread Pool Saturation
+```
+2025.03.14 08:44:26.725868 [ 344 ] {} <Warning> StorageKafka (events_kafka): [rdk:MAXPOLL] [thrd:main]: Application maximum poll interval (60000ms) exceeded by 159ms (adjust max.poll.interval.ms for long-running message processing): leaving group
+```
 
-To check the status of your thread pool, run the following SQL query:
+This warning typically appears **not because ClickHouse fails to poll**, but because **there are no available threads** in the background pool to handle the polling in time. In rare cases, the same error might also be caused by long flushing operations to Materialized Views (MVs), especially if their logic is complex or chained.
+
+To resolve this, you should monitor and, if needed, increase the value of the `background_message_broker_schedule_pool_size` setting.
+
+---
+
+## Step 1: Check Thread Pool Utilization
+
+Run the following SQL query to inspect the current status of your background message broker thread pool:
 
 ```sql
 SELECT
@@ -29,7 +39,7 @@ SELECT
     pool_size - tasks AS free_threads
 ```
 
-If you have `metric_log` enabled, you can use this query to monitor the minimum number of free threads available throughout the day:
+If you have `metric_log` enabled, you can also monitor the **minimum number of free threads over the day**:
 
 ```sql
 SELECT min(CurrentMetric_BackgroundMessageBrokerSchedulePoolSize - CurrentMetric_BackgroundMessageBrokerSchedulePoolTask) AS min_free_threads
@@ -37,17 +47,13 @@ FROM system.metric_log
 WHERE event_date = today()
 ```
 
-### Interpreting Results
+**If `free_threads` is close to zero or negative**, it means your thread pool is saturated and should be increased.
 
-If the number of free threads is zero or very close to zero, you might experience issues with your Kafka, RabbitMQ, or NATS engines. In such cases, you should increase the `background_message_broker_schedule_pool_size` setting.
+---
 
-### Adjusting the Thread Pool Size
+## Step 2: Estimate Required Pool Size
 
-To fix the problem, increase the `background_message_broker_schedule_pool_size` setting in your `config.xml`. For older ClickHouse® versions, you may need to adjust this setting in both the default profile in `users.xml` and `config.xml`.
-
-### Estimating the Required Pool Size
-
-To estimate the appropriate value for `background_message_broker_schedule_pool_size`, use the following query:
+To estimate a reasonable value for `background_message_broker_schedule_pool_size`, run the following query:
 
 ```sql
 WITH
@@ -55,45 +61,71 @@ WITH
     extract(engine_full, 'kafka_thread_per_consumer\s*=\s*(\d+|\'true\')') not in ('', '0') as kafka_thread_per_consumer,
     multiIf(
         engine = 'Kafka',  
-        if(kafka_thread_per_consumer AND kafka_num_consumers > 0, kafka_num_consumers, 1),
+            if(kafka_thread_per_consumer AND kafka_num_consumers > 0, kafka_num_consumers, 1),
         engine = 'RabbitMQ',
-        3,
+            3,
         engine = 'NATS',
-        3,
+            3,
         0 /* should not happen */
     ) as threads_needed
 SELECT 
-   ceil(sum(threads_needed) * 1.25)
+    ceil(sum(threads_needed) * 1.25)
 FROM 
     system.tables
 WHERE 
     engine in ('Kafka', 'RabbitMQ', 'NATS')
-;
 ```
 
+This will return an estimate that includes a 25% buffer to accommodate spikes in load.
 
-This query helps you determine the necessary pool size based on the number of consumers and threads per consumer for Kafka, and a fixed number for RabbitMQ and NATS.
+---
 
-By following these guidelines, you can ensure your background message broker thread pool is appropriately sized, preventing performance issues and maintaining the efficiency of your Kafka, RabbitMQ, or NATS engines.
+## Step 3: Apply the New Setting
 
-### Adjusting the Setting
+1. **Create or update** the following configuration file:
 
-Create the file `/etc/clickhouse-server/config.d/background_message_broker_schedule_pool_size.xml` with the following content (adjust the value as needed):
+   **Path:** `/etc/clickhouse-server/config.d/background_message_broker_schedule_pool_size.xml`
 
-```xml
-<yandex>
-    <background_message_broker_schedule_pool_size>120</background_message_broker_schedule_pool_size>
-</yandex>
+   **Content:**
+   ```xml
+   <yandex>
+       <background_message_broker_schedule_pool_size>120</background_message_broker_schedule_pool_size>
+   </yandex>
+   ```
+
+   Replace `120` with the value recommended from Step 2 (rounded up if needed).
+
+2. **(Only for ClickHouse versions 23.8 and older)**
+
+   Add the same setting to the default user profile:
+
+   **Path:** `/etc/clickhouse-server/users.d/background_message_broker_schedule_pool_size.xml`
+
+   **Content:**
+   ```xml
+   <yandex>
+       <profiles>
+           <default>
+               <background_message_broker_schedule_pool_size>120</background_message_broker_schedule_pool_size>
+           </default>
+       </profiles>
+   </yandex>
+   ```
+
+---
+
+## Step 4: Restart ClickHouse
+
+After applying the configuration, restart ClickHouse to apply the changes:
+
+```bash
+sudo systemctl restart clickhouse-server
 ```
 
-Additionally, for ClickHouse versions **23.8 and earlier**, create the file `/etc/clickhouse-server/users.d/background_message_broker_schedule_pool_size.xml` with the following content:
+---
 
-```xml
-<yandex>
-    <profiles>
-        <default>
-            <background_message_broker_schedule_pool_size>120</background_message_broker_schedule_pool_size>
-        </default>
-    </profiles>
-</yandex>
-```
+## Summary
+
+A saturated background message broker thread pool can lead to missed Kafka polls and consumer group dropouts. Monitoring your metrics and adjusting `background_message_broker_schedule_pool_size` accordingly ensures stable operation of Kafka, RabbitMQ, and NATS integrations.
+
+If the problem persists even after increasing the pool size, consider investigating slow MV chains or flushing logic as a potential bottleneck.
