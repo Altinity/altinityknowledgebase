@@ -1,6 +1,6 @@
 ---
-title: "ClickHouse® MATERIALIZED VIEWS"
-linkTitle: "MATERIALIZED VIEWS"
+title: "ClickHouse® Materialized Views"
+linkTitle: "Materialized Views"
 description: >
     Making the most of this powerful ClickHouse® feature
 keywords: 

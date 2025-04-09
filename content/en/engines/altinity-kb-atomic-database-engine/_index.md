@@ -1,18 +1,21 @@
 ---
-title: "Atomic Database Engine"
+title: "ClickHouse® Atomic Database Engine"
 linkTitle: "Atomic Database Engine"
 description: >
-    Atomic Database Engine
+    Capabilities of the Atomic database engine 
+keywords: 
+  - clickhouse atomic
+  - clickhouse atomic engine
 aliases:
   /engines/altinity-kb-atomic-database-engine/altinity-kb-implementation-details
 ---
-In version 20.5 ClickHouse® first introduced database engine=Atomic.
+In version 20.5, ClickHouse® first introduced `database engine=Atomic`.
 
 Since version 20.10 it is a default database engine (before engine=Ordinary was used).
 
 Those 2 database engine differs in a way how they store data on a filesystem, and engine Atomic allows to resolve some of the issues existed in engine=Ordinary.
 
-engine=Atomic supports
+`engine=Atomic` supports
 
 * non-blocking drop table / rename table
 * tables delete (&detach) async (wait for selects finish but invisible for new selects)

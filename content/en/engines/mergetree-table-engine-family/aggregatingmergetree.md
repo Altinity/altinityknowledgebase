@@ -1,10 +1,13 @@
 ---
-title: "AggregatingMergeTree"
+title: "ClickHouse® AggregatingMergeTree"
 linkTitle: "AggregatingMergeTree"
 description: >
-    AggregatingMergeTree
+  FAQs for storing and merging pre-aggregated data
+keywords: 
+  - clickhouse aggregatingmergetree
+  - aggregatingmergetree
 ---
-Q. What happens with columns which are nor the part of ORDER BY key, nor have the AggregateFunction type?
+Q. What happens with columns which are not part of the [ORDER BY](/engines/mergetree-table-engine-family/pick-keys/) key, nor have the AggregateFunction type?
 
 A. it picks the first value met, (similar to `any`)
 
@@ -101,9 +104,9 @@ FINAL
 
 ## Merge two data streams
 
-Q.  I have 2 Kafka topics from which I am storing events into 2 different tables (A and B) having the same unique ID. I want to create a single table that combines the data in tables A and B into one table C. The problem is that data received asynchronously and not all the data is available when a row arrives in Table A or vice-versa.
+Q.  I have 2 Kafka topics from which I am storing events into 2 different tables (A and B) having the same unique ID. I want to create a single table that combines the data in tables A and B into one table C. The problem is that data is received asynchronously and not all the data is available when a row arrives in Table A or vice-versa.
 
-A. You can use AggregatingMergeTree with Nullable columns and any aggregation function or Non-Nullable column and max aggregation function if it acceptable for your data. 
+A. You can use AggregatingMergeTree with Nullable columns and any aggregation function or Non-Nullable column and max aggregation function if it is acceptable for your data. 
 
 ```
 CREATE TABLE table_C (
@@ -120,7 +123,7 @@ CREATE MATERIALIZED VIEW mv_B TO table_C AS
 SELECT id,colB FROM Kafka_B;
 ```
 
-Here is a more complicated example ( from here https://gist.github.com/den-crane/d03524eadbbce0bafa528101afa8f794)
+Here is a more complicated example (from here https://gist.github.com/den-crane/d03524eadbbce0bafa528101afa8f794)
 ```
 CREATE TABLE states_raw(
     d date,

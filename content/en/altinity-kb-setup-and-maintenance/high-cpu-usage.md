@@ -1,8 +1,12 @@
 ---
-title: "High CPU usage"
+title: "High CPU usage in ClickHouse®"
 linkTitle: "High CPU usage"
 description: >
-    High CPU usage
+    Getting CPU usage under control
+keywords: 
+   - clickhouse high cpu usage
+   - clickhouse cpu
+   - clickhouse cpu usage
 ---
 In general, it is a NORMAL situation for ClickHouse® that while processing a huge dataset it can use a lot of (or all of) the server resources. It is 'by design' - just to make the answers faster.
 
