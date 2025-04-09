@@ -1,14 +1,15 @@
 ---
-title: "How much is too much?"
-linkTitle: "How much is too much?"
+title: "ClickHouse® limitations"
+linkTitle: "ClickHouse limitations"
 weight: 100
-description: >-
-      ClickHouse® Limitations
+description:
+  How much is too much?
+keywords:
+  - clickhouse limitations
+  - clickhouse too many parts
 ---
 
-## How much is too much?
-
-In most of the cases ClickHouse® don't have any hard limits. But obviously there there are some practical limitation / barriers for different things - often they are caused by some system / network / filesystem limitation.
+In most of the cases ClickHouse® doesn't have any hard limits. But obviously there there are some practical limitation / barriers for different things - often they are caused by some system / network / filesystem limitation.
 
 So after reaching some limits you can get different kind of problems, usually it never a failures / errors, but different kinds of degradations (slower queries / high cpu/memory usage, extra load on the network / zookeeper etc).
 
@@ -16,7 +17,7 @@ While those numbers can vary a lot depending on your hardware & settings there i
 
 ### Number of tables (system-wide, across all databases)
 
-- non-replicated MergeTree-family tables = few thousands is still acceptable, if you don't do realtime inserts in more that few dozens of them. See [#32259](https://github.com/ClickHouse/ClickHouse/issues/32259)
+- non-replicated [MergeTree-family](https://kb.altinity.com/engines/mergetree-table-engine-family/) tables = few thousands is still acceptable, if you don't do realtime inserts in more that few dozens of them. See [#32259](https://github.com/ClickHouse/ClickHouse/issues/32259)
 - ReplicatedXXXMergeTree = few hundreds is still acceptable, if you don't do realtime inserts in more that few dozens of them. Every Replicated table comes with it's own cost (need to do housekeeping operations, monitoring replication queues etc). See [#31919](https://github.com/ClickHouse/ClickHouse/issues/31919)
 - Log family table = even dozens of thousands is still ok, especially if database engine = Lazy is used.
 
@@ -63,17 +64,17 @@ Dozens is still ok. More may require having more complex (non-flat) routing.
 
 2 is minimum for HA. 3 is a 'golden standard'. Up to 6-8 is still ok. If you have more with realtime inserts - it can impact the zookeeper traffic.
 
-### Number of zookeeper nodes in the ensemble 
+### Number of [Zookeeper nodes](https://docs.altinity.com/operationsguide/clickhouse-zookeeper/) in the ensemble 
 
-3 (Three) for most of the cases is enough (you can loose one node). Using more nodes allows to scale up read throughput for zookeeper, but don't improve writes at all.
+3 (Three) for most of the cases is enough (you can loose one node). Using more nodes allows to scale up read throughput for zookeeper, but doesn't improve writes at all.
 
-### Number of materialized view attached to a single table.
+### Number of [materialized views](/altinity-kb-schema-design/materialized-views/) attached to a single table.
 
 Up to few. The less the better if the table is getting realtime inserts. (no matter if MV are chained or all are fed from the same source table). 
 
 The more you have the more costly your inserts are, and the bigger risks to get some inconsistencies between some MV (inserts to MV and main table are not atomic).
 
-If the table don't have realtime inserts you can have more MV. 
+If the table doesn't have realtime inserts you can have more MV. 
 
 ### Number of projections inside a single table.
 
@@ -85,7 +86,7 @@ One to about a dozen. Different types of indexes has different penalty, bloom_fi
 At some point your inserts will slow down. Try to create possible minimum of indexes.
 You can combine many columns into a single index and this index will work for any predicate but create less impact. 
 
-### Number of Kafka tables / consumers inside 
+### Number of [Kafka tables / consumers](https://altinity.com/blog/kafka-engine-the-story-continues) inside 
 
 High number of Kafka tables maybe quite expensive (every consumer = very expensive librdkafka object with several threads inside).
 Usually alternative approaches are preferable (mixing several datastreams in one topic, denormalizing, consuming several topics of identical structure with a single Kafka table, etc).

@@ -1,12 +1,13 @@
 ---
-title: "Insert Deduplication / Insert idempotency"
+title: "Insert Deduplication / Insert Idempotency"
 linkTitle: "insert deduplication"
 weight: 100
 description: >-
-     Insert Deduplication / Insert idempotency , insert_deduplicate setting.
+     Using ClickHouse® features to avoid duplicate data
+keywords: 
+  - clickhouse insert deduplication
+  - clickhouse insert_deduplicate
 ---
-
-# Insert Deduplication
 
 Replicated tables have a special feature insert deduplication (enabled by default).
 
@@ -49,7 +50,7 @@ In `clickhouse-server.log` you may see trace messages `Block with ID ... already
 ..17:52:45.076738.. Block with ID all_7615936253566048997_747463735222236827 already exists locally as part all_0_0_0; ignoring it.
 ```
 
-Deduplication checksums are stored in Zookeeper in `/blocks` table's znode for each partition separately, so when you drop partition, they could be identified and removed for this partition.
+Deduplication checksums are stored in [Zookeeper](https://docs.altinity.com/operationsguide/clickhouse-zookeeper/) in `/blocks` table's znode for each partition separately, so when you drop partition, they could be identified and removed for this partition.
 (during `alter table delete` it's impossible to match checksums, that's why checksums stay in Zookeeper).
 ```sql
 SELECT name, value
