@@ -69,16 +69,17 @@ CLICKHOUSE_PASSWORD="xxxxxxxxx"
 # Get current day of week (1-7, where 7 is Sunday)
 # reload time for dict is 300 secs / 10 mins
 current_day=$(date +%u)
-# Get current time in hours and minutes (24-hour format)
+# Get current time in hours and minutes
 current_time=$(date +%H%M)
 
+# Check if today is Saturday (6) and the time is between 10:00 AM and 11:00 AM
 if [[ $current_day -eq 6 && $current_time -ge 1000 && $current_time -lt 1100 ]]; then
     # Get current date and time as timestamp
     current_timestamp=$(date +%s)
     last_restart_timestamp=$(clickhouse-client --user $CLICKHOUSE_USER --password $CLICKHOUSE_PASSWORD --query "SELECT max(toUnixTimestamp(restart_datetime)) FROM restart_table")
     # Check if the last restart timestamp is within last hour, if not then restart
     if [[ $(( current_timestamp - last_restart_timestamp )) -ge 3600 ]]; then
-        # Push status as reloaded within the timeframe
+        # Push data to log table and restart
         echo $current_timestamp | clickhouse-client --user $CLICKHOUSE_USER --password $CLICKHOUSE_PASSWORD --query "INSERT INTO restart_table FORMAT TSVRaw"
         clickhouse-client --user $CLICKHOUSE_USER --password $CLICKHOUSE_PASSWORD --query "SYSTEM SHUTDOWN"
     fi
