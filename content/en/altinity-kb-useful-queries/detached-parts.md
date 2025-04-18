@@ -83,5 +83,3 @@ Recovery: If you’re missing data due to misconfiguration or an error (such as 
 Cleanup: Otherwise, clean up the detached parts periodically to free disk space.
 
 Regarding detached parts and the absence of an automatic cleanup feature within ClickHouse: this was a deliberate decision, as there is a possibility that data may appear there due to a bug in ClickHouse's code, a hardware error (such as a memory error or disk failure), etc. In such cases, automatic cleanup is not desirable.
-
-© 2025 Altinity Inc. All rights reserved.
