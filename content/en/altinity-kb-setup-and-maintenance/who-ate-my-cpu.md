@@ -48,18 +48,18 @@ select elapsed, query from system.processes where is_initial_query and elapsed >
 
 ```sql
 SELECT
-    normalizedQueryHash(query),
+    normalizedQueryHash(query) hash,
     current_database,
-    sum(`ProfileEvents.Values`[indexOf(`ProfileEvents.Names`, 'UserTimeMicroseconds')])/1000 AS userCPUms,
+    sum(ProfileEvents['UserTimeMicroseconds'] as userCPUq)/1000 AS userCPUms,
     count(),
     sum(query_duration_ms) query_duration_ms,
     userCPUms/query_duration_ms cpu_per_sec, 
-    any(query)
+    argMax(query, userCPUq) heaviest_query
 FROM system.query_log
 WHERE (type = 2) AND (event_date >= today())
 GROUP BY
     current_database,
-    normalizedQueryHash(query)
+    hash
 ORDER BY userCPUms DESC
 LIMIT 10
 FORMAT Vertical;
