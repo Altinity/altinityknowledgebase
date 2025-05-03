@@ -40,6 +40,7 @@ $ cat /etc/clickhouse-server/config.d/z_log_disable.xml
     <opentelemetry_span_log remove="1"/>
     <zookeeper_log remove="1"/>
     <processors_profile_log remove="1"/>
+    <latency_log remove="1"/>
 </clickhouse>
 ```
 
