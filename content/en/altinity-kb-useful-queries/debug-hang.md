@@ -12,7 +12,7 @@ If ClickHouse® is busy with something and you don't know what's happening, you 
 
 ```sql
 SELECT
- arrayStringConcat(arrayMap(x -> demangle(addressToSymbol(x)), trace), '\n') AS trace_functions,
+ arrayStringConcat(arrayMap(x -> concat('0x', lower(hex(x)), '\t', demangle(addressToSymbol(x))), trace), '\n') as trace_functions,
  count()
 FROM system.stack_trace
 GROUP BY trace_functions
