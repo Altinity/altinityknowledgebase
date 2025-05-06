@@ -73,3 +73,13 @@ covered-by-broken  - that means that ClickHouse during initialization of replica
 ```
 
 The list of DETACH_REASONS: https://github.com/ClickHouse/ClickHouse/blob/master/src/Storages/MergeTree/MergeTreePartInfo.h#L163
+
+## More notes on ClickHouseDetachedParts
+
+Detached parts act like the “Recycle Bin” in Windows. When ClickHouse deems some data unneeded—often during internal reconciliations at server startup—it moves the data to the detached area instead of deleting it immediately.
+
+Recovery: If you’re missing data due to misconfiguration or an error (such as connecting to the wrong ZooKeeper), check the detached parts. The missing data might be recoverable through manual intervention.
+
+Cleanup: Otherwise, clean up the detached parts periodically to free disk space.
+
+Regarding detached parts and the absence of an automatic cleanup feature within ClickHouse: this was a deliberate decision, as there is a possibility that data may appear there due to a bug in ClickHouse's code, a hardware error (such as a memory error or disk failure), etc. In such cases, automatic cleanup is not desirable.
