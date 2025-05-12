@@ -1,10 +1,16 @@
-# Istio Issues
-
-This KB is here for listing issues where the ClickHouse Operator is installed on a cluster where Istio is used.
+---
+title: "Istio Issues"
+linkTitle: "Istio Issues"
+weight: 100
+description:
+  Working with the popular service mesh
+keywords:
+  - istio
+---
 
 ## What is Istio?
 
-Per documentation on [Istio Project's website](https://istio.io/latest/docs/overview/what-is-istio/), Istio is "an open source service mesh that layers transparently onto existing distributed applications. Istio’s powerful features provide a uniform and more efficient way to secure, connect, and monitor services. Istio is the path to load balancing, service-to-service authentication, and monitoring – with few or no service code changes."
+Per documentation on [Istio Project\'s website](https://istio.io/latest/docs/overview/what-is-istio/), Istio is "an open source service mesh that layers transparently onto existing distributed applications. Istio’s powerful features provide a uniform and more efficient way to secure, connect, and monitor services. Istio is the path to load balancing, service-to-service authentication, and monitoring – with few or no service code changes."
 
 Istio works quite well at providing this functionality, and does so through controlling service-to-service communication in a Cluster, find-grained control of traffic behavior, routing rules, load-balancing, a policy layer and configuration API supporting access controls, rate limiting, etc. 
 
