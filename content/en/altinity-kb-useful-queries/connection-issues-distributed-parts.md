@@ -7,7 +7,6 @@ keywords:
   - replication 
   - distributed connections
 ---
-# Notes on Various Errors with respect to replication and distributed connections
 
 ## `ClickHouseDistributedConnectionExceptions`
 
