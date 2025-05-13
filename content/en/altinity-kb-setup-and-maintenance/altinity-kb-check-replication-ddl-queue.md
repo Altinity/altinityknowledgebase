@@ -107,7 +107,7 @@ SYSTEM RESTORE REPLICA table_name;  -- It will detach all partitions, re-create 
 SYSTEM SYNC REPLICA table_name; -- Wait for replicas to synchronize parts. Also it's recommended to check `system.detached_parts` on all replicas after recovery is finished.
 ```
 
-There are some variants in new 23 versions of this procedure using [SYSTEM DROP REPLICA 'replica_name' FROM TABLE db.table](https://clickhouse.com/docs/en/sql-reference/statements/system#drop-replica) instead of the `ZKPATH` variant, but you need to execute the above command from a different replica that the one you want to drop which is not convenient sometimes. We recommend using the above method because it works for different versions from 21 to 24 and is more reliable.
+There are some variants in new 23 versions of this procedure using syntax [SYSTEM DROP REPLICA \'replica_name\' FROM TABLE db.table](https://clickhouse.com/docs/en/sql-reference/statements/system#drop-replica) instead of the `ZKPATH` variant, but you need to execute the above command from a different replica that the one you want to drop which is not convenient sometimes. We recommend using the above method because it works for different versions from 21 to 24 and is more reliable.
 
 - Procedure for many replicas generating DDL:
 
