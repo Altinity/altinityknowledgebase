@@ -7,7 +7,7 @@ description: >
 * To set rdkafka options - add to `<kafka>` section in `config.xml` or preferably use a separate file in `config.d/`:
   * [https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md](https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md)
 
-Some random example:
+Some random example using SSL certificates to authenticate:
 
 ```xml
 <yandex>
