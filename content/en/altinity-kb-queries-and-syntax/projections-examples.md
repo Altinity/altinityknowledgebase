@@ -25,13 +25,15 @@ Projection parts are stored within the main table parts, and their merges occur 
 
 ## Why is a ClickHouse projection not used?
 
-A query analyzer should have a reason for using projection.  
+A query analyzer should have a reason for using a projection and should not have any limitation to do so.  
 
 - the query should use ONLY the columns defined in the projection.
 - for ORDER BY projection WHERE statement referring to a column should be in the query
 - FINAL queries do not work with projections.
-- Projection is used only if it is cheaper to read from it than from the table.
-- Projection should be materialized.  Verify that all parts have the needed projection by looking into the system.parts, projections column.
+- tables with DELETEd rows do not work with projections. This is because rows in a projection may be affected by a DELETE operation. But there is a MergeTree setting lightweight_mutation_projection_mode to change the behavior (Since 24.7)
+- Projection is used only if it is cheaper to read from it than from the table (expected amount of rows and GBs read is smaller)
+- Projection should be materialized.  Verify that all parts have the needed projection by comparing system.parts and system.projection_parts (see query below)
+- a bug in a Clickhouse version.  Look at [changelog](https://clickhouse.com/docs/whats-new/changelog) and search for projection.
 - If there are many projections per table, the analyzer can select any of them. If you think that it is better, use settings `preferred_optimize_projection_name` or `force_optimize_projection_name`
 - If expressions are used instead of plain column names, the query should use the exact expression as defined in the projection with the same functions and modifiers. Use column aliases to make the query the very same as in the projection definition:
 
@@ -71,6 +73,35 @@ Expression ((Project names + Projection))
           Condition: true
           Parts: 9/9
           Granules: 9/1223
+```
+
+## check that part has projection
+
+```
+SELECT
+    p.database AS base_database,
+    p.table AS base_table,
+    p.name AS base_part_name,         -- Name of the part in the base table
+    p.partition_id,                   -- Partition ID of the base part
+    pp.active
+
+FROM system.parts AS p  -- Alias for the base table's parts
+LEFT JOIN system.projection_parts AS pp -- Alias for the projection's parts
+ON
+    p.database = pp.database        -- Match on database name
+    AND p.table = pp.table          -- Match on base table name
+    AND p.name = pp.parent_name
+    AND pp.name = 'projection'
+WHERE
+    p.database = 'database'
+    AND p.table = 'table'
+    AND p.active                     -- Consider only active parts of the base table
+    --    and not pp.active          -- see only missed in the list
+
+ORDER BY
+    p.database,
+    p.table,
+    p.name;
 ```
 
 ## Recalculate on Merge
@@ -126,13 +157,9 @@ settings force_optimize_projection=1 ;
 https://fiddle.clickhouse.com/e1977a66-09ce-43c4-aabc-508c957d44d7
 
 
-
-## Lightweight DELETEs with projections
-
-By default, DELETE does not work for tables with projections. This is because rows in a projection may be affected by a DELETE operation. But there is a MergeTree setting lightweight_mutation_projection_mode to change the behavior (Since 24.7)
-
 ## System tables
 
+- system.projections
 - system.projection_parts
 - system.projection_parts_columns
 
