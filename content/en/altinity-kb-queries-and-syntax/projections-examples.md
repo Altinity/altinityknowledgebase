@@ -75,33 +75,30 @@ Expression ((Project names + Projection))
           Granules: 9/1223
 ```
 
-## check that part has projection
+## check parts 
+
+- has the projection materialized
+- does not have lightweight deletes
 
 ```
 SELECT
     p.database AS base_database,
     p.table AS base_table,
     p.name AS base_part_name,         -- Name of the part in the base table
-    p.partition_id,                   -- Partition ID of the base part
+    p.has_lightweight_delete,
     pp.active
-
 FROM system.parts AS p  -- Alias for the base table's parts
 LEFT JOIN system.projection_parts AS pp -- Alias for the projection's parts
-ON
-    p.database = pp.database        -- Match on database name
-    AND p.table = pp.table          -- Match on base table name
-    AND p.name = pp.parent_name
-    AND pp.name = 'projection'
+ON    p.database = pp.database AND p.table = pp.table
+  AND p.name = pp.parent_name
+  AND pp.name = 'projection'
 WHERE
     p.database = 'database'
     AND p.table = 'table'
-    AND p.active                     -- Consider only active parts of the base table
-    --    and not pp.active          -- see only missed in the list
+    AND p.active  -- Consider only active parts of the base table
+  -- and not pp.active          -- see only missed in the list
+ORDER BY p.database, p.table, p.name;
 
-ORDER BY
-    p.database,
-    p.table,
-    p.name;
 ```
 
 ## Recalculate on Merge
