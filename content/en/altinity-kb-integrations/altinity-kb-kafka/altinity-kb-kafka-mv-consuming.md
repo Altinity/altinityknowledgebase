@@ -5,9 +5,17 @@ description: >
     How Multiple MVs attached to Kafka table consume and how they are affected by kafka_num_consumers/kafka_thread_per_consumer
 ---
 
+Kafka Consumer is a thread inside Kafka Engine table that is visible by Kafka monitoring tools like kafka-consumer-groups and system.kafka_consumers table.
 
+Having multiple consumers can significantly speed up event processing, but it comes with a trade-off: it's a CPU-intensive task that requires one CPU core per consumer, especially under high event load. Therefore, it's crucial to only create as many consumers as you really need and ensure you have enough CPU cores to handle them.
 
-So the basic pipeline depicted is a Kafka table with 2 MVs attached. The Kafka broker has 2 topics and 4 partitions. 
+In Clickhouse there is a special thread pool for all background process, such as streaming engines. Its size is controlled by the background_message_broker_schedule_pool_size setting and is 16 by default.  If you exceed this limit across all tables on the server, you’ll likely encounter continuous Kafka rebalances, which will slow down processing considerably.  For a server with a lot of CPU cores you can increase that limit to a higher value like 20 or even 40.
+
+`background_message_broker_schedule_pool_size` = 20 allows you to create 5 Kafka Engine tables with 4 consumers each.
+
+We don’t recommend too many Kafka Engines per server. Low-intensive event streams can be processed by a single Consumer even from several topics:
+
+Consider a basic pipeline depicted is a Kafka table with 2 MVs attached. The Kafka broker has 2 topics and 4 partitions. 
 
 ### kafka_thread_per_consumer = 0
 
@@ -77,7 +85,7 @@ Once the first Materialized View (MV) is loaded, started, and attached to the Ka
 This issue worsens with asynchronous table loading. Tables are only loaded upon first access, and the loading process takes time. When multiple MVs direct the data stream to different tables, some tables might be ready sooner than others. As soon as the first table becomes ready, data consumption starts, and any tables still loading will miss the data consumed during that interval, resulting in further data loss for those tables.
 
 
-That means when you make a design with Multiple MVs async_load_databases should be switched off:
+That means when you make a design with Multiple MVs `async_load_databases` should be switched off:
 
 ```sql
 <async_load_databases>false</async_load_databases>
@@ -103,4 +111,5 @@ Using an intermediate Null table is also preferable because it's easier to make 
 - make any changes to transforming MVs by drop/recreate
 - create dummy_MV again to resume consuming
 
-The fix for correctly starting multiple MVs will be available  in 25.5 version
+The fix for correctly starting multiple MVs will be available from 25.5 version - https://github.com/ClickHouse/ClickHouse/pull/72123
+
