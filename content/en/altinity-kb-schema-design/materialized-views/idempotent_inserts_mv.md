@@ -59,6 +59,10 @@ select sum(CNT) from test_mv;
 0 rows in set. Elapsed: 0.001 sec.    -- Inconsistency! Unfortunatly insert into MV was deduplicated as well
 ```
 
+That is another example - https://github.com/ClickHouse/ClickHouse/issues/56642
+
+
+
 ### Example 2. Inconsistency with deduplicate_blocks_in_dependent_materialized_views 1
 
 ```sql
