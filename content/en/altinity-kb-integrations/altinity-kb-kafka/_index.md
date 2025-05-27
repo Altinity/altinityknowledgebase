@@ -10,7 +10,7 @@ git log -- contrib/librdkafka | git name-rev --stdin
 
 | **ClickHouse® version** | **librdkafka version** |
 | :--- | :--- |
-| 25.3+ | 2.8.0 + few patches https://gist.github.com/filimonov/ad252aa601d4d99fb57d4d76f14aa2bf  |
+| 25.3+ ([\#63697](https://github.com/ClickHouse/ClickHouse/issues/63697)) | [2.8.0](https://github.com/confluentinc/librdkafka/blob/v2.8.0/CHANGELOG.md) + few [fixes](https://gist.github.com/filimonov/ad252aa601d4d99fb57d4d76f14aa2bf)  |
 | 21.10+ ([\#27883](https://github.com/ClickHouse/ClickHouse/pull/27883)) | [1.6.1](https://github.com/edenhill/librdkafka/blob/v1.6.1/CHANGELOG.md) + snappy fixes + boring ssl + illumos_build fixes + edenhill#3279 fix|
 | 21.6+ ([\#23874](https://github.com/ClickHouse/ClickHouse/pull/23874)) | [1.6.1](https://github.com/edenhill/librdkafka/blob/v1.6.1/CHANGELOG.md) + snappy fixes + boring ssl + illumos_build fixes|
 | 21.1+ ([\#18671](https://github.com/ClickHouse/ClickHouse/pull/18671)) | [1.6.0-RC3](https://github.com/edenhill/librdkafka/blob/v1.6.0-RC3/CHANGELOG.md) + snappy fixes + boring ssl |
