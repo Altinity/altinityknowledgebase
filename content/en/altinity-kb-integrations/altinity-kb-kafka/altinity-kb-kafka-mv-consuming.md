@@ -7,7 +7,7 @@ description: >
 
 Kafka Consumer is a thread inside the Kafka Engine table that is visible by Kafka monitoring tools like kafka-consumer-groups and in Clickhouse in system.kafka_consumers table.
 
-Having multiple consumers can significantly speed up event processing, but it comes with a trade-off: it's a CPU-intensive task that requires one CPU core per consumer, especially under high event load. Therefore, it's crucial to create as many consumers as you really need and ensure you have enough CPU cores to handle them. However, we don’t recommend too many Kafka Engines per server because it creates too much load on different thread pools. Low-intensity event streams can be processed by a single Consumer even by consuming several topics.
+Having multiple consumers increases ingesting parallelism and can significantly speed up event processing. However, it comes with a trade-off: it's a CPU-intensive task, especially under high event load and/or complicated parsing of incoming data. Therefore, it's crucial to create as many consumers as you really need and ensure you have enough CPU cores to handle them. We don’t recommend creating too many Kafka Engines per server because it could lead to uncontrolled CPU usage in situations like bulk data upload or catching up a huge kafka lag due to excessive parallelism of the ingesting process.
 
 ## kafka_thread_per_consumer meaning
 
