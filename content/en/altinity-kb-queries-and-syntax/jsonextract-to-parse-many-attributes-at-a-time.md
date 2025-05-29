@@ -39,6 +39,33 @@ successful: 1
 
 ```
 
+A good approach to get a proper schema from a json message is to let `clickhouse-local` schema inference do the job:
+
+```bash
+$ ls example_message.json         
+example_message.json
+
+$ clickhouse-local --query="DESCRIBE file('example_message.json', 'JSONEachRow')" --format="Vertical";
+
+Row 1:
+──────
+name:               resourceLogs
+type:               Array(Tuple(
+    resource Nullable(String),
+    scopeLogs Array(Tuple(
+        logRecords Array(Tuple(
+            attributes Array(Tuple(
+                key Nullable(String),
+                value Tuple(
+                    stringValue Nullable(String)))),
+            body Tuple(
+                stringValue Nullable(String)),
+            observedTimeUnixNano Nullable(String),
+            spanId Nullable(String),
+            traceId Nullable(String))),
+        scope Nullable(String)))))
+```
+
 For very subnested dynamic JSON files, if you don't need all the keys, you could parse sublevels specifically. Still this will require several JSONExtract calls but each call will have less data to parse so complexity will be reduced for each pass: O(log n)
 
 ```sql
