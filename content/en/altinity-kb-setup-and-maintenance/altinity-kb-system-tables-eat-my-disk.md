@@ -53,6 +53,7 @@ $ cat /etc/clickhouse-server/users.d/z_log_queries.xml
         <default>
             <log_queries>0</log_queries> <!-- normally it's better to keep it turned on! -->
             <log_query_threads>0</log_query_threads>
+            <log_processors_profiles>0</log_processors_profiles>
         </default>
     </profiles>
 </clickhouse>
@@ -146,6 +147,7 @@ cat /etc/clickhouse-server/users.d/log_queries.xml
         <default>
             <log_queries>0</log_queries>
             <log_query_threads>0</log_query_threads>
+            <log_processors_profiles>0</log_processors_profiles>
         </default>
     </profiles>
 </clickhouse>
