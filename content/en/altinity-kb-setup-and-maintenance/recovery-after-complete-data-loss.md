@@ -59,7 +59,7 @@ SELECT concat('CREATE DATABASE "', name, '" ENGINE = ', engine, ' COMMENT \'', c
 FROM system.databases
 WHERE name NOT IN ('INFORMATION_SCHEMA', 'information_schema', 'system', 'default');
 
-clickhouse-client < /home/denis.zhuravlev/generate_schema.sql > create_database.sql
+clickhouse-client < /home/ubuntu/generate_schema.sql > create_database.sql
 ```
 
 check the result
