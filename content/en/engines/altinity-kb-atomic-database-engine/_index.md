@@ -95,7 +95,7 @@ But some external tools - backup tools, things involving other kinds of direct m
       <td style="text-align:left">external tool support
         <br />(like <code>clickhouse-backup</code>)</td>
       <td style="text-align:left">good / mature</td>
-      <td style="text-align:left">limited / beta</td>
+      <td style="text-align:left">good / mature</td>
     </tr>
     <tr>
       <td style="text-align:left">
