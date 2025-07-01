@@ -10,7 +10,7 @@ description: >-
 
 Some setting that are not enabled by default.
 
-* [ttl_only_drop_parts](https://clickhouse.com/docs/en/operations/settings/settings/#ttl_only_drop_parts)
+* [ttl_only_drop_parts](https://clickhouse.com/docs/operations/settings/merge-tree-settings#ttl_only_drop_parts)
 
 Enables or disables complete dropping of data parts where all rows are expired in MergeTree tables.
 
