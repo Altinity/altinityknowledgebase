@@ -138,3 +138,59 @@ ORDER BY
 	v2 DESC,
 	metric ASC
 ```
+
+## Columns used in WHERE clauses
+```
+WITH
+    any(query) AS q,
+    any(tables) AS _tables,
+    arrayJoin(extractAll(query, '\\b(?:PRE)?WHERE\\s+(.*?)\\s+(?:GROUP BY|ORDER BY|UNION|SETTINGS|FORMAT$)')) AS w,
+    any(columns) AS cols,
+    arrayFilter(x -> (position(w, extract(x, '\\.(`[^`]+`|[^\\.]+)$')) > 0), columns) AS c,
+    arrayJoin(c) AS c2
+SELECT
+    c2,
+    count()
+FROM system.query_log
+WHERE (event_time >= (now() - toIntervalDay(1)))
+  AND arrayExists(x -> (x LIKE '%target_table%'), tables)
+  AND (query ILIKE 'SELECT%')
+GROUP BY c2
+ORDER BY count() ASC;
+```
+Replace %target_table% with the actual table name (or pattern) you want to inspect.
+
+## Most‑selected columns
+
+```
+SELECT
+    col AS column,
+    count() AS hits
+FROM system.query_log
+ARRAY JOIN columns AS col          -- expand the column list first
+WHERE type = 'QueryFinish'
+  AND query_kind = 'Select'
+  AND event_time >= now() - INTERVAL 7 DAY
+  AND notEmpty(columns)
+GROUP BY col
+ORDER BY hits DESC
+LIMIT 50;
+```
+
+## Most‑used functions
+
+```
+SELECT
+    f AS function,
+    count() AS hits
+FROM system.query_log
+ARRAY JOIN used_functions AS f  -- used_aggregate_functions, used_aggregate_function_combinators
+WHERE type = 'QueryFinish'
+  AND event_time >= now() - INTERVAL 7 DAY
+  AND notEmpty(used_functions)
+GROUP BY f
+ORDER BY hits DESC
+LIMIT 50;
+```
+
+
