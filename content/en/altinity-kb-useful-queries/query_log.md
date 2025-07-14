@@ -95,27 +95,6 @@ LIMIT 30
 FORMAT Vertical;
 ```
 
-## Find queries that were started but not finished at some moment in time
-
-```sql
-SELECT
-  query_id,
-  min(event_time) t,
-  any(query)
-FROM system.query_log
-where event_date = today() and event_time > '2021-11-25 02:29:12'
-GROUP BY query_id
-HAVING countIf(type='QueryFinish') = 0 OR sum(query_duration_ms) > 100000
-order by t;
-
-select
-     query_id,
-     any(query)
-from system.query_log
-where event_time between '2021-09-24 07:00:00' and '2021-09-24 09:00:00'
-group by query_id HAVING countIf(type=1) <> countIf(type!=1)
-```
-
 ## A/B tests of the same query
 ```
 WITH
@@ -137,6 +116,66 @@ ORDER BY
 	(v2 - v1) / (v1 + v2) DESC,
 	v2 DESC,
 	metric ASC
+```
+
+Another variant
+```
+WITH
+    toUUID('d18fb820-4075-49bf-8fa3-cd7e53b9d523') AS fast_query_id,
+    toUUID('22ffbcc0-c62a-4895-8105-ee9d7447a643') AS slow_query_id,
+    faster AS
+    (
+        SELECT pe.1 AS event_name, pe.2 AS event_value
+        FROM
+        (
+            SELECT ProfileEvents.Names, ProfileEvents.Values
+            FROM system.query_log
+            WHERE (query_id = fast_query_id ) AND (type = 'QueryFinish') AND (event_date = today())
+        )
+        ARRAY JOIN arrayZip(ProfileEvents.Names, ProfileEvents.Values) AS pe
+    ),
+    slower AS
+    (
+        SELECT pe.1 AS event_name, pe.2 AS event_value
+        FROM
+        (
+            SELECT ProfileEvents.Names, ProfileEvents.Values
+            FROM system.query_log
+            WHERE (query_id = slow_query_id) AND (type = 'QueryFinish') AND (event_date = today())
+        )
+        ARRAY JOIN arrayZip(ProfileEvents.Names, ProfileEvents.Values) AS pe
+    )
+SELECT
+    event_name,
+    formatReadableQuantity(slower.event_value) AS slower_value,
+    formatReadableQuantity(faster.event_value) AS faster_value,
+    round((slower.event_value - faster.event_value) / slower.event_value, 2) AS diff_q
+FROM faster
+LEFT JOIN slower USING (event_name)
+WHERE diff_q > 0.05
+ORDER BY event_name ASC
+SETTINGS join_use_nulls = 1
+```
+
+## Find queries that were started but not finished at some moment in time
+
+```sql
+SELECT
+  query_id,
+  min(event_time) t,
+  any(query)
+FROM system.query_log
+where event_date = today() and event_time > '2021-11-25 02:29:12'
+GROUP BY query_id
+HAVING countIf(type='QueryFinish') = 0 OR sum(query_duration_ms) > 100000
+order by t;
+
+select
+     query_id,
+     any(query)
+from system.query_log
+where event_time between '2021-09-24 07:00:00' and '2021-09-24 09:00:00'
+group by query_id HAVING countIf(type=1) <> countIf(type!=1)
 ```
 
 ## Columns used in WHERE clauses
@@ -191,67 +230,6 @@ WHERE type = 'QueryFinish'
 GROUP BY f
 ORDER BY hits DESC
 LIMIT 50;
-```
-
-## A/B tests of the same query
-```
-WITH
-	query_id='8c050082-428e-4523-847a-caf29511d6ba' AS first,
-	query_id='618e0c55-e21d-4630-97e7-5f82e2475c32' AS second,
-	arrayConcat(mapKeys(ProfileEvents), ['query_duration_ms', 'read_rows', 'read_bytes', 'written_rows', 'written_bytes', 'result_rows', 'result_bytes', 'memory_usage', 'normalized_query_hash', 'peak_threads_usage', 'query_cache_usage']) AS metrics,
-	arrayConcat(mapValues(ProfileEvents), [query_duration_ms, read_rows, read_bytes, written_rows, written_bytes, result_rows, result_bytes, memory_usage, normalized_query_hash, peak_threads_usage, toUInt64(query_cache_usage)]) AS metrics_values
-SELECT
-	metrics[i] AS metric,
-	anyIf(metrics_values[i], first) AS v1,
-	anyIf(metrics_values[i], second) AS v2,
-	formatReadableQuantity(v1 - v2)
-FROM clusterAllReplicas(default, system.query_log)
-ARRAY JOIN arrayEnumerate(metrics) AS i
-WHERE (first OR second) AND (type = 2)
-GROUP BY metric
-HAVING v1 != v2
-ORDER BY
-	(v2 - v1) / (v1 + v2) DESC,
-	v2 DESC,
-	metric ASC
-```
-
-```
-WITH
-    toUUID('d18fb820-4075-49bf-8fa3-cd7e53b9d523') AS fast_query_id,
-    toUUID('22ffbcc0-c62a-4895-8105-ee9d7447a643') AS slow_query_id,
-    faster AS
-    (
-        SELECT pe.1 AS event_name, pe.2 AS event_value
-        FROM
-        (
-            SELECT ProfileEvents.Names, ProfileEvents.Values
-            FROM system.query_log
-            WHERE (query_id = fast_query_id ) AND (type = 'QueryFinish') AND (event_date = today())
-        )
-        ARRAY JOIN arrayZip(ProfileEvents.Names, ProfileEvents.Values) AS pe
-    ),
-    slower AS
-    (
-        SELECT pe.1 AS event_name, pe.2 AS event_value
-        FROM
-        (
-            SELECT ProfileEvents.Names, ProfileEvents.Values
-            FROM system.query_log
-            WHERE (query_id = slow_query_id) AND (type = 'QueryFinish') AND (event_date = today())
-        )
-        ARRAY JOIN arrayZip(ProfileEvents.Names, ProfileEvents.Values) AS pe
-    )
-SELECT
-    event_name,
-    formatReadableQuantity(slower.event_value) AS slower_value,
-    formatReadableQuantity(faster.event_value) AS faster_value,
-    round((slower.event_value - faster.event_value) / slower.event_value, 2) AS diff_q
-FROM faster
-LEFT JOIN slower USING (event_name)
-WHERE diff_q > 0.05
-ORDER BY event_name ASC
-SETTINGS join_use_nulls = 1
 ```
 
 ## query ranks 
