@@ -14,6 +14,12 @@ However, too many projections can lead to excess storage, much like overusing Ma
 
 Projection parts are stored within the main table parts, and their merges occur simultaneously as the main table merges, ensuring data consistency without additional maintenance.
 
+compared to a separate table+MV setup:
+- A separate table gives you more freedom (like partitioning, granularity, etc), but projections - more consistency (parts managed as a whole)
+- Projections do not support many features (like indexes and FINAL).  That becomes better with recent versions, but still a drawback
+
+The design approach for projections is the same as for indexes. Create a table and give it to users.  If you encounter a slower query, add a projection for that particular query (or set of similar queries). You can create 10+ projections per table, materialize, drop, etc - the very same as indexes.  You exchange query speed for disk space/IO and CPU needed to build and rebuild projections on merges.
+
 ## Links
 
 * Amos Bird - kuaishou.com - Projections in ClickHouse. [slides](https://github.com/ClickHouse/clickhouse-presentations/blob/master/percona2021/projections.pdf). [video](https://youtu.be/jJ5VuLr2k5k?list=PLWhC0zeznqkkNYzcvHEfZ8hly3Cu9ojKk)
@@ -179,7 +185,7 @@ GROUP BY
 ORDER BY size DESC;
 ```
 
-## how to receive list of tables with projections?
+## How to receive a list of tables with projections?
 
 ```
 select database, table from system.tables
