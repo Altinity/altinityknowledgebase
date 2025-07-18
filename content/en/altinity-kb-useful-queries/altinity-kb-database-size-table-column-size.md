@@ -232,3 +232,38 @@ GROUP BY
     table
 FORMAT Vertical
 ```
+
+## Subcolumns sizes 
+
+```sql
+WITH 
+     if(
+          length(subcolumns.names) > 0, 
+          arrayMap( (sc_n,sc_t,sc_s, sc_bod, sc_dcb, sc_dub) -> tuple(sc_n,sc_t,sc_s, sc_bod, sc_dcb, sc_dub), subcolumns.names, subcolumns.types, subcolumns.serializations, subcolumns.bytes_on_disk, subcolumns.data_compressed_bytes, subcolumns.data_uncompressed_bytes),
+          [tuple('',type,serialization_kind,column_bytes_on_disk,column_data_compressed_bytes,column_data_uncompressed_bytes)]) as _subcolumns_data,
+     arrayJoin(_subcolumns_data) as _subcolumn,
+     _subcolumn.1 as _sc_name, 
+     _subcolumn.2 as _sc_type,
+     _subcolumn.3 as _sc_serialization,
+     _subcolumn.4 as _sc_bytes_on_disk,
+     _subcolumn.5 as _sc_data_compressed_bytes,
+     _subcolumn.6 as _sc_uncompressed_bytes
+SELECT
+    database || '.' || table as table_,
+    column as colunm_, 
+    _sc_name as subcolumn_,
+    any(_sc_type),
+    formatReadableSize(sum(_sc_data_compressed_bytes) AS size) AS compressed,
+    formatReadableSize(sum(_sc_uncompressed_bytes) AS usize) AS uncompressed,
+    round(usize / size, 2) AS compr_ratio,
+    sum(rows) AS rows_cnt,
+    round(usize / rows_cnt, 2) AS avg_row_size
+FROM system.parts_columns
+WHERE (active = 1) AND (database LIKE '%') AND (`table` LIKE '%)
+GROUP BY  
+     table_,
+     colunm_,
+     subcolumn_
+ORDER BY size DESC ;
+```
+
