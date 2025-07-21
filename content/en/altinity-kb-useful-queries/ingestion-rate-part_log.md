@@ -6,8 +6,8 @@ description: >-
      Query to gather information about ingestion rate from system.part_log. 
 ---
 
+## Insert rate
 ```sql
--- Insert rate
 select database, table, time_bucket,
        max(number_of_parts_per_insert) max_parts_pi,
        median(number_of_parts_per_insert) median_parts_pi,
@@ -52,18 +52,19 @@ GROUP BY query_id, database, table, time_bucket
 )
 GROUP BY database, table, time_bucket
 ORDER BY time_bucket, database, table ASC
+```
 
--- New parts per partition 
+## New parts per partition
+```
 select database, table, event_type, partition_id, count() c, round(avg(rows)) 
 from system.part_log where event_date >= today() and event_type = 'NewPart'
 group by database, table, event_type, partition_id
 order by c desc
 ```
 
+## Too fast inserts
 
-### Too fast inserts
-
-It should be not often than 1 insert per table per second  (60 inserts per minute)
+It should not be more often than 1 insert per table per second (60 inserts per minute)
 
 ```
 select toStartOfMinute(event_time) t, database, table, count() c, round(avg(rows)) 
