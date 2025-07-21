@@ -64,7 +64,8 @@ order by c desc
 
 ## Too fast inserts
 
-It should not be more often than 1 insert per table per second (60 inserts per minute)
+It should not be more often than 1 new part per table per second (60 inserts per minute)
+One insert can create several parts because of partitioning and materialized views attached.
 
 ```
 select toStartOfMinute(event_time) t, database, table, count() c, round(avg(rows)) 
