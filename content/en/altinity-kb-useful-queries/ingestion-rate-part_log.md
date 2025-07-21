@@ -60,3 +60,18 @@ group by database, table, event_type, partition_id
 order by c desc
 ```
 
+
+### Too fast inserts
+
+It should be not often than 1 insert per table per second  (60 inserts per minute)
+
+```
+select toStartOfMinute(event_time) t, database, table, count() c, round(avg(rows)) 
+from system.part_log
+where event_date >= today()
+  and event_type = 'NewPart'
+  --and event_time > now() - 3600
+group by database, table, t
+order by t
+```
+
