@@ -1,6 +1,6 @@
 ---
-title: "Clean up orphaned objects on s3 "
-linkTitle: "Clean up orphaned objects left in an S3-backed ClickHouse tiered‐storage"
+title: "Clean up orphaned objects on s3"
+linkTitle: "Clean up orphaned objects on s3"
 weight: 100
 description: >-
      Clean up orphaned objects left in an S3-backed ClickHouse tiered‐storage
