@@ -55,7 +55,7 @@ ORDER BY time_bucket, database, table ASC
 ```
 
 ## New parts per partition
-```
+```sql
 select database, table, event_type, partition_id, count() c, round(avg(rows)) 
 from system.part_log where event_date >= today() and event_type = 'NewPart'
 group by database, table, event_type, partition_id
@@ -67,7 +67,7 @@ order by c desc
 It should not be more often than 1 new part per table per second (60 inserts per minute)
 One insert can create several parts because of partitioning and materialized views attached.
 
-```
+```sql
 select toStartOfMinute(event_time) t, database, table, count() c, round(avg(rows)) 
 from system.part_log
 where event_date >= today()
