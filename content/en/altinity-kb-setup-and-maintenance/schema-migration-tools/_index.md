@@ -14,6 +14,10 @@ description: >
   * New CLI migration tool (Dec2024) for ClickHouse developed by [June](https://june.so)
   * Documentation [https://houseplant.readthedocs.io/en/latest/index.html](https://houseplant.readthedocs.io/en/latest/index.html)
   * Github [https://github.com/juneHQ/houseplant](https://github.com/juneHQ/houseplant)
+* ClickSuite
+  * developed by [GameBeast](https://www.gamebeast.gg/)
+  * A robust CLI tool for managing ClickHouse database migrations with environment-specific configurations and TypeScript support.
+  * Github [https://github.com/GamebeastGG/clicksuite](https://github.com/GamebeastGG/clicksuite) 
 * Flyway
   * [Official community supported plugin](https://documentation.red-gate.com/flyway/flyway-cli-and-api/supported-databases/clickhouse-database) [git](https://github.com/flyway/flyway-community-db-support/tree/main/flyway-database-clickhouse) https://github.com/flyway/flyway-community-db-support
   * Old pull requests (latest at the top):
