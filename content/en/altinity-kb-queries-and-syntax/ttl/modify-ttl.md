@@ -47,6 +47,14 @@ ALTER TABLE tbl MODIFY SETTING materialize_ttl_recalculate_only=1;
 
 It does mean, that TTL rule will not be applied during `ALTER TABLE tbl MODIFY (ADD) TTL ...` query.
 
+After this you can apply TTL (MATERIALIZE) per partition manually:
+
+```sql
+ALTER TABLE tbl MATERIALIZE TTL [IN PARTITION partition | IN PARTITION ID 'partition_id'];
+```
+
+The idea of `materialize_ttl_after_modify = 1` is to use `ALTER TABLE tbl MATERIALIZE TTL IN PARTITION xxx; ALTER TABLE tbl MATERIALIZE TTL IN PARTITION yyy;` and materialize TTL gently or drop/move partitions manually until the old data without/old TTL is processed.
+
 MATERIALIZE TTL done via Mutation:
 1. ClickHouse create new parts via hardlinks and write new ttl.txt file
 2. ClickHouse remove old(inactive) parts after remove time (default is 8 minutes) 
