@@ -18,6 +18,7 @@ description: >
 * Since 23.12 - final applied only for intersecting ranges of parts, see [https://github.com/ClickHouse/ClickHouse/pull/58120](https://github.com/ClickHouse/ClickHouse/pull/58120)
 * Since 24.1  - final doesn't compare rows from the same part with level > 0, see [https://github.com/ClickHouse/ClickHouse/pull/58142](https://github.com/ClickHouse/ClickHouse/pull/58142)
 * Since 24.1  - final use vertical algorithm, (more cache friendly), see [https://github.com/ClickHouse/ClickHouse/pull/54366](https://github.com/ClickHouse/ClickHouse/pull/54366)
+* Since 25.6  - final supports Additional Skip Indexes, see [https://github.com/ClickHouse/ClickHouse/pull/78350](https://github.com/ClickHouse/ClickHouse/pull/78350)
   
 See [https://github.com/ClickHouse/ClickHouse/pull/15938](https://github.com/ClickHouse/ClickHouse/pull/15938) and [https://github.com/ClickHouse/ClickHouse/issues/11722](https://github.com/ClickHouse/ClickHouse/issues/11722)
 
@@ -118,4 +119,7 @@ SELECT sum(value) FROM uint64_table FINAL format JSON;
 		"rows_read": 50057344,
 		"bytes_read": 480675040
 ```
+
+
+
 
