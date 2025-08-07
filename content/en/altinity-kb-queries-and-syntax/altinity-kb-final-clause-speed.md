@@ -17,18 +17,21 @@ description: >
 * Since 23.9  - final doesn't read PK columns if unneeded ie only one part in partition, see [https://github.com/ClickHouse/ClickHouse/pull/53919](https://github.com/ClickHouse/ClickHouse/pull/53919)
 * Since 23.12 - final applied only for intersecting ranges of parts, see [https://github.com/ClickHouse/ClickHouse/pull/58120](https://github.com/ClickHouse/ClickHouse/pull/58120)
 * Since 24.1  - final doesn't compare rows from the same part with level > 0, see [https://github.com/ClickHouse/ClickHouse/pull/58142](https://github.com/ClickHouse/ClickHouse/pull/58142)
-* Since 24.1  - final use vertical algorithm, (more cache friendly), see [https://github.com/ClickHouse/ClickHouse/pull/54366](https://github.com/ClickHouse/ClickHouse/pull/54366)
+* Since 24.1  - final use vertical algorithm (more cache friendly), see [https://github.com/ClickHouse/ClickHouse/pull/54366](https://github.com/ClickHouse/ClickHouse/pull/54366)
 * Since 25.6  - final supports Additional Skip Indexes, see [https://github.com/ClickHouse/ClickHouse/pull/78350](https://github.com/ClickHouse/ClickHouse/pull/78350)
   
 
 ### Partitioning
 
-Right partition design could speed up FINAL processing.
+Proper partition design could speed up FINAL processing.
+
+For example, if you have a table with Daily partitioning, you can:
+- After day end + some time interval during which you can get some updates run `OPTIMIZE TABLE xxx PARTITION 'prev_day' FINAL`
+- or add table SETTINGS min_age_to_force_merge_seconds=86400,min_age_to_force_merge_on_partition_only=1
+  
+In that case, using FINAL with `do_not_merge_across_partitions_select_final` will be cheap or even zero.
 
 Example:
-1. Daily partitioning
-2. After day end + some time interval during which you can get some updates - for example at 3am / 6am you do `OPTIMIZE TABLE xxx PARTITION 'prev_day' FINAL`
-3. In that case using that FINAL with `do_not_merge_across_partitions_select_final` will be cheap.
 
 ```sql
 DROP TABLE IF EXISTS repl_tbl;
@@ -95,7 +98,7 @@ SELECT count() FROM repl_tbl FINAL WHERE NOT ignore(*)
 
 ### Light ORDER BY 
 
-All columns specified in ORDER BY will be read during FINAL processing.  Use fewer columns and lighter column types to create faster queries.
+All columns specified in ORDER BY will be read during FINAL processing, creating additional disk load.  Use fewer columns and lighter column types to create faster queries.
 
 Example: UUID vs UInt64
 ```
