@@ -66,6 +66,7 @@ TLDR;
   <profiles>
     <default>
       <max_threads>2</max_threads>
+      <max_block_size>8192</max_block_size>
       <queue_max_wait_ms>1000</queue_max_wait_ms>
       <max_execution_time>600</max_execution_time>
       <input_format_parallel_parsing>0</input_format_parallel_parsing>
@@ -87,4 +88,4 @@ Some interesting settings to explain:
     - `merge_max_block_size`  will reduce the number of rows per block when merging. Default is 8192 and this will reduce the memory usage of merges.
     - The `number_of_free_entries_in_pool`  settings are very nice to tune how much concurrent merges are allowed in the queue. When there is less than specified number of free entries in pool , start to lower maximum size of merge to process (or to put in queue) or do not execute part mutations to leave free threads for regular merges . This is to allow small merges to process - not filling the pool with long running merges or multiple mutations. You can check clickhouse documentation to get more insights.
 - Reduce the background pools and be conservative. In a Raspi4 with 4 cores and 4 GB or ram, background pool should be not bigger than the number of cores and even less if possible.
-- Tune some profile settings to enable disk spilling (`max_bytes_before_external_group_by`  and `max_bytes_before_external_sort`) and reduce the number of threads per query plus enable queuing of queries (`queue_max_wait_ms`) if the `max_concurrent_queries`  limit is exceeded.
+- Tune some profile settings to enable disk spilling (`max_bytes_before_external_group_by`  and `max_bytes_before_external_sort`) and reduce the number of threads per query plus enable queuing of queries (`queue_max_wait_ms`) if the `max_concurrent_queries`  limit is exceeded. Also `max_block_size` is not usually touched but in this case we can lower it ro reduce RAM usage.
