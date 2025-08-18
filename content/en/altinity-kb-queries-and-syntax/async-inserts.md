@@ -2,27 +2,78 @@
 title: "Async INSERTs"
 linkTitle: "Async INSERTs"
 description: >
-    Async INSERTs
+    Comprehensive guide to ClickHouse Async INSERTs - configuration, best practices, and monitoring
 ---
 
-Async INSERTs is a ClickHouse® feature tha enables batching data automatically and transparently on the server-side. We recommend to batch at app/ingestor level because you will have more control and you decouple this responsibility from ClickHouse, but there are use cases where this is not possible and Async inserts come in handy if you have hundreds or thousands of clients doing small inserts.
+## Overview
 
-You can check how they work here: [Async inserts](https://clickhouse.com/docs/en/optimize/asynchronous-inserts)
+Async INSERTs is a ClickHouse® feature that enables automatic server-side batching of data. While we generally recommend batching at the application/ingestor level for better control and decoupling, async inserts are valuable when you have hundreds or thousands of clients performing small inserts and client-side batching is not feasible.
 
-Some insights about Async inserts you should now:
+**Key Documentation:** [Official Async Inserts Documentation](https://clickhouse.com/docs/en/optimize/asynchronous-inserts)
 
-* Async inserts give acknowledgment immediately after the data got inserted into the buffer (wait_for_async_insert = 0) or by default, after the data got written to a part after flushing from buffer (wait_for_async_insert = 1).
-* `INSERT .. SELECT` is NOT async insert. (You can use matView + Null table OR ephemeral columns instead of INPUT function so Async inserts will work)
-* Async inserts will do (idempotent) retries.
-* Async inserts can do batching, so multiple inserts can be squashed as a single insert (but in that case, retries are not idempotent anymore).
-* Important to use `wait_for_async_insert = 1` because with any error you will loose data without knowing it. For example your table is read only -> losing data,  out of disk space -> losing data, too many parts -> losing data.
-* If `wait_for_async_insert = 0`:
-  * Async inserts can loose your data in case of sudden restart (no fsyncs by default).
-  * Async inserted data becomes available for selects not immediately after acknowledgment.
-  * Async insert is fast sending ACK to clients unblocking them, because they have to wait until ACK is received. If your use case can handle data loss, you can use `wait_for_async_insert = 0` it will increase the throughput.
-* Async inserts generally have more `moving parts` there are some background threads monitoring new data to be sent and pushing it out.
-* Async inserts require extra monitoring from different system.tables (see `system.part_log`, `system.query_log`, `system.asynchronous_inserts` and `system_asynchronous_insert_log`).
-* The new `async_insert_use_adaptive_busy_timeout` setting enables adaptive async inserts starting in 24.3. It is turned on by default, and ClickHouse ignores manual settings like `async_insert_busy_timeout_ms`, which can be confusing. Turn off adaptive async inserts if you want deterministing behavior. (`async_insert_use_adaptive_busy_timeout = 0`)
+## How Async Inserts Work
+
+When `async_insert=1` is enabled, ClickHouse buffers incoming inserts and flushes them to disk when one of these conditions is met:
+1. Buffer reaches specified size (`async_insert_max_data_size`)
+2. Time threshold elapses (`async_insert_busy_timeout_ms`)
+3. Maximum number of queries accumulate (`async_insert_max_query_number`)
+
+## Critical Configuration Settings
+
+### Core Settings
+
+```sql
+-- Enable async inserts (0=disabled, 1=enabled)
+SET async_insert = 1;
+
+-- Wait behavior (STRONGLY RECOMMENDED: use 1)
+-- 0 = fire-and-forget mode (risky - no error feedback)
+-- 1 = wait for data to be written to storage
+SET wait_for_async_insert = 1;
+
+-- Buffer flush conditions
+SET async_insert_max_data_size = 1000000;  -- 1MB default
+SET async_insert_busy_timeout_ms = 1000;    -- 1 second
+SET async_insert_max_query_number = 100;    -- max queries before flush
+```
+
+### Adaptive Timeout (Since 24.3)
+
+```sql
+-- Adaptive timeout automatically adjusts flush timing based on server load
+-- Default: 1 (enabled) - OVERRIDES manual timeout settings
+-- Set to 0 for deterministic behavior with manual settings
+SET async_insert_use_adaptive_busy_timeout = 0;
+```
+
+## Important Behavioral Notes
+
+### What Works and What Doesn't
+
+✅ **Works with Async Inserts:**
+- Direct INSERT with VALUES
+- INSERT with FORMAT (JSONEachRow, CSV, etc.)
+- Native protocol inserts (since 22.x)
+
+❌ **Does NOT Work:**
+- `INSERT .. SELECT` statements - Other strategies are needed for managing performance and load. Do not use `async_insert`.
+
+### Data Safety Considerations
+
+**ALWAYS use `wait_for_async_insert = 1` in production!**
+
+Risks with `wait_for_async_insert = 0`:
+- **Silent data loss** on errors (read-only table, disk full, too many parts)
+- Data loss on sudden restart (no fsync by default)
+- Data not immediately queryable after acknowledgment
+- No error feedback to client
+
+### Deduplication Behavior
+
+- **Sync inserts:** Automatic deduplication enabled by default
+- **Async inserts:** Deduplication disabled by default
+- Enable with `async_insert_deduplicate = 1` (since 22.x)
+- **Warning:** Don't use with `deduplicate_blocks_in_dependent_materialized_views = 1`
 
 # features / improvements
 
