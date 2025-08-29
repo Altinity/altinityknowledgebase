@@ -30,7 +30,7 @@ Also you will check/need to configure global memory server setting. These are by
 <clickhouse>
    <!-- when max_server_memory_usage is set to non-zero, max_server_memory_usage_to_ram_ratio is ignored-->
     <max_server_memory_usage>0</max_server_memory_usage>
-    <max_server_memory_usage_to_ram_ratio>0.9</max_server_memory_usage_to_ram_ratio> 
+    <max_server_memory_usage_to_ram_ratio>0.8</max_server_memory_usage_to_ram_ratio> 
 </clickhouse>
 ```
 
