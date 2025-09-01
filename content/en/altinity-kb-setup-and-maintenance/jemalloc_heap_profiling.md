@@ -119,9 +119,9 @@ $ curl https://user:password@cluster.env.altinity.cloud:8443/pprof/cmdline
 $ curl https://user:password@cluster.env.altinity.cloud:8443/pprof/symbol
 num_symbols: 702648
 
-$ curl -d '0x0F99B044+188512D0' https://user:password@cluster.env.altinity.cloud:8443/pprof/symbol
+$ curl -d '0x0F99B044+0x008512D0' https://user:password@cluster.env.altinity.cloud:8443/pprof/symbol
 0x0F99B044    DB::StorageSystemFilesystemCache::getColumnsDescription()
-188512D0    icudt75_dat
+0x008512D0    icudt75_dat
 ```
 
 ```sql
