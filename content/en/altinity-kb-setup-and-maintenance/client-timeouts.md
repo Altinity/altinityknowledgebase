@@ -3,7 +3,7 @@ title: "Client Timeouts"
 linkTitle: "Client Timeouts"
 weight: 100
 description: >-
-     Client Timeouts.
+     How to prevent connection errors.
 ---
 
 Timeout settings are related to the client, server, and network. They can be tuned to solve sporadic timeout issues.
