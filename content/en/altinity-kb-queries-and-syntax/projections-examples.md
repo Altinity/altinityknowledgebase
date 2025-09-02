@@ -34,6 +34,7 @@ The design approach for projections is the same as for indexes. Create a table a
 A query analyzer should have a reason for using a projection and should not have any limitation to do so.  
 
 - the query should use ONLY the columns defined in the projection.
+- There should be a lot of data to read from the main table (gigabytes)
 - for ORDER BY projection WHERE statement referring to a column should be in the query
 - FINAL queries do not work with projections.
 - tables with DELETEd rows do not work with projections. This is because rows in a projection may be affected by a DELETE operation. But there is a MergeTree setting lightweight_mutation_projection_mode to change the behavior (Since 24.7)
