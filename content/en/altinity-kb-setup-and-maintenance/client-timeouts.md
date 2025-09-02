@@ -10,19 +10,17 @@ Timeout settings are related to the client, server, and network. They can be tun
 
 It's important to understand that network devices (routers, NATs, load balancers ) could have their own timeouts. Sometimes, they won't respect TCP keep-alive and close the session due to inactivity.   Only application-level keepalives could prevent TCP sessions from closing. 
 
-Below are the settings that will work only if you set them in the default user profile. The problem is that they should be applied before the connection happens. And if you send them with a query/connection, it's already too late.
-
+Below are the settings that will work only if you set them in the default user profile. The problem is that they should be applied before the connection happens. And if you send them with a query/connection, it's already too late:
 ```sql
-
-        "receive_timeout": 3600,
-        "send_timeout": 3600,
-        "http_receive_timeout": 3600,
-        "http_send_timeout": 3600,
-        "http_connection_timeout": 2,
+SETTINGS
+        receive_timeout = 3600,
+        send_timeout = 3600,
+        http_receive_timeout = 3600,
+        http_send_timeout = 3600,
+        http_connection_timeout = 2
 ```
 
-Those can be set on the query level (but in the profile, too)
-
+Those can be set on the query level (but in the profile, too):
 ```sql
 SETTINGS
     tcp_keep_alive_timeout = 3600,
