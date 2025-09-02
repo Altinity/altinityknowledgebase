@@ -113,6 +113,7 @@ What happens in the case of non-trivial background merges in ReplacingMergeTree,
 
 * Before version 24.8, projections became out of sync with the main data. 
 * Since version 24.8, it is controlled by a new table-level setting:<br/>[deduplicate_merge_projection_mode](https://clickhouse.com/docs/en/operations/settings/merge-tree-settings#deduplicate_merge_projection_mode) = `throw`/`drop`/`rebuild`
+* Somewhere later (before 25.3) `ignore` option was introduced.  It can be helpful for cases when SummingMergeTree is used with Projections and no DELETE operation in any flavor (Replacing/Collapsing/DELETE/ALTER DELETE) is executed over the table.
 
 However, projection usage is still disabled for FINAL queries. So, you have to use OPTIMIZE FINAL or SELECT ...GROUP BY  instead of FINAL for fighting duplicates between parts 
 
