@@ -51,8 +51,8 @@ To add some ClickHouse® replicas to an existing cluster if -30TB then better to
 ```sql
 -- DDL for Databases
 SELECT concat('CREATE DATABASE "', name, '" ENGINE = ', engine_full, ';') 
-FROM system.databases
-INTO OUTFILE 'databases.sql' 
+FROM system.databases WHERE name NOT IN ('system', 'information_schema', 'INFORMATION_SCHEMA')
+INTO OUTFILE '/tmp/databases.sql' 
 FORMAT TSVRaw;
 -- DDL for tables and views
 SELECT
