@@ -27,7 +27,7 @@ When migrating a large, live ClickHouse cluster (multi-terabyte scale) to a new 
     - `v`: verbose, shows progress.
     - `l`: copy symlinks as symlinks.
     - `W`: copy whole files instead of using rsync’s delta algorithm (faster for large DB files).
-    - --delete: delete extraneous files from the destination that don’t exist on the source.
+    - --delete: remove files from the destination that don’t exist on the source.
 3. **Incremental re-syncs**
     - Repeat the `rsync` step multiple times while the old cluster is live.
     - Each subsequent run will copy only changes and reduce the final sync time.
