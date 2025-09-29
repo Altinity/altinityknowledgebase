@@ -4,7 +4,48 @@ linkTitle: "rsync"
 description: >
     rsync
 ---
-### Short Instructions
+
+## Copying Multi-Terabyte Live ClickHouse to Another Server
+
+When migrating a large, live ClickHouse cluster (multi-terabyte scale) to a new server or cluster, the goal is to minimize downtime while ensuring data consistency. A practical method is to use **incremental `rsync`** in multiple passes, combined with ClickHouse’s replication features.
+
+1. **Prepare the new cluster**
+    - Ensure the new cluster is set up with its own ZooKeeper (or Keeper).
+    - Configure ClickHouse but keep it stopped initially.
+2. **Initial data sync**
+    
+    Run a full recursive sync of the data directory from the old server to the new one:
+    
+    ```bash
+    rsync -ravlW /var/lib/clickhouse/ user@new_host:/var/lib/clickhouse/
+    ```
+    
+    Explanation of flags:
+    
+    - `r`: recursive, includes all subdirectories.
+    - `a`: archive mode (preserves symlinks, permissions, timestamps, ownership, devices).
+    - `v`: verbose, shows progress.
+    - `l`: copy symlinks as symlinks.
+    - `W`: copy whole files instead of using rsync’s delta algorithm (faster for large DB files).
+3. **Incremental re-syncs**
+    - Repeat the `rsync` step multiple times while the old cluster is live.
+    - Each subsequent run will copy only changes and reduce the final sync time.
+4. **Restore replication metadata**
+    - Start the new ClickHouse node(s).
+    - Run `SYSTEM RESTORE REPLICA` to rebuild replication metadata in ZooKeeper.
+    - Verify replication works correctly.
+5. **Test the application**
+    - Point your test environment to the new cluster.
+    - Validate queries, schema consistency, and application behavior.
+6. **Final sync and switchover**
+    - Stop ClickHouse on the old cluster.
+    - Run a final incremental `rsync` to catch last-minute changes.
+    - Reinitialize ZooKeeper/Keeper.
+    - Run `SYSTEM RESTORE REPLICA` to rebuild replication metadata in ZooKeeper.
+    - Start ClickHouse on the new cluster and switch production traffic.
+    - add replicas as needed
+
+## Through ATTACH from detached
 
 These instructions apply to ClickHouse® using default locations for storage. 
 
