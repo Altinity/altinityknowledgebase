@@ -33,15 +33,14 @@ When migrating a large, live ClickHouse cluster (multi-terabyte scale) to a new 
 4. **Restore replication metadata**
     - Start the new ClickHouse node(s).
     - Run `SYSTEM RESTORE REPLICA` to rebuild replication metadata in ZooKeeper.
-    - Verify replication works correctly.
 5. **Test the application**
     - Point your test environment to the new cluster.
     - Validate queries, schema consistency, and application behavior.
 6. **Final sync and switchover**
     - Stop ClickHouse on the old cluster.
-    - Run a final incremental `rsync` to catch last-minute changes.
-    - Reinitialize ZooKeeper/Keeper.
-    - Run `SYSTEM RESTORE REPLICA` to rebuild replication metadata in ZooKeeper.
+    - Immediately run a final incremental `rsync` to catch last-minute changes.
+    - Reinitialize ZooKeeper/Keeper database (stop/clear snapshots/start).
+    - Run `SYSTEM RESTORE REPLICA` to rebuild replication metadata in ZooKeeper again.
     - Start ClickHouse on the new cluster and switch production traffic.
     - add replicas as needed
 
