@@ -1,11 +1,9 @@
 ---
-title: "rsync"
+title: "Moving ClickHouse to Another Server"
 linkTitle: "rsync"
 description: >
-    rsync
+    Copying Multi-Terabyte Live ClickHouse to Another Server
 ---
-
-## Copying Multi-Terabyte Live ClickHouse to Another Server
 
 When migrating a large, live ClickHouse cluster (multi-terabyte scale) to a new server or cluster, the goal is to minimize downtime while ensuring data consistency. A practical method is to use **incremental `rsync`** in multiple passes, combined with ClickHouse’s replication features.
 
@@ -28,40 +26,32 @@ When migrating a large, live ClickHouse cluster (multi-terabyte scale) to a new 
     - `l`: copy symlinks as symlinks.
     - `W`: copy whole files instead of using rsync’s delta algorithm (faster for large DB files).
     - --delete: remove files from the destination that don’t exist on the source.
-3. **Incremental re-syncs**
+
+    If you plan to run several replicas on a new cluster, rsync data to all of them.  To save the performance of production servers, you can copy data to 1 new replica and then use it as a source for others. However, you can start from a single replica and add more after switching.
+
+    Add --bwlimit=100000 to preserve the performance of the production cluster while copying a lot of data.
+   
+    Consider shards as independent clusters.
+   
+4. **Incremental re-syncs**
     - Repeat the `rsync` step multiple times while the old cluster is live.
     - Each subsequent run will copy only changes and reduce the final sync time.
-4. **Restore replication metadata**
+5. **Restore replication metadata**
     - Start the new ClickHouse node(s).
     - Run `SYSTEM RESTORE REPLICA` to rebuild replication metadata in ZooKeeper.
-5. **Test the application**
+6. **Test the application**
     - Point your test environment to the new cluster.
     - Validate queries, schema consistency, and application behavior.
-6. **Final sync and switchover**
+7. **Final sync and switchover**
     - Stop ClickHouse on the old cluster.
     - Immediately run a final incremental `rsync` to catch last-minute changes.
     - Reinitialize ZooKeeper/Keeper database (stop/clear snapshots/start).
     - Run `SYSTEM RESTORE REPLICA` to rebuild replication metadata in ZooKeeper again.
     - Start ClickHouse on the new cluster and switch production traffic.
-    - add replicas as needed
+    - add more replicas as needed
 
-## Through ATTACH from detached
 
-These instructions apply to ClickHouse® using default locations for storage. 
-
-1. Do [FREEZE TABLE](https://clickhouse.tech/docs/en/sql-reference/statements/alter/partition/#alter_freeze-partition) on needed table, partition. It produces a consistent snapshot of table data.
-2. Run rsync command.
-
-   ```bash
-   rsync -ravlW --bwlimit=100000 /var/lib/clickhouse/data/shadow/N/database/table
-       root@remote_host:/var/lib/clickhouse/data/database/table/detached
-   ```
-
-   `--bwlimit` is transfer limit in KBytes per second.
-
-3. Run [ATTACH PARTITION](https://clickhouse.tech/docs/en/sql-reference/statements/alter/partition/#alter_attach-partition) for each partition from `./detached` directory.
-
-IMPORTANT NOTE: If you are using a mount point different from /var/lib/clickhouse/data, adjust the rsync command accordingly to point the correct location. For example, suppose you reconfigure the storage path as follows in /etc/clickhouse-server/config.d/config.xml. 
+IMPORTANT NOTE: If you are using a mount point that differs from /var/lib/clickhouse/data, adjust the rsync command accordingly to point to the correct location. For example, suppose you reconfigure the storage path as follows in /etc/clickhouse-server/config.d/config.xml. 
 ```
 <clickhouse>
     <!-- Path to data directory, with trailing slash. -->
