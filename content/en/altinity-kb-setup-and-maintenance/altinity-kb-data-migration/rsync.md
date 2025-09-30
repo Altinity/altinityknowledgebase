@@ -51,7 +51,9 @@ When migrating a large, live ClickHouse cluster (multi-terabyte scale) to a new 
     - add more replicas as needed
 
 
-IMPORTANT NOTE: If you are using a mount point that differs from /var/lib/clickhouse/data, adjust the rsync command accordingly to point to the correct location. For example, suppose you reconfigure the storage path as follows in /etc/clickhouse-server/config.d/config.xml. 
+NOTES: 
+
+1. If you are using a mount point that differs from /var/lib/clickhouse/data, adjust the rsync command accordingly to point to the correct location. For example, suppose you reconfigure the storage path as follows in /etc/clickhouse-server/config.d/config.xml. 
 ```
 <clickhouse>
     <!-- Path to data directory, with trailing slash. -->
@@ -60,3 +62,5 @@ IMPORTANT NOTE: If you are using a mount point that differs from /var/lib/clickh
 </clickhouse>
 ```
 You'll need to use `/data1/clickhouse` instead of `/var/lib/clickhouse` in the rsync paths. 
+
+2. ClickHouse docker container image does not have rsync installed. Add it using apt-get or run sidecar in k8s.
