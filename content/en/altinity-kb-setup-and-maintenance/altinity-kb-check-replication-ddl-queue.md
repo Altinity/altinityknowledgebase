@@ -8,7 +8,16 @@ keywords:
    - clickhouse check replication status
 ---
 
-# How to check ClickHouse® replication problems
+# Common problems & solutions
+
+- If the replication queue does not have any Exceptions only postponed reasons without exceptions just leave ClickHouse® do Merges/Mutations and it will eventually catch up and reduce the number of tasks in `replication_queue`. Number of concurrent merges and fetches can be tuned but if it is done without an analysis of your workload then you may end up in a worse situation. If Delay in queue is going up actions may be needed:
+
+- First simplest approach:
+  try to `SYSTEM RESTART REPLICA db.table` (This will DETACH/ATTACH table internally)
+ 
+  
+
+# How to check for replication problems
 
 1. Check `system.replicas` first, cluster-wide. It allows to check if the problem is local to some replica or global, and allows to see the exception.
    allows to answer the following questions:
@@ -45,14 +54,9 @@ WHERE
     AND part_name in ('20230411_33631_33654_3')
 ```
 
-1. If there are no errors, just everything get slower - check the load (usual system metrics)
+7. If there are no errors, just everything get slower - check the load (usual system metrics)
 
-# Common problems & solutions
 
-- If the replication queue does not have any Exceptions only postponed reasons without exceptions just leave ClickHouse® do Merges/Mutations and it will eventually catch up and reduce the number of tasks in `replication_queue`. Number of concurrent merges and fetches can be tuned but if it is done without an analysis of your workload then you may end up in a worse situation. If Delay in queue is going up actions may be needed:
-
-- First simplest approach:
-  - try to `SYSTEM RESTART REPLICA db.table` (This will DETACH/ATTACH table internally)
 
 ## Some stuck replication task for a partition that was already removed or has no data
 
