@@ -98,18 +98,20 @@ Sometimes due to crashes, zookeeper split brain problem or other reasons some of
 Just to be clear, this procedure **will not delete any data**, it will just re-create the metadata in zookeeper with the current state of the [ClickHouse replica](/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/add_remove_replica/).
   
 ```sql
--- ALTER TABLE table_name DROP DETACHED PARTITION ALL  -- clean detached folder before operation in any way. PARTITION ALL works only for the fresh clickhouse versions
+ALTER TABLE table_name DROP DETACHED PARTITION ALL  -- clean detached folder before operation. PARTITION ALL works only for the fresh clickhouse versions
 DETACH TABLE table_name;  -- Required for DROP REPLICA
 -- Use the zookeeper_path and replica_name from the above query. 
 SYSTEM DROP REPLICA 'replica_name' FROM ZKPATH '/table_path_in_zk'; -- It will remove everything from the /table_path_in_zk/replicas/replica_name
 ATTACH TABLE table_name;  -- Table will be in readonly mode, because there is no metadata in ZK and after that execute
 SYSTEM RESTORE REPLICA table_name;  -- It will detach all partitions, re-create metadata in ZK (like it's new empty table), and then attach all partitions back
 SYSTEM SYNC REPLICA table_name; -- Wait for replicas to synchronize parts. Also it's recommended to check `system.detached_parts` on all replicas after recovery is finished.
+SELECT name FROM system.detached_parts WHERE table = 'table_name'; -- check for leftovers. See the potential problem here - https://gist.github.com/den-crane/702e4c8a1162dae7c2edf48a7c2dd00d
 ```
 
-There are some variants in new 23 versions of this procedure using syntax [SYSTEM DROP REPLICA \'replica_name\' FROM TABLE db.table](https://clickhouse.com/docs/en/sql-reference/statements/system#drop-replica) instead of the `ZKPATH` variant, but you need to execute the above command from a different replica that the one you want to drop which is not convenient sometimes. We recommend using the above method because it works for different versions from 21 to 24 and is more reliable.
 
-- Procedure for many replicas generating DDL:
+Starting from version 23, it's possible to use syntax [SYSTEM DROP REPLICA \'replica_name\' FROM TABLE db.table](https://clickhouse.com/docs/en/sql-reference/statements/system#drop-replica) instead of the `ZKPATH` variant, but you need to execute the above command from a different replica than the one you want to drop, which is not convenient sometimes. We recommend using the above method because it works with any version and is more reliable.
+
+### Procedure for many replicas generating DDL:
 
 ```sql
 SELECT DISTINCT 'DETACH TABLE  ' || database || '.' || table || ' ON CLUSTER \'data\';' FROM clusterAllReplicas('data',system.replicas) WHERE active_replicas < total_replicas FORMAT TSVRaw;
