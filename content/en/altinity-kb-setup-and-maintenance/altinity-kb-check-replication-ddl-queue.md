@@ -10,7 +10,7 @@ keywords:
    - clickhouse replication queue
 ---
 
-# How to check ClickHouse® replication problems:
+# How to check ClickHouse® replication problems
 
 1. Check `system.replicas` first, cluster-wide. It allows to check if the problem is local to some replica or global, and allows to see the exception.
    allows to answer the following questions:
@@ -81,7 +81,7 @@ ORDER BY count() DESC, sum(num_tries) DESC
 FORMAT TSVRaw;
 ```
 
-## Problem with mutation stuck in the queue:
+## Problem with mutation stuck in the queue
 
 - This can happen if the mutation is finished and by some reason the task is not removed from the queue. This can be detected by checking `system.mutations` table and see if the mutation is done but the task is still in the queue.
 
@@ -111,7 +111,7 @@ SELECT name FROM system.detached_parts WHERE table = 'table_name'; -- check for 
 
 Starting from version 23, it's possible to use syntax [SYSTEM DROP REPLICA \'replica_name\' FROM TABLE db.table](https://clickhouse.com/docs/en/sql-reference/statements/system#drop-replica) instead of the `ZKPATH` variant, but you need to execute the above command from a different replica than the one you want to drop, which is not convenient sometimes. We recommend using the above method because it works with any version and is more reliable.
 
-## Procedure for many replicas generating DDL:
+## Procedure for many replicas generating DDL
 
 ```sql
 SELECT DISTINCT 'DETACH TABLE  ' || database || '.' || table || ' ON CLUSTER \'data\';' FROM clusterAllReplicas('data',system.replicas) WHERE active_replicas < total_replicas FORMAT TSVRaw;
