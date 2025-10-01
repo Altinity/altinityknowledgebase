@@ -56,7 +56,7 @@ WHERE
 - First simplest approach:
   - try to `SYSTEM RESTART REPLICA db.table` (This will DETACH/ATTACH table internally)
 
-### Some stuck replication task for a partition which was already removed or has no data
+## Some stuck replication task for a partition which was already removed or has no data
 
 - This can be easily detected because some exceptions will be in the replication queue that reference a part from a partition that do not exist. Here the most probably scenario is that the partition was dropped and some tasks were left in the queue.
 
