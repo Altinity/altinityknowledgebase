@@ -49,7 +49,7 @@ WHERE
 
 1. If there are no errors, just everything get slower - check the load (usual system metrics)
 
-## Common problems & solutions
+# Common problems & solutions
 
 - If the replication queue does not have any Exceptions only postponed reasons without exceptions just leave ClickHouse® do Merges/Mutations and it will eventually catch up and reduce the number of tasks in `replication_queue`. Number of concurrent merges and fetches can be tuned but if it is done without an analysis of your workload then you may end up in a worse situation. If Delay in queue is going up actions may be needed:
 
@@ -81,17 +81,17 @@ ORDER BY count() DESC, sum(num_tries) DESC
 FORMAT TSVRaw;
 ```
 
-### Problem with mutation stuck in the queue:
+## Problem with mutation stuck in the queue:
 
 - This can happen if the mutation is finished and by some reason the task is not removed from the queue. This can be detected by checking `system.mutations` table and see if the mutation is done but the task is still in the queue.
 
 - kill the mutation (again)
 
-### Replica is not starting because local set of files differs too much
+## Replica is not starting because local set of files differs too much
 
 - First try increase the thresholds or set flag `force_restore_data` flag and restarting clickhouse/pod https://clickhouse.com/docs/en/engines/table-engines/mergetree-family/replication#recovery-after-complete-data-loss  
 
-### Replica is in Read-Only MODE
+## Replica is in Read-Only MODE
 
 Sometimes due to crashes, zookeeper split brain problem or other reasons some of the tables can be in Read-Only mode. This allows SELECTS but not INSERTS. So we need to do DROP / RESTORE replica procedure.
 
@@ -111,7 +111,7 @@ SELECT name FROM system.detached_parts WHERE table = 'table_name'; -- check for 
 
 Starting from version 23, it's possible to use syntax [SYSTEM DROP REPLICA \'replica_name\' FROM TABLE db.table](https://clickhouse.com/docs/en/sql-reference/statements/system#drop-replica) instead of the `ZKPATH` variant, but you need to execute the above command from a different replica than the one you want to drop, which is not convenient sometimes. We recommend using the above method because it works with any version and is more reliable.
 
-### Procedure for many replicas generating DDL:
+## Procedure for many replicas generating DDL:
 
 ```sql
 SELECT DISTINCT 'DETACH TABLE  ' || database || '.' || table || ' ON CLUSTER \'data\';' FROM clusterAllReplicas('data',system.replicas) WHERE active_replicas < total_replicas FORMAT TSVRaw;
@@ -177,7 +177,7 @@ restore_replica() {
 restore_replica "$@"
 ```
 
-### Stuck DDL tasks in the distributed_ddl_queue
+## Stuck DDL tasks in the distributed_ddl_queue
 
 Sometimes [DDL tasks](/altinity-kb-setup-and-maintenance/altinity-kb-ddlworker/) (the ones that use ON CLUSTER) can get stuck in the `distributed_ddl_queue` because the replicas can overload if multiple DDLs (thousands of CREATE/DROP/ALTER) are executed at the same time. This is very normal in heavy ETL jobs.This can be detected by checking the `distributed_ddl_queue` table and see if there are tasks that are not moving or are stuck for a long time.
 
