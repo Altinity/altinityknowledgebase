@@ -271,6 +271,14 @@
       "created_at": "2025-06-23T11:09:03Z",
       "repoId": 358618261,
       "pullRequestNo": 139
+    },
+    {
+      "name": "klaporte",
+      "id": 8545167,
+      "comment_id": 3381917859,
+      "created_at": "2025-10-08T14:47:18Z",
+      "repoId": 358618261,
+      "pullRequestNo": 144
     }
   ]
 }
