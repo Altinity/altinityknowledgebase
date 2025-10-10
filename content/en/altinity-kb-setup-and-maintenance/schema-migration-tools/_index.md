@@ -19,7 +19,7 @@ description: >
   * A robust CLI tool for managing ClickHouse database migrations with environment-specific configurations and TypeScript support.
   * Github [https://github.com/GamebeastGG/clicksuite](https://github.com/GamebeastGG/clicksuite) 
 * Flyway
-  * [Official community supported plugin](https://documentation.red-gate.com/flyway/flyway-cli-and-api/supported-databases/clickhouse-database) [git](https://github.com/flyway/flyway-community-db-support/tree/main/flyway-database-clickhouse) https://github.com/flyway/flyway-community-db-support
+  * [Official community supported plugin](https://documentation.red-gate.com/fd/clickhouse-database-277579307.html) [git](https://github.com/flyway/flyway-community-db-support/tree/main/flyway-database-clickhouse) https://github.com/flyway/flyway-community-db-support
   * Old pull requests (latest at the top):
     * [https://github.com/flyway/flyway/pull/3333](https://github.com/flyway/flyway/pull/3333) СlickHouse support
     * [https://github.com/flyway/flyway/pull/3134](https://github.com/flyway/flyway/pull/3134) СlickHouse support
