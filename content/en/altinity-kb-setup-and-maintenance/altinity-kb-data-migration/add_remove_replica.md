@@ -101,9 +101,11 @@ clickhouse-client --host localhost --port 9000 -mn < schema.sql
 - Using `clickhouse-backup` to copy the schema of a replica to another is also convenient and moreover if [using Atomic database](/engines/altinity-kb-atomic-database-engine/) with `{uuid}` macros in [ReplicatedMergeTree engines](https://www.youtube.com/watch?v=oHwhXc0re6k):
 
 ```bash
-sudo -u clickhouse clickhouse-backup create --schema --rbac rbac_and_schema
-# From the destination replica
-sudo -u clickhouse clickhouse-backup restore --schema --rbac rbac_and_schema
+sudo -u clickhouse clickhouse-backup create --schema --rbac --named-collections rbac_and_schema
+# From the destination replica do this in 2 steps:
+sudo -u clickhouse clickhouse-backup restore --rbac-only rbac_and_schema
+sudo -u clickhouse clickhouse-backup restore --schema --named-collections rbac_and_schema
+
 ```
 
 ### Using `altinity operator`
