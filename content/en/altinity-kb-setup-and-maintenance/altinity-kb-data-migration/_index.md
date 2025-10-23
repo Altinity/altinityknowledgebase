@@ -37,31 +37,6 @@ See details of both approaches in:
 
 [distributed-table-cluster.md]({{<ref "distributed-table-cluster.md" >}})
 
-## clickhouse-copier
-
-Pros:
-* Possible to do **some** changes in schema.
-* Needs only access to ClickHouse TCP port.
-* It’s possible to change the distribution of data between shards.
-* Suitable for large clusters: many clickhouse-copier can execute the same task together.
-
-Cons:
-* May create an inconsistent result if source cluster data is changing during the process.
-* Hard to setup.
-* Requires zookeeper.
-* Uses CPU / RAM (mostly on the clickhouse-copier and receiver side)
-
-{{% alert title="Info" color="info" %}}
-Internally it works like smart `INSERT INTO cluster(…) SELECT * FROM ...` with some consistency checks.
-{{% /alert %}}
-
-{{% alert title="Info" color="info" %}}
-Run `clickhouse-copier` on the same nodes as receiver ClickHouse, to avoid doubling the network load.
-{{% /alert %}}
-
-See details in:
-
-[altinity-kb-clickhouse-copier]({{<ref "altinity-kb-clickhouse-copier" >}})
 
 ## Manual parts moving: freeze / rsync / attach
 
