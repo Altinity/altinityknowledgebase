@@ -48,6 +48,11 @@ SELECT 'MemoryTracking' as group, 'total' as name, toInt64(value) FROM system.me
 
 ```sql
 SELECT *, formatReadableSize(value) 
+FROM system.metrics 
+WHERE (metric ilike '%Cach%' or metric ilike '%Mem%') and value != 0
+order by metric format PrettyCompactMonoBlock;
+
+SELECT *, formatReadableSize(value) 
 FROM system.asynchronous_metrics 
 WHERE metric like '%Cach%' or metric like '%Mem%' 
 order by metric format PrettyCompactMonoBlock;
