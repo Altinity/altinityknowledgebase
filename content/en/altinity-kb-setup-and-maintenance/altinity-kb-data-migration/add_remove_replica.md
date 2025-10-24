@@ -226,10 +226,10 @@ Query id: 992cae2a-fb58-4150-a088-83273805d0c4
 
 ## REMOVE nodes/Replicas from a Cluster
 
-- It is important to know which replica/node you want to remove to avoid problems. To check it you need to connect to the replica/node you want to remove and:
+- It is important to know which replica/node you want to remove to avoid problems. To check it you need to connect to a different replica/node that the one you want to remove. For instance we want to remove `arg_t04`, so we connected to replica `arg_t01`:
 
 ```sql
-SELECT DISTINCT replica_name
+SELECT DISTINCT arrayJoin(mapKeys(replica_is_active)) AS replica_name
 FROM system.replicas
 
 ┌─replica_name─┐
@@ -240,17 +240,18 @@ FROM system.replicas
 └──────────────┘
 ```
 
-- After that we need connect to a replica different from the one that we want to remove (arg_tg01) and execute:
+- After that (make sure you're connected to a replica different from the one that you want to remove, `arg_tg01`) and execute:
 
 ```sql
-SYSTEM DROP REPLICA 'arg_t01'
+SYSTEM DROP REPLICA 'arg_t04'
 ```
 
-- This cannot be executed on the replica we want to remove (drop local replica), please use **`DROP TABLE/DATABASE`** for that. **`DROP REPLICA`** does not drop any tables and does not remove any data or metadata from disk:
+- If by any chance you're connected to the same replica you want to remove then **`SYSTEM DROP REPLICA`** will not work.
+- BTW `SYSTEM DROP REPLICA` does not drop any tables and does not remove any data or metadata from disk, it will only remove metadata from Zookeeper/Keeper
 
 ```sql
 -- What happens if executing system drop replica in the local replica to remove.
-SYSTEM DROP REPLICA 'arg_t01'
+SYSTEM DROP REPLICA 'arg_t04'
 
 Elapsed: 0.017 sec. 
 
@@ -258,19 +259,19 @@ Received exception from server (version 23.8.6):
 Code: 305. DB::Exception: Received from dnieto-zenbook.lan:9440. DB::Exception: We can't drop local replica, please use `DROP TABLE` if you want to clean the data and drop this replica. (TABLE_WAS_NOT_DROPPED)
 ```
 
-- After DROP REPLICA, we need to check that the replica is gone from the list or replicas. Connect to a node and execute:
+- After DROP REPLICA, we need to check that the replica is gone from the list or replicas:
 
 ```sql
-SELECT DISTINCT replica_name
+SELECT DISTINCT arrayJoin(mapKeys(replica_is_active)) AS replica_name
 FROM system.replicas
 
 ┌─replica_name─┐
+│ arg_t01      │
 │ arg_t02      │
 │ arg_t03      │
-│ arg_t04      │
 └──────────────┘
 
--- We should see there is no replica arg_t01
+-- We should see there is no replica arg_t04
 ```
 
 - Delete the replica in the cluster configuration: `remote_servers.xml` and shutdown the node/replica removed.
