@@ -6,8 +6,6 @@ description: >-
     Resolving excessive memory consumption during merges in the ClickHouse® system.metric_log table.
 ---
 
-# Problem: High Memory Usage During Merge in `system.metric_log`
-
 ## Overview
 
 In recent versions of ClickHouse®, the **merge process (part compaction)** in the `system.metric_log` table can consume a large amount of memory.
