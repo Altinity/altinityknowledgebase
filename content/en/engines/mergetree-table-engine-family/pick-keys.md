@@ -9,18 +9,19 @@ description: >-
   Optimizing ClickHouse® MergeTree tables
 ---
 
-Good `order by` usually have 3 to 5 columns, from lowest cardinal on the left (and the most important for filtering) to highest cardinal (and less important for filtering).
+Good `order by` usually has 3 to 5 columns, from lowest cardinal on the left (and the most important for filtering) to highest cardinal (and less important for filtering).
  
-Practical approach to create an good ORDER BY for a table:
+Practical approach to create a good ORDER BY for a table:
 
 1. Pick the columns you use in filtering always
-2. The most important for filtering and the lowest cardinal should be the left-most. Typically it's something like `tenant_id`
-3. Next column is more cardinal, less important. It can be rounded time sometimes, or `site_id`, or `source_id`, or `group_id` or something similar.
+2. The most important for filtering and the lowest cardinal should be the left-most. Typically, it's something like `tenant_id`
+3. Next column is more cardinal, less important. It can be a rounded time sometimes, or `site_id`, or `source_id`, or `group_id` or something similar.
 4. Repeat step 3 once again (or a few times)
 5. If you already added all columns important for filtering and you're still not addressing a single row with your pk - you can add more columns which can help to put similar records close to each other (to improve the compression)
-6. If you have something like hierarchy / tree-like relations between the columns - put there the records from 'root' to 'leaves' for example (continent, country, cityname). This way ClickHouse® can do lookup by country / city even if continent is not specified (it will just 'check all continents')
+6. If you have something like hierarchy / tree-like relations between the columns - put there the records from 'root' to 'leaves' for example (continent, country, cityname). This way ClickHouse® can do a lookup by country/city even if the continent is not specified (it will just 'check all continents')
 special variants of MergeTree may require special ORDER BY to make the record unique etc.
-7. For [timeseries](https://altinity.com/blog/2019-5-23-handling-variable-time-series-efficiently-in-clickhouse) it usually make sense to put timestamp as latest column in ORDER BY, it helps with putting the same data near by for better locality. There is only 2 major patterns  for timestamps in ORDER BY: (..., toStartOf(Day|Hour|...)(timestamp), ..., timestamp) and (..., timestamp). First one is useful when your often query small part of table partition. (table partitioned by months and your read only 1-4 days 90% of times)
+7. For [timeseries](https://altinity.com/blog/2019-5-23-handling-variable-time-series-efficiently-in-clickhouse), it usually makes sense to put the timestamp as the latest column in ORDER BY, which helps with putting the same data nearby for better locality. There are only 2 major patterns  for timestamps in ORDER BY: (..., toStartOf(Day|Hour|...)(timestamp), ..., timestamp) and (..., timestamp). The first one is useful when you often query a small part of a table partition. (table partitioned by months, and you read only 1-4 days 90% of the time).
+8. There are exceptions to the rule "low cordinality - first" related to compression ratio. For example, data with a lot of repeated attributes in rows (like clickstream), ordering by session_id will benefit compression and reduce disk read, while setting a low cardinality column (like event type) in the first place makes compression and overall query time worse.
 
 Some examples of good `ORDER BY`: 
 ```
@@ -38,9 +39,9 @@ PRIMARY KEY (site_id, toStartOfHour(timestamp), sessionid)
 
 All dimensions go to ORDER BY, all metrics - outside of that. 
 
-The most important for filtering columns with the lowest cardinality should be the left most.
+The most important for filtering columns with the lowest cardinality should be the left-most.
 
-If number of dimensions is high it's typically make sense to use a prefix of ORDER BY as a PRIMARY KEY to avoid polluting sparse index.
+If the number of dimensions is high, it typically makes sense to use a prefix of ORDER BY as a PRIMARY KEY to avoid polluting the sparse index.
 
 Examples:
 
