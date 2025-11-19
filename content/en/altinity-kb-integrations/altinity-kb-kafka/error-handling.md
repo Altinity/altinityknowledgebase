@@ -31,7 +31,7 @@ kafka_group_name = 'clickhouse',
 kafka_format = 'JSONEachRow',
 kafka_handle_error_mode='stream';
 
-CREATE MATERIALIZED VIEW default.kafka_errors
+CREATE TABLE default.kafka_errors
 (
     `topic` String,
     `partition` Int64,
@@ -41,7 +41,11 @@ CREATE MATERIALIZED VIEW default.kafka_errors
 )
 ENGINE = MergeTree
 ORDER BY (topic, partition, offset)
-SETTINGS index_granularity = 8192 AS
+SETTINGS index_granularity = 8192
+
+
+CREATE MATERIALIZED VIEW default.kafka_errors_mv TO default.kafka_errors
+AS
 SELECT
     _topic AS topic,
     _partition AS partition,
@@ -51,6 +55,12 @@ SELECT
 FROM default.kafka_engine
 WHERE length(_error) > 0
 ```
+
+## Since 25.8 
+
+dead letter queue can be used via setting: `kafka_handle_error_mode='dead_letter'` [https://github.com/ClickHouse/ClickHouse/pull/68873](https://github.com/ClickHouse/ClickHouse/pull/68873)
+
+
 
 ![Table connections](/assets/Untitled-2021-08-05-1027.png)
 
