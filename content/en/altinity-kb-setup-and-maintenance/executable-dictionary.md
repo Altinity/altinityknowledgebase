@@ -85,3 +85,10 @@ if [[ $current_day -eq 6 && $current_time -ge 1000 && $current_time -lt 1100 ]];
     fi
 fi
 ```
+
+### Improvements
+
+If the dictionary has a high frecuency refresh time, then clickhouse could end up executing that script multiple times using a lot of resources and creating processes that can look like 'stuck' ones.
+To overcome this we can use the executable pool setting: https://clickhouse.com/docs/sql-reference/dictionaries#executable-pool
+
+Executable pool will spawn a pool of processes (similar as a pool of connections) with the specified command and keep them running until they exit, which is useful for heavy scripts/python and reduces the initialization impact of those on clickhouse.
