@@ -8,6 +8,9 @@ keywords:
   - clickhouse detach
   - clickhouse drop partition
 ---
+
+Blog article - https://altinity.com/blog/understanding-detached-parts-in-clickhouse
+
 ClickHouse® users should monitor for detached parts and act quickly when they appear. Here is what the different statuses of detached parts mean:
 
 1. Parts are renamed to **ignored** if they were found during ATTACH together with other, bigger parts that cover the same blocks of data, i.e. they were already merged into something else.
