@@ -9,7 +9,16 @@ keywords:
   - clickhouse drop partition
 ---
 
+Detached parts act like the “Recycle Bin” in Windows. When ClickHouse deems some data unneeded—often during internal reconciliations at server startup—it moves the data to the detached area instead of deleting it immediately.
+
+Recovery: If you’re missing data due to misconfiguration or an error (such as connecting to the wrong ZooKeeper), check the detached parts. The missing data might be recoverable through manual intervention.
+
+Cleanup: Otherwise, clean up the detached parts periodically to free disk space.
+
+Regarding detached parts and the absence of an automatic cleanup feature within ClickHouse: this was a deliberate decision, as there is a possibility that data may appear there due to a bug in ClickHouse's code, a hardware error (such as a memory error or disk failure), etc. In such cases, automatic cleanup is not desirable.
+
 Blog article - https://altinity.com/blog/understanding-detached-parts-in-clickhouse
+
 
 ClickHouse® users should monitor for detached parts and act quickly when they appear. Here is what the different statuses of detached parts mean:
 
@@ -37,6 +46,19 @@ FROM system.detached_parts
 GROUP BY database, table, reason
 ORDER BY database ASC, table ASC, reason ASC
 ```
+
+### drop detached
+The DROP DETACHED command in ClickHouse is used to remove parts or partitions that have previously been detached (i.e., moved to the detached directory and forgotten by the server). The syntax is:
+
+```
+ALTER TABLE table_name [ON CLUSTER cluster] DROP DETACHED PARTITION|PART ALL|partition_expr
+```
+
+This command removes the specified part or all parts of the specified partition from the detached directory. For more details on how to specify the partition expression, see the documentation on how to set the partition expression DROP DETACHED PARTITION|PART.
+
+Note: You must have the allow_drop_detached setting enabled to use this command allow_drop_detached
+
+### drop all script
 
 Here is a query that can help with investigations. It looks for active parts containing the same data blocks as the detached parts. It 
 generates commands to drop the detached parts. 
@@ -77,12 +99,3 @@ covered-by-broken  - that means that ClickHouse during initialization of replica
 
 The list of DETACH_REASONS: https://github.com/ClickHouse/ClickHouse/blob/master/src/Storages/MergeTree/MergeTreePartInfo.h#L163
 
-## More notes on ClickHouseDetachedParts
-
-Detached parts act like the “Recycle Bin” in Windows. When ClickHouse deems some data unneeded—often during internal reconciliations at server startup—it moves the data to the detached area instead of deleting it immediately.
-
-Recovery: If you’re missing data due to misconfiguration or an error (such as connecting to the wrong ZooKeeper), check the detached parts. The missing data might be recoverable through manual intervention.
-
-Cleanup: Otherwise, clean up the detached parts periodically to free disk space.
-
-Regarding detached parts and the absence of an automatic cleanup feature within ClickHouse: this was a deliberate decision, as there is a possibility that data may appear there due to a bug in ClickHouse's code, a hardware error (such as a memory error or disk failure), etc. In such cases, automatic cleanup is not desirable.
