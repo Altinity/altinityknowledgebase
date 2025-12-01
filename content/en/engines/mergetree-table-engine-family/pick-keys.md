@@ -63,6 +63,8 @@ ORDER BY (tenantid, site_id, eventid) --  utm_source is mutable, while tenantid,
 PRIMARY KEY (tenantid, site_id) -- eventid is not used for filtering, needed only for collapsing duplicates
 ```
 
+Also read about LIGHT ORDER BY for speeding FINAL queries - https://kb.altinity.com/altinity-kb-queries-and-syntax/altinity-kb-final-clause-speed/#light-order-by
+
 ### ORDER BY example
 
 
@@ -234,3 +236,5 @@ For the small tables (smaller than few gigabytes) partitioning is usually not ne
 
 * [How to change ORDER BY](/altinity-kb-schema-design/change-order-by/)
 * [ClickHouse Anti-Patterns: Learning from Users\' Mistakes](https://youtu.be/DP7l6Swkskw?t=3777), a short talk by Mikhail Filimonov
+* Clickhouse Documentation - https://clickhouse.com/docs/data-modeling/schema-design#choosing-an-ordering-key
+  
