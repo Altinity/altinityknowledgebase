@@ -22,6 +22,15 @@ By default it 90% of the physical RAM of the server.
 
 You can decrease that in some scenarios (like you need to leave more free RAM for page cache or to some other software).
 
+### Limits?
+
+```sql
+select metric, formatReadableSize(value) from system.asynchronous_metrics where metric ilike '%MemoryTotal%'
+union all 
+select name, formatReadableSize(toUInt64(value)) from system.server_settings where name='max_server_memory_usage'
+FORMAT PrettyCompactMonoBlock
+```
+
 ### How to check what is using my RAM?
 
 [altinity-kb-who-ate-my-memory.md]({{<ref "altinity-kb-who-ate-my-memory.md" >}})
