@@ -146,14 +146,16 @@ In addition to `metric_log`, other tables may also be affected — particularly 
 ```xml
 <clickhouse>
   <merge_tree>
-    <min_bytes_for_wide_part>134217728</min_bytes_for_wide_part>
-    <vertical_merge_algorithm_min_bytes_to_activate>134217728</vertical_merge_algorithm_min_bytes_to_activate>
+    <min_bytes_for_wide_part>0</min_bytes_for_wide_part>    <!-- disable size based threshold for wide part -->
+    <min_rows_for_wide_part>131072</min_rows_for_wide_part> <!-- use row based instread, same value as vertical_merge_algorithm_min_rows_to_activate -->
   </merge_tree>
 </clickhouse>
 ```
 
 These settings tell ClickHouse® to **keep using compact parts longer**
 and to **enable the vertical merge algorithm** simultaneously with the switch to the wide format, preventing sudden spikes in memory usage.
+
+Caution: the vertical merge directly from compact parts to wide part can be VERY slow. 
 
 ---
 
@@ -164,6 +166,8 @@ Raising `min_bytes_for_wide_part` globally keeps more data in **compact parts**,
 The trade-off is that this layout makes **reads less efficient** for column-selective queries. Reading one or two columns from a large compact part means scanning and decompressing shared blocks instead of isolated files. It can also reduce cache locality, slightly worsen compression (different columns compressed together), and make **mutations or ALTERs** more expensive because each change rewrites the entire part.
 
 Lowering thresholds for vertical merges further decreases merge memory but may make the first merges slower, as they process columns sequentially. This configuration works best for **wide, append-only tables** or **S3-based storage**, while analytical tables with frequent updates or narrow schemas may perform better with defaults. If merge memory or S3 request overhead is your main concern, applying it globally is reasonable — otherwise, start with specific wide tables like `system.metric_log`, verify performance improvements, and expand gradually.
+
+Additionally the the vertical merge directly from compact parts to wide part can be VERY slow. 
 
 ---
 
