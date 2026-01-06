@@ -24,14 +24,18 @@ The following metrics should be collected / monitored
   * Disk Space (free / used)
 
 * For ClickHouse:
-  * Connections (count)
+  * Connections (Number of queries running)
+  * DDL queue length 
   * RWLocks
-  * Read / Write / Return (bytes)
-  * Read / Write / Return (rows)
-  * Zookeeper operations (count)
-  * Absolute delay
+  * Read / Write / Return (bytes/rows)
+  * Merges (queue length, memory used)
+  * Mutations
   * Query duration (optional)
-  * Replication parts and queue (count)
+  * Replication queue length and lag
+  * Read only tables
+  * ZooKeeper latencies
+  * Zookeeper operations (count)
+  * S3 errors (if used)
 
 * For Zookeeper:
   * [See separate article](../altinity-kb-zookeeper/zookeeper-monitoring/)
@@ -72,6 +76,7 @@ The following metrics should be collected / monitored
 ## Dashboard querying ClickHouse directly via Grafana plugin 
 
 * https://grafana.com/blog/2022/05/05/introducing-the-official-clickhouse-plugin-for-grafana/
+* https://gist.github.com/filimonov/271e5b27c085356c67db3c1bf2204506
 
 ### Zabbix
 
@@ -339,3 +344,4 @@ See https://clickhouse.com/docs/en/operations/opentelemetry/
 * [Monitor ClickHouse with Datadog](https://www.datadoghq.com/blog/monitor-clickhouse/)
 * [Unsorted notes on monitor and Alerts](https://docs.google.com/spreadsheets/d/1K92yZr5slVQEvDglfZ88k_7bfsAKqahY9RPp_2tSdVU/edit#gid=521173956)
 * https://intl.cloud.tencent.com/document/product/1026/36887
+* [Tinybird experience (scroll to monitoring section)](https://www.tinybird.co/blog/what-i-learned-operating-clickhouse-part-ii)
