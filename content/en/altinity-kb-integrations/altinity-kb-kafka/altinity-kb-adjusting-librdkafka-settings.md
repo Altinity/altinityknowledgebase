@@ -203,7 +203,7 @@ And after that in configuration:
 
 We can also use named collections with SQL and include kafka subsettings like this:
 
-```
+```sql
 CREATE NAMED COLLECTION kafka_preset AS
     kafka_broker_list = 'xxxx',
     kafka_format = 'JSONEachRow',
