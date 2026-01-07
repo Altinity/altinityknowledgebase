@@ -200,6 +200,24 @@ And after that in configuration:
 </clickhouse>
 
 ```
+
+We can also use named collections with SQL and include kafka subsettings like this:
+
+```
+CREATE NAMED COLLECTION kafka_preset AS
+    kafka_broker_list = 'xxxx',
+    kafka_format = 'JSONEachRow',
+    kafka_group_name = 'xxxxx',
+    kafka_handle_error_mode = 'stream',
+    kafka_topic_list = 'xxxxx',
+    kafka.security_protocol = 'SASL_SSL',
+    kafka.sasl_mechanism = 'PLAIN',
+    kafka.sasl_username = 'xxxx',
+    kafka.ssl_ca_location = '/path/to/cert',
+    kafka.ssl_certificate_location = 'ssl_certificate_location'
+    kafka.ssl_key_location = '/path-key_location'
+```
+
  
 The same fragment of code in newer versions:
 - https://github.com/ClickHouse/ClickHouse/blob/d19e24f530c30f002488bc136da78f5fb55aedab/src/Storages/Kafka/StorageKafka.cpp#L474-L496
