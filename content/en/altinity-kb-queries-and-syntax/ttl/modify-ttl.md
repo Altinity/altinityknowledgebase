@@ -39,21 +39,21 @@ MATERIALIZE TTL:
 1. Recalculate TTL  (Kinda cheap, it read only column participate in TTL)
 2. Apply TTL        (Rewrite of table data for all columns)
 
-You also can disable apply TTL substep via `materialize_ttl_recalculate_only` merge_tree setting (by default it's 0, so clickhouse will apply TTL expression)
+You also can only disable apply TTL substep via `materialize_ttl_recalculate_only` merge_tree setting (by default it's 0, so clickhouse will apply TTL expression)
 
 ```sql
 ALTER TABLE tbl MODIFY SETTING materialize_ttl_recalculate_only=1;
 ```
 
-It does mean, that TTL rule will not be applied during `ALTER TABLE tbl MODIFY (ADD) TTL ...` query.
+It does mean, that TTL rule will not be applied during `ALTER TABLE tbl MODIFY (ADD) TTL ...` query and data is now going to be rewritten.
 
-After this you can apply TTL (MATERIALIZE) per partition manually:
+After this you can apply TTL (MATERIALIZE) per partition manually (which will apply the TTL and rewrite data)
 
 ```sql
 ALTER TABLE tbl MATERIALIZE TTL [IN PARTITION partition | IN PARTITION ID 'partition_id'];
 ```
 
-The idea of `materialize_ttl_after_modify = 1` is to use `ALTER TABLE tbl MATERIALIZE TTL IN PARTITION xxx; ALTER TABLE tbl MATERIALIZE TTL IN PARTITION yyy;` and materialize TTL gently or drop/move partitions manually until the old data without/old TTL is processed.
+The idea of `materialize_ttl_after_modify = 0` and `materialize_ttl_recalculate_only = 1` is to use `ALTER TABLE tbl MATERIALIZE TTL IN PARTITION xxx; ALTER TABLE tbl MATERIALIZE TTL IN PARTITION yyy;` and materialize TTL gently or drop/move partitions manually until the old data without/old TTL is processed.
 
 MATERIALIZE TTL done via Mutation:
 1. ClickHouse create new parts via hardlinks and write new ttl.txt file
