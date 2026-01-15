@@ -38,7 +38,7 @@ When migrating a large, live ClickHouse cluster (multi-terabyte scale) to a new 
     - Each subsequent run will copy only changes and reduce the final sync time.
 5. **Restore replication metadata**
     - Start the new ClickHouse node(s).
-    - Run `SYSTEM RESTORE REPLICA` to rebuild replication metadata in ZooKeeper.
+    - Run `SYSTEM RESTORE REPLICA table_name` to rebuild replication metadata in ZooKeeper.
 6. **Test the application**
     - Point your test environment to the new cluster.
     - Validate queries, schema consistency, and application behavior.
@@ -46,14 +46,21 @@ When migrating a large, live ClickHouse cluster (multi-terabyte scale) to a new 
     - Stop ClickHouse on the old cluster.
     - Immediately run a final incremental `rsync` to catch last-minute changes.
     - Reinitialize ZooKeeper/Keeper database (stop/clear snapshots/start).
-    - Run `SYSTEM RESTORE REPLICA` to rebuild replication metadata in ZooKeeper again.
+    - Run `SYSTEM RESTORE REPLICA table_name` to rebuild replication metadata in ZooKeeper again.
     - Start ClickHouse on the new cluster and switch production traffic.
     - add more replicas as needed
 
 
 NOTES: 
 
-1. If you are using a mount point that differs from /var/lib/clickhouse/data, adjust the rsync command accordingly to point to the correct location. For example, suppose you reconfigure the storage path as follows in /etc/clickhouse-server/config.d/config.xml. 
+1. You can build a script to run restore replica commands over all replicated tables by query:
+```
+select 'SYSTEM RESTORE REPLICA ' || database || '.' || table || ';'
+from system.tables
+where engine ilike 'Replicated%'
+```
+
+2. If you are using a mount point that differs from /var/lib/clickhouse/data, adjust the rsync command accordingly to point to the correct location. For example, suppose you reconfigure the storage path as follows in /etc/clickhouse-server/config.d/config.xml. 
 ```
 <clickhouse>
     <!-- Path to data directory, with trailing slash. -->
@@ -63,4 +70,10 @@ NOTES:
 ```
 You'll need to use `/data1/clickhouse` instead of `/var/lib/clickhouse` in the rsync paths. 
 
-2. ClickHouse docker container image does not have rsync installed. Add it using apt-get or run sidecar in k8s.
+3. ClickHouse Docker container image does not have rsync installed. Add it using apt-get or run sidecar in k8s or run a service pod with volumes attached.
+For clickhouse-operator instances, you can to stop all pods by CHI definition.
+```
+spec:
+  stop: "true"
+```
+
