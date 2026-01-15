@@ -10,6 +10,13 @@ When migrating a large, live ClickHouse cluster (multi-terabyte scale) to a new 
 1. **Prepare the new cluster**
     - Ensure the new cluster is set up with its own ZooKeeper (or Keeper).
     - Configure ClickHouse but keep it stopped initially.
+    - For clickhouse-operator instances, you can stop all pods by CHI definition:
+```
+spec:
+  stop: "true"
+```
+and attach volumes (PVC) to a service pod.
+
 2. **Initial data sync**
     
     Run a full recursive sync of the data directory from the old server to the new one:
@@ -27,7 +34,7 @@ When migrating a large, live ClickHouse cluster (multi-terabyte scale) to a new 
     - `W`: copy whole files instead of using rsync’s delta algorithm (faster for large DB files).
     - --delete: remove files from the destination that don’t exist on the source.
 
-    If you plan to run several replicas on a new cluster, rsync data to all of them.  To save the performance of production servers, you can copy data to 1 new replica and then use it as a source for others. However, you can start from a single replica and add more after switching.
+    If you plan to run several replicas on a new cluster, rsync data to all of them.  To save the performance of production servers, you can copy data to 1 new replica and then use it as a source for others. You can start with a single replica and add more after switching, but it will take more time afterward, as additional replicas need to pull all the data.
 
     Add --bwlimit=100000 to preserve the performance of the production cluster while copying a lot of data.
    
@@ -71,9 +78,5 @@ where engine ilike 'Replicated%'
 You'll need to use `/data1/clickhouse` instead of `/var/lib/clickhouse` in the rsync paths. 
 
 3. ClickHouse Docker container image does not have rsync installed. Add it using apt-get or run sidecar in k8s or run a service pod with volumes attached.
-For clickhouse-operator instances, you can to stop all pods by CHI definition.
-```
-spec:
-  stop: "true"
-```
+
 
