@@ -60,9 +60,10 @@ and attach volumes (PVC) to a service pod.
 
 NOTES: 
 
-1. You can build a script to run restore replica commands over all replicated tables by query:
+1. To restore metadata on all cluster nodes by a single command, use `ON CLUSTER` modifier for the RESTORE REPLICA command.
+2. You can build a script to run restore replica commands over all replicated tables by query:
 ```
-select 'SYSTEM RESTORE REPLICA ' || database || '.' || table || ';'
+select 'SYSTEM RESTORE REPLICA ' || database || '.' || table || ' ON CLUSTER {cluster} ;'
 from system.tables
 where engine ilike 'Replicated%'
 ```
