@@ -15,6 +15,8 @@ SELECT 'OS' as group, metric as name, toInt64(value) as val FROM system.asynchro
     UNION ALL
 SELECT 'Caches' as group, metric as name, toInt64(value) FROM system.asynchronous_metrics WHERE metric LIKE '%CacheBytes'
     UNION ALL
+SELECT 'Caches' as group, metric as name, toInt64(value) FROM system.metrics WHERE metric LIKE '%CacheBytes'
+    UNION ALL
 SELECT 'MMaps' as group, metric as name, toInt64(value) FROM system.metrics WHERE metric LIKE 'MMappedFileBytes'
     UNION ALL
 SELECT 'Process' as group, metric as name, toInt64(value) FROM system.asynchronous_metrics WHERE metric LIKE 'Memory%'
