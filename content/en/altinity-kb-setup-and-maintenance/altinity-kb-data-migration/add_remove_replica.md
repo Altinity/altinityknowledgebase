@@ -98,13 +98,20 @@ clickhouse-client --host localhost --port 9000 -mn < schema.sql
 
 ### Using `clickhouse-backup`
 
-- Using `clickhouse-backup` to copy the schema of a replica to another is also convenient and moreover if [using Atomic database](/engines/altinity-kb-atomic-database-engine/) with `{uuid}` macros in [ReplicatedMergeTree engines](https://www.youtube.com/watch?v=oHwhXc0re6k):
+- Before proceeding: check if you have `restore_schema_on_cluster` set; if it is, this procedure will drop tables with `ON CLUSTER`, which is not its intention! To verify:
 
 ```bash
-sudo -u clickhouse clickhouse-backup create --schema --rbac --named-collections rbac_and_schema
-# From the destination replica do this in 2 steps:
-sudo -u clickhouse clickhouse-backup restore --rbac-only rbac_and_schema
-sudo -u clickhouse clickhouse-backup restore --schema --named-collections rbac_and_schema
+$ clickhouse-backup print-config|grep restore_schema_on_cluster
+    restore_schema_on_cluster: ""
+```
+
+- Using `clickhouse-backup` to copy the schema of a replica to another is also convenient, and if [using Atomic database](/engines/altinity-kb-atomic-database-engine/) with `{uuid}` macros in [ReplicatedMergeTree engines](https://www.youtube.com/watch?v=oHwhXc0re6k). 
+
+```bash
+$ sudo -u clickhouse clickhouse-backup create --schema --rbac --named-collections rbac_and_schema
+# From the destination replica do this in 2 steps (for safety, keep --env=RESTORE_SCHEMA_ON_CLUSTER=):
+$ sudo -u clickhouse clickhouse-backup restore --env=RESTORE_SCHEMA_ON_CLUSTER= --rbac-only rbac_and_schema
+$ sudo -u clickhouse clickhouse-backup restore --env=RESTORE_SCHEMA_ON_CLUSTER= --schema --named-collections rbac_and_schema
 
 ```
 
@@ -122,7 +129,7 @@ SELECT DISTINCT database,table,replica_is_active FROM system.replicas FORMAT Ver
 
 - Check how the replication process is performing using https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-replication-queue/
   
-    - If there are many postponed tasks with message:
+    - If there are many postponed tasks with the message:
         
     ```sql
     Not executing fetch of part 7_22719661_22719661_0 because 16 fetches already executing, max 16.                                                                                                      │ 2023-09-25 17:03:06 │            │
@@ -130,7 +137,7 @@ SELECT DISTINCT database,table,replica_is_active FROM system.replicas FORMAT Ver
     
     then it is ok, the maximum replication slots are being used. Exceptions are not OK and should be investigated
 
-- If migration was successful and replication is working then wait until the replication is finished. It may take some days depending on how much data is being replicated. After this edit the cluster configuration xml file for all replicas (`remote_servers.xml`) and add the new replica to the cluster.
+- If migration was successful and replication is working, then wait until the replication is finished. It may take some days, depending on how much data is being replicated. After this edit, the cluster configuration xml file for all replicas (`remote_servers.xml`), and add the new replica to the cluster.
   
 
 ### Possible problems
