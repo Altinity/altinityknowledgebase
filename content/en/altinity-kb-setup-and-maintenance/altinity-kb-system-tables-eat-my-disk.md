@@ -41,6 +41,9 @@ $ cat /etc/clickhouse-server/config.d/z_log_disable.xml
     <zookeeper_log remove="1"/>
     <processors_profile_log remove="1"/>
     <latency_log remove="1"/>
+    <background_schedule_pool_log remove="1"/>
+    <aggregated_zookeeper_log remove="1"/>
+    <zookeeper_connection_log remove="1"/>
 </clickhouse>
 ```
 
