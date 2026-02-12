@@ -35,7 +35,7 @@ ClickHouse® users should monitor for detached parts and act quickly when they a
 10. **deleting**: temporary prefix during DROP DETACHED operations. Do not delete manually while the operation is in progress.
 11. **tmp-fetch**: temporary prefix during replication fetch operations. Do not delete manually while the operation is in progress.
 
-Note on **unexpected**: While **unexpected** exists in the detach reasons list, ReplicatedMergeTree tables typically rename unexpected parts to **ignored** after startup sanity checks. Parts found on disk but missing from ZooKeeper are not necessarily labeled **unexpected** on disk.
+Note on **unexpected** vs **ignored** (simple rule of thumb): **unexpected** is like a “we found this in the attic” tag, while **ignored** is like “we already replaced this, keep it aside.” In ReplicatedMergeTree startup sanity checks, parts that are unexpected relative to ZooKeeper are typically renamed to **ignored**. So a part found on disk but missing in ZooKeeper will usually appear as **ignored**, not **unexpected**, even though **unexpected** is a valid reason in the codebase.
 
 Important distinction for ReplicatedMergeTree: ClickHouse® tracks expected parts from ZooKeeper and unexpected parts found locally. Broken expected parts increment the `max_suspicious_broken_parts` counter (can block startup). Broken unexpected parts use a separate counter and do not block startup.
 
