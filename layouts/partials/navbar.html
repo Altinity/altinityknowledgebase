@@ -1,68 +1,223 @@
 {{ $cover := and (.HasShortcode "blocks/cover") (not .Site.Params.ui.navbar_translucent_over_cover_disable) }}
-<nav class="js-navbar-scroll navbar navbar-expand navbar-dark {{ if $cover}} td-navbar-cover {{ end }}flex-column flex-md-row td-navbar">
-  <a class="navbar-brand" href="{{ .Site.Home.RelPermalink }}">
-    <span class="navbar-logo">{{ if .Site.Params.ui.navbar_logo }}{{ with resources.Get "icons/logo.svg" }}{{ ( . | minify).Content | safeHTML }}{{ end }}{{ end }}</span><span class="font-weight-bold">Altinity Knowledge Base for ClickHouse<sup>®</sup></span>
+<nav class="js-navbar-scroll navbar navbar-expand-xl navbar-dark">
+  <a class="navbar-brand" href="https://altinity.com" target="_blank">
+    <span class="navbar-logo"><img src="/images/general/altinity-logo_horizontal_blue_white.svg" width="154" alt="Altinity.com"></span>
   </a>
-  <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+  <button class="navbar-toggler ml-auto" type="button" data-bs-toggle="collapse" data-bs-target="#mobile_navbar" aria-controls="mobile_navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  <div class="td-navbar-nav-scroll w-100 d-none d-xl-block" id="main_navbar">
     <ul class="navbar-nav mt-2 mt-lg-0">
-      <li class="nav-item dropdown">
+      <li class="nav-item dropdown position-static">
         <a class="nav-link dropdown-toggle" href="#" id="productsDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Products</a>
-        <div class="dropdown-menu" aria-labelledby="productsDropdown">
-          <a class="dropdown-item" href="https://altinity.com/managed-clickhouse/" target="_blank"><span style="font-size: large;">Altinity.Cloud</span><br/><span style="font-size:small;">Managed service for ClickHouse in any AWS, GCP, or Azure region or your own VPC</span></a>
-          <a class="dropdown-item" href="https://altinity.com/clickhouse-support/" target="_blank"><span style="font-size: large;">Support for ClickHouse</span><br/><span style="font-size: small;">Get 24/7 Support or POC and evaluative support</span></a>
-          <a class="dropdown-item" href="https://altinity.com/clickhouse-training/" target="_blank"><span style="font-size: large;">Training for ClickHouse</span><br/><span style="font-size: small;">Altinity Administrator training for ClickHouse</span></a>
-          <a class="dropdown-item" href="https://altinity.com/customer-stories/" target="_blank"><span style="font-size: large;">Customer Stories</span><br/><span style="font-size: small;">See why our customers love us</span></a>
-        </div>
+        <ul class="dropdown-menu list-unstyled w-100 mega-menu" aria-labelledby="navbarDropdown"><li>
+        <!-- PRODUCTS MEGA MENU -->
+
+<div class="grid-row" style="grid-template-columns: 35% 35% 30%;  ">
+  <div>
+    <h5 style="margin-bottom:15px;">PRODUCTS</h5>
+    <div>
+      <div class="sub-section-header">Altinity.Cloud</div>
+      <div class="sub_links" style="display:grid;grid-template-columns:50% 50%;margin-bottom:15px;">
+        <div><a href="https://altinity.com/managed-clickhouse/" id="nav_products_cloud" class="med-link">Managed cloud</a>
+                <div class="desc">Deploy on Altinity’s cloud</div></div>
+        <div><a href="https://altinity.com/managed-clickhouse/bring-your-own-cloud/" id="nav_products_byoc" class="med-link">Bring your own cloud</a>
+                <div class="desc">Any region, any environment</div></div>
+      </div>
+      <div class="sub_links" style="display:grid;grid-template-columns:50% 50%;margin-bottom:20px;">
+        <div><a href="https://altinity.com/altinity-cloud-vs-clickhouse-cloud-faq" id="nav_products_comparison" ><i class="fas fa-table text-primary"></i> Vendor comparison </a></div>
+        <div><a href="https://altinity.com/clickhouse-pricing/" id="nav_products_pricing" ><i class="fas fa-dollar-sign text-primary"></i> Pricing </a></div>
+      </div>
+    </div>
+    <div>
+      <div class="sub-section-header">Support for ClickHouse<sup>®</sup></div>
+      <a href="https://altinity.com/clickhouse-support/" id="nav_products_support" class="med-link" style="margin-bottom:10px;">24/7 Support</a><br />
+      <a href="https://altinity.com/poc-evaluation-support/" id="nav_products_poc_evaluative_support" class="med-link" style="margin-bottom:10px;">POC and Evaluative Support</a><br />
+      <a href="https://altinity.com/clickhouse-training/" id="nav_products_training" class="med-link" style="margin-bottom:10px;">Training for ClickHouse<sup>®</sup></a><br />
+    </div>
+  </div>
+  <div style="border-left: 1px solid rgba(255,255,255,0.3);padding-left:30px">
+    <h5 style="margin-bottom:15px;">OPEN SOURCE SOFTWARE</h5>
+    <div style="margin-left:-10px;padding:5px 5px 5px 10px;margin-bottom:5px;background:rgba(24,157,208,0.5);border-radius:8px"><a href="https://altinity.com/project-antalya/"  id="nav_products_antalya_builds">NEW Project Antalya Builds </a><br /><div class="desc" style="margin-bottom:0;">Scale ClickHouse queries infinitely with 10X cheaper data lakes</div></div>
+    <a href="https://altinity.com/altinity-stable/"  id="nav_products_stable_builds">Altinity Stable Builds for ClickHouse<sup>®</sup> </a><br /><div class="desc" style="margin-bottom:15px;">LTS-certified binaries with 3 years’ support</div>
+  <a href="https://altinity.com/kubernetes-operator/"  id="nav_products_kubernetes">Altinity Kubernetes Operator for ClickHouse<sup>®</sup> </a><br /><div class="desc" style="margin-bottom:15px;">Manage ClickHouse clusters on Kubernetes effortlessly</div>
+  <a href="https://altinity.com/altinity-backup-for-clickhouse/"  id="nav_products_backup">Altinity Backup for ClickHouse<sup>®</sup> </a><br /><div class="desc" style="margin-bottom:15px;">Simple backup and restore tool for ClickHouse</div>
+  <a href="https://altinity.com/ecosystem/" >See more &gt; </a>
+  </div>
+  <div style="border-left: 1px solid rgba(255,255,255,0.3);padding-left:30px">
+    <h5 style="margin-bottom:15px;">CLICKHOUSE<sup>®</sup> SOLUTIONS</h5>
+    <a href="https://altinity.com/observability-and-logging/"  id="nav_observability">Observability & Logging </a><br /><div class="desc" style="margin-bottom:15px;">Manage high-volume observability data efficiently</div>
+    <a href="https://altinity.com/security-information-and-event-management/"  id="nav_siem">Security Information and Event Management (SIEM) </a><br /><div class="desc" style="margin-bottom:15px;">Efficiently process and analyze high-volume security events</div>
+    <a href="https://altinity.com/trading-systems/"  id="nav_trading_systems">Trading Analytics </a><br /><div class="desc" style="margin-bottom:15px;">Make faster market decisions</div>
+  </div>
+</div>
+<div class="grid-row" style="grid-template-columns:33% 60%; border-top:1px solid  rgba(255,255,255,0.3)">
+  <div><a href="https://altinity.com/customer-stories/" id="nav_products_customer_stories">Customer stories </a><br />
+    <div class="desc">See why our customers love us</div></div>
+  <div><a href="https://altinity.com/plans-and-features-clickhouse/" id="nav_products_plans_features">Altinity Plans and Features </a><br />
+    <div class="desc">Managed service or support? Compare plans and features</div></div>
+</div>
+
+        <!-- /PRODUCTS MEGA MENU -->
+        </li></ul>
       </li>
-      <li class="nav-item dropdown">
+
+
+      <li class="nav-item dropdown  position-static">
         <a class="nav-link dropdown-toggle" href="#" id="resourceDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Resources</a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="https://docs.altinity.com/" target="_blank"><span style="font-size: large;">Documentation</span><br/><span style="font-size: small;">Product guides and tutorials</span></a>
-          <a class="dropdown-item" href="https://hubs.la/Q02pLTV20" target="_blank"><span style="font-size: large;">Guides and eBooks</span><br/><span style="font-size: small;">Technical content for developers</span></a>
-          <a class="dropdown-item" href="https://altinity.com/clickhouse-database/" target="_blank"><span style="font-size: large;">What is ClickHouse?</span><br/><span style="font-size: small;">Learn why ClickHouse is the fastest database in the world</span></a>
-          <a class="dropdown-item" href="https://altinity.com/what-is-kubernetes/" target="_blank"><span style="font-size: large;">What is Kubernetes?</span><br/><span style="font-size: small;">Learn why Kubernetes is the platform of choice for analytic databases</span></a>
-        </div>
+        <ul class="dropdown-menu list-unstyled w-100 mega-menu" aria-labelledby="navbarDropdown"><li>
+
+        <!-- RESOURCES MEGA MENU -->
+
+<div class="grid-row">
+  <div>
+    <p class="col-header">Developer Center</p>
+    <div>
+      <a href="https://docs.altinity.com/" target="_blank" id="nav_resources_docs">Documentation </a>
+      <div class="desc">Product guides and tutorials</div>
+      <br />
+    </div>
+    <div>
+      <a href="https://kb.altinity.com/" target="_blank" id="nav_resources_knowledgebase">Knowledge Base </a>
+      <div class="desc">Answers to common questions and issues</div>
+      <br />
+    </div>
+   <div>
+      <a href="https://altinity.com/blog/?cat=webinarspage" target="_blank" id="nav_resources_webinars">Past Webinars </a>
+      <div class="desc">Watch anytime, on demand.</div>
+      <br />
+    </div>
+    <div>
+      <a href="https://altinity.com/developer-resources/" id="nav_resources_dev_resources">More Technical Content </a>
+      <div class="desc">How-to guides and videos</div>
+      <br />
+    </div>
+  </div>
+  <div>
+    <p class="col-header">Learning</p>
+    <div>
+      <a href="https://altinity.com/clickhouse-database/" id="nav_resources_what_is_ch">What is ClickHouse? </a>
+      <div class="desc">New to ClickHouse? Start here</div>
+      <br />
+    </div>
+    <div>
+      <a href="https://altinity.com/kubernetes-operator/" id="nav_resources_k8s_operator">Kubernetes Operator </a>
+      <div class="desc">Learn how it works and who uses it</div>
+      <br />
+    </div>
+    <div>
+      <a href="https://altinity.com/unevenly-distributed/" id="nav_unevenlydistributed">Unevenly Distributed </a>
+      <div class="desc">A Thought Leadership Series on Real-Time Data Lakes</div>
+      <br />
+    </div>
+    <div>
+      <a href="https://altinity.com/altinity-stable/" id="nav_resources_stable">Altinity Stable Builds </a>
+      <div class="desc">Learn why you should be using them in your prod environments</div>
+      <br />
+    </div>
+  </div>
+  <div>
+    <p class="col-header">Community</p>
+    <div>
+      <a href="https://altinity.com/ecosystem/" id="nav_resources_open_source">Open Source at Altinity </a>
+      <div class="desc">Explore our open source projects and contributions</div>
+      <br />
+    </div>
+    <div>
+      <a href="https://altinity.com/events/" id="nav_resources_events">Events </a>
+      <div class="desc">Upcoming conferences, events, and webinars</div>
+      <br />
+    </div>
+    <div>
+      <a href="https://altinity.com/slack/" target="_blank" id="nav_resources_slack">Slack Community </a>
+      <div class="desc">Get help for any ClickHouse issue from experts</div>
+      <br />
+    </div>
+    <div>
+      <a href="https://altinity.com/office-hours-for-clickhouse/" id="nav_resources_office_hours">Monthly Office Hours </a>
+      <div class="desc">Meet our engineers live and ask your questions</div>
+      <br />
+    </div>
+  </div>
+</div>
+
+        <!-- /RESOURCES MEGA MENU -->
+
+        </li></ul>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="https://altinity.com/blog" target="_blank">Blog <span class="navbar-logo"><svg width="25.897644" height="31.648945" viewBox="0 0 25.897644 31.648945" version="1.1" id="svg1" xmlns="http://www.w3.org/2000/svg"><path d="m 18,14.5 v 6 H 6 v -12 h 6 m 3,-3 h 6 v 6 m 0,-6 -9,9" class="icon_svg-stroke" stroke="#ffffff" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" id="path1" style="stroke:#ffffff;stroke-opacity:1"/></svg></span></a>
+        <a class="nav-link" href="https://altinity.com/blog" target="_blank">Blog</a>
       </li>
-      <li class="nav-item dropdown">
+      <li class="nav-item dropdown position-static">
         <a class="nav-link dropdown-toggle" href="#" id="companyDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Company</a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="https://altinity.com/about-us/" target="_blank"><span style="font-size: large;">About the Company</span><br/><span style="font-size: small;">Who we are and what we do</span></a>
-          <a class="dropdown-item" href="https://altinity.com/careers/" target="_blank"><span style="font-size: large;">Careers</span><br/><span style="font-size: small;">Join our team!</span></a>
-          <a class="dropdown-item" href="https://altinity.com/contact" target="_blank"><span style="font-size: large;">Contact</span><br/><span style="font-size: small;">Have questions? We've got answers.</span></a>
-        </div>
+        <ul class="dropdown-menu list-unstyled w-100 mega-menu" aria-labelledby="navbarDropdown"><li>
+
+        <!-- COMPANY MEGA MENU -->
+
+<div class="grid-row">
+  <div>
+    <div>
+      <a href="https://altinity.com/about-us/" id="nav_company_about">About the company  </a>
+    </div>
+    <div>
+      <a href="https://altinity.com/about-us/#leadership" id="nav_company_leadership">Leadership </a>
+    </div>
+  </div>
+  <div>
+    <div>
+      <a href="https://altinity.com/about-us/press-releases/" id="nav_company_press">Press Releases </a>
+    </div>
+    <div>
+      <a href="https://altinity.com/partners/" id="nav_company_partners">Partners </a>
+    </div>
+  </div>
+  <div>
+    <div>
+      <a href="https://altinity.com/customer-stories/" id="nav_company_customer_stories">Customer Stories </a>
+    </div>
+    <div>
+      <a href="https://altinity.com/careers/" id="nav_company_careers">Careers </a>
+    </div>
+  </div>
+  <div class="mega-bg-blue">
+    <div>
+      <h5>
+        Get in touch with ClickHouse experts.
+      </h5>
+      <a href="https://altinity.com/contact" class="btn btn-primary button">Contact Us </a>
+    </div>
+  </div>
+</div>
+
+        <!-- /COMPANY MEGA MENU -->
+
+        </li></ul>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="https://altinity.com/contact" target="_blank">Contact </a>
       </li>
       <li class="header-social-wrap ml-md-auto">
-        <div style="padding-right: 20px;" class="header-social-inner-wrap element-social-inner-wrap social-show-label-false social-style-filled">
-          <a class="mega-menu-link" href="https://altinity.com/free-clickhouse-consultation/">
-            <span style="border-radius: 24px; padding-top: .3em; padding-bottom: .3em; padding-left: 1em; padding-right: 1em; background-color: #1e9dcf; color: white; font-style: normal; font-size: 13px; line-height: 17px; font-weight: 700;">Need help?</span>
+          <a class="navbar-button" href="https://altinity.com/free-clickhouse-consultation/" target="_blank">Tech Support</a>
+          <a class="navbar-button" href="https://acm.altinity.cloud/signup" target="_blank" style="margin-right: 15px;">ClickHouse® in Cloud</a>
+          <a href="https://www.youtube.com/@Altinity" aria-label="Slack" target="_blank" rel="noopener noreferrer" class="social-button header-social-item">
+            <span class="social-icon-custom-svg" style="max-width:34px">
+              <svg fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28"><title>YouTube</title><path d="M11.109 17.625l7.562-3.906-7.562-3.953v7.859zM14 4.156c5.891 0 9.797 0.281 9.797 0.281 0.547 0.063 1.75 0.063 2.812 1.188 0 0 0.859 0.844 1.109 2.781 0.297 2.266 0.281 4.531 0.281 4.531v2.125s0.016 2.266-0.281 4.531c-0.25 1.922-1.109 2.781-1.109 2.781-1.062 1.109-2.266 1.109-2.812 1.172 0 0-3.906 0.297-9.797 0.297v0c-7.281-0.063-9.516-0.281-9.516-0.281-0.625-0.109-2.031-0.078-3.094-1.188 0 0-0.859-0.859-1.109-2.781-0.297-2.266-0.281-4.531-0.281-4.531v-2.125s-0.016-2.266 0.281-4.531c0.25-1.937 1.109-2.781 1.109-2.781 1.062-1.125 2.266-1.125 2.812-1.188 0 0 3.906-0.281 9.797-0.281v0z"></path> </svg>
+            </span>
           </a>
-          &nbsp;
-          <!-- <a class="mega-menu-link" href="https://hubs.la/Q02pLTV20">
-            <span style="border-radius: 24px; padding-top: .3em; padding-bottom: .3em; padding-left: 1em; padding-right: 1em; background-color: #1e9dcf; color: white; font-size: small; font-weight: bold;">Developer Resources</span>
+          <a href="https://altinity.com/slack/" aria-label="Slack" target="_blank" rel="noopener noreferrer" class="social-button header-social-item">
+            <span class="social-icon-custom-svg" style="max-width:34px">
+              <svg viewBox="0 0 36 36" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
+                <path fill="currentColor" d="M7.563,22.747a3.782,3.782,0,1,1-3.78-3.78h3.78v3.78Zm1.906,0a3.782,3.782,0,0,1,7.563,0v9.469a3.782,3.782,0,1,1-7.563,0V22.747ZM13.251,7.563a3.782,3.782,0,1,1,3.782-3.78v3.78H13.251Zm0,1.906a3.781,3.781,0,1,1,0,7.563H3.783a3.782,3.782,0,1,1,0-7.563h9.468Zm15.183,3.782a3.783,3.783,0,1,1,3.783,3.782H28.434V13.251Zm-1.9,0a3.782,3.782,0,0,1-7.565,0V3.783a3.782,3.782,0,1,1,7.564,0ZM22.747,28.434a3.783,3.783,0,1,1-3.78,3.783V28.434h3.78Zm0-1.9a3.782,3.782,0,0,1,0-7.565h9.469a3.782,3.782,0,1,1,0,7.564Z" data-name="Icon simple-slack" id="Icon_simple-slack"></path>
+              </svg>
+            </span>
           </a>
-          &nbsp; -->
-          <a href="https://altinity.com/slack" aria-label="Slack" target="_blank" rel="noopener noreferrer" class="social-button header-social-item social-link-custom1" data-positional-element-id="75">
-						<span class="social-icon-custom-svg" style="max-width:34px">
-							<svg viewBox="0 0 36 36" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
-								<path fill="#fff" d="M7.563,22.747a3.782,3.782,0,1,1-3.78-3.78h3.78v3.78Zm1.906,0a3.782,3.782,0,0,1,7.563,0v9.469a3.782,3.782,0,1,1-7.563,0V22.747ZM13.251,7.563a3.782,3.782,0,1,1,3.782-3.78v3.78H13.251Zm0,1.906a3.781,3.781,0,1,1,0,7.563H3.783a3.782,3.782,0,1,1,0-7.563h9.468Zm15.183,3.782a3.783,3.783,0,1,1,3.783,3.782H28.434V13.251Zm-1.9,0a3.782,3.782,0,0,1-7.565,0V3.783a3.782,3.782,0,1,1,7.564,0ZM22.747,28.434a3.783,3.783,0,1,1-3.78,3.783V28.434h3.78Zm0-1.9a3.782,3.782,0,0,1,0-7.565h9.469a3.782,3.782,0,1,1,0,7.564Z" data-name="Icon simple-slack" id="Icon_simple-slack"></path>
-							</svg>
-						</span>
+          <a href="https://github.com/altinity/" aria-label="GitHub" target="_blank" rel="noopener noreferrer" class="social-button header-social-item">
+            <svg fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="28" viewBox="0 0 24 28"><title>Github</title><path d="M12 2c6.625 0 12 5.375 12 12 0 5.297-3.437 9.797-8.203 11.391-0.609 0.109-0.828-0.266-0.828-0.578 0-0.391 0.016-1.687 0.016-3.297 0-1.125-0.375-1.844-0.812-2.219 2.672-0.297 5.484-1.313 5.484-5.922 0-1.313-0.469-2.375-1.234-3.219 0.125-0.313 0.531-1.531-0.125-3.187-1-0.313-3.297 1.234-3.297 1.234-0.953-0.266-1.984-0.406-3-0.406s-2.047 0.141-3 0.406c0 0-2.297-1.547-3.297-1.234-0.656 1.656-0.25 2.875-0.125 3.187-0.766 0.844-1.234 1.906-1.234 3.219 0 4.594 2.797 5.625 5.469 5.922-0.344 0.313-0.656 0.844-0.766 1.609-0.688 0.313-2.438 0.844-3.484-1-0.656-1.141-1.844-1.234-1.844-1.234-1.172-0.016-0.078 0.734-0.078 0.734 0.781 0.359 1.328 1.75 1.328 1.75 0.703 2.141 4.047 1.422 4.047 1.422 0 1 0.016 1.937 0.016 2.234 0 0.313-0.219 0.688-0.828 0.578-4.766-1.594-8.203-6.094-8.203-11.391 0-6.625 5.375-12 12-12zM4.547 19.234c0.031-0.063-0.016-0.141-0.109-0.187-0.094-0.031-0.172-0.016-0.203 0.031-0.031 0.063 0.016 0.141 0.109 0.187 0.078 0.047 0.172 0.031 0.203-0.031zM5.031 19.766c0.063-0.047 0.047-0.156-0.031-0.25-0.078-0.078-0.187-0.109-0.25-0.047-0.063 0.047-0.047 0.156 0.031 0.25 0.078 0.078 0.187 0.109 0.25 0.047zM5.5 20.469c0.078-0.063 0.078-0.187 0-0.297-0.063-0.109-0.187-0.156-0.266-0.094-0.078 0.047-0.078 0.172 0 0.281s0.203 0.156 0.266 0.109zM6.156 21.125c0.063-0.063 0.031-0.203-0.063-0.297-0.109-0.109-0.25-0.125-0.313-0.047-0.078 0.063-0.047 0.203 0.063 0.297 0.109 0.109 0.25 0.125 0.313 0.047zM7.047 21.516c0.031-0.094-0.063-0.203-0.203-0.25-0.125-0.031-0.266 0.016-0.297 0.109s0.063 0.203 0.203 0.234c0.125 0.047 0.266 0 0.297-0.094zM8.031 21.594c0-0.109-0.125-0.187-0.266-0.172-0.141 0-0.25 0.078-0.25 0.172 0 0.109 0.109 0.187 0.266 0.172 0.141 0 0.25-0.078 0.25-0.172zM8.937 21.438c-0.016-0.094-0.141-0.156-0.281-0.141-0.141 0.031-0.234 0.125-0.219 0.234 0.016 0.094 0.141 0.156 0.281 0.125s0.234-0.125 0.219-0.219z"></path> </svg>
           </a>
-          &nbsp;&nbsp;&nbsp;
-          <a href="https://github.com/Altinity/altinityknowledgebase" aria-label="GitHub" target="_blank" rel="noopener noreferrer" class="social-button header-social-item social-link-github has-custom-image" data-positional-element-id="76">
-            <img width="500" height="245" src="https://altinity.com/wp-content/uploads/2023/11/github-mark-white.png" class="social-icon-image lazyloaded" alt="" decoding="async" loading="lazy" style="max-width:24px" data-ll-status="loaded">
-            <noscript>
-              <img width="250" height="245" src="https://altinity.com/wp-content/uploads/2023/11/github-mark-white.png" class="social-icon-image" alt="" decoding="async" loading="lazy" style="max-width:24px" />
-            </noscript>
-          </a>
-        </div>
       </li>
       {{ $currentPage := . }}
       {{ range .Site.Menus.main }}
-      <li class='menu-item-{{ .Name | lower }}{{ if $currentPage.IsMenuCurrent "main" . }} active{{ end }}'>
+      <li class='nav-item-{{ .Name | lower }}{{ if $currentPage.IsMenuCurrent "main" . }} active{{ end }}'>
         <a href="{{.URL}}">
           {{ .Pre }}
           <span>{{ .Name }}</span>
@@ -87,5 +242,89 @@
       {{/* end */}}
     </ul>
   </div>
-  <div class="navbar-nav d-none d-lg-block"></div>
 </nav>
+<div id="mobile_navbar" class="collapse js-navbar-scroll navbar-collapse d-xl-none">
+      <!-- MOBILE NAV -->
+
+      <ul class="menu has-collapse-sub-nav">
+        <li class="nav-item nav-item-has-children active">
+          <div class="drawer-nav-drop-wrap"><a>Products</a><span class="mobile-drop-toggle"></span></div>
+          <ul class="sub-menu">
+            <li  class="nav-item nav-item-has-children">
+              <div class="drawer-nav-drop-wrap"><a href="https://altinity.com/managed-clickhouse/">Altinity.Cloud</a><span class="mobile-drop-toggle"></span></div>
+              <ul class="sub-menu">
+                <li  class="nav-item"><a href="https://altinity.com/clickhouse-pricing/">Pricing for ClickHouse</a></li>
+                <li  class="nav-item"><a href="https://altinity.com/altinity-cloud-vs-clickhouse-cloud-faq/">Altinity.Cloud vs ClickHouse Cloud FAQ</a></li>
+                <li  class="nav-item"><a href="https://altinity.com/clickhouse-support/">Support for ClickHouse</a></li>
+                <li  class="nav-item"><a href="https://altinity.com/clickhouse-training/">Training for ClickHouse</a></li>
+              </ul>
+            </li>
+            <li  class="nav-item nav-item-has-children">
+              <div class="drawer-nav-drop-wrap"><a href="https://altinity.com/ecosystem/">Open Source Software</a></div>
+              <ul class="sub-menu">
+                <li  class="nav-item"><a href="https://altinity.com/project-antalya-real-time-data-lakes/">Project Antalya</a></li>
+                <li  class="nav-item"><a href="https://altinity.com/altinity-stable/">Altinity Stable Builds</a></li>
+                <li  class="nav-item"><a href="https://altinity.com/kubernetes-operator/">Kubernetes Operator</a></li>
+                <li  class="nav-item"><a href="https://altinity.com/altinity-backup-for-clickhouse/">Altinity Backup for ClickHouse</a></li>
+              </ul>
+            </li>
+            <li  class="nav-item nav-item-has-children">
+              <div class="drawer-nav-drop-wrap"><a>ClickHouse™ Solutions</a><span class="mobile-drop-toggle"></span></div>
+              <ul class="sub-menu">
+                <li  class="nav-item"><a href="https://altinity.com/observability-and-logging/">Observability &amp; Logging with ClickHouse®</a></li>
+                <li  class="nav-item"><a href="https://altinity.com/security-information-and-event-management/">Security Information and Event Management (SIEM) with ClickHouse®</a></li>
+                <li  class="nav-item"><a href="https://altinity.com/trading-systems/">Trading analytics with ClickHouse®</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li  class="nav-item nav-item-has-children">
+          <div class="drawer-nav-drop-wrap"><a>Resources</a></div>
+          <ul class="sub-menu">
+            <li  class="nav-item nav-item-has-children">
+              <div class="drawer-nav-drop-wrap"><a href="#">Developer Center</a><span class="mobile-drop-toggle"></span></div>
+              <ul class="sub-menu">
+                <li  class="nav-item"><a target="_blank" href="https://docs.altinity.com/">Documentation</a></li>
+                <li  class="nav-item"><a target="_blank" href="https://kb.altinity.com/">Knowledge Base</a></li>
+                <li  class="nav-item"><a href="https://altinity.com/blog/?cat=webinarspage">Past Webinars</a></li>
+                <li  class="nav-item"><a href="https://altinity.com/developer-resources/">Guides and eBooks</a></li>
+              </ul>
+            </li>
+            <li  class="nav-item nav-item-has-children">
+              <div class="drawer-nav-drop-wrap"><a href="#">Learning</a><span class="mobile-drop-toggle"></span></div>
+              <ul class="sub-menu">
+                <li  class="nav-item"><a href="https://altinity.com/clickhouse-database/">What is ClickHouse?</a></li>
+                <li  class="nav-item"><a href="https://altinity.com/what-is-kubernetes/">What is Kubernetes?</a></li>
+                <li  class="nav-item"><a href="https://altinity.com/unevenly-distributed/">Unevenly Distributed</a></li>
+                <li  class="nav-item"><a href="https://altinity.com/altinity-stable/">Altinity Stable Builds</a></li>
+              </ul>
+            </li>
+            <li  class="nav-item nav-item-has-children">
+              <div class="drawer-nav-drop-wrap"><a href="#">Community</a><span class="mobile-drop-toggle"></span></div>
+              <ul class="sub-menu">
+                <li  class="nav-item"><a href="https://altinity.com/events">Events</a></li>
+                <li  class="nav-slack nav-item"><a target="_blank" href="http://www.localhost:10008/slack">Slack Community</a></li>
+                <li  class="nav-item"><a href="https://altinity.com/office-hours-for-clickhouse/">Office Hours for ClickHouse®</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li  class="nav-item"><a href="https://altinity.com/blog">Blog</a></li>
+        <li  class="nav-item nav-item-has-children">
+          <div class="drawer-nav-drop-wrap"><a>Company</a><span class="mobile-drop-toggle"></span></div>
+          <ul class="sub-menu">
+            <li  class="nav-item"><a href="https://altinity.com/about-us/">About Altinity</a></li>
+            <li  class="nav-item"><a href="https://altinity.com/about-us/#leadership">Leadership</a></li>
+            <li  class="nav-item"><a href="https://altinity.com/about-us/press-releases/">Press Releases</a></li>
+            <li  class="nav-item"><a href="https://altinity.com/partners/">Partners</a></li>
+            <li  class="nav-item"><a href="https://altinity.com/customer-stories/">Customer Stories</a></li>
+            <li  class="nav-item"><a href="https://altinity.com/careers/">Careers</a></li>
+          </ul>
+        </li>
+        <li  class="nav-item"><a href="https://altinity.com/contact">Contact</a></li>
+        <li  class="header-nav-button nav-item"><a href="https://altinity.com/free-clickhouse-consultation">Tech Support</a></li>
+        <li  class="header-nav-button nav-item"><a href="https://acm.altinity.cloud/signup?__hstc=173202428.421802398cbec3b5d6457748d00d825f.1702395478849.1769622795179.1769630357065.395&amp;__hssc=173202428.9.1769630357065&amp;__hsfp=e5063c5ad56e06035f046e27f2ea897a">ClickHouse® in Cloud</a></li>
+      </ul>
+
+      <!-- END MOBILE NAV -->
+    </div>
