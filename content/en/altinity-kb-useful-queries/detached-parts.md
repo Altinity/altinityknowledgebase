@@ -11,133 +11,232 @@ keywords:
 
 ### Overview
 
-This article explains what detached parts are in ClickHouse® (why they appear, what each detached prefix means, and how to safely clean them up). Use this guide when investigating missing data, replication issues, or disk growth related to the `detached` directory.
+This article explains detached parts in ClickHouse®: why they appear, what detached reasons mean, and how to clean up safely.
 
-Detached parts act like the “Recycle Bin” in Windows. When ClickHouse® deems some data unneeded—often during internal reconciliations at server startup—it moves the data to the detached area instead of deleting it immediately.
+Use it when investigating:
 
-Recovery: If you’re missing data due to misconfiguration or an error (such as connecting to the wrong ZooKeeper), check the detached parts. The missing data might be recoverable through manual intervention.
+- missing data after startup/replication incidents,
+- read-only replicas caused by broken parts,
+- disk growth under `.../detached/`.
 
-Cleanup: Otherwise, clean up the detached parts periodically to free disk space.
+For manual `ALTER ... DETACH PART|PARTITION`, detached parts are expected and may be reattached later.
 
-Regarding detached parts and the absence of an automatic cleanup feature within ClickHouse®: this was a deliberate decision, as there is a possibility that data may appear there due to a bug in ClickHouse®'s code, a hardware error (such as a memory error or disk failure), etc. In such cases, automatic cleanup is not desirable.
+### Version Scope
 
-ClickHouse® users should monitor for detached parts and act quickly when they appear. Here is what the different statuses of detached parts mean:
+Primary scope: **ClickHouse 23.10+**.
 
-1. **ignored**: inactive parts that were superseded by a successful merge. If the merged part is valid, the older inactive parts are renamed with `ignored_` and moved to `detached`.
-2. **broken**: parts that ClickHouse® could not load during runtime operations (for example during ATTACH). There could be different reasons: files are lost, checksums are not correct, etc.
-3. **broken-on-start**: parts that failed to load during table startup. These count toward `max_suspicious_broken_parts` and can prevent a server from starting.
-4. **broken-from-backup**: parts that failed to restore during RESTORE operations.
-5. **clone**: parts detached during replica repair when local parts already exist. Controlled by `detach_old_local_parts_when_cloning_replica`.
-6. **noquorum**: parts created during INSERTs that failed quorum requirements.
-7. **merge-not-byte-identical** / **mutate-not-byte-identical**: replica consistency issues where parts are logically equivalent but not byte-identical.
-8. **covered-by-broken**: older generations of parts that are covered by a newer broken part detected during initialization; they can be removed after healthy parts are restored.
-9. **attaching**: temporary prefix during ATTACH PART operations. Do not delete manually while the operation is in progress.
-10. **deleting**: temporary prefix during DROP DETACHED operations. Do not delete manually while the operation is in progress.
-11. **tmp-fetch**: temporary prefix during replication fetch operations. Do not delete manually while the operation is in progress.
+Compatibility note:
 
-Note on **unexpected** vs **ignored** (simple rule of thumb): **unexpected** is like a “we found this in the attic” tag, while **ignored** is like “we already replaced this, keep it aside.” In ReplicatedMergeTree startup sanity checks, parts that are unexpected relative to ZooKeeper are typically renamed to **ignored**. So a part found on disk but missing in ZooKeeper will usually appear as **ignored**, not **unexpected**, even though **unexpected** is a valid reason in the codebase.
+- In **22.6-23.9**, there was optional timeout-based auto-removal for some detached reasons.
+- In **23.10+**, this option was removed; detached-part cleanup is intentionally manual.
 
-Important distinction for ReplicatedMergeTree: ClickHouse® tracks expected parts from ZooKeeper and unexpected parts found locally. Broken expected parts increment the `max_suspicious_broken_parts` counter (can block startup). Broken unexpected parts use a separate counter and do not block startup.
+### Detached Reasons and Actions
 
-**Safe to delete (after validation):** **ignored**, **clone**.
+`system.detached_parts.reason` is `Nullable(String)`:
 
-**Temporary - do not delete while in progress:** **attaching**, **deleting**, **tmp-fetch**.
+- empty string usually means user-detached part (`ALTER ... DETACH ...`),
+- `NULL` often indicates invalid/unparseable detached part names (investigate separately).
 
-**Investigate before deleting:** **broken**, **broken-on-start**, **broken-from-backup**, **covered-by-broken**, **noquorum**, **merge-not-byte-identical**, **mutate-not-byte-identical**.
+| Reason | Typical meaning | Default action |
+| --- | --- | --- |
+| `ignored` | Local part present but not expected in Keeper after startup checks | Usually safe to drop **after** coverage validation |
+| `clone` | Replica cloning conflict handling | Usually safe to drop **after** coverage validation |
+| `attaching` | Temporary state during ATTACH | Do not touch while operation is active |
+| `deleting` | Temporary state during DROP DETACHED | Do not touch while operation is active |
+| `tmp-fetch` | Temporary fetch directory from replication | Investigate stale entries; usually temporary |
+| `broken` / `broken-on-start` | Checksums/files/format problems | Investigate root cause first |
+| `covered-by-broken` | Ancestor/covered generation detached during broken-part handling | Drop only after healthy replacement is confirmed |
+| `noquorum` | Quorum insert failed | Validate data durability before cleanup |
+| `merge-not-byte-identical` / `mutate-not-byte-identical` | Replica equality check mismatch | Investigate replica consistency and versions |
+| `broken-from-backup` | RESTORE copied broken part to detached | Investigate backup integrity and restore settings |
+| `''` (empty) | User-detached part | Candidate for attach/drop per operational intent |
+| `NULL` | Invalid name metadata parse | Handle as edge case; avoid blind bulk drop |
 
-If the `system.part_log` table is enabled you can find some information there. Otherwise you will need to look in `clickhouse-server.log` for what happened when the parts were detached.
-If there is another way you could confirm that there is no data loss in the affected tables, you could simply delete all detached parts.
+### Important Behavior Notes
 
-Again, it is important to monitor for detached parts and act quickly when they appear. If `clickhouse-server.log` is lost it might be impossible to figure out what happened and why the parts were detached.
-You can use `system.asynchronous_metrics` or `system.detached_parts` for monitoring.
+- `DROP DETACHED` requires `allow_drop_detached=1` at query/session/profile level.
+- Prefer SQL cleanup (`ALTER TABLE ... DROP DETACHED ...`) over manual filesystem deletion.
+- For ReplicatedMergeTree, correlate with `system.replicas` and replication queue state before dropping anything.
+- Keep server logs; detached reasons are often easiest to explain from `clickhouse-server.log`.
+
+### Quick Inventory Queries
+
 ```sql
-select metric from system.asynchronous_metrics where metric ilike '%detach%'
-
-NumberOfDetachedByUserParts
-NumberOfDetachedParts
-```
-
-Here is a quick way to find out if you have detached parts along with the reason why.
-```sql
-SELECT database, table, reason, count()
+SELECT
+    database,
+    table,
+    reason,
+    count() AS parts
 FROM system.detached_parts
 GROUP BY database, table, reason
 ORDER BY database ASC, table ASC, reason ASC
 ```
 
-### drop detached
-The DROP DETACHED command in ClickHouse® is used to remove parts or partitions that have previously been detached (i.e., moved to the detached directory and forgotten by the server). The syntax is:
-
+```sql
+SELECT
+    database,
+    table,
+    reason,
+    count() AS parts,
+    formatReadableSize(sum(bytes_on_disk)) AS total_bytes,
+    min(modification_time) AS oldest,
+    max(modification_time) AS newest
+FROM system.detached_parts
+GROUP BY database, table, reason
+ORDER BY sum(bytes_on_disk) DESC, parts DESC
 ```
+
+```sql
+SELECT metric, value
+FROM system.asynchronous_metrics
+WHERE metric IN ('NumberOfDetachedParts', 'NumberOfDetachedByUserParts')
+ORDER BY metric
+```
+
+### Edge-Case Detector (invalid detached names)
+
+```sql
+SELECT
+    database,
+    table,
+    name,
+    reason,
+    partition_id,
+    min_block_number,
+    max_block_number,
+    level,
+    path,
+    modification_time
+FROM system.detached_parts
+WHERE partition_id IS NULL
+   OR min_block_number IS NULL
+   OR max_block_number IS NULL
+ORDER BY modification_time DESC
+```
+
+### Safe Cleanup Workflow (SQL-first)
+
+1. Inventory detached parts by reason and size.
+2. Check replica health and queue state.
+3. Validate part coverage for "usually safe" reasons (`ignored`, `clone`).
+4. Drop with `ALTER ... DROP DETACHED ... SETTINGS allow_drop_detached=1`.
+
+Check replica health first:
+
+```sql
+SELECT
+    database,
+    table,
+    is_readonly,
+    absolute_delay,
+    queue_size,
+    last_queue_update_exception
+FROM system.replicas
+WHERE is_readonly
+   OR queue_size > 0
+   OR last_queue_update_exception != ''
+ORDER BY absolute_delay DESC, queue_size DESC
+```
+
+Generate safe-drop candidates for covered `ignored` / `clone` parts:
+
+```sql
+SELECT
+    d.database,
+    d.table,
+    d.name,
+    d.reason,
+    concat(
+      'ALTER TABLE `', d.database, '`.`', d.table,
+      '` DROP DETACHED PART ', quoteString(d.name),
+      ' SETTINGS allow_drop_detached=1;'
+    ) AS drop_sql
+FROM system.detached_parts d
+INNER JOIN system.parts p
+    ON d.database = p.database
+   AND d.table = p.table
+   AND d.partition_id = p.partition_id
+WHERE p.active
+  AND d.reason IN ('ignored', 'clone')
+  AND d.min_block_number >= p.min_block_number
+  AND d.max_block_number <= p.max_block_number
+ORDER BY d.database, d.table, d.name
+```
+
+### `DROP DETACHED` Syntax
+
+```sql
 ALTER TABLE table_name [ON CLUSTER cluster] DROP DETACHED PARTITION|PART ALL|partition_expr
 ```
 
-This command removes the specified part or all parts of the specified partition from the detached directory. For more details on how to specify the partition expression, see the documentation on how to set the partition expression DROP DETACHED PARTITION|PART.
-
-Note: You must have the allow_drop_detached setting enabled to use this command allow_drop_detached
-
-### drop all script
-
-Here is a query that can help with investigations. It looks for active parts containing the same data blocks as the detached parts. It 
-generates commands to drop the detached parts. 
+Examples:
 
 ```sql
-with ['broken','unexpected','noquorum','ignored','broken-on-start','clone','attaching','deleting','tmp-fetch',
-      'covered-by-broken','merge-not-byte-identical','mutate-not-byte-identical','broken-from-backup'] as DETACH_REASONS
-select a.*,
-  concat('alter table ',database,'.',table,' drop detached part ''',a.name,''' settings allow_drop_detached=1;') as drop,
-  concat('sudo rm -r ',a.path) as rm
-from (select * replace(part[1] as partition_id, toInt64(part[2]) as min_block_number, toInt64(part[3]) as max_block_number),
-  arrayFilter(x -> x not in DETACH_REASONS, splitByChar('_',name)) as part
-from system.detached_parts) a
-left join (select database, table, partition_id, name, active, min_block_number, max_block_number from system.parts where active) b 
-on a.database=b.database and a.table=b.table and a.partition_id=b.partition_id
-where a.min_block_number >= b.min_block_number
-  and a.max_block_number <= b.max_block_number
-order by table, min_block_number, max_block_number
-settings join_use_nulls=1
+ALTER TABLE db.tbl DROP DETACHED PART '202502_10_10_0' SETTINGS allow_drop_detached=1;
+ALTER TABLE db.tbl DROP DETACHED PARTITION ID '202502' SETTINGS allow_drop_detached=1;
+ALTER TABLE db.tbl DROP DETACHED PARTITION ALL SETTINGS allow_drop_detached=1;
 ```
 
-### Other reasons
+### Recovery Recipes
 
+Attach user-detached parts (`reason = ''`):
+
+```sql
+SELECT
+    database,
+    table,
+    name,
+    concat(
+      'ALTER TABLE `', database, '`.`', table,
+      '` ATTACH PART ', quoteString(name), ';'
+    ) AS attach_sql
+FROM system.detached_parts
+WHERE ifNull(reason, '') = ''
+ORDER BY database, table, name
 ```
-broken
-unexpected
-ignored
-noquorum
- merge-not-byte-identical
- mutate-not-byte-identical
-broken-on-start
-broken-from-backup
-clone
-attaching
-deleting
-tmp-fetch
- covered-by-broken
+
+Find stale temporary prefixes:
+
+```sql
+SELECT database, table, name, reason, modification_time
+FROM system.detached_parts
+WHERE reason IN ('attaching', 'deleting', 'tmp-fetch')
+  AND modification_time < now() - INTERVAL 15 MINUTE
+ORDER BY modification_time
 ```
 
-**covered-by-broken** means ClickHouse® detected a broken part during initialization of a replicated table and decided to refetch it from healthy replicas. The broken part is detached as `broken`, and if that part was a result of merge or mutation, all previous generations are marked `covered-by-broken`. Once the healthy final part is restored, you do not need the `covered-by-broken` parts.
+### Rare but Important Edge Cases
 
-The list of DETACH_REASONS: https://github.com/ClickHouse/ClickHouse/blob/master/src/Storages/MergeTree/MergeTreePartInfo.h#L163
+1. **Invalid detached part names with `_tryN` suffixes** can produce `NULL` parsing metadata in `system.detached_parts`; treat these as a separate cleanup track.
+2. **Older versions had DROP DETACHED issues on ReplicatedMergeTree over S3 (without zero-copy)**; this was fixed in 2023.
+3. **Startup handling of unexpected parts was improved** to restore closer ancestors instead of random covered parts.
+4. **Downgrade workflows may fail to ATTACH `broken-on-start_*` directly** in some versions. Workaround is manual rename then attach:
 
-### Further reading
+```sql
+SELECT
+    concat('mv ', path, ' ', replace(path, 'broken-on-start_', '')) AS mv_cmd
+FROM system.detached_parts
+WHERE startsWith(name, 'broken-on-start_')
+```
 
-Altinity blog: *Understanding Detached Parts in ClickHouse®* - https://altinity.com/blog/understanding-detached-parts-in-clickhouse
+Use this workaround only when standard `ATTACH PART` fails and after validating target version behavior.
 
-### Appendix: Detached Part Types and Source References
+### References
 
-| Detached part type | Source code reference |
-| --- | --- |
-| `broken` | https://github.com/ClickHouse/ClickHouse/blob/53e451c70f33f167efe57dbf455ff9776d6e880f/src/Storages/StorageReplicatedMergeTree.cpp#L2306-L2334 |
-| `unexpected` | https://github.com/ClickHouse/ClickHouse/blob/53e451c70f33f167efe57dbf455ff9776d6e880f/src/Storages/MergeTree/MergeTreeData.cpp#L5389-L5393 |
-| `ignored` | https://github.com/ClickHouse/ClickHouse/blob/53e451c70f33f167efe57dbf455ff9776d6e880f/src/Storages/MergeTree/MergeTreeSettings.cpp#L507-L512 |
-| `noquorum` | https://github.com/ClickHouse/ClickHouse/blob/53e451c70f33f167efe57dbf455ff9776d6e880f/src/Storages/MergeTree/ReplicatedMergeTreeRestartingThread.cpp#L264-L284 |
-| `broken-on-start` | https://github.com/ClickHouse/ClickHouse/blob/53e451c70f33f167efe57dbf455ff9776d6e880f/src/Storages/MergeTree/MergeTreeData.cpp#L2301-L2399 |
-| `clone` | https://github.com/ClickHouse/ClickHouse/blob/53e451c70f33f167efe57dbf455ff9776d6e880f/src/Storages/StorageReplicatedMergeTree.cpp#L3510-L3518 |
-| `attaching` | https://github.com/ClickHouse/ClickHouse/blob/53e451c70f33f167efe57dbf455ff9776d6e880f/src/Storages/MergeTree/MergeTreeData.cpp#L7541-L7671 |
-| `deleting` | https://github.com/ClickHouse/ClickHouse/blob/53e451c70f33f167efe57dbf455ff9776d6e880f/src/Storages/MergeTree/MergeTreeData.cpp#L7541-L7583 |
-| `tmp-fetch` | https://github.com/ClickHouse/ClickHouse/blob/53e451c70f33f167efe57dbf455ff9776d6e880f/src/Storages/MergeTree/DataPartsExchange.cpp#L408-L413 |
-| `covered-by-broken` | https://github.com/ClickHouse/ClickHouse/blob/53e451c70f33f167efe57dbf455ff9776d6e880f/src/Storages/StorageReplicatedMergeTree.cpp#L4571-L4588 |
-| `merge-not-byte-identical` | https://github.com/ClickHouse/ClickHouse/blob/53e451c70f33f167efe57dbf455ff9776d6e880f/src/Storages/MergeTree/MergeFromLogEntryTask.cpp#L441-L443 |
-| `mutate-not-byte-identical` | https://github.com/ClickHouse/ClickHouse/blob/53e451c70f33f167efe57dbf455ff9776d6e880f/src/Storages/MergeTree/MutateFromLogEntryTask.cpp#L278-L280 |
-| `broken-from-backup` | https://github.com/ClickHouse/ClickHouse/blob/53e451c70f33f167efe57dbf455ff9776d6e880f/src/Storages/MergeTree/MergeTreeData.cpp#L6919-L6934 |
+- ClickHouse docs: [Manipulating Partitions and Parts](https://clickhouse.com/docs/sql-reference/statements/alter/partition)
+- ClickHouse docs: [system.detached_parts](https://clickhouse.com/docs/operations/system-tables/detached_parts)
+- ClickHouse source (detached reasons): [MergeTreePartInfo.h](https://github.com/ClickHouse/ClickHouse/blob/master/src/Storages/MergeTree/MergeTreePartInfo.h)
+- Changelog 2022 (`22.6`, detached timeout cleanup introduced): [clickhouse-docs 2022 changelog](https://github.com/ClickHouse/clickhouse-docs/blob/main/docs/whats-new/changelog/2022.md)
+- Changelog 2023 (`23.10`, auto-removal option removed): [clickhouse-docs 2023 changelog](https://github.com/ClickHouse/clickhouse-docs/blob/main/docs/whats-new/changelog/2023.md)
+- Relevant GH issues/PRs:
+  - [#37975](https://github.com/ClickHouse/ClickHouse/pull/37975),
+  - [#55184](https://github.com/ClickHouse/ClickHouse/pull/55184),
+  - [#55309](https://github.com/ClickHouse/ClickHouse/pull/55309),
+  - [#55645](https://github.com/ClickHouse/ClickHouse/pull/55645),
+  - [#53877](https://github.com/ClickHouse/ClickHouse/pull/53877),
+  - [#54506](https://github.com/ClickHouse/ClickHouse/pull/54506),
+  - [#40031](https://github.com/ClickHouse/ClickHouse/pull/40031),
+  - [#37466](https://github.com/ClickHouse/ClickHouse/issues/37466),
+  - [#58509](https://github.com/ClickHouse/ClickHouse/issues/58509),
+  - [#68408](https://github.com/ClickHouse/ClickHouse/issues/68408),
+  - [#85351](https://github.com/ClickHouse/ClickHouse/issues/85351)
