@@ -43,7 +43,7 @@ See also:
 
 #### ClickHouse Hardware Configuration
 
-Configure the servers according to those recommendations the [ClickHouse Usage Recommendations](https://clickhouse.yandex/docs/en/operations/tips/).
+Configure the servers according to those recommendations on the [ClickHouse Usage Recommendations](https://clickhouse.com/docs/en/operations/tips/).
 
 #### **Test Your Hardware**
 

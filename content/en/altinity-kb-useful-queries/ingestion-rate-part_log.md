@@ -7,6 +7,9 @@ description: >-
 ---
 
 ## Insert rate
+
+> Returns aggregated insert metrics, per table, for the current day (by default), including parts per insert, rows/bytes per insert, and rows/bytes per part.
+
 ```sql
 select database, table, time_bucket,
        max(number_of_parts_per_insert) max_parts_pi,
@@ -55,6 +58,9 @@ ORDER BY time_bucket, database, table ASC
 ```
 
 ## New parts per partition
+
+> Returns new part counts and average rows per table for the current day (by default)
+
 ```sql
 select database, table, event_type, partition_id, count() c, round(avg(rows)) 
 from system.part_log where event_date >= today() and event_type = 'NewPart'
@@ -64,7 +70,9 @@ order by c desc
 
 ## Too fast inserts
 
-It should not be more often than 1 new part per table per second (60 inserts per minute)
+> Returns new part counts and average rows by minute by table
+
+Should not be more often than 1 new part per table per second (60 inserts per minute)
 One insert can create several parts because of partitioning and materialized views attached.
 
 ```sql

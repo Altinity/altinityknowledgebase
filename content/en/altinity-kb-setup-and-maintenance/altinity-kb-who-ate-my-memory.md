@@ -8,7 +8,7 @@ keywords:
   - clickhouse memory usage
 ---
 
-```
+```sql
 SYSTEM JEMALLOC PURGE;
 
 SELECT 'OS' as group, metric as name, toInt64(value) as val FROM system.asynchronous_metrics WHERE metric like 'OSMemory%'
