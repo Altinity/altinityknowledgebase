@@ -233,6 +233,65 @@ During restore:
 
 Only the host that acquires this node restores that replicated access storage.
 
+### 10.4 Support in clickhouse-backup tool
+
+`clickhouse-backup` supports replicated RBAC (`--rbac`) by directly reading and writing Keeper state for replicated access storages.
+Its behavior is similar in goal to native `BACKUP`/`RESTORE`, but implementation is different: it does not use ClickHouse native backup-coordination `repl_access` znodes. Instead, it performs explicit Keeper subtree dump/restore from the host running the tool.
+
+#### 10.4.1 What is backed up
+
+For `--rbac`, the tool backs up both:
+
+- Local access files (`*.sql`) from ClickHouse access storage path.
+- Replicated access entities from Keeper for each replicated user directory.
+
+Replicated directories are discovered via:
+
+- `SELECT name FROM system.user_directories WHERE type='replicated'`
+
+For each such directory, the tool:
+
+- Resolves its Keeper path from `config.xml` (`/user_directories/<name>/zookeeper_path`).
+- Checks that `<zookeeper_path>/uuid` has children.
+- Dumps the full subtree to a JSONL file:
+  - `backup/<backup_name>/access/<user_directory_name>.jsonl`
+
+RBAC entity kinds handled are:
+- `USER`
+- `ROLE`
+- `ROW POLICY`
+- `SETTINGS PROFILE`
+- `QUOTA`
+
+#### 10.4.2 Keeper connection details
+
+Keeper connection settings are taken from ClickHouse preprocessed `config.xml`:
+
+- `/zookeeper/node` endpoints
+- optional TLS (secure + `/openSSL/client/*`)
+- optional digest auth
+- optional Keeper root prefix
+
+So the tool uses the same Keeper connectivity model as ClickHouse server config.
+
+#### 10.4.3 Restore behavior in replicated mode
+
+During restore `--rbac`, the tool:
+
+1. Scans backed-up RBAC (`*.sql` and `*.jsonl`) and resolves conflicts against existing RBAC.
+2. Applies conflict policy:
+   - general.rbac_conflict_resolution: recreate (default) or fail
+   - `--drop` also forces dropping existing conflicting entries
+3. Restores local access files.
+4. Restores replicated Keeper data from JSONL files back into replicated access paths.
+
+JSONL-to-directory mapping rule:
+
+- If file name matches `<user_directory_name>.jsonl`, it is restored to that directory.
+- If no match is found, it falls back to the first replicated user directory.
+
+After local RBAC restore, the tool creates `need_rebuild_lists.mark`, removes `*.list`, and restarts ClickHouse (same as with configs restore) so access metadata is rebuilt correctly.
+
 ## 11. Introspection and debugging
 
 Start here:
