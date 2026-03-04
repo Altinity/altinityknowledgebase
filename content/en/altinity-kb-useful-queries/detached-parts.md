@@ -128,7 +128,7 @@ Here is a query that can help with investigations. It looks for active parts con
 ```sql
 SELECT a.*,
   concat('ALTER TABLE ',a.database,'.',a.table,' DROP DETACHED PART ''',a.name,''' SETTINGS allow_drop_detached=1;') AS drop,
-  concat('sudo rm -r ',a.path) AS rm
+/*  concat('sudo rm -r ',a.path) AS rm */
 FROM system.detached_parts AS a
 LEFT JOIN (
     SELECT database, table, partition_id, name, active, min_block_number, max_block_number
