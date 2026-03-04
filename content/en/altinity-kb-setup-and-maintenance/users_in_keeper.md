@@ -12,9 +12,27 @@ This KB explains how to make SQL RBAC changes (`CREATE USER`, `CREATE ROLE`, `GR
 
 `Keeper` below means either ClickHouse Keeper or ZooKeeper.
 
-## 1. Why use this instead of only `ON CLUSTER` for RBAC?
+Before details, the core concept is:
+- ClickHouse stores access entities in access storages configured by `user_directories`.
+- By default, following the shared-nothing concept, SQL RBAC objects are local (`local_directory`), so changes done on one node do not automatically appear on another node unless you run `... ON CLUSTER ...`.
+- With `user_directories.replicated`, ClickHouse stores the RBAC model in Keeper under a configured path (for example `/clickhouse/access`) and every node watches that path.
+- Each node keeps a local in-memory mirror of replicated access entities and updates it from Keeper watch notifications. This is why normal access checks are local-memory fast, while RBAC writes depend on Keeper availability.
+
+Important mental model:
+- this feature replicates RBAC state (users, roles, grants, policies, profiles, quotas, masking policies);
+- it is not the same mechanism as distributed DDL queue execution used by `ON CLUSTER`.
+
+Flow of this KB:
+1. Why this model helps.
+2. How to configure it on a new cluster.
+3. How to validate and operate it.
+4. How to migrate existing RBAC safely.
+5. Advanced troubleshooting and internals.
+
+## 1. Choose the RBAC replication model (`ON CLUSTER` vs Keeper)
 
 `ON CLUSTER` executes DDL on hosts that exist at execution time.
+In practice, it fans out the query through the distributed DDL queue to currently known cluster nodes.
 It does not automatically replay old RBAC DDL for replicas/shards added later.
 
 Keeper-backed RBAC solves that:
@@ -39,23 +57,175 @@ Cons:
 - Very large RBAC sets (thousands of users/roles or very complex grants) can increase Keeper/watch pressure.
 - If Keeper is unavailable during server startup and replicated RBAC storage is configured, startup can fail, so DBA login is unavailable until startup succeeds.
 
-## 2. Backup and migration first (important)
+## 2. Configure Keeper-backed RBAC on a new cluster
 
-Before switching to Keeper-backed RBAC, treat this as a migration.
+`user_directories` is the ClickHouse server configuration section that defines:
+- where access entities are read from (`users.xml`, local SQL access files, Keeper, LDAP, etc.),
+- and in which order those sources are checked (precedence).
 
-Key facts:
+In short: it is the access-storage routing configuration for users/roles/policies/profiles/quotas.
+
+Apply on **every** ClickHouse node:
+
+```xml
+<clickhouse>
+  <user_directories replace="replace">
+    <users_xml>
+      <path>/etc/clickhouse-server/users.xml</path>
+    </users_xml>
+    <replicated>
+      <zookeeper_path>/clickhouse/access/</zookeeper_path>
+    </replicated>
+  </user_directories>
+</clickhouse>
+```
+
+Why `replace="replace"` matters:
+- without `replace="replace"`, your fragment can be merged with defaults;
+- defaults include `local_directory`, so SQL RBAC may still be written locally;
+- this can cause mixed behavior (some entities in Keeper, some in local files).
+
+### 2.1 Understand `user_directories`: defaults, precedence, coexistence
+
+What can be configured in `user_directories`:
+- `users_xml` (read-only config users),
+- `local_directory` (SQL users/roles in local files),
+- `replicated` (SQL users/roles in Keeper),
+- `memory`,
+- `ldap` (read-only remote auth source).
+
+Defaults if `user_directories` is **not** specified:
+- ClickHouse uses legacy settings (`users_config` and `access_control_path`).
+- In typical default deployments this means `users_xml` + `local_directory`.
+
+If `user_directories` **is** specified:
+- ClickHouse uses storages from this section and ignores `users_config` / `access_control_path` paths for access storages.
+- Order in `user_directories` defines precedence for lookup/auth.
+
+When several storages coexist:
+- reads/auth checks storages by precedence order;
+- `CREATE USER/ROLE/...` without explicit `IN ...` goes to the first writable target by that order (and may conflict with entities found in higher-precedence storages).
+
+There is special syntax to target a storage explicitly:
+
+```sql
+CREATE USER my_user IDENTIFIED BY '***' IN replicated;
+```
+
+This is supported, but for access control we usually do **not** recommend mixing storages intentionally.
+For sensitive access rights, a single source of truth (typically `replicated`) is safer and easier to operate.
+
+## 3. Altinity Operator (CHI) configuration example
+
+```yaml
+apiVersion: clickhouse.altinity.com/v1
+kind: ClickHouseInstallation
+metadata:
+  name: rbac-replicated
+spec:
+  configuration:
+    files:
+      config.d/user_directories.xml: |
+        <clickhouse>
+          <user_directories replace="replace">
+            <users_xml>
+              <path>/etc/clickhouse-server/users.xml</path>
+            </users_xml>
+            <replicated>
+              <zookeeper_path>/clickhouse/access/</zookeeper_path>
+            </replicated>
+          </user_directories>
+        </clickhouse>
+```
+
+## 4. Validate the setup quickly
+
+Check active storages and precedence:
+
+```sql
+SELECT name, type, params, precedence
+FROM system.user_directories
+ORDER BY precedence;
+```
+
+Check where users are stored:
+
+```sql
+SELECT name, storage
+FROM system.users
+ORDER BY name;
+```
+
+Smoke test:
+1. On node A: `CREATE USER kb_test IDENTIFIED WITH no_password;`
+2. On node B: `SHOW CREATE USER kb_test;`
+3. On either node: `DROP USER kb_test;`
+
+Check Keeper data exists:
+
+```sql
+SELECT *
+FROM system.zookeeper
+WHERE path = '/clickhouse/access';
+```
+
+## 5. Handle existing `ON CLUSTER` RBAC scripts safely
+
+There are two independent propagation mechanisms:
+- Replicated access storage: Keeper-based replication of RBAC entities.
+- `ON CLUSTER`: query fan-out through the distributed DDL queue (also Keeper/ZooKeeper-dependent).
+
+When replicated access storage is enabled, combining both can be redundant or problematic.
+
+Recommended practice:
+- Prefer RBAC SQL without `ON CLUSTER`, or enable ignore mode:
+
+```sql
+SET ignore_on_cluster_for_replicated_access_entities_queries = 1;
+```
+
+With this setting, existing RBAC scripts containing `ON CLUSTER` can still be used safely: the clause is rewritten away for replicated-access queries.
+
+For production, prefer configuring this in a profile (for example `default` in `users.xml`) rather than relying on session-level `SET`:
+
+```xml
+<clickhouse>
+  <profiles>
+    <default>
+      <ignore_on_cluster_for_replicated_access_entities_queries>1</ignore_on_cluster_for_replicated_access_entities_queries>
+    </default>
+  </profiles>
+</clickhouse>
+```
+
+Also decide your strictness for invalid replicated entities:
+
+```xml
+<access_control_improvements>
+  <throw_on_invalid_replicated_access_entities>true</throw_on_invalid_replicated_access_entities>
+</access_control_improvements>
+```
+
+- `true`: fail fast on invalid entity payload in Keeper.
+- `false`: log and skip invalid entity.
+
+## 6. Migrate existing clusters/users
+
+Before switching to Keeper-backed RBAC, treat this as a storage migration.
+
+Key facts before migration:
 - Changing `user_directories` storage or changing `zookeeper_path` does **not** move existing SQL RBAC objects automatically.
 - If path changes, old users/roles are not deleted, but become effectively hidden from the new storage path.
 - `zookeeper_path` cannot be changed at runtime via SQL.
 
-Recommended migration sequence:
-1. Back up RBAC objects.
+Recommended high-level steps:
+1. Export/backup RBAC.
 2. Apply the new `user_directories` config on all nodes.
-3. Restart/reload config as required by your environment.
-4. Restore/recreate RBAC objects to the target storage.
-5. Validate on all nodes.
+3. Restart/reload as needed.
+4. Restore/replay RBAC.
+5. Validate from multiple nodes.
 
-### 2.1 Migration with pure SQL (no backup tool)
+### 6.1 SQL-only migration (export/import RBAC DDL)
 
 This path is useful when:
 - RBAC DDL is already versioned in your repo, or
@@ -88,7 +258,7 @@ You can also export individual objects with `SHOW CREATE USER/ROLE/...` when nee
 4. Replay exported SQL on one node (without `ON CLUSTER` in replicated mode).
 5. Validate from another node (`SHOW CREATE USER ...`, `SHOW GRANTS FOR ...`).
 
-### 2.2 Migration with `clickhouse-backup` (external tool)
+### 6.2 Migration with `clickhouse-backup` (`--rbac-only`)
 
 ```bash
 # backup local RBAC users/roles/etc.
@@ -102,7 +272,7 @@ Important:
 - this applies to SQL/RBAC users (created with `CREATE USER ...`, `CREATE ROLE ...`, etc.);
 - if your users are in `users.xml`, those are config-based (`--configs`) and this is not an automatic local->replicated RBAC conversion.
 
-### 2.3 Migration with embedded ClickHouse SQL `BACKUP/RESTORE`
+### 6.3 Migration with embedded SQL `BACKUP/RESTORE`
 
 ```sql
 BACKUP
@@ -142,159 +312,7 @@ About `clickhouse-backup --rbac/--rbac-only`:
 - If `clickhouse-backup` is configured with `use_embedded_backup_restore: true`, it delegates to SQL `BACKUP/RESTORE` and follows embedded rules.
 - Otherwise it uses its own workflow; do not assume full equivalence with embedded `allow_backup` semantics.
 
-## 3. Minimal server configuration
-
-`user_directories` is the ClickHouse server configuration section that defines:
-- where access entities are read from (`users.xml`, local SQL access files, Keeper, LDAP, etc.),
-- and in which order those sources are checked (precedence).
-
-In short: it is the access-storage routing configuration for users/roles/policies/profiles/quotas.
-
-Apply on **every** ClickHouse node:
-
-```xml
-<clickhouse>
-  <user_directories replace="replace">
-    <users_xml>
-      <path>/etc/clickhouse-server/users.xml</path>
-    </users_xml>
-    <replicated>
-      <zookeeper_path>/clickhouse/access/</zookeeper_path>
-    </replicated>
-  </user_directories>
-</clickhouse>
-```
-
-Why `replace="replace"` matters:
-- without `replace="replace"`, your fragment can be merged with defaults;
-- defaults include `local_directory`, so SQL RBAC may still be written locally;
-- this can cause mixed behavior (some entities in Keeper, some in local files).
-
-### 3.1 `user_directories` behavior, defaults, and coexistence
-
-What can be configured in `user_directories`:
-- `users_xml` (read-only config users),
-- `local_directory` (SQL users/roles in local files),
-- `replicated` (SQL users/roles in Keeper),
-- `memory`,
-- `ldap` (read-only remote auth source).
-
-Defaults if `user_directories` is **not** specified:
-- ClickHouse uses legacy settings (`users_config` and `access_control_path`).
-- In typical default deployments this means `users_xml` + `local_directory`.
-
-If `user_directories` **is** specified:
-- ClickHouse uses storages from this section and ignores `users_config` / `access_control_path` paths for access storages.
-- Order in `user_directories` defines precedence for lookup/auth.
-
-When several storages coexist:
-- reads/auth checks storages by precedence order;
-- `CREATE USER/ROLE/...` without explicit `IN ...` goes to the first writable target by that order (and may conflict with entities found in higher-precedence storages).
-
-There is special syntax to target a storage explicitly:
-
-```sql
-CREATE USER my_user IDENTIFIED BY '***' IN replicated;
-```
-
-This is supported, but for access control we usually do **not** recommend mixing storages intentionally.
-For sensitive access rights, a single source of truth (typically `replicated`) is safer and easier to operate.
-
-## 4. Altinity operator (CHI) example
-
-```yaml
-apiVersion: clickhouse.altinity.com/v1
-kind: ClickHouseInstallation
-metadata:
-  name: rbac-replicated
-spec:
-  configuration:
-    files:
-      config.d/user_directories.xml: |
-        <clickhouse>
-          <user_directories replace="replace">
-            <users_xml>
-              <path>/etc/clickhouse-server/users.xml</path>
-            </users_xml>
-            <replicated>
-              <zookeeper_path>/clickhouse/access/</zookeeper_path>
-            </replicated>
-          </user_directories>
-        </clickhouse>
-```
-
-## 5. Quick validation checklist
-
-Check active storages and precedence:
-
-```sql
-SELECT name, type, params, precedence
-FROM system.user_directories
-ORDER BY precedence;
-```
-
-Check where users are stored:
-
-```sql
-SELECT name, storage
-FROM system.users
-ORDER BY name;
-```
-
-Smoke test:
-1. On node A: `CREATE USER kb_test IDENTIFIED WITH no_password;`
-2. On node B: `SHOW CREATE USER kb_test;`
-3. On either node: `DROP USER kb_test;`
-
-Check Keeper data exists:
-
-```sql
-SELECT *
-FROM system.zookeeper
-WHERE path = '/clickhouse/access';
-```
-
-## 6. Relationship with `ON CLUSTER` (important)
-
-There are two independent propagation mechanisms:
-- Replicated access storage: Keeper-based replication of RBAC entities.
-- `ON CLUSTER`: distributed DDL queue execution.
-
-When replicated access storage is enabled, combining both can be redundant or problematic.
-
-Recommended practice:
-- Prefer RBAC SQL without `ON CLUSTER`, or enable ignore mode:
-
-```sql
-SET ignore_on_cluster_for_replicated_access_entities_queries = 1;
-```
-
-With this setting, existing RBAC scripts containing `ON CLUSTER` can still be used safely: the clause is rewritten away for replicated-access queries.
-
-For production, prefer configuring this in a profile (for example `default` in `users.xml`) rather than relying on session-level `SET`:
-
-```xml
-<clickhouse>
-  <profiles>
-    <default>
-      <ignore_on_cluster_for_replicated_access_entities_queries>1</ignore_on_cluster_for_replicated_access_entities_queries>
-    </default>
-  </profiles>
-</clickhouse>
-```
-
-Also decide your strictness for invalid replicated entities:
-
-```xml
-<access_control_improvements>
-  <throw_on_invalid_replicated_access_entities>true</throw_on_invalid_replicated_access_entities>
-</access_control_improvements>
-```
-
-- `true`: fail fast on invalid entity payload in Keeper.
-- `false`: log and skip invalid entity.
-
-## 7. Common support issues (generalized)
+## 7. Troubleshooting: common support issues
 
 | Symptom | Typical root cause | What to do |
 |---|---|---|
@@ -312,7 +330,7 @@ Also decide your strictness for invalid replicated entities:
 | Short window where user seems present/absent via load balancer | Propagation + node routing timing | Validate directly on each node; avoid assuming LB view is instantly consistent |
 | Server fails after aggressive `user_directories` replacement | Required base users/profiles missing in config | Keep `users_xml` (or equivalent base definitions) intact |
 
-## 8. Operational guardrails
+## 8. Operational guardrails for production
 
 - Keep the same `user_directories` config on all nodes.
 - Keep `zookeeper_path` unique per cluster/tenant.
@@ -321,7 +339,7 @@ Also decide your strictness for invalid replicated entities:
 - Treat Keeper health as part of access-management SLO.
 - Plan RBAC backup/restore before changing storage path or cluster topology.
 
-## 9. Debugging and observability
+## 9. Observability and debugging signals
 
 Keeper connectivity:
 
@@ -367,7 +385,7 @@ Force access reload:
 SYSTEM RELOAD USERS;
 ```
 
-## 10. Keeper structure (advanced troubleshooting)
+## 10. Keeper path structure and semantics (advanced)
 
 If `zookeeper_path=/clickhouse/access`:
 
@@ -401,14 +419,14 @@ Advanced note:
   - primary cache: `MemoryAccessStorage` inside replicated access storage;
   - higher-level caches in `AccessControl` (`RoleCache`, `RowPolicyCache`, `QuotaCache`, `SettingsProfilesCache`) are updated/invalidated via access change notifications.
 
-## 11. Low-level behavior that explains real incidents
+## 11. Low-level internals behind real incidents
 
 - Read path is memory-backed (`MemoryAccessStorage` mirror), not direct Keeper reads per query.
 - Write path requires Keeper availability; if Keeper is down, RBAC writes fail while some reads can continue from loaded state.
 - Insert target is selected by storage order and writeability in `MultipleAccessStorage`; this is why leftover `local_directory` can hijack SQL user creation.
 - `ignore_on_cluster_for_replicated_access_entities_queries` is implemented as AST rewrite that removes `ON CLUSTER` for access queries when replicated access storage is enabled.
 
-## 12. History highlights
+## 12. Version and history highlights
 
 | Date | Change | Why it matters |
 |---|---|---|
@@ -418,7 +436,7 @@ Advanced note:
 | 2025-06-03 | Keeper replication logic extracted to `ZooKeeperReplicator` (`39eb90b73ef`, PR #81245) | Cleaner architecture, shared replication core |
 | 2026-01-24 | Optional strict mode on invalid replicated entities (`3d654b79853`) | Lets operators fail fast on corrupted Keeper payloads |
 
-## 13. References for engineers
+## 13. Code references for deep dives
 
 - `src/Access/AccessControl.cpp`
 - `src/Access/MultipleAccessStorage.cpp`
