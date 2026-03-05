@@ -55,6 +55,7 @@ Pros:
 Cons:
 - Writes depend on Keeper availability. `CREATE/ALTER/DROP USER` and `CREATE/ALTER/DROP ROLE`, plus `GRANT/REVOKE`, fail if Keeper is unavailable, while existing authentication/authorization may continue from already loaded cache until restart.
 - Operational complexity increases (Keeper health directly affects RBAC operations).
+- Keeper data loss or accidental Keeper path damage can remove replicated RBAC state, and users may lose access; keep regular RBAC backups and test restore procedures.
 - Can conflict with `ON CLUSTER` if both mechanisms are used without guard settings.
 - Invalid/corrupted payload in Keeper can be skipped or be startup-fatal, depending on `throw_on_invalid_replicated_access_entities`.
 - Very large RBAC sets (thousands of users/roles or very complex grants) can increase Keeper/watch pressure.
