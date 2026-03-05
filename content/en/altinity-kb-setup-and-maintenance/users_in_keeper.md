@@ -383,6 +383,7 @@ Force access reload:
 SYSTEM RELOAD USERS;
 ```
 
+
 ## 10. Keeper path structure and semantics (advanced)
 
 The following details are useful for advanced debugging or when inspecting Keeper paths manually.
@@ -405,6 +406,8 @@ When these paths are accessed:
 - `CREATE/ALTER/DROP` RBAC SQL: updates `uuid` and type/name index nodes in Keeper transactions;
 - runtime: watch callbacks refresh changed entities into local in-memory mirror.
 
+## 11. Low-level internals
+
 Advanced note:
 - each ClickHouse node keeps a local in-memory cache of all replicated access entities;
 - cache is updated from Keeper watch notifications (list/entity watches), so auth/lookup paths use local memory and not direct Keeper reads on each request.
@@ -419,12 +422,11 @@ Advanced note:
   - primary cache: `MemoryAccessStorage` inside replicated access storage;
   - higher-level caches in `AccessControl` (`RoleCache`, `RowPolicyCache`, `QuotaCache`, `SettingsProfilesCache`) are updated/invalidated via access change notifications.
 
-## 11. Low-level internals behind real incidents
-
 - Read path is memory-backed (`MemoryAccessStorage` mirror), not direct Keeper reads per query.
 - Write path requires Keeper availability; if Keeper is down, RBAC writes fail while some reads can continue from loaded state.
 - Insert target is selected by storage order and writeability in `MultipleAccessStorage`; this is why leftover `local_directory` can hijack SQL user creation.
 - `ignore_on_cluster_for_replicated_access_entities_queries` is implemented as AST rewrite that removes `ON CLUSTER` for access queries when replicated access storage is enabled.
+
 
 ## 12. Version and history highlights
 
