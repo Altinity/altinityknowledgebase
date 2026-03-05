@@ -223,17 +223,6 @@ For production, prefer configuring this in a profile (for example `default` in `
 </clickhouse>
 ```
 
-Also decide your strictness for invalid replicated entities:
-
-```xml
-<access_control_improvements>
-  <throw_on_invalid_replicated_access_entities>true</throw_on_invalid_replicated_access_entities>
-</access_control_improvements>
-```
-
-- `true`: fail fast on invalid entity payload in Keeper.
-- `false`: log and skip invalid entity.
-
 ## 6. Migrate existing clusters/users
 
 Before switching to Keeper-backed RBAC, treat this as a storage migration.
@@ -300,6 +289,7 @@ Important:
 - this applies to SQL/RBAC users (created with `CREATE USER ...`, `CREATE ROLE ...`, etc.);
 - if your users are in `users.xml`, those are config-based (`--configs`) and this is not an automatic local->replicated RBAC conversion.
 - run restore on one node only; entities will be replicated through Keeper.
+- If `clickhouse-backup` is configured with `use_embedded_backup_restore: true`, it delegates to SQL `BACKUP/RESTORE` and follows embedded rules. (see below).
 
 ### 6.3 Migration with embedded SQL `BACKUP/RESTORE`
 
@@ -335,12 +325,6 @@ Defaults in ClickHouse code:
 
 Operational implication:
 - If you disable `allow_backup` for replicated storage, embedded `BACKUP TABLE system.users ...` may skip those entities (or fail if no backup-allowed access storage remains).
-
-About `clickhouse-backup --rbac/--rbac-only`:
-- It is an external tool, not ClickHouse embedded backup by itself.
-- If `clickhouse-backup` is configured with `use_embedded_backup_restore: true`, it delegates to SQL `BACKUP/RESTORE` and follows embedded rules.
-- Otherwise it uses its own workflow; do not assume full equivalence with embedded `allow_backup` semantics.
-- run restore on one node only; entities will be replicated through Keeper.
 
 ## 7. Troubleshooting: common support issues
 
@@ -379,26 +363,13 @@ SELECT * FROM system.zookeeper_connection;
 SELECT * FROM system.zookeeper_connection_log ORDER BY event_time DESC LIMIT 100;
 ```
 
-### 9.2 Inspect RBAC activity in Keeper
+### 9.2 Relevant server log patterns
 
-```sql
-SELECT event_time, type, op_num, path, error
-FROM system.zookeeper_log
-WHERE path LIKE '/clickhouse/access/%'
-ORDER BY event_time DESC
-LIMIT 200;
-```
-
-### 9.3 Relevant server log patterns
-
-Note: `system.zookeeper_log` is often disabled in production.
-If it is unavailable, use server logs (usually `clickhouse-server.log`) with these patterns:
+You can find feature-related line in the log, by those patterns:
 
 ```text
 Access(replicated)
 ZooKeeperReplicator
-Will try to restart watching thread after error
-Initialization failed. Error:
 Can't have Replicated access without ZooKeeper
 ON CLUSTER clause was ignored for query
 ```
