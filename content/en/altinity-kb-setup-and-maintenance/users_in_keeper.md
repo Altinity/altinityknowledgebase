@@ -365,7 +365,7 @@ SELECT * FROM system.zookeeper_connection_log ORDER BY event_time DESC LIMIT 100
 
 ### 9.2 Relevant server log patterns
 
-You can find feature-related line in the log, by those patterns:
+You can find feature-related lines in the log, by those patterns:
 
 ```text
 Access(replicated)
@@ -374,18 +374,7 @@ Can't have Replicated access without ZooKeeper
 ON CLUSTER clause was ignored for query
 ```
 
-### 9.4 Inspect distributed DDL queue activity (when `ON CLUSTER` is involved)
-
-If troubleshooting mixed usage of distributed DDL:
-
-```sql
-SELECT cluster, entry, host, status, query, exception_code, exception_text
-FROM system.distributed_ddl_queue
-ORDER BY query_create_time DESC
-LIMIT 100;
-```
-
-### 9.5 Force RBAC reload
+### 9.3 Force RBAC reload
 
 Force access reload:
 
