@@ -362,6 +362,7 @@ Operational implication:
 ```sql
 SELECT * FROM system.zookeeper_connection;
 SELECT * FROM system.zookeeper_connection_log ORDER BY event_time DESC LIMIT 100;
+SELECT * FROM system.zookeeper WHERE path = '/clickhouse/access';
 ```
 
 ### 9.2 Relevant server log patterns
