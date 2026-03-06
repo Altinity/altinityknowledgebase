@@ -15,8 +15,6 @@ So new entity will be added in case of creation of new parts during INSERT's OR 
 
 In case of COLUMN, ClickHouse will calculate column value on fly in query context.
 
-{{% alert title="Warning" color="warning" %}}
-
 ```sql
 CREATE TABLE test_materialization
 (
@@ -87,8 +85,6 @@ SELECT key, inserted_at FROM test_materialization;
 So, data inserted after addition of column can have lower inserted_at value then old data without materialization.
 
 ```
-
-{{% /alert %}}
 
 If you want to backpopulate data for old parts, you have multiple options:
 
