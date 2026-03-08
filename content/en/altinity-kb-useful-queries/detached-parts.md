@@ -117,13 +117,13 @@ This command removes the specified part or all parts of the specified partition 
 
 Note: You must have the `allow_drop_detached` setting enabled to use this command.
 
-#### DROP ALL DML
+#### DROP DML
 
 {{% alert title="Warning" color="warning" %}}
-Review generated `DROP DETACHED` commands carefully before executing them. They can cause data loss if used incorrectly. Ensure you have a valid backup before destructive operations.
+Review generated `DROP DETACHED` commands carefully before executing them. They can cause data loss if used incorrectly. Ensure you have a valid backup before destructive operations. Treat generated commands as candidates for manual review, not as commands to run blindly.
 {{% /alert %}}
 
-Here is a query that can help with investigations. It looks for active parts containing the same data blocks as the detached parts and generates commands to drop the detached parts.
+Here is a query that can help with investigations. It looks for active parts containing the same data blocks as the detached parts and generates commands to drop the detached parts. 
 
 ```sql
 SELECT a.*,
