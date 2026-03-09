@@ -63,10 +63,8 @@ clickhouse-keeper --config /etc/clickhouse-keeper/keeper_config.xml
 
 Related KB pages:
 
-- systemd service file:
-  https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/clickhouse-keeper-service/
-- init.d script:
-  https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/clickhouse-keeper-initd/
+- systemd service file: https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/clickhouse-keeper-service/
+- init.d script: https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/clickhouse-keeper-initd/
 
 ## Example: two ClickHouse data nodes with a 3-node Keeper ensemble
 
@@ -96,6 +94,7 @@ Example for `ch1` (`server_id=1`):
             <operation_timeout_ms>10000</operation_timeout_ms>
             <session_timeout_ms>30000</session_timeout_ms>
             <raft_logs_level>information</raft_logs_level>
+            <!-- Enable on 23.9+ once all Keeper nodes are upgraded -->
             <async_replication>true</async_replication>
         </coordination_settings>
 
@@ -219,7 +218,7 @@ ORDER BY A;
 INSERT INTO db1.test VALUES (1, 'a'), (2, 'b');
 
 SELECT hostName(), count()
-FROM clusterAllReplicas('cluster_1S_2R', db1, test)
+FROM clusterAllReplicas('cluster_1S_2R', 'db1', 'test')
 GROUP BY hostName()
 ORDER BY hostName();
 ```
@@ -261,13 +260,9 @@ If you lose quorum, follow the official `Recovering after losing quorum` procedu
 
 ## Useful references
 
-- official Keeper guide:
-  https://clickhouse.com/docs/en/guides/sre/keeper/clickhouse-keeper/
-- `clickhouse-keeper-client` utility:
-  https://clickhouse.com/docs/en/operations/utilities/clickhouse-keeper-client
-- `system.zookeeper_connection`:
-  https://clickhouse.com/docs/en/operations/system-tables/zookeeper_connection
-- `system.zookeeper_connection_log`:
-  https://clickhouse.com/docs/en/operations/system-tables/zookeeper_connection_log
+- official Keeper guide: https://clickhouse.com/docs/en/guides/sre/keeper/clickhouse-keeper/
+- `clickhouse-keeper-client` utility: https://clickhouse.com/docs/en/operations/utilities/clickhouse-keeper-client
+- `system.zookeeper_connection`: https://clickhouse.com/docs/en/operations/system-tables/zookeeper_connection
+- `system.zookeeper_connection_log`: https://clickhouse.com/docs/en/operations/system-tables/zookeeper_connection_log
 
 Examples of current Keeper configs and workflows also exist in the ClickHouse integration tests under `tests/integration/test_keeper_*`.
