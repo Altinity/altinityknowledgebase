@@ -12,52 +12,71 @@ Since 2021 the development of built-in ClickHouse® alternative for Zookeeper is
 
 See slides:  https://presentations.clickhouse.com/meetup54/keeper.pdf and video  https://youtu.be/IfgtdU1Mrm0?t=2682
 
-## Current status (last updated: July 2023)
+## Current status (last updated: March 2026)
 
-Since version 23.3 we recommend using clickhouse-keeper for new installations. 
+ClickHouse Keeper is the recommended choice for new installations. It yields better performance in many cases due to the new features, like async replication or multi read. Some ClickHouse server features cannot be used without Keeper, for example the S3Queue.
 
-Even better if you will use the latest version of clickhouse-keeper (currently it's 23.7), and it's not necessary to use the same version of clickhouse-keeper as ClickHouse itself.
+- Use the latest Keeper version available in your supported upgrade path whenever possible.
+- Keeper can run on a newer version than the ClickHouse server itself. That was already useful in 2023 and is even more relevant now.
+- Modern Keeper usually performs better than older `23.x` expectations because the code matured significantly, newer protocol feature flags were added, and internal replication improved.
 
 For existing systems that currently use Apache Zookeeper, you can consider upgrading to clickhouse-keeper especially if you will [upgrade ClickHouse](https://altinity.com/clickhouse-upgrade-overview/) also. 
 
-But please remember that on very loaded systems the change can give no performance benefits or can sometimes lead to a worse performance.
+{{% alert title="Warning" color="warning" %}}
+Before upgrading ClickHouse Keeper from version older than 23.9 please check Upgrade caveat for async_replication [Upgrade caveat for async_replication](https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/clickhouse-keeper#upgrade-caveat-for-async_replication) 
+{{% /alert %}}
 
-The development pace of keeper code is [still high](https://github.com/ClickHouse/ClickHouse/pulls?q=is%3Apr+keeper)
-so every new version should bring improvements / cover the issues, and stability/maturity grows from version to version, so 
-if you want to play with clickhouse-keeper in some environment - please use [the most recent ClickHouse releases](https://altinity.com/altinity-stable/)! And of course: share your feedback :)
+## How does clickhouse-keeper differ from Zookeeper?
 
-## How does clickhouse-keeper work?
+Keeper is optimized for ClickHouse workloads and written in C++ (and can be used as single-binary), so it don't need any external dependencies. It uses the same **client** protocol but both are implementing different consensus protocol: Zookeeper is using ZAB, while ClickHouse Keeper implements eBay NuRAFT [GitHub - eBay/NuRaft: C++ implementation of Raft core logic as a replication library](https://github.com/eBay/NuRaft) which improves stability and performance of base RAFT protocol.
 
-Official docs: https://clickhouse.com/docs/en/guides/sre/keeper/clickhouse-keeper/
+clickhouse-keeper can also run embedded mode, inside the clickhouse-server which may be good for testing purposes or smaller instances where performance can be worse for the sake of simplicity.
 
-ClickHouse-keeper still need to be started additionally on few nodes (similar to 'normal' zookeeper) and speaks normal zookeeper protocol - needed to simplify A/B tests with real zookeeper.
+## Migration and upgrade guide
 
-To test that you need to run 3 instances of clickhouse-server (which will mimic zookeeper) with an extra config like that:
+- A mixed ZooKeeper / ClickHouse Keeper quorum is not supported. Those are different consensus protocols. 
+- ZooKeeper snapshots and transaction logs are not format-compatible with Keeper. For data migration use `clickhouse-keeper-converter`.
+- If the above is too complex you can switch to new, empty Keeper ensemble and recreate the Keeper metadata using `SYSTEM RESTORE REPLICA` calls. This method takes longer time but it is suitable for smaller clusters. Check [procedure to restore multiple tables in RO mode article](https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-check-replication-ddl-queue/#procedure-to-restore-multiple-tables-in-read-only-mode-per-replica)
+- It is usually reasonable to migrate Keeper together with a ClickHouse upgrade, especially if your current deployment is still on older `23.x` builds.
 
-[https://github.com/ClickHouse/ClickHouse/blob/master/tests/integration/test_keeper_multinode_simple/configs/enable_keeper1.xml](https://github.com/ClickHouse/ClickHouse/blob/master/tests/integration/test_keeper_multinode_simple/configs/enable_keeper1.xml)
+### Upgrade caveat for `async_replication`
 
-[https://github.com/ClickHouse/ClickHouse/blob/master/tests/integration/test_keeper_snapshots/configs/enable_keeper.xml](https://github.com/ClickHouse/ClickHouse/blob/master/tests/integration/test_keeper_snapshots/configs/enable_keeper.xml)
+`async_replication` is an internal Keeper optimization for RAFT replication and it's turned on by default starting from [25.10](https://github.com/ClickHouse/ClickHouse/pull/88515) . It does not change ClickHouse replicated table semantics, but it can improve Keeper performance.
 
-or event single instance with config like that: [https://github.com/ClickHouse/ClickHouse/blob/master/tests/config/config.d/keeper_port.xml](https://github.com/ClickHouse/ClickHouse/blob/master/tests/config/config.d/keeper_port.xml)
-[https://github.com/ClickHouse/ClickHouse/blob/master/tests/config/config.d/zookeeper.xml](https://github.com/ClickHouse/ClickHouse/blob/master/tests/config/config.d/zookeeper.xml)
+If you upgrade directly from a version older than `23.9` to `25.10+`:
 
-And point all the ClickHouses (zookeeper config section) to those nodes / ports.
+- either upgrade Keeper to `23.9+` first, and then continue to `25.10+`
+- or temporarily set `keeper_server.coordination_settings.async_replication=0` during the upgrade and enable it after the upgrade is finished
 
-Latest version is recommended (even testing / master builds). We will be thankful for any feedback.
+### Keeper in kubernetes
+
+If you run ClickHouse on Kubernetes with Altinity operator, Keeper can be managed as a dedicated `ClickHouseKeeperInstallation` resource (often abbreviated as CHK). That is usually the cleanest way to run and upgrade a separate Keeper ensemble on Kubernetes. Please check examples [here](https://github.com/Altinity/clickhouse-operator/blob/master/docs/chk-examples/01-chi-simple-with-keeper.yaml).
 
 ## systemd service file
 
-See 
-https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/clickhouse-keeper-service/
+See https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/clickhouse-keeper-service/
 
 ## init.d script
 
-See 
-https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/clickhouse-keeper-initd/
+See https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/clickhouse-keeper-initd/
 
-## Example of a simple cluster with 2 nodes of ClickHouse using built-in keeper
+## More than 3 Keeper nodes
 
-For example you can start two ClickHouse nodes (hostname1, hostname2)
+Main issue with a bigger Keeper ensemble is they need more time to reelect and commit is taking more time which can slowdown insertions and DDL queries.
+
+It should be fine, but we can't recommend running more than that number of zookeeper nodes (except observers).
+
+Look it from the another perspective: It has no special advantages (unless you are obligated to survive simultaneous failure of 2 zookeeper nodes), in terms of performance it doesn't behave better (but may perform worse), and 'wastes' some resources (you need fast dedicated disks for zookeeper to work good, also some RAM / CPU).
+
+## clickhouse-keeper-client
+
+In clickhouse-keeper-client paths now parses more stricly and should now be passed as string literals. In practice, this means using single quotes around paths, for example `ls '/'` instead of `ls /` and `get '/clickhouse/path'` instead o `get /clickhouse/path`. 
+
+## Example of a simple cluster
+
+Keeper quorum size must be odd. A 2-node Keeper layout will lose quorum after a single node failure, so the recommended replicas for Keeper is 3. 
+
+On `hostname1` and `hostname2` below, ClickHouse can use the embedded Keeper cluster from `<keeper_server>`, so a separate client-side `<keeper>` section is not required. If your ClickHouse servers connect to an external Keeper or ZooKeeper ensemble, see [ClickHouse config for Keeper]({{< ref "clickhouse-keeper-clickhouse-config" >}}).
 
 ### hostname1
 
@@ -76,30 +95,27 @@ $ cat /etc/clickhouse-server/config.d/keeper.xml
             <operation_timeout_ms>10000</operation_timeout_ms>
             <session_timeout_ms>30000</session_timeout_ms>
             <raft_logs_level>trace</raft_logs_level>
-              <rotate_log_storage_interval>10000</rotate_log_storage_interval>
+            <rotate_log_storage_interval>10000</rotate_log_storage_interval>
         </coordination_settings>
 
-      <raft_configuration>
+        <raft_configuration>
             <server>
-               <id>1</id>
-                 <hostname>hostname1</hostname>
-               <port>9444</port>
-          </server>
-          <server>
-               <id>2</id>
-                 <hostname>hostname2</hostname>
-               <port>9444</port>
-          </server>
-      </raft_configuration>
-
+                <id>1</id>
+                <hostname>hostname1</hostname>
+                <port>9444</port>
+            </server>
+            <server>
+                <id>2</id>
+                <hostname>hostname2</hostname>
+                <port>9444</port>
+            </server>
+            <server>
+                <id>3</id>
+                <hostname>hostname3</hostname>
+                <port>9444</port>
+            </server>
+        </raft_configuration>
     </keeper_server>
-
-    <zookeeper>
-        <node>
-            <host>localhost</host>
-            <port>2181</port>
-        </node>
-    </zookeeper>
 
     <distributed_ddl>
         <path>/clickhouse/testcluster/task_queue/ddl</path>
@@ -135,30 +151,27 @@ $ cat /etc/clickhouse-server/config.d/keeper.xml
             <operation_timeout_ms>10000</operation_timeout_ms>
             <session_timeout_ms>30000</session_timeout_ms>
             <raft_logs_level>trace</raft_logs_level>
-              <rotate_log_storage_interval>10000</rotate_log_storage_interval>
+            <rotate_log_storage_interval>10000</rotate_log_storage_interval>
         </coordination_settings>
 
-      <raft_configuration>
+        <raft_configuration>
             <server>
-               <id>1</id>
-                 <hostname>hostname1</hostname>
-               <port>9444</port>
-          </server>
-          <server>
-               <id>2</id>
-                 <hostname>hostname2</hostname>
-               <port>9444</port>
-          </server>
-      </raft_configuration>
-
+                <id>1</id>
+                <hostname>hostname1</hostname>
+                <port>9444</port>
+            </server>
+            <server>
+                <id>2</id>
+                <hostname>hostname2</hostname>
+                <port>9444</port>
+            </server>
+            <server>
+                <id>3</id>
+                <hostname>hostname3</hostname>
+                <port>9444</port>
+            </server>
+        </raft_configuration>
     </keeper_server>
-
-    <zookeeper>
-        <node>
-            <host>localhost</host>
-            <port>2181</port>
-        </node>
-    </zookeeper>
 
     <distributed_ddl>
         <path>/clickhouse/testcluster/task_queue/ddl</path>
@@ -177,7 +190,50 @@ $ cat /etc/clickhouse-server/config.d/macros.xml
 </yandex>
 ```
 
-### on both
+### hostname3
+
+```xml
+$ cat /etc/clickhouse-keeper/keeper_config.xml
+
+<?xml version="1.0" ?>
+<clickhouse>
+    <keeper_server>
+        <tcp_port>2181</tcp_port>
+        <server_id>3</server_id>
+        <log_storage_path>/var/lib/clickhouse/coordination/log</log_storage_path>
+        <snapshot_storage_path>/var/lib/clickhouse/coordination/snapshots</snapshot_storage_path>
+
+        <coordination_settings>
+            <operation_timeout_ms>10000</operation_timeout_ms>
+            <session_timeout_ms>30000</session_timeout_ms>
+            <raft_logs_level>trace</raft_logs_level>
+            <rotate_log_storage_interval>10000</rotate_log_storage_interval>
+        </coordination_settings>
+
+        <raft_configuration>
+            <server>
+                <id>1</id>
+                <hostname>hostname1</hostname>
+                <port>9444</port>
+            </server>
+            <server>
+                <id>2</id>
+                <hostname>hostname2</hostname>
+                <port>9444</port>
+            </server>
+            <server>
+                <id>3</id>
+                <hostname>hostname3</hostname>
+                <port>9444</port>
+            </server>
+        </raft_configuration>
+    </keeper_server>
+</clickhouse>
+
+$ clickhouse-keeper --config /etc/clickhouse-keeper/keeper_config.xml
+```
+
+### on both ClickHouse nodes
 
 ```xml
 $ cat /etc/clickhouse-server/config.d/clusters.xml
@@ -213,3 +269,18 @@ insert into test select number, '' from numbers(100000000);
 -- on both nodes:
 select count() from test;
 ```
+
+## Useful references
+
+- Official Keeper guide:
+  https://clickhouse.com/docs/en/guides/sre/keeper/clickhouse-keeper/
+- `clickhouse-keeper-client`:
+  https://clickhouse.com/docs/en/operations/utilities/clickhouse-keeper-client
+- Keeper HTTP API and dashboard:
+  https://clickhouse.com/docs/operations/utilities/clickhouse-keeper-http-api
+- `system.zookeeper_connection`:
+  https://clickhouse.com/docs/en/operations/system-tables/zookeeper_connection
+- `system.zookeeper_connection_log`:
+  https://clickhouse.com/docs/en/operations/system-tables/zookeeper_connection_log
+- Altinity operator CHK examples:
+  https://github.com/Altinity/clickhouse-operator/tree/master/docs/chk-examples
