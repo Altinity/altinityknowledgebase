@@ -2,7 +2,7 @@
 title: "Database Size - Table - Column size"
 linkTitle: "Database Size - Table - Column size"
 description: >
-    Database Size - Table - Column size
+    Queries to analyze size and compression rates across tables and columns
 keywords:
   - clickhouse database size
   - clickhouse table size
@@ -50,7 +50,6 @@ GROUP BY
     tbl
 ORDER BY size DESC;
 ```
-
 
 
 ### Column size
@@ -223,7 +222,7 @@ ORDER BY
 ```               
 
 
-## Understanding the partitioning
+## Understanding partitioning
 
 > Partition distribution analysis, aggregating system.parts metrics by partition. The quantiles results can indicate whether there is skewed distribution of data between partitions.
 
@@ -262,7 +261,7 @@ FORMAT Vertical
 
 ## Subcolumns sizes 
 
-Returns column-level storage metricsk, including subcolumns (JSON, tuples, maps, etc - if present)
+> Returns column-level storage metrics, including subcolumns (JSON, tuples, maps, etc - if present)
 
 ```sql
 WITH 
