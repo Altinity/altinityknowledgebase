@@ -170,6 +170,7 @@ These are repository-specific lessons and should guide similar edits:
 - Do not include obvious prerequisites unless the article explains their concrete operational impact.
 - Do not present `ATTACH` / recovery recipes in a way that could lead to duplicate data without a strong warning and explicit preconditions.
 - Do not merge or publish a draft that the human owner has not read.
+- Never remove ® from ClickHouse® unless it is technically impossible in the target format or an established repository convention explicitly omits it. 
 
 ## Output format for article reviews
 
