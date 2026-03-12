@@ -1,9 +1,13 @@
 ---
-title: "Kafka"
-linkTitle: "Kafka"
+title: "Kafka engine"
+linkTitle: "Kafka engine"
 description: >
-    Kafka
+    Kafka engine
 ---
+## librdkafka changelog
+
+This changelog tracks the librdkafka version bundled with ClickHouse and notable related fixes.
+
 ```bash
 git log -- contrib/librdkafka | git name-rev --stdin
 ```
