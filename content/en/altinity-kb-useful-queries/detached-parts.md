@@ -69,6 +69,29 @@ Important distinction for ReplicatedMergeTree: ClickHouse® tracks expected part
 
 You can find information in `clickhouse-server.log`, for what happened when the parts were detached during startup. If `clickhouse-server.log` is lost it might be impossible to figure out what happened and why the parts were detached.
 
+Another good source of information is `system.part_log` table, which can be used to investigate the history/timeline of specific parts involved in the detaching process:
+
+```sql
+SELECT
+    event_time,
+    event_type,
+    database,
+    `table`,
+    part_name,
+    partition_id,
+    rows,
+    size_in_bytes,
+    merged_from,
+    error,
+    exception
+FROM system.part_log
+WHERE part_name IN ('all_1_5_0', 'all_6_10_1') -- example part names, replace with actual part names from detached_parts or clickhouse-server.log
+ORDER BY
+    part_name ASC,
+    event_time ASC
+```
+
+
 Also `system.detached_parts` table contains useful information:
 
 ```sql
