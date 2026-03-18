@@ -22,17 +22,6 @@ description: >
 * Since 25.12 - `apply_prewhere_after_final` and `apply_row_policy_after_final` settings for correct PREWHERE/row policy handling with FINAL
 * Since 26.2  - `enable_automatic_decision_for_merging_across_partitions_for_final=1` by default (auto-enables cross-partition optimization when safe)
 
-### Related Settings
-
-| Setting | Default | Since | Description |
-|---------|---------|-------|-------------|
-| `do_not_merge_across_partitions_select_final` | 0 | 20.10 | Skip cross-partition merging when partitions are pre-optimized |
-| `max_final_threads` | 0 (auto) | 20.5 | Thread limit for FINAL processing |
-| `enable_vertical_final` | 1 | 24.1 | Read columns in parallel from different parts |
-| `use_skip_indexes_if_final` | 1 | 25.6 | Allow skip indexes with FINAL |
-| `use_skip_indexes_if_final_exact_mode` | 1 | 25.6 | Rescan newer parts to ensure correctness with skip indexes |
-| `apply_prewhere_after_final` | 0 | 25.12 | Apply PREWHERE after deduplication (needed when PREWHERE references non-PK columns) |
-| `enable_automatic_decision_for_merging_across_partitions_for_final` | 1 | 26.2 | Auto-enable `do_not_merge_across_partitions_select_final` when partition key is in PK |
 
 ### Partitioning
 
@@ -109,6 +98,8 @@ SELECT count() FROM repl_tbl FINAL WHERE NOT ignore(*)
 
 ```
 
+Since 26.2, `enable_automatic_decision_for_merging_across_partitions_for_final=1` (default) auto-enables this when partition key columns are included in PRIMARY KEY
+
 ### Light ORDER BY 
 
 All columns specified in ORDER BY will be read during FINAL processing, creating additional disk load.  Use fewer columns and lighter column types to create faster queries.
@@ -156,16 +147,19 @@ Use these settings when needed:
 
 Example problem: if you have `ReplacingMergeTree` with a `deleted` column and PREWHERE filters on it, without `apply_prewhere_after_final=1` you may get wrong results because PREWHERE sees rows before FINAL picks the winner.
 
-### Performance Tuning
-
-**For wide tables (many columns):**
-- `enable_vertical_final=1` (default) reads only needed columns in parallel
-- Ensure `max_final_threads` is not set to 1
-
-**For partitioned tables:**
-- Use `do_not_merge_across_partitions_select_final=1` when partitions are pre-optimized
-- Since 26.2, `enable_automatic_decision_for_merging_across_partitions_for_final=1` (default) auto-enables this when partition key columns are included in PRIMARY KEY
-
-**For tables with skip indexes:**
+### FINAL with skip indexes:
 - Both `use_skip_indexes_if_final` and `use_skip_indexes_if_final_exact_mode` are enabled by default since 25.6
 - Skip indexes on PRIMARY KEY columns have lower overhead (no extra rescan needed since 26.1), see [https://github.com/ClickHouse/ClickHouse/pull/78350](https://github.com/ClickHouse/ClickHouse/pull/78350)
+
+
+### Settings reference
+
+| Setting | Default | Since | Description |
+|---------|---------|-------|-------------|
+| `do_not_merge_across_partitions_select_final` | 0 | 20.10 | Skip cross-partition merging when partitions are pre-optimized |
+| `max_final_threads` | 0 (auto) | 20.5 | Thread limit for FINAL processing |
+| `enable_vertical_final` | 1 | 24.1 | Read columns in parallel from different parts |
+| `use_skip_indexes_if_final` | 1 | 25.6 | Allow skip indexes with FINAL |
+| `use_skip_indexes_if_final_exact_mode` | 1 | 25.6 | Rescan newer parts to ensure correctness with skip indexes |
+| `apply_prewhere_after_final` | 0 | 25.12 | Apply PREWHERE after deduplication (needed when PREWHERE references non-PK columns) |
+| `enable_automatic_decision_for_merging_across_partitions_for_final` | 1 | 26.2 | Auto-enable `do_not_merge_across_partitions_select_final` when partition key is in PK |
