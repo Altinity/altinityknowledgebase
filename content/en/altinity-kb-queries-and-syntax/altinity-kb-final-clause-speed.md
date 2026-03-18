@@ -18,7 +18,7 @@ description: >
 * Since 23.12 - final applied only for intersecting ranges of parts, see [https://github.com/ClickHouse/ClickHouse/pull/58120](https://github.com/ClickHouse/ClickHouse/pull/58120)
 * Since 24.1  - final doesn't compare rows from the same part with level > 0, see [https://github.com/ClickHouse/ClickHouse/pull/58142](https://github.com/ClickHouse/ClickHouse/pull/58142)
 * Since 24.1  - final use vertical algorithm (more cache friendly), see [https://github.com/ClickHouse/ClickHouse/pull/54366](https://github.com/ClickHouse/ClickHouse/pull/54366)
-* Since 25.6  - final supports skip indexes (`use_skip_indexes_if_final=1` by default), see [https://github.com/ClickHouse/ClickHouse/pull/78350](https://github.com/ClickHouse/ClickHouse/pull/78350)
+* Since 25.6  - final supports skip indexes (`use_skip_indexes_if_final=1` by default)
 * Since 25.12 - `apply_prewhere_after_final` and `apply_row_policy_after_final` settings for correct PREWHERE/row policy handling with FINAL
 * Since 26.2  - `enable_automatic_decision_for_merging_across_partitions_for_final=1` by default (auto-enables cross-partition optimization when safe)
 
@@ -168,4 +168,4 @@ Example problem: if you have `ReplacingMergeTree` with a `deleted` column and PR
 
 **For tables with skip indexes:**
 - Both `use_skip_indexes_if_final` and `use_skip_indexes_if_final_exact_mode` are enabled by default since 25.6
-- Skip indexes on PRIMARY KEY columns have lower overhead (no extra rescan needed since 26.1)
+- Skip indexes on PRIMARY KEY columns have lower overhead (no extra rescan needed since 26.1), see [https://github.com/ClickHouse/ClickHouse/pull/78350](https://github.com/ClickHouse/ClickHouse/pull/78350)
