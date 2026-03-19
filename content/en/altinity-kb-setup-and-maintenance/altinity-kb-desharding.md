@@ -5,6 +5,8 @@ description: >
     Marge many Shards to one
 ---
 
+(draft, not tested)
+
 # ClickHouse migration plan: merge 11 shards into 1 using `clickhouse-backup`
 
 Your migration approach is workable with one important pattern:
@@ -278,7 +280,7 @@ WHERE database IN ('db1', 'db2')
 ORDER BY database, table, partition_id, min_block_number, max_block_number, name;
 ```
 
-##Bash script template
+## Bash script template
 
 This is a production-style skeleton you can adapt.
 
