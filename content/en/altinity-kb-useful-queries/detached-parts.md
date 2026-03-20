@@ -11,9 +11,9 @@ keywords:
 
 ### Overview
 
-This article explains what detached parts are in ClickHouse® (why they appear, what each detached prefix means, and how to safely clean them up). Use this guide when investigating missing data, replication issues, or disk growth related to the `detached` directory.
+This article explains detached parts in ClickHouse®: why they appear, what detached reasons mean, and how to clean up safely.
 
-Detached parts act like the “Recycle Bin” in Windows. When ClickHouse® deems some data unneeded—often during internal reconciliations at server startup—it moves the data to the detached area instead of deleting it immediately.
+Use it when investigating:
 
 You can perform two main operations with detached parts:
 
@@ -21,23 +21,14 @@ You can perform two main operations with detached parts:
 
 - **Cleanup**: Otherwise, clean up the detached parts periodically to free disk space.
 
-Regarding detached parts and the absence of an automatic cleanup feature within ClickHouse®: this was a deliberate decision, as there is a possibility that data may appear there due to a bug in ClickHouse®'s code, a hardware error (such as a memory error or disk failure), etc. In such cases, automatic cleanup is not desirable.
+### Version Scope
 
-ClickHouse® users should monitor for detached parts and act quickly when they appear. Here is what the different statuses of detached parts mean:
+Primary scope: **ClickHouse 23.10+**.
 
-1. **ignored**: inactive parts that were superseded by a successful merge. If the merged part is valid, the older inactive parts are renamed with `ignored_` and moved to `detached`.
-2. **broken**: parts that ClickHouse® could not load during runtime operations (for example during ATTACH). There could be different reasons: files are lost, checksums are not correct, etc.
-3. **broken-on-start**: parts that failed to load during table startup. These count toward `max_suspicious_broken_parts` and can prevent a server from starting.
-4. **broken-from-backup**: parts that failed to restore during RESTORE operations.
-5. **clone**: parts detached during replica repair when local parts already exist. Controlled by `detach_old_local_parts_when_cloning_replica`.
-6. **noquorum**: parts created during INSERTs that failed quorum requirements.
-7. **merge-not-byte-identical** / **mutate-not-byte-identical**: replica consistency issues where parts are logically equivalent but not byte-identical.
-8. **covered-by-broken**: older generations of parts that are covered by a newer broken part detected during initialization; they can be removed after healthy parts are restored.
-9. **attaching**: temporary prefix during ATTACH PART operations. Do not delete manually while the operation is in progress.
-10. **deleting**: temporary prefix during DROP DETACHED operations. Do not delete manually while the operation is in progress.
-11. **tmp-fetch**: temporary prefix during replication fetch operations. Do not delete manually while the operation is in progress.
+Compatibility note:
 
-Note on **unexpected** vs **ignored** (simple rule of thumb): **unexpected** is like a “we found this in the attic” tag, while **ignored** is like “we already replaced this, keep it aside.” In ReplicatedMergeTree startup sanity checks, parts that are unexpected relative to ZooKeeper are typically renamed to **ignored**. So a part found on disk but missing in ZooKeeper will usually appear as **ignored**, not **unexpected**, even though **unexpected** is a valid reason in the codebase.
+- In **22.6-23.9**, there was optional timeout-based auto-removal for some detached reasons.
+- In **23.10+**, this option was removed; detached-part cleanup is intentionally manual.
 
 Important distinction for ReplicatedMergeTree: ClickHouse® tracks expected parts from ZooKeeper and unexpected parts found locally: 
  - Broken expected parts increment the `max_suspicious_broken_parts` counter (can block startup). 
@@ -95,7 +86,11 @@ ORDER BY
 Also `system.detached_parts` table contains useful information:
 
 ```sql
-SELECT database, table, reason, count()
+SELECT
+    database,
+    table,
+    reason,
+    count() AS parts
 FROM system.detached_parts
 GROUP BY database, table, reason
 ORDER BY database ASC, table ASC, reason ASC
@@ -171,11 +166,19 @@ SETTINGS join_use_nulls=1
 
 The list of `DETACH_REASONS`: [MergeTreePartInfo.h#L163](https://github.com/ClickHouse/ClickHouse/blob/master/src/Storages/MergeTree/MergeTreePartInfo.h#L163)
 
-### Further reading
+### Rare but Important Edge Cases
 
-Altinity blog: *Understanding Detached Parts in ClickHouse®* - https://altinity.com/blog/understanding-detached-parts-in-clickhouse
+1. **Invalid detached part names with `_tryN` suffixes** can produce `NULL` parsing metadata in `system.detached_parts`; treat these as a separate cleanup track.
+2. **Older versions had DROP DETACHED issues on ReplicatedMergeTree over S3 (without zero-copy)**; this was fixed in 2023.
+3. **Startup handling of unexpected parts was improved** to restore closer ancestors instead of random covered parts.
+4. **Downgrade workflows may fail to ATTACH `broken-on-start_*` directly** in some versions. Workaround is manual rename then attach:
 
-### Appendix: Detached Part Types and Source References
+```sql
+SELECT
+    concat('mv ', path, ' ', replace(path, 'broken-on-start_', '')) AS mv_cmd
+FROM system.detached_parts
+WHERE startsWith(name, 'broken-on-start_')
+```
 
 | Detached part type | Source code reference |
 | --- | --- |

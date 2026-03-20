@@ -80,8 +80,8 @@ You'll need to use `/data1/clickhouse` instead of `/var/lib/clickhouse` in the r
 
 3. ClickHouse Docker container image does not have rsync installed. Add it using apt-get or run sidecar in k8s or run a service pod with volumes attached.
 
-3. If you running rsync to multiple replicas or planning to use same (Zoo)Keeper ensemble for source and destination ClickHouse servers, you need to remove server uuid file after syncing data with rsync. 
+4. If you running rsync to multiple replicas or planning to use same (Zoo)Keeper ensemble for source and destination ClickHouse servers, you need to remove server uuid file after syncing data with rsync. 
 ```sh
 rm /var/lib/clickhouse/uuid
 ```
-Otherwise, it can lead to hard to debug replication issues. Replicas will break each other sessions with (Zoo)Keeper.
+Otherwise, it can lead to hard-to-debug replication issues. Replicas will break each other's sessions with (Zoo)Keeper.
