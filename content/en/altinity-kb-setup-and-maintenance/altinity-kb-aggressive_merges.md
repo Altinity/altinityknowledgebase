@@ -9,23 +9,17 @@ description: >
  
 Q: Is there any way I can dedicate more resources to the merging process when running ClickHouse® on pretty beefy machines (like 36 cores, 1TB of RAM, and large NVMe disks)?
 
-## When this article applies
+A: Such things are done by increasing the level of parallelism:
 
-This article is for bulk-ingest or merge-backlog workloads on oversized hardware, where you want ClickHouse® to spend more CPU and I/O budget on background merges. It is not a generic tuning template for clusters that must sustain low-latency reads and writes on the same nodes.
-
-Those recommendations are NOT generic. For systems with real-time insert and select pressure happening together with merges, those adjustments can be too aggressive. If you have different setups with different usage patterns, avoid using the same aggressive settings template for all of them.
-
-Mostly such things are done by changing the level of parallelism:
-
- 1.  `background_pool_size` - how many threads will actually be doing merges and mutations. If you can push most server resources toward merges, for example in a controlled backlog-clearing window with little foreground traffic, you can raise it aggressively. If you use replicated tables, review `max_replicated_merges_in_queue` together with it.
+ 1.  `background_pool_size` - how many threads will actually be doing merges and mutations. If you can push most server resources toward merges, for example, in a controlled backlog-clearing window with little foreground traffic, you can raise it aggressively. If you use replicated tables, review `max_replicated_merges_in_queue` together with it.
 
  2.  `background_merges_mutations_concurrency_ratio` - how many merges and mutations may be assigned relative to `background_pool_size`. Sometimes the default (`2`) may work against you by favoring more smaller tasks, which is useful for continuous real-time inserts but less useful when you want a backlog-clearing merge window. In that case, trying `1` is reasonable.
  
- 3. `number_of_free_entries_in_pool_to_lower_max_size_of_merge` (merge_tree setting) should be changed together with background_pool_size (50-90% of that). "When there is less than a specified number of free entries in the pool (or replicated queue), start to lower the maximum size of the merge to process (or to put in the queue). This is to allow small merges to process - not filling the pool with long-running merges."  To make it really aggressive try 90-95% of background_pool_size, for ex. 34 (so you will have 34 huge merges and 2 small ones).
+ 3. `number_of_free_entries_in_pool_to_lower_max_size_of_merge` (merge_tree setting) should be changed together with background_pool_size (50-90% of that). "When there is less than a specified number of free entries in the pool (or replicated queue), start to lower the maximum size of the merge to process (or to put in the queue). This is to allow small merges to process - not filling the pool with long-running merges."  To make it really aggressive, try 90-95% of background_pool_size, for ex. 34 (so you will have 34 huge merges and 2 small ones).
 
 ## Runtime vs restart semantics
 
-Treat this template as a deliberate capacity-mode change, not casual live tuning. According to current ClickHouse docs, `background_pool_size` and `background_merges_mutations_concurrency_ratio` can be increased at runtime, but lowering them requires a restart.
+ `background_pool_size` and `background_merges_mutations_concurrency_ratio` can be increased at runtime, but lowering them requires a restart.
 
 ## Merge scheduling tradeoffs
 
@@ -35,8 +29,6 @@ Treat this template as a deliberate capacity-mode change, not casual live tuning
 - `round_robin` is safer when starvation of large merges is a concern.
 
 ## Other settings to consider
-
-Additionally, you can:
 
  - control how large target parts may become via `max_bytes_to_merge_at_max_space_in_pool` if the backlog is dominated by many medium parts instead of tiny fragments.
  - review `min_merge_bytes_to_use_direct_io` if you suspect page-cache churn during very large merges. Direct I/O is workload-dependent, so benchmark it instead of assuming it is always better or worse.
@@ -65,7 +57,7 @@ If the relevant pool task counters stay near saturation while backlog does not i
 - the cluster is already constrained by disk bandwidth rather than merge thread count;
 - the workload is dominated by mutations, where `number_of_free_entries_in_pool_to_execute_mutation` may need separate treatment.
 
-## Current recommended server config
+## Server config example
 
 ```
 cat /etc/clickhouse-server/config.d/aggresive_merges.xml
@@ -91,10 +83,10 @@ Only use the `default` profile layout if you are intentionally keeping an older 
 cat /etc/clickhouse-server/users.d/aggresive_merges.xml
 <clickhouse>
 <profiles>
-<default>
-<background_pool_size>36</background_pool_size>
-<background_merges_mutations_concurrency_ratio>1</background_merges_mutations_concurrency_ratio>
-</default>
+  <default>
+    <background_pool_size>36</background_pool_size>
+    <background_merges_mutations_concurrency_ratio>1</background_merges_mutations_concurrency_ratio>
+  </default>
 </profiles>
 </clickhouse>
 ```
