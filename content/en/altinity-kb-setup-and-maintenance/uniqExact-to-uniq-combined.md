@@ -49,7 +49,7 @@ In case of values of data type `String`, ClickHouse® applies a hashing algorith
 └────────────────────────────────────────────────────────────────────┘
   02     4809CB4528E00621CF626BE9FA14E2BF E2756D8F7A583CA23016E03447724DE7
   ^        ^                                ^
-  LEB128 hash of '1'                      hash of '2'
+  LEB128 hash of '2'                      hash of '1'
 ```
 
 So, our task is to find how we can generate such values by ourself, speak what hash function is used.
@@ -94,7 +94,7 @@ This UDF -- `pipe` converts `uniqExactState` to the `Array(FixedString(16))`:
 └───────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
-However this way only works if you have direct access to your ClickHouse® installation. 
+This way only works if you have direct access to your ClickHouse® installation. 
 However if you are on a managed platform like Altinity.Cloud installing executable `UDF`s is typically not supported for security reasons.
 Luckily we know that the internal representation of `sipHash128` is `FixedString(16)` which has exactly 128 bit. `UInt128` also takes up exactly 128 bit.
 Therefore we can consider the `uniqExactState(String)` as a representation of `Array(UInt128)`.
