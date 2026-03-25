@@ -23,7 +23,7 @@ Before diving into the details, the core concept is:
 - With `user_directories.replicated`, ClickHouse stores the RBAC model in Keeper under a configured path (for example `/clickhouse/access`) and every node watches that path.
 - Each node maintains a local in-memory cache of replicated access entities and updates it via Keeper watch callbacks. As a result, access checks are fast and performed locally in memory, while RBAC modifications depend on Keeper availability and propagation.
 
-Flow of this KB:
+The flow of this article:
 1. Why this model helps.
 2. How to configure it on a new cluster.
 3. How to validate and operate it.
@@ -36,14 +36,14 @@ Flow of this KB:
 In practice, it fans out the query through the distributed DDL queue (also Keeper/ZooKeeper-dependent) to currently known cluster nodes.
 It does not automatically replay old RBAC DDL for replicas/shards added later.
 
-Keeper-backed RBAC solves that:
+Keeper-backed RBAC differences:
 - one shared RBAC state for the cluster;
 - new servers read the same RBAC state when they join;
 - no need to remember `ON CLUSTER` for every RBAC statement.
 
 Mental model: Keeper-backed RBAC replicates access state, while `ON CLUSTER` fans out DDL to currently known nodes.
 
-### 1.1 Pros and Cons
+### 1.1 Pros and Cons of Keeper-backed RBAC
 
 Pros:
 - Single source of truth for RBAC across nodes.
@@ -53,13 +53,13 @@ Pros:
 - Integrates with access-entity backup/restore.
 
 Cons:
-- Writes depend on Keeper availability. `CREATE/ALTER/DROP USER` and `CREATE/ALTER/DROP ROLE`, plus `GRANT/REVOKE`, fail if Keeper is unavailable, while existing authentication/authorization may continue from already loaded cache until restart.
+- Writes depend on Keeper availability. `CREATE/ALTER/DROP USER/ROLE` and `GRANT/REVOKE` fail if Keeper is unavailable, while existing authentication/authorization may continue from already loaded cache until restart.
 - Operational complexity increases (Keeper health directly affects RBAC operations).
 - Keeper data loss or accidental Keeper path damage can remove replicated RBAC state, and users may lose access; keep regular RBAC backups and test restore procedures.
 - Can conflict with `ON CLUSTER` if both mechanisms are used without guard settings.
 - Invalid/corrupted payload in Keeper can be skipped or be startup-fatal, depending on `throw_on_invalid_replicated_access_entities`.
 - Very large RBAC sets (thousands of users/roles or very complex grants) can increase Keeper/watch pressure.
-- If Keeper is unavailable during server startup and replicated RBAC storage is configured, startup can fail, so you may be unable to log in until startup succeeds.
+- If Keeper is unavailable during server startup and replicated RBAC storage is configured, the server may fail to start.
 
 ## 2. Configure Keeper-backed RBAC on a new cluster
 
@@ -157,7 +157,7 @@ FROM system.user_directories
 ORDER BY precedence;
 ```
 
-Example expected result (values can vary by version/config; precedence values are relative and order matters):
+Expected result (values can vary by version/config; precedence values are relative and order matters):
 
 ```text
 name        type        precedence
@@ -173,7 +173,7 @@ FROM system.users
 ORDER BY name;
 ```
 
-Example expected result for SQL-created user:
+Expected result for a SQL-created user:
 
 ```text
 name         storage
@@ -226,13 +226,13 @@ For production, prefer configuring this in a profile (for example `default` in `
 
 ## 6. Migrate existing clusters/users
 
-Before switching to Keeper-backed RBAC, treat this as a storage migration.
+Switching to Keeper-backed RBAC should be treated as a storage migration..
 
 **Important:** replay/restore RBAC on one node only. Objects are written to Keeper and then reflected on all nodes.
 
 Key facts before migration:
 - Changing `user_directories` storage or changing `zookeeper_path` does **not** move existing SQL RBAC objects automatically.
-- If path changes, old users/roles are not deleted, but become effectively hidden from the new storage path.
+- If the path changes, old users and roles are not deleted but become effectively hidden from the new storage path.
 - `zookeeper_path` cannot be changed at runtime via SQL.
 
 Recommended high-level steps:
@@ -250,7 +250,7 @@ This path is useful when:
 - Replaying `SHOW ACCESS` output is idempotent only if you handle `IF NOT EXISTS`/cleanup; otherwise prefer restoring into an empty RBAC namespace.
 
 Recommended SQL-only flow:
-1. On source, check where entities are stored (local vs replicated):
+1. On the source, check where the entities are stored (local vs. replicated):
 
 ```sql
 SELECT name, storage FROM system.users ORDER BY name;
@@ -261,19 +261,19 @@ SELECT name, storage FROM system.row_policies ORDER BY name;
 SELECT name, storage FROM system.masking_policies ORDER BY name;
 ```
 
-2. Export RBAC DDL from source:
+2. Export RBAC DDL from the source:
 - simplest full dump:
 
 ```sql
 SHOW ACCESS;
 ```
 
-Save output as SQL (for example `rbac_dump.sql`) in your repo/artifacts.
+Save the output as SQL (for example `rbac_dump.sql`) in your repo/artifacts.
 
 You can also export individual objects with `SHOW CREATE USER/ROLE/...` when needed.
 
-3. Switch config to replicated `user_directories` on target cluster and restart/reload.
-4. Replay exported SQL on one node (without `ON CLUSTER` in replicated mode).
+3. Switch the configuration to replicated `user_directories` on the target cluster and restart/reload.
+4. Replay the exported SQL on one node (without `ON CLUSTER` in replicated mode).
 5. Validate from another node (`SHOW CREATE USER ...`, `SHOW GRANTS FOR ...`).
 
 ### 6.2 Migration with `clickhouse-backup` (`--rbac-only`)
@@ -336,7 +336,7 @@ Operational implication:
 | New replica has no historical users/roles | Team used only `... ON CLUSTER ...` before scaling | Enable Keeper-backed RBAC so new nodes load shared state |
 | `CREATE USER ... ON CLUSTER` throws "already exists in replicated" | Query fan-out + replicated storage both applied | Remove `ON CLUSTER` for RBAC or enable `ignore_on_cluster_for_replicated_access_entities_queries` |
 | `CREATE USER`/`GRANT` fails with Keeper/ZooKeeper error | Keeper unavailable or connection lost | Check `system.zookeeper_connection`, `system.zookeeper_connection_log`, and server logs |
-| RBAC writes still go local though `replicated` exists | `local_directory` remains first writable storage | Use `user_directories replace="replace"` and avoid writable local SQL storage in front of replicated |
+| RBAC writes still go to `local_directory` even though `replicated` is configured | `local_directory` remains the first writable storage | Use `user_directories replace="replace"` and avoid writable local SQL storage in front of `replicated` |
 | Server does not start when Keeper is down; no one can log in | Replicated access storage needs Keeper during initialization | Restore Keeper first, then restart; if needed use a temporary fallback config and keep a break-glass `users.xml` admin |
 | Startup fails (or users are skipped) because of invalid RBAC payload in Keeper | Corrupted/invalid replicated entity and strict validation mode | Use `throw_on_invalid_replicated_access_entities` deliberately: `true` fail-fast, `false` skip+log; fix bad Keeper payload before re-enabling strict mode |
 | Two independent clusters unexpectedly share the same users/roles | Both clusters point to the same Keeper ensemble and the same `zookeeper_path` | Use unique RBAC paths per cluster (recommended), or isolate with Keeper chroot (requires Keeper metadata repopulation/migration) |
