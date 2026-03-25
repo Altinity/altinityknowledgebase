@@ -17,7 +17,7 @@ TL;DR:
 - Replicated access storage keeps RBAC entities in ZooKeeper/ClickHouse Keeper so changes automatically appear on all nodes.
 - This guide shows how to configure replicated RBAC, validate it, and migrate existing users safely.
 
-Before details, the core concept is:
+Before diving into the details, the core concept is:
 - ClickHouse stores access entities in access storages configured by `user_directories`.
 - By default, following the shared-nothing concept, SQL RBAC objects are local (`local_directory`), so changes done on one node do not automatically appear on another node unless you run `... ON CLUSTER ...`.
 - With `user_directories.replicated`, ClickHouse stores the RBAC model in Keeper under a configured path (for example `/clickhouse/access`) and every node watches that path.
