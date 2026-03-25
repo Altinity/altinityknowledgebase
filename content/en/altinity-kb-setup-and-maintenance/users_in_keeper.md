@@ -21,7 +21,7 @@ Before diving into the details, the core concept is:
 - ClickHouse stores access entities in access storages configured by `user_directories`.
 - By default, following the shared-nothing concept, SQL RBAC objects are local (`local_directory`), so changes done on one node do not automatically appear on another node unless you run `... ON CLUSTER ...`.
 - With `user_directories.replicated`, ClickHouse stores the RBAC model in Keeper under a configured path (for example `/clickhouse/access`) and every node watches that path.
-- Each node keeps a local in-memory mirror of replicated access entities and updates it from Keeper watch callbacks. This is why normal access checks are local-memory fast, while RBAC writes depend on Keeper availability.
+- Each node maintains a local in-memory cache of replicated access entities and updates it via Keeper watch callbacks. As a result, access checks are fast and performed locally in memory, while RBAC modifications depend on Keeper availability and propagation.
 
 Flow of this KB:
 1. Why this model helps.
