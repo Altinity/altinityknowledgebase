@@ -9,8 +9,31 @@ description: >-
 ## uniqExactState 
 
 `uniqExactState` is stored in two parts: a count of values in `LEB128` format + list values without a delimiter.
+Depending on the orignial datatype of the values to count, the datatype of the list values differ.
 
-In our case, the value is `sipHash128` of strings passed to uniqExact function.
+### Numeric Values
+
+In case of numeric values like `UInt8`, `UInt64` etc. the representation of `uniqExactState` is just a simple array of the unique values encountered. 
+Therefore it is easy to recover the values from the state which have appeared:
+
+```text
+┌─hex(uniqExactState(arrayJoin([1, 3])))─┐
+│ 020103                                 │
+└────────────────────────────────────────┘
+  02        01             03   
+  ^         ^              ^
+  LEB128    hex(1::UInt8)  hex(3::UInt8)
+
+
+┌─finalizeAggregation(CAST(unhex('020103'), 'AggregateFunction(groupArray, UInt8)'))─┐
+│ [1,3]                                                                              │
+└────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+### String Values
+
+#### Internal Representation
+In case of values of data type `String`, ClickHouse® applies a hashing algorithm before storing the values into the internal array, otherwise the amount of space needed could get enormous.
 
 ```text
 ┌─hex(uniqExactState(toString(arrayJoin([1]))))─┐
@@ -18,19 +41,19 @@ In our case, the value is `sipHash128` of strings passed to uniqExact function.
 └───────────────────────────────────────────────┘
   01         E2756D8F7A583CA23016E03447724DE7
   ^          ^
-  LEB128     sipHash128
+  LEB128     hash of '1'
 
 
 ┌─hex(uniqExactState(toString(arrayJoin([1, 2]))))───────────────────┐
 │ 024809CB4528E00621CF626BE9FA14E2BFE2756D8F7A583CA23016E03447724DE7 │
 └────────────────────────────────────────────────────────────────────┘
-  02 4809CB4528E00621CF626BE9FA14E2BF E2756D8F7A583CA23016E03447724DE7
+  02     4809CB4528E00621CF626BE9FA14E2BF E2756D8F7A583CA23016E03447724DE7
   ^        ^                                ^
-LEB128 sipHash128                       sipHash128
+  LEB128 hash of '2'                      hash of '1'
 ```
 
-So, our task is to find how we can generate such values by ourself.
-In case of `String` data type, it just the simple `sipHash128` function.
+So, our task is to find how we can generate such values by ourself, speak what hash function is used.
+In case of `String` data type, it is just the simple `sipHash128` function.
 
 ```text
 ┌─hex(sipHash128(toString(2)))─────┬─hex(sipHash128(toString(1)))─────┐
@@ -38,10 +61,13 @@ In case of `String` data type, it just the simple `sipHash128` function.
 └──────────────────────────────────┴──────────────────────────────────┘
 ```
 
-The second task: it needs to read a state and split it into an array of values.
+#### Getting the Hash Values
+The second task: now that we know how the state is formed, how can we demangle it and convert it into an `Array` of values.
+Unfortunatelly it is not possible to get the original values back, as `sipHash128` is a one way conversion, but at least we can try to get an `Array` of hashes.
 Luckily for us, ClickHouse® use the exact same serialization (`LEB128` + list of values) for Arrays (in this case if `uniqExactState` and `Array` are serialized into `RowBinary` format).
 
-We need one a helper -- `UDF` function to do that conversion:
+One way to "convert" the `uniqExactState` to an `Array` of hashes would be via an external helper 
+`UDF` function to do that conversion:
 
 ```xml
 cat /etc/clickhouse-server/pipe_function.xml
@@ -60,7 +86,7 @@ cat /etc/clickhouse-server/pipe_function.xml
   </function>
 </clickhouse>
 ```
-This UDF -- `pipe` converts `uniqExactState` to the `Array(FixedString(16))`.
+This UDF -- `pipe` converts `uniqExactState` to the `Array(FixedString(16))`:
 
 ```text
 ┌─arrayMap(x -> hex(x), pipe(uniqExactState(toString(arrayJoin([1, 2])))))──────────────┐
@@ -68,7 +94,24 @@ This UDF -- `pipe` converts `uniqExactState` to the `Array(FixedString(16))`.
 └───────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
-And here is the full example, how you can convert `uniqExactState(string)` to `uniqState(string)` or `uniqCombinedState(string)` using `pipe` UDF and `arrayReduce('func', [..])`.
+This way only works if you have direct access to your ClickHouse® installation. 
+However if you are on a managed platform like Altinity.Cloud installing executable `UDF`s is typically not supported for security reasons.
+Luckily we know that the internal representation of `sipHash128` is `FixedString(16)` which has exactly 128 bit. `UInt128` also takes up exactly 128 bit.
+Therefore we can consider the `uniqExactState(String)` as a representation of `Array(UInt128)`.
+
+Again, we can therefore convert our state to an `Array`:
+
+```text
+┌─arrayMap(lambda(tuple(x), hex(reinterpretAsFixedString(x))), finalizeAggregation(CAST(unhex(hex(uniqExactState(arrayJoin(['1', '2'])))), 'AggregateFunction(groupArray, UInt128)')))─┐
+│ ['4809CB4528E00621CF626BE9FA14E2BF','E2756D8F7A583CA23016E03447724DE7']                                                                                                              │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+As you can see the `Array` is identical to the one we created with the `pipe` function.
+
+#### Full Example of Conversion
+
+And here is the full example, how you can convert `uniqExactState(string)` to any approximate `uniq` function like `uniqState(string)` or `uniqCombinedState(string)` by `reinterpret`  and `arrayReduce('func', [..])`.
 
 ```sql
 -- Generate demo with random data, uniqs are stored as heavy uniqExact
@@ -89,25 +132,16 @@ GROUP BY id;
 
 -- Let's add a new columns to store optimized, approximate uniq & uniqCombined
 ALTER TABLE aggregates
-    ADD COLUMN `uniq` AggregateFunction(uniq, FixedString(16)) 
-             default arrayReduce('uniqState', pipe(uniqExact)),
-    ADD COLUMN `uniqCombined` AggregateFunction(uniqCombined, FixedString(16)) 
-             default arrayReduce('uniqCombinedState', pipe(uniqExact));
+    ADD COLUMN `uniq` AggregateFunction(uniq, FixedString(16)), 
+    ADD COLUMN `uniqCombined` AggregateFunction(uniqCombined, FixedString(16)); 
 
--- Materialize defaults in the new columns
-ALTER TABLE aggregates UPDATE uniqCombined = uniqCombined, uniq = uniq 
-WHERE 1 settings mutations_sync=2;
-
--- Let's reset defaults to remove the dependancy of the UDF from our table
-ALTER TABLE aggregates
-     modify COLUMN `uniq` remove default,
-     modify COLUMN `uniqCombined` remove default;
-
--- Alternatively you can populate data in the new columns directly without using DEFAULT columns
--- ALTER TABLE aggregates UPDATE 
---     uniqCombined = arrayReduce('uniqCombinedState', pipe(uniqExact)), 
---     uniq = arrayReduce('uniqState', pipe(uniqExact)) 
--- WHERE 1 settings mutations_sync=2;
+-- Materialize values in the new columns
+ALTER TABLE aggregates 
+UPDATE 
+  uniqCombined = arrayReduce('uniqCombinedState', arrayMap(x -> reinterpretAsFixedString(x), finalizeAggregation(unhex(hex(uniqExact))::AggregateFunction(groupArray, UInt128)))), 
+  uniq = arrayReduce('uniqState', arrayMap(x -> reinterpretAsFixedString(x), finalizeAggregation(unhex(hex(uniqExact))::AggregateFunction(groupArray, UInt128)))) 
+WHERE 1 
+SETTINGS mutations_sync=2;
 
 -- Check results, results are slighty different, because uniq & uniqCombined are approximate functions
 SELECT
