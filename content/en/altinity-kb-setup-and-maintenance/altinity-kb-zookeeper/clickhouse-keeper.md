@@ -17,8 +17,8 @@ See slides:  https://presentations.clickhouse.com/meetup54/keeper.pdf and video 
 ClickHouse Keeper is the recommended choice for new installations. It yields better performance in many cases due to the new features, like async replication or multi read. Some ClickHouse server features cannot be used without Keeper, for example the S3Queue.
 
 - Use the latest Keeper version available in your supported upgrade path whenever possible.
-- Keeper can run on a newer version than the ClickHouse server itself. That was already useful in 2023 and is even more relevant now.
-- Modern Keeper usually performs better than older `23.x` expectations because the code matured significantly, newer protocol feature flags were added, and internal replication improved.
+- The Keeper version doesn’t need to match the ClickHouse server version
+- Modern Keeper usually performs better than older versions because the codebase has matured significantly, new protocol feature flags have been added, and internal replication has improved.
 
 For existing systems that currently use Apache Zookeeper, you can consider upgrading to clickhouse-keeper especially if you will [upgrade ClickHouse](https://altinity.com/clickhouse-upgrade-overview/) also. 
 
@@ -30,7 +30,7 @@ Before upgrading ClickHouse Keeper from version older than 23.9 please check Upg
 
 Keeper is optimized for ClickHouse workloads and written in C++ (and can be used as single-binary), so it don't need any external dependencies. It uses the same **client** protocol but both are implementing different consensus protocol: Zookeeper is using ZAB, while ClickHouse Keeper implements eBay NuRAFT [GitHub - eBay/NuRaft: C++ implementation of Raft core logic as a replication library](https://github.com/eBay/NuRaft) which improves stability and performance of base RAFT protocol.
 
-clickhouse-keeper can also run embedded mode, inside the clickhouse-server which may be good for testing purposes or smaller instances where performance can be worse for the sake of simplicity.
+ClickHouse Keeper can also run in embedded mode, operating as a separate thread within the ClickHouse server process, which may be suitable for testing purposes or smaller instances where some performance can be sacrificed for simplicity
 
 ## Migration and upgrade guide
 
@@ -62,19 +62,19 @@ See https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookee
 
 ## More than 3 Keeper nodes
 
-Main issue with a bigger Keeper ensemble is they need more time to reelect and commit is taking more time which can slowdown insertions and DDL queries.
+The main issue with a larger Keeper ensemble is that it takes more time to re-elect a leader, and commits take longer, which can slow down insertions and DDL queries.
 
-It should be fine, but we can't recommend running more than that number of zookeeper nodes (except observers).
+It should be fine, but we don’t recommend running more than three Keeper nodes (excluding observers).
 
-Look it from the another perspective: It has no special advantages (unless you are obligated to survive simultaneous failure of 2 zookeeper nodes), in terms of performance it doesn't behave better (but may perform worse), and 'wastes' some resources (you need fast dedicated disks for zookeeper to work good, also some RAM / CPU).
+Increasing the number of nodes offers no significant advantages (unless you need to tolerate the simultaneous failure of two Keeper nodes). In terms of performance, it doesn’t perform better—and may even perform worse—and it consumes additional resources (ZooKeeper requires fast, dedicated disks to perform well, as well as some RAM and CPU).
 
 ## clickhouse-keeper-client
 
-In clickhouse-keeper-client paths now parses more stricly and should now be passed as string literals. In practice, this means using single quotes around paths, for example `ls '/'` instead of `ls /` and `get '/clickhouse/path'` instead o `get /clickhouse/path`. 
+In clickhouse-keeper-client, paths are now parsed more strictly and must be passed as string literals. In practice, this means using single quotes around paths—for example, ls '/' instead of ls /, and get '/clickhouse/path' instead of get /clickhouse/path. 
 
 ## Example of a simple cluster
 
-Keeper quorum size must be odd. A 2-node Keeper layout will lose quorum after a single node failure, so the recommended replicas for Keeper is 3. 
+The Keeper ensemble size must be odd because it requires a majority (50% + 1 nodes) to form a quorum. A 2-node Keeper setup will lose quorum after a single node failure, so the recommended number of Keeper replicas is 3.
 
 On `hostname1` and `hostname2` below, ClickHouse can use the embedded Keeper cluster from `<keeper_server>`, so a separate client-side `<keeper>` section is not required. If your ClickHouse servers connect to an external Keeper or ZooKeeper ensemble, see [ClickHouse config for Keeper]({{< ref "clickhouse-keeper-clickhouse-config" >}}).
 
@@ -276,7 +276,7 @@ select count() from test;
   https://clickhouse.com/docs/en/guides/sre/keeper/clickhouse-keeper/
 - `clickhouse-keeper-client`:
   https://clickhouse.com/docs/en/operations/utilities/clickhouse-keeper-client
-- Keeper HTTP API and dashboard:
+- Keeper HTTP API and dashboard (26.1+):
   https://clickhouse.com/docs/operations/utilities/clickhouse-keeper-http-api
 - `system.zookeeper_connection`:
   https://clickhouse.com/docs/en/operations/system-tables/zookeeper_connection
