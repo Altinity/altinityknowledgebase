@@ -37,7 +37,7 @@ ClickHouse Keeper can also run in embedded mode, operating as a separate thread 
 - A mixed ZooKeeper / ClickHouse Keeper quorum is not supported. Those are different consensus protocols. 
 - ZooKeeper snapshots and transaction logs are not format-compatible with Keeper. For data migration use `clickhouse-keeper-converter`.
 - If the above is too complex you can switch to new, empty Keeper ensemble and recreate the Keeper metadata using `SYSTEM RESTORE REPLICA` calls. This method takes longer time but it is suitable for smaller clusters. Check [procedure to restore multiple tables in RO mode article](https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-check-replication-ddl-queue/#procedure-to-restore-multiple-tables-in-read-only-mode-per-replica)
-- It is usually reasonable to migrate Keeper together with a ClickHouse upgrade, especially if your current deployment is still on older `23.x` builds.
+- Keep in mind that some metadata is available in ZooKeeper only and will be lost if you don't migrate with clickhouse-keeper-converter using above guide. For example: Distributed DDL queue, RBAC data (if configured), etc. Check [Keeper depended features](https://kb.altinity.com/altinity-kb-setup-and-maintenance/keeper-dependent-features) for more information.
 
 ### Upgrade caveat for `async_replication`
 
@@ -84,7 +84,7 @@ On `hostname1` and `hostname2` below, ClickHouse can use the embedded Keeper clu
 $ cat /etc/clickhouse-server/config.d/keeper.xml
 
 <?xml version="1.0" ?>
-<yandex>
+<clickhouse>
     <keeper_server>
         <tcp_port>2181</tcp_port>
         <server_id>1</server_id>
@@ -120,18 +120,18 @@ $ cat /etc/clickhouse-server/config.d/keeper.xml
     <distributed_ddl>
         <path>/clickhouse/testcluster/task_queue/ddl</path>
     </distributed_ddl>
-</yandex>
+</clickhouse>
 
 $ cat /etc/clickhouse-server/config.d/macros.xml
 
 <?xml version="1.0" ?>
-<yandex>
+<clickhouse>
     <macros>
         <cluster>testcluster</cluster>
         <replica>replica1</replica>
         <shard>1</shard>
     </macros>
-</yandex>
+</clickhouse>
 ```
 
 ### hostname2
@@ -140,7 +140,7 @@ $ cat /etc/clickhouse-server/config.d/macros.xml
 $ cat /etc/clickhouse-server/config.d/keeper.xml
 
 <?xml version="1.0" ?>
-<yandex>
+<clickhouse>
     <keeper_server>
         <tcp_port>2181</tcp_port>
         <server_id>2</server_id>
@@ -176,18 +176,18 @@ $ cat /etc/clickhouse-server/config.d/keeper.xml
     <distributed_ddl>
         <path>/clickhouse/testcluster/task_queue/ddl</path>
     </distributed_ddl>
-</yandex>
+</clickhouse>
 
 $ cat /etc/clickhouse-server/config.d/macros.xml
 
 <?xml version="1.0" ?>
-<yandex>
+<clickhouse>
     <macros>
         <cluster>testcluster</cluster>
         <replica>replica2</replica>
         <shard>1</shard>
     </macros>
-</yandex>
+</clickhouse>
 ```
 
 ### hostname3
@@ -239,7 +239,7 @@ $ clickhouse-keeper --config /etc/clickhouse-keeper/keeper_config.xml
 $ cat /etc/clickhouse-server/config.d/clusters.xml
 
 <?xml version="1.0" ?>
-<yandex>
+<clickhouse>
     <remote_servers>
         <testcluster>
             <shard>
@@ -254,7 +254,7 @@ $ cat /etc/clickhouse-server/config.d/clusters.xml
             </shard>
         </testcluster>
     </remote_servers>
-</yandex>
+</clickhouse>
 ```
 
 Then create a table
@@ -276,11 +276,23 @@ select count() from test;
   https://clickhouse.com/docs/en/guides/sre/keeper/clickhouse-keeper/
 - `clickhouse-keeper-client`:
   https://clickhouse.com/docs/en/operations/utilities/clickhouse-keeper-client
-- Keeper HTTP API and dashboard (26.1+):
+- Keeper HTTP API and dashboard (`26.1+`):
   https://clickhouse.com/docs/operations/utilities/clickhouse-keeper-http-api
+- `system.zookeeper`:
+  https://clickhouse.com/docs/operations/system-tables/zookeeper
 - `system.zookeeper_connection`:
-  https://clickhouse.com/docs/en/operations/system-tables/zookeeper_connection
+  https://clickhouse.com/docs/operations/system-tables/zookeeper_connection
 - `system.zookeeper_connection_log`:
-  https://clickhouse.com/docs/en/operations/system-tables/zookeeper_connection_log
+  https://clickhouse.com/docs/operations/system-tables/zookeeper_connection_log
+- `system.zookeeper_info` (`26.1+`):
+  https://clickhouse.com/docs/operations/system-tables/zookeeper_info
+- `system.zookeeper_log`:
+  https://clickhouse.com/docs/operations/system-tables/zookeeper_log
+- `aggregated_zookeeper_log` upstream PR:
+  resubmit https://github.com/ClickHouse/ClickHouse/pull/87208
 - Altinity operator CHK examples:
   https://github.com/Altinity/clickhouse-operator/tree/master/docs/chk-examples
+- Altinity operator Keeper dashboard JSON:
+  https://github.com/Altinity/clickhouse-operator/blob/master/grafana-dashboard/ClickHouseKeeper_dashboard.json
+- Altinity operator Keeper alert rules:
+  https://github.com/Altinity/clickhouse-operator/blob/master/deploy/prometheus/prometheus-alert-rules-chkeeper.yaml
