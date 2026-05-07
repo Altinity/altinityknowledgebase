@@ -18,17 +18,13 @@ To add some ClickHouse® replicas to an existing cluster if -30TB then better to
 
 [Core Settings | ClickHouse Docs](https://clickhouse.com/docs/en/operations/settings/settings/#max_replicated_fetches_network_bandwidth_for_server)
 
-💡 Do the **Gbps to Bps** math correctly. For 10G —> 1250MB/s —> 1250000000 B/s and change `max_replicated_*` settings accordingly:
+💡 Do the **Gbps to Bps** math correctly. For 10G —> 1250MB/s —> 1250000000 B/s. Change the `max_replicated_*` settings accordingly and add them to a file in `/etc/clickhouse-server/config.d/` (e.g., `config.d/replication-limits.xml`) and restart ClickHouse:
 
 - Nodes replicating from:
 
 ```xml
 <clickhouse>
-	<profiles>
-		<default>
-			<max_replicated_sends_network_bandwidth_for_server>50000</max_replicated_sends_network_bandwidth_for_server>
-		</default>
-	</profiles>
+  <max_replicated_sends_network_bandwidth_for_server>50000</max_replicated_sends_network_bandwidth_for_server>
 </clickhouse>
 ```
 
@@ -36,11 +32,7 @@ To add some ClickHouse® replicas to an existing cluster if -30TB then better to
 
 ```xml
 <clickhouse>
-	<profiles>
-		<default>
-			<max_replicated_fetches_network_bandwidth_for_server>50000</max_replicated_fetches_network_bandwidth_for_server>
-		</default>
-	</profiles>
+  <max_replicated_fetches_network_bandwidth_for_server>50000</max_replicated_fetches_network_bandwidth_for_server>
 </clickhouse>
 ```
 
@@ -184,16 +176,14 @@ FORMAT TSVRaw;
     - reduce fetches from 8 to 4
     - increase moves from 8 to 16
 
+Add these settings to a file in `/etc/clickhouse-server/config.d/` (e.g., `config.d/replication-limits.xml`) and restart ClickHouse:
+
 ```xml
-<yandex>
-    <profiles>
-        <default>        
-            <max_replicated_fetches_network_bandwidth_for_server>625000000</max_replicated_fetches_network_bandwidth_for_server>
-            <background_fetches_pool_size>4</background_fetches_pool_size>
-            <background_move_pool_size>16</background_move_pool_size>
-        </default>
-    </profiles>
-</yandex>
+<clickhouse>
+  <max_replicated_fetches_network_bandwidth_for_server>625000000</max_replicated_fetches_network_bandwidth_for_server>
+  <background_fetches_pool_size>4</background_fetches_pool_size>
+  <background_move_pool_size>16</background_move_pool_size>
+</clickhouse>
 ```
 
 - Also to monitor this with:
