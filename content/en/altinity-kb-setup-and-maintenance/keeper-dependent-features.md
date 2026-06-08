@@ -31,7 +31,7 @@ This is a consolidated list of features that depend on ClickHouse Keeper (or Zoo
 | 15 | Experimental transactions | Configure `transaction_log.zookeeper_path` (and enable related experimental transaction settings). | Default: `/clickhouse/txn`. | `<path>/tail_ptr` and `<path>/log/csn-*` sequential nodes storing commit sequence and transaction IDs. |
 | 16 | `Shared` database engine (Cloud) | ClickHouse Cloud managed behavior (not typically user-configured in self-managed OSS). | Internal/cloud-managed. | Shared catalog is Keeper-backed; low-level path layout is internal and not documented as a stable public contract. |
 
-## ON CLUSTER relation (important)
+## How ON CLUSTER fits in (important)
 
 `ON CLUSTER` itself relies on a Keeper-backed distributed DDL queue (see row 4).
 Some of the features listed above already replicate via Keeper, which can make `ON CLUSTER` redundant:
