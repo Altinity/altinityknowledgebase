@@ -33,7 +33,7 @@ This is a consolidated list of features that depend on ClickHouse Keeper (or Zoo
 
 ## ON CLUSTER relation (important)
 
-`ON CLUSTER` itself uses Keeper-backed distributed DDL queue (row 4).  
+`ON CLUSTER` itself relies on a Keeper-backed distributed DDL queue (see row 4).
 Some features above already replicate through Keeper, so `ON CLUSTER` can be redundant:
 
 - Replicated database DDLs (row 6).
