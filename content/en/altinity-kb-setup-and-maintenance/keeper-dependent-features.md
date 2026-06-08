@@ -45,5 +45,5 @@ ClickHouse has dedicated settings like `ignore_on_cluster_for_replicated_*` to c
 
 ## Notes
 
-- For many rows, path names can be redirected to auxiliary Keeper clusters using `<auxiliary_zookeepers>` and `cluster_name:/path` notation where supported.
+- For many features, path names can be redirected to auxiliary Keeper clusters using `<auxiliary_zookeepers>` and the `cluster_name:/path` notation, where supported.
 - Node names shown above are the stable conceptual layout from current source tree; some minor subnodes are version-specific.
