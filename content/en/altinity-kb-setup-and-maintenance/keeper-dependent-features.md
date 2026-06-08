@@ -34,7 +34,7 @@ This is a consolidated list of features that depend on ClickHouse Keeper (or Zoo
 ## ON CLUSTER relation (important)
 
 `ON CLUSTER` itself relies on a Keeper-backed distributed DDL queue (see row 4).
-Some features above already replicate through Keeper, so `ON CLUSTER` can be redundant:
+Some of the features listed above already replicate via Keeper, which can make `ON CLUSTER` redundant:
 
 - Replicated database DDLs (row 6).
 - Replicated access entities (row 7).
