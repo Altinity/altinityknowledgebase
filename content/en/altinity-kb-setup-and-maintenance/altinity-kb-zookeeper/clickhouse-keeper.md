@@ -10,7 +10,7 @@ keywords:
 
 Since 2021 the development of built-in ClickHouse® alternative for Zookeeper is happening, whose goal is to address several design pitfalls, and get rid of extra dependency. 
 
-See slides:  https://presentations.clickhouse.com/meetup54/keeper.pdf and video  https://youtu.be/IfgtdU1Mrm0?t=2682
+See slides:  https://presentations.clickhouse.com/2021-meetup54/keeper.pdf and video  https://youtu.be/IfgtdU1Mrm0?t=2682
 
 ## Current status (last updated: March 2026)
 
