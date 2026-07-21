@@ -10,14 +10,18 @@ keywords:
   - clickhouse query performance
 ---
 
-[`system.query_log`](https://clickhouse.com/docs/en/operations/system-tables/query_log) stores metadata and statistics about executed queries — start time, duration, error messages, resource usage, and other execution details. Its `ProfileEvents` column is where the per-query counters live, and it is the first place to look when a query is slower than expected.
+A `ProfileEvents` column shows up in several system tables — `query_log`, `query_thread_log`, `part_log`, and others. This page looks at it in [`system.query_log`](https://clickhouse.com/docs/en/operations/system-tables/query_log), which stores metadata and statistics about executed queries — start time, duration, error messages, resource usage, and other execution details. Its `ProfileEvents` column is where the per-query counters live, and it is the first place to look when a query is slower than expected.
 
 ## system.query_log
+
+Before reaching for `ProfileEvents`, the most basic columns — `query_duration_ms`, `read_rows`, and `read_bytes` — are often enough on their own to spot queries where filtering isn't working well: a query that reads far more rows than it returns is the classic sign. Grouping by `normalized_query_hash`, `initial_user`, or `tables` is a common way to find the offenders.
 
 The log records two kinds of queries:
 
 1. **Initial queries** — run directly by the client.
 2. **Child queries** — initiated by other queries (for example, on distributed execution). For a child query, information about its parent is in the `initial_*` columns.
+
+For a distributed query, selecting from `clusterAllReplicas(..., system.query_log)` filtered on a single `initial_query_id` and ordered by `query_start_time_ms` shows every subquery the original triggered, across all replicas — often very valuable for seeing what actually ran where.
 
 Each query creates one or two rows depending on how it ended:
 
@@ -51,7 +55,7 @@ Every counter has a `ValueType`. There are five:
 
 Reading by `ValueType` is the trick that keeps the analysis honest: a `Bytes` counter tells you *how much data* moved, a `Microseconds` counter tells you *where the time went*, and you compare like with like. The most important accumulator is:
 
-- **`RealTimeMicroseconds`** — total wall-clock time spent in processing threads. It is a **sum across threads**, so it can be much larger than the query's actual duration; every other `Microseconds` counter is a slice of it.
+- **`RealTimeMicroseconds`** — total wall-clock time spent in processing threads. It is a **sum across threads**, so it can be much larger than the query's actual duration; every other `Microseconds` counter is a slice of it. Napkin math: divide it by the query's wall-clock duration (`query_duration_ms`) to get roughly how many cores were busy — e.g. 68 s of `RealTime` over a 9 s query means about 7 cores were working in parallel.
 
 ## Debugging queries with ProfileEvents
 
@@ -158,13 +162,18 @@ The `SelectedBytes` figure is identical to the uncached run — as it must be, s
 ```
 
 - Total wall → 9.4 s (was 68 s)
-- CPU time as seen by the OS → ~2.7 s
+- CPU time as seen by the OS (`OSCPUVirtualTimeMicroseconds`) → ~2.7 s
 - Time in HEAD/GET requests to S3 (residual metadata only) → ~1 s
-- Time a thread was ready to run but waiting → ~0.9 s
+- Time a thread was ready to run but waiting for a core (`OSCPUWaitMicroseconds`) → ~0.9 s
 - Disk read from the cache → 65 ms
 - Wait for Parquet reads from decoding threads → 62 ms
 
 The S3 costs that dominated the uncached run — read (20 s), GET/HEAD (14 s), connection init (13 s) — are gone; only ~1 s of residual metadata HEAD/GET requests still touches S3. Reads now come from the local cache (`DiskReadElapsedMicroseconds` of 65 ms, versus 20 s of S3 read time before), and total wall-clock dropped from **68 s to 9.4 s**. The remaining cost is CPU and cache-disk reads — the bottleneck has moved off the network entirely.
+
+A couple of these counters are easy to misread:
+
+- **`OSCPUWaitMicroseconds`** — time threads were ready to run but waiting for a free core. A significant share of `OSCPUVirtualTimeMicroseconds` is a sign of **CPU starvation** (too many concurrent queries for the cores available). The matching `OSIOWaitMicroseconds` plays the same role for **I/O starvation**.
+- **`NetworkReceiveElapsedMicroseconds` / `NetworkSendElapsedMicroseconds`** — these measure how long one node waited for another to respond to a subquery, *not* time lost to a slow network. A large value usually means the other node was busy computing, not that the link is the problem.
 
 ## Summary
 
