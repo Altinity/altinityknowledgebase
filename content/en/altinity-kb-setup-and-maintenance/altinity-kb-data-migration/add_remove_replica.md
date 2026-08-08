@@ -1,12 +1,13 @@
 ---
-title: "Add/Remove a new replica to a ClickHouse® cluster"
+title: "Add/Remove/Rebuild a ClickHouse® replica"
 linkTitle: "add_remove_replica"
 description: >
-    How to add/remove a new ClickHouse replica manually and using `clickhouse-backup`
+    How to add/remove a new ClickHouse replica manually and using `clickhouse-backup`, and how to rebuild a replica that lost local storage
 keywords:
   - clickhouse replica
   - clickhouse add replica
   - clickhouse remove replica
+  - clickhouse rebuild node
 ---
 
 ## ADD nodes/replicas to a ClickHouse® cluster
@@ -272,3 +273,38 @@ FROM system.replicas
 ```
 
 - Delete the replica in the cluster configuration: `remote_servers.xml` and shutdown the node/replica removed.
+
+## REBUILD a node that lost local storage
+
+Before touching schema, make sure the new node's server config (macros, ZooKeeper/Keeper connection, `storage_configuration`) matches the dead node's.
+
+A dead replica's registration under `/clickhouse/tables/.../replicas/<name>` survives in Keeper untouched, since Keeper is a separate service the dead node never had access to. That's what makes rebuild work at all: re-attaching under the *same replica name* reconnects to that leftover state and replication fetches whatever is missing.
+
+If a durable/cold-tier disk did survive the node's death (only "warm"/local storage was lost), the part directories on that surviving disk are named after the table's UUID. Just run this against any **currently healthy** replica to get ready-to-run `ATTACH` statements (same UUIDs) for the rebuilt node:
+
+```sql
+SELECT
+    replaceRegexpOne(replaceOne(concat(create_table_query, ';'), '(', 'ON CLUSTER \'{cluster}\' ('), 'CREATE (TABLE|DICTIONARY|VIEW|LIVE VIEW|WINDOW VIEW)', 'ATTACH \\1 IF NOT EXISTS')
+FROM
+    system.tables
+WHERE engine != 'MaterializedView' and
+    database NOT IN ('system', 'information_schema', 'INFORMATION_SCHEMA') AND
+    create_table_query != '' AND
+    name NOT LIKE '.inner.%%' AND
+    name NOT LIKE '.inner_id.%%'
+INTO OUTFILE '/tmp/schema.sql' AND STDOUT
+FORMAT TSVRaw
+SETTINGS show_table_uuid_in_table_create_query_if_not_nil=1;
+```
+
+{{% alert title="Warning" color="warning" %}}
+Only reuse a UUID this way if you're certain that replica's ZK registration was never dropped and the surviving disk truly belongs to this table
+{{% /alert %}}
+
+Parts still present under that UUID on the surviving disk load in place (checksum-verified, no network transfer); only the parts that lived on the lost disk get fetched from the healthy replica.
+
+Two things this depends on:
+
+
+- **`ATTACH` only reconnects, it never creates ZK bookkeeping.** If the replica's ZK path was already dropped (or never existed, a genuinely new node), the same `ATTACH` command leaves the table permanently readonly (`No metadata in ZooKeeper for .../replicas/<name>: table will stay in readonly mode`) no error, no self-healing. Use `CREATE TABLE` for a node that never held this replica before; that path does create the ZK registration.
+- **Rebuilt/fetched parts land on the first storage-policy volume**, not wherever they originally lived, the storage policy itself has no memory of prior tiering, and `move_factor`-based moves only trigger under disk-space pressure, not on rebuild. If the table has a TTL `TO VOLUME`/`TO DISK` move rule, it re-sorts these parts back to cold automatically in the background (no `MOVE PARTITION` needed) once TTL is next checked. Without a TTL rule, you have to move them manually.
