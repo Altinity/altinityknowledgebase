@@ -15,6 +15,8 @@ keywords:
 > You can drop / rename / truncate \***_log** tables at any time. ClickHouse will recreate them in about 7 seconds (flush period).
 
 > **Note 2:** Log tables with numeric postfixes (_1 / 2 / 3 ...) `query_log_1 query_thread_log_3` are results of [ClickHouse upgrades](https://altinity.com/clickhouse-upgrade-overview/) (or other changes of schemas of these tables). When a new version of ClickHouse starts and discovers that a system log table's schema is incompatible with a new schema, then ClickHouse renames the old *_log table to the name with the prefix and creates a table with the new schema. You can drop such tables if you don't need such historic data.
+>
+> If you export system logs to an external target, note that a materialized view keeps following the **renamed** table after such an upgrade, so the export stops silently. See [Export query and session logs](/altinity-kb-setup-and-maintenance/altinity-kb-export-system-logs/).
 
 ## You can disable all / any of them
 
