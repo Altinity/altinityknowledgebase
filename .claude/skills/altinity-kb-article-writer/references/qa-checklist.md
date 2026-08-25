@@ -2,6 +2,11 @@
 
 Run this checklist before returning output.
 
+This checklist covers mechanical correctness only. Also answer the **Review
+questions** in `AGENTS.md` — they cover whether the reader needs the content, how
+you know the examples work, and whether the article actually solves the problem
+end-to-end. A draft can pass every box below and still be the wrong article.
+
 ## Metadata
 
 - [ ] Path is under `content/en/<section>/`.

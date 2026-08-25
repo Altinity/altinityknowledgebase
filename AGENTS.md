@@ -258,6 +258,42 @@ Choose the lightest valid outcome.
 
 Default to smaller.
 
+## Review questions
+
+The checklist below catches mechanical problems. These questions catch the ones that
+matter more. Answer them against the actual draft, not from memory, before handing
+work back.
+
+**Does the reader need this?**
+
+- Is it simple enough, but not simpler?
+- Does this detail change what the user should do?
+- Can this be explained with a simple example instead of implementation internals?
+- Is there anything here the reader simply doesn't need to know?
+
+Mechanism write-ups, source-code walkthroughs, and evidence tables almost always
+fail these. Being able to explain *why* the internals behave a certain way is not a
+reason to put it in the article. Put it in the pull request instead, where a
+reviewer wants it.
+
+**Is it true?**
+
+- How do you know this example actually works? Name the version and environment you
+  ran it on. "It should work" is not an answer.
+- Is every example copy-pasteable and tested? If you reformatted a tested example,
+  it is no longer tested — run it again.
+
+**Is it enough?**
+
+- Does it solve the user's problem end-to-end?
+
+This last question is the counterweight, and it carries as much weight as the other
+six combined. Everything above pushes toward cutting; only this one pushes toward
+keeping. Applied without it, the questions will happily strip an article down past
+useful. A warning that looks like an internals digression but changes what an
+operator configures is not a digression — it is the article. Cut derivations, not
+decisions.
+
 ## Final checklist
 
 Before finishing, verify all of the following:
@@ -274,5 +310,6 @@ Before finishing, verify all of the following:
 - A human can verify each important claim quickly.
 - The style guide was read before drafting.
 - The article is within the length budget, or the reason it is not is stated.
+- The review questions above were answered against the draft.
 
 If any item above fails, reduce scope or stop at findings instead of forcing a patch.
