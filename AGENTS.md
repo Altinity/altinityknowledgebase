@@ -2,6 +2,25 @@
 
 This repository contains overall-facing ClickHouse knowledge base articles. Optimize for correctness, safety, and reviewability. Do not optimize for large rewrites, cosmetic churn, or generic prose improvement.
 
+## Start here: read the style guide before writing
+
+Before drafting or substantially rewriting an article, read these. They are short —
+under 300 lines in total — and they encode the house style that this file only
+summarizes:
+
+| File | What it gives you |
+|---|---|
+| `.claude/skills/altinity-kb-article-writer/SKILL.md` | The authoring workflow, start to finish |
+| `.claude/skills/altinity-kb-article-writer/references/kb-style-guide.md` | Frontmatter defaults, structure, tone |
+| `.claude/skills/altinity-kb-article-writer/references/article-template.md` | The baseline article shape, plus a minimal variant |
+| `.claude/skills/altinity-kb-article-writer/references/section-map.md` | Which section an article belongs in |
+| `.claude/skills/altinity-kb-article-writer/references/qa-checklist.md` | Self-review before you hand the work back |
+
+Claude Code loads this directory as a skill automatically. Codex and other tools do
+not — read the files directly. Do not rely on inspecting neighbouring articles
+instead: sampling nearby files tells you the frontmatter shape but not the tone or
+length norms, which is where drafts most often go wrong.
+
 ## Mission
 
 When modifying an article, do all of the following:
@@ -157,6 +176,27 @@ Review generated commands carefully before executing them. Destructive actions c
 - Use tables only when they compress real information.
 - Keep appendix/reference links readable; avoid dumping long raw URLs into the body when a shorter reference style works.
 
+### Length budget
+
+KB articles are short by design. Across the 250 articles in `content/en`, the median
+is about 430 words and 90% are under 1100.
+
+- **Target: under 1000 words.**
+- **Over 1500 words needs a clear reason.** Only 13 of 250 articles are that long.
+- One closing `## Related resources` section. Do not also add a separate references list.
+
+Check before you finish:
+
+```bash
+wc -w content/en/<section>/<file>.md
+```
+
+If an article runs long, the cause is usually explanation that belongs in a commit
+message or a PR description rather than in the KB: mechanism write-ups, source-code
+walkthroughs, stack traces, or evidence tables justifying a claim. State the
+operational rule and the version it applies to; leave out the derivation. A reader
+needs to know what to do and when it breaks, not why the internals behave that way.
+
 ## Specific guidlines from other reviews (human add here)
 
 These are repository-specific lessons and should guide similar edits:
@@ -218,6 +258,42 @@ Choose the lightest valid outcome.
 
 Default to smaller.
 
+## Review questions
+
+The checklist below catches mechanical problems. These questions catch the ones that
+matter more. Answer them against the actual draft, not from memory, before handing
+work back.
+
+**Does the reader need this?**
+
+- Is it simple enough, but not simpler?
+- Does this detail change what the user should do?
+- Can this be explained with a simple example instead of implementation internals?
+- Is there anything here the reader simply doesn't need to know?
+
+Mechanism write-ups, source-code walkthroughs, and evidence tables almost always
+fail these. Being able to explain *why* the internals behave a certain way is not a
+reason to put it in the article. Put it in the pull request instead, where a
+reviewer wants it.
+
+**Is it true?**
+
+- How do you know this example actually works? Name the version and environment you
+  ran it on. "It should work" is not an answer.
+- Is every example copy-pasteable and tested? If you reformatted a tested example,
+  it is no longer tested — run it again.
+
+**Is it enough?**
+
+- Does it solve the user's problem end-to-end?
+
+This last question is the counterweight, and it carries as much weight as the other
+six combined. Everything above pushes toward cutting; only this one pushes toward
+keeping. Applied without it, the questions will happily strip an article down past
+useful. A warning that looks like an internals digression but changes what an
+operator configures is not a digression — it is the article. Cut derivations, not
+decisions.
+
 ## Final checklist
 
 Before finishing, verify all of the following:
@@ -232,5 +308,8 @@ Before finishing, verify all of the following:
 - Useful existing detail was not accidentally removed.
 - The diff is reviewable.
 - A human can verify each important claim quickly.
+- The style guide was read before drafting.
+- The article is within the length budget, or the reason it is not is stated.
+- The review questions above were answered against the draft.
 
 If any item above fails, reduce scope or stop at findings instead of forcing a patch.
