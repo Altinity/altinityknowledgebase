@@ -9,15 +9,10 @@ description: >-
 ## Using `SHOW CREATE TABLE`
 
 If you just want to see the current TTL settings on a table, you can look at the schema definition. 
-```
-SHOW CREATE TABLE events2_local
-FORMAT Vertical
+```sql
+:) SHOW CREATE TABLE events2_local
 
-Query id: eba671e5-6b8c-4a81-a4d8-3e21e39fb76b
-
-Row 1:
-──────
-statement: CREATE TABLE default.events2_local
+CREATE TABLE default.events2_local
 (
     `EventDate` DateTime,
     `EventID` UInt32,
@@ -36,14 +31,13 @@ This works even when there's no data in the table. It does not tell you when the
 If you want to see the actually TTL values for specific data, run a query on system.parts. 
 There are columns listing all currently applicable TTL limits for each part. 
 (It does not work if the table is empty because there aren't any parts yet.)
-```
+```sql
 SELECT *
 FROM system.parts
 WHERE (database = 'default') AND (table = 'events2_local')
 FORMAT Vertical
-
-Query id: 59106476-210f-4397-b843-9920745b6200
-
+```
+```
 Row 1:
 ──────
 partition:                             202203
@@ -67,4 +61,23 @@ group_by_ttl_info.max:                 []
 rows_where_ttl_info.expression:        []
 rows_where_ttl_info.min:               []
 rows_where_ttl_info.max:               []
+```
+
+## Look for expired parts
+
+Use this query to see if your ClickHouse is keeping up with TTL rules
+```sql
+select database, table, partition_id,
+  columns('ttl_info.min') apply (min),
+  columns('ttl_info.max') apply (max),
+  count()
+from system.parts
+group by all
+having min(delete_ttl_info_min)>toDateTime(0)
+    or not empty(min(move_ttl_info.min))
+    or not empty(min(recompression_ttl_info.min))
+    or not empty(min(group_by_ttl_info.min))
+    or not empty(min(rows_where_ttl_info.min))
+order by min(delete_ttl_info_min)
+limit 100
 ```
