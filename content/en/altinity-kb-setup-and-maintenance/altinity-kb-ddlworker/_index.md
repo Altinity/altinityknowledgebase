@@ -1,27 +1,89 @@
 ---
 title: "DDLWorker and DDL queue problems"
 linkTitle: "DDLWorker and DDL queue problems"
-description: > 
+weight: 100
+description: >
     Finding and troubleshooting problems in the `distributed_ddl_queue`
-keywords: 
-   - clickhouse ddl
-   - clickhouse replication queue    
+keywords:
+  - clickhouse ddl
+  - clickhouse replication queue
+  - distributed_ddl_queue
+  - DDLWorker
 ---
-DDLWorker is a subprocess (thread) of `clickhouse-server` that executes `ON CLUSTER` tasks at the node.
 
-When you execute a DDL query with `ON CLUSTER mycluster` section, the query executor at the current node reads the cluster `mycluster` definition (remote_servers / system.clusters) and places tasks into Zookeeper znode `task_queue/ddl/...` for members of the cluster `mycluster`.
+`DDLWorker` is a thread inside `clickhouse-server` that executes `ON CLUSTER`
+tasks on the local node.
 
-DDLWorker at all ClickHouse® nodes constantly check this `task_queue` for their tasks, executes them locally, and reports about the results back into `task_queue`.
+When a DDL is run with `ON CLUSTER mycluster`, the initiator node reads the
+`mycluster` definition from `system.clusters` and writes a single task znode
+`/clickhouse/task_queue/ddl/query-NNNNNNNNNN` in ZooKeeper. Its value contains
+the query and the list of target hosts. Each target's `DDLWorker` polls
+`/clickhouse/task_queue/ddl/`, claims tasks addressed to its own host name,
+registers itself under the task's `active/` child while executing, then
+writes its result under the task's `finished/` child when done.
 
-The common issue is the different hostnames/IPAddresses in the cluster definition and locally.
+The most frequent failure mode is a hostname or IP mismatch between the
+cluster definition and what each node thinks its own name is — a host never
+picks up tasks addressed to it under a name it doesn't recognize. See
+[Hostname / IP mismatch](#hostname--ip-mismatch) below.
 
-So if the initiator node puts tasks for a host named Host1. But the Host1 thinks about own name as localhost or **xdgt634678d** (internal docker hostname) and never sees tasks for the Host1 because is looking tasks for **xdgt634678d.** The same with internal VS external IP addresses.
+For deep-dive symptoms see
+[There are N unfinished hosts](/altinity-kb-setup-and-maintenance/altinity-kb-ddlworker/there-are-n-unfinished-hosts-0-of-them-are-currently-active/).
+For the underlying ZooKeeper layer see
+[ZooKeeper](/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/).
+
+## Inspecting the queue: `system.distributed_ddl_queue`
+
+Start here before reaching for raw `system.zookeeper` queries — the system
+table joins state from ZooKeeper and the local executor and answers the typical
+"who is stuck and why" question:
+
+```sql
+SELECT entry, host, port, status, exception_code, exception_text,
+       query_create_time, query_finish_time, query
+FROM system.distributed_ddl_queue
+WHERE status != 'Finished'
+ORDER BY entry DESC, host
+LIMIT 50;
+```
+
+For per-task znode digs (children of `finished/`, `active/`, raw task body) see
+the SQL recipes in
+[There are N unfinished hosts](/altinity-kb-setup-and-maintenance/altinity-kb-ddlworker/there-are-n-unfinished-hosts-0-of-them-are-currently-active/).
+
+## Hostname / IP mismatch
+
+The initiator addresses tasks to a host using the name it has in
+`system.clusters`. If the target host's `system.clusters.is_local = 0` for its
+own row, `DDLWorker` won't claim those tasks — it's waiting for tasks addressed
+to a different name (often `localhost`, an internal Docker hostname like
+`xdgt634678d`, or a different IP family).
+
+Checklist on the host that isn't picking up tasks:
+
+```sql
+-- Should return is_local = 1 for the row matching this node.
+SELECT cluster, host_name, host_address, port, is_local
+FROM system.clusters
+WHERE cluster = 'mycluster';
+```
+
+```bash
+hostname --fqdn
+cat /etc/hostname
+cat /etc/hosts
+getent hosts $(hostname --fqdn)
+```
+
+On Debian/Ubuntu the FQDN often resolves to `127.0.1.1`, which doesn't match
+any real interface and trips this exact failure — see
+[ClickHouse#23504](https://github.com/ClickHouse/ClickHouse/issues/23504).
 
 ## DDLWorker thread crashed
 
-That causes ClickHouse to stop executing `ON CLUSTER` tasks.
+If the thread dies, `ON CLUSTER` tasks stop executing on this node.
 
-Check that DDLWorker is alive:
+Check that both threads are alive:
 
 ```bash
 ps -eL|grep DDL
@@ -32,13 +94,19 @@ ps -ef|grep 18829|grep -v grep
 clickho+ 18829 18828  1 Feb09 ?        00:55:00 /usr/bin/clickhouse-server --con...
 ```
 
-As you can see there are two threads: `DDLWorker` and `DDLWorkerClnr`.
+Two threads should be present: `DDLWorker` (executes tasks) and `DDLWorkerClnr`
+(cleans old tasks from `task_queue/ddl/`).
 
-The second thread – `DDLWorkerCleaner` cleans old tasks from `task_queue`. You can configure how many recent tasks to store:
+If either is missing, the only reliable recovery is a `clickhouse-server`
+restart. Capture
+`/var/log/clickhouse-server/clickhouse-server.err.log` and the matching
+`clickhouse-server.log` window first — the crash reason is usually visible
+there and you'll want it to file a bug.
 
-```markup
-config.xml
-<yandex>
+You can tune the cleaner from `config.xml`:
+
+```xml
+<clickhouse>
     <distributed_ddl>
         <path>/clickhouse/task_queue/ddl</path>
         <pool_size>1</pool_size>
@@ -46,35 +114,49 @@ config.xml
         <task_max_lifetime>604800</task_max_lifetime>
         <cleanup_delay_period>60</cleanup_delay_period>
     </distributed_ddl>
-</yandex>
+</clickhouse>
 ```
 
-Default values:
+Defaults:
 
-**cleanup_delay_period** = 60 seconds – Sets how often to start cleanup to remove outdated data.
+- **cleanup_delay_period** = `60` seconds — how often the cleaner runs.
+- **task_max_lifetime** = `604800` seconds (1 week) — older tasks are deleted.
+- **max_tasks_in_queue** = `1000` — soft cap on retained tasks.
+- **pool_size** = `1` — how many `ON CLUSTER` queries run concurrently.
 
-**task_max_lifetime** = 7 \* 24 \* 60 \* 60 (in seconds = week) – Delete task if its age is greater than that.
+## Too intensive stream of ON CLUSTER commands
 
-**max_tasks_in_queue** = 1000 – How many tasks could be in the queue.
+Generally this is a design problem, but `pool_size` can be raised so more
+DDLs run in parallel on each node (the default is `1`). Raise it gradually
+and watch ZooKeeper write rate and per-node memory — every additional
+concurrent DDL can trigger heavy operations (mutations, ALTERs) that compete
+for memory and replication queue slots.
 
-**pool_size** = 1 - 	How many ON CLUSTER queries can be run simultaneously.
+If raising `pool_size` doesn't keep up, the fix is upstream: batch the DDLs,
+replace cluster-wide `DELETE WHERE …` with lightweight deletes or partition
+drops, or use `CREATE TEMPORARY TABLE` for transient intermediates so the
+per-session table is dropped automatically.
 
-## Too intensive stream of ON CLUSTER command
+## Stuck DDL tasks in the `distributed_ddl_queue`
 
-Generally, it's a bad design, but you can increase pool_size setting 
+`ON CLUSTER` tasks can pile up when many DDLs (thousands of
+CREATE/DROP/ALTER) hit the cluster at once — common in heavy ETL jobs. They
+show up in `system.distributed_ddl_queue` as long-`query_create_time` rows
+that aren't moving.
 
-## Stuck DDL tasks in the distributed_ddl_queue
+If the DDL finished on some replicas but failed on others, the simplest fix is
+to rerun the failed statement on the missing replicas **without** `ON
+CLUSTER`. If most failed, check `system.distributed_ddl_queue` on every node —
+the backlog is often in the thousands.
 
-Sometimes [DDL tasks](/altinity-kb-setup-and-maintenance/altinity-kb-ddlworker/) (the ones that use ON CLUSTER) can get stuck in the `distributed_ddl_queue` because the replicas can overload if multiple DDLs (thousands of CREATE/DROP/ALTER) are executed at the same time. This is very normal in heavy ETL jobs.This can be detected by checking the `distributed_ddl_queue` table and see if there are tasks that are not moving or are stuck for a long time.
-
-If these DDLs are completed in some replicas but failed in others, the simplest way to solve this is to execute the failed command in the missed replicas without ON CLUSTER. If most of the DDLs failed, then check the number of unfinished records in `distributed_ddl_queue` on the other nodes, because most probably it will be as high as thousands.
-
-First, backup the `distributed_ddl_queue` into a table so you will have a snapshot of the table with the states of the tasks. You can do this with the following command:
+Snapshot the queue first so you don't lose the state:
 
 ```sql
-CREATE TABLE default.system_distributed_ddl_queue AS SELECT * FROM system.distributed_ddl_queue;
+CREATE TABLE default.system_distributed_ddl_queue
+AS SELECT * FROM system.distributed_ddl_queue;
 ```
 
-After this, we need to check from the backup table which tasks are not finished and execute them manually in the missed replicas, and review the pipeline which do `ON CLUSTER` command and does not abuse them. There is a new `CREATE TEMPORARY TABLE` command that can be used to avoid the `ON CLUSTER` command in some cases, where you need an intermediate table to do some operations and after that you can `INSERT INTO` the final table or do `ALTER TABLE final ATTACH PARTITION FROM TABLE temp` and this temp table will be dropped automatically after the session is closed.
-
-
+Then work through the snapshot, executing the missing statements locally and
+fixing the pipeline that's spamming `ON CLUSTER`. `CREATE TEMPORARY TABLE`
+plus `ALTER TABLE final ATTACH PARTITION FROM TABLE temp` is a common way to
+avoid cluster-wide DDLs for staging.
