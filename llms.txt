@@ -1,0 +1,423 @@
+# Altinity® Knowledge Base for ClickHouse®
+> Altinity® Knowledge Base for ClickHouse®
+
+## Pages
+- [Mermaid Example](http://kb.altinity.com/using-this-knowledgebase/mermaid_example/): A short example of using the Mermaid library to add charts.
+
+- [Config by provider](http://kb.altinity.com/altinity-kb-integrations/altinity-kb-kafka/01-fundamentals/config-by-provider/): Kafka engine configuration examples grouped by managed Kafka provider.
+
+- [Adjustable table partitioning](http://kb.altinity.com/altinity-kb-queries-and-syntax/variable-partitioning/): An approach that allows you to redefine partitioning without table creation
+- [AggregateFunction(uniq, UUID) doubled after ClickHouse® upgrade](http://kb.altinity.com/altinity-kb-setup-and-maintenance/uniq-uuid-doubled-clickhouse-upgrade/): What happened After ClickHouse® upgrade from version pre 21.6 to version after 21.6, count of unique UUID in AggregatingMergeTree tables nearly …
+- [AWS S3 Recipes](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-s3-object-storage/aws-s3-recipes/): AWS S3 Recipes
+- [Can not connect to my ClickHouse® server](http://kb.altinity.com/altinity-kb-setup-and-maintenance/connection-problems/): Can not connect to my ClickHouse® server.
+- [cgroups and kubernetes cloud providers](http://kb.altinity.com/altinity-kb-setup-and-maintenance/cgroups_k8s/): cgroups and kubernetes cloud providers.
+- [Check table metadata in zookeeper](http://kb.altinity.com/altinity-kb-useful-queries/table-meta-in-zookeeper/): Check table metadata in zookeeper.
+- [Clean up orphaned objects on s3](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-s3-object-storage/clean-up-orphaned-objects-on-s3.md/): Clean up orphaned objects left in an S3-backed ClickHouse tiered‐storage
+- [ClickHouse® limitations](http://kb.altinity.com/altinity-kb-schema-design/how-much-is-too-much/): How much is too much?
+  *Keywords: clickhouse limitations, clickhouse too many parts*
+- [Transforming ClickHouse logs to ndjson using Vector.dev](http://kb.altinity.com/altinity-kb-setup-and-maintenance/ch-logs-2-json-vectordev/): Transforming ClickHouse logs to ndjson using Vector.dev
+- [Altinity Kubernetes Operator For ClickHouse®](http://kb.altinity.com/altinity-kb-setup-and-maintenance/clickhouse-operator/): Altinity Kubernetes Operator For ClickHouse®
+- [clickhouse-keeper-initd](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/clickhouse-keeper-initd/): clickhouse-keeper-initd
+- [clickhouse-keeper-service](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/clickhouse-keeper-service/): clickhouse-keeper-service
+- [ClickHouse® and different filesystems](http://kb.altinity.com/altinity-kb-setup-and-maintenance/filesystems/): ClickHouse® and different filesystems.
+- [ClickHouse® python drivers](http://kb.altinity.com/altinity-kb-integrations/clickhouse_python_drivers/): Python main drivers/clients for ClickHouse®
+- [ClickHouse® Access Control and Account Management (RBAC)](http://kb.altinity.com/altinity-kb-setup-and-maintenance/rbac/): Access Control and Account Management (RBAC).
+- [ClickHouse® row-level deduplication](http://kb.altinity.com/altinity-kb-schema-design/row-level-deduplication/): ClickHouse® row-level deduplication.
+- [Client Timeouts](http://kb.altinity.com/altinity-kb-setup-and-maintenance/client-timeouts/): How to prevent connection errors.
+- [CollapsingMergeTree vs ReplacingMergeTree](http://kb.altinity.com/engines/mergetree-table-engine-family/collapsing-vs-replacing/): CollapsingMergeTree vs ReplacingMergeTree ReplacingMergeTree CollapsingMergeTree + very easy to use (always replace) - more complex (accounting-alike, …
+- [Column backfilling with alter/update using a dictionary](http://kb.altinity.com/altinity-kb-schema-design/backfill_column/): Column backfilling with alter/update using a dictionary
+- [Compare query_log for 2 intervals](http://kb.altinity.com/altinity-kb-useful-queries/compare_query_log_for_2_intervals/): Compare query performance across different time periods
+- [Compatibility layer for the Altinity Kubernetes Operator for ClickHouse®](http://kb.altinity.com/altinity-kb-setup-and-maintenance/monitoring-operator-exporter-compatibility/): Page description for heading and indexes.
+- [How to convert uniqExact states to approximate uniq functions states](http://kb.altinity.com/altinity-kb-setup-and-maintenance/uniqexact-to-uniq-combined/): A way to convert to uniqExactState to other uniqStates (like uniqCombinedState) in ClickHouse® 
+- [Custom Settings](http://kb.altinity.com/altinity-kb-setup-and-maintenance/custom_settings/): Using custom settings
+- [DateTime64](http://kb.altinity.com/altinity-kb-queries-and-syntax/datetime64/): Subtract fractional seconds WITH toDateTime64(&#39;2021-09-07 13:41:50.926&#39;, 3) AS time SELECT time - 1, time - 0.1 AS no_affect, time - …
+- [Debug hanging thing](http://kb.altinity.com/altinity-kb-useful-queries/debug-hang/): Debug hanging / freezing things
+- [Description of asynchronous_metrics](http://kb.altinity.com/altinity-kb-setup-and-maintenance/asynchronous_metrics_descr/): Description of asynchronous_metrics
+- [ClickHouse® data/disk encryption (at rest)](http://kb.altinity.com/altinity-kb-setup-and-maintenance/disk_encryption/): Example how to encrypt data in tables using storage policies.
+- [DISTINCT & GROUP BY & LIMIT 1 BY what the difference](http://kb.altinity.com/altinity-kb-queries-and-syntax/distinct-vs-group-by-vs-limit-by/): DISTINCT SELECT DISTINCT number FROM numbers_mt(100000000) FORMAT `Null` MemoryTracker: Peak memory usage (for query): 4.00 GiB. 0 rows in set. …
+- [DR two DC](http://kb.altinity.com/altinity-kb-setup-and-maintenance/dr-two-dc/): Disaster Recovery configuration between two data centers
+- [How to encode/decode quantileTDigest states from/to list of centroids](http://kb.altinity.com/altinity-kb-functions/how-to-encode-decode-quantiletdigest-state/): A way to export or import quantileTDigest states from/into ClickHouse®
+- [MSSQL bcp pipe to clickhouse-client](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/mssql-clickhouse/): Export from MSSQL to ClickHouse®
+- [Exporting ClickHouse® query and session logs to files, S3, or HTTP](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-export-system-logs/): Export system.query_log and system.session_log to files, S3, or HTTP while retaining local system log tables.
+  *Keywords: clickhouse audit log, clickhouse query_log export, clickhouse session_log*
+- [Functions to count uniqs](http://kb.altinity.com/altinity-kb-schema-design/uniq-functions/): Functions to count uniqs.
+- [GROUP BY tricks](http://kb.altinity.com/altinity-kb-queries-and-syntax/group-by/tricks/): Tricks for GROUP BY memory usage optimization
+- [Handy queries for system.query_log](http://kb.altinity.com/altinity-kb-useful-queries/query_log/): Useful queries for analyzing query performance, resource usage, and overall query statistics
+  *Keywords: clickhouse query performance*
+- [How ALTERs work in ClickHouse®](http://kb.altinity.com/altinity-kb-setup-and-maintenance/alters/): How ALTERs work in ClickHouse®: ADD (COLUMN/INDEX/PROJECTION) Lightweight, will only change table metadata. So new entity will be added in case of …
+- [How to change ORDER BY](http://kb.altinity.com/altinity-kb-schema-design/change-order-by/): How to change ORDER BY.
+- [How to Convert Ordinary to Atomic](http://kb.altinity.com/engines/altinity-kb-atomic-database-engine/how-to-convert-ordinary-to-atomic/): New, official way Implemented automatic conversion of database engine from Ordinary to Atomic (ClickHouse® Server 22.8+). Create empty …
+- [How to recreate a table in case of total corruption of the replication queue](http://kb.altinity.com/altinity-kb-setup-and-maintenance/how_to_recreate_table/): How to recreate a table in case of total corruption of the replication queue.
+- [http handler example](http://kb.altinity.com/altinity-kb-setup-and-maintenance/http_handlers/): http handler example
+- [Idempotent inserts into a materialized view](http://kb.altinity.com/altinity-kb-schema-design/materialized-views/idempotent_inserts_mv/): How to make idempotent inserts into a materialized view&#34;.
+- [Imprecise parsing of literal Decimal or Float64](http://kb.altinity.com/altinity-kb-queries-and-syntax/literal-decimal-or-float/): Imprecise parsing of literal Decimal or Float64
+- [Ingestion metrics from system.part_log](http://kb.altinity.com/altinity-kb-useful-queries/ingestion-rate-part_log/): Query to gather information about ingestion rate from system.part_log. 
+- [Ingestion of AggregateFunction](http://kb.altinity.com/altinity-kb-schema-design/ingestion-aggregate-function/): ClickHouse® - How to insert AggregateFunction data
+- [Insert Deduplication / Insert Idempotency](http://kb.altinity.com/altinity-kb-schema-design/insert_deduplication/): Using ClickHouse® features to avoid duplicate data
+  *Keywords: clickhouse insert deduplication, clickhouse insert_deduplicate*
+- [MySQL](http://kb.altinity.com/altinity-kb-integrations/mysql-clickhouse/): Replication using MaterializeMySQL. https://clickhouse.com/docs/en/engines/database-engines/materialized-mysql …
+- [Istio Issues](http://kb.altinity.com/altinity-kb-kubernetes/altinity-kb-istio-user-issue-k8s/): Working with the popular service mesh
+  *Keywords: istio*
+- [Jemalloc heap profiling](http://kb.altinity.com/altinity-kb-setup-and-maintenance/jemalloc_heap_profiling/): Example of .xml config to enable remote pprof style access
+- [JSONEachRow, Tuples, Maps and Materialized Views](http://kb.altinity.com/altinity-kb-schema-design/altinity-kb-jsoneachrow-tuples-and-mvs/): How to use Tuple() and Map() with nested JSON messages in MVs
+- [Kafka engine Virtual columns](http://kb.altinity.com/altinity-kb-integrations/altinity-kb-kafka/01-fundamentals/altinity-kb-kafka-virtual-columns/): Kafka virtual columns
+- [Keeper-Dependent Features in ClickHouse](http://kb.altinity.com/altinity-kb-setup-and-maintenance/keeper-dependent-features/): Keeper-Dependent Features in ClickHouse
+- [kurt & skew statistical functions in ClickHouse® ](http://kb.altinity.com/altinity-kb-functions/kurt_skew_statistics/): How to make them return the same result like python scipy
+- [Logging](http://kb.altinity.com/altinity-kb-setup-and-maintenance/logging/): Logging configuration and issues
+- [High Memory Usage During Merge in system.metric_log](http://kb.altinity.com/altinity-kb-setup-and-maintenance/metric_log_ram/): Resolving excessive memory consumption during merges in the ClickHouse® system.metric_log table.
+- [MODIFY (ADD) TTL in ClickHouse®](http://kb.altinity.com/altinity-kb-queries-and-syntax/ttl/modify-ttl/): What happens during a MODIFY or ADD TTL query 
+  *Keywords: clickhouse modify ttl, clickhouse alter table ttl*
+- [Multiple aligned date columns in PARTITION BY expression](http://kb.altinity.com/altinity-kb-queries-and-syntax/multiple-date-column-in-partition-key/): How to put multiple correlated date-like columns in partition key without generating a lot of partitions in case not exact match between them.
+- [ODBC Driver for ClickHouse®](http://kb.altinity.com/altinity-kb-integrations/clickhouse-odbc/): ODBC Driver for ClickHouse®
+- [Part names & MVCC](http://kb.altinity.com/engines/mergetree-table-engine-family/part-naming-and-mvcc/): Part names &amp; multiversion concurrency control.
+- [Pre-Aggregation approaches](http://kb.altinity.com/altinity-kb-schema-design/preaggregations/): ETL vs Materialized Views vs Projections in ClickHouse®
+- [Precreate parts using clickhouse-local](http://kb.altinity.com/altinity-kb-setup-and-maintenance/precreate_parts_using_clickhouse_local.sh/): Precreate parts using clickhouse-local.
+- [How to pick an ORDER BY / PRIMARY KEY / PARTITION BY for the MergeTree family table](http://kb.altinity.com/engines/mergetree-table-engine-family/pick-keys/): Optimizing ClickHouse® MergeTree tables
+  *Keywords: order by clickhouse, clickhouse partition by*
+- [Recovery after complete data loss](http://kb.altinity.com/altinity-kb-setup-and-maintenance/recovery-after-complete-data-loss/): When disaster strikes 
+- [Remove block numbers from zookeeper for removed partitions](http://kb.altinity.com/altinity-kb-useful-queries/remove_unneeded_block_numbers/): Remove block numbers from zookeeper for removed partitions SELECT distinct concat(&#39;delete &#39;, zk.block_numbers_path, zk.partition_id) FROM ( …
+- [Removing tasks in the replication queue related to empty partitions](http://kb.altinity.com/altinity-kb-useful-queries/remove_empty_partitions_from_rq/): Removing tasks in the replication queue related to empty partitions
+- [How to Replicate ClickHouse RBAC Users and Grants with ZooKeeper/Keeper](http://kb.altinity.com/altinity-kb-setup-and-maintenance/users_in_keeper/): Practical guide to configure Keeper-backed RBAC replication for users, roles, grants, policies, quotas, and profiles across ClickHouse nodes, …
+- [Replication: Can not resolve host of another ClickHouse® server](http://kb.altinity.com/altinity-kb-setup-and-maintenance/change-me/): Symptom When configuring Replication the ClickHouse® cluster nodes are experiencing communication issues, and an error message appears in the log that …
+- [Row policies overhead (hiding 'removed' tenants)](http://kb.altinity.com/altinity-kb-queries-and-syntax/row_policy_using_dictionary/): One more approach to hide (delete) rows in ClickHouse®
+
+- [How much data are written to S3 during mutations](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-s3-object-storage/s3_and_mutations/): Example of how much data ClickHouse® reads and writes to s3 during mutations.
+- [Example of the table at s3 with cache](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-s3-object-storage/s3_cache_example/): s3 disk and s3 cache.
+- [S3Disk](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-s3-object-storage/s3disk/): Settings &lt;clickhouse&gt; &lt;storage_configuration&gt; &lt;disks&gt; &lt;s3&gt; &lt;type&gt;s3&lt;/type&gt; …
+- [Inferring Schema from AvroConfluent Messages in Kafka for ClickHouse®](http://kb.altinity.com/altinity-kb-integrations/altinity-kb-kafka/03-schema-formats/kafka-schema-inference/): Learn how to define Kafka table structures in ClickHouse® by using Avro&#39;s schema registry &amp; sample message.
+- [Setting the background message broker schedule pool size](http://kb.altinity.com/altinity-kb-integrations/altinity-kb-kafka/04-operations-troubleshooting/background_message_broker_schedule_pool_size/): Guide to managing the `background_message_broker_schedule_pool_size` setting for Kafka, RabbitMQ, and NATS table engines in your database.
+- [Why is simple `SELECT count()` Slow in ClickHouse®?](http://kb.altinity.com/altinity-kb-queries-and-syntax/slow_select_count/): ClickHouse is a columnar database that provides excellent performance for analytical queries. However, in some cases, a simple count query can be …
+- [SnowflakeID for Efficient Primary Keys ](http://kb.altinity.com/altinity-kb-schema-design/snowflakeid/): SnowflakeID for Efficient Primary Keys 
+- [source parts size is greater than the current maximum](http://kb.altinity.com/altinity-kb-setup-and-maintenance/source-pars-size-is-greater-than-maximum/): source parts size (...) is greater than the current maximum (...)
+- [ClickHouse® + Spark](http://kb.altinity.com/altinity-kb-integrations/spark/): jdbc The trivial &amp; natural way to talk to ClickHouse from Spark is using jdbc. There are 2 jdbc drivers: …
+- [Successful ClickHouse® deployment plan](http://kb.altinity.com/altinity-kb-setup-and-maintenance/clickhouse-deployment-plan/): Successful ClickHouse® deployment plan
+- [sysall database (system tables on a cluster level)](http://kb.altinity.com/altinity-kb-setup-and-maintenance/sysall/): sysall database (system tables on a cluster level)
+- [Timeouts during OPTIMIZE FINAL](http://kb.altinity.com/altinity-kb-setup-and-maintenance/timeouts-during-optimize-final/): `Timeout exceeded ...` or `executing longer than distributed_ddl_task_timeout`  during `OPTIMIZE FINAL`.
+- [Collecting query execution flamegraphs using system.trace_log](http://kb.altinity.com/altinity-kb-queries-and-syntax/trace_log/): ClickHouse® has embedded functionality to analyze the details of query performance.
+It&rsquo;s system.trace_log table.
+By default it collects …
+- [Two columns indexing](http://kb.altinity.com/altinity-kb-schema-design/two-columns-indexing/): How to create ORDER BY suitable for filtering over two different columns in two different queries
+- [Use an executable dictionary as cron task](http://kb.altinity.com/altinity-kb-setup-and-maintenance/executable-dictionary/): If you need to execute scheduled tasks, you can use an executable dictionary like it was a cron task.
+
+- [Useful settings to turn on/Defaults that should be reconsidered](http://kb.altinity.com/altinity-kb-setup-and-maintenance/useful-setting-to-turn-on/): Useful settings to turn on.
+- [Using array functions to mimic window-functions alike behavior](http://kb.altinity.com/altinity-kb-queries-and-syntax/array-functions-as-window/): There are cases where you may need to mimic window functions using arrays in ClickHouse. This could be for optimization purposes, to better manage …
+- [Vulnerabilities](http://kb.altinity.com/upgrade/vulnerabilities/): Vulnerabilities
+- [What are my TTL settings?](http://kb.altinity.com/altinity-kb-queries-and-syntax/ttl/what-are-my-ttls/): What are my TTL settings?
+- [Who ate my CPU](http://kb.altinity.com/altinity-kb-setup-and-maintenance/who-ate-my-cpu/): Queries to find which subsytem of ClickHouse® is using the most of CPU.
+- [Install standalone Zookeeper for ClickHouse® on Ubuntu / Debian](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/install_ubuntu/): Install standalone Zookeeper for ClickHouse® on Ubuntu / Debian.
+- [Zookeeper session has expired](http://kb.altinity.com/altinity-kb-setup-and-maintenance/zookeeper-session-expired/): Zookeeper session has expired
+- [Server configuration files](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-server-config-files/): How to organize configuration files in ClickHouse® and how to manage changes
+
+  *Keywords: clickhouse config.xml, clickhouse configuration*
+- [](http://kb.altinity.com/altinitycloud/altinity-cloud-connections/clickhouseclient/): 
+- [](http://kb.altinity.com/altinitykubernetesoperator/kubernetesinstallguide/minikubeonlinux/): 
+- [](http://kb.altinity.com/search/): 
+- [-Resample vs -If vs -Map vs Subquery](http://kb.altinity.com/altinity-kb-functions/resample-vs-if-vs-map-vs-subquery/): 5 categories SELECT sumResample(0, 5, 1)(number, number % 5) AS sum FROM numbers_mt(1000000000) …
+- [-State & -Merge combinators](http://kb.altinity.com/altinity-kb-queries-and-syntax/state-and-merge-combinators/): -State &amp; -Merge combinators
+
+- [Add/Remove/Rebuild a ClickHouse® replica](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/add_remove_replica/): How to add/remove a new ClickHouse replica manually and using `clickhouse-backup`, and how to rebuild a replica that lost local storage
+
+  *Keywords: clickhouse replica, clickhouse add replica, clickhouse remove replica, clickhouse rebuild node*
+- [Adjusting librdkafka settings](http://kb.altinity.com/altinity-kb-integrations/altinity-kb-kafka/01-fundamentals/altinity-kb-adjusting-librdkafka-settings/): Adjusting librdkafka settings
+
+- [ClickHouse® AggregatingMergeTree](http://kb.altinity.com/engines/mergetree-table-engine-family/aggregatingmergetree/): FAQs for storing and merging pre-aggregated data
+
+  *Keywords: clickhouse aggregatingmergetree, aggregatingmergetree*
+- [Aggressive merges](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-aggressive_merges/): Aggressive merges
+
+- [ALTER MODIFY COLUMN is stuck, the column is inaccessible.](http://kb.altinity.com/altinity-kb-queries-and-syntax/altinity-kb-alter-modify-column-is-stuck-the-column-is-inaccessible/): ALTER MODIFY COLUMN is stuck, the column is inaccessible.
+
+- [Altinity Backup for ClickHouse®](http://kb.altinity.com/altinity-kb-setup-and-maintenance/clickhouse-backup/): Altinity Backup for ClickHouse® + backblaze
+
+- [Altinity packaging compatibility >21.x and earlier](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-packaging-compatibility-greater-than-21.x-and-earlier/): Altinity packaging compatibility &gt;21.x and earlier
+
+- [ANSI SQL mode](http://kb.altinity.com/altinity-kb-queries-and-syntax/ansi-sql-mode/): ANSI SQL mode
+
+- [arrayFold](http://kb.altinity.com/altinity-kb-functions/arrayfold/): EWMA example WITH [40, 45, 43, 31, 20] AS data, 0.3 AS alpha SELECT arrayFold((acc, x) -&gt; arrayPushBack(acc, (alpha * x) + ((1 - alpha) * …
+- [arrayMap, arrayJoin or ARRAY JOIN memory usage](http://kb.altinity.com/altinity-kb-functions/array-like-memory-usage/): Why do arrayMap, arrayFilter, and arrayJoin use so much memory?
+
+- [assumeNotNull and friends](http://kb.altinity.com/altinity-kb-functions/assumenotnull-and-friends/): assumeNotNull and friends
+
+- [Async INSERTs](http://kb.altinity.com/altinity-kb-queries-and-syntax/async-inserts/): Comprehensive guide to ClickHouse Async INSERTs - configuration, best practices, and monitoring
+
+- [Atomic insert](http://kb.altinity.com/altinity-kb-queries-and-syntax/atomic-insert/): Atomic insert
+
+- [AWS EC2 Storage](http://kb.altinity.com/altinity-kb-setup-and-maintenance/aws-ec2-storage/): AWS EBS, EFS, FSx, Lustre
+
+- [Backfill/populate MV in a controlled manner](http://kb.altinity.com/altinity-kb-schema-design/materialized-views/backfill-populate-mv-in-a-controlled-manner/): Backfill/populate MV in a controlled manner
+
+- [Backups](http://kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/hardening-clickhouse-security/): Backups
+
+- [Best schema for storing many metrics registered from the single source](http://kb.altinity.com/altinity-kb-schema-design/best-schema-for-storing-many-metrics-registered-from-the-single-source/): Best schema for storing many metrics registered from the single source
+
+- [BI Tools](http://kb.altinity.com/altinity-kb-integrations/bi-tools/): Business Intelligence Tools
+
+- [Can detached parts in ClickHouse® be dropped?](http://kb.altinity.com/altinity-kb-useful-queries/detached-parts/): Cleaning up detached parts without data loss
+
+  *Keywords: clickhouse detached parts, clickhouse detach, clickhouse drop partition*
+- [CatBoost / MindsDB /  Fast.ai](http://kb.altinity.com/altinity-kb-integrations/catboost-mindsdb-fast.ai/): CatBoost / MindsDB /  Fast.ai
+
+- [ClickHouse® Projections](http://kb.altinity.com/altinity-kb-queries-and-syntax/projections-examples/): Using this ClickHouse feature to optimize queries
+
+  *Keywords: clickhouse projections, clickhouse projection vs materialized view*
+- [clickhouse-client](http://kb.altinity.com/altinity-kb-interfaces/altinity-kb-clickhouse-client/): ClickHouse® client
+
+  *Keywords: clickhouse client*
+- [clickhouse-copier 20.3 and earlier](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/altinity-kb-clickhouse-copier/altinity-kb-clickhouse-copier-20.3-and-earlier/): clickhouse-copier 20.3 and earlier
+
+- [clickhouse-copier 20.4 - 21.6](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/altinity-kb-clickhouse-copier/altinity-kb-clickhouse-copier-20.4_21.6/): clickhouse-copier 20.4 - 21.6
+
+- [ClickHouse® Function/Engines/Settings Report](http://kb.altinity.com/upgrade/clickhouse-feature-report/): Report on ClickHouse® functions, table functions, table engines, system and MergeTree settings, with availability information. 
+
+- [ClickHouse® in Docker](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-clickhouse-in-docker/): ClickHouse® in Docker
+
+- [ClickHouse® Monitoring](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-monitoring/): Tracking potential issues in your cluster before they cause a critical error
+
+  *Keywords: ClickHouse® monitoring, ClickHouse® metrics*
+- [ClickHouse® versions](http://kb.altinity.com/altinity-kb-setup-and-maintenance/clickhouse-versions/): ClickHouse® versions
+
+- [Cluster Configuration FAQ](http://kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/cluster-configuration-faq/): Cluster Configuration FAQ
+
+- [Cluster Configuration Process](http://kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/cluster-configuration-process/): Cluster Configuration Process
+
+- [Codecs on array columns](http://kb.altinity.com/altinity-kb-schema-design/codecs/codecs-on-array-columns/): Codecs on array columns
+
+- [Codecs speed](http://kb.altinity.com/altinity-kb-schema-design/codecs/codecs-speed/): Codecs speed
+
+- [Configure ClickHouse® for low memory environments](http://kb.altinity.com/altinity-kb-setup-and-maintenance/configure_clickhouse_for_low_mem_envs/): Configure ClickHouse® for low memory environments
+
+- [Converting MergeTree to Replicated](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-converting-mergetree-to-replicated/): Adding replication to a table
+
+  *Keywords: clickhouse replicatedmergetree, clickhouse replicated*
+- [Cumulative Anything](http://kb.altinity.com/altinity-kb-queries-and-syntax/cumulative-unique/): Cumulative Anything
+
+- [Data types on disk and in RAM](http://kb.altinity.com/altinity-kb-queries-and-syntax/data-types-on-disk-and-in-ram/): Data types on disk and in RAM
+
+- [Database Size - Table - Column size](http://kb.altinity.com/altinity-kb-useful-queries/altinity-kb-database-size-table-column-size/): Queries to analyze size and compression rates across tables and columns
+
+  *Keywords: clickhouse database size, clickhouse table size*
+- [DELETE via tombstone column](http://kb.altinity.com/altinity-kb-queries-and-syntax/delete-via-tombstone-column/): DELETE via tombstone column
+
+- [Merge Shards](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-desharding/): Marge many Shards to one
+
+- [Dictionaries & arrays](http://kb.altinity.com/altinity-kb-dictionaries/dictionaries-and-arrays/): Dictionaries &amp; arrays
+
+- [Dictionaries vs LowCardinality](http://kb.altinity.com/altinity-kb-schema-design/altinity-kb-dictionaries-vs-lowcardinality/): Dictionaries vs LowCardinality
+
+- [Dictionary on the top of several tables using VIEW](http://kb.altinity.com/altinity-kb-dictionaries/dictionary-on-top-tables/): Dictionary on the top of several tables using VIEW
+
+- [differential backups using clickhouse-backup](http://kb.altinity.com/altinity-kb-setup-and-maintenance/clickhouse-backup-diff/): differential backups using clickhouse-backup
+
+- [Dimension table design ](http://kb.altinity.com/altinity-kb-dictionaries/dimension_table_desing/): Dimension table design 
+
+- [Distributed table to ClickHouse® Cluster](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/distributed-table-cluster/): Shifting INSERTs to a standby cluster
+
+  *Keywords: clickhouse distributed table, clickhouse distributed*
+- [EmbeddedRocksDB & dictionary](http://kb.altinity.com/engines/altinity-kb-embeddedrocksdb-and-dictionary/): EmbeddedRocksDB &amp; dictionary
+
+- [Encrypt](http://kb.altinity.com/altinity-kb-functions/encrypt/): WHERE over encrypted column CREATE TABLE encrypt ( `key` UInt32, `value` FixedString(4) ) ENGINE = MergeTree ORDER BY key; INSERT INTO encrypt SELECT …
+- [Error handling](http://kb.altinity.com/altinity-kb-integrations/altinity-kb-kafka/04-operations-troubleshooting/error-handling/): Error handling
+
+- [Exactly once semantics](http://kb.altinity.com/altinity-kb-integrations/altinity-kb-kafka/02-consumption-patterns/altinity-kb-exactly-once-semantics/): Exactly once semantics
+
+- [Example of PostgreSQL dictionary](http://kb.altinity.com/altinity-kb-dictionaries/example-of-postgresql-dictionary/): Example of PostgreSQL dictionary
+
+- [Example: minmax](http://kb.altinity.com/altinity-kb-queries-and-syntax/skip-indexes/minmax/): Example: minmax
+
+- [EXPLAIN query](http://kb.altinity.com/altinity-kb-queries-and-syntax/explain-query/): EXPLAIN query
+
+- [Fetch Alter Table](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/fetch_alter_table/): Fetch Alter Table
+
+- [Fill missing values at query time](http://kb.altinity.com/altinity-kb-queries-and-syntax/fill-missing-values-at-query-time/): Fill missing values at query time
+
+- [FINAL clause speed](http://kb.altinity.com/altinity-kb-queries-and-syntax/altinity-kb-final-clause-speed/): FINAL clause speed
+
+- [Flattened table](http://kb.altinity.com/altinity-kb-schema-design/flattened-table/): Flattened table
+
+- [Floats vs Decimals](http://kb.altinity.com/altinity-kb-schema-design/floats-vs-decimals/): Floats vs Decimals
+
+- [golang-migrate](http://kb.altinity.com/altinity-kb-setup-and-maintenance/schema-migration-tools/golang-migrate/): golang-migrate
+
+- [Google S3 (GCS)](http://kb.altinity.com/altinity-kb-integrations/altinity-kb-google-s3-gcs/): GCS with the table function - seems to work correctly for simple scenarios.
+Essentially you can follow the steps from the Migrating from Amazon S3 to …
+- [Hardware Requirements](http://kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/hardware-requirements/): Hardware Requirements
+
+- [High CPU usage in ClickHouse®](http://kb.altinity.com/altinity-kb-setup-and-maintenance/high-cpu-usage/): Getting CPU usage under control
+
+  *Keywords: clickhouse high cpu usage, clickhouse cpu, clickhouse cpu usage*
+- [How to check the list of watches](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/altinity-kb-how-to-check-the-list-of-watches/): How to check the list of watches
+
+- [How to Convert Atomic to Ordinary](http://kb.altinity.com/engines/altinity-kb-atomic-database-engine/altinity-kb-how-to-convert-atomic-to-ordinary/): How to Convert Atomic to Ordinary
+
+- [How to test different compression codecs](http://kb.altinity.com/altinity-kb-schema-design/codecs/altinity-kb-how-to-test-different-compression-codecs/): How to test different compression codecs
+
+- [index & column files](http://kb.altinity.com/engines/mergetree-table-engine-family/index-and-column-files/): index &amp; column files
+
+- [Ingestion performance and formats](http://kb.altinity.com/altinity-kb-schema-design/ingestion-performance-and-formats/): clickhouse-client -q &#39;select toString(number) s, number n, number/1000 f from numbers(100000000) format TSV&#39; &gt; speed.tsv clickhouse-client …
+- [IPs/masks](http://kb.altinity.com/altinity-kb-schema-design/how-to-store-ips/): IPs/masks
+
+- [JOIN optimization tricks](http://kb.altinity.com/altinity-kb-queries-and-syntax/joins/joins-tricks/): All tests below were done with default hash join. ClickHouse joins are evolving rapidly and behavior varies with other join types.
+Data For our …
+- [Join with Calendar using Arrays](http://kb.altinity.com/altinity-kb-queries-and-syntax/join-with-calendar-using-arrays/): Join with Calendar using Arrays
+
+- [JSONAsString and Mat. View as JSON parser](http://kb.altinity.com/altinity-kb-schema-design/altinity-kb-jsonasstring-and-mat.-view-as-json-parser/): JSONAsString and Mat. View as JSON parser
+
+- [JSONExtract to parse many attributes at a time](http://kb.altinity.com/altinity-kb-queries-and-syntax/jsonextract-to-parse-many-attributes-at-a-time/): JSONExtract to parse many attributes at a time
+
+- [JVM sizes and garbage collector settings](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/jvm-sizes-and-garbage-collector-settings/): JVM sizes and garbage collector settings
+
+- [Kafka main parsing loop](http://kb.altinity.com/altinity-kb-integrations/altinity-kb-kafka/01-fundamentals/altinity-kb-kafka-main-parsing-loop/): Kafka main parsing loop
+
+- [Kafka parallel consuming](http://kb.altinity.com/altinity-kb-integrations/altinity-kb-kafka/02-consumption-patterns/altinity-kb-kafka-parallel-consuming/): Kafka parallel consuming
+
+- [KILL QUERY](http://kb.altinity.com/altinity-kb-queries-and-syntax/altinity-kb-kill-query/): KILL QUERY
+
+- [Kubernetes job for clickhouse-copier](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/altinity-kb-clickhouse-copier/altinity-kb-clickhouse-copier-kubernetes-job/): Kubernetes job for `clickhouse-copier`
+
+- [Lag / Lead](http://kb.altinity.com/altinity-kb-queries-and-syntax/lag-lead/): Lag / Lead
+
+- [Load balancers](http://kb.altinity.com/altinity-kb-setup-and-maintenance/load-balancers/): Load balancers
+
+- [LowCardinality](http://kb.altinity.com/altinity-kb-schema-design/lowcardinality/): LowCardinality
+
+- [Machine learning in ClickHouse](http://kb.altinity.com/altinity-kb-queries-and-syntax/machine-learning-in-clickhouse/): Machine learning in ClickHouse
+
+- [memory configuration settings](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-memory-configuration-settings/): memory configuration settings
+
+- [Memory Overcommiter](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-memory-overcommit/): Enable Memory overcommiter instead of ussing `max_memory_usage` per query
+
+- [Merge performance and OPTIMIZE FINAL](http://kb.altinity.com/engines/mergetree-table-engine-family/merge-performance-final-optimize-by/): Merge Performance Main things affecting the merge speed are:
+Schema (especially compression codecs, some bad types, sorting order&hellip;) Horizontal …
+- [Moving a table to another device](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-moving-table-to-another-device./): Moving a table to another device.
+
+- [MultiDisk (JBOD) Balancing](http://kb.altinity.com/altinity-kb-setup-and-maintenance/multidisk-jbod-balancing/): ClickHouse provides two options to balance an insert across disks in a volume with more than one disk: round_robin and least_used .
+Round Robin …
+- [Multiple MVs attached to Kafka table](http://kb.altinity.com/altinity-kb-integrations/altinity-kb-kafka/02-consumption-patterns/altinity-kb-kafka-mv-consuming/): How Multiple MVs attached to Kafka table consume and how they are affected by kafka_num_consumers/kafka_thread_per_consumer
+
+- [Mutations](http://kb.altinity.com/altinity-kb-queries-and-syntax/mutations/): ALTER UPDATE / DELETE
+
+- [MySQL8 source for dictionaries](http://kb.altinity.com/altinity-kb-dictionaries/mysql8-source-for-dictionaries/): MySQL8 source for dictionaries
+
+- [Network Configuration](http://kb.altinity.com/altinity-kb-setup-and-maintenance/cluster-production-configuration-guide/network-configuration/): Network Configuration
+
+- [Notes on Various Errors with respect to replication and distributed connections](http://kb.altinity.com/altinity-kb-useful-queries/connection-issues-distributed-parts/): Notes on errors related to replication and distributed connections
+
+  *Keywords: replication, distributed connections*
+- [Nulls in order by](http://kb.altinity.com/engines/mergetree-table-engine-family/altinity-kb-nulls-in-order-by/): Nulls in order by
+
+- [Number of active parts in a partition](http://kb.altinity.com/altinity-kb-useful-queries/altinity-kb-number-of-active-parts-in-a-partition/): Number of active parts in a partition
+
+- [Object consistency in a cluster](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-object-consistency-in-a-cluster/): Object consistency in a cluster
+
+- [OPTIMIZE vs OPTIMIZE FINAL](http://kb.altinity.com/altinity-kb-queries-and-syntax/altinity-kb-optimize-vs-optimize-final/): OPTIMIZE vs OPTIMIZE FINAL
+
+- [Parameterized views](http://kb.altinity.com/altinity-kb-queries-and-syntax/altinity-kb-parameterized-views/): Parameterized views
+
+- [Partial updates](http://kb.altinity.com/altinity-kb-dictionaries/partial-updates/): Partial updates
+
+- [Use both projection and raw data in single query](http://kb.altinity.com/altinity-kb-queries-and-syntax/partial-projection-optimization/): How to write queries, which will use both data from projection and raw table.
+
+- [Parts consistency](http://kb.altinity.com/altinity-kb-useful-queries/parts-consistency/): Check if there are blocks missing SELECT database, table, partition_id, ranges.1 AS previous_part, ranges.2 AS next_part, ranges.3 AS …
+- [PIVOT / UNPIVOT](http://kb.altinity.com/altinity-kb-queries-and-syntax/pivot-unpivot/): PIVOT / UNPIVOT
+
+  *Keywords: clickhouse pivot, clickhouse unpivot*
+- [Possible deadlock avoided. Client should retry](http://kb.altinity.com/altinity-kb-queries-and-syntax/altinity-kb-possible-deadlock-avoided.-client-should-retry/): Possible deadlock avoided. Client should retry
+
+- [Proper setup](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/altinity-kb-proper-setup/): Proper setup
+
+- [RabbitMQ Error handling](http://kb.altinity.com/altinity-kb-integrations/altinity-kb-rabbitmq/error-handling/): Error handling for RabbitMQ table engine
+
+- [range_hashed example - open intervals](http://kb.altinity.com/altinity-kb-dictionaries/altinity-kb-range_hashed-example-open-intervals/): range_hashed example - open intervals
+
+- [Recovering from complete metadata loss in ZooKeeper](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/altinity-kb-recovering-from-complete-metadata-loss-in-zookeeper/): Recovering from complete metadata loss in ZooKeeper
+
+- [System tables ate my disk](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-system-tables-eat-my-disk/): When the ClickHouse® SYSTEM database gets out of hand
+
+  *Keywords: clickhouse system tables*
+- [Remote table function](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/remote-table-function/): Remote table function
+
+- [Removing empty parts](http://kb.altinity.com/upgrade/removing-empty-parts/): Removing empty parts
+
+- [Removing lost parts](http://kb.altinity.com/upgrade/removing-lost-parts/): Removing lost parts
+
+- [ReplacingMergeTree does not collapse duplicates](http://kb.altinity.com/engines/mergetree-table-engine-family/replacingmergetree/altinity-kb-replacingmergetree-does-not-collapse-duplicates/): ReplacingMergeTree does not collapse duplicates
+
+- [ClickHouse® Replication problems](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-check-replication-ddl-queue/): Finding and troubleshooting  problems in the `replication_queue` 
+
+  *Keywords: clickhouse replication, clickhouse check replication status*
+- [Replication queue](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-replication-queue/): Replication queue
+
+- [Rewind / fast-forward / replay](http://kb.altinity.com/altinity-kb-integrations/altinity-kb-kafka/02-consumption-patterns/altinity-kb-rewind-fast-forward-replay/): Rewind / fast-forward / replay
+
+- [Roaring bitmaps for calculating retention](http://kb.altinity.com/altinity-kb-queries-and-syntax/roaring-bitmaps-for-calculating-retention/): CREATE TABLE test_roaring_bitmap ENGINE = MergeTree ORDER BY h AS SELECT intDiv(number, 5) AS h, groupArray(toUInt16(number - (2 * intDiv(number, …
+- [Moving ClickHouse to Another Server](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-data-migration/rsync/): Copying Multi-Terabyte Live ClickHouse to Another Server
+
+- [SAMPLE by](http://kb.altinity.com/altinity-kb-queries-and-syntax/altinity-kb-sample-by/): SAMPLE by
+
+- [Sampling Example](http://kb.altinity.com/altinity-kb-queries-and-syntax/sampling-example/): The most important idea about sampling that the primary index must have LowCardinality. (For more information, see the Altinity Knowledge Base article …
+- [Security named collections](http://kb.altinity.com/altinity-kb-dictionaries/security-named-collections/): Security named collections
+
+- [SELECTs from engine=Kafka](http://kb.altinity.com/altinity-kb-integrations/altinity-kb-kafka/01-fundamentals/altinity-kb-selects-from-engine-kafka/): SELECTs from engine=Kafka
+
+- [sequenceMatch](http://kb.altinity.com/altinity-kb-functions/altinity-kb-sequencematch/): sequenceMatch
+
+- [Settings to adjust](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-settings-to-adjust/): Settings to adjust
+
+- [Shutting down a node](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-shutting-down-a-node/): Shutting down a node
+
+- [Simple aggregate functions & combinators](http://kb.altinity.com/altinity-kb-queries-and-syntax/simplestateif-or-ifstate-for-simple-aggregate-functions/): Simple aggregate functions &amp; combinators
+
+- [Skip index](http://kb.altinity.com/engines/mergetree-table-engine-family/skip-index/): Skip index
+
+- [Skip index bloom_filter Example](http://kb.altinity.com/altinity-kb-queries-and-syntax/skip-indexes/skip-index-bloom_filter-for-array-column/): tested with ClickHouse® 20.8.17.25 …
+- [Skip indexes examples](http://kb.altinity.com/altinity-kb-queries-and-syntax/skip-indexes/skip-indexes-examples/): bloom_filter create table bftest (k Int64, x Int64) Engine=MergeTree order by k; insert into bftest select number, rand64()%565656 from …
+- [SPARSE_HASHED VS HASHED vs HASHED_ARRAY](http://kb.altinity.com/altinity-kb-dictionaries/altinity-kb-sparse_hashed-vs-hashed/): SPARSE_HASHED VS HASHED VS HASHED_ARRAY
+
+- [SSL connection unexpectedly closed](http://kb.altinity.com/altinity-kb-setup-and-maintenance/ssl-connection-unexpectedly-closed/): SSL connection unexpectedly closed
+
+- [SummingMergeTree](http://kb.altinity.com/engines/mergetree-table-engine-family/summingmergetree/): SummingMergeTree
+
+- [Suspiciously many broken parts](http://kb.altinity.com/altinity-kb-setup-and-maintenance/suspiciously-many-broken-parts/): Debugging a common error message
+
+  *Keywords: clickhouse broken parts, clickhouse too many broken parts*
+- [There are N unfinished hosts (0 of them are currently active).](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-ddlworker/there-are-n-unfinished-hosts-0-of-them-are-currently-active/): There are N unfinished hosts (0 of them are currently active).
+
+- [Threads](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-threads/): Threads
+
+- [Time zones](http://kb.altinity.com/altinity-kb-queries-and-syntax/time-zones/): Time zones
+
+- [Time-series alignment with interpolation](http://kb.altinity.com/altinity-kb-queries-and-syntax/ts-interpolation/): Time-series alignment with interpolation
+
+- [Top N & Remain](http://kb.altinity.com/altinity-kb-queries-and-syntax/top-n-and-remain/): Top N &amp; Remain
+
+- [Troubleshooting](http://kb.altinity.com/altinity-kb-queries-and-syntax/troubleshooting/): Tips for ClickHouse® troubleshooting 
+
+- [TTL GROUP BY Examples](http://kb.altinity.com/altinity-kb-queries-and-syntax/ttl/ttl-group-by-examples/): TTL GROUP BY Examples
+
+- [TTL Recompress example](http://kb.altinity.com/altinity-kb-queries-and-syntax/ttl/ttl-recompress-example/): TTL Recompress example
+
+- [UPDATE via Dictionary](http://kb.altinity.com/altinity-kb-queries-and-syntax/update-via-dictionary/): UPDATE via Dictionary
+
+- [Using clickhouse-keeper](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/clickhouse-keeper/): Moving to the ClickHouse® alternative to Zookeeper
+
+  *Keywords: clickhouse keeper, clickhouse-keeper*
+- [Values mapping](http://kb.altinity.com/altinity-kb-queries-and-syntax/values-mapping/): Values mapping
+
+- [UPSERT by VersionedCollapsingMergeTree](http://kb.altinity.com/engines/mergetree-table-engine-family/versioned-collapsing-mergetree/): How to aggregate mutating event stream with duplicates
+- [Who ate my ClickHouse® memory?](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-who-ate-my-memory/): *&#34;It was here a few minutes ago...&#34;*
+
+  *Keywords: clickhouse memory, clickhouse memory usage*
+- [Window functions](http://kb.altinity.com/altinity-kb-queries-and-syntax/window-functions/): Window functions
+
+- [X rows of Y total rows in filesystem are suspicious](http://kb.altinity.com/altinity-kb-setup-and-maintenance/x-rows-of-y-total-rows-in-filesystem-are-suspicious/): X rows of Y total rows in filesystem are suspicious
+
+- [ZooKeeper backup](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/altinity-kb-zookeeper-backup/): ZooKeeper backup
+
+- [ZooKeeper cluster migration](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/altinity-kb-zookeeper-cluster-migration/): ZooKeeper cluster migration
+
+- [ZooKeeper cluster migration when using K8s node local storage](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/zookeeper-cluster-migration-k8s-node-storage/): ZooKeeper cluster migration when using K8s node local storage
+
+- [ZooKeeper Monitoring](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/zookeeper-monitoring/): ZooKeeper Monitoring
+
+- [ZooKeeper schema](http://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-zookeeper/zookeeper-schema/): ZooKeeper schema
+
