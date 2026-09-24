@@ -1,0 +1,10 @@
+# {{ .Site.Title }}
+> {{ .Site.Params.description | default .Site.Title }}
+
+## Pages
+{{- range (where .Site.RegularPages "Language.Lang" "en") }}
+- [{{ .Title }}]({{ .Permalink }}): {{ .Description | default .Summary | truncate 150 }}
+  {{- with .Params.keywords }}
+  *Keywords: {{ delimit . ", " }}*
+  {{- end }}
+{{- end }}

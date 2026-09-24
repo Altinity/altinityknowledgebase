@@ -1,0 +1,18 @@
+# {{ .Site.Title }} - Full Content
+{{- range (where .Site.RegularPages "Language.Lang" "en") }}
+---
+title: {{ .Title }}
+url: {{ .Permalink }}
+---
+
+{{- /* 1. Get the raw content to avoid the 'plainify' disappearing act */ -}}
+{{- $text := .RawContent -}}
+
+{{- /* 2. Replace the encoded brackets with simple ones so the LLM understands them */ -}}
+{{- $text = replace $text "&lt;" "<" -}}
+{{- $text = replace $text "&gt;" ">" -}}
+
+{{- /* 3. Output the content. The LLM will ignore the Hugo brackets. */ -}}
+{{ $text | safeHTML }}
+
+{{ end -}}

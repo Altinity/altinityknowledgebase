@@ -36,6 +36,7 @@ description: >
   * [https://github.com/delium/clickhouse-migrator](https://github.com/delium/clickhouse-migrator)
   * [https://github.com/zifter/clickhouse-migrations](https://github.com/zifter/clickhouse-migrations)
   * [https://github.com/trushad0w/clickhouse-migrate](https://github.com/trushad0w/clickhouse-migrate)
+  * [https://github.com/Maksim-Burtsev/PyClickHouseMigrator](https://github.com/Maksim-Burtsev/PyClickHouseMigrator)
 * phpMigrations
   * [https://github.com/smi2/phpMigrationsClickHouse](https://github.com/smi2/phpMigrationsClickhouse)
   * [https://habrahabr.ru/company/smi2/blog/317682/](https://habrahabr.ru/company/smi2/blog/317682/)

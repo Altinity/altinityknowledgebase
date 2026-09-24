@@ -3,45 +3,16 @@ title: "Handy queries for system.query_log"
 linkTitle: "Handy queries for system.query_log"
 weight: 100
 description: >-
-     Handy queries for a system.query_log.
+     Useful queries for analyzing query performance, resource usage, and overall query statistics
+keywords:
+  - clickhouse query performance
 ---
 
-## The most cpu / write / read-intensive queries from query_log
-
-```sql
-SELECT
-    normalized_query_hash,
-    any(query),
-    count(),
-    sum(query_duration_ms) / 1000 AS QueriesDuration,
-    sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'RealTimeMicroseconds')]) / 1000000 AS RealTime,
-    sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'UserTimeMicroseconds')]) / 1000000 AS UserTime,
-    sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'SystemTimeMicroseconds')]) / 1000000 AS SystemTime,
-    sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'DiskReadElapsedMicroseconds')]) / 1000000 AS DiskReadTime,
-    sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'DiskWriteElapsedMicroseconds')]) / 1000000 AS DiskWriteTime,
-    sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'NetworkSendElapsedMicroseconds')]) / 1000000 AS NetworkSendTime,
-    sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'NetworkReceiveElapsedMicroseconds')]) / 1000000 AS NetworkReceiveTime,
-    sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'ZooKeeperWaitMicroseconds')]) / 1000000 AS ZooKeeperWaitTime,
-    sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'OSIOWaitMicroseconds')]) / 1000000 AS OSIOWaitTime,
-    sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'OSCPUWaitMicroseconds')]) / 1000000 AS OSCPUWaitTime,
-    sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'OSCPUVirtualTimeMicroseconds')]) / 1000000 AS OSCPUVirtualTime,
-    sum(read_rows) AS ReadRows,
-    formatReadableSize(sum(read_bytes)) AS ReadBytes,
-    sum(written_rows) AS WrittenTows,
-    formatReadableSize(sum(written_bytes)) AS WrittenBytes,
-    sum(result_rows) AS ResultRows,
-    formatReadableSize(sum(result_bytes)) AS ResultBytes
-FROM system.query_log
-WHERE (event_date >= today()) AND (event_time > (now() - 3600)) AND type in (2,4) -- QueryFinish, ExceptionWhileProcessing
-GROUP BY normalized_query_hash
-    WITH TOTALS
-ORDER BY UserTime DESC
-LIMIT 30
-FORMAT Vertical
-```
-
--- modern ClickHouse®
-
+## Most resource-intensive queries
+> For each query (cluster-wide, grouped by query hash and ordered by time), reports:
+- Latency-related metrics: CPU time categories, disk read and write time, network send and receive time, Zookeeper wait time
+- Data size-related metrics: counts of bytes and rows read/written, parts/ranges/marks read, files opened, and memory used
+- Cache hit performance
 ```sql
 SELECT 
     hostName() as host,
@@ -74,7 +45,7 @@ SELECT
     sum(ProfileEvents['ZooKeeperTransactions']) as ZooKeeperTransactions,
     formatReadableSize(sum(ProfileEvents['OSReadBytes'] ) as os_read_bytes ) as OSReadBytesExcludePageCache,
     formatReadableSize(sum(ProfileEvents['OSWriteBytes'] ) as os_write_bytes ) as OSWriteBytesExcludePageCache,
-    formatReadableSize(sum(ProfileEvents['OSReadChars'] ) as os_read_chars ) as OSReadBytesIncludePageCache,
+    formatReadableSize(sum(ProfileEvents['OSReadChars'] ) as os_read_chars ) as OSReadCharsIncludePageCache,
     formatReadableSize(sum(ProfileEvents['OSWriteChars'] ) as os_write_chars ) as OSWriteCharsIncludePageCache,
     formatReadableSize(quantile(0.97)(memory_usage) as memory_usage_q97) as MemoryUsageQ97 ,
     sum(read_rows) AS ReadRows,
@@ -95,7 +66,42 @@ LIMIT 30
 FORMAT Vertical;
 ```
 
+> Similar to above, for older ClickHouse versions (pre-22.4). Returns the slowest queries from a single host along with elements of latency.
+```sql
+SELECT
+    normalized_query_hash,
+    any(query),
+    count(),
+    sum(query_duration_ms) / 1000 AS QueriesDuration,
+    sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'RealTimeMicroseconds')]) / 1000000 AS RealTime,
+    sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'UserTimeMicroseconds')]) / 1000000 AS UserTime,
+    sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'SystemTimeMicroseconds')]) / 1000000 AS SystemTime,
+    sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'DiskReadElapsedMicroseconds')]) / 1000000 AS DiskReadTime,
+    sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'DiskWriteElapsedMicroseconds')]) / 1000000 AS DiskWriteTime,
+    sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'NetworkSendElapsedMicroseconds')]) / 1000000 AS NetworkSendTime,
+    sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'NetworkReceiveElapsedMicroseconds')]) / 1000000 AS NetworkReceiveTime,
+    sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'ZooKeeperWaitMicroseconds')]) / 1000000 AS ZooKeeperWaitTime,
+    sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'OSIOWaitMicroseconds')]) / 1000000 AS OSIOWaitTime,
+    sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'OSCPUWaitMicroseconds')]) / 1000000 AS OSCPUWaitTime,
+    sum(ProfileEvents.Values[indexOf(ProfileEvents.Names, 'OSCPUVirtualTimeMicroseconds')]) / 1000000 AS OSCPUVirtualTime,
+    sum(read_rows) AS ReadRows,
+    formatReadableSize(sum(read_bytes)) AS ReadBytes,
+    sum(written_rows) AS WrittenTows,
+    formatReadableSize(sum(written_bytes)) AS WrittenBytes,
+    sum(result_rows) AS ResultRows,
+    formatReadableSize(sum(result_bytes)) AS ResultBytes
+FROM system.query_log
+WHERE (event_date >= today()) AND (event_time > (now() - 3600)) AND type in (2,4) -- QueryFinish, ExceptionWhileProcessing
+GROUP BY normalized_query_hash
+    WITH TOTALS
+ORDER BY UserTime DESC
+LIMIT 30
+FORMAT Vertical
+```
+
 ## A/B tests of the same query
+
+> Runs cluster-wide, returns a side-by-side comparison of performance metrics, ordered by relative difference
 ```
 WITH
 	query_id='8c050082-428e-4523-847a-caf29511d6ba' AS first,
@@ -118,11 +124,11 @@ ORDER BY
 	metric ASC
 ```
 
-Another variant
+> Compares two queries run on the same host in the past day, returning the metrics highlighting the most significant performance differences between the faster and slower query
 ```
 WITH
-    toUUID('d18fb820-4075-49bf-8fa3-cd7e53b9d523') AS fast_query_id,
-    toUUID('22ffbcc0-c62a-4895-8105-ee9d7447a643') AS slow_query_id,
+    'd18fb820-4075-49bf-8fa3-cd7e53b9d523' AS fast_query_id,
+    '22ffbcc0-c62a-4895-8105-ee9d7447a643' AS slow_query_id,
     faster AS
     (
         SELECT pe.1 AS event_name, pe.2 AS event_value
@@ -157,28 +163,33 @@ ORDER BY event_name ASC
 SETTINGS join_use_nulls = 1
 ```
 
-## Find queries that were started but not finished at some moment in time
 
+## Queries which did not complete within specified timeframe
+> For a given time range, returns queries which either did not complete, or did not complete within a configurable timeframe (100 seconds)
 ```sql
 SELECT
   query_id,
   min(event_time) t,
   any(query)
 FROM system.query_log
-where event_date = today() and event_time > '2021-11-25 02:29:12'
+WHERE event_date = today() AND event_time > '2021-11-25 02:29:12'
 GROUP BY query_id
 HAVING countIf(type='QueryFinish') = 0 OR sum(query_duration_ms) > 100000
-order by t;
+ORDER BY t;
+```
 
-select
+> Returns queries which started within a specified timeframe but did not complete successfully (still running, crashed, threw exception)
+``` sql
+SELECT
      query_id,
      any(query)
-from system.query_log
-where event_time between '2021-09-24 07:00:00' and '2021-09-24 09:00:00'
-group by query_id HAVING countIf(type=1) <> countIf(type!=1)
+FROM system.query_log
+WHERE event_time BETWEEN '2021-09-24 07:00:00' AND '2021-09-24 09:00:00'
+GROUP BY query_id HAVING countIf(type=1) <> countIf(type!=1)
 ```
 
 ## Columns used in WHERE clauses
+> Returns a list of columns which are used as filters against a table. Replace %target_table% with the actual table name (or pattern) you want to inspect.
 ```
 WITH
     any(query) AS q,
@@ -197,9 +208,9 @@ WHERE (event_time >= (now() - toIntervalDay(1)))
 GROUP BY c2
 ORDER BY count() ASC;
 ```
-Replace %target_table% with the actual table name (or pattern) you want to inspect.
 
 ## Most‑selected columns
+> Over the past week, which columns have been accessed the most frequently in SELECT queries
 
 ```
 SELECT
@@ -217,6 +228,7 @@ LIMIT 50;
 ```
 
 ## Most‑used functions
+> Over the past week, which functions have been used the most
 
 ```
 SELECT
@@ -232,9 +244,10 @@ ORDER BY hits DESC
 LIMIT 50;
 ```
 
-## query ranks 
-```
+## "Worst offender" query ranks
+> Over a specified time range, returns the query shapes which appear to be the worst performing based on a range of ranked criteria
 
+```
 SELECT *
 FROM 
 (

@@ -56,16 +56,19 @@ FROM default.kafka_engine
 WHERE length(_error) > 0
 ```
 
-## Since 25.8 
-
-dead letter queue can be used via setting: `kafka_handle_error_mode='dead_letter'` [https://github.com/ClickHouse/ClickHouse/pull/68873](https://github.com/ClickHouse/ClickHouse/pull/68873)
-
-
-
-![Table connections](/assets/Untitled-2021-08-05-1027.png)
-
 [https://github.com/ClickHouse/ClickHouse/pull/20249](https://github.com/ClickHouse/ClickHouse/pull/20249)
 
 [https://github.com/ClickHouse/ClickHouse/pull/21850](https://github.com/ClickHouse/ClickHouse/pull/21850)
 
 [https://altinity.com/blog/clickhouse-kafka-engine-faq](https://altinity.com/blog/clickhouse-kafka-engine-faq)
+
+
+## Since 25.8 
+
+dead letter queue can be used via setting: `kafka_handle_error_mode='dead_letter_queue'` [https://github.com/ClickHouse/ClickHouse/pull/68873](https://github.com/ClickHouse/ClickHouse/pull/68873)
+
+and error related data will be saved in `system.dead_letter_queue` table.
+
+![Table connections](/assets/Untitled-2021-08-05-1027.png)
+
+

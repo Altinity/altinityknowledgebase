@@ -15,6 +15,8 @@ keywords:
 > You can drop / rename / truncate \***_log** tables at any time. ClickHouse will recreate them in about 7 seconds (flush period).
 
 > **Note 2:** Log tables with numeric postfixes (_1 / 2 / 3 ...) `query_log_1 query_thread_log_3` are results of [ClickHouse upgrades](https://altinity.com/clickhouse-upgrade-overview/) (or other changes of schemas of these tables). When a new version of ClickHouse starts and discovers that a system log table's schema is incompatible with a new schema, then ClickHouse renames the old *_log table to the name with the prefix and creates a table with the new schema. You can drop such tables if you don't need such historic data.
+>
+> If you export system logs to an external target, note that a materialized view keeps following the **renamed** table after such an upgrade, so the export stops silently. See [Export query and session logs](/altinity-kb-setup-and-maintenance/altinity-kb-export-system-logs/).
 
 ## You can disable all / any of them
 
@@ -25,6 +27,7 @@ $ cat /etc/clickhouse-server/config.d/z_log_disable.xml
 <?xml version="1.0"?>
 <clickhouse>
     <asynchronous_metric_log remove="1"/>
+    <asynchronous_insert_log remove="1"/>
     <backup_log remove="1"/>
     <error_log remove="1"/>
     <metric_log remove="1"/>
@@ -47,7 +50,9 @@ $ cat /etc/clickhouse-server/config.d/z_log_disable.xml
 </clickhouse>
 ```
 
-**We do not recommend removing `query_log` and `query_thread_log` as queries' (they have very useful information for debugging), and logging can be easily turned off without a restart through user profiles:**
+Hint: `z_log_disable.xml` is named with **z_** in the beginning, it means this config will be applied the last and will override all other config files with these sections (config are applied in alphabetical order).
+
+**We do not recommend removing `query_log` as it has very useful information for debugging, and logging can be easily turned off without a restart through user profiles:**
 
 ```markup
 $ cat /etc/clickhouse-server/users.d/z_log_queries.xml
@@ -55,14 +60,10 @@ $ cat /etc/clickhouse-server/users.d/z_log_queries.xml
     <profiles>
         <default>
             <log_queries>0</log_queries> <!-- normally it's better to keep it turned on! -->
-            <log_query_threads>0</log_query_threads>
-            <log_processors_profiles>0</log_processors_profiles>
         </default>
     </profiles>
 </clickhouse>
 ```
-
-Hint: `z_log_disable.xml` is named with **z_** in the beginning, it means this config will be applied the last and will override all other config files with these sections (config are applied in alphabetical order).
 
 You can also configure these settings to reduce the amount of data in the `system.query_log` table:
 
@@ -75,6 +76,27 @@ log_queries_cut_to_length         | 100000      | If query length is greater tha
 log_profile_events                | 1           | Log query performance statistics into the query_log and query_thread_log.
 log_query_settings                | 1           | Log query settings into the query_log.
 log_queries_probability           | 1           | Log queries with the specified probabality.
+```
+
+The other system log tables that can be disabled in profiles are:
+* query_views_log
+* query_thread_log
+* processors_profile_log
+* query_metric_log
+* trace_log (https://clickhouse.com/docs/operations/system-tables/trace_log)
+
+```markup
+$ cat /etc/clickhouse-server/users.d/z_log_tables.xml
+<clickhouse>
+    <profiles>
+        <default>
+            <log_query_views>0</log_query_views>
+            <log_query_threads>0</log_query_threads>
+            <log_processors_profiles>0</log_processors_profiles>
+            <query_metric_log_interval>0</query_metric_log_interval>
+        </default>
+    </profiles>
+</clickhouse>
 ```
 
 ## You can configure TTL
@@ -133,25 +155,3 @@ $ cat /etc/clickhouse-server/config.d/query_log_ttl.xml
 💡 For the [clickhouse-operator](https://github.com/Altinity/clickhouse-operator/blob/master/README.md), the above method of using only the `<engine>` tag without `<ttl>` or `<partition>` is recommended, because of possible configuration clashes.
 
 After that you need to restart ClickHouse and *if using old clickhouse versions like 20 or less*, drop or rename the existing system.query_log table and then CH creates a new table with these settings. This is automatically done in newer versions 21+.
-
-
-## You can disable logging on a session level or in user’s profile (for all or specific users)
-
-But only for logs generated on session level (`query_log` / `query_thread_log`)
-
-In this case a restart is not needed.
-
-Let’s disable query logging for all users (profile = default, all other profiles inherit it).
-
-```markup
-cat /etc/clickhouse-server/users.d/log_queries.xml
-<clickhouse>
-    <profiles>
-        <default>
-            <log_queries>0</log_queries>
-            <log_query_threads>0</log_query_threads>
-            <log_processors_profiles>0</log_processors_profiles>
-        </default>
-    </profiles>
-</clickhouse>
-```

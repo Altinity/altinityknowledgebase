@@ -15,8 +15,6 @@ So new entity will be added in case of creation of new parts during INSERT's OR 
 
 In case of COLUMN, ClickHouse will calculate column value on fly in query context.
 
-{{% alert title="Warning" color="warning" %}}
-
 ```sql
 CREATE TABLE test_materialization
 (
@@ -88,8 +86,6 @@ So, data inserted after addition of column can have lower inserted_at value then
 
 ```
 
-{{% /alert %}}
-
 If you want to backpopulate data for old parts, you have multiple options:
 
 #### MATERIALIZE (COLUMN/INDEX/PROJECTION) (PART[ITION ID] '')
@@ -109,6 +105,16 @@ Will trigger mutation, which will materialize this column.
 Lightweight, it's only about changing of table metadata and removing corresponding files from filesystem.
 For Compact parts it will trigger merge, which can be heavy. [issue](https://github.com/ClickHouse/ClickHouse/issues/27502) 
 
+#### DROP DETACHED command
+The DROP DETACHED command in ClickHouse® is used to remove parts or partitions that have previously been detached (i.e., moved to the detached directory and forgotten by the server). The syntax is:
+
+{{% alert title="Warning" color="warning" %}}
+Be careful before dropping any detached part or partition. Validate that data is no longer needed and keep a backup before running destructive commands.
+{{% /alert %}}
+
+```sql
+ALTER TABLE table_name [ON CLUSTER cluster] DROP DETACHED PARTITION|PART ALL|partition_expr
+```
 
 #### MODIFY COLUMN (DATE TYPE) 
 

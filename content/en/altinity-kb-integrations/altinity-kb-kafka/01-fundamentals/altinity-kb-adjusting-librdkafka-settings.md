@@ -34,72 +34,7 @@ Some random example using SSL certificates to authenticate:
 
 Sometimes the consumer group needs to be explicitly allowed in the broker UI config.
 
-### Amazon MSK | SASL/SCRAM
-
-```xml
-<yandex>
-  <kafka>
-    <security_protocol>sasl_ssl</security_protocol>
-    <!-- Depending on your broker config you may need to uncomment below sasl_mechanism -->
-    <!-- <sasl_mechanism>SCRAM-SHA-512</sasl_mechanism> -->
-    <sasl_username>root</sasl_username>
-    <sasl_password>toor</sasl_password>
-  </kafka>
-</yandex>
-```
-- [Broker ports detail](https://docs.aws.amazon.com/msk/latest/developerguide/port-info.html)
-- [Read here more](https://leftjoin.ru/blog/data-engineering/clickhouse-as-a-consumer-to-amazon-msk/) (Russian language)
-
-
-### on-prem / self-hosted Kafka broker
-
-```xml
-<yandex>
-  <kafka>
-    <security_protocol>sasl_ssl</security_protocol>
-    <sasl_mechanism>SCRAM-SHA-512</sasl_mechanism>
-    <sasl_username>root</sasl_username>
-    <sasl_password>toor</sasl_password>
-    <!-- fullchain cert here -->
-    <ssl_ca_location>/path/to/cert/fullchain.pem</ssl_ca_location>   
-  </kafka>
-</yandex>
-```
-
-
-### Inline Kafka certs
-
-To connect to some Kafka cloud services you may need to use certificates.
-
-If needed they can be converted to pem format and inlined into ClickHouse® config.xml
-Example:
-
-```xml
-<kafka>
-<ssl_key_pem><![CDATA[
-  RSA Private-Key: (3072 bit, 2 primes)
-    ....
------BEGIN RSA PRIVATE KEY-----
-...
------END RSA PRIVATE KEY-----
-]]></ssl_key_pem>
-<ssl_certificate_pem><![CDATA[
------BEGIN CERTIFICATE-----
-...
------END CERTIFICATE-----
-]]></ssl_certificate_pem>
-</kafka>
-```
-
-See
-
-- [https://help.aiven.io/en/articles/489572-getting-started-with-aiven-kafka](https://help.aiven.io/en/articles/489572-getting-started-with-aiven-kafka)
-
-- [https://stackoverflow.com/questions/991758/how-to-get-pem-file-from-key-and-crt-files](https://stackoverflow.com/questions/991758/how-to-get-pem-file-from-key-and-crt-files)
-
-### Azure Event Hub
-
-See [https://github.com/ClickHouse/ClickHouse/issues/12609](https://github.com/ClickHouse/ClickHouse/issues/12609)
+Use general Kafka/librdkafka settings from this page first, then apply provider-specific options from [Config by provider](./config-by-provider/).
 
 ### Kerberos
 
@@ -114,26 +49,6 @@ See [https://github.com/ClickHouse/ClickHouse/issues/12609](https://github.com/C
     <sasl_kerberos_principal>kafkauser/kafkahost@EXAMPLE.COM</sasl_kerberos_principal>
   </kafka>
 ```
-
-### Confluent Cloud / Google Cloud 
-
-```xml
-<yandex>
-  <kafka>
-    <auto_offset_reset>smallest</auto_offset_reset>
-    <security_protocol>SASL_SSL</security_protocol>
-    <!-- older broker versions may need this below, for newer versions ignore -->
-    <!-- <ssl_endpoint_identification_algorithm>https</ssl_endpoint_identification_algorithm> -->
-    <sasl_mechanism>PLAIN</sasl_mechanism>
-    <sasl_username>username</sasl_username>
-    <sasl_password>password</sasl_password>
-    <!-- Same as above here ignore if newer broker version -->
-    <!-- <ssl_ca_location>probe</ssl_ca_location> -->
-  </kafka>
-</yandex>
-```
-- [https://docs.confluent.io/cloud/current/client-apps/config-client.html](https://docs.confluent.io/cloud/current/client-apps/config-client.html)
-- [https://cloud.google.com/managed-service-for-apache-kafka/docs/authentication-kafka](https://cloud.google.com/managed-service-for-apache-kafka/docs/authentication-kafka)
 
 ## How to test connection settings
 
@@ -160,29 +75,23 @@ So it load the main config first, after that it load (with overwrites) the confi
 Also since v21.12 it's possible to use more straightforward way using named_collections:
 https://github.com/ClickHouse/ClickHouse/pull/31691
  
-So you can say something like
- 
-```sql
-CREATE TABLE test.kafka (key UInt64, value UInt64) ENGINE = Kafka(kafka1, kafka_format='CSV');
-```
- 
-And after that in configuration:
+So you can write a config file something like this:
  
 ```xml
 <clickhouse>
  <named_collections>
-  <kafka1>
+  <kafka_preset1>
    <kafka_broker_list>kafka1:19092</kafka_broker_list>
    <kafka_topic_list>conf</kafka_topic_list>
    <kafka_group_name>conf</kafka_group_name>
-  </kafka1>
+  </kafka_preset1>
  </named_collections>
 </clickhouse>
 
 
 <clickhouse>
     <named_collections>
-        <kafka_preset1>
+        <kafka_preset2>
             <kafka_broker_list>...</kafka_broker_list>
             <kafka_topic_list>foo.bar</kafka_topic_list>
             <kafka_group_name>foo.bar.group</kafka_group_name>
@@ -195,29 +104,58 @@ And after that in configuration:
                 <ssl_endpoint_identification_algorithm>https</ssl_endpoint_identification_algorithm>
                 <ssl_ca_location>probe</ssl_ca_location>
             </kafka>
-        </kafka_preset1>
+        </kafka_preset2>
     </named_collections>
 </clickhouse>
 
 ```
 
-We can also use named collections with SQL and include kafka subsettings like this:
+And after execute:
 
 ```sql
-CREATE NAMED COLLECTION kafka_preset AS
-    kafka_broker_list = 'xxxx',
-    kafka_format = 'JSONEachRow',
-    kafka_group_name = 'xxxxx',
-    kafka_handle_error_mode = 'stream',
-    kafka_topic_list = 'xxxxx',
-    kafka.security_protocol = 'SASL_SSL',
-    kafka.sasl_mechanism = 'PLAIN',
-    kafka.sasl_username = 'xxxx',
-    kafka.ssl_ca_location = '/path/to/cert',
-    kafka.ssl_certificate_location = 'ssl_certificate_location'
-    kafka.ssl_key_location = '/path-key_location'
+CREATE TABLE test.kafka (key UInt64, value UInt64) ENGINE = Kafka(kafka_preset1, kafka_format='CSV');
 ```
 
- 
+The same named collections can be created with SQL from v24.2+:
+
+```sql
+CREATE NAMED COLLECTION kafka_preset1 AS
+    kafka_broker_list = 'kafka1:19092',
+    kafka_topic_list = 'conf',
+    kafka_group_name = 'conf';
+```
+
+```sql
+CREATE NAMED COLLECTION kafka_preset2 AS
+    kafka_broker_list = '...',
+    kafka_topic_list = 'foo.bar',
+    kafka_group_name = 'foo.bar.group',
+    kafka.security_protocol = 'SASL_SSL',
+    kafka.sasl_mechanism = 'PLAIN',
+    kafka.sasl_username = '...',
+    kafka.sasl_password = '...',
+    kafka.auto_offset_reset = 'smallest',
+    kafka.ssl_endpoint_identification_algorithm = 'https',
+    kafka.ssl_ca_location = 'probe';
+```
+
+You can verify SQL-created named collections via:
+
+```sql
+SELECT
+    name,
+    source,
+    create_query
+FROM system.named_collections
+WHERE name IN ('kafka_preset1', 'kafka_preset2');
+```
+
+and remove them with:
+
+```sql
+DROP NAMED COLLECTION kafka_preset1;
+DROP NAMED COLLECTION kafka_preset2;
+```
+
 The same fragment of code in newer versions:
 - https://github.com/ClickHouse/ClickHouse/blob/d19e24f530c30f002488bc136da78f5fb55aedab/src/Storages/Kafka/StorageKafka.cpp#L474-L496

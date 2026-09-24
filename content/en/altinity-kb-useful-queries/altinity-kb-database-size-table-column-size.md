@@ -2,7 +2,7 @@
 title: "Database Size - Table - Column size"
 linkTitle: "Database Size - Table - Column size"
 description: >
-    Database Size - Table - Column size
+    Queries to analyze size and compression rates across tables and columns
 keywords:
   - clickhouse database size
   - clickhouse table size
@@ -10,6 +10,8 @@ keywords:
 ## Tables
 
 ### Table size
+
+> Returns table size, compression rates, and row and part counts, by table
 
 ```sql
 SELECT
@@ -30,6 +32,8 @@ ORDER BY size DESC;
 
 ### Table size + inner MatView (Atomic)
 
+> As above, but resolves Materialized View inner table names (for Materialized Views created using implicit inner table)
+
 ```sql
 SELECT
       p.database,
@@ -48,8 +52,9 @@ ORDER BY size DESC;
 ```
 
 
-
 ### Column size
+
+> Returns size, compression rate, row counts, and average row size for each column (by db and table)
 
 ```sql
 SELECT
@@ -74,6 +79,8 @@ ORDER BY size DESC;
 
 ### Projection size
 
+> Returns size, compression rate, row counts, and average row size for each projection ("name"), by db and table
+
 ```sql
 SELECT
     database,
@@ -95,6 +102,8 @@ ORDER BY size DESC;
 
 ### Projection column size
 
+> Returns size, compression rate, row counts, and average row size for each projection ("name"), by db and table, and column
+
 ```sql
 SELECT
     database,
@@ -114,6 +123,8 @@ ORDER BY size DESC;
  
 ## Understanding the columns data properties:
 
+> For each column in a table, unique value counts, min/max, and top 5 most frequent values
+
 ```sql
 SELECT
    count(),
@@ -129,6 +140,13 @@ FORMAT Vertical;
 ```
 
 ## Understanding the ingest pattern:
+
+> For parts which are recently created and are unmerged, returns row, size, and count information by db and table.
+
+- High count, low rows: lots of small parts
+- High countif(NOT active) relative to count(): merges are keeping up
+- Low countIf(NOT active) relative to count(): merges may be falling behind
+- uniqExact(partition): how many partitions are being written to
 
 ```sql
 SELECT
@@ -154,6 +172,8 @@ ORDER BY count() DESC
 
 ## part_log
 
+> For the past day, returns per-second part lifecycle metrics over 30 minute buckets
+
 ```sql
 WITH 30 * 60 AS frame_size
 SELECT
@@ -176,7 +196,11 @@ ORDER BY
     database ASC,
     table ASC,
     m ASC
-    
+```
+
+> For the past day, returns per-second insert throughput metrics, by db and table, over 30 minute buckets
+
+```sql
 WITH 30 * 60 AS frame_size
 SELECT
     toStartOfInterval(event_time, toIntervalSecond(frame_size)) AS m,
@@ -198,7 +222,9 @@ ORDER BY
 ```               
 
 
-## Understanding the partitioning
+## Understanding partitioning
+
+> Partition distribution analysis, aggregating system.parts metrics by partition. The quantiles results can indicate whether there is skewed distribution of data between partitions.
 
 ```sql
 SELECT
@@ -235,6 +261,8 @@ FORMAT Vertical
 
 ## Subcolumns sizes 
 
+> Returns column-level storage metrics, including subcolumns (JSON, tuples, maps, etc - if present)
+
 ```sql
 WITH 
      if(
@@ -259,7 +287,7 @@ SELECT
     sum(rows) AS rows_cnt,
     round(usize / rows_cnt, 2) AS avg_row_size
 FROM system.parts_columns
-WHERE (active = 1) AND (database LIKE '%') AND (`table` LIKE '%)
+WHERE (active = 1) AND (database LIKE '%') AND (`table` LIKE '%')
 GROUP BY  
      table_,
      colunm_,

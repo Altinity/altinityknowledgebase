@@ -3,8 +3,9 @@ title: "Compare query_log for 2 intervals"
 linkTitle: "Compare query_log for 2 intervals"
 weight: 100
 description: >-
+    Compare query performance across different time periods
 ---
-
+> Looks at unique query shapes (by normalized_query_hash) which occurred within two different time intervals ("before" and "after"), and returns performance metrics for each query pattern which performed worse in the "after" interval.
 ```
 WITH 
     toStartOfInterval(event_time, INTERVAL 5 MINUTE) = '2023-06-30 13:00:00' as before,
@@ -67,7 +68,7 @@ LIMIT 10
 FORMAT Vertical
 ```
 
-
+> Looks at the system.query_log in a window (in this case, 3 days) prior to and following a specified timestamp of interest. Returns performance metrics for each query pattern which performed worse after that timestamp.
 ```
 WITH 
     toDateTime('2024-02-09 00:00:00') as timestamp_of_issue,

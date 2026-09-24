@@ -1,0 +1,4 @@
+interface:
+  display_name: "Altinity KB Article Writer"
+  short_description: "Draft KB articles in local Altinity style"
+  default_prompt: "Use $altinity-kb-article-writer to draft a new KB article with section path, frontmatter, and full markdown in this repository style."
