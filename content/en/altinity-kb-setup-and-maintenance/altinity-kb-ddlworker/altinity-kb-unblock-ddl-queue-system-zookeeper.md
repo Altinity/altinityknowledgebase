@@ -14,6 +14,8 @@ A distributed DDL task (`ON CLUSTER`) that never finishes blocks every task queu
 
 If the task's effect is already applied (or you no longer want it), unblock the queue by writing the flag the worker waits for. `INSERT INTO system.zookeeper` does this. It is safer than `rmr` on the queue: you write one znode per host and leave the other entries alone.
 
+It also avoids a restart. `DDLWorker` keeps the queue position and its unfinished tasks in memory, so after you delete entries with `rmr` it never learns about it, and you normally have to restart ClickHouse. The `INSERT` writes the same `finished` and `executed` znodes the worker writes itself, and the worker checks for them each time it retries a task. The queue then moves on with no restart. A 26.3 cluster drained its queue this way without a pod restart.
+
 {{<mermaid>}}
 flowchart TD
   A["Oldest entry with status != Finished<br/>(system.distributed_ddl_queue)"] --> B{"Is its effect applied<br/>or no longer needed?"}
@@ -35,6 +37,7 @@ flowchart TD
 </clickhouse>
 ```
 
+- `INSERT INTO system.zookeeper` and its `allow_zookeeper_write` gate arrived in 22.6 (upstream commits from 2022-05-27 and 2022-06-01) and were backported to the 22.3 LTS from 22.3.16.
 - The user needs the `INSERT` grant on `system.zookeeper`.
 - Reading with `path LIKE ...` needs `SETTINGS allow_unrestricted_reads_from_keeper = 1`. An exact `path = '...'` filter does not.
 
