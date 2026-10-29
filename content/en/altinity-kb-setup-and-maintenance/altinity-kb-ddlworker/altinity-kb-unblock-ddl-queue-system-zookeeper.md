@@ -40,6 +40,7 @@ flowchart TD
 ```
 
 - `INSERT INTO system.zookeeper` and its `allow_zookeeper_write` gate arrived in 22.6 (upstream commits from 2022-05-27 and 2022-06-01) and were backported to the 22.3 LTS from 22.3.16.
+- The recipes use the default queue path `/clickhouse/task_queue/ddl` and the default Keeper. If `distributed_ddl.path` differs (check `system.server_settings`), replace the path in every query. If your queue is on an auxiliary Keeper, also set the `zookeeperName` column and filter on it when you read.
 - The user needs the `INSERT` grant on `system.zookeeper`.
 - Reading with `path LIKE ...` needs `SETTINGS allow_unrestricted_reads_from_keeper = 1`. An exact `path = '...'` filter does not.
 
