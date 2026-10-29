@@ -10,9 +10,9 @@ keywords:
   - UNFINISHED
 ---
 
-A distributed DDL task (`ON CLUSTER`) that can never finish blocks every task queued behind it on the affected host, because each host's `DDLWorker` runs the queue in order. The usual symptom is `Unexpected error (N times in a row) ... maximum retries exceeded (UNFINISHED)` in the server log and a growing list of `Inactive` rows in `system.distributed_ddl_queue`.
+A distributed DDL task (`ON CLUSTER`) that never finishes blocks every task queued behind it on that host, because each host's `DDLWorker` runs the queue in order. You see `Unexpected error (N times in a row) ... maximum retries exceeded (UNFINISHED)` in the server log and a growing list of `Inactive` rows in `system.distributed_ddl_queue`.
 
-If you have already established that the task's effect is applied (or is no longer wanted), the cleanest unblock is to write the flag the worker is waiting for. `system.zookeeper` is writable for exactly this. It is safer than `rmr` on the queue: you change one znode, and only on the entries you select.
+If the task's effect is already applied (or you no longer want it), unblock the queue by writing the flag the worker waits for. `INSERT INTO system.zookeeper` does this. It is safer than `rmr` on the queue: you write one znode per host and leave the other entries alone.
 
 {{<mermaid>}}
 flowchart TD
@@ -65,13 +65,13 @@ graph LR
   S1 --> EX["executed  =  localhost:9000"]
 {{</mermaid>}}
 
-Path shown is the default `distributed_ddl.path`; check yours in `system.server_settings`.
+The diagram uses the default `distributed_ddl.path`. Check yours in `system.server_settings`.
 
 - `finished/<host>:<port>`: one child per host that completed the task. Value `0\n` means success (exception code 0). The name is the host name escaped with `escapeForFileName` (everything except `[A-Za-z0-9_]` becomes `%XX`: `-` is `%2D`, `.` is `%2E`).
 - `shards/<shard>/executed`: for `ALTER` on replicated tables only one replica per shard executes; the others wait for this node. `tries_to_execute` counts attempts by the executor. The value of `executed` is informational; only its existence matters.
 - The `<shard>` node name is **not** escaped: it is the shard's replica names, sorted and joined with `,` (for example `host-a:9000,host-b:9000`). Its `executed` value **is** escaped.
 
-Because of this, copy names from `system.zookeeper` or from `system.distributed_ddl_queue` instead of typing them.
+Copy names from `system.zookeeper` or `system.distributed_ddl_queue` instead of typing them.
 
 ## Recipe A: mark a task finished on the hosts that did not finish it
 
@@ -130,14 +130,14 @@ Then count what is still blocked: `SELECT host, status, count() FROM system.dist
 
 - **Finished is not executed.** Nothing runs the DDL. Check its effect first (for example `system.columns` or `system.data_skipping_indices` on every replica), and re-run the DDL by hand if it did not apply.
 - **The backlog replays.** The next entries start executing in order as soon as the head is finished. Pause pipelines that issue DDL, and read the queued statements first.
-- **A wrong name does nothing useful.** With an unescaped host (`ghost-host.example.com:9000`) the original row stays `Inactive` and the view shows an extra phantom host row. Remove such a node with `clickhouse-keeper-client`.
-- **A malformed entry breaks reads.** Rewriting an entry's `value` (for example the `hosts:` list) with the wrong format makes `system.distributed_ddl_queue` fail with `CANNOT_PARSE_QUOTED_STRING`.
-- Entries older than `task_max_lifetime` (default 7 days) or more than `max_tasks_in_queue` (default 1000) behind the newest one are purged by the cleanup. That also unblocks the head, but it silently drops the purged entries without running them. Do not wait for it.
+- **A wrong name doesn't unblock the task.** With an unescaped host (`ghost-host.example.com:9000`) the original row stays `Inactive` and the view shows an extra phantom host row. Remove the stray node with `clickhouse-keeper-client`.
+- **A malformed entry breaks reads.** If you rewrite an entry's `value` (for example the `hosts:` list) in the wrong format, `system.distributed_ddl_queue` fails with `CANNOT_PARSE_QUOTED_STRING`.
+- **Don't wait for the cleanup.** It purges entries older than `task_max_lifetime` (default 7 days) or more than `max_tasks_in_queue` (default 1000) behind the newest one. That unblocks the head too, but it silently drops the purged entries without running them.
 
 ## Version notes
 
 - The recipes were tested on 26.10 with a single-node `default` cluster, which covers the znode layout, escaping and status transitions.
-- The "retry the same task forever" behaviour comes from tasks whose retries are exhausted ending as `UNFINISHED`. It is fixed upstream in 26.8 ([PR 108505](https://github.com/ClickHouse/ClickHouse/pull/108505)), so 26.10 does not reproduce it. We have seen it on Altinity 26.3 builds.
+- When a task exhausts its retries, it ends as `UNFINISHED` and the worker retries it forever. Upstream fixed this in 26.8 ([PR 108505](https://github.com/ClickHouse/ClickHouse/pull/108505)), so 26.10 does not reproduce it. We have seen it on Altinity 26.3 builds.
 - Recipe A has been used on a 3-replica 26.3 cluster and drained the queue. Recipe B follows the worker's source code and has been verified at the znode level only.
 
 ## Related resources
