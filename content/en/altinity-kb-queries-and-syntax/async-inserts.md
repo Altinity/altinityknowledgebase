@@ -25,7 +25,7 @@ ClickHouse keeps separate buffers for different target tables, insert shapes, fo
 - the busy timeout expires `async_insert_busy_timeout_ms`
 - buffered queries reach `async_insert_max_query_number` while insert deduplication is enabled.
 
-Async inserts apply to `INSERT ... VALUES` and inserts with inline formats over HTTP or the native protocol. `INSERT ... SELECT` always runs synchronously.
+Async inserts apply to `INSERT ... VALUES` and inserts with inline formats over HTTP or the native protocol. In 26.10+, eligible single-block `INSERT ... SELECT` queries into MergeTree tables without dependent views can also use the async queue; see the [eligibility rules](https://clickhouse.com/docs/concepts/features/operations/insert/async-insert-select).
 
 ### Adaptive timeout
 
@@ -62,7 +62,7 @@ Check effective values in `system.settings`, `system.server_settings`, and `syst
 
 ## Scoped Async Inserts
 
-Using user profiles or per-query `SETTINGS` for ordinary writers. A [MergeTree-level async insert setting](https://github.com/ClickHouse/ClickHouse/pull/49122), is available since 23.5, can force-enable async inserts for one table:
+Use user profiles or per-query `SETTINGS` for ordinary writers. Since 23.5, a [MergeTree-level async insert setting](https://github.com/ClickHouse/ClickHouse/pull/49122) can force-enable async inserts for one table:
 
 ```sql
 ALTER TABLE db.events MODIFY SETTING async_insert = 1;
@@ -84,6 +84,7 @@ SETTINGS async_insert = 0 CONST;
 
 CREATE USER mv_sync_definer
 IDENTIFIED WITH no_password
+HOST NONE
 SETTINGS PROFILE mv_sync_insert;
 
 GRANT SELECT ON db.source TO mv_sync_definer;
@@ -151,7 +152,11 @@ FROM system.server_settings
 WHERE name = 'insert_deduplication_version';
 ```
 
-Do not move directly from `old_separate_hashes` to `new_unified_hash`. First run `compatible_double_hashes` on every replica. For Replicated* tables, keep it for at least the largest effective `replicated_deduplication_window_seconds` (one hour by default). For non-replicated tables, run enough inserts to cover the count-based `non_replicated_deduplication_window`. Then change to `new_unified_hash`. This period lets ClickHouse record unified IDs for data that a client might still retry.
+{{% alert title="Warning" color="warning" %}}
+Switching directly from `old_separate_hashes` to `new_unified_hash` can admit duplicate retries. Complete the migration below before upgrading to 26.7+, which refuses to start with either legacy value.
+{{% /alert %}}
+
+On 26.2–26.6, first run `compatible_double_hashes` on every replica. For Replicated* tables, keep it for the largest applicable sync or legacy async deduplication time window. Before switching an active async workload, ensure `replicated_deduplication_window` and `replicated_deduplication_window_seconds` cover the legacy `*_for_async_inserts` windows, then run with those values for a full legacy async time window (seven days by default). Alternatively, quiesce async inserts for that window. For non-replicated tables, run enough inserts to cover the count-based `non_replicated_deduplication_window`. Then change to `new_unified_hash`. See the [26.6 upgrade notes](https://github.com/ClickHouse/ClickHouse/blob/master/docs/changelogs/v26.6.1.1193-stable.md).
 
 Run `SYSTEM FLUSH ASYNC INSERT QUEUE` before planned maintenance to flush pending buffers. Graceful shutdown also flushes them by default.
 
