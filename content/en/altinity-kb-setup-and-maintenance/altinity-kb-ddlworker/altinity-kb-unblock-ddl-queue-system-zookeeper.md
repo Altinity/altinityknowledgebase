@@ -101,7 +101,7 @@ FROM system.distributed_ddl_queue
 WHERE entry = 'query-0000000004' AND status != 'Finished';
 ```
 
-The `replaceAll` pair is exact for DNS names and IPv4 addresses. For IPv6 literals, copy the real name from `finished/` of another entry.
+The `replaceAll` pair is exact for DNS names and IPv4 addresses. To confirm the format on your cluster, list the children of `finished/` on any finished entry: they are escaped (`host%2Da%2Eexample%2Ecom:9000`), and your new names must match them. For IPv6 literals, copy the real name from there.
 
 ## Recipe B: set the shard `executed` flag
 
