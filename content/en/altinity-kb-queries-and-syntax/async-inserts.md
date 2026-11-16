@@ -102,8 +102,7 @@ Use `system.asynchronous_inserts` to inspect buffers that have not flushed. Use 
 
 To identify available async-insert metrics in `system.metric_log`, run:
 
-```bash
-clickhouse-client --connection localhost --query "
+```sql
 SELECT name
 FROM system.columns
 WHERE table = 'metric_log'
@@ -114,14 +113,12 @@ ORDER BY name
 
 Check the current pool, queue, and pending-buffer metrics with:
 
-```bash
-clickhouse-client --connection localhost --query "
+```sql
 SELECT metric, value, description
 FROM system.metrics
 WHERE metric ILIKE '%asyncinsert%'
    OR metric ILIKE '%asynchronousinsert%'
 ORDER BY metric;
-"
 ```
 
 `AsynchronousInsertThreads` is the pool's current size; `AsynchronousInsertThreadsActive` is the number running work; and `AsynchronousInsertThreadsScheduled` counts queued or active jobs. `AsynchronousInsertQueueSize`, `AsynchronousInsertQueueBytes`, and `PendingAsyncInsert` show pending work. Increase `async_insert_threads` only when the pool reaches its configured maximum, active threads stay near it, and scheduled work remains above it during normal load. Confirm CPU and storage headroom first: more insert threads can increase contention.
